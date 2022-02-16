@@ -194,6 +194,310 @@
             },
             "type": "object"
         },
+        "checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the checks in the group are running or not.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "channelId": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/CheckGroupAlertSettings:CheckGroupAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertSettingsReminder:CheckGroupAlertSettingsReminder"
+                    },
+                    "description": ". Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertSettingsRunBasedEscalation:CheckGroupAlertSettingsRunBasedEscalation"
+                    },
+                    "description": ". Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "sslCertificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertSettingsSslCertificate:CheckGroupAlertSettingsSslCertificate"
+                    },
+                    "description": "At what interval the reminders should be send.  Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertSettingsTimeBasedEscalation:CheckGroupAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": ". Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupAlertSettingsReminder:CheckGroupAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": ". Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupAlertSettingsRunBasedEscalation:CheckGroupAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupAlertSettingsSslCertificate:CheckGroupAlertSettingsSslCertificate": {
+            "properties": {
+                "alertThreshold": {
+                    "type": "integer",
+                    "description": "At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupAlertSettingsTimeBasedEscalation:CheckGroupAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupApiCheckDefaults:CheckGroupApiCheckDefaults": {
+            "properties": {
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaultsAssertion:CheckGroupApiCheckDefaultsAssertion"
+                    },
+                    "description": ". Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "basicAuth": {
+                    "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaultsBasicAuth:CheckGroupApiCheckDefaultsBasicAuth",
+                    "description": ". Possible arguments\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "queryParameters": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "basicAuth",
+                        "headers",
+                        "queryParameters",
+                        "url"
+                    ]
+                }
+            }
+        },
+        "checkly:index/CheckGroupApiCheckDefaultsAssertion:CheckGroupApiCheckDefaultsAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "property": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "target": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source",
+                "target"
+            ]
+        },
+        "checkly:index/CheckGroupApiCheckDefaultsBasicAuth:CheckGroupApiCheckDefaultsBasicAuth": {
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "username": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ]
+        },
         "checkly:index/CheckRequest:CheckRequest": {
             "properties": {
                 "assertions": {
@@ -771,6 +1075,268 @@
                     "useGlobalAlertSettings": {
                         "type": "boolean",
                         "description": "When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/checkGroup:CheckGroup": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the checks in the group are running or not.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription"
+                    }
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/CheckGroupAlertSettings:CheckGroupAlertSettings",
+                    "description": ". Supported values documented below.\n"
+                },
+                "apiCheckDefaults": {
+                    "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaults:CheckGroupApiCheckDefaults",
+                    "description": "Default configs to use for all api checks belonging to this group. Supported values documented below.\n"
+                },
+                "concurrency": {
+                    "type": "integer",
+                    "description": "Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.\n"
+                },
+                "doubleCheck": {
+                    "type": "boolean",
+                    "description": "Setting this to \"true\" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n"
+                },
+                "environmentVariables": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.\n"
+                },
+                "localSetupScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the setup phase of an API check in this group.\n"
+                },
+                "localTeardownScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the teardown phase of an API check in this group.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the checks.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be send out when a check in this group fails and/or recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check group.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": ". The id of the runtime to use for this group.\n"
+                },
+                "setupSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the setup phase of an API check.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Tags for organizing and filtering checks.\n"
+                },
+                "teardownSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert setting will be used, not the alert setting defined on this check group.\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "apiCheckDefaults",
+                "concurrency",
+                "locations",
+                "name"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the checks in the group are running or not.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription"
+                    }
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/CheckGroupAlertSettings:CheckGroupAlertSettings",
+                    "description": ". Supported values documented below.\n"
+                },
+                "apiCheckDefaults": {
+                    "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaults:CheckGroupApiCheckDefaults",
+                    "description": "Default configs to use for all api checks belonging to this group. Supported values documented below.\n"
+                },
+                "concurrency": {
+                    "type": "integer",
+                    "description": "Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.\n"
+                },
+                "doubleCheck": {
+                    "type": "boolean",
+                    "description": "Setting this to \"true\" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n"
+                },
+                "environmentVariables": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.\n"
+                },
+                "localSetupScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the setup phase of an API check in this group.\n"
+                },
+                "localTeardownScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the teardown phase of an API check in this group.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the checks.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be send out when a check in this group fails and/or recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check group.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": ". The id of the runtime to use for this group.\n"
+                },
+                "setupSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the setup phase of an API check.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Tags for organizing and filtering checks.\n"
+                },
+                "teardownSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert setting will be used, not the alert setting defined on this check group.\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "concurrency",
+                "locations"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering CheckGroup resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines if the checks in the group are running or not.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription"
+                        }
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertSettings:CheckGroupAlertSettings",
+                        "description": ". Supported values documented below.\n"
+                    },
+                    "apiCheckDefaults": {
+                        "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaults:CheckGroupApiCheckDefaults",
+                        "description": "Default configs to use for all api checks belonging to this group. Supported values documented below.\n"
+                    },
+                    "concurrency": {
+                        "type": "integer",
+                        "description": "Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.\n"
+                    },
+                    "doubleCheck": {
+                        "type": "boolean",
+                        "description": "Setting this to \"true\" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n"
+                    },
+                    "environmentVariables": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        },
+                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.\n"
+                    },
+                    "localSetupScript": {
+                        "type": "string",
+                        "description": "A valid piece of Node.js code to run in the setup phase of an API check in this group.\n"
+                    },
+                    "localTeardownScript": {
+                        "type": "string",
+                        "description": "A valid piece of Node.js code to run in the teardown phase of an API check in this group.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run the checks.\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be send out when a check in this group fails and/or recovers.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the check group.\n"
+                    },
+                    "runtimeId": {
+                        "type": "string",
+                        "description": ". The id of the runtime to use for this group.\n"
+                    },
+                    "setupSnippetId": {
+                        "type": "integer",
+                        "description": "An ID reference to a snippet to use in the setup phase of an API check.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Tags for organizing and filtering checks.\n"
+                    },
+                    "teardownSnippetId": {
+                        "type": "integer",
+                        "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert setting will be used, not the alert setting defined on this check group.\n"
                     }
                 },
                 "type": "object"

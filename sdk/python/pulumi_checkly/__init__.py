@@ -6,6 +6,7 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .check import *
+from .check_group import *
 from .provider import *
 from ._inputs import *
 from . import outputs
@@ -26,6 +27,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/check:Check": "Check"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/checkGroup",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/checkGroup:CheckGroup": "CheckGroup"
   }
  }
 ]

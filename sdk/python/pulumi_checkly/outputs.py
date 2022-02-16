@@ -16,6 +16,15 @@ __all__ = [
     'CheckAlertSettingsRunBasedEscalation',
     'CheckAlertSettingsSslCertificate',
     'CheckAlertSettingsTimeBasedEscalation',
+    'CheckGroupAlertChannelSubscription',
+    'CheckGroupAlertSettings',
+    'CheckGroupAlertSettingsReminder',
+    'CheckGroupAlertSettingsRunBasedEscalation',
+    'CheckGroupAlertSettingsSslCertificate',
+    'CheckGroupAlertSettingsTimeBasedEscalation',
+    'CheckGroupApiCheckDefaults',
+    'CheckGroupApiCheckDefaultsAssertion',
+    'CheckGroupApiCheckDefaultsBasicAuth',
     'CheckRequest',
     'CheckRequestAssertion',
     'CheckRequestBasicAuth',
@@ -302,6 +311,441 @@ class CheckAlertSettingsTimeBasedEscalation(dict):
         After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
         """
         return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class CheckGroupAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: bool,
+                 channel_id: int):
+        """
+        :param bool activated: Determines if the checks in the group are running or not.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @property
+    @pulumi.getter
+    def activated(self) -> bool:
+        """
+        Determines if the checks in the group are running or not.
+        """
+        return pulumi.get(self, "activated")
+
+    @property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> int:
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class CheckGroupAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "sslCertificates":
+            suggest = "ssl_certificates"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: Optional[str] = None,
+                 reminders: Optional[Sequence['outputs.CheckGroupAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.CheckGroupAlertSettingsRunBasedEscalation']] = None,
+                 ssl_certificates: Optional[Sequence['outputs.CheckGroupAlertSettingsSslCertificate']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.CheckGroupAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param Sequence['CheckGroupAlertSettingsReminderArgs'] reminders: . Possible arguments:
+        :param Sequence['CheckGroupAlertSettingsRunBasedEscalationArgs'] run_based_escalations: . Possible arguments:
+        :param Sequence['CheckGroupAlertSettingsSslCertificateArgs'] ssl_certificates: At what interval the reminders should be send.  Possible arguments:
+        :param Sequence['CheckGroupAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: . Possible arguments:
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if ssl_certificates is not None:
+            pulumi.set(__self__, "ssl_certificates", ssl_certificates)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[str]:
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsReminder']]:
+        """
+        . Possible arguments:
+        """
+        return pulumi.get(self, "reminders")
+
+    @property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsRunBasedEscalation']]:
+        """
+        . Possible arguments:
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @property
+    @pulumi.getter(name="sslCertificates")
+    def ssl_certificates(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsSslCertificate']]:
+        """
+        At what interval the reminders should be send.  Possible arguments:
+        """
+        return pulumi.get(self, "ssl_certificates")
+
+    @property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsTimeBasedEscalation']]:
+        """
+        . Possible arguments:
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class CheckGroupAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[int] = None,
+                 interval: Optional[int] = None):
+        """
+        :param int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        :param int interval: . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @property
+    @pulumi.getter
+    def amount(self) -> Optional[int]:
+        """
+        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        """
+        return pulumi.get(self, "amount")
+
+    @property
+    @pulumi.getter
+    def interval(self) -> Optional[int]:
+        """
+        . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class CheckGroupAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[int] = None):
+        """
+        :param int failed_run_threshold: After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[int]:
+        """
+        After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class CheckGroupAlertSettingsSslCertificate(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "alertThreshold":
+            suggest = "alert_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupAlertSettingsSslCertificate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupAlertSettingsSslCertificate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupAlertSettingsSslCertificate.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 alert_threshold: Optional[int] = None,
+                 enabled: Optional[bool] = None):
+        """
+        :param int alert_threshold: At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+        :param bool enabled: Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+        """
+        if alert_threshold is not None:
+            pulumi.set(__self__, "alert_threshold", alert_threshold)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter(name="alertThreshold")
+    def alert_threshold(self) -> Optional[int]:
+        """
+        At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+        """
+        return pulumi.get(self, "alert_threshold")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        """
+        Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class CheckGroupAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[int] = None):
+        """
+        :param int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[int]:
+        """
+        After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class CheckGroupApiCheckDefaults(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "basicAuth":
+            suggest = "basic_auth"
+        elif key == "queryParameters":
+            suggest = "query_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupApiCheckDefaults. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupApiCheckDefaults.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupApiCheckDefaults.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 url: str,
+                 assertions: Optional[Sequence['outputs.CheckGroupApiCheckDefaultsAssertion']] = None,
+                 basic_auth: Optional['outputs.CheckGroupApiCheckDefaultsBasicAuth'] = None,
+                 headers: Optional[Mapping[str, Any]] = None,
+                 query_parameters: Optional[Mapping[str, Any]] = None):
+        """
+        :param str url: The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+        :param Sequence['CheckGroupApiCheckDefaultsAssertionArgs'] assertions: . Possible arguments:
+        :param 'CheckGroupApiCheckDefaultsBasicAuthArgs' basic_auth: . Possible arguments
+        :param Mapping[str, Any] headers: .
+        :param Mapping[str, Any] query_parameters: .
+        """
+        pulumi.set(__self__, "url", url)
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if basic_auth is not None:
+            pulumi.set(__self__, "basic_auth", basic_auth)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if query_parameters is not None:
+            pulumi.set(__self__, "query_parameters", query_parameters)
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        """
+        The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+        """
+        return pulumi.get(self, "url")
+
+    @property
+    @pulumi.getter
+    def assertions(self) -> Optional[Sequence['outputs.CheckGroupApiCheckDefaultsAssertion']]:
+        """
+        . Possible arguments:
+        """
+        return pulumi.get(self, "assertions")
+
+    @property
+    @pulumi.getter(name="basicAuth")
+    def basic_auth(self) -> Optional['outputs.CheckGroupApiCheckDefaultsBasicAuth']:
+        """
+        . Possible arguments
+        """
+        return pulumi.get(self, "basic_auth")
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
+        return pulumi.get(self, "headers")
+
+    @property
+    @pulumi.getter(name="queryParameters")
+    def query_parameters(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
+        return pulumi.get(self, "query_parameters")
+
+
+@pulumi.output_type
+class CheckGroupApiCheckDefaultsAssertion(dict):
+    def __init__(__self__, *,
+                 comparison: str,
+                 source: str,
+                 target: str,
+                 property: Optional[str] = None):
+        """
+        :param str comparison: Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        :param str source: Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        :param str property: .
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "target", target)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+
+    @property
+    @pulumi.getter
+    def comparison(self) -> str:
+        """
+        Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @property
+    @pulumi.getter
+    def source(self) -> str:
+        """
+        Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        """
+        return pulumi.get(self, "source")
+
+    @property
+    @pulumi.getter
+    def target(self) -> str:
+        return pulumi.get(self, "target")
+
+    @property
+    @pulumi.getter
+    def property(self) -> Optional[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "property")
+
+
+@pulumi.output_type
+class CheckGroupApiCheckDefaultsBasicAuth(dict):
+    def __init__(__self__, *,
+                 password: str,
+                 username: str):
+        pulumi.set(__self__, "password", password)
+        pulumi.set(__self__, "username", username)
+
+    @property
+    @pulumi.getter
+    def password(self) -> str:
+        return pulumi.get(self, "password")
+
+    @property
+    @pulumi.getter
+    def username(self) -> str:
+        return pulumi.get(self, "username")
 
 
 @pulumi.output_type

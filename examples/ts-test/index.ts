@@ -14,7 +14,6 @@ new checkly.Check("pulumi-test", {
     }
 });
 
-
 const script = fs.readFileSync('./test.js', 'utf8')
 
 new checkly.Check("pulumi-browser", {
@@ -25,4 +24,13 @@ new checkly.Check("pulumi-browser", {
   script,
 });
 
+new checkly.CheckGroup("pulumi-group", {
+  name: "Pulumi Group",
+  activated: true,
+  concurrency: 1,
+  locations: ['us-east-1'],
+  apiCheckDefaults: {
+    url: 'https://www.pulumi.com',
+  },
+});
 

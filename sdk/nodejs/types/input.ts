@@ -71,6 +71,117 @@ export interface CheckAlertSettingsTimeBasedEscalation {
     minutesFailingThreshold?: pulumi.Input<number>;
 }
 
+export interface CheckGroupAlertChannelSubscription {
+    /**
+     * Determines if the checks in the group are running or not.
+     */
+    activated: pulumi.Input<boolean>;
+    channelId: pulumi.Input<number>;
+}
+
+export interface CheckGroupAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
+    escalationType?: pulumi.Input<string>;
+    /**
+     * . Possible arguments:
+     */
+    reminders?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsReminder>[]>;
+    /**
+     * . Possible arguments:
+     */
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * At what interval the reminders should be send.  Possible arguments:
+     */
+    sslCertificates?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsSslCertificate>[]>;
+    /**
+     * . Possible arguments:
+     */
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface CheckGroupAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface CheckGroupAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface CheckGroupAlertSettingsSslCertificate {
+    /**
+     * At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+     */
+    alertThreshold?: pulumi.Input<number>;
+    /**
+     * Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+     */
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface CheckGroupAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface CheckGroupApiCheckDefaults {
+    /**
+     * . Possible arguments:
+     */
+    assertions?: pulumi.Input<pulumi.Input<inputs.CheckGroupApiCheckDefaultsAssertion>[]>;
+    /**
+     * . Possible arguments
+     */
+    basicAuth?: pulumi.Input<inputs.CheckGroupApiCheckDefaultsBasicAuth>;
+    /**
+     * .
+     */
+    headers?: pulumi.Input<{[key: string]: any}>;
+    /**
+     * .
+     */
+    queryParameters?: pulumi.Input<{[key: string]: any}>;
+    /**
+     * The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+     */
+    url: pulumi.Input<string>;
+}
+
+export interface CheckGroupApiCheckDefaultsAssertion {
+    /**
+     * Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+     */
+    comparison: pulumi.Input<string>;
+    /**
+     * .
+     */
+    property?: pulumi.Input<string>;
+    /**
+     * Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+     */
+    source: pulumi.Input<string>;
+    target: pulumi.Input<string>;
+}
+
+export interface CheckGroupApiCheckDefaultsBasicAuth {
+    password: pulumi.Input<string>;
+    username: pulumi.Input<string>;
+}
+
 export interface CheckRequest {
     /**
      * A request can have multiple assetions. Assertion has the following arguments:

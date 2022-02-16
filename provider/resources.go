@@ -78,6 +78,9 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_check": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Check"),
 			},
+			"checkly_check_group": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CheckGroup"),
+			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			// List any npm dependencies and their versions

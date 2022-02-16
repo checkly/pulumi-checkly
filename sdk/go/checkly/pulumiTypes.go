@@ -732,6 +732,1214 @@ func (o CheckAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInpu
 	}).(CheckAlertSettingsTimeBasedEscalationOutput)
 }
 
+type CheckGroupAlertChannelSubscription struct {
+	// Determines if the checks in the group are running or not.
+	Activated bool `pulumi:"activated"`
+	ChannelId int  `pulumi:"channelId"`
+}
+
+// CheckGroupAlertChannelSubscriptionInput is an input type that accepts CheckGroupAlertChannelSubscriptionArgs and CheckGroupAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `CheckGroupAlertChannelSubscriptionInput` via:
+//
+//          CheckGroupAlertChannelSubscriptionArgs{...}
+type CheckGroupAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertChannelSubscriptionOutput() CheckGroupAlertChannelSubscriptionOutput
+	ToCheckGroupAlertChannelSubscriptionOutputWithContext(context.Context) CheckGroupAlertChannelSubscriptionOutput
+}
+
+type CheckGroupAlertChannelSubscriptionArgs struct {
+	// Determines if the checks in the group are running or not.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+}
+
+func (CheckGroupAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i CheckGroupAlertChannelSubscriptionArgs) ToCheckGroupAlertChannelSubscriptionOutput() CheckGroupAlertChannelSubscriptionOutput {
+	return i.ToCheckGroupAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertChannelSubscriptionArgs) ToCheckGroupAlertChannelSubscriptionOutputWithContext(ctx context.Context) CheckGroupAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertChannelSubscriptionOutput)
+}
+
+// CheckGroupAlertChannelSubscriptionArrayInput is an input type that accepts CheckGroupAlertChannelSubscriptionArray and CheckGroupAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `CheckGroupAlertChannelSubscriptionArrayInput` via:
+//
+//          CheckGroupAlertChannelSubscriptionArray{ CheckGroupAlertChannelSubscriptionArgs{...} }
+type CheckGroupAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertChannelSubscriptionArrayOutput() CheckGroupAlertChannelSubscriptionArrayOutput
+	ToCheckGroupAlertChannelSubscriptionArrayOutputWithContext(context.Context) CheckGroupAlertChannelSubscriptionArrayOutput
+}
+
+type CheckGroupAlertChannelSubscriptionArray []CheckGroupAlertChannelSubscriptionInput
+
+func (CheckGroupAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i CheckGroupAlertChannelSubscriptionArray) ToCheckGroupAlertChannelSubscriptionArrayOutput() CheckGroupAlertChannelSubscriptionArrayOutput {
+	return i.ToCheckGroupAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertChannelSubscriptionArray) ToCheckGroupAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) CheckGroupAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertChannelSubscriptionArrayOutput)
+}
+
+type CheckGroupAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o CheckGroupAlertChannelSubscriptionOutput) ToCheckGroupAlertChannelSubscriptionOutput() CheckGroupAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o CheckGroupAlertChannelSubscriptionOutput) ToCheckGroupAlertChannelSubscriptionOutputWithContext(ctx context.Context) CheckGroupAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Determines if the checks in the group are running or not.
+func (o CheckGroupAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckGroupAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+func (o CheckGroupAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v CheckGroupAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type CheckGroupAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o CheckGroupAlertChannelSubscriptionArrayOutput) ToCheckGroupAlertChannelSubscriptionArrayOutput() CheckGroupAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertChannelSubscriptionArrayOutput) ToCheckGroupAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) CheckGroupAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) CheckGroupAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupAlertChannelSubscription {
+		return vs[0].([]CheckGroupAlertChannelSubscription)[vs[1].(int)]
+	}).(CheckGroupAlertChannelSubscriptionOutput)
+}
+
+type CheckGroupAlertSettings struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType *string `pulumi:"escalationType"`
+	// . Possible arguments:
+	Reminders []CheckGroupAlertSettingsReminder `pulumi:"reminders"`
+	// . Possible arguments:
+	RunBasedEscalations []CheckGroupAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// At what interval the reminders should be send.  Possible arguments:
+	SslCertificates []CheckGroupAlertSettingsSslCertificate `pulumi:"sslCertificates"`
+	// . Possible arguments:
+	TimeBasedEscalations []CheckGroupAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// CheckGroupAlertSettingsInput is an input type that accepts CheckGroupAlertSettingsArgs and CheckGroupAlertSettingsOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsInput` via:
+//
+//          CheckGroupAlertSettingsArgs{...}
+type CheckGroupAlertSettingsInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsOutput() CheckGroupAlertSettingsOutput
+	ToCheckGroupAlertSettingsOutputWithContext(context.Context) CheckGroupAlertSettingsOutput
+}
+
+type CheckGroupAlertSettingsArgs struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// . Possible arguments:
+	Reminders CheckGroupAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// . Possible arguments:
+	RunBasedEscalations CheckGroupAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// At what interval the reminders should be send.  Possible arguments:
+	SslCertificates CheckGroupAlertSettingsSslCertificateArrayInput `pulumi:"sslCertificates"`
+	// . Possible arguments:
+	TimeBasedEscalations CheckGroupAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (CheckGroupAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettings)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsArgs) ToCheckGroupAlertSettingsOutput() CheckGroupAlertSettingsOutput {
+	return i.ToCheckGroupAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsArgs) ToCheckGroupAlertSettingsOutputWithContext(ctx context.Context) CheckGroupAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsOutput)
+}
+
+func (i CheckGroupAlertSettingsArgs) ToCheckGroupAlertSettingsPtrOutput() CheckGroupAlertSettingsPtrOutput {
+	return i.ToCheckGroupAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsArgs) ToCheckGroupAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsOutput).ToCheckGroupAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// CheckGroupAlertSettingsPtrInput is an input type that accepts CheckGroupAlertSettingsArgs, CheckGroupAlertSettingsPtr and CheckGroupAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsPtrInput` via:
+//
+//          CheckGroupAlertSettingsArgs{...}
+//
+//  or:
+//
+//          nil
+type CheckGroupAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsPtrOutput() CheckGroupAlertSettingsPtrOutput
+	ToCheckGroupAlertSettingsPtrOutputWithContext(context.Context) CheckGroupAlertSettingsPtrOutput
+}
+
+type checkGroupAlertSettingsPtrType CheckGroupAlertSettingsArgs
+
+func CheckGroupAlertSettingsPtr(v *CheckGroupAlertSettingsArgs) CheckGroupAlertSettingsPtrInput {
+	return (*checkGroupAlertSettingsPtrType)(v)
+}
+
+func (*checkGroupAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupAlertSettings)(nil)).Elem()
+}
+
+func (i *checkGroupAlertSettingsPtrType) ToCheckGroupAlertSettingsPtrOutput() CheckGroupAlertSettingsPtrOutput {
+	return i.ToCheckGroupAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupAlertSettingsPtrType) ToCheckGroupAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsPtrOutput)
+}
+
+type CheckGroupAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettings)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsOutput) ToCheckGroupAlertSettingsOutput() CheckGroupAlertSettingsOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsOutput) ToCheckGroupAlertSettingsOutputWithContext(ctx context.Context) CheckGroupAlertSettingsOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsOutput) ToCheckGroupAlertSettingsPtrOutput() CheckGroupAlertSettingsPtrOutput {
+	return o.ToCheckGroupAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupAlertSettingsOutput) ToCheckGroupAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupAlertSettings) *CheckGroupAlertSettings {
+		return &v
+	}).(CheckGroupAlertSettingsPtrOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o CheckGroupAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupAlertSettingsOutput) Reminders() CheckGroupAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsReminder { return v.Reminders }).(CheckGroupAlertSettingsReminderArrayOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupAlertSettingsOutput) RunBasedEscalations() CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(CheckGroupAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// At what interval the reminders should be send.  Possible arguments:
+func (o CheckGroupAlertSettingsOutput) SslCertificates() CheckGroupAlertSettingsSslCertificateArrayOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsSslCertificate { return v.SslCertificates }).(CheckGroupAlertSettingsSslCertificateArrayOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupAlertSettingsOutput) TimeBasedEscalations() CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(CheckGroupAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type CheckGroupAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupAlertSettings)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsPtrOutput) ToCheckGroupAlertSettingsPtrOutput() CheckGroupAlertSettingsPtrOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsPtrOutput) ToCheckGroupAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupAlertSettingsPtrOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsPtrOutput) Elem() CheckGroupAlertSettingsOutput {
+	return o.ApplyT(func(v *CheckGroupAlertSettings) CheckGroupAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupAlertSettings
+		return ret
+	}).(CheckGroupAlertSettingsOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o CheckGroupAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupAlertSettingsPtrOutput) Reminders() CheckGroupAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(CheckGroupAlertSettingsReminderArrayOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupAlertSettingsPtrOutput) RunBasedEscalations() CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(CheckGroupAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// At what interval the reminders should be send.  Possible arguments:
+func (o CheckGroupAlertSettingsPtrOutput) SslCertificates() CheckGroupAlertSettingsSslCertificateArrayOutput {
+	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsSslCertificate {
+		if v == nil {
+			return nil
+		}
+		return v.SslCertificates
+	}).(CheckGroupAlertSettingsSslCertificateArrayOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupAlertSettingsPtrOutput) TimeBasedEscalations() CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(CheckGroupAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type CheckGroupAlertSettingsReminder struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount *int `pulumi:"amount"`
+	// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+	Interval *int `pulumi:"interval"`
+}
+
+// CheckGroupAlertSettingsReminderInput is an input type that accepts CheckGroupAlertSettingsReminderArgs and CheckGroupAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsReminderInput` via:
+//
+//          CheckGroupAlertSettingsReminderArgs{...}
+type CheckGroupAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsReminderOutput() CheckGroupAlertSettingsReminderOutput
+	ToCheckGroupAlertSettingsReminderOutputWithContext(context.Context) CheckGroupAlertSettingsReminderOutput
+}
+
+type CheckGroupAlertSettingsReminderArgs struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (CheckGroupAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsReminderArgs) ToCheckGroupAlertSettingsReminderOutput() CheckGroupAlertSettingsReminderOutput {
+	return i.ToCheckGroupAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsReminderArgs) ToCheckGroupAlertSettingsReminderOutputWithContext(ctx context.Context) CheckGroupAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsReminderOutput)
+}
+
+// CheckGroupAlertSettingsReminderArrayInput is an input type that accepts CheckGroupAlertSettingsReminderArray and CheckGroupAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsReminderArrayInput` via:
+//
+//          CheckGroupAlertSettingsReminderArray{ CheckGroupAlertSettingsReminderArgs{...} }
+type CheckGroupAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsReminderArrayOutput() CheckGroupAlertSettingsReminderArrayOutput
+	ToCheckGroupAlertSettingsReminderArrayOutputWithContext(context.Context) CheckGroupAlertSettingsReminderArrayOutput
+}
+
+type CheckGroupAlertSettingsReminderArray []CheckGroupAlertSettingsReminderInput
+
+func (CheckGroupAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsReminderArray) ToCheckGroupAlertSettingsReminderArrayOutput() CheckGroupAlertSettingsReminderArrayOutput {
+	return i.ToCheckGroupAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsReminderArray) ToCheckGroupAlertSettingsReminderArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsReminderArrayOutput)
+}
+
+type CheckGroupAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsReminderOutput) ToCheckGroupAlertSettingsReminderOutput() CheckGroupAlertSettingsReminderOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsReminderOutput) ToCheckGroupAlertSettingsReminderOutputWithContext(ctx context.Context) CheckGroupAlertSettingsReminderOutput {
+	return o
+}
+
+// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+func (o CheckGroupAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+func (o CheckGroupAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsReminderArrayOutput) ToCheckGroupAlertSettingsReminderArrayOutput() CheckGroupAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsReminderArrayOutput) ToCheckGroupAlertSettingsReminderArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) CheckGroupAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupAlertSettingsReminder {
+		return vs[0].([]CheckGroupAlertSettingsReminder)[vs[1].(int)]
+	}).(CheckGroupAlertSettingsReminderOutput)
+}
+
+type CheckGroupAlertSettingsRunBasedEscalation struct {
+	// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// CheckGroupAlertSettingsRunBasedEscalationInput is an input type that accepts CheckGroupAlertSettingsRunBasedEscalationArgs and CheckGroupAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsRunBasedEscalationInput` via:
+//
+//          CheckGroupAlertSettingsRunBasedEscalationArgs{...}
+type CheckGroupAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsRunBasedEscalationOutput() CheckGroupAlertSettingsRunBasedEscalationOutput
+	ToCheckGroupAlertSettingsRunBasedEscalationOutputWithContext(context.Context) CheckGroupAlertSettingsRunBasedEscalationOutput
+}
+
+type CheckGroupAlertSettingsRunBasedEscalationArgs struct {
+	// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (CheckGroupAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsRunBasedEscalationArgs) ToCheckGroupAlertSettingsRunBasedEscalationOutput() CheckGroupAlertSettingsRunBasedEscalationOutput {
+	return i.ToCheckGroupAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsRunBasedEscalationArgs) ToCheckGroupAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) CheckGroupAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsRunBasedEscalationOutput)
+}
+
+// CheckGroupAlertSettingsRunBasedEscalationArrayInput is an input type that accepts CheckGroupAlertSettingsRunBasedEscalationArray and CheckGroupAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//          CheckGroupAlertSettingsRunBasedEscalationArray{ CheckGroupAlertSettingsRunBasedEscalationArgs{...} }
+type CheckGroupAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsRunBasedEscalationArrayOutput() CheckGroupAlertSettingsRunBasedEscalationArrayOutput
+	ToCheckGroupAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) CheckGroupAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type CheckGroupAlertSettingsRunBasedEscalationArray []CheckGroupAlertSettingsRunBasedEscalationInput
+
+func (CheckGroupAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsRunBasedEscalationArray) ToCheckGroupAlertSettingsRunBasedEscalationArrayOutput() CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToCheckGroupAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsRunBasedEscalationArray) ToCheckGroupAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type CheckGroupAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsRunBasedEscalationOutput) ToCheckGroupAlertSettingsRunBasedEscalationOutput() CheckGroupAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsRunBasedEscalationOutput) ToCheckGroupAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) CheckGroupAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+func (o CheckGroupAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsRunBasedEscalationArrayOutput) ToCheckGroupAlertSettingsRunBasedEscalationArrayOutput() CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsRunBasedEscalationArrayOutput) ToCheckGroupAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) CheckGroupAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupAlertSettingsRunBasedEscalation {
+		return vs[0].([]CheckGroupAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(CheckGroupAlertSettingsRunBasedEscalationOutput)
+}
+
+type CheckGroupAlertSettingsSslCertificate struct {
+	// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+	AlertThreshold *int `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// CheckGroupAlertSettingsSslCertificateInput is an input type that accepts CheckGroupAlertSettingsSslCertificateArgs and CheckGroupAlertSettingsSslCertificateOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsSslCertificateInput` via:
+//
+//          CheckGroupAlertSettingsSslCertificateArgs{...}
+type CheckGroupAlertSettingsSslCertificateInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsSslCertificateOutput() CheckGroupAlertSettingsSslCertificateOutput
+	ToCheckGroupAlertSettingsSslCertificateOutputWithContext(context.Context) CheckGroupAlertSettingsSslCertificateOutput
+}
+
+type CheckGroupAlertSettingsSslCertificateArgs struct {
+	// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+	AlertThreshold pulumi.IntPtrInput `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (CheckGroupAlertSettingsSslCertificateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsSslCertificateArgs) ToCheckGroupAlertSettingsSslCertificateOutput() CheckGroupAlertSettingsSslCertificateOutput {
+	return i.ToCheckGroupAlertSettingsSslCertificateOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsSslCertificateArgs) ToCheckGroupAlertSettingsSslCertificateOutputWithContext(ctx context.Context) CheckGroupAlertSettingsSslCertificateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsSslCertificateOutput)
+}
+
+// CheckGroupAlertSettingsSslCertificateArrayInput is an input type that accepts CheckGroupAlertSettingsSslCertificateArray and CheckGroupAlertSettingsSslCertificateArrayOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsSslCertificateArrayInput` via:
+//
+//          CheckGroupAlertSettingsSslCertificateArray{ CheckGroupAlertSettingsSslCertificateArgs{...} }
+type CheckGroupAlertSettingsSslCertificateArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsSslCertificateArrayOutput() CheckGroupAlertSettingsSslCertificateArrayOutput
+	ToCheckGroupAlertSettingsSslCertificateArrayOutputWithContext(context.Context) CheckGroupAlertSettingsSslCertificateArrayOutput
+}
+
+type CheckGroupAlertSettingsSslCertificateArray []CheckGroupAlertSettingsSslCertificateInput
+
+func (CheckGroupAlertSettingsSslCertificateArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsSslCertificateArray) ToCheckGroupAlertSettingsSslCertificateArrayOutput() CheckGroupAlertSettingsSslCertificateArrayOutput {
+	return i.ToCheckGroupAlertSettingsSslCertificateArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsSslCertificateArray) ToCheckGroupAlertSettingsSslCertificateArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsSslCertificateArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsSslCertificateArrayOutput)
+}
+
+type CheckGroupAlertSettingsSslCertificateOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsSslCertificateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsSslCertificateOutput) ToCheckGroupAlertSettingsSslCertificateOutput() CheckGroupAlertSettingsSslCertificateOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsSslCertificateOutput) ToCheckGroupAlertSettingsSslCertificateOutputWithContext(ctx context.Context) CheckGroupAlertSettingsSslCertificateOutput {
+	return o
+}
+
+// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+func (o CheckGroupAlertSettingsSslCertificateOutput) AlertThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettingsSslCertificate) *int { return v.AlertThreshold }).(pulumi.IntPtrOutput)
+}
+
+// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+func (o CheckGroupAlertSettingsSslCertificateOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettingsSslCertificate) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupAlertSettingsSslCertificateArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsSslCertificateArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsSslCertificateArrayOutput) ToCheckGroupAlertSettingsSslCertificateArrayOutput() CheckGroupAlertSettingsSslCertificateArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsSslCertificateArrayOutput) ToCheckGroupAlertSettingsSslCertificateArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsSslCertificateArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsSslCertificateArrayOutput) Index(i pulumi.IntInput) CheckGroupAlertSettingsSslCertificateOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupAlertSettingsSslCertificate {
+		return vs[0].([]CheckGroupAlertSettingsSslCertificate)[vs[1].(int)]
+	}).(CheckGroupAlertSettingsSslCertificateOutput)
+}
+
+type CheckGroupAlertSettingsTimeBasedEscalation struct {
+	// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// CheckGroupAlertSettingsTimeBasedEscalationInput is an input type that accepts CheckGroupAlertSettingsTimeBasedEscalationArgs and CheckGroupAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsTimeBasedEscalationInput` via:
+//
+//          CheckGroupAlertSettingsTimeBasedEscalationArgs{...}
+type CheckGroupAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsTimeBasedEscalationOutput() CheckGroupAlertSettingsTimeBasedEscalationOutput
+	ToCheckGroupAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) CheckGroupAlertSettingsTimeBasedEscalationOutput
+}
+
+type CheckGroupAlertSettingsTimeBasedEscalationArgs struct {
+	// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (CheckGroupAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsTimeBasedEscalationArgs) ToCheckGroupAlertSettingsTimeBasedEscalationOutput() CheckGroupAlertSettingsTimeBasedEscalationOutput {
+	return i.ToCheckGroupAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsTimeBasedEscalationArgs) ToCheckGroupAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) CheckGroupAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsTimeBasedEscalationOutput)
+}
+
+// CheckGroupAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts CheckGroupAlertSettingsTimeBasedEscalationArray and CheckGroupAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `CheckGroupAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//          CheckGroupAlertSettingsTimeBasedEscalationArray{ CheckGroupAlertSettingsTimeBasedEscalationArgs{...} }
+type CheckGroupAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupAlertSettingsTimeBasedEscalationArrayOutput() CheckGroupAlertSettingsTimeBasedEscalationArrayOutput
+	ToCheckGroupAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) CheckGroupAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type CheckGroupAlertSettingsTimeBasedEscalationArray []CheckGroupAlertSettingsTimeBasedEscalationInput
+
+func (CheckGroupAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupAlertSettingsTimeBasedEscalationArray) ToCheckGroupAlertSettingsTimeBasedEscalationArrayOutput() CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToCheckGroupAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupAlertSettingsTimeBasedEscalationArray) ToCheckGroupAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type CheckGroupAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsTimeBasedEscalationOutput) ToCheckGroupAlertSettingsTimeBasedEscalationOutput() CheckGroupAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsTimeBasedEscalationOutput) ToCheckGroupAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) CheckGroupAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+func (o CheckGroupAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupAlertSettingsTimeBasedEscalationArrayOutput) ToCheckGroupAlertSettingsTimeBasedEscalationArrayOutput() CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsTimeBasedEscalationArrayOutput) ToCheckGroupAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) CheckGroupAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupAlertSettingsTimeBasedEscalation {
+		return vs[0].([]CheckGroupAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(CheckGroupAlertSettingsTimeBasedEscalationOutput)
+}
+
+type CheckGroupApiCheckDefaults struct {
+	// . Possible arguments:
+	Assertions []CheckGroupApiCheckDefaultsAssertion `pulumi:"assertions"`
+	// . Possible arguments
+	BasicAuth *CheckGroupApiCheckDefaultsBasicAuth `pulumi:"basicAuth"`
+	// .
+	Headers map[string]interface{} `pulumi:"headers"`
+	// .
+	QueryParameters map[string]interface{} `pulumi:"queryParameters"`
+	// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+	Url string `pulumi:"url"`
+}
+
+// CheckGroupApiCheckDefaultsInput is an input type that accepts CheckGroupApiCheckDefaultsArgs and CheckGroupApiCheckDefaultsOutput values.
+// You can construct a concrete instance of `CheckGroupApiCheckDefaultsInput` via:
+//
+//          CheckGroupApiCheckDefaultsArgs{...}
+type CheckGroupApiCheckDefaultsInput interface {
+	pulumi.Input
+
+	ToCheckGroupApiCheckDefaultsOutput() CheckGroupApiCheckDefaultsOutput
+	ToCheckGroupApiCheckDefaultsOutputWithContext(context.Context) CheckGroupApiCheckDefaultsOutput
+}
+
+type CheckGroupApiCheckDefaultsArgs struct {
+	// . Possible arguments:
+	Assertions CheckGroupApiCheckDefaultsAssertionArrayInput `pulumi:"assertions"`
+	// . Possible arguments
+	BasicAuth CheckGroupApiCheckDefaultsBasicAuthPtrInput `pulumi:"basicAuth"`
+	// .
+	Headers pulumi.MapInput `pulumi:"headers"`
+	// .
+	QueryParameters pulumi.MapInput `pulumi:"queryParameters"`
+	// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+	Url pulumi.StringInput `pulumi:"url"`
+}
+
+func (CheckGroupApiCheckDefaultsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupApiCheckDefaults)(nil)).Elem()
+}
+
+func (i CheckGroupApiCheckDefaultsArgs) ToCheckGroupApiCheckDefaultsOutput() CheckGroupApiCheckDefaultsOutput {
+	return i.ToCheckGroupApiCheckDefaultsOutputWithContext(context.Background())
+}
+
+func (i CheckGroupApiCheckDefaultsArgs) ToCheckGroupApiCheckDefaultsOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsOutput)
+}
+
+func (i CheckGroupApiCheckDefaultsArgs) ToCheckGroupApiCheckDefaultsPtrOutput() CheckGroupApiCheckDefaultsPtrOutput {
+	return i.ToCheckGroupApiCheckDefaultsPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupApiCheckDefaultsArgs) ToCheckGroupApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsOutput).ToCheckGroupApiCheckDefaultsPtrOutputWithContext(ctx)
+}
+
+// CheckGroupApiCheckDefaultsPtrInput is an input type that accepts CheckGroupApiCheckDefaultsArgs, CheckGroupApiCheckDefaultsPtr and CheckGroupApiCheckDefaultsPtrOutput values.
+// You can construct a concrete instance of `CheckGroupApiCheckDefaultsPtrInput` via:
+//
+//          CheckGroupApiCheckDefaultsArgs{...}
+//
+//  or:
+//
+//          nil
+type CheckGroupApiCheckDefaultsPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupApiCheckDefaultsPtrOutput() CheckGroupApiCheckDefaultsPtrOutput
+	ToCheckGroupApiCheckDefaultsPtrOutputWithContext(context.Context) CheckGroupApiCheckDefaultsPtrOutput
+}
+
+type checkGroupApiCheckDefaultsPtrType CheckGroupApiCheckDefaultsArgs
+
+func CheckGroupApiCheckDefaultsPtr(v *CheckGroupApiCheckDefaultsArgs) CheckGroupApiCheckDefaultsPtrInput {
+	return (*checkGroupApiCheckDefaultsPtrType)(v)
+}
+
+func (*checkGroupApiCheckDefaultsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupApiCheckDefaults)(nil)).Elem()
+}
+
+func (i *checkGroupApiCheckDefaultsPtrType) ToCheckGroupApiCheckDefaultsPtrOutput() CheckGroupApiCheckDefaultsPtrOutput {
+	return i.ToCheckGroupApiCheckDefaultsPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupApiCheckDefaultsPtrType) ToCheckGroupApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsPtrOutput)
+}
+
+type CheckGroupApiCheckDefaultsOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupApiCheckDefaultsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupApiCheckDefaults)(nil)).Elem()
+}
+
+func (o CheckGroupApiCheckDefaultsOutput) ToCheckGroupApiCheckDefaultsOutput() CheckGroupApiCheckDefaultsOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsOutput) ToCheckGroupApiCheckDefaultsOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsOutput) ToCheckGroupApiCheckDefaultsPtrOutput() CheckGroupApiCheckDefaultsPtrOutput {
+	return o.ToCheckGroupApiCheckDefaultsPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupApiCheckDefaultsOutput) ToCheckGroupApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaults {
+		return &v
+	}).(CheckGroupApiCheckDefaultsPtrOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupApiCheckDefaultsOutput) Assertions() CheckGroupApiCheckDefaultsAssertionArrayOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaults) []CheckGroupApiCheckDefaultsAssertion { return v.Assertions }).(CheckGroupApiCheckDefaultsAssertionArrayOutput)
+}
+
+// . Possible arguments
+func (o CheckGroupApiCheckDefaultsOutput) BasicAuth() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaultsBasicAuth { return v.BasicAuth }).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+// .
+func (o CheckGroupApiCheckDefaultsOutput) Headers() pulumi.MapOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaults) map[string]interface{} { return v.Headers }).(pulumi.MapOutput)
+}
+
+// .
+func (o CheckGroupApiCheckDefaultsOutput) QueryParameters() pulumi.MapOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaults) map[string]interface{} { return v.QueryParameters }).(pulumi.MapOutput)
+}
+
+// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+func (o CheckGroupApiCheckDefaultsOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaults) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type CheckGroupApiCheckDefaultsPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupApiCheckDefaultsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupApiCheckDefaults)(nil)).Elem()
+}
+
+func (o CheckGroupApiCheckDefaultsPtrOutput) ToCheckGroupApiCheckDefaultsPtrOutput() CheckGroupApiCheckDefaultsPtrOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsPtrOutput) ToCheckGroupApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsPtrOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsPtrOutput) Elem() CheckGroupApiCheckDefaultsOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) CheckGroupApiCheckDefaults {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupApiCheckDefaults
+		return ret
+	}).(CheckGroupApiCheckDefaultsOutput)
+}
+
+// . Possible arguments:
+func (o CheckGroupApiCheckDefaultsPtrOutput) Assertions() CheckGroupApiCheckDefaultsAssertionArrayOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) []CheckGroupApiCheckDefaultsAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(CheckGroupApiCheckDefaultsAssertionArrayOutput)
+}
+
+// . Possible arguments
+func (o CheckGroupApiCheckDefaultsPtrOutput) BasicAuth() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaultsBasicAuth {
+		if v == nil {
+			return nil
+		}
+		return v.BasicAuth
+	}).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+// .
+func (o CheckGroupApiCheckDefaultsPtrOutput) Headers() pulumi.MapOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(pulumi.MapOutput)
+}
+
+// .
+func (o CheckGroupApiCheckDefaultsPtrOutput) QueryParameters() pulumi.MapOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.QueryParameters
+	}).(pulumi.MapOutput)
+}
+
+// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+func (o CheckGroupApiCheckDefaultsPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type CheckGroupApiCheckDefaultsAssertion struct {
+	// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison string `pulumi:"comparison"`
+	// .
+	Property *string `pulumi:"property"`
+	// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source string `pulumi:"source"`
+	Target string `pulumi:"target"`
+}
+
+// CheckGroupApiCheckDefaultsAssertionInput is an input type that accepts CheckGroupApiCheckDefaultsAssertionArgs and CheckGroupApiCheckDefaultsAssertionOutput values.
+// You can construct a concrete instance of `CheckGroupApiCheckDefaultsAssertionInput` via:
+//
+//          CheckGroupApiCheckDefaultsAssertionArgs{...}
+type CheckGroupApiCheckDefaultsAssertionInput interface {
+	pulumi.Input
+
+	ToCheckGroupApiCheckDefaultsAssertionOutput() CheckGroupApiCheckDefaultsAssertionOutput
+	ToCheckGroupApiCheckDefaultsAssertionOutputWithContext(context.Context) CheckGroupApiCheckDefaultsAssertionOutput
+}
+
+type CheckGroupApiCheckDefaultsAssertionArgs struct {
+	// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison pulumi.StringInput `pulumi:"comparison"`
+	// .
+	Property pulumi.StringPtrInput `pulumi:"property"`
+	// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source pulumi.StringInput `pulumi:"source"`
+	Target pulumi.StringInput `pulumi:"target"`
+}
+
+func (CheckGroupApiCheckDefaultsAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (i CheckGroupApiCheckDefaultsAssertionArgs) ToCheckGroupApiCheckDefaultsAssertionOutput() CheckGroupApiCheckDefaultsAssertionOutput {
+	return i.ToCheckGroupApiCheckDefaultsAssertionOutputWithContext(context.Background())
+}
+
+func (i CheckGroupApiCheckDefaultsAssertionArgs) ToCheckGroupApiCheckDefaultsAssertionOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsAssertionOutput)
+}
+
+// CheckGroupApiCheckDefaultsAssertionArrayInput is an input type that accepts CheckGroupApiCheckDefaultsAssertionArray and CheckGroupApiCheckDefaultsAssertionArrayOutput values.
+// You can construct a concrete instance of `CheckGroupApiCheckDefaultsAssertionArrayInput` via:
+//
+//          CheckGroupApiCheckDefaultsAssertionArray{ CheckGroupApiCheckDefaultsAssertionArgs{...} }
+type CheckGroupApiCheckDefaultsAssertionArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupApiCheckDefaultsAssertionArrayOutput() CheckGroupApiCheckDefaultsAssertionArrayOutput
+	ToCheckGroupApiCheckDefaultsAssertionArrayOutputWithContext(context.Context) CheckGroupApiCheckDefaultsAssertionArrayOutput
+}
+
+type CheckGroupApiCheckDefaultsAssertionArray []CheckGroupApiCheckDefaultsAssertionInput
+
+func (CheckGroupApiCheckDefaultsAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (i CheckGroupApiCheckDefaultsAssertionArray) ToCheckGroupApiCheckDefaultsAssertionArrayOutput() CheckGroupApiCheckDefaultsAssertionArrayOutput {
+	return i.ToCheckGroupApiCheckDefaultsAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupApiCheckDefaultsAssertionArray) ToCheckGroupApiCheckDefaultsAssertionArrayOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsAssertionArrayOutput)
+}
+
+type CheckGroupApiCheckDefaultsAssertionOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupApiCheckDefaultsAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (o CheckGroupApiCheckDefaultsAssertionOutput) ToCheckGroupApiCheckDefaultsAssertionOutput() CheckGroupApiCheckDefaultsAssertionOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsAssertionOutput) ToCheckGroupApiCheckDefaultsAssertionOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsAssertionOutput {
+	return o
+}
+
+// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+func (o CheckGroupApiCheckDefaultsAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaultsAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+// .
+func (o CheckGroupApiCheckDefaultsAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaultsAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+func (o CheckGroupApiCheckDefaultsAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaultsAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+func (o CheckGroupApiCheckDefaultsAssertionOutput) Target() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaultsAssertion) string { return v.Target }).(pulumi.StringOutput)
+}
+
+type CheckGroupApiCheckDefaultsAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupApiCheckDefaultsAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (o CheckGroupApiCheckDefaultsAssertionArrayOutput) ToCheckGroupApiCheckDefaultsAssertionArrayOutput() CheckGroupApiCheckDefaultsAssertionArrayOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsAssertionArrayOutput) ToCheckGroupApiCheckDefaultsAssertionArrayOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsAssertionArrayOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsAssertionArrayOutput) Index(i pulumi.IntInput) CheckGroupApiCheckDefaultsAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupApiCheckDefaultsAssertion {
+		return vs[0].([]CheckGroupApiCheckDefaultsAssertion)[vs[1].(int)]
+	}).(CheckGroupApiCheckDefaultsAssertionOutput)
+}
+
+type CheckGroupApiCheckDefaultsBasicAuth struct {
+	Password string `pulumi:"password"`
+	Username string `pulumi:"username"`
+}
+
+// CheckGroupApiCheckDefaultsBasicAuthInput is an input type that accepts CheckGroupApiCheckDefaultsBasicAuthArgs and CheckGroupApiCheckDefaultsBasicAuthOutput values.
+// You can construct a concrete instance of `CheckGroupApiCheckDefaultsBasicAuthInput` via:
+//
+//          CheckGroupApiCheckDefaultsBasicAuthArgs{...}
+type CheckGroupApiCheckDefaultsBasicAuthInput interface {
+	pulumi.Input
+
+	ToCheckGroupApiCheckDefaultsBasicAuthOutput() CheckGroupApiCheckDefaultsBasicAuthOutput
+	ToCheckGroupApiCheckDefaultsBasicAuthOutputWithContext(context.Context) CheckGroupApiCheckDefaultsBasicAuthOutput
+}
+
+type CheckGroupApiCheckDefaultsBasicAuthArgs struct {
+	Password pulumi.StringInput `pulumi:"password"`
+	Username pulumi.StringInput `pulumi:"username"`
+}
+
+func (CheckGroupApiCheckDefaultsBasicAuthArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (i CheckGroupApiCheckDefaultsBasicAuthArgs) ToCheckGroupApiCheckDefaultsBasicAuthOutput() CheckGroupApiCheckDefaultsBasicAuthOutput {
+	return i.ToCheckGroupApiCheckDefaultsBasicAuthOutputWithContext(context.Background())
+}
+
+func (i CheckGroupApiCheckDefaultsBasicAuthArgs) ToCheckGroupApiCheckDefaultsBasicAuthOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsBasicAuthOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsBasicAuthOutput)
+}
+
+func (i CheckGroupApiCheckDefaultsBasicAuthArgs) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutput() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return i.ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupApiCheckDefaultsBasicAuthArgs) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsBasicAuthOutput).ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx)
+}
+
+// CheckGroupApiCheckDefaultsBasicAuthPtrInput is an input type that accepts CheckGroupApiCheckDefaultsBasicAuthArgs, CheckGroupApiCheckDefaultsBasicAuthPtr and CheckGroupApiCheckDefaultsBasicAuthPtrOutput values.
+// You can construct a concrete instance of `CheckGroupApiCheckDefaultsBasicAuthPtrInput` via:
+//
+//          CheckGroupApiCheckDefaultsBasicAuthArgs{...}
+//
+//  or:
+//
+//          nil
+type CheckGroupApiCheckDefaultsBasicAuthPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupApiCheckDefaultsBasicAuthPtrOutput() CheckGroupApiCheckDefaultsBasicAuthPtrOutput
+	ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Context) CheckGroupApiCheckDefaultsBasicAuthPtrOutput
+}
+
+type checkGroupApiCheckDefaultsBasicAuthPtrType CheckGroupApiCheckDefaultsBasicAuthArgs
+
+func CheckGroupApiCheckDefaultsBasicAuthPtr(v *CheckGroupApiCheckDefaultsBasicAuthArgs) CheckGroupApiCheckDefaultsBasicAuthPtrInput {
+	return (*checkGroupApiCheckDefaultsBasicAuthPtrType)(v)
+}
+
+func (*checkGroupApiCheckDefaultsBasicAuthPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (i *checkGroupApiCheckDefaultsBasicAuthPtrType) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutput() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return i.ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupApiCheckDefaultsBasicAuthPtrType) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+type CheckGroupApiCheckDefaultsBasicAuthOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupApiCheckDefaultsBasicAuthOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthOutput) ToCheckGroupApiCheckDefaultsBasicAuthOutput() CheckGroupApiCheckDefaultsBasicAuthOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthOutput) ToCheckGroupApiCheckDefaultsBasicAuthOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsBasicAuthOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthOutput) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutput() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthOutput) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupApiCheckDefaultsBasicAuth) *CheckGroupApiCheckDefaultsBasicAuth {
+		return &v
+	}).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthOutput) Password() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaultsBasicAuth) string { return v.Password }).(pulumi.StringOutput)
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthOutput) Username() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupApiCheckDefaultsBasicAuth) string { return v.Username }).(pulumi.StringOutput)
+}
+
+type CheckGroupApiCheckDefaultsBasicAuthPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupApiCheckDefaultsBasicAuthPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutput() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) ToCheckGroupApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
+	return o
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) Elem() CheckGroupApiCheckDefaultsBasicAuthOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaultsBasicAuth) CheckGroupApiCheckDefaultsBasicAuth {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupApiCheckDefaultsBasicAuth
+		return ret
+	}).(CheckGroupApiCheckDefaultsBasicAuthOutput)
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaultsBasicAuth) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Password
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupApiCheckDefaultsBasicAuth) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Username
+	}).(pulumi.StringPtrOutput)
+}
+
 type CheckRequest struct {
 	// A request can have multiple assetions. Assertion has the following arguments:
 	Assertions []CheckRequestAssertion `pulumi:"assertions"`
@@ -1321,6 +2529,24 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertSettingsSslCertificateArrayInput)(nil)).Elem(), CheckAlertSettingsSslCertificateArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), CheckAlertSettingsTimeBasedEscalationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), CheckAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertChannelSubscriptionInput)(nil)).Elem(), CheckGroupAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertChannelSubscriptionArrayInput)(nil)).Elem(), CheckGroupAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsInput)(nil)).Elem(), CheckGroupAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsPtrInput)(nil)).Elem(), CheckGroupAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsReminderInput)(nil)).Elem(), CheckGroupAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsReminderArrayInput)(nil)).Elem(), CheckGroupAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsRunBasedEscalationInput)(nil)).Elem(), CheckGroupAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), CheckGroupAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsSslCertificateInput)(nil)).Elem(), CheckGroupAlertSettingsSslCertificateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsSslCertificateArrayInput)(nil)).Elem(), CheckGroupAlertSettingsSslCertificateArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), CheckGroupAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), CheckGroupAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsInput)(nil)).Elem(), CheckGroupApiCheckDefaultsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsPtrInput)(nil)).Elem(), CheckGroupApiCheckDefaultsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsAssertionInput)(nil)).Elem(), CheckGroupApiCheckDefaultsAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsAssertionArrayInput)(nil)).Elem(), CheckGroupApiCheckDefaultsAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsBasicAuthInput)(nil)).Elem(), CheckGroupApiCheckDefaultsBasicAuthArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsBasicAuthPtrInput)(nil)).Elem(), CheckGroupApiCheckDefaultsBasicAuthArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestInput)(nil)).Elem(), CheckRequestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestPtrInput)(nil)).Elem(), CheckRequestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestAssertionInput)(nil)).Elem(), CheckRequestAssertionArgs{})
@@ -1339,6 +2565,24 @@ func init() {
 	pulumi.RegisterOutputType(CheckAlertSettingsSslCertificateArrayOutput{})
 	pulumi.RegisterOutputType(CheckAlertSettingsTimeBasedEscalationOutput{})
 	pulumi.RegisterOutputType(CheckAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsSslCertificateOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsSslCertificateArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(CheckGroupAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsOutput{})
+	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsAssertionOutput{})
+	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsAssertionArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsBasicAuthOutput{})
+	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsBasicAuthPtrOutput{})
 	pulumi.RegisterOutputType(CheckRequestOutput{})
 	pulumi.RegisterOutputType(CheckRequestPtrOutput{})
 	pulumi.RegisterOutputType(CheckRequestAssertionOutput{})

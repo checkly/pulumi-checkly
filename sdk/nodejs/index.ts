@@ -6,6 +6,7 @@ import * as utilities from "./utilities";
 
 // Export members:
 export * from "./check";
+export * from "./checkGroup";
 export * from "./provider";
 
 // Export sub-modules:
@@ -19,6 +20,7 @@ export {
 
 // Import resources to register:
 import { Check } from "./check";
+import { CheckGroup } from "./checkGroup";
 
 const _module = {
     version: utilities.getVersion(),
@@ -26,12 +28,15 @@ const _module = {
         switch (type) {
             case "checkly:index/check:Check":
                 return new Check(name, <any>undefined, { urn })
+            case "checkly:index/checkGroup:CheckGroup":
+                return new CheckGroup(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
 pulumi.runtime.registerResourceModule("checkly", "index/check", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
 
 import { Provider } from "./provider";
 
