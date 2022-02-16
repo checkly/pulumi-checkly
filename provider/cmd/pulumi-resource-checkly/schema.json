@@ -1,0 +1,815 @@
+{
+    "name": "checkly",
+    "description": "A Pulumi package for creating and managing checkly cloud resources.",
+    "keywords": [
+        "pulumi",
+        "checkly",
+        "category/monitoring"
+    ],
+    "homepage": "https://www.pulumi.com",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`checkly` Terraform Provider](https://github.com/checkly/terraform-provider-checkly).",
+    "repository": "https://github.com/checkly/pulumi-checkly",
+    "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/${VERSION}",
+    "publisher": "checkly",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "config": {
+        "variables": {
+            "accountId": {
+                "type": "string"
+            },
+            "apiKey": {
+                "type": "string"
+            },
+            "apiUrl": {
+                "type": "string"
+            }
+        },
+        "defaults": [
+            "apiKey"
+        ]
+    },
+    "types": {
+        "checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "channelId": {
+                    "type": "integer",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/CheckAlertSettings:CheckAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckAlertSettingsReminder:CheckAlertSettingsReminder"
+                    },
+                    "description": ". Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckAlertSettingsRunBasedEscalation:CheckAlertSettingsRunBasedEscalation"
+                    },
+                    "description": ". Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "sslCertificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckAlertSettingsSslCertificate:CheckAlertSettingsSslCertificate"
+                    },
+                    "description": "At what interval the reminders should be send.  Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckAlertSettingsTimeBasedEscalation:CheckAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": ". Possible arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckAlertSettingsReminder:CheckAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": ". Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckAlertSettingsRunBasedEscalation:CheckAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckAlertSettingsSslCertificate:CheckAlertSettingsSslCertificate": {
+            "properties": {
+                "alertThreshold": {
+                    "type": "integer",
+                    "description": "At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckAlertSettingsTimeBasedEscalation:CheckAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckRequest:CheckRequest": {
+            "properties": {
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckRequestAssertion:CheckRequestAssertion"
+                    },
+                    "description": "A request can have multiple assetions. Assertion has the following arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "basicAuth": {
+                    "$ref": "#/types/checkly:index/CheckRequestBasicAuth:CheckRequestBasicAuth",
+                    "description": "A request might have one basic_auth config. basic_auth has two arguments:\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "body": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "bodyType": {
+                    "type": "string",
+                    "description": "Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "followRedirects": {
+                    "type": "boolean",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "method": {
+                    "type": "string",
+                    "description": "The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "queryParameters": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "skipSsl": {
+                    "type": "boolean",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "url": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "basicAuth",
+                        "headers",
+                        "queryParameters",
+                        "url"
+                    ]
+                }
+            }
+        },
+        "checkly:index/CheckRequestAssertion:CheckRequestAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "property": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "target": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source"
+            ]
+        },
+        "checkly:index/CheckRequestBasicAuth:CheckRequestBasicAuth": {
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "username": {
+                    "type": "string",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ]
+        }
+    },
+    "provider": {
+        "description": "The provider type for the checkly package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "accountId": {
+                "type": "string"
+            },
+            "apiKey": {
+                "type": "string"
+            },
+            "apiUrl": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "apiKey"
+        ],
+        "inputProperties": {
+            "accountId": {
+                "type": "string"
+            },
+            "apiKey": {
+                "type": "string"
+            },
+            "apiUrl": {
+                "type": "string"
+            }
+        },
+        "requiredInputs": [
+            "apiKey"
+        ]
+    },
+    "resources": {
+        "checkly:index/check:Check": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
+                    }
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings",
+                    "description": ". Supported values documented below.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.\n"
+                },
+                "doubleCheck": {
+                    "type": "boolean",
+                    "description": "Setting this to \"true\" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.\n"
+                },
+                "environmentVariables": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": ". The id of the check group this check is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "localSetupScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the setup phase.\n"
+                },
+                "localTeardownScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the teardown phase.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the this check. Defaults to[\"us-east-1\"].\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
+                    "description": ". An API check might have one request config. Supported values documented below.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": ". The id of the runtime to use for this check.\n"
+                },
+                "script": {
+                    "type": "string"
+                },
+                "setupSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the setup phase of an API check.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.\n"
+                },
+                "sslCheck": {
+                    "type": "boolean",
+                    "description": "Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "teardownSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of the check. Possible values are `API`, and `BROWSER`.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "frequency",
+                "name",
+                "type"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
+                    }
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings",
+                    "description": ". Supported values documented below.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.\n"
+                },
+                "doubleCheck": {
+                    "type": "boolean",
+                    "description": "Setting this to \"true\" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.\n"
+                },
+                "environmentVariables": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": ". The id of the check group this check is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "localSetupScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the setup phase.\n"
+                },
+                "localTeardownScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code to run in the teardown phase.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the this check. Defaults to[\"us-east-1\"].\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
+                    "description": ". An API check might have one request config. Supported values documented below.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": ". The id of the runtime to use for this check.\n"
+                },
+                "script": {
+                    "type": "string"
+                },
+                "setupSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the setup phase of an API check.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.\n"
+                },
+                "sslCheck": {
+                    "type": "boolean",
+                    "description": "Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "teardownSnippetId": {
+                    "type": "integer",
+                    "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of the check. Possible values are `API`, and `BROWSER`.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "frequency",
+                "type"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Check resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
+                        }
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings",
+                        "description": ". Supported values documented below.\n"
+                    },
+                    "degradedResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.\n"
+                    },
+                    "doubleCheck": {
+                        "type": "boolean",
+                        "description": "Setting this to \"true\" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.\n"
+                    },
+                    "environmentVariables": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        },
+                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.\n"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.\n"
+                    },
+                    "frequencyOffset": {
+                        "type": "integer",
+                        "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "description": ". The id of the check group this check is part of.\n"
+                    },
+                    "groupOrder": {
+                        "type": "integer",
+                        "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
+                    },
+                    "localSetupScript": {
+                        "type": "string",
+                        "description": "A valid piece of Node.js code to run in the setup phase.\n"
+                    },
+                    "localTeardownScript": {
+                        "type": "string",
+                        "description": "A valid piece of Node.js code to run in the teardown phase.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run the this check. Defaults to[\"us-east-1\"].\n"
+                    },
+                    "maxResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the check.\n"
+                    },
+                    "request": {
+                        "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
+                        "description": ". An API check might have one request config. Supported values documented below.\n"
+                    },
+                    "runtimeId": {
+                        "type": "string",
+                        "description": ". The id of the runtime to use for this check.\n"
+                    },
+                    "script": {
+                        "type": "string"
+                    },
+                    "setupSnippetId": {
+                        "type": "integer",
+                        "description": "An ID reference to a snippet to use in the setup phase of an API check.\n"
+                    },
+                    "shouldFail": {
+                        "type": "boolean",
+                        "description": "Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.\n"
+                    },
+                    "sslCheck": {
+                        "type": "boolean",
+                        "description": "Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "teardownSnippetId": {
+                        "type": "integer",
+                        "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the check. Possible values are `API`, and `BROWSER`.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "language": {
+        "csharp": {
+            "compatibility": "tfbridge20",
+            "namespaces": null,
+            "packageReferences": {
+                "Pulumi": "3.*"
+            }
+        },
+        "go": {
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/checkly/pulumi-checkly/sdk/go/checkly"
+        },
+        "nodejs": {
+            "compatibility": "tfbridge20",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "disableUnionOutputTypes": true,
+            "packageDescription": "A Pulumi package for creating and managing checkly cloud resources.",
+            "packageName": "",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/checkly/terraform-provider-checkly)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-checkly` repo](https://github.com/pulumi/pulumi-checkly/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`checkly/terraform-provider-checkly` repo](https://github.com/checkly/terraform-provider-checkly/issues).",
+            "typescriptVersion": ""
+        },
+        "python": {
+            "compatibility": "tfbridge20",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/checkly/terraform-provider-checkly)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-checkly` repo](https://github.com/pulumi/pulumi-checkly/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`checkly/terraform-provider-checkly` repo](https://github.com/checkly/terraform-provider-checkly/issues).",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            }
+        }
+    }
+}
