@@ -8,9 +8,11 @@ import typing
 from .alert_channel import *
 from .check import *
 from .check_group import *
-from .maintenance_windows import *
+from .maintenance_window import *
 from .provider import *
 from .snippet import *
+from .trigger_check import *
+from .trigger_check_group import *
 from ._inputs import *
 from . import outputs
 
@@ -50,10 +52,10 @@ _utilities.register(
  },
  {
   "pkg": "checkly",
-  "mod": "index/maintenanceWindows",
+  "mod": "index/maintenanceWindow",
   "fqn": "pulumi_checkly",
   "classes": {
-   "checkly:index/maintenanceWindows:MaintenanceWindows": "MaintenanceWindows"
+   "checkly:index/maintenanceWindow:MaintenanceWindow": "MaintenanceWindow"
   }
  },
  {
@@ -62,6 +64,22 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/snippet:Snippet": "Snippet"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/triggerCheck",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/triggerCheck:TriggerCheck": "TriggerCheck"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/triggerCheckGroup",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/triggerCheckGroup:TriggerCheckGroup": "TriggerCheckGroup"
   }
  }
 ]

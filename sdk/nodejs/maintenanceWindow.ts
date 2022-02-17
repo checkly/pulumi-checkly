@@ -5,9 +5,9 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * ## # checkly.MaintenanceWindows
+ * ## # checkly.MaintenanceWindow
  *
- * `checkly.MaintenanceWindows` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindows` resource to your resource file.
+ * `checkly.MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindow` resource to your resource file.
  *
  * ## Example Usage
  *
@@ -17,7 +17,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as checkly from "@pulumi/checkly";
  *
- * const maintenance_1 = new checkly.MaintenanceWindows("maintenance-1", {
+ * const maintenance_1 = new checkly.MaintenanceWindow("maintenance-1", {
  *     endsAt: "2014-08-25T00:00:00.000Z",
  *     repeatUnit: "MONTH",
  *     startsAt: "2014-08-24T00:00:00.000Z",
@@ -31,7 +31,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as checkly from "@pulumi/checkly";
  *
- * const maintenance_1 = new checkly.MaintenanceWindows("maintenance-1", {
+ * const maintenance_1 = new checkly.MaintenanceWindow("maintenance-1", {
  *     endsAt: "2014-08-25T00:00:00.000Z",
  *     repeatEndsAt: "2014-08-24T00:00:00.000Z",
  *     repeatInterval: 1,
@@ -41,9 +41,9 @@ import * as utilities from "./utilities";
  * });
  * ```
  */
-export class MaintenanceWindows extends pulumi.CustomResource {
+export class MaintenanceWindow extends pulumi.CustomResource {
     /**
-     * Get an existing MaintenanceWindows resource's state with the given name, ID, and optional extra
+     * Get an existing MaintenanceWindow resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
@@ -51,22 +51,22 @@ export class MaintenanceWindows extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: MaintenanceWindowsState, opts?: pulumi.CustomResourceOptions): MaintenanceWindows {
-        return new MaintenanceWindows(name, <any>state, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: MaintenanceWindowState, opts?: pulumi.CustomResourceOptions): MaintenanceWindow {
+        return new MaintenanceWindow(name, <any>state, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'checkly:index/maintenanceWindows:MaintenanceWindows';
+    public static readonly __pulumiType = 'checkly:index/maintenanceWindow:MaintenanceWindow';
 
     /**
-     * Returns true if the given object is an instance of MaintenanceWindows.  This is designed to work even
+     * Returns true if the given object is an instance of MaintenanceWindow.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is MaintenanceWindows {
+    public static isInstance(obj: any): obj is MaintenanceWindow {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === MaintenanceWindows.__pulumiType;
+        return obj['__pulumiType'] === MaintenanceWindow.__pulumiType;
     }
 
     /**
@@ -99,18 +99,18 @@ export class MaintenanceWindows extends pulumi.CustomResource {
     public readonly tags!: pulumi.Output<string[] | undefined>;
 
     /**
-     * Create a MaintenanceWindows resource with the given unique name, arguments, and options.
+     * Create a MaintenanceWindow resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: MaintenanceWindowsArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: MaintenanceWindowsArgs | MaintenanceWindowsState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: MaintenanceWindowArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: MaintenanceWindowArgs | MaintenanceWindowState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
-            const state = argsOrState as MaintenanceWindowsState | undefined;
+            const state = argsOrState as MaintenanceWindowState | undefined;
             resourceInputs["endsAt"] = state ? state.endsAt : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["repeatEndsAt"] = state ? state.repeatEndsAt : undefined;
@@ -119,7 +119,7 @@ export class MaintenanceWindows extends pulumi.CustomResource {
             resourceInputs["startsAt"] = state ? state.startsAt : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
         } else {
-            const args = argsOrState as MaintenanceWindowsArgs | undefined;
+            const args = argsOrState as MaintenanceWindowArgs | undefined;
             if ((!args || args.endsAt === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'endsAt'");
             }
@@ -146,14 +146,14 @@ export class MaintenanceWindows extends pulumi.CustomResource {
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(MaintenanceWindows.__pulumiType, name, resourceInputs, opts);
+        super(MaintenanceWindow.__pulumiType, name, resourceInputs, opts);
     }
 }
 
 /**
- * Input properties used for looking up and filtering MaintenanceWindows resources.
+ * Input properties used for looking up and filtering MaintenanceWindow resources.
  */
-export interface MaintenanceWindowsState {
+export interface MaintenanceWindowState {
     /**
      * The end date of the maintenance window.
      */
@@ -185,9 +185,9 @@ export interface MaintenanceWindowsState {
 }
 
 /**
- * The set of arguments for constructing a MaintenanceWindows resource.
+ * The set of arguments for constructing a MaintenanceWindow resource.
  */
-export interface MaintenanceWindowsArgs {
+export interface MaintenanceWindowArgs {
     /**
      * The end date of the maintenance window.
      */

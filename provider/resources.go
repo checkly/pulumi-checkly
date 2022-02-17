@@ -75,8 +75,14 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_snippet": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Snippet"),
 			},
+			"checkly_trigger_check": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TriggerCheck"),
+			},
+			"checkly_trigger_group": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TriggerCheckGroup"),
+			},
 			"checkly_maintenance_windows": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MaintenanceWindows"),
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MaintenanceWindow"),
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

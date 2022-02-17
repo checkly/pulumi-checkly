@@ -26,10 +26,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Check{}
 	case "checkly:index/checkGroup:CheckGroup":
 		r = &CheckGroup{}
-	case "checkly:index/maintenanceWindows:MaintenanceWindows":
-		r = &MaintenanceWindows{}
+	case "checkly:index/maintenanceWindow:MaintenanceWindow":
+		r = &MaintenanceWindow{}
 	case "checkly:index/snippet:Snippet":
 		r = &Snippet{}
+	case "checkly:index/triggerCheck:TriggerCheck":
+		r = &TriggerCheck{}
+	case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
+		r = &TriggerCheckGroup{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -78,12 +82,22 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
-		"index/maintenanceWindows",
+		"index/maintenanceWindow",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/snippet",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/triggerCheck",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/triggerCheckGroup",
 		&module{version},
 	)
 	pulumi.RegisterResourcePackage(

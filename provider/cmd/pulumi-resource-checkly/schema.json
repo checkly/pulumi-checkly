@@ -1716,8 +1716,8 @@
                 "type": "object"
             }
         },
-        "checkly:index/maintenanceWindows:MaintenanceWindows": {
-            "description": "## # checkly.MaintenanceWindows\n\n`checkly.MaintenanceWindows` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindows` resource to your resource file.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\nMinimal maintenance windows example\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst maintenance_1 = new checkly.MaintenanceWindows(\"maintenance-1\", {\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatUnit: \"MONTH\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    tags: [\"auto\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindows(\"maintenance-1\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_unit=\"MONTH\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    tags=[\"auto\"])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var maintenance_1 = new Checkly.MaintenanceWindows(\"maintenance-1\", new Checkly.MaintenanceWindowsArgs\n        {\n            EndsAt = \"2014-08-25T00:00:00.000Z\",\n            RepeatUnit = \"MONTH\",\n            StartsAt = \"2014-08-24T00:00:00.000Z\",\n            Tags = \n            {\n                \"auto\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindows(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowsArgs{\n\t\t\tEndsAt:     pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatUnit: pulumi.String(\"MONTH\"),\n\t\t\tStartsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"auto\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\nFull maintenance windows example (includes optional fields)\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst maintenance_1 = new checkly.MaintenanceWindows(\"maintenance-1\", {\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatEndsAt: \"2014-08-24T00:00:00.000Z\",\n    repeatInterval: 1,\n    repeatUnit: \"MONTH\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    tags: [\"auto\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindows(\"maintenance-1\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_ends_at=\"2014-08-24T00:00:00.000Z\",\n    repeat_interval=1,\n    repeat_unit=\"MONTH\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    tags=[\"auto\"])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var maintenance_1 = new Checkly.MaintenanceWindows(\"maintenance-1\", new Checkly.MaintenanceWindowsArgs\n        {\n            EndsAt = \"2014-08-25T00:00:00.000Z\",\n            RepeatEndsAt = \"2014-08-24T00:00:00.000Z\",\n            RepeatInterval = 1,\n            RepeatUnit = \"MONTH\",\n            StartsAt = \"2014-08-24T00:00:00.000Z\",\n            Tags = \n            {\n                \"auto\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindows(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowsArgs{\n\t\t\tEndsAt:         pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatEndsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tRepeatInterval: pulumi.Int(1),\n\t\t\tRepeatUnit:     pulumi.String(\"MONTH\"),\n\t\t\tStartsAt:       pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"auto\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+        "checkly:index/maintenanceWindow:MaintenanceWindow": {
+            "description": "## # checkly.MaintenanceWindow\n\n`checkly.MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindow` resource to your resource file.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\nMinimal maintenance windows example\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst maintenance_1 = new checkly.MaintenanceWindow(\"maintenance-1\", {\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatUnit: \"MONTH\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    tags: [\"auto\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindow(\"maintenance-1\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_unit=\"MONTH\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    tags=[\"auto\"])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var maintenance_1 = new Checkly.MaintenanceWindow(\"maintenance-1\", new Checkly.MaintenanceWindowArgs\n        {\n            EndsAt = \"2014-08-25T00:00:00.000Z\",\n            RepeatUnit = \"MONTH\",\n            StartsAt = \"2014-08-24T00:00:00.000Z\",\n            Tags = \n            {\n                \"auto\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindow(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tEndsAt:     pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatUnit: pulumi.String(\"MONTH\"),\n\t\t\tStartsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"auto\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\nFull maintenance windows example (includes optional fields)\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst maintenance_1 = new checkly.MaintenanceWindow(\"maintenance-1\", {\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatEndsAt: \"2014-08-24T00:00:00.000Z\",\n    repeatInterval: 1,\n    repeatUnit: \"MONTH\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    tags: [\"auto\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindow(\"maintenance-1\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_ends_at=\"2014-08-24T00:00:00.000Z\",\n    repeat_interval=1,\n    repeat_unit=\"MONTH\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    tags=[\"auto\"])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var maintenance_1 = new Checkly.MaintenanceWindow(\"maintenance-1\", new Checkly.MaintenanceWindowArgs\n        {\n            EndsAt = \"2014-08-25T00:00:00.000Z\",\n            RepeatEndsAt = \"2014-08-24T00:00:00.000Z\",\n            RepeatInterval = 1,\n            RepeatUnit = \"MONTH\",\n            StartsAt = \"2014-08-24T00:00:00.000Z\",\n            Tags = \n            {\n                \"auto\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindow(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tEndsAt:         pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatEndsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tRepeatInterval: pulumi.Int(1),\n\t\t\tRepeatUnit:     pulumi.String(\"MONTH\"),\n\t\t\tStartsAt:       pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"auto\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
                 "endsAt": {
                     "type": "string",
@@ -1800,7 +1800,7 @@
                 "startsAt"
             ],
             "stateInputs": {
-                "description": "Input properties used for looking up and filtering MaintenanceWindows resources.\n",
+                "description": "Input properties used for looking up and filtering MaintenanceWindow resources.\n",
                 "properties": {
                     "endsAt": {
                         "type": "string",
@@ -1875,6 +1875,108 @@
                     "script": {
                         "type": "string",
                         "description": "Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/triggerCheck:TriggerCheck": {
+            "description": "## # checkly.TriggerCheck\n\n`checkly.TriggerCheck` allows users to manage Checkly trigger checks. Add a `checkly.TriggerCheck` resource to your resource file.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\nTrigger check example\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst test_trigger_check = new checkly.TriggerCheck(\"test-trigger-check\", {checkId: \"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\"});\nexport const test_trigger_check_url = test_trigger_check.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_check = checkly.TriggerCheck(\"test-trigger-check\", check_id=\"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\")\npulumi.export(\"test-trigger-check-url\", test_trigger_check.url)\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var test_trigger_check = new Checkly.TriggerCheck(\"test-trigger-check\", new Checkly.TriggerCheckArgs\n        {\n            CheckId = \"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\",\n        });\n        this.Test_trigger_check_url = test_trigger_check.Url;\n    }\n\n    [Output(\"test-trigger-check-url\")]\n    public Output\u003cstring\u003e Test_trigger_check_url { get; set; }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewTriggerCheck(ctx, \"test-trigger-check\", \u0026checkly.TriggerCheckArgs{\n\t\t\tCheckId: pulumi.String(\"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"test-trigger-check-url\", test_trigger_check.Url)\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "checkId": {
+                    "type": "string",
+                    "description": "The id of the check that you want to attach the trigger to.\n"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "checkId",
+                "token",
+                "url"
+            ],
+            "inputProperties": {
+                "checkId": {
+                    "type": "string",
+                    "description": "The id of the check that you want to attach the trigger to.\n"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": [
+                "checkId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering TriggerCheck resources.\n",
+                "properties": {
+                    "checkId": {
+                        "type": "string",
+                        "description": "The id of the check that you want to attach the trigger to.\n"
+                    },
+                    "token": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/triggerCheckGroup:TriggerCheckGroup": {
+            "description": "## # checkly.TriggerCheckGroup\n\n`checkly.TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `checkly.TriggerCheckGroup` resource to your resource file.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\nTrigger group example\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst test_trigger_group = new checkly.TriggerCheckGroup(\"test-trigger-group\", {groupId: \"215\"});\nexport const test_trigger_group_url = test_trigger_group.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_group = checkly.TriggerCheckGroup(\"test-trigger-group\", group_id=215)\npulumi.export(\"test-trigger-group-url\", test_trigger_group.url)\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var test_trigger_group = new Checkly.TriggerCheckGroup(\"test-trigger-group\", new Checkly.TriggerCheckGroupArgs\n        {\n            GroupId = 215,\n        });\n        this.Test_trigger_group_url = test_trigger_group.Url;\n    }\n\n    [Output(\"test-trigger-group-url\")]\n    public Output\u003cstring\u003e Test_trigger_group_url { get; set; }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewTriggerCheckGroup(ctx, \"test-trigger-group\", \u0026checkly.TriggerCheckGroupArgs{\n\t\t\tGroupId: pulumi.Int(215),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"test-trigger-group-url\", test_trigger_group.Url)\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the group that you want to attach the trigger to.\n"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "groupId",
+                "token",
+                "url"
+            ],
+            "inputProperties": {
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the group that you want to attach the trigger to.\n"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": [
+                "groupId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering TriggerCheckGroup resources.\n",
+                "properties": {
+                    "groupId": {
+                        "type": "integer",
+                        "description": "The id of the group that you want to attach the trigger to.\n"
+                    },
+                    "token": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
                     }
                 },
                 "type": "object"

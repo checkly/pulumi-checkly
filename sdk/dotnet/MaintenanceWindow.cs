@@ -10,9 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// ## # checkly.MaintenanceWindows
+    /// ## # checkly.MaintenanceWindow
     /// 
-    /// `checkly.MaintenanceWindows` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindows` resource to your resource file.
+    /// `checkly.MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindow` resource to your resource file.
     /// 
     /// ## Example Usage
     /// 
@@ -26,7 +26,7 @@ namespace Pulumi.Checkly
     /// {
     ///     public MyStack()
     ///     {
-    ///         var maintenance_1 = new Checkly.MaintenanceWindows("maintenance-1", new Checkly.MaintenanceWindowsArgs
+    ///         var maintenance_1 = new Checkly.MaintenanceWindow("maintenance-1", new Checkly.MaintenanceWindowArgs
     ///         {
     ///             EndsAt = "2014-08-25T00:00:00.000Z",
     ///             RepeatUnit = "MONTH",
@@ -51,7 +51,7 @@ namespace Pulumi.Checkly
     /// {
     ///     public MyStack()
     ///     {
-    ///         var maintenance_1 = new Checkly.MaintenanceWindows("maintenance-1", new Checkly.MaintenanceWindowsArgs
+    ///         var maintenance_1 = new Checkly.MaintenanceWindow("maintenance-1", new Checkly.MaintenanceWindowArgs
     ///         {
     ///             EndsAt = "2014-08-25T00:00:00.000Z",
     ///             RepeatEndsAt = "2014-08-24T00:00:00.000Z",
@@ -68,8 +68,8 @@ namespace Pulumi.Checkly
     /// }
     /// ```
     /// </summary>
-    [ChecklyResourceType("checkly:index/maintenanceWindows:MaintenanceWindows")]
-    public partial class MaintenanceWindows : Pulumi.CustomResource
+    [ChecklyResourceType("checkly:index/maintenanceWindow:MaintenanceWindow")]
+    public partial class MaintenanceWindow : Pulumi.CustomResource
     {
         /// <summary>
         /// The end date of the maintenance window.
@@ -115,19 +115,19 @@ namespace Pulumi.Checkly
 
 
         /// <summary>
-        /// Create a MaintenanceWindows resource with the given unique name, arguments, and options.
+        /// Create a MaintenanceWindow resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public MaintenanceWindows(string name, MaintenanceWindowsArgs args, CustomResourceOptions? options = null)
-            : base("checkly:index/maintenanceWindows:MaintenanceWindows", name, args ?? new MaintenanceWindowsArgs(), MakeResourceOptions(options, ""))
+        public MaintenanceWindow(string name, MaintenanceWindowArgs args, CustomResourceOptions? options = null)
+            : base("checkly:index/maintenanceWindow:MaintenanceWindow", name, args ?? new MaintenanceWindowArgs(), MakeResourceOptions(options, ""))
         {
         }
 
-        private MaintenanceWindows(string name, Input<string> id, MaintenanceWindowsState? state = null, CustomResourceOptions? options = null)
-            : base("checkly:index/maintenanceWindows:MaintenanceWindows", name, state, MakeResourceOptions(options, id))
+        private MaintenanceWindow(string name, Input<string> id, MaintenanceWindowState? state = null, CustomResourceOptions? options = null)
+            : base("checkly:index/maintenanceWindow:MaintenanceWindow", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -143,7 +143,7 @@ namespace Pulumi.Checkly
             return merged;
         }
         /// <summary>
-        /// Get an existing MaintenanceWindows resource's state with the given name, ID, and optional extra
+        /// Get an existing MaintenanceWindow resource's state with the given name, ID, and optional extra
         /// properties used to qualify the lookup.
         /// </summary>
         ///
@@ -151,13 +151,13 @@ namespace Pulumi.Checkly
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="state">Any extra arguments used during the lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static MaintenanceWindows Get(string name, Input<string> id, MaintenanceWindowsState? state = null, CustomResourceOptions? options = null)
+        public static MaintenanceWindow Get(string name, Input<string> id, MaintenanceWindowState? state = null, CustomResourceOptions? options = null)
         {
-            return new MaintenanceWindows(name, id, state, options);
+            return new MaintenanceWindow(name, id, state, options);
         }
     }
 
-    public sealed class MaintenanceWindowsArgs : Pulumi.ResourceArgs
+    public sealed class MaintenanceWindowArgs : Pulumi.ResourceArgs
     {
         /// <summary>
         /// The end date of the maintenance window.
@@ -207,12 +207,12 @@ namespace Pulumi.Checkly
             set => _tags = value;
         }
 
-        public MaintenanceWindowsArgs()
+        public MaintenanceWindowArgs()
         {
         }
     }
 
-    public sealed class MaintenanceWindowsState : Pulumi.ResourceArgs
+    public sealed class MaintenanceWindowState : Pulumi.ResourceArgs
     {
         /// <summary>
         /// The end date of the maintenance window.
@@ -262,7 +262,7 @@ namespace Pulumi.Checkly
             set => _tags = value;
         }
 
-        public MaintenanceWindowsState()
+        public MaintenanceWindowState()
         {
         }
     }

@@ -23,7 +23,7 @@ const group = new checkly.CheckGroup("pulumi-group", {
   ]
 });
 
-new checkly.Check("pulumi-api-check", {
+const apiCheck = new checkly.Check("pulumi-api-check", {
   activated: true,
   frequency: 10,
   type: "API",
@@ -46,10 +46,14 @@ new checkly.Snippet('snippet', {
   script,
 })
 
-new checkly.MaintenanceWindows('maintenance', {
+new checkly.MaintenanceWindow('maintenance', {
   startsAt: '2022-03-01',
   endsAt: '2022-03-02',
   repeatEndsAt: '2022-03-02',
   repeatInterval: 1,
   repeatUnit: 'DAY',
+})
+
+new checkly.TriggerCheckGroup('trigger', {
+  groupId:  group.id.apply(id => parseInt(id)),
 })

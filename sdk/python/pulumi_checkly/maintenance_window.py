@@ -8,10 +8,10 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
-__all__ = ['MaintenanceWindowsArgs', 'MaintenanceWindows']
+__all__ = ['MaintenanceWindowArgs', 'MaintenanceWindow']
 
 @pulumi.input_type
-class MaintenanceWindowsArgs:
+class MaintenanceWindowArgs:
     def __init__(__self__, *,
                  ends_at: pulumi.Input[str],
                  repeat_ends_at: pulumi.Input[str],
@@ -21,7 +21,7 @@ class MaintenanceWindowsArgs:
                  name: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
-        The set of arguments for constructing a MaintenanceWindows resource.
+        The set of arguments for constructing a MaintenanceWindow resource.
         :param pulumi.Input[str] ends_at: The end date of the maintenance window.
         :param pulumi.Input[str] repeat_ends_at: The end date where the maintenance window should stop repeating.
         :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurance.
@@ -126,7 +126,7 @@ class MaintenanceWindowsArgs:
 
 
 @pulumi.input_type
-class _MaintenanceWindowsState:
+class _MaintenanceWindowState:
     def __init__(__self__, *,
                  ends_at: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -136,7 +136,7 @@ class _MaintenanceWindowsState:
                  starts_at: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
-        Input properties used for looking up and filtering MaintenanceWindows resources.
+        Input properties used for looking up and filtering MaintenanceWindow resources.
         :param pulumi.Input[str] ends_at: The end date of the maintenance window.
         :param pulumi.Input[str] name: The maintenance window name.
         :param pulumi.Input[str] repeat_ends_at: The end date where the maintenance window should stop repeating.
@@ -245,7 +245,7 @@ class _MaintenanceWindowsState:
         pulumi.set(self, "tags", value)
 
 
-class MaintenanceWindows(pulumi.CustomResource):
+class MaintenanceWindow(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
@@ -259,9 +259,9 @@ class MaintenanceWindows(pulumi.CustomResource):
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
-        ## # MaintenanceWindows
+        ## # MaintenanceWindow
 
-        `MaintenanceWindows` allows users to manage Checkly maintenance windows. Add a `MaintenanceWindows` resource to your resource file.
+        `MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `MaintenanceWindow` resource to your resource file.
 
         ## Example Usage
 
@@ -271,7 +271,7 @@ class MaintenanceWindows(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        maintenance_1 = checkly.MaintenanceWindows("maintenance-1",
+        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_unit="MONTH",
             starts_at="2014-08-24T00:00:00.000Z",
@@ -284,7 +284,7 @@ class MaintenanceWindows(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        maintenance_1 = checkly.MaintenanceWindows("maintenance-1",
+        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_ends_at="2014-08-24T00:00:00.000Z",
             repeat_interval=1,
@@ -307,12 +307,12 @@ class MaintenanceWindows(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: MaintenanceWindowsArgs,
+                 args: MaintenanceWindowArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # MaintenanceWindows
+        ## # MaintenanceWindow
 
-        `MaintenanceWindows` allows users to manage Checkly maintenance windows. Add a `MaintenanceWindows` resource to your resource file.
+        `MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `MaintenanceWindow` resource to your resource file.
 
         ## Example Usage
 
@@ -322,7 +322,7 @@ class MaintenanceWindows(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        maintenance_1 = checkly.MaintenanceWindows("maintenance-1",
+        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_unit="MONTH",
             starts_at="2014-08-24T00:00:00.000Z",
@@ -335,7 +335,7 @@ class MaintenanceWindows(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        maintenance_1 = checkly.MaintenanceWindows("maintenance-1",
+        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_ends_at="2014-08-24T00:00:00.000Z",
             repeat_interval=1,
@@ -345,12 +345,12 @@ class MaintenanceWindows(pulumi.CustomResource):
         ```
 
         :param str resource_name: The name of the resource.
-        :param MaintenanceWindowsArgs args: The arguments to use to populate this resource's properties.
+        :param MaintenanceWindowArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(MaintenanceWindowsArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(MaintenanceWindowArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -376,7 +376,7 @@ class MaintenanceWindows(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = MaintenanceWindowsArgs.__new__(MaintenanceWindowsArgs)
+            __props__ = MaintenanceWindowArgs.__new__(MaintenanceWindowArgs)
 
             if ends_at is None and not opts.urn:
                 raise TypeError("Missing required property 'ends_at'")
@@ -395,8 +395,8 @@ class MaintenanceWindows(pulumi.CustomResource):
                 raise TypeError("Missing required property 'starts_at'")
             __props__.__dict__["starts_at"] = starts_at
             __props__.__dict__["tags"] = tags
-        super(MaintenanceWindows, __self__).__init__(
-            'checkly:index/maintenanceWindows:MaintenanceWindows',
+        super(MaintenanceWindow, __self__).__init__(
+            'checkly:index/maintenanceWindow:MaintenanceWindow',
             resource_name,
             __props__,
             opts)
@@ -411,9 +411,9 @@ class MaintenanceWindows(pulumi.CustomResource):
             repeat_interval: Optional[pulumi.Input[int]] = None,
             repeat_unit: Optional[pulumi.Input[str]] = None,
             starts_at: Optional[pulumi.Input[str]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None) -> 'MaintenanceWindows':
+            tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None) -> 'MaintenanceWindow':
         """
-        Get an existing MaintenanceWindows resource's state with the given name, id, and optional extra
+        Get an existing MaintenanceWindow resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
 
         :param str resource_name: The unique name of the resulting resource.
@@ -429,7 +429,7 @@ class MaintenanceWindows(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = _MaintenanceWindowsState.__new__(_MaintenanceWindowsState)
+        __props__ = _MaintenanceWindowState.__new__(_MaintenanceWindowState)
 
         __props__.__dict__["ends_at"] = ends_at
         __props__.__dict__["name"] = name
@@ -438,7 +438,7 @@ class MaintenanceWindows(pulumi.CustomResource):
         __props__.__dict__["repeat_unit"] = repeat_unit
         __props__.__dict__["starts_at"] = starts_at
         __props__.__dict__["tags"] = tags
-        return MaintenanceWindows(resource_name, opts=opts, __props__=__props__)
+        return MaintenanceWindow(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter(name="endsAt")
