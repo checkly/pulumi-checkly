@@ -76,7 +76,7 @@ func Provider() tfbridge.ProviderInfo {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Snippet"),
 			},
 			"checkly_maintenance_windows": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "NaintenanceWindows"),
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MaintenanceWindows"),
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

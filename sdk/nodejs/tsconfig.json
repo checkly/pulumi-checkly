@@ -19,6 +19,7 @@
         "config/index.ts",
         "config/vars.ts",
         "index.ts",
+        "maintenanceWindows.ts",
         "provider.ts",
         "snippet.ts",
         "types/index.ts",

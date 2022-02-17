@@ -129,4 +129,4 @@ do::
 	jq '.version = "1.0.0"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
 	make install_nodejs_sdk
-	cd examples/js-test && yarn link @pulumi/checkly && cd -
+	cd examples/js && yarn link @pulumi/checkly && cd -

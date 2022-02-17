@@ -8,6 +8,7 @@ import * as utilities from "./utilities";
 export * from "./alertChannel";
 export * from "./check";
 export * from "./checkGroup";
+export * from "./maintenanceWindows";
 export * from "./provider";
 export * from "./snippet";
 
@@ -24,6 +25,7 @@ export {
 import { AlertChannel } from "./alertChannel";
 import { Check } from "./check";
 import { CheckGroup } from "./checkGroup";
+import { MaintenanceWindows } from "./maintenanceWindows";
 import { Snippet } from "./snippet";
 
 const _module = {
@@ -36,6 +38,8 @@ const _module = {
                 return new Check(name, <any>undefined, { urn })
             case "checkly:index/checkGroup:CheckGroup":
                 return new CheckGroup(name, <any>undefined, { urn })
+            case "checkly:index/maintenanceWindows:MaintenanceWindows":
+                return new MaintenanceWindows(name, <any>undefined, { urn })
             case "checkly:index/snippet:Snippet":
                 return new Snippet(name, <any>undefined, { urn })
             default:
@@ -46,6 +50,7 @@ const _module = {
 pulumi.runtime.registerResourceModule("checkly", "index/alertChannel", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/check", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindows", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
 
 import { Provider } from "./provider";

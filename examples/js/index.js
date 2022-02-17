@@ -45,3 +45,11 @@ new checkly.Check("pulumi-brwoser-check", {
 new checkly.Snippet('snippet', {
   script,
 })
+
+new checkly.MaintenanceWindows('maintenance', {
+  startsAt: '2022-03-01',
+  endsAt: '2022-03-02',
+  repeatEndsAt: '2022-03-02',
+  repeatInterval: 1,
+  repeatUnit: 'DAY',
+})

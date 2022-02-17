@@ -8,6 +8,7 @@ import typing
 from .alert_channel import *
 from .check import *
 from .check_group import *
+from .maintenance_windows import *
 from .provider import *
 from .snippet import *
 from ._inputs import *
@@ -45,6 +46,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/checkGroup:CheckGroup": "CheckGroup"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/maintenanceWindows",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/maintenanceWindows:MaintenanceWindows": "MaintenanceWindows"
   }
  },
  {
