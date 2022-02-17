@@ -10,6 +10,12 @@ from . import _utilities
 from . import outputs
 
 __all__ = [
+    'AlertChannelEmail',
+    'AlertChannelOpsgenie',
+    'AlertChannelPagerduty',
+    'AlertChannelSlack',
+    'AlertChannelSms',
+    'AlertChannelWebhook',
     'CheckAlertChannelSubscription',
     'CheckAlertSettings',
     'CheckAlertSettingsReminder',
@@ -29,6 +35,319 @@ __all__ = [
     'CheckRequestAssertion',
     'CheckRequestBasicAuth',
 ]
+
+@pulumi.output_type
+class AlertChannelEmail(dict):
+    def __init__(__self__, *,
+                 address: str):
+        """
+        :param str address: the email address of this email alert channel.
+        """
+        pulumi.set(__self__, "address", address)
+
+    @property
+    @pulumi.getter
+    def address(self) -> str:
+        """
+        the email address of this email alert channel.
+        """
+        return pulumi.get(self, "address")
+
+
+@pulumi.output_type
+class AlertChannelOpsgenie(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiKey":
+            suggest = "api_key"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AlertChannelOpsgenie. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AlertChannelOpsgenie.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AlertChannelOpsgenie.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_key: str,
+                 name: str,
+                 priority: str,
+                 region: str):
+        """
+        :param str api_key: .
+        :param str name: Webhook's channel name.
+        :param str priority: .
+        :param str region: .
+        """
+        pulumi.set(__self__, "api_key", api_key)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "priority", priority)
+        pulumi.set(__self__, "region", region)
+
+    @property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> str:
+        """
+        .
+        """
+        return pulumi.get(self, "api_key")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Webhook's channel name.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def priority(self) -> str:
+        """
+        .
+        """
+        return pulumi.get(self, "priority")
+
+    @property
+    @pulumi.getter
+    def region(self) -> str:
+        """
+        .
+        """
+        return pulumi.get(self, "region")
+
+
+@pulumi.output_type
+class AlertChannelPagerduty(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "serviceKey":
+            suggest = "service_key"
+        elif key == "serviceName":
+            suggest = "service_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AlertChannelPagerduty. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AlertChannelPagerduty.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AlertChannelPagerduty.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 service_key: str,
+                 account: Optional[str] = None,
+                 service_name: Optional[str] = None):
+        """
+        :param str service_key: Pagerduty's service integration key.
+        :param str account: Pagerduty's account name.
+        :param str service_name: Pagerduty's service name.
+        """
+        pulumi.set(__self__, "service_key", service_key)
+        if account is not None:
+            pulumi.set(__self__, "account", account)
+        if service_name is not None:
+            pulumi.set(__self__, "service_name", service_name)
+
+    @property
+    @pulumi.getter(name="serviceKey")
+    def service_key(self) -> str:
+        """
+        Pagerduty's service integration key.
+        """
+        return pulumi.get(self, "service_key")
+
+    @property
+    @pulumi.getter
+    def account(self) -> Optional[str]:
+        """
+        Pagerduty's account name.
+        """
+        return pulumi.get(self, "account")
+
+    @property
+    @pulumi.getter(name="serviceName")
+    def service_name(self) -> Optional[str]:
+        """
+        Pagerduty's service name.
+        """
+        return pulumi.get(self, "service_name")
+
+
+@pulumi.output_type
+class AlertChannelSlack(dict):
+    def __init__(__self__, *,
+                 channel: str,
+                 url: str):
+        """
+        :param str channel: Slack's channel name.
+        :param str url: .
+        """
+        pulumi.set(__self__, "channel", channel)
+        pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter
+    def channel(self) -> str:
+        """
+        Slack's channel name.
+        """
+        return pulumi.get(self, "channel")
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        """
+        .
+        """
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class AlertChannelSms(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 number: str):
+        """
+        :param str name: Webhook's channel name.
+        :param str number: Mobile number to receive alerts.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "number", number)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Webhook's channel name.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def number(self) -> str:
+        """
+        Mobile number to receive alerts.
+        """
+        return pulumi.get(self, "number")
+
+
+@pulumi.output_type
+class AlertChannelWebhook(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "queryParameters":
+            suggest = "query_parameters"
+        elif key == "webhookSecret":
+            suggest = "webhook_secret"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AlertChannelWebhook. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AlertChannelWebhook.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AlertChannelWebhook.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: str,
+                 url: str,
+                 headers: Optional[Mapping[str, Any]] = None,
+                 method: Optional[str] = None,
+                 query_parameters: Optional[Mapping[str, Any]] = None,
+                 template: Optional[str] = None,
+                 webhook_secret: Optional[str] = None):
+        """
+        :param str name: Webhook's channel name.
+        :param str url: .
+        :param Mapping[str, Any] headers: .
+        :param str method: Default is `POST`.
+        :param Mapping[str, Any] query_parameters: .
+        :param str template: .
+        :param str webhook_secret: .
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "url", url)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if method is not None:
+            pulumi.set(__self__, "method", method)
+        if query_parameters is not None:
+            pulumi.set(__self__, "query_parameters", query_parameters)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+        if webhook_secret is not None:
+            pulumi.set(__self__, "webhook_secret", webhook_secret)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Webhook's channel name.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        """
+        .
+        """
+        return pulumi.get(self, "url")
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
+        return pulumi.get(self, "headers")
+
+    @property
+    @pulumi.getter
+    def method(self) -> Optional[str]:
+        """
+        Default is `POST`.
+        """
+        return pulumi.get(self, "method")
+
+    @property
+    @pulumi.getter(name="queryParameters")
+    def query_parameters(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
+        return pulumi.get(self, "query_parameters")
+
+    @property
+    @pulumi.getter
+    def template(self) -> Optional[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "template")
+
+    @property
+    @pulumi.getter(name="webhookSecret")
+    def webhook_secret(self) -> Optional[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "webhook_secret")
+
 
 @pulumi.output_type
 class CheckAlertChannelSubscription(dict):

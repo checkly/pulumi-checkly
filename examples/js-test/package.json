@@ -1,7 +1,0 @@
-{
-    "name": "test-checkly",
-    "main": "index.js",
-    "dependencies": {
-        "@pulumi/pulumi": "3.24.1"
-    }
-}

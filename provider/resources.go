@@ -50,24 +50,12 @@ func Provider() tfbridge.ProviderInfo {
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:    p,
-		Name: "checkly",
-		// The default publisher for all packages is Pulumi.
-		// Change this to your personal name (or a company name) that you
-		// would like to be shown in the Pulumi Registry if this package is published
-		// there.
-		Publisher: "checkly",
-		// LogoURL is optional but useful to help identify your package in the Pulumi Registry
-		// if this package is published there.
-		//
-		// You may host a logo on a domain you control or add an SVG logo for your package
-		// in your repository and use the raw content URL for that file as your logo URL.
-		LogoURL:           "",
-		Description:       "A Pulumi package for creating and managing checkly cloud resources.",
-		PluginDownloadURL: "https://github.com/checkly/pulumi-checkly/releases/${VERSION}",
-		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
-		// For all available categories, see `Keywords` in
-		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
+		P:                    p,
+		Name:                 "checkly",
+		Publisher:            "checkly",
+		LogoURL:              "",
+		Description:          "A Pulumi package for creating and managing checkly cloud resources.",
+		PluginDownloadURL:    "https://github.com/checkly/pulumi-checkly/releases/${VERSION}",
 		Keywords:             []string{"pulumi", "checkly", "category/monitoring"},
 		License:              "Apache-2.0",
 		Homepage:             "https://www.pulumi.com",
@@ -80,6 +68,15 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_check_group": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CheckGroup"),
+			},
+			"checkly_alert_channel": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "AlertChannel"),
+			},
+			"checkly_snippet": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Snippet"),
+			},
+			"checkly_maintenance_windows": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "NaintenanceWindows"),
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

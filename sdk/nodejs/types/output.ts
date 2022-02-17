@@ -4,6 +4,100 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
+export interface AlertChannelEmail {
+    /**
+     * the email address of this email alert channel.
+     */
+    address: string;
+}
+
+export interface AlertChannelOpsgenie {
+    /**
+     * .
+     */
+    apiKey: string;
+    /**
+     * Webhook's channel name.
+     */
+    name: string;
+    /**
+     * .
+     */
+    priority: string;
+    /**
+     * .
+     */
+    region: string;
+}
+
+export interface AlertChannelPagerduty {
+    /**
+     * Pagerduty's account name.
+     */
+    account?: string;
+    /**
+     * Pagerduty's service integration key.
+     */
+    serviceKey: string;
+    /**
+     * Pagerduty's service name.
+     */
+    serviceName?: string;
+}
+
+export interface AlertChannelSlack {
+    /**
+     * Slack's channel name.
+     */
+    channel: string;
+    /**
+     * .
+     */
+    url: string;
+}
+
+export interface AlertChannelSms {
+    /**
+     * Webhook's channel name.
+     */
+    name: string;
+    /**
+     * Mobile number to receive alerts.
+     */
+    number: string;
+}
+
+export interface AlertChannelWebhook {
+    /**
+     * .
+     */
+    headers: {[key: string]: any};
+    /**
+     * Default is `POST`.
+     */
+    method?: string;
+    /**
+     * Webhook's channel name.
+     */
+    name: string;
+    /**
+     * .
+     */
+    queryParameters: {[key: string]: any};
+    /**
+     * .
+     */
+    template?: string;
+    /**
+     * .
+     */
+    url: string;
+    /**
+     * .
+     */
+    webhookSecret?: string;
+}
+
 export interface CheckAlertChannelSubscription {
     /**
      * Determines if the check is running or not. Possible values `true`, and `false`.

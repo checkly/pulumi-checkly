@@ -9,6 +9,12 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
+    'AlertChannelEmailArgs',
+    'AlertChannelOpsgenieArgs',
+    'AlertChannelPagerdutyArgs',
+    'AlertChannelSlackArgs',
+    'AlertChannelSmsArgs',
+    'AlertChannelWebhookArgs',
     'CheckAlertChannelSubscriptionArgs',
     'CheckAlertSettingsArgs',
     'CheckAlertSettingsReminderArgs',
@@ -28,6 +34,340 @@ __all__ = [
     'CheckRequestAssertionArgs',
     'CheckRequestBasicAuthArgs',
 ]
+
+@pulumi.input_type
+class AlertChannelEmailArgs:
+    def __init__(__self__, *,
+                 address: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] address: the email address of this email alert channel.
+        """
+        pulumi.set(__self__, "address", address)
+
+    @property
+    @pulumi.getter
+    def address(self) -> pulumi.Input[str]:
+        """
+        the email address of this email alert channel.
+        """
+        return pulumi.get(self, "address")
+
+    @address.setter
+    def address(self, value: pulumi.Input[str]):
+        pulumi.set(self, "address", value)
+
+
+@pulumi.input_type
+class AlertChannelOpsgenieArgs:
+    def __init__(__self__, *,
+                 api_key: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 priority: pulumi.Input[str],
+                 region: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] api_key: .
+        :param pulumi.Input[str] name: Webhook's channel name.
+        :param pulumi.Input[str] priority: .
+        :param pulumi.Input[str] region: .
+        """
+        pulumi.set(__self__, "api_key", api_key)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "priority", priority)
+        pulumi.set(__self__, "region", region)
+
+    @property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> pulumi.Input[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "api_key")
+
+    @api_key.setter
+    def api_key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "api_key", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Webhook's channel name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def priority(self) -> pulumi.Input[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "priority")
+
+    @priority.setter
+    def priority(self, value: pulumi.Input[str]):
+        pulumi.set(self, "priority", value)
+
+    @property
+    @pulumi.getter
+    def region(self) -> pulumi.Input[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "region")
+
+    @region.setter
+    def region(self, value: pulumi.Input[str]):
+        pulumi.set(self, "region", value)
+
+
+@pulumi.input_type
+class AlertChannelPagerdutyArgs:
+    def __init__(__self__, *,
+                 service_key: pulumi.Input[str],
+                 account: Optional[pulumi.Input[str]] = None,
+                 service_name: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] service_key: Pagerduty's service integration key.
+        :param pulumi.Input[str] account: Pagerduty's account name.
+        :param pulumi.Input[str] service_name: Pagerduty's service name.
+        """
+        pulumi.set(__self__, "service_key", service_key)
+        if account is not None:
+            pulumi.set(__self__, "account", account)
+        if service_name is not None:
+            pulumi.set(__self__, "service_name", service_name)
+
+    @property
+    @pulumi.getter(name="serviceKey")
+    def service_key(self) -> pulumi.Input[str]:
+        """
+        Pagerduty's service integration key.
+        """
+        return pulumi.get(self, "service_key")
+
+    @service_key.setter
+    def service_key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_key", value)
+
+    @property
+    @pulumi.getter
+    def account(self) -> Optional[pulumi.Input[str]]:
+        """
+        Pagerduty's account name.
+        """
+        return pulumi.get(self, "account")
+
+    @account.setter
+    def account(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "account", value)
+
+    @property
+    @pulumi.getter(name="serviceName")
+    def service_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Pagerduty's service name.
+        """
+        return pulumi.get(self, "service_name")
+
+    @service_name.setter
+    def service_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "service_name", value)
+
+
+@pulumi.input_type
+class AlertChannelSlackArgs:
+    def __init__(__self__, *,
+                 channel: pulumi.Input[str],
+                 url: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] channel: Slack's channel name.
+        :param pulumi.Input[str] url: .
+        """
+        pulumi.set(__self__, "channel", channel)
+        pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter
+    def channel(self) -> pulumi.Input[str]:
+        """
+        Slack's channel name.
+        """
+        return pulumi.get(self, "channel")
+
+    @channel.setter
+    def channel(self, value: pulumi.Input[str]):
+        pulumi.set(self, "channel", value)
+
+    @property
+    @pulumi.getter
+    def url(self) -> pulumi.Input[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: pulumi.Input[str]):
+        pulumi.set(self, "url", value)
+
+
+@pulumi.input_type
+class AlertChannelSmsArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 number: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] name: Webhook's channel name.
+        :param pulumi.Input[str] number: Mobile number to receive alerts.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "number", number)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Webhook's channel name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def number(self) -> pulumi.Input[str]:
+        """
+        Mobile number to receive alerts.
+        """
+        return pulumi.get(self, "number")
+
+    @number.setter
+    def number(self, value: pulumi.Input[str]):
+        pulumi.set(self, "number", value)
+
+
+@pulumi.input_type
+class AlertChannelWebhookArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 url: pulumi.Input[str],
+                 headers: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 method: Optional[pulumi.Input[str]] = None,
+                 query_parameters: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 template: Optional[pulumi.Input[str]] = None,
+                 webhook_secret: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] name: Webhook's channel name.
+        :param pulumi.Input[str] url: .
+        :param pulumi.Input[Mapping[str, Any]] headers: .
+        :param pulumi.Input[str] method: Default is `POST`.
+        :param pulumi.Input[Mapping[str, Any]] query_parameters: .
+        :param pulumi.Input[str] template: .
+        :param pulumi.Input[str] webhook_secret: .
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "url", url)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if method is not None:
+            pulumi.set(__self__, "method", method)
+        if query_parameters is not None:
+            pulumi.set(__self__, "query_parameters", query_parameters)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+        if webhook_secret is not None:
+            pulumi.set(__self__, "webhook_secret", webhook_secret)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Webhook's channel name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def url(self) -> pulumi.Input[str]:
+        """
+        .
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: pulumi.Input[str]):
+        pulumi.set(self, "url", value)
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        """
+        .
+        """
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "headers", value)
+
+    @property
+    @pulumi.getter
+    def method(self) -> Optional[pulumi.Input[str]]:
+        """
+        Default is `POST`.
+        """
+        return pulumi.get(self, "method")
+
+    @method.setter
+    def method(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "method", value)
+
+    @property
+    @pulumi.getter(name="queryParameters")
+    def query_parameters(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        """
+        .
+        """
+        return pulumi.get(self, "query_parameters")
+
+    @query_parameters.setter
+    def query_parameters(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "query_parameters", value)
+
+    @property
+    @pulumi.getter
+    def template(self) -> Optional[pulumi.Input[str]]:
+        """
+        .
+        """
+        return pulumi.get(self, "template")
+
+    @template.setter
+    def template(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "template", value)
+
+    @property
+    @pulumi.getter(name="webhookSecret")
+    def webhook_secret(self) -> Optional[pulumi.Input[str]]:
+        """
+        .
+        """
+        return pulumi.get(self, "webhook_secret")
+
+    @webhook_secret.setter
+    def webhook_secret(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "webhook_secret", value)
+
 
 @pulumi.input_type
 class CheckAlertChannelSubscriptionArgs:

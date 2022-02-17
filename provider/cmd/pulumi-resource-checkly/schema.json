@@ -32,6 +32,247 @@
         ]
     },
     "types": {
+        "checkly:index/AlertChannelEmail:AlertChannelEmail": {
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "description": "the email address of this email alert channel.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "address"
+            ]
+        },
+        "checkly:index/AlertChannelOpsgenie:AlertChannelOpsgenie": {
+            "properties": {
+                "apiKey": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Webhook's channel name.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "priority": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "region": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "apiKey",
+                "name",
+                "priority",
+                "region"
+            ]
+        },
+        "checkly:index/AlertChannelPagerduty:AlertChannelPagerduty": {
+            "properties": {
+                "account": {
+                    "type": "string",
+                    "description": "Pagerduty's account name.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "serviceKey": {
+                    "type": "string",
+                    "description": "Pagerduty's service integration key.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "serviceName": {
+                    "type": "string",
+                    "description": "Pagerduty's service name.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "serviceKey"
+            ]
+        },
+        "checkly:index/AlertChannelSlack:AlertChannelSlack": {
+            "properties": {
+                "channel": {
+                    "type": "string",
+                    "description": "Slack's channel name.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "url": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "channel",
+                "url"
+            ]
+        },
+        "checkly:index/AlertChannelSms:AlertChannelSms": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Webhook's channel name.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "number": {
+                    "type": "string",
+                    "description": "Mobile number to receive alerts.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "number"
+            ]
+        },
+        "checkly:index/AlertChannelWebhook:AlertChannelWebhook": {
+            "properties": {
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "method": {
+                    "type": "string",
+                    "description": "Default is `POST`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Webhook's channel name.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "queryParameters": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "template": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "url": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "webhookSecret": {
+                    "type": "string",
+                    "description": ".\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "headers",
+                        "name",
+                        "queryParameters",
+                        "url"
+                    ]
+                }
+            }
+        },
         "checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
@@ -717,6 +958,139 @@
         ]
     },
     "resources": {
+        "checkly:index/alertChannel:AlertChannel": {
+            "description": "## # checkly.AlertChannel\n\nThe `checkly.AlertChannel` resource allows users to manage Checkly alert channels.\n\nCheckly's Alert Channels feature allows you to define global alerting channels for the checks in your account:\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n*An Email alert channel*\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst emailAc = new checkly.AlertChannel(\"email_ac\", {\n    email: {\n        address: \"john@example.com\",\n    },\n    sendDegraded: true,\n    sendFailure: false,\n    sendRecovery: true,\n    sslExpiry: true,\n    sslExpiryThreshold: 22,\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nemail_ac = checkly.AlertChannel(\"emailAc\",\n    email=checkly.AlertChannelEmailArgs(\n        address=\"john@example.com\",\n    ),\n    send_degraded=True,\n    send_failure=False,\n    send_recovery=True,\n    ssl_expiry=True,\n    ssl_expiry_threshold=22)\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var emailAc = new Checkly.AlertChannel(\"emailAc\", new Checkly.AlertChannelArgs\n        {\n            Email = new Checkly.Inputs.AlertChannelEmailArgs\n            {\n                Address = \"john@example.com\",\n            },\n            SendDegraded = true,\n            SendFailure = false,\n            SendRecovery = true,\n            SslExpiry = true,\n            SslExpiryThreshold = 22,\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewAlertChannel(ctx, \"emailAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"john@example.com\"),\n\t\t\t},\n\t\t\tSendDegraded:       pulumi.Bool(true),\n\t\t\tSendFailure:        pulumi.Bool(false),\n\t\t\tSendRecovery:       pulumi.Bool(true),\n\t\t\tSslExpiry:          pulumi.Bool(true),\n\t\t\tSslExpiryThreshold: pulumi.Int(22),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n*A SMS alert channel*\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst smsAc = new checkly.AlertChannel(\"sms_ac\", {\n    sendFailure: true,\n    sendRecovery: true,\n    sms: {\n        name: \"john\",\n        number: \"0123456789\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nsms_ac = checkly.AlertChannel(\"smsAc\",\n    send_failure=True,\n    send_recovery=True,\n    sms=checkly.AlertChannelSmsArgs(\n        name=\"john\",\n        number=\"0123456789\",\n    ))\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var smsAc = new Checkly.AlertChannel(\"smsAc\", new Checkly.AlertChannelArgs\n        {\n            SendFailure = true,\n            SendRecovery = true,\n            Sms = new Checkly.Inputs.AlertChannelSmsArgs\n            {\n                Name = \"john\",\n                Number = \"0123456789\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewAlertChannel(ctx, \"smsAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSendFailure:  pulumi.Bool(true),\n\t\t\tSendRecovery: pulumi.Bool(true),\n\t\t\tSms: \u0026AlertChannelSmsArgs{\n\t\t\t\tName:   pulumi.String(\"john\"),\n\t\t\t\tNumber: pulumi.String(\"0123456789\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n*A Slack alert channel*\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst slackAc = new checkly.AlertChannel(\"slack_ac\", {\n    slack: {\n        channel: \"#checkly-notifications\",\n        url: \"https://slack.com/webhook\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nslack_ac = checkly.AlertChannel(\"slackAc\", slack=checkly.AlertChannelSlackArgs(\n    channel=\"#checkly-notifications\",\n    url=\"https://slack.com/webhook\",\n))\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var slackAc = new Checkly.AlertChannel(\"slackAc\", new Checkly.AlertChannelArgs\n        {\n            Slack = new Checkly.Inputs.AlertChannelSlackArgs\n            {\n                Channel = \"#checkly-notifications\",\n                Url = \"https://slack.com/webhook\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewAlertChannel(ctx, \"slackAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSlack: \u0026AlertChannelSlackArgs{\n\t\t\t\tChannel: pulumi.String(\"#checkly-notifications\"),\n\t\t\t\tUrl:     pulumi.String(\"https://slack.com/webhook\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n*An Opsgenie alert channel*\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst opsgenieAc = new checkly.AlertChannel(\"opsgenie_ac\", {\n    opsgenie: {\n        apiKey: \"fookey\",\n        name: \"opsalerts\",\n        priority: \"foopriority\",\n        region: \"fooregion\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nopsgenie_ac = checkly.AlertChannel(\"opsgenieAc\", opsgenie=checkly.AlertChannelOpsgenieArgs(\n    api_key=\"fookey\",\n    name=\"opsalerts\",\n    priority=\"foopriority\",\n    region=\"fooregion\",\n))\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var opsgenieAc = new Checkly.AlertChannel(\"opsgenieAc\", new Checkly.AlertChannelArgs\n        {\n            Opsgenie = new Checkly.Inputs.AlertChannelOpsgenieArgs\n            {\n                ApiKey = \"fookey\",\n                Name = \"opsalerts\",\n                Priority = \"foopriority\",\n                Region = \"fooregion\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewAlertChannel(ctx, \"opsgenieAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tOpsgenie: \u0026AlertChannelOpsgenieArgs{\n\t\t\t\tApiKey:   pulumi.String(\"fookey\"),\n\t\t\t\tName:     pulumi.String(\"opsalerts\"),\n\t\t\t\tPriority: pulumi.String(\"foopriority\"),\n\t\t\t\tRegion:   pulumi.String(\"fooregion\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n*An Pagerduty alert channel*\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst pagerdutyAc = new checkly.AlertChannel(\"pagerduty_ac\", {\n    pagerduty: {\n        account: \"checkly\",\n        serviceKey: \"key1\",\n        serviceName: \"pdalert\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\npagerduty_ac = checkly.AlertChannel(\"pagerdutyAc\", pagerduty=checkly.AlertChannelPagerdutyArgs(\n    account=\"checkly\",\n    service_key=\"key1\",\n    service_name=\"pdalert\",\n))\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var pagerdutyAc = new Checkly.AlertChannel(\"pagerdutyAc\", new Checkly.AlertChannelArgs\n        {\n            Pagerduty = new Checkly.Inputs.AlertChannelPagerdutyArgs\n            {\n                Account = \"checkly\",\n                ServiceKey = \"key1\",\n                ServiceName = \"pdalert\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewAlertChannel(ctx, \"pagerdutyAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tPagerduty: \u0026AlertChannelPagerdutyArgs{\n\t\t\t\tAccount:     pulumi.String(\"checkly\"),\n\t\t\t\tServiceKey:  pulumi.String(\"key1\"),\n\t\t\t\tServiceName: pulumi.String(\"pdalert\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n*An Webhook alert channel*\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst webhookAc = new checkly.AlertChannel(\"webhook_ac\", {\n    webhook: {\n        method: \"get\",\n        name: \"foo\",\n        template: \"footemplate\",\n        url: \"http://example.com/foo\",\n        webhookSecret: \"foosecret\",\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nwebhook_ac = checkly.AlertChannel(\"webhookAc\", webhook=checkly.AlertChannelWebhookArgs(\n    method=\"get\",\n    name=\"foo\",\n    template=\"footemplate\",\n    url=\"http://example.com/foo\",\n    webhook_secret=\"foosecret\",\n))\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var webhookAc = new Checkly.AlertChannel(\"webhookAc\", new Checkly.AlertChannelArgs\n        {\n            Webhook = new Checkly.Inputs.AlertChannelWebhookArgs\n            {\n                Method = \"get\",\n                Name = \"foo\",\n                Template = \"footemplate\",\n                Url = \"http://example.com/foo\",\n                WebhookSecret = \"foosecret\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewAlertChannel(ctx, \"webhookAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tWebhook: \u0026AlertChannelWebhookArgs{\n\t\t\t\tMethod:        pulumi.String(\"get\"),\n\t\t\t\tName:          pulumi.String(\"foo\"),\n\t\t\t\tTemplate:      pulumi.String(\"footemplate\"),\n\t\t\t\tUrl:           pulumi.String(\"http://example.com/foo\"),\n\t\t\t\tWebhookSecret: pulumi.String(\"foosecret\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n*Connecting the alert channel to a check\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst example_check = new checkly.Check(\"example-check\", {alertChannelSubscriptions: [\n    {\n        channelId: checkly_alert_channel.email_ac.id,\n        activated: true,\n    },\n    {\n        channelId: checkly_alert_channel.sms_ac.id,\n        activated: true,\n    },\n]});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nexample_check = checkly.Check(\"example-check\", alert_channel_subscriptions=[\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=checkly_alert_channel[\"email_ac\"][\"id\"],\n        activated=True,\n    ),\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=checkly_alert_channel[\"sms_ac\"][\"id\"],\n        activated=True,\n    ),\n])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var example_check = new Checkly.Check(\"example-check\", new Checkly.CheckArgs\n        {\n            AlertChannelSubscriptions = \n            {\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = checkly_alert_channel.Email_ac.Id,\n                    Activated = true,\n                },\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = checkly_alert_channel.Sms_ac.Id,\n                    Activated = true,\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewCheck(ctx, \"example-check\", \u0026checkly.CheckArgs{\n\t\t\tAlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: pulumi.Any(checkly_alert_channel.Email_ac.Id),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: pulumi.Any(checkly_alert_channel.Sms_ac.Id),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n\n*Connecting the alert channel to a check group\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst test_group1 = new checkly.CheckGroup(\"test-group1\", {alertChannelSubscriptions: [\n    {\n        channelId: checkly_alert_channel.email_ac.id,\n        activated: true,\n    },\n    {\n        channelId: checkly_alert_channel.sms_ac.id,\n        activated: true,\n    },\n]});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_group1 = checkly.CheckGroup(\"test-group1\", alert_channel_subscriptions=[\n    checkly.CheckGroupAlertChannelSubscriptionArgs(\n        channel_id=checkly_alert_channel[\"email_ac\"][\"id\"],\n        activated=True,\n    ),\n    checkly.CheckGroupAlertChannelSubscriptionArgs(\n        channel_id=checkly_alert_channel[\"sms_ac\"][\"id\"],\n        activated=True,\n    ),\n])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var test_group1 = new Checkly.CheckGroup(\"test-group1\", new Checkly.CheckGroupArgs\n        {\n            AlertChannelSubscriptions = \n            {\n                new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs\n                {\n                    ChannelId = checkly_alert_channel.Email_ac.Id,\n                    Activated = true,\n                },\n                new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs\n                {\n                    ChannelId = checkly_alert_channel.Sms_ac.Id,\n                    Activated = true,\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewCheckGroup(ctx, \"test-group1\", \u0026checkly.CheckGroupArgs{\n\t\t\tAlertChannelSubscriptions: CheckGroupAlertChannelSubscriptionArray{\n\t\t\t\t\u0026CheckGroupAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: pulumi.Any(checkly_alert_channel.Email_ac.Id),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026CheckGroupAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: pulumi.Any(checkly_alert_channel.Sms_ac.Id),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "email": {
+                    "$ref": "#/types/checkly:index/AlertChannelEmail:AlertChannelEmail",
+                    "description": ":\n"
+                },
+                "opsgenie": {
+                    "$ref": "#/types/checkly:index/AlertChannelOpsgenie:AlertChannelOpsgenie"
+                },
+                "pagerduty": {
+                    "$ref": "#/types/checkly:index/AlertChannelPagerduty:AlertChannelPagerduty"
+                },
+                "sendDegraded": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "sendFailure": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "sendRecovery": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "slack": {
+                    "$ref": "#/types/checkly:index/AlertChannelSlack:AlertChannelSlack"
+                },
+                "sms": {
+                    "$ref": "#/types/checkly:index/AlertChannelSms:AlertChannelSms",
+                    "description": ":\n"
+                },
+                "sslExpiry": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "sslExpiryThreshold": {
+                    "type": "integer",
+                    "description": ". Possible values between 1 and 30. Default is `30`.\n"
+                },
+                "webhook": {
+                    "$ref": "#/types/checkly:index/AlertChannelWebhook:AlertChannelWebhook"
+                }
+            },
+            "inputProperties": {
+                "email": {
+                    "$ref": "#/types/checkly:index/AlertChannelEmail:AlertChannelEmail",
+                    "description": ":\n"
+                },
+                "opsgenie": {
+                    "$ref": "#/types/checkly:index/AlertChannelOpsgenie:AlertChannelOpsgenie"
+                },
+                "pagerduty": {
+                    "$ref": "#/types/checkly:index/AlertChannelPagerduty:AlertChannelPagerduty"
+                },
+                "sendDegraded": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "sendFailure": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "sendRecovery": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "slack": {
+                    "$ref": "#/types/checkly:index/AlertChannelSlack:AlertChannelSlack"
+                },
+                "sms": {
+                    "$ref": "#/types/checkly:index/AlertChannelSms:AlertChannelSms",
+                    "description": ":\n"
+                },
+                "sslExpiry": {
+                    "type": "boolean",
+                    "description": ". Possible values: `true` | `false`.\n"
+                },
+                "sslExpiryThreshold": {
+                    "type": "integer",
+                    "description": ". Possible values between 1 and 30. Default is `30`.\n"
+                },
+                "webhook": {
+                    "$ref": "#/types/checkly:index/AlertChannelWebhook:AlertChannelWebhook"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering AlertChannel resources.\n",
+                "properties": {
+                    "email": {
+                        "$ref": "#/types/checkly:index/AlertChannelEmail:AlertChannelEmail",
+                        "description": ":\n"
+                    },
+                    "opsgenie": {
+                        "$ref": "#/types/checkly:index/AlertChannelOpsgenie:AlertChannelOpsgenie"
+                    },
+                    "pagerduty": {
+                        "$ref": "#/types/checkly:index/AlertChannelPagerduty:AlertChannelPagerduty"
+                    },
+                    "sendDegraded": {
+                        "type": "boolean",
+                        "description": ". Possible values: `true` | `false`.\n"
+                    },
+                    "sendFailure": {
+                        "type": "boolean",
+                        "description": ". Possible values: `true` | `false`.\n"
+                    },
+                    "sendRecovery": {
+                        "type": "boolean",
+                        "description": ". Possible values: `true` | `false`.\n"
+                    },
+                    "slack": {
+                        "$ref": "#/types/checkly:index/AlertChannelSlack:AlertChannelSlack"
+                    },
+                    "sms": {
+                        "$ref": "#/types/checkly:index/AlertChannelSms:AlertChannelSms",
+                        "description": ":\n"
+                    },
+                    "sslExpiry": {
+                        "type": "boolean",
+                        "description": ". Possible values: `true` | `false`.\n"
+                    },
+                    "sslExpiryThreshold": {
+                        "type": "integer",
+                        "description": ". Possible values between 1 and 30. Default is `30`.\n"
+                    },
+                    "webhook": {
+                        "$ref": "#/types/checkly:index/AlertChannelWebhook:AlertChannelWebhook"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "checkly:index/check:Check": {
             "properties": {
                 "activated": {
@@ -1337,6 +1711,49 @@
                     "useGlobalAlertSettings": {
                         "type": "boolean",
                         "description": "When true, the account level alert setting will be used, not the alert setting defined on this check group.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/snippet:Snippet": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the snippet.\n"
+                },
+                "script": {
+                    "type": "string",
+                    "description": "Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.\n"
+                }
+            },
+            "required": [
+                "name",
+                "script"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the snippet.\n"
+                },
+                "script": {
+                    "type": "string",
+                    "description": "Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.\n"
+                }
+            },
+            "requiredInputs": [
+                "script"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Snippet resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the snippet.\n"
+                    },
+                    "script": {
+                        "type": "string",
+                        "description": "Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.\n"
                     }
                 },
                 "type": "object"

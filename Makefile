@@ -122,3 +122,11 @@ install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
 
+do::
+	make tfgen
+	make provider
+	make build_sdks
+	jq '.version = "1.0.0"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+	cp bin/pulumi-resource-checkly ${GOPATH}/bin
+	make install_nodejs_sdk
+	cd examples/js-test && yarn link @pulumi/checkly && cd -

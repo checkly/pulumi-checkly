@@ -4,6 +4,100 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "../types";
 
+export interface AlertChannelEmail {
+    /**
+     * the email address of this email alert channel.
+     */
+    address: pulumi.Input<string>;
+}
+
+export interface AlertChannelOpsgenie {
+    /**
+     * .
+     */
+    apiKey: pulumi.Input<string>;
+    /**
+     * Webhook's channel name.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * .
+     */
+    priority: pulumi.Input<string>;
+    /**
+     * .
+     */
+    region: pulumi.Input<string>;
+}
+
+export interface AlertChannelPagerduty {
+    /**
+     * Pagerduty's account name.
+     */
+    account?: pulumi.Input<string>;
+    /**
+     * Pagerduty's service integration key.
+     */
+    serviceKey: pulumi.Input<string>;
+    /**
+     * Pagerduty's service name.
+     */
+    serviceName?: pulumi.Input<string>;
+}
+
+export interface AlertChannelSlack {
+    /**
+     * Slack's channel name.
+     */
+    channel: pulumi.Input<string>;
+    /**
+     * .
+     */
+    url: pulumi.Input<string>;
+}
+
+export interface AlertChannelSms {
+    /**
+     * Webhook's channel name.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Mobile number to receive alerts.
+     */
+    number: pulumi.Input<string>;
+}
+
+export interface AlertChannelWebhook {
+    /**
+     * .
+     */
+    headers?: pulumi.Input<{[key: string]: any}>;
+    /**
+     * Default is `POST`.
+     */
+    method?: pulumi.Input<string>;
+    /**
+     * Webhook's channel name.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * .
+     */
+    queryParameters?: pulumi.Input<{[key: string]: any}>;
+    /**
+     * .
+     */
+    template?: pulumi.Input<string>;
+    /**
+     * .
+     */
+    url: pulumi.Input<string>;
+    /**
+     * .
+     */
+    webhookSecret?: pulumi.Input<string>;
+}
+
 export interface CheckAlertChannelSubscription {
     /**
      * Determines if the check is running or not. Possible values `true`, and `false`.

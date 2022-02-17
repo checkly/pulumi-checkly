@@ -5,9 +5,11 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .alert_channel import *
 from .check import *
 from .check_group import *
 from .provider import *
+from .snippet import *
 from ._inputs import *
 from . import outputs
 
@@ -23,6 +25,14 @@ _utilities.register(
 [
  {
   "pkg": "checkly",
+  "mod": "index/alertChannel",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/alertChannel:AlertChannel": "AlertChannel"
+  }
+ },
+ {
+  "pkg": "checkly",
   "mod": "index/check",
   "fqn": "pulumi_checkly",
   "classes": {
@@ -35,6 +45,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/checkGroup:CheckGroup": "CheckGroup"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/snippet",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/snippet:Snippet": "Snippet"
   }
  }
 ]

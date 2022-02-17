@@ -10,6 +10,1075 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+type AlertChannelEmail struct {
+	// the email address of this email alert channel.
+	Address string `pulumi:"address"`
+}
+
+// AlertChannelEmailInput is an input type that accepts AlertChannelEmailArgs and AlertChannelEmailOutput values.
+// You can construct a concrete instance of `AlertChannelEmailInput` via:
+//
+//          AlertChannelEmailArgs{...}
+type AlertChannelEmailInput interface {
+	pulumi.Input
+
+	ToAlertChannelEmailOutput() AlertChannelEmailOutput
+	ToAlertChannelEmailOutputWithContext(context.Context) AlertChannelEmailOutput
+}
+
+type AlertChannelEmailArgs struct {
+	// the email address of this email alert channel.
+	Address pulumi.StringInput `pulumi:"address"`
+}
+
+func (AlertChannelEmailArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelEmail)(nil)).Elem()
+}
+
+func (i AlertChannelEmailArgs) ToAlertChannelEmailOutput() AlertChannelEmailOutput {
+	return i.ToAlertChannelEmailOutputWithContext(context.Background())
+}
+
+func (i AlertChannelEmailArgs) ToAlertChannelEmailOutputWithContext(ctx context.Context) AlertChannelEmailOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelEmailOutput)
+}
+
+func (i AlertChannelEmailArgs) ToAlertChannelEmailPtrOutput() AlertChannelEmailPtrOutput {
+	return i.ToAlertChannelEmailPtrOutputWithContext(context.Background())
+}
+
+func (i AlertChannelEmailArgs) ToAlertChannelEmailPtrOutputWithContext(ctx context.Context) AlertChannelEmailPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelEmailOutput).ToAlertChannelEmailPtrOutputWithContext(ctx)
+}
+
+// AlertChannelEmailPtrInput is an input type that accepts AlertChannelEmailArgs, AlertChannelEmailPtr and AlertChannelEmailPtrOutput values.
+// You can construct a concrete instance of `AlertChannelEmailPtrInput` via:
+//
+//          AlertChannelEmailArgs{...}
+//
+//  or:
+//
+//          nil
+type AlertChannelEmailPtrInput interface {
+	pulumi.Input
+
+	ToAlertChannelEmailPtrOutput() AlertChannelEmailPtrOutput
+	ToAlertChannelEmailPtrOutputWithContext(context.Context) AlertChannelEmailPtrOutput
+}
+
+type alertChannelEmailPtrType AlertChannelEmailArgs
+
+func AlertChannelEmailPtr(v *AlertChannelEmailArgs) AlertChannelEmailPtrInput {
+	return (*alertChannelEmailPtrType)(v)
+}
+
+func (*alertChannelEmailPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelEmail)(nil)).Elem()
+}
+
+func (i *alertChannelEmailPtrType) ToAlertChannelEmailPtrOutput() AlertChannelEmailPtrOutput {
+	return i.ToAlertChannelEmailPtrOutputWithContext(context.Background())
+}
+
+func (i *alertChannelEmailPtrType) ToAlertChannelEmailPtrOutputWithContext(ctx context.Context) AlertChannelEmailPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelEmailPtrOutput)
+}
+
+type AlertChannelEmailOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelEmailOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelEmail)(nil)).Elem()
+}
+
+func (o AlertChannelEmailOutput) ToAlertChannelEmailOutput() AlertChannelEmailOutput {
+	return o
+}
+
+func (o AlertChannelEmailOutput) ToAlertChannelEmailOutputWithContext(ctx context.Context) AlertChannelEmailOutput {
+	return o
+}
+
+func (o AlertChannelEmailOutput) ToAlertChannelEmailPtrOutput() AlertChannelEmailPtrOutput {
+	return o.ToAlertChannelEmailPtrOutputWithContext(context.Background())
+}
+
+func (o AlertChannelEmailOutput) ToAlertChannelEmailPtrOutputWithContext(ctx context.Context) AlertChannelEmailPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertChannelEmail) *AlertChannelEmail {
+		return &v
+	}).(AlertChannelEmailPtrOutput)
+}
+
+// the email address of this email alert channel.
+func (o AlertChannelEmailOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelEmail) string { return v.Address }).(pulumi.StringOutput)
+}
+
+type AlertChannelEmailPtrOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelEmailPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelEmail)(nil)).Elem()
+}
+
+func (o AlertChannelEmailPtrOutput) ToAlertChannelEmailPtrOutput() AlertChannelEmailPtrOutput {
+	return o
+}
+
+func (o AlertChannelEmailPtrOutput) ToAlertChannelEmailPtrOutputWithContext(ctx context.Context) AlertChannelEmailPtrOutput {
+	return o
+}
+
+func (o AlertChannelEmailPtrOutput) Elem() AlertChannelEmailOutput {
+	return o.ApplyT(func(v *AlertChannelEmail) AlertChannelEmail {
+		if v != nil {
+			return *v
+		}
+		var ret AlertChannelEmail
+		return ret
+	}).(AlertChannelEmailOutput)
+}
+
+// the email address of this email alert channel.
+func (o AlertChannelEmailPtrOutput) Address() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelEmail) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Address
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertChannelOpsgenie struct {
+	// .
+	ApiKey string `pulumi:"apiKey"`
+	// Webhook's channel name.
+	Name string `pulumi:"name"`
+	// .
+	Priority string `pulumi:"priority"`
+	// .
+	Region string `pulumi:"region"`
+}
+
+// AlertChannelOpsgenieInput is an input type that accepts AlertChannelOpsgenieArgs and AlertChannelOpsgenieOutput values.
+// You can construct a concrete instance of `AlertChannelOpsgenieInput` via:
+//
+//          AlertChannelOpsgenieArgs{...}
+type AlertChannelOpsgenieInput interface {
+	pulumi.Input
+
+	ToAlertChannelOpsgenieOutput() AlertChannelOpsgenieOutput
+	ToAlertChannelOpsgenieOutputWithContext(context.Context) AlertChannelOpsgenieOutput
+}
+
+type AlertChannelOpsgenieArgs struct {
+	// .
+	ApiKey pulumi.StringInput `pulumi:"apiKey"`
+	// Webhook's channel name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// .
+	Priority pulumi.StringInput `pulumi:"priority"`
+	// .
+	Region pulumi.StringInput `pulumi:"region"`
+}
+
+func (AlertChannelOpsgenieArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelOpsgenie)(nil)).Elem()
+}
+
+func (i AlertChannelOpsgenieArgs) ToAlertChannelOpsgenieOutput() AlertChannelOpsgenieOutput {
+	return i.ToAlertChannelOpsgenieOutputWithContext(context.Background())
+}
+
+func (i AlertChannelOpsgenieArgs) ToAlertChannelOpsgenieOutputWithContext(ctx context.Context) AlertChannelOpsgenieOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelOpsgenieOutput)
+}
+
+func (i AlertChannelOpsgenieArgs) ToAlertChannelOpsgeniePtrOutput() AlertChannelOpsgeniePtrOutput {
+	return i.ToAlertChannelOpsgeniePtrOutputWithContext(context.Background())
+}
+
+func (i AlertChannelOpsgenieArgs) ToAlertChannelOpsgeniePtrOutputWithContext(ctx context.Context) AlertChannelOpsgeniePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelOpsgenieOutput).ToAlertChannelOpsgeniePtrOutputWithContext(ctx)
+}
+
+// AlertChannelOpsgeniePtrInput is an input type that accepts AlertChannelOpsgenieArgs, AlertChannelOpsgeniePtr and AlertChannelOpsgeniePtrOutput values.
+// You can construct a concrete instance of `AlertChannelOpsgeniePtrInput` via:
+//
+//          AlertChannelOpsgenieArgs{...}
+//
+//  or:
+//
+//          nil
+type AlertChannelOpsgeniePtrInput interface {
+	pulumi.Input
+
+	ToAlertChannelOpsgeniePtrOutput() AlertChannelOpsgeniePtrOutput
+	ToAlertChannelOpsgeniePtrOutputWithContext(context.Context) AlertChannelOpsgeniePtrOutput
+}
+
+type alertChannelOpsgeniePtrType AlertChannelOpsgenieArgs
+
+func AlertChannelOpsgeniePtr(v *AlertChannelOpsgenieArgs) AlertChannelOpsgeniePtrInput {
+	return (*alertChannelOpsgeniePtrType)(v)
+}
+
+func (*alertChannelOpsgeniePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelOpsgenie)(nil)).Elem()
+}
+
+func (i *alertChannelOpsgeniePtrType) ToAlertChannelOpsgeniePtrOutput() AlertChannelOpsgeniePtrOutput {
+	return i.ToAlertChannelOpsgeniePtrOutputWithContext(context.Background())
+}
+
+func (i *alertChannelOpsgeniePtrType) ToAlertChannelOpsgeniePtrOutputWithContext(ctx context.Context) AlertChannelOpsgeniePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelOpsgeniePtrOutput)
+}
+
+type AlertChannelOpsgenieOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelOpsgenieOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelOpsgenie)(nil)).Elem()
+}
+
+func (o AlertChannelOpsgenieOutput) ToAlertChannelOpsgenieOutput() AlertChannelOpsgenieOutput {
+	return o
+}
+
+func (o AlertChannelOpsgenieOutput) ToAlertChannelOpsgenieOutputWithContext(ctx context.Context) AlertChannelOpsgenieOutput {
+	return o
+}
+
+func (o AlertChannelOpsgenieOutput) ToAlertChannelOpsgeniePtrOutput() AlertChannelOpsgeniePtrOutput {
+	return o.ToAlertChannelOpsgeniePtrOutputWithContext(context.Background())
+}
+
+func (o AlertChannelOpsgenieOutput) ToAlertChannelOpsgeniePtrOutputWithContext(ctx context.Context) AlertChannelOpsgeniePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertChannelOpsgenie) *AlertChannelOpsgenie {
+		return &v
+	}).(AlertChannelOpsgeniePtrOutput)
+}
+
+// .
+func (o AlertChannelOpsgenieOutput) ApiKey() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.ApiKey }).(pulumi.StringOutput)
+}
+
+// Webhook's channel name.
+func (o AlertChannelOpsgenieOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// .
+func (o AlertChannelOpsgenieOutput) Priority() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.Priority }).(pulumi.StringOutput)
+}
+
+// .
+func (o AlertChannelOpsgenieOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.Region }).(pulumi.StringOutput)
+}
+
+type AlertChannelOpsgeniePtrOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelOpsgeniePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelOpsgenie)(nil)).Elem()
+}
+
+func (o AlertChannelOpsgeniePtrOutput) ToAlertChannelOpsgeniePtrOutput() AlertChannelOpsgeniePtrOutput {
+	return o
+}
+
+func (o AlertChannelOpsgeniePtrOutput) ToAlertChannelOpsgeniePtrOutputWithContext(ctx context.Context) AlertChannelOpsgeniePtrOutput {
+	return o
+}
+
+func (o AlertChannelOpsgeniePtrOutput) Elem() AlertChannelOpsgenieOutput {
+	return o.ApplyT(func(v *AlertChannelOpsgenie) AlertChannelOpsgenie {
+		if v != nil {
+			return *v
+		}
+		var ret AlertChannelOpsgenie
+		return ret
+	}).(AlertChannelOpsgenieOutput)
+}
+
+// .
+func (o AlertChannelOpsgeniePtrOutput) ApiKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ApiKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// Webhook's channel name.
+func (o AlertChannelOpsgeniePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// .
+func (o AlertChannelOpsgeniePtrOutput) Priority() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Priority
+	}).(pulumi.StringPtrOutput)
+}
+
+// .
+func (o AlertChannelOpsgeniePtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Region
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertChannelPagerduty struct {
+	// Pagerduty's account name.
+	Account *string `pulumi:"account"`
+	// Pagerduty's service integration key.
+	ServiceKey string `pulumi:"serviceKey"`
+	// Pagerduty's service name.
+	ServiceName *string `pulumi:"serviceName"`
+}
+
+// AlertChannelPagerdutyInput is an input type that accepts AlertChannelPagerdutyArgs and AlertChannelPagerdutyOutput values.
+// You can construct a concrete instance of `AlertChannelPagerdutyInput` via:
+//
+//          AlertChannelPagerdutyArgs{...}
+type AlertChannelPagerdutyInput interface {
+	pulumi.Input
+
+	ToAlertChannelPagerdutyOutput() AlertChannelPagerdutyOutput
+	ToAlertChannelPagerdutyOutputWithContext(context.Context) AlertChannelPagerdutyOutput
+}
+
+type AlertChannelPagerdutyArgs struct {
+	// Pagerduty's account name.
+	Account pulumi.StringPtrInput `pulumi:"account"`
+	// Pagerduty's service integration key.
+	ServiceKey pulumi.StringInput `pulumi:"serviceKey"`
+	// Pagerduty's service name.
+	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
+}
+
+func (AlertChannelPagerdutyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelPagerduty)(nil)).Elem()
+}
+
+func (i AlertChannelPagerdutyArgs) ToAlertChannelPagerdutyOutput() AlertChannelPagerdutyOutput {
+	return i.ToAlertChannelPagerdutyOutputWithContext(context.Background())
+}
+
+func (i AlertChannelPagerdutyArgs) ToAlertChannelPagerdutyOutputWithContext(ctx context.Context) AlertChannelPagerdutyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelPagerdutyOutput)
+}
+
+func (i AlertChannelPagerdutyArgs) ToAlertChannelPagerdutyPtrOutput() AlertChannelPagerdutyPtrOutput {
+	return i.ToAlertChannelPagerdutyPtrOutputWithContext(context.Background())
+}
+
+func (i AlertChannelPagerdutyArgs) ToAlertChannelPagerdutyPtrOutputWithContext(ctx context.Context) AlertChannelPagerdutyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelPagerdutyOutput).ToAlertChannelPagerdutyPtrOutputWithContext(ctx)
+}
+
+// AlertChannelPagerdutyPtrInput is an input type that accepts AlertChannelPagerdutyArgs, AlertChannelPagerdutyPtr and AlertChannelPagerdutyPtrOutput values.
+// You can construct a concrete instance of `AlertChannelPagerdutyPtrInput` via:
+//
+//          AlertChannelPagerdutyArgs{...}
+//
+//  or:
+//
+//          nil
+type AlertChannelPagerdutyPtrInput interface {
+	pulumi.Input
+
+	ToAlertChannelPagerdutyPtrOutput() AlertChannelPagerdutyPtrOutput
+	ToAlertChannelPagerdutyPtrOutputWithContext(context.Context) AlertChannelPagerdutyPtrOutput
+}
+
+type alertChannelPagerdutyPtrType AlertChannelPagerdutyArgs
+
+func AlertChannelPagerdutyPtr(v *AlertChannelPagerdutyArgs) AlertChannelPagerdutyPtrInput {
+	return (*alertChannelPagerdutyPtrType)(v)
+}
+
+func (*alertChannelPagerdutyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelPagerduty)(nil)).Elem()
+}
+
+func (i *alertChannelPagerdutyPtrType) ToAlertChannelPagerdutyPtrOutput() AlertChannelPagerdutyPtrOutput {
+	return i.ToAlertChannelPagerdutyPtrOutputWithContext(context.Background())
+}
+
+func (i *alertChannelPagerdutyPtrType) ToAlertChannelPagerdutyPtrOutputWithContext(ctx context.Context) AlertChannelPagerdutyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelPagerdutyPtrOutput)
+}
+
+type AlertChannelPagerdutyOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelPagerdutyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelPagerduty)(nil)).Elem()
+}
+
+func (o AlertChannelPagerdutyOutput) ToAlertChannelPagerdutyOutput() AlertChannelPagerdutyOutput {
+	return o
+}
+
+func (o AlertChannelPagerdutyOutput) ToAlertChannelPagerdutyOutputWithContext(ctx context.Context) AlertChannelPagerdutyOutput {
+	return o
+}
+
+func (o AlertChannelPagerdutyOutput) ToAlertChannelPagerdutyPtrOutput() AlertChannelPagerdutyPtrOutput {
+	return o.ToAlertChannelPagerdutyPtrOutputWithContext(context.Background())
+}
+
+func (o AlertChannelPagerdutyOutput) ToAlertChannelPagerdutyPtrOutputWithContext(ctx context.Context) AlertChannelPagerdutyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertChannelPagerduty) *AlertChannelPagerduty {
+		return &v
+	}).(AlertChannelPagerdutyPtrOutput)
+}
+
+// Pagerduty's account name.
+func (o AlertChannelPagerdutyOutput) Account() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertChannelPagerduty) *string { return v.Account }).(pulumi.StringPtrOutput)
+}
+
+// Pagerduty's service integration key.
+func (o AlertChannelPagerdutyOutput) ServiceKey() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelPagerduty) string { return v.ServiceKey }).(pulumi.StringOutput)
+}
+
+// Pagerduty's service name.
+func (o AlertChannelPagerdutyOutput) ServiceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertChannelPagerduty) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
+}
+
+type AlertChannelPagerdutyPtrOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelPagerdutyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelPagerduty)(nil)).Elem()
+}
+
+func (o AlertChannelPagerdutyPtrOutput) ToAlertChannelPagerdutyPtrOutput() AlertChannelPagerdutyPtrOutput {
+	return o
+}
+
+func (o AlertChannelPagerdutyPtrOutput) ToAlertChannelPagerdutyPtrOutputWithContext(ctx context.Context) AlertChannelPagerdutyPtrOutput {
+	return o
+}
+
+func (o AlertChannelPagerdutyPtrOutput) Elem() AlertChannelPagerdutyOutput {
+	return o.ApplyT(func(v *AlertChannelPagerduty) AlertChannelPagerduty {
+		if v != nil {
+			return *v
+		}
+		var ret AlertChannelPagerduty
+		return ret
+	}).(AlertChannelPagerdutyOutput)
+}
+
+// Pagerduty's account name.
+func (o AlertChannelPagerdutyPtrOutput) Account() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelPagerduty) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Account
+	}).(pulumi.StringPtrOutput)
+}
+
+// Pagerduty's service integration key.
+func (o AlertChannelPagerdutyPtrOutput) ServiceKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelPagerduty) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// Pagerduty's service name.
+func (o AlertChannelPagerdutyPtrOutput) ServiceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelPagerduty) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceName
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertChannelSlack struct {
+	// Slack's channel name.
+	Channel string `pulumi:"channel"`
+	// .
+	Url string `pulumi:"url"`
+}
+
+// AlertChannelSlackInput is an input type that accepts AlertChannelSlackArgs and AlertChannelSlackOutput values.
+// You can construct a concrete instance of `AlertChannelSlackInput` via:
+//
+//          AlertChannelSlackArgs{...}
+type AlertChannelSlackInput interface {
+	pulumi.Input
+
+	ToAlertChannelSlackOutput() AlertChannelSlackOutput
+	ToAlertChannelSlackOutputWithContext(context.Context) AlertChannelSlackOutput
+}
+
+type AlertChannelSlackArgs struct {
+	// Slack's channel name.
+	Channel pulumi.StringInput `pulumi:"channel"`
+	// .
+	Url pulumi.StringInput `pulumi:"url"`
+}
+
+func (AlertChannelSlackArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelSlack)(nil)).Elem()
+}
+
+func (i AlertChannelSlackArgs) ToAlertChannelSlackOutput() AlertChannelSlackOutput {
+	return i.ToAlertChannelSlackOutputWithContext(context.Background())
+}
+
+func (i AlertChannelSlackArgs) ToAlertChannelSlackOutputWithContext(ctx context.Context) AlertChannelSlackOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSlackOutput)
+}
+
+func (i AlertChannelSlackArgs) ToAlertChannelSlackPtrOutput() AlertChannelSlackPtrOutput {
+	return i.ToAlertChannelSlackPtrOutputWithContext(context.Background())
+}
+
+func (i AlertChannelSlackArgs) ToAlertChannelSlackPtrOutputWithContext(ctx context.Context) AlertChannelSlackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSlackOutput).ToAlertChannelSlackPtrOutputWithContext(ctx)
+}
+
+// AlertChannelSlackPtrInput is an input type that accepts AlertChannelSlackArgs, AlertChannelSlackPtr and AlertChannelSlackPtrOutput values.
+// You can construct a concrete instance of `AlertChannelSlackPtrInput` via:
+//
+//          AlertChannelSlackArgs{...}
+//
+//  or:
+//
+//          nil
+type AlertChannelSlackPtrInput interface {
+	pulumi.Input
+
+	ToAlertChannelSlackPtrOutput() AlertChannelSlackPtrOutput
+	ToAlertChannelSlackPtrOutputWithContext(context.Context) AlertChannelSlackPtrOutput
+}
+
+type alertChannelSlackPtrType AlertChannelSlackArgs
+
+func AlertChannelSlackPtr(v *AlertChannelSlackArgs) AlertChannelSlackPtrInput {
+	return (*alertChannelSlackPtrType)(v)
+}
+
+func (*alertChannelSlackPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelSlack)(nil)).Elem()
+}
+
+func (i *alertChannelSlackPtrType) ToAlertChannelSlackPtrOutput() AlertChannelSlackPtrOutput {
+	return i.ToAlertChannelSlackPtrOutputWithContext(context.Background())
+}
+
+func (i *alertChannelSlackPtrType) ToAlertChannelSlackPtrOutputWithContext(ctx context.Context) AlertChannelSlackPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSlackPtrOutput)
+}
+
+type AlertChannelSlackOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelSlackOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelSlack)(nil)).Elem()
+}
+
+func (o AlertChannelSlackOutput) ToAlertChannelSlackOutput() AlertChannelSlackOutput {
+	return o
+}
+
+func (o AlertChannelSlackOutput) ToAlertChannelSlackOutputWithContext(ctx context.Context) AlertChannelSlackOutput {
+	return o
+}
+
+func (o AlertChannelSlackOutput) ToAlertChannelSlackPtrOutput() AlertChannelSlackPtrOutput {
+	return o.ToAlertChannelSlackPtrOutputWithContext(context.Background())
+}
+
+func (o AlertChannelSlackOutput) ToAlertChannelSlackPtrOutputWithContext(ctx context.Context) AlertChannelSlackPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertChannelSlack) *AlertChannelSlack {
+		return &v
+	}).(AlertChannelSlackPtrOutput)
+}
+
+// Slack's channel name.
+func (o AlertChannelSlackOutput) Channel() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelSlack) string { return v.Channel }).(pulumi.StringOutput)
+}
+
+// .
+func (o AlertChannelSlackOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelSlack) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type AlertChannelSlackPtrOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelSlackPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelSlack)(nil)).Elem()
+}
+
+func (o AlertChannelSlackPtrOutput) ToAlertChannelSlackPtrOutput() AlertChannelSlackPtrOutput {
+	return o
+}
+
+func (o AlertChannelSlackPtrOutput) ToAlertChannelSlackPtrOutputWithContext(ctx context.Context) AlertChannelSlackPtrOutput {
+	return o
+}
+
+func (o AlertChannelSlackPtrOutput) Elem() AlertChannelSlackOutput {
+	return o.ApplyT(func(v *AlertChannelSlack) AlertChannelSlack {
+		if v != nil {
+			return *v
+		}
+		var ret AlertChannelSlack
+		return ret
+	}).(AlertChannelSlackOutput)
+}
+
+// Slack's channel name.
+func (o AlertChannelSlackPtrOutput) Channel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelSlack) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Channel
+	}).(pulumi.StringPtrOutput)
+}
+
+// .
+func (o AlertChannelSlackPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelSlack) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertChannelSms struct {
+	// Webhook's channel name.
+	Name string `pulumi:"name"`
+	// Mobile number to receive alerts.
+	Number string `pulumi:"number"`
+}
+
+// AlertChannelSmsInput is an input type that accepts AlertChannelSmsArgs and AlertChannelSmsOutput values.
+// You can construct a concrete instance of `AlertChannelSmsInput` via:
+//
+//          AlertChannelSmsArgs{...}
+type AlertChannelSmsInput interface {
+	pulumi.Input
+
+	ToAlertChannelSmsOutput() AlertChannelSmsOutput
+	ToAlertChannelSmsOutputWithContext(context.Context) AlertChannelSmsOutput
+}
+
+type AlertChannelSmsArgs struct {
+	// Webhook's channel name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Mobile number to receive alerts.
+	Number pulumi.StringInput `pulumi:"number"`
+}
+
+func (AlertChannelSmsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelSms)(nil)).Elem()
+}
+
+func (i AlertChannelSmsArgs) ToAlertChannelSmsOutput() AlertChannelSmsOutput {
+	return i.ToAlertChannelSmsOutputWithContext(context.Background())
+}
+
+func (i AlertChannelSmsArgs) ToAlertChannelSmsOutputWithContext(ctx context.Context) AlertChannelSmsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSmsOutput)
+}
+
+func (i AlertChannelSmsArgs) ToAlertChannelSmsPtrOutput() AlertChannelSmsPtrOutput {
+	return i.ToAlertChannelSmsPtrOutputWithContext(context.Background())
+}
+
+func (i AlertChannelSmsArgs) ToAlertChannelSmsPtrOutputWithContext(ctx context.Context) AlertChannelSmsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSmsOutput).ToAlertChannelSmsPtrOutputWithContext(ctx)
+}
+
+// AlertChannelSmsPtrInput is an input type that accepts AlertChannelSmsArgs, AlertChannelSmsPtr and AlertChannelSmsPtrOutput values.
+// You can construct a concrete instance of `AlertChannelSmsPtrInput` via:
+//
+//          AlertChannelSmsArgs{...}
+//
+//  or:
+//
+//          nil
+type AlertChannelSmsPtrInput interface {
+	pulumi.Input
+
+	ToAlertChannelSmsPtrOutput() AlertChannelSmsPtrOutput
+	ToAlertChannelSmsPtrOutputWithContext(context.Context) AlertChannelSmsPtrOutput
+}
+
+type alertChannelSmsPtrType AlertChannelSmsArgs
+
+func AlertChannelSmsPtr(v *AlertChannelSmsArgs) AlertChannelSmsPtrInput {
+	return (*alertChannelSmsPtrType)(v)
+}
+
+func (*alertChannelSmsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelSms)(nil)).Elem()
+}
+
+func (i *alertChannelSmsPtrType) ToAlertChannelSmsPtrOutput() AlertChannelSmsPtrOutput {
+	return i.ToAlertChannelSmsPtrOutputWithContext(context.Background())
+}
+
+func (i *alertChannelSmsPtrType) ToAlertChannelSmsPtrOutputWithContext(ctx context.Context) AlertChannelSmsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSmsPtrOutput)
+}
+
+type AlertChannelSmsOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelSmsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelSms)(nil)).Elem()
+}
+
+func (o AlertChannelSmsOutput) ToAlertChannelSmsOutput() AlertChannelSmsOutput {
+	return o
+}
+
+func (o AlertChannelSmsOutput) ToAlertChannelSmsOutputWithContext(ctx context.Context) AlertChannelSmsOutput {
+	return o
+}
+
+func (o AlertChannelSmsOutput) ToAlertChannelSmsPtrOutput() AlertChannelSmsPtrOutput {
+	return o.ToAlertChannelSmsPtrOutputWithContext(context.Background())
+}
+
+func (o AlertChannelSmsOutput) ToAlertChannelSmsPtrOutputWithContext(ctx context.Context) AlertChannelSmsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertChannelSms) *AlertChannelSms {
+		return &v
+	}).(AlertChannelSmsPtrOutput)
+}
+
+// Webhook's channel name.
+func (o AlertChannelSmsOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelSms) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Mobile number to receive alerts.
+func (o AlertChannelSmsOutput) Number() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelSms) string { return v.Number }).(pulumi.StringOutput)
+}
+
+type AlertChannelSmsPtrOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelSmsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelSms)(nil)).Elem()
+}
+
+func (o AlertChannelSmsPtrOutput) ToAlertChannelSmsPtrOutput() AlertChannelSmsPtrOutput {
+	return o
+}
+
+func (o AlertChannelSmsPtrOutput) ToAlertChannelSmsPtrOutputWithContext(ctx context.Context) AlertChannelSmsPtrOutput {
+	return o
+}
+
+func (o AlertChannelSmsPtrOutput) Elem() AlertChannelSmsOutput {
+	return o.ApplyT(func(v *AlertChannelSms) AlertChannelSms {
+		if v != nil {
+			return *v
+		}
+		var ret AlertChannelSms
+		return ret
+	}).(AlertChannelSmsOutput)
+}
+
+// Webhook's channel name.
+func (o AlertChannelSmsPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelSms) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Mobile number to receive alerts.
+func (o AlertChannelSmsPtrOutput) Number() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelSms) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Number
+	}).(pulumi.StringPtrOutput)
+}
+
+type AlertChannelWebhook struct {
+	// .
+	Headers map[string]interface{} `pulumi:"headers"`
+	// Default is `POST`.
+	Method *string `pulumi:"method"`
+	// Webhook's channel name.
+	Name string `pulumi:"name"`
+	// .
+	QueryParameters map[string]interface{} `pulumi:"queryParameters"`
+	// .
+	Template *string `pulumi:"template"`
+	// .
+	Url string `pulumi:"url"`
+	// .
+	WebhookSecret *string `pulumi:"webhookSecret"`
+}
+
+// AlertChannelWebhookInput is an input type that accepts AlertChannelWebhookArgs and AlertChannelWebhookOutput values.
+// You can construct a concrete instance of `AlertChannelWebhookInput` via:
+//
+//          AlertChannelWebhookArgs{...}
+type AlertChannelWebhookInput interface {
+	pulumi.Input
+
+	ToAlertChannelWebhookOutput() AlertChannelWebhookOutput
+	ToAlertChannelWebhookOutputWithContext(context.Context) AlertChannelWebhookOutput
+}
+
+type AlertChannelWebhookArgs struct {
+	// .
+	Headers pulumi.MapInput `pulumi:"headers"`
+	// Default is `POST`.
+	Method pulumi.StringPtrInput `pulumi:"method"`
+	// Webhook's channel name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// .
+	QueryParameters pulumi.MapInput `pulumi:"queryParameters"`
+	// .
+	Template pulumi.StringPtrInput `pulumi:"template"`
+	// .
+	Url pulumi.StringInput `pulumi:"url"`
+	// .
+	WebhookSecret pulumi.StringPtrInput `pulumi:"webhookSecret"`
+}
+
+func (AlertChannelWebhookArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelWebhook)(nil)).Elem()
+}
+
+func (i AlertChannelWebhookArgs) ToAlertChannelWebhookOutput() AlertChannelWebhookOutput {
+	return i.ToAlertChannelWebhookOutputWithContext(context.Background())
+}
+
+func (i AlertChannelWebhookArgs) ToAlertChannelWebhookOutputWithContext(ctx context.Context) AlertChannelWebhookOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelWebhookOutput)
+}
+
+func (i AlertChannelWebhookArgs) ToAlertChannelWebhookPtrOutput() AlertChannelWebhookPtrOutput {
+	return i.ToAlertChannelWebhookPtrOutputWithContext(context.Background())
+}
+
+func (i AlertChannelWebhookArgs) ToAlertChannelWebhookPtrOutputWithContext(ctx context.Context) AlertChannelWebhookPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelWebhookOutput).ToAlertChannelWebhookPtrOutputWithContext(ctx)
+}
+
+// AlertChannelWebhookPtrInput is an input type that accepts AlertChannelWebhookArgs, AlertChannelWebhookPtr and AlertChannelWebhookPtrOutput values.
+// You can construct a concrete instance of `AlertChannelWebhookPtrInput` via:
+//
+//          AlertChannelWebhookArgs{...}
+//
+//  or:
+//
+//          nil
+type AlertChannelWebhookPtrInput interface {
+	pulumi.Input
+
+	ToAlertChannelWebhookPtrOutput() AlertChannelWebhookPtrOutput
+	ToAlertChannelWebhookPtrOutputWithContext(context.Context) AlertChannelWebhookPtrOutput
+}
+
+type alertChannelWebhookPtrType AlertChannelWebhookArgs
+
+func AlertChannelWebhookPtr(v *AlertChannelWebhookArgs) AlertChannelWebhookPtrInput {
+	return (*alertChannelWebhookPtrType)(v)
+}
+
+func (*alertChannelWebhookPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelWebhook)(nil)).Elem()
+}
+
+func (i *alertChannelWebhookPtrType) ToAlertChannelWebhookPtrOutput() AlertChannelWebhookPtrOutput {
+	return i.ToAlertChannelWebhookPtrOutputWithContext(context.Background())
+}
+
+func (i *alertChannelWebhookPtrType) ToAlertChannelWebhookPtrOutputWithContext(ctx context.Context) AlertChannelWebhookPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelWebhookPtrOutput)
+}
+
+type AlertChannelWebhookOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelWebhookOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelWebhook)(nil)).Elem()
+}
+
+func (o AlertChannelWebhookOutput) ToAlertChannelWebhookOutput() AlertChannelWebhookOutput {
+	return o
+}
+
+func (o AlertChannelWebhookOutput) ToAlertChannelWebhookOutputWithContext(ctx context.Context) AlertChannelWebhookOutput {
+	return o
+}
+
+func (o AlertChannelWebhookOutput) ToAlertChannelWebhookPtrOutput() AlertChannelWebhookPtrOutput {
+	return o.ToAlertChannelWebhookPtrOutputWithContext(context.Background())
+}
+
+func (o AlertChannelWebhookOutput) ToAlertChannelWebhookPtrOutputWithContext(ctx context.Context) AlertChannelWebhookPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertChannelWebhook) *AlertChannelWebhook {
+		return &v
+	}).(AlertChannelWebhookPtrOutput)
+}
+
+// .
+func (o AlertChannelWebhookOutput) Headers() pulumi.MapOutput {
+	return o.ApplyT(func(v AlertChannelWebhook) map[string]interface{} { return v.Headers }).(pulumi.MapOutput)
+}
+
+// Default is `POST`.
+func (o AlertChannelWebhookOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.Method }).(pulumi.StringPtrOutput)
+}
+
+// Webhook's channel name.
+func (o AlertChannelWebhookOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelWebhook) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// .
+func (o AlertChannelWebhookOutput) QueryParameters() pulumi.MapOutput {
+	return o.ApplyT(func(v AlertChannelWebhook) map[string]interface{} { return v.QueryParameters }).(pulumi.MapOutput)
+}
+
+// .
+func (o AlertChannelWebhookOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.Template }).(pulumi.StringPtrOutput)
+}
+
+// .
+func (o AlertChannelWebhookOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v AlertChannelWebhook) string { return v.Url }).(pulumi.StringOutput)
+}
+
+// .
+func (o AlertChannelWebhookOutput) WebhookSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.WebhookSecret }).(pulumi.StringPtrOutput)
+}
+
+type AlertChannelWebhookPtrOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelWebhookPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelWebhook)(nil)).Elem()
+}
+
+func (o AlertChannelWebhookPtrOutput) ToAlertChannelWebhookPtrOutput() AlertChannelWebhookPtrOutput {
+	return o
+}
+
+func (o AlertChannelWebhookPtrOutput) ToAlertChannelWebhookPtrOutputWithContext(ctx context.Context) AlertChannelWebhookPtrOutput {
+	return o
+}
+
+func (o AlertChannelWebhookPtrOutput) Elem() AlertChannelWebhookOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) AlertChannelWebhook {
+		if v != nil {
+			return *v
+		}
+		var ret AlertChannelWebhook
+		return ret
+	}).(AlertChannelWebhookOutput)
+}
+
+// .
+func (o AlertChannelWebhookPtrOutput) Headers() pulumi.MapOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(pulumi.MapOutput)
+}
+
+// Default is `POST`.
+func (o AlertChannelWebhookPtrOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Method
+	}).(pulumi.StringPtrOutput)
+}
+
+// Webhook's channel name.
+func (o AlertChannelWebhookPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// .
+func (o AlertChannelWebhookPtrOutput) QueryParameters() pulumi.MapOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.QueryParameters
+	}).(pulumi.MapOutput)
+}
+
+// .
+func (o AlertChannelWebhookPtrOutput) Template() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Template
+	}).(pulumi.StringPtrOutput)
+}
+
+// .
+func (o AlertChannelWebhookPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+// .
+func (o AlertChannelWebhookPtrOutput) WebhookSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AlertChannelWebhook) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WebhookSecret
+	}).(pulumi.StringPtrOutput)
+}
+
 type CheckAlertChannelSubscription struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated bool `pulumi:"activated"`
@@ -2517,6 +3586,18 @@ func (o CheckRequestBasicAuthPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelEmailInput)(nil)).Elem(), AlertChannelEmailArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelEmailPtrInput)(nil)).Elem(), AlertChannelEmailArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelOpsgenieInput)(nil)).Elem(), AlertChannelOpsgenieArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelOpsgeniePtrInput)(nil)).Elem(), AlertChannelOpsgenieArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelPagerdutyInput)(nil)).Elem(), AlertChannelPagerdutyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelPagerdutyPtrInput)(nil)).Elem(), AlertChannelPagerdutyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSlackInput)(nil)).Elem(), AlertChannelSlackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSlackPtrInput)(nil)).Elem(), AlertChannelSlackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSmsInput)(nil)).Elem(), AlertChannelSmsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSmsPtrInput)(nil)).Elem(), AlertChannelSmsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelWebhookInput)(nil)).Elem(), AlertChannelWebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelWebhookPtrInput)(nil)).Elem(), AlertChannelWebhookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertChannelSubscriptionInput)(nil)).Elem(), CheckAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertChannelSubscriptionArrayInput)(nil)).Elem(), CheckAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertSettingsInput)(nil)).Elem(), CheckAlertSettingsArgs{})
@@ -2553,6 +3634,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestAssertionArrayInput)(nil)).Elem(), CheckRequestAssertionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestBasicAuthInput)(nil)).Elem(), CheckRequestBasicAuthArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestBasicAuthPtrInput)(nil)).Elem(), CheckRequestBasicAuthArgs{})
+	pulumi.RegisterOutputType(AlertChannelEmailOutput{})
+	pulumi.RegisterOutputType(AlertChannelEmailPtrOutput{})
+	pulumi.RegisterOutputType(AlertChannelOpsgenieOutput{})
+	pulumi.RegisterOutputType(AlertChannelOpsgeniePtrOutput{})
+	pulumi.RegisterOutputType(AlertChannelPagerdutyOutput{})
+	pulumi.RegisterOutputType(AlertChannelPagerdutyPtrOutput{})
+	pulumi.RegisterOutputType(AlertChannelSlackOutput{})
+	pulumi.RegisterOutputType(AlertChannelSlackPtrOutput{})
+	pulumi.RegisterOutputType(AlertChannelSmsOutput{})
+	pulumi.RegisterOutputType(AlertChannelSmsPtrOutput{})
+	pulumi.RegisterOutputType(AlertChannelWebhookOutput{})
+	pulumi.RegisterOutputType(AlertChannelWebhookPtrOutput{})
 	pulumi.RegisterOutputType(CheckAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(CheckAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(CheckAlertSettingsOutput{})

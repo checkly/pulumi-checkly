@@ -20,10 +20,14 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "checkly:index/alertChannel:AlertChannel":
+		r = &AlertChannel{}
 	case "checkly:index/check:Check":
 		r = &Check{}
 	case "checkly:index/checkGroup:CheckGroup":
 		r = &CheckGroup{}
+	case "checkly:index/snippet:Snippet":
+		r = &Snippet{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -57,12 +61,22 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"checkly",
+		"index/alertChannel",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
 		"index/check",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/checkGroup",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/snippet",
 		&module{version},
 	)
 	pulumi.RegisterResourcePackage(
