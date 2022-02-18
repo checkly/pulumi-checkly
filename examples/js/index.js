@@ -57,3 +57,14 @@ new checkly.MaintenanceWindow('maintenance', {
 new checkly.TriggerCheckGroup('trigger', {
   groupId:  group.id.apply(id => parseInt(id)),
 })
+
+new checkly.PublicDashboard('dashboard', {
+  customDomain: 'nacho',
+  customUrl: '',
+  header: '',
+  hideTags: false,
+  logo: '',
+  paginate: false,
+  paginationRate: 30,
+  refreshRate: 300,
+})

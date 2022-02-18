@@ -10,6 +10,7 @@ from .check import *
 from .check_group import *
 from .maintenance_window import *
 from .provider import *
+from .public_dashboard import *
 from .snippet import *
 from .trigger_check import *
 from .trigger_check_group import *
@@ -56,6 +57,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/maintenanceWindow:MaintenanceWindow": "MaintenanceWindow"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/publicDashboard",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/publicDashboard:PublicDashboard": "PublicDashboard"
   }
  },
  {

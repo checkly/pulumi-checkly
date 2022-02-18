@@ -84,6 +84,9 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_maintenance_windows": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MaintenanceWindow"),
 			},
+			"checkly_dashboard": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PublicDashboard"),
+			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			// List any npm dependencies and their versions

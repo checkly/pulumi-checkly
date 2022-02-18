@@ -1837,6 +1837,137 @@
                 "type": "object"
             }
         },
+        "checkly:index/publicDashboard:PublicDashboard": {
+            "properties": {
+                "customDomain": {
+                    "type": "string"
+                },
+                "customUrl": {
+                    "type": "string"
+                },
+                "header": {
+                    "type": "string"
+                },
+                "hideTags": {
+                    "type": "boolean"
+                },
+                "logo": {
+                    "type": "string"
+                },
+                "paginate": {
+                    "type": "boolean"
+                },
+                "paginationRate": {
+                    "type": "integer"
+                },
+                "refreshRate": {
+                    "type": "integer"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "width": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "customDomain",
+                "customUrl",
+                "header",
+                "hideTags",
+                "logo",
+                "paginate",
+                "paginationRate",
+                "refreshRate"
+            ],
+            "inputProperties": {
+                "customDomain": {
+                    "type": "string"
+                },
+                "customUrl": {
+                    "type": "string"
+                },
+                "header": {
+                    "type": "string"
+                },
+                "hideTags": {
+                    "type": "boolean"
+                },
+                "logo": {
+                    "type": "string"
+                },
+                "paginate": {
+                    "type": "boolean"
+                },
+                "paginationRate": {
+                    "type": "integer"
+                },
+                "refreshRate": {
+                    "type": "integer"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "width": {
+                    "type": "string"
+                }
+            },
+            "requiredInputs": [
+                "customDomain",
+                "customUrl",
+                "header",
+                "hideTags",
+                "logo",
+                "paginate",
+                "paginationRate",
+                "refreshRate"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering PublicDashboard resources.\n",
+                "properties": {
+                    "customDomain": {
+                        "type": "string"
+                    },
+                    "customUrl": {
+                        "type": "string"
+                    },
+                    "header": {
+                        "type": "string"
+                    },
+                    "hideTags": {
+                        "type": "boolean"
+                    },
+                    "logo": {
+                        "type": "string"
+                    },
+                    "paginate": {
+                        "type": "boolean"
+                    },
+                    "paginationRate": {
+                        "type": "integer"
+                    },
+                    "refreshRate": {
+                        "type": "integer"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "width": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "checkly:index/snippet:Snippet": {
             "properties": {
                 "name": {

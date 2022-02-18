@@ -21,6 +21,7 @@
         "index.ts",
         "maintenanceWindow.ts",
         "provider.ts",
+        "publicDashboard.ts",
         "snippet.ts",
         "triggerCheck.ts",
         "triggerCheckGroup.ts",

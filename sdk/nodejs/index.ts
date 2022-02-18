@@ -10,6 +10,7 @@ export * from "./check";
 export * from "./checkGroup";
 export * from "./maintenanceWindow";
 export * from "./provider";
+export * from "./publicDashboard";
 export * from "./snippet";
 export * from "./triggerCheck";
 export * from "./triggerCheckGroup";
@@ -28,6 +29,7 @@ import { AlertChannel } from "./alertChannel";
 import { Check } from "./check";
 import { CheckGroup } from "./checkGroup";
 import { MaintenanceWindow } from "./maintenanceWindow";
+import { PublicDashboard } from "./publicDashboard";
 import { Snippet } from "./snippet";
 import { TriggerCheck } from "./triggerCheck";
 import { TriggerCheckGroup } from "./triggerCheckGroup";
@@ -44,6 +46,8 @@ const _module = {
                 return new CheckGroup(name, <any>undefined, { urn })
             case "checkly:index/maintenanceWindow:MaintenanceWindow":
                 return new MaintenanceWindow(name, <any>undefined, { urn })
+            case "checkly:index/publicDashboard:PublicDashboard":
+                return new PublicDashboard(name, <any>undefined, { urn })
             case "checkly:index/snippet:Snippet":
                 return new Snippet(name, <any>undefined, { urn })
             case "checkly:index/triggerCheck:TriggerCheck":
@@ -59,6 +63,7 @@ pulumi.runtime.registerResourceModule("checkly", "index/alertChannel", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/check", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/publicDashboard", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)
