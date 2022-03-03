@@ -60,8 +60,6 @@ new checkly.TriggerCheckGroup('trigger', {
 
 new checkly.PublicDashboard('dashboard', {
   customDomain: 'nacho',
-  customUrl: '',
-  header: '',
   hideTags: false,
   logo: '',
   paginate: false,

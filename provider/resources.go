@@ -93,6 +93,16 @@ func Provider() tfbridge.ProviderInfo {
 							Value: "",
 						},
 					},
+					"customUrl": {
+						Default: &tfbridge.DefaultInfo{
+							Value: "",
+						},
+					},
+					"logo": {
+						Default: &tfbridge.DefaultInfo{
+							Value: "",
+						},
+					},
 				},
 			},
 		},
