@@ -1,28 +1,28 @@
 {
-  "name": "@pulumi/checkly",
-  "version": "1.0.0",
-  "description": "A Pulumi package for creating and managing checkly cloud resources.",
-  "keywords": [
-    "pulumi",
-    "checkly",
-    "category/monitoring"
-  ],
-  "homepage": "https://www.pulumi.com",
-  "repository": "https://github.com/checkly/pulumi-checkly",
-  "license": "Apache-2.0",
-  "scripts": {
-    "build": "tsc"
-  },
-  "dependencies": {
-    "@pulumi/pulumi": "^3.0.0"
-  },
-  "devDependencies": {
-    "@types/mime": "^2.0.0",
-    "@types/node": "^10.0.0",
-    "typescript": "^4.3.5"
-  },
-  "pulumi": {
-    "resource": true,
-    "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/${VERSION}"
-  }
+    "name": "@pulumi/checkly",
+    "version": "${VERSION}",
+    "description": "A Pulumi package for creating and managing checkly cloud resources.",
+    "keywords": [
+        "pulumi",
+        "checkly",
+        "category/monitoring"
+    ],
+    "homepage": "https://www.pulumi.com",
+    "repository": "https://github.com/checkly/pulumi-checkly",
+    "license": "Apache-2.0",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "3.0.0"
+    },
+    "devDependencies": {
+        "@types/mime": "2.0.0",
+        "@types/node": "10.0.0",
+        "typescript": "^4.3.5"
+    },
+    "pulumi": {
+        "resource": true,
+        "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/${VERSION}"
+    }
 }

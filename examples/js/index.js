@@ -1,7 +1,7 @@
 const fs = require('fs')
-const checkly = require( "@pulumi/checkly");
+const checkly = require( "@pulumi/checkly")
 
-const script = fs.readFileSync("./test.js", 'utf-8');
+const script = fs.readFileSync("./test.js", 'utf-8')
 
 const channel = new checkly.AlertChannel("pulumi-channel", {
   email: {
@@ -21,9 +21,9 @@ const group = new checkly.CheckGroup("pulumi-group", {
       channelId: channel.id.apply(id => parseInt(id)),
     }
   ]
-});
+})
 
-const apiCheck = new checkly.Check("pulumi-api-check", {
+new checkly.Check("pulumi-api-check", {
   activated: true,
   frequency: 10,
   type: "API",
@@ -32,7 +32,7 @@ const apiCheck = new checkly.Check("pulumi-api-check", {
     method: "GET",
     url: "https://checklhq.com",
   }
-});
+})
 
 new checkly.Check("pulumi-brwoser-check", {
   activated: true,
@@ -40,7 +40,7 @@ new checkly.Check("pulumi-brwoser-check", {
   type: "BROWSER",
   groupId: group.id.apply(id => parseInt(id)),
   script,
-});
+})
 
 new checkly.Snippet('snippet', {
   script,

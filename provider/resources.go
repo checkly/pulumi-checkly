@@ -16,6 +16,7 @@ package checkly
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 
 	"github.com/checkly/pulumi-checkly/provider/pkg/version"
@@ -45,7 +46,7 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
-	// Instantiate the Terraform provider
+	os.Setenv("CHECKLY_API_SOURCE", "PULUMI")
 	p := shimv2.NewProvider(checkly.Provider())
 
 	// Create a Pulumi provider mapping
@@ -86,6 +87,13 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_dashboard": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PublicDashboard"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"header": {
+						Default: &tfbridge.DefaultInfo{
+							Value: "",
+						},
+					},
+				},
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

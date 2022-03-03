@@ -4,6 +4,7 @@
 **/obj/
 Pulumi.*.yaml
 sdk/nodejs/node_modules
+node_modules/
 
 **/command-output/
 
@@ -12,3 +13,6 @@ sdk/nodejs/node_modules
 
 yarn.lock
 .DS_Store
+.vscode
+
+
