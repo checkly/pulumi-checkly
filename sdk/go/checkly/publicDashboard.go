@@ -39,14 +39,8 @@ func NewPublicDashboard(ctx *pulumi.Context,
 	if args.CustomUrl == nil {
 		return nil, errors.New("invalid value for required argument 'CustomUrl'")
 	}
-	if args.Header == nil {
-		return nil, errors.New("invalid value for required argument 'Header'")
-	}
 	if args.HideTags == nil {
 		return nil, errors.New("invalid value for required argument 'HideTags'")
-	}
-	if args.Logo == nil {
-		return nil, errors.New("invalid value for required argument 'Logo'")
 	}
 	if args.Paginate == nil {
 		return nil, errors.New("invalid value for required argument 'Paginate'")
@@ -56,6 +50,12 @@ func NewPublicDashboard(ctx *pulumi.Context,
 	}
 	if args.RefreshRate == nil {
 		return nil, errors.New("invalid value for required argument 'RefreshRate'")
+	}
+	if isZero(args.Header) {
+		args.Header = pulumi.StringPtr("")
+	}
+	if isZero(args.Logo) {
+		args.Logo = pulumi.StringPtr("")
 	}
 	var resource PublicDashboard
 	err := ctx.RegisterResource("checkly:index/publicDashboard:PublicDashboard", name, args, &resource, opts...)
@@ -111,9 +111,9 @@ func (PublicDashboardState) ElementType() reflect.Type {
 type publicDashboardArgs struct {
 	CustomDomain   string   `pulumi:"customDomain"`
 	CustomUrl      string   `pulumi:"customUrl"`
-	Header         string   `pulumi:"header"`
+	Header         *string  `pulumi:"header"`
 	HideTags       bool     `pulumi:"hideTags"`
-	Logo           string   `pulumi:"logo"`
+	Logo           *string  `pulumi:"logo"`
 	Paginate       bool     `pulumi:"paginate"`
 	PaginationRate int      `pulumi:"paginationRate"`
 	RefreshRate    int      `pulumi:"refreshRate"`
@@ -125,9 +125,9 @@ type publicDashboardArgs struct {
 type PublicDashboardArgs struct {
 	CustomDomain   pulumi.StringInput
 	CustomUrl      pulumi.StringInput
-	Header         pulumi.StringInput
+	Header         pulumi.StringPtrInput
 	HideTags       pulumi.BoolInput
-	Logo           pulumi.StringInput
+	Logo           pulumi.StringPtrInput
 	Paginate       pulumi.BoolInput
 	PaginationRate pulumi.IntInput
 	RefreshRate    pulumi.IntInput

@@ -14,7 +14,7 @@ const group = new checkly.CheckGroup("pulumi-group", {
   activated: true,
   concurrency: 1,
   locations: ['us-east-1'],
-  apiCheckDefaults: { url: 'https://www.pulumi.com' },
+  apiCheckDefaults: null,
   alertChannelSubscriptions: [
     {
       activated: true,
@@ -60,6 +60,8 @@ new checkly.TriggerCheckGroup('trigger', {
 
 new checkly.PublicDashboard('dashboard', {
   customDomain: 'nacho',
+  customUrl: '',
+  header: '',
   hideTags: false,
   logo: '',
   paginate: false,

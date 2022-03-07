@@ -15,12 +15,12 @@ class PublicDashboardArgs:
     def __init__(__self__, *,
                  custom_domain: pulumi.Input[str],
                  custom_url: pulumi.Input[str],
-                 header: pulumi.Input[str],
                  hide_tags: pulumi.Input[bool],
-                 logo: pulumi.Input[str],
                  paginate: pulumi.Input[bool],
                  pagination_rate: pulumi.Input[int],
                  refresh_rate: pulumi.Input[int],
+                 header: Optional[pulumi.Input[str]] = None,
+                 logo: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  width: Optional[pulumi.Input[str]] = None):
         """
@@ -28,12 +28,18 @@ class PublicDashboardArgs:
         """
         pulumi.set(__self__, "custom_domain", custom_domain)
         pulumi.set(__self__, "custom_url", custom_url)
-        pulumi.set(__self__, "header", header)
         pulumi.set(__self__, "hide_tags", hide_tags)
-        pulumi.set(__self__, "logo", logo)
         pulumi.set(__self__, "paginate", paginate)
         pulumi.set(__self__, "pagination_rate", pagination_rate)
         pulumi.set(__self__, "refresh_rate", refresh_rate)
+        if header is None:
+            header = ''
+        if header is not None:
+            pulumi.set(__self__, "header", header)
+        if logo is None:
+            logo = ''
+        if logo is not None:
+            pulumi.set(__self__, "logo", logo)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if width is not None:
@@ -58,15 +64,6 @@ class PublicDashboardArgs:
         pulumi.set(self, "custom_url", value)
 
     @property
-    @pulumi.getter
-    def header(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "header")
-
-    @header.setter
-    def header(self, value: pulumi.Input[str]):
-        pulumi.set(self, "header", value)
-
-    @property
     @pulumi.getter(name="hideTags")
     def hide_tags(self) -> pulumi.Input[bool]:
         return pulumi.get(self, "hide_tags")
@@ -74,15 +71,6 @@ class PublicDashboardArgs:
     @hide_tags.setter
     def hide_tags(self, value: pulumi.Input[bool]):
         pulumi.set(self, "hide_tags", value)
-
-    @property
-    @pulumi.getter
-    def logo(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "logo")
-
-    @logo.setter
-    def logo(self, value: pulumi.Input[str]):
-        pulumi.set(self, "logo", value)
 
     @property
     @pulumi.getter
@@ -110,6 +98,24 @@ class PublicDashboardArgs:
     @refresh_rate.setter
     def refresh_rate(self, value: pulumi.Input[int]):
         pulumi.set(self, "refresh_rate", value)
+
+    @property
+    @pulumi.getter
+    def header(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "header")
+
+    @header.setter
+    def header(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "header", value)
+
+    @property
+    @pulumi.getter
+    def logo(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "logo")
+
+    @logo.setter
+    def logo(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "logo", value)
 
     @property
     @pulumi.getter
@@ -150,10 +156,14 @@ class _PublicDashboardState:
             pulumi.set(__self__, "custom_domain", custom_domain)
         if custom_url is not None:
             pulumi.set(__self__, "custom_url", custom_url)
+        if header is None:
+            header = ''
         if header is not None:
             pulumi.set(__self__, "header", header)
         if hide_tags is not None:
             pulumi.set(__self__, "hide_tags", hide_tags)
+        if logo is None:
+            logo = ''
         if logo is not None:
             pulumi.set(__self__, "logo", logo)
         if paginate is not None:
@@ -330,14 +340,14 @@ class PublicDashboard(pulumi.CustomResource):
             if custom_url is None and not opts.urn:
                 raise TypeError("Missing required property 'custom_url'")
             __props__.__dict__["custom_url"] = custom_url
-            if header is None and not opts.urn:
-                raise TypeError("Missing required property 'header'")
+            if header is None:
+                header = ''
             __props__.__dict__["header"] = header
             if hide_tags is None and not opts.urn:
                 raise TypeError("Missing required property 'hide_tags'")
             __props__.__dict__["hide_tags"] = hide_tags
-            if logo is None and not opts.urn:
-                raise TypeError("Missing required property 'logo'")
+            if logo is None:
+                logo = ''
             __props__.__dict__["logo"] = logo
             if paginate is None and not opts.urn:
                 raise TypeError("Missing required property 'paginate'")

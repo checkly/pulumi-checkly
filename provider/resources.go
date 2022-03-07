@@ -69,6 +69,13 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_check_group": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CheckGroup"),
+				// Fields: map[string]*tfbridge.SchemaInfo{
+				// 	"apiCheckDefaults": {
+				// 		Default: &tfbridge.DefaultInfo{
+				// 			Value: nil,
+				// 		},
+				// 	},
+				// },
 			},
 			"checkly_alert_channel": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "AlertChannel"),
@@ -87,23 +94,23 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_dashboard": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PublicDashboard"),
-				Fields: map[string]*tfbridge.SchemaInfo{
-					"header": {
-						Default: &tfbridge.DefaultInfo{
-							Value: "",
-						},
-					},
-					"customUrl": {
-						Default: &tfbridge.DefaultInfo{
-							Value: "",
-						},
-					},
-					"logo": {
-						Default: &tfbridge.DefaultInfo{
-							Value: "",
-						},
-					},
-				},
+				// Fields: map[string]*tfbridge.SchemaInfo{
+				// "header": {
+				// 	Default: &tfbridge.DefaultInfo{
+				// 		Value: "",
+				// 	},
+				// },
+				// "customUrl": {
+				// 	Default: &tfbridge.DefaultInfo{
+				// 		Value: "",
+				// 	},
+				// },
+				// "logo": {
+				// 	Default: &tfbridge.DefaultInfo{
+				// 		Value: "",
+				// 	},
+				// },
+				// },
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

@@ -94,14 +94,14 @@ namespace Pulumi.Checkly
         [Input("customUrl", required: true)]
         public Input<string> CustomUrl { get; set; } = null!;
 
-        [Input("header", required: true)]
-        public Input<string> Header { get; set; } = null!;
+        [Input("header")]
+        public Input<string>? Header { get; set; }
 
         [Input("hideTags", required: true)]
         public Input<bool> HideTags { get; set; } = null!;
 
-        [Input("logo", required: true)]
-        public Input<string> Logo { get; set; } = null!;
+        [Input("logo")]
+        public Input<string>? Logo { get; set; }
 
         [Input("paginate", required: true)]
         public Input<bool> Paginate { get; set; } = null!;
@@ -125,6 +125,8 @@ namespace Pulumi.Checkly
 
         public PublicDashboardArgs()
         {
+            Header = "";
+            Logo = "";
         }
     }
 
@@ -167,6 +169,8 @@ namespace Pulumi.Checkly
 
         public PublicDashboardState()
         {
+            Header = "";
+            Logo = "";
         }
     }
 }
