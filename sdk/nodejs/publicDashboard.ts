@@ -74,8 +74,14 @@ export class PublicDashboard extends pulumi.CustomResource {
             if ((!args || args.customUrl === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'customUrl'");
             }
+            if ((!args || args.header === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'header'");
+            }
             if ((!args || args.hideTags === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'hideTags'");
+            }
+            if ((!args || args.logo === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'logo'");
             }
             if ((!args || args.paginate === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'paginate'");
@@ -88,9 +94,9 @@ export class PublicDashboard extends pulumi.CustomResource {
             }
             resourceInputs["customDomain"] = args ? args.customDomain : undefined;
             resourceInputs["customUrl"] = args ? args.customUrl : undefined;
-            resourceInputs["header"] = (args ? args.header : undefined) ?? "";
+            resourceInputs["header"] = args ? args.header : undefined;
             resourceInputs["hideTags"] = args ? args.hideTags : undefined;
-            resourceInputs["logo"] = (args ? args.logo : undefined) ?? "";
+            resourceInputs["logo"] = args ? args.logo : undefined;
             resourceInputs["paginate"] = args ? args.paginate : undefined;
             resourceInputs["paginationRate"] = args ? args.paginationRate : undefined;
             resourceInputs["refreshRate"] = args ? args.refreshRate : undefined;
@@ -126,9 +132,9 @@ export interface PublicDashboardState {
 export interface PublicDashboardArgs {
     customDomain: pulumi.Input<string>;
     customUrl: pulumi.Input<string>;
-    header?: pulumi.Input<string>;
+    header: pulumi.Input<string>;
     hideTags: pulumi.Input<boolean>;
-    logo?: pulumi.Input<string>;
+    logo: pulumi.Input<string>;
     paginate: pulumi.Input<boolean>;
     paginationRate: pulumi.Input<number>;
     refreshRate: pulumi.Input<number>;
