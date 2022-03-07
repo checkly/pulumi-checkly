@@ -1,10 +1,19 @@
 **🚨 This project is still in very early stages and is not stable, _use at your own risk_! 🚨**
 
-# Checkly Pulumi Provider
+<p align="center">
+  <img width="400px" src="./assets/pulumi.svg" alt="Pulumi" />
+</p>
 
-The Checkly Resource Provider lets you manage [Checkly](https://checklyhq.com) resources.
+<p>
+  <img height="128" src="./assets/checkly.svg" align="right" />
+  <h1>Checkly Pulumi Provider</h1>
+</p>
 
-## Installing
+> 🟪 Pulumi provider for the [Checkly](https://checklyhq.com) Delightful Active Monitoring
+
+<br>
+
+## 🪛 Installing
 
 This package is available for several languages/platforms:
 
@@ -46,13 +55,36 @@ To use from .NET, install using `dotnet add package`:
 dotnet add package Pulumi.Checkly
 ```
 
-## Configuration
+<br>
+
+## ⚙️  Configuration
 
 The following configuration points are available for the `foo` provider:
 
 - `checkly:apiKey` (environment: `CHECKLY_API_KEY`) - the Checkly API Key.
 - `checkly:accountId` (environment: `CHECKLY_ACCOUNT_ID`) - the Checkly account ID.
 
-## Reference
+<br>
 
-For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/foo/api-docs/).
+## 📖 Reference
+
+For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/checkly/api-docs/).
+
+<br>
+
+## 📄 License
+
+[MIT](https://github.com/checkly/pulumi-checkly/blob/main/LICENSE)
+
+<br>
+
+
+<p align="center">
+  <a href="https://checklyhq.com?utm_source=github&utm_medium=sponsor-logo-github&utm_campaign=headless-recorder" target="_blank">
+  <img width="100px" src="https://www.checklyhq.com/images/text_racoon_logo.svg" alt="Checkly" />
+  </a>
+  <br />
+  <i><sub>Delightful Active Monitoring for Developers</sub></i>
+  <br>
+  <b><sub>From Checkly with ♥️</sub></b>
+<p>
