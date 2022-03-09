@@ -12,9 +12,6 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class AlertChannelEmailGetArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// the email address of this email alert channel.
-        /// </summary>
         [Input("address", required: true)]
         public Input<string> Address { get; set; } = null!;
 

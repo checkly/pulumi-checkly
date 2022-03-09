@@ -12,9 +12,6 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class CheckGroupAlertSettingsRunBasedEscalationArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
-        /// </summary>
         [Input("failedRunThreshold")]
         public Input<int>? FailedRunThreshold { get; set; }
 

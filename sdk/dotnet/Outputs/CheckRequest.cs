@@ -13,42 +13,15 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckRequest
     {
-        /// <summary>
-        /// A request can have multiple assetions. Assertion has the following arguments:
-        /// </summary>
         public readonly ImmutableArray<Outputs.CheckRequestAssertion> Assertions;
-        /// <summary>
-        /// A request might have one basic_auth config. basic_auth has two arguments:
-        /// </summary>
         public readonly Outputs.CheckRequestBasicAuth? BasicAuth;
         public readonly string? Body;
-        /// <summary>
-        /// Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
-        /// </summary>
         public readonly string? BodyType;
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly bool? FollowRedirects;
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly ImmutableDictionary<string, object>? Headers;
-        /// <summary>
-        /// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.
-        /// </summary>
         public readonly string? Method;
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly ImmutableDictionary<string, object>? QueryParameters;
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly bool? SkipSsl;
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly string Url;
 
         [OutputConstructor]

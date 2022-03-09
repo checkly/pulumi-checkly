@@ -14,9 +14,7 @@ import (
 type Snippet struct {
 	pulumi.CustomResourceState
 
-	// The name of the snippet.
-	Name pulumi.StringOutput `pulumi:"name"`
-	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
+	Name   pulumi.StringOutput `pulumi:"name"`
 	Script pulumi.StringOutput `pulumi:"script"`
 }
 
@@ -52,16 +50,12 @@ func GetSnippet(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Snippet resources.
 type snippetState struct {
-	// The name of the snippet.
-	Name *string `pulumi:"name"`
-	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
+	Name   *string `pulumi:"name"`
 	Script *string `pulumi:"script"`
 }
 
 type SnippetState struct {
-	// The name of the snippet.
-	Name pulumi.StringPtrInput
-	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
+	Name   pulumi.StringPtrInput
 	Script pulumi.StringPtrInput
 }
 
@@ -70,17 +64,13 @@ func (SnippetState) ElementType() reflect.Type {
 }
 
 type snippetArgs struct {
-	// The name of the snippet.
-	Name *string `pulumi:"name"`
-	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
-	Script string `pulumi:"script"`
+	Name   *string `pulumi:"name"`
+	Script string  `pulumi:"script"`
 }
 
 // The set of arguments for constructing a Snippet resource.
 type SnippetArgs struct {
-	// The name of the snippet.
-	Name pulumi.StringPtrInput
-	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
+	Name   pulumi.StringPtrInput
 	Script pulumi.StringInput
 }
 

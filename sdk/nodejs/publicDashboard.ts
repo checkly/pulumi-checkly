@@ -32,14 +32,14 @@ export class PublicDashboard extends pulumi.CustomResource {
         return obj['__pulumiType'] === PublicDashboard.__pulumiType;
     }
 
-    public readonly customDomain!: pulumi.Output<string>;
+    public readonly customDomain!: pulumi.Output<string | undefined>;
     public readonly customUrl!: pulumi.Output<string>;
-    public readonly header!: pulumi.Output<string>;
-    public readonly hideTags!: pulumi.Output<boolean>;
-    public readonly logo!: pulumi.Output<string>;
-    public readonly paginate!: pulumi.Output<boolean>;
-    public readonly paginationRate!: pulumi.Output<number>;
-    public readonly refreshRate!: pulumi.Output<number>;
+    public readonly header!: pulumi.Output<string | undefined>;
+    public readonly hideTags!: pulumi.Output<boolean | undefined>;
+    public readonly logo!: pulumi.Output<string | undefined>;
+    public readonly paginate!: pulumi.Output<boolean | undefined>;
+    public readonly paginationRate!: pulumi.Output<number | undefined>;
+    public readonly refreshRate!: pulumi.Output<number | undefined>;
     public readonly tags!: pulumi.Output<string[] | undefined>;
     public readonly width!: pulumi.Output<string | undefined>;
 
@@ -68,29 +68,8 @@ export class PublicDashboard extends pulumi.CustomResource {
             resourceInputs["width"] = state ? state.width : undefined;
         } else {
             const args = argsOrState as PublicDashboardArgs | undefined;
-            if ((!args || args.customDomain === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'customDomain'");
-            }
             if ((!args || args.customUrl === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'customUrl'");
-            }
-            if ((!args || args.header === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'header'");
-            }
-            if ((!args || args.hideTags === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'hideTags'");
-            }
-            if ((!args || args.logo === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'logo'");
-            }
-            if ((!args || args.paginate === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'paginate'");
-            }
-            if ((!args || args.paginationRate === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'paginationRate'");
-            }
-            if ((!args || args.refreshRate === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'refreshRate'");
             }
             resourceInputs["customDomain"] = args ? args.customDomain : undefined;
             resourceInputs["customUrl"] = args ? args.customUrl : undefined;
@@ -130,14 +109,14 @@ export interface PublicDashboardState {
  * The set of arguments for constructing a PublicDashboard resource.
  */
 export interface PublicDashboardArgs {
-    customDomain: pulumi.Input<string>;
+    customDomain?: pulumi.Input<string>;
     customUrl: pulumi.Input<string>;
-    header: pulumi.Input<string>;
-    hideTags: pulumi.Input<boolean>;
-    logo: pulumi.Input<string>;
-    paginate: pulumi.Input<boolean>;
-    paginationRate: pulumi.Input<number>;
-    refreshRate: pulumi.Input<number>;
+    header?: pulumi.Input<string>;
+    hideTags?: pulumi.Input<boolean>;
+    logo?: pulumi.Input<string>;
+    paginate?: pulumi.Input<boolean>;
+    paginationRate?: pulumi.Input<number>;
+    refreshRate?: pulumi.Input<number>;
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     width?: pulumi.Input<string>;
 }

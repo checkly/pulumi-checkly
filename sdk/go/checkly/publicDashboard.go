@@ -14,14 +14,14 @@ import (
 type PublicDashboard struct {
 	pulumi.CustomResourceState
 
-	CustomDomain   pulumi.StringOutput      `pulumi:"customDomain"`
+	CustomDomain   pulumi.StringPtrOutput   `pulumi:"customDomain"`
 	CustomUrl      pulumi.StringOutput      `pulumi:"customUrl"`
-	Header         pulumi.StringOutput      `pulumi:"header"`
-	HideTags       pulumi.BoolOutput        `pulumi:"hideTags"`
-	Logo           pulumi.StringOutput      `pulumi:"logo"`
-	Paginate       pulumi.BoolOutput        `pulumi:"paginate"`
-	PaginationRate pulumi.IntOutput         `pulumi:"paginationRate"`
-	RefreshRate    pulumi.IntOutput         `pulumi:"refreshRate"`
+	Header         pulumi.StringPtrOutput   `pulumi:"header"`
+	HideTags       pulumi.BoolPtrOutput     `pulumi:"hideTags"`
+	Logo           pulumi.StringPtrOutput   `pulumi:"logo"`
+	Paginate       pulumi.BoolPtrOutput     `pulumi:"paginate"`
+	PaginationRate pulumi.IntPtrOutput      `pulumi:"paginationRate"`
+	RefreshRate    pulumi.IntPtrOutput      `pulumi:"refreshRate"`
 	Tags           pulumi.StringArrayOutput `pulumi:"tags"`
 	Width          pulumi.StringPtrOutput   `pulumi:"width"`
 }
@@ -33,29 +33,8 @@ func NewPublicDashboard(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.CustomDomain == nil {
-		return nil, errors.New("invalid value for required argument 'CustomDomain'")
-	}
 	if args.CustomUrl == nil {
 		return nil, errors.New("invalid value for required argument 'CustomUrl'")
-	}
-	if args.Header == nil {
-		return nil, errors.New("invalid value for required argument 'Header'")
-	}
-	if args.HideTags == nil {
-		return nil, errors.New("invalid value for required argument 'HideTags'")
-	}
-	if args.Logo == nil {
-		return nil, errors.New("invalid value for required argument 'Logo'")
-	}
-	if args.Paginate == nil {
-		return nil, errors.New("invalid value for required argument 'Paginate'")
-	}
-	if args.PaginationRate == nil {
-		return nil, errors.New("invalid value for required argument 'PaginationRate'")
-	}
-	if args.RefreshRate == nil {
-		return nil, errors.New("invalid value for required argument 'RefreshRate'")
 	}
 	var resource PublicDashboard
 	err := ctx.RegisterResource("checkly:index/publicDashboard:PublicDashboard", name, args, &resource, opts...)
@@ -109,28 +88,28 @@ func (PublicDashboardState) ElementType() reflect.Type {
 }
 
 type publicDashboardArgs struct {
-	CustomDomain   string   `pulumi:"customDomain"`
+	CustomDomain   *string  `pulumi:"customDomain"`
 	CustomUrl      string   `pulumi:"customUrl"`
-	Header         string   `pulumi:"header"`
-	HideTags       bool     `pulumi:"hideTags"`
-	Logo           string   `pulumi:"logo"`
-	Paginate       bool     `pulumi:"paginate"`
-	PaginationRate int      `pulumi:"paginationRate"`
-	RefreshRate    int      `pulumi:"refreshRate"`
+	Header         *string  `pulumi:"header"`
+	HideTags       *bool    `pulumi:"hideTags"`
+	Logo           *string  `pulumi:"logo"`
+	Paginate       *bool    `pulumi:"paginate"`
+	PaginationRate *int     `pulumi:"paginationRate"`
+	RefreshRate    *int     `pulumi:"refreshRate"`
 	Tags           []string `pulumi:"tags"`
 	Width          *string  `pulumi:"width"`
 }
 
 // The set of arguments for constructing a PublicDashboard resource.
 type PublicDashboardArgs struct {
-	CustomDomain   pulumi.StringInput
+	CustomDomain   pulumi.StringPtrInput
 	CustomUrl      pulumi.StringInput
-	Header         pulumi.StringInput
-	HideTags       pulumi.BoolInput
-	Logo           pulumi.StringInput
-	Paginate       pulumi.BoolInput
-	PaginationRate pulumi.IntInput
-	RefreshRate    pulumi.IntInput
+	Header         pulumi.StringPtrInput
+	HideTags       pulumi.BoolPtrInput
+	Logo           pulumi.StringPtrInput
+	Paginate       pulumi.BoolPtrInput
+	PaginationRate pulumi.IntPtrInput
+	RefreshRate    pulumi.IntPtrInput
 	Tags           pulumi.StringArrayInput
 	Width          pulumi.StringPtrInput
 }

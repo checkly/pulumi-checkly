@@ -130,3 +130,4 @@ do::
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
 	make install_nodejs_sdk
 	cd examples/js && yarn link @pulumi/checkly && cd -
+	cd examples/ts && yarn link @pulumi/checkly && cd -

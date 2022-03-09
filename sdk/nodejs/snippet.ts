@@ -32,13 +32,7 @@ export class Snippet extends pulumi.CustomResource {
         return obj['__pulumiType'] === Snippet.__pulumiType;
     }
 
-    /**
-     * The name of the snippet.
-     */
     public readonly name!: pulumi.Output<string>;
-    /**
-     * Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
-     */
     public readonly script!: pulumi.Output<string>;
 
     /**
@@ -75,13 +69,7 @@ export class Snippet extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Snippet resources.
  */
 export interface SnippetState {
-    /**
-     * The name of the snippet.
-     */
     name?: pulumi.Input<string>;
-    /**
-     * Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
-     */
     script?: pulumi.Input<string>;
 }
 
@@ -89,12 +77,6 @@ export interface SnippetState {
  * The set of arguments for constructing a Snippet resource.
  */
 export interface SnippetArgs {
-    /**
-     * The name of the snippet.
-     */
     name?: pulumi.Input<string>;
-    /**
-     * Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
-     */
     script: pulumi.Input<string>;
 }

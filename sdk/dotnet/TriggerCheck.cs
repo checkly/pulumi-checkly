@@ -9,41 +9,9 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
-    /// <summary>
-    /// ## # checkly.TriggerCheck
-    /// 
-    /// `checkly.TriggerCheck` allows users to manage Checkly trigger checks. Add a `checkly.TriggerCheck` resource to your resource file.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// Trigger check example
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var test_trigger_check = new Checkly.TriggerCheck("test-trigger-check", new Checkly.TriggerCheckArgs
-    ///         {
-    ///             CheckId = "c1ff95c5-d7f6-4a90-9ce2-1e605f117592",
-    ///         });
-    ///         this.Test_trigger_check_url = test_trigger_check.Url;
-    ///     }
-    /// 
-    ///     [Output("test-trigger-check-url")]
-    ///     public Output&lt;string&gt; Test_trigger_check_url { get; set; }
-    /// }
-    /// ```
-    /// </summary>
     [ChecklyResourceType("checkly:index/triggerCheck:TriggerCheck")]
     public partial class TriggerCheck : Pulumi.CustomResource
     {
-        /// <summary>
-        /// The id of the check that you want to attach the trigger to.
-        /// </summary>
         [Output("checkId")]
         public Output<string> CheckId { get; private set; } = null!;
 
@@ -99,9 +67,6 @@ namespace Pulumi.Checkly
 
     public sealed class TriggerCheckArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// The id of the check that you want to attach the trigger to.
-        /// </summary>
         [Input("checkId", required: true)]
         public Input<string> CheckId { get; set; } = null!;
 
@@ -118,9 +83,6 @@ namespace Pulumi.Checkly
 
     public sealed class TriggerCheckState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// The id of the check that you want to attach the trigger to.
-        /// </summary>
         [Input("checkId")]
         public Input<string>? CheckId { get; set; }
 

@@ -12,150 +12,81 @@ namespace Pulumi.Checkly
     [ChecklyResourceType("checkly:index/check:Check")]
     public partial class Check : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
-        /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.CheckAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
-        /// <summary>
-        /// . Supported values documented below.
-        /// </summary>
         [Output("alertSettings")]
         public Output<Outputs.CheckAlertSettings> AlertSettings { get; private set; } = null!;
 
-        /// <summary>
-        /// The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
-        /// </summary>
         [Output("degradedResponseTime")]
         public Output<int?> DegradedResponseTime { get; private set; } = null!;
 
-        /// <summary>
-        /// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
-        /// </summary>
         [Output("doubleCheck")]
         public Output<bool?> DoubleCheck { get; private set; } = null!;
 
-        /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        /// </summary>
         [Output("environmentVariables")]
         public Output<ImmutableDictionary<string, object>?> EnvironmentVariables { get; private set; } = null!;
 
-        /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
-        /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
-        /// <summary>
-        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
-        /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
 
-        /// <summary>
-        /// . The id of the check group this check is part of.
-        /// </summary>
         [Output("groupId")]
         public Output<int?> GroupId { get; private set; } = null!;
 
-        /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
-        /// </summary>
         [Output("groupOrder")]
         public Output<int?> GroupOrder { get; private set; } = null!;
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase.
-        /// </summary>
         [Output("localSetupScript")]
         public Output<string?> LocalSetupScript { get; private set; } = null!;
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase.
-        /// </summary>
         [Output("localTeardownScript")]
         public Output<string?> LocalTeardownScript { get; private set; } = null!;
 
-        /// <summary>
-        /// An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
-        /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
-        /// <summary>
-        /// The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
-        /// </summary>
         [Output("maxResponseTime")]
         public Output<int?> MaxResponseTime { get; private set; } = null!;
 
-        /// <summary>
-        /// Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
-        /// </summary>
         [Output("muted")]
         public Output<bool?> Muted { get; private set; } = null!;
 
-        /// <summary>
-        /// The name of the check.
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        /// <summary>
-        /// . An API check might have one request config. Supported values documented below.
-        /// </summary>
         [Output("request")]
         public Output<Outputs.CheckRequest?> Request { get; private set; } = null!;
 
-        /// <summary>
-        /// . The id of the runtime to use for this check.
-        /// </summary>
         [Output("runtimeId")]
         public Output<string?> RuntimeId { get; private set; } = null!;
 
         [Output("script")]
         public Output<string?> Script { get; private set; } = null!;
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
-        /// </summary>
         [Output("setupSnippetId")]
         public Output<int?> SetupSnippetId { get; private set; } = null!;
 
-        /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
-        /// </summary>
         [Output("shouldFail")]
         public Output<bool?> ShouldFail { get; private set; } = null!;
 
-        /// <summary>
-        /// Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
-        /// </summary>
         [Output("sslCheck")]
         public Output<bool?> SslCheck { get; private set; } = null!;
 
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
-        /// </summary>
         [Output("teardownSnippetId")]
         public Output<int?> TeardownSnippetId { get; private set; } = null!;
 
-        /// <summary>
-        /// The type of the check. Possible values are `API`, and `BROWSER`.
-        /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
 
-        /// <summary>
-        /// When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
-        /// </summary>
         [Output("useGlobalAlertSettings")]
         public Output<bool?> UseGlobalAlertSettings { get; private set; } = null!;
 
@@ -205,9 +136,6 @@ namespace Pulumi.Checkly
 
     public sealed class CheckArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
-        /// </summary>
         [Input("activated", required: true)]
         public Input<bool> Activated { get; set; } = null!;
 
@@ -219,132 +147,73 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
-        /// <summary>
-        /// . Supported values documented below.
-        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckAlertSettingsArgs>? AlertSettings { get; set; }
 
-        /// <summary>
-        /// The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
-        /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
 
-        /// <summary>
-        /// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
-        /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
         [Input("environmentVariables")]
         private InputMap<object>? _environmentVariables;
-
-        /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        /// </summary>
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
             set => _environmentVariables = value;
         }
 
-        /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
-        /// </summary>
         [Input("frequency", required: true)]
         public Input<int> Frequency { get; set; } = null!;
 
-        /// <summary>
-        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
-        /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
-        /// <summary>
-        /// . The id of the check group this check is part of.
-        /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
-        /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
-        /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase.
-        /// </summary>
         [Input("localSetupScript")]
         public Input<string>? LocalSetupScript { get; set; }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase.
-        /// </summary>
         [Input("localTeardownScript")]
         public Input<string>? LocalTeardownScript { get; set; }
 
         [Input("locations")]
         private InputList<string>? _locations;
-
-        /// <summary>
-        /// An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
-        /// </summary>
         public InputList<string> Locations
         {
             get => _locations ?? (_locations = new InputList<string>());
             set => _locations = value;
         }
 
-        /// <summary>
-        /// The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
-        /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
-        /// <summary>
-        /// Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
-        /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
 
-        /// <summary>
-        /// The name of the check.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// . An API check might have one request config. Supported values documented below.
-        /// </summary>
         [Input("request")]
         public Input<Inputs.CheckRequestArgs>? Request { get; set; }
 
-        /// <summary>
-        /// . The id of the runtime to use for this check.
-        /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         [Input("script")]
         public Input<string>? Script { get; set; }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
-        /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
 
-        /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
-        /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
 
-        /// <summary>
-        /// Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
-        /// </summary>
         [Input("sslCheck")]
         public Input<bool>? SslCheck { get; set; }
 
@@ -356,21 +225,12 @@ namespace Pulumi.Checkly
             set => _tags = value;
         }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
-        /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
 
-        /// <summary>
-        /// The type of the check. Possible values are `API`, and `BROWSER`.
-        /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
 
-        /// <summary>
-        /// When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
-        /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
 
@@ -381,9 +241,6 @@ namespace Pulumi.Checkly
 
     public sealed class CheckState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
-        /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
 
@@ -395,132 +252,73 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
-        /// <summary>
-        /// . Supported values documented below.
-        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckAlertSettingsGetArgs>? AlertSettings { get; set; }
 
-        /// <summary>
-        /// The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
-        /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
 
-        /// <summary>
-        /// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
-        /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
         [Input("environmentVariables")]
         private InputMap<object>? _environmentVariables;
-
-        /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        /// </summary>
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
             set => _environmentVariables = value;
         }
 
-        /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
-        /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
-        /// <summary>
-        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
-        /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
-        /// <summary>
-        /// . The id of the check group this check is part of.
-        /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
-        /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
-        /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase.
-        /// </summary>
         [Input("localSetupScript")]
         public Input<string>? LocalSetupScript { get; set; }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase.
-        /// </summary>
         [Input("localTeardownScript")]
         public Input<string>? LocalTeardownScript { get; set; }
 
         [Input("locations")]
         private InputList<string>? _locations;
-
-        /// <summary>
-        /// An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
-        /// </summary>
         public InputList<string> Locations
         {
             get => _locations ?? (_locations = new InputList<string>());
             set => _locations = value;
         }
 
-        /// <summary>
-        /// The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
-        /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
-        /// <summary>
-        /// Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
-        /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
 
-        /// <summary>
-        /// The name of the check.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// . An API check might have one request config. Supported values documented below.
-        /// </summary>
         [Input("request")]
         public Input<Inputs.CheckRequestGetArgs>? Request { get; set; }
 
-        /// <summary>
-        /// . The id of the runtime to use for this check.
-        /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         [Input("script")]
         public Input<string>? Script { get; set; }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
-        /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
 
-        /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
-        /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
 
-        /// <summary>
-        /// Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
-        /// </summary>
         [Input("sslCheck")]
         public Input<bool>? SslCheck { get; set; }
 
@@ -532,21 +330,12 @@ namespace Pulumi.Checkly
             set => _tags = value;
         }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
-        /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
 
-        /// <summary>
-        /// The type of the check. Possible values are `API`, and `BROWSER`.
-        /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
 
-        /// <summary>
-        /// When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
-        /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
 

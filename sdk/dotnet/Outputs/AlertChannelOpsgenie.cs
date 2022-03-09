@@ -13,21 +13,9 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class AlertChannelOpsgenie
     {
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly string ApiKey;
-        /// <summary>
-        /// Webhook's channel name.
-        /// </summary>
         public readonly string Name;
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly string Priority;
-        /// <summary>
-        /// .
-        /// </summary>
         public readonly string Region;
 
         [OutputConstructor]

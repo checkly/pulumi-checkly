@@ -11,39 +11,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## # TriggerCheck
-//
-// `TriggerCheck` allows users to manage Checkly trigger checks. Add a `TriggerCheck` resource to your resource file.
-//
-// ## Example Usage
-//
-// Trigger check example
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewTriggerCheck(ctx, "test-trigger-check", &checkly.TriggerCheckArgs{
-// 			CheckId: pulumi.String("c1ff95c5-d7f6-4a90-9ce2-1e605f117592"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("test-trigger-check-url", test_trigger_check.Url)
-// 		return nil
-// 	})
-// }
-// ```
 type TriggerCheck struct {
 	pulumi.CustomResourceState
 
-	// The id of the check that you want to attach the trigger to.
 	CheckId pulumi.StringOutput `pulumi:"checkId"`
 	Token   pulumi.StringOutput `pulumi:"token"`
 	Url     pulumi.StringOutput `pulumi:"url"`
@@ -81,14 +51,12 @@ func GetTriggerCheck(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering TriggerCheck resources.
 type triggerCheckState struct {
-	// The id of the check that you want to attach the trigger to.
 	CheckId *string `pulumi:"checkId"`
 	Token   *string `pulumi:"token"`
 	Url     *string `pulumi:"url"`
 }
 
 type TriggerCheckState struct {
-	// The id of the check that you want to attach the trigger to.
 	CheckId pulumi.StringPtrInput
 	Token   pulumi.StringPtrInput
 	Url     pulumi.StringPtrInput
@@ -99,7 +67,6 @@ func (TriggerCheckState) ElementType() reflect.Type {
 }
 
 type triggerCheckArgs struct {
-	// The id of the check that you want to attach the trigger to.
 	CheckId string  `pulumi:"checkId"`
 	Token   *string `pulumi:"token"`
 	Url     *string `pulumi:"url"`
@@ -107,7 +74,6 @@ type triggerCheckArgs struct {
 
 // The set of arguments for constructing a TriggerCheck resource.
 type TriggerCheckArgs struct {
-	// The id of the check that you want to attach the trigger to.
 	CheckId pulumi.StringInput
 	Token   pulumi.StringPtrInput
 	Url     pulumi.StringPtrInput

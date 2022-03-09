@@ -28,13 +28,6 @@ class AlertChannelArgs:
                  webhook: Optional[pulumi.Input['AlertChannelWebhookArgs']] = None):
         """
         The set of arguments for constructing a AlertChannel resource.
-        :param pulumi.Input['AlertChannelEmailArgs'] email: :
-        :param pulumi.Input[bool] send_degraded: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_failure: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_recovery: . Possible values: `true` | `false`.
-        :param pulumi.Input['AlertChannelSmsArgs'] sms: :
-        :param pulumi.Input[bool] ssl_expiry: . Possible values: `true` | `false`.
-        :param pulumi.Input[int] ssl_expiry_threshold: . Possible values between 1 and 30. Default is `30`.
         """
         if email is not None:
             pulumi.set(__self__, "email", email)
@@ -62,9 +55,6 @@ class AlertChannelArgs:
     @property
     @pulumi.getter
     def email(self) -> Optional[pulumi.Input['AlertChannelEmailArgs']]:
-        """
-        :
-        """
         return pulumi.get(self, "email")
 
     @email.setter
@@ -92,9 +82,6 @@ class AlertChannelArgs:
     @property
     @pulumi.getter(name="sendDegraded")
     def send_degraded(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_degraded")
 
     @send_degraded.setter
@@ -104,9 +91,6 @@ class AlertChannelArgs:
     @property
     @pulumi.getter(name="sendFailure")
     def send_failure(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_failure")
 
     @send_failure.setter
@@ -116,9 +100,6 @@ class AlertChannelArgs:
     @property
     @pulumi.getter(name="sendRecovery")
     def send_recovery(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_recovery")
 
     @send_recovery.setter
@@ -137,9 +118,6 @@ class AlertChannelArgs:
     @property
     @pulumi.getter
     def sms(self) -> Optional[pulumi.Input['AlertChannelSmsArgs']]:
-        """
-        :
-        """
         return pulumi.get(self, "sms")
 
     @sms.setter
@@ -149,9 +127,6 @@ class AlertChannelArgs:
     @property
     @pulumi.getter(name="sslExpiry")
     def ssl_expiry(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "ssl_expiry")
 
     @ssl_expiry.setter
@@ -161,9 +136,6 @@ class AlertChannelArgs:
     @property
     @pulumi.getter(name="sslExpiryThreshold")
     def ssl_expiry_threshold(self) -> Optional[pulumi.Input[int]]:
-        """
-        . Possible values between 1 and 30. Default is `30`.
-        """
         return pulumi.get(self, "ssl_expiry_threshold")
 
     @ssl_expiry_threshold.setter
@@ -196,13 +168,6 @@ class _AlertChannelState:
                  webhook: Optional[pulumi.Input['AlertChannelWebhookArgs']] = None):
         """
         Input properties used for looking up and filtering AlertChannel resources.
-        :param pulumi.Input['AlertChannelEmailArgs'] email: :
-        :param pulumi.Input[bool] send_degraded: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_failure: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_recovery: . Possible values: `true` | `false`.
-        :param pulumi.Input['AlertChannelSmsArgs'] sms: :
-        :param pulumi.Input[bool] ssl_expiry: . Possible values: `true` | `false`.
-        :param pulumi.Input[int] ssl_expiry_threshold: . Possible values between 1 and 30. Default is `30`.
         """
         if email is not None:
             pulumi.set(__self__, "email", email)
@@ -230,9 +195,6 @@ class _AlertChannelState:
     @property
     @pulumi.getter
     def email(self) -> Optional[pulumi.Input['AlertChannelEmailArgs']]:
-        """
-        :
-        """
         return pulumi.get(self, "email")
 
     @email.setter
@@ -260,9 +222,6 @@ class _AlertChannelState:
     @property
     @pulumi.getter(name="sendDegraded")
     def send_degraded(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_degraded")
 
     @send_degraded.setter
@@ -272,9 +231,6 @@ class _AlertChannelState:
     @property
     @pulumi.getter(name="sendFailure")
     def send_failure(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_failure")
 
     @send_failure.setter
@@ -284,9 +240,6 @@ class _AlertChannelState:
     @property
     @pulumi.getter(name="sendRecovery")
     def send_recovery(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_recovery")
 
     @send_recovery.setter
@@ -305,9 +258,6 @@ class _AlertChannelState:
     @property
     @pulumi.getter
     def sms(self) -> Optional[pulumi.Input['AlertChannelSmsArgs']]:
-        """
-        :
-        """
         return pulumi.get(self, "sms")
 
     @sms.setter
@@ -317,9 +267,6 @@ class _AlertChannelState:
     @property
     @pulumi.getter(name="sslExpiry")
     def ssl_expiry(self) -> Optional[pulumi.Input[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "ssl_expiry")
 
     @ssl_expiry.setter
@@ -329,9 +276,6 @@ class _AlertChannelState:
     @property
     @pulumi.getter(name="sslExpiryThreshold")
     def ssl_expiry_threshold(self) -> Optional[pulumi.Input[int]]:
-        """
-        . Possible values between 1 and 30. Default is `30`.
-        """
         return pulumi.get(self, "ssl_expiry_threshold")
 
     @ssl_expiry_threshold.setter
@@ -366,137 +310,9 @@ class AlertChannel(pulumi.CustomResource):
                  webhook: Optional[pulumi.Input[pulumi.InputType['AlertChannelWebhookArgs']]] = None,
                  __props__=None):
         """
-        ## # AlertChannel
-
-        The `AlertChannel` resource allows users to manage Checkly alert channels.
-
-        Checkly's Alert Channels feature allows you to define global alerting channels for the checks in your account:
-
-        ## Example Usage
-
-        *An Email alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        email_ac = checkly.AlertChannel("emailAc",
-            email=checkly.AlertChannelEmailArgs(
-                address="john@example.com",
-            ),
-            send_degraded=True,
-            send_failure=False,
-            send_recovery=True,
-            ssl_expiry=True,
-            ssl_expiry_threshold=22)
-        ```
-
-        *A SMS alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        sms_ac = checkly.AlertChannel("smsAc",
-            send_failure=True,
-            send_recovery=True,
-            sms=checkly.AlertChannelSmsArgs(
-                name="john",
-                number="0123456789",
-            ))
-        ```
-
-        *A Slack alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        slack_ac = checkly.AlertChannel("slackAc", slack=checkly.AlertChannelSlackArgs(
-            channel="#checkly-notifications",
-            url="https://slack.com/webhook",
-        ))
-        ```
-
-        *An Opsgenie alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        opsgenie_ac = checkly.AlertChannel("opsgenieAc", opsgenie=checkly.AlertChannelOpsgenieArgs(
-            api_key="fookey",
-            name="opsalerts",
-            priority="foopriority",
-            region="fooregion",
-        ))
-        ```
-
-        *An Pagerduty alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        pagerduty_ac = checkly.AlertChannel("pagerdutyAc", pagerduty=checkly.AlertChannelPagerdutyArgs(
-            account="checkly",
-            service_key="key1",
-            service_name="pdalert",
-        ))
-        ```
-
-        *An Webhook alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        webhook_ac = checkly.AlertChannel("webhookAc", webhook=checkly.AlertChannelWebhookArgs(
-            method="get",
-            name="foo",
-            template="footemplate",
-            url="http://example.com/foo",
-            webhook_secret="foosecret",
-        ))
-        ```
-
-        *Connecting the alert channel to a check
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        example_check = checkly.Check("example-check", alert_channel_subscriptions=[
-            checkly.CheckAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["email_ac"]["id"],
-                activated=True,
-            ),
-            checkly.CheckAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["sms_ac"]["id"],
-                activated=True,
-            ),
-        ])
-        ```
-
-        *Connecting the alert channel to a check group
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        test_group1 = checkly.CheckGroup("test-group1", alert_channel_subscriptions=[
-            checkly.CheckGroupAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["email_ac"]["id"],
-                activated=True,
-            ),
-            checkly.CheckGroupAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["sms_ac"]["id"],
-                activated=True,
-            ),
-        ])
-        ```
-
+        Create a AlertChannel resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[pulumi.InputType['AlertChannelEmailArgs']] email: :
-        :param pulumi.Input[bool] send_degraded: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_failure: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_recovery: . Possible values: `true` | `false`.
-        :param pulumi.Input[pulumi.InputType['AlertChannelSmsArgs']] sms: :
-        :param pulumi.Input[bool] ssl_expiry: . Possible values: `true` | `false`.
-        :param pulumi.Input[int] ssl_expiry_threshold: . Possible values between 1 and 30. Default is `30`.
         """
         ...
     @overload
@@ -505,128 +321,7 @@ class AlertChannel(pulumi.CustomResource):
                  args: Optional[AlertChannelArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # AlertChannel
-
-        The `AlertChannel` resource allows users to manage Checkly alert channels.
-
-        Checkly's Alert Channels feature allows you to define global alerting channels for the checks in your account:
-
-        ## Example Usage
-
-        *An Email alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        email_ac = checkly.AlertChannel("emailAc",
-            email=checkly.AlertChannelEmailArgs(
-                address="john@example.com",
-            ),
-            send_degraded=True,
-            send_failure=False,
-            send_recovery=True,
-            ssl_expiry=True,
-            ssl_expiry_threshold=22)
-        ```
-
-        *A SMS alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        sms_ac = checkly.AlertChannel("smsAc",
-            send_failure=True,
-            send_recovery=True,
-            sms=checkly.AlertChannelSmsArgs(
-                name="john",
-                number="0123456789",
-            ))
-        ```
-
-        *A Slack alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        slack_ac = checkly.AlertChannel("slackAc", slack=checkly.AlertChannelSlackArgs(
-            channel="#checkly-notifications",
-            url="https://slack.com/webhook",
-        ))
-        ```
-
-        *An Opsgenie alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        opsgenie_ac = checkly.AlertChannel("opsgenieAc", opsgenie=checkly.AlertChannelOpsgenieArgs(
-            api_key="fookey",
-            name="opsalerts",
-            priority="foopriority",
-            region="fooregion",
-        ))
-        ```
-
-        *An Pagerduty alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        pagerduty_ac = checkly.AlertChannel("pagerdutyAc", pagerduty=checkly.AlertChannelPagerdutyArgs(
-            account="checkly",
-            service_key="key1",
-            service_name="pdalert",
-        ))
-        ```
-
-        *An Webhook alert channel*
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        webhook_ac = checkly.AlertChannel("webhookAc", webhook=checkly.AlertChannelWebhookArgs(
-            method="get",
-            name="foo",
-            template="footemplate",
-            url="http://example.com/foo",
-            webhook_secret="foosecret",
-        ))
-        ```
-
-        *Connecting the alert channel to a check
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        example_check = checkly.Check("example-check", alert_channel_subscriptions=[
-            checkly.CheckAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["email_ac"]["id"],
-                activated=True,
-            ),
-            checkly.CheckAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["sms_ac"]["id"],
-                activated=True,
-            ),
-        ])
-        ```
-
-        *Connecting the alert channel to a check group
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        test_group1 = checkly.CheckGroup("test-group1", alert_channel_subscriptions=[
-            checkly.CheckGroupAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["email_ac"]["id"],
-                activated=True,
-            ),
-            checkly.CheckGroupAlertChannelSubscriptionArgs(
-                channel_id=checkly_alert_channel["sms_ac"]["id"],
-                activated=True,
-            ),
-        ])
-        ```
-
+        Create a AlertChannel resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param AlertChannelArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -704,13 +399,6 @@ class AlertChannel(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[pulumi.InputType['AlertChannelEmailArgs']] email: :
-        :param pulumi.Input[bool] send_degraded: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_failure: . Possible values: `true` | `false`.
-        :param pulumi.Input[bool] send_recovery: . Possible values: `true` | `false`.
-        :param pulumi.Input[pulumi.InputType['AlertChannelSmsArgs']] sms: :
-        :param pulumi.Input[bool] ssl_expiry: . Possible values: `true` | `false`.
-        :param pulumi.Input[int] ssl_expiry_threshold: . Possible values between 1 and 30. Default is `30`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -732,9 +420,6 @@ class AlertChannel(pulumi.CustomResource):
     @property
     @pulumi.getter
     def email(self) -> pulumi.Output[Optional['outputs.AlertChannelEmail']]:
-        """
-        :
-        """
         return pulumi.get(self, "email")
 
     @property
@@ -750,25 +435,16 @@ class AlertChannel(pulumi.CustomResource):
     @property
     @pulumi.getter(name="sendDegraded")
     def send_degraded(self) -> pulumi.Output[Optional[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_degraded")
 
     @property
     @pulumi.getter(name="sendFailure")
     def send_failure(self) -> pulumi.Output[Optional[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_failure")
 
     @property
     @pulumi.getter(name="sendRecovery")
     def send_recovery(self) -> pulumi.Output[Optional[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "send_recovery")
 
     @property
@@ -779,25 +455,16 @@ class AlertChannel(pulumi.CustomResource):
     @property
     @pulumi.getter
     def sms(self) -> pulumi.Output[Optional['outputs.AlertChannelSms']]:
-        """
-        :
-        """
         return pulumi.get(self, "sms")
 
     @property
     @pulumi.getter(name="sslExpiry")
     def ssl_expiry(self) -> pulumi.Output[Optional[bool]]:
-        """
-        . Possible values: `true` | `false`.
-        """
         return pulumi.get(self, "ssl_expiry")
 
     @property
     @pulumi.getter(name="sslExpiryThreshold")
     def ssl_expiry_threshold(self) -> pulumi.Output[Optional[int]]:
-        """
-        . Possible values between 1 and 30. Default is `30`.
-        """
         return pulumi.get(self, "ssl_expiry_threshold")
 
     @property

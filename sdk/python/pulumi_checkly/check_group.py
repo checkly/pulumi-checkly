@@ -34,22 +34,6 @@ class CheckGroupArgs:
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a CheckGroup resource.
-        :param pulumi.Input[bool] activated: Determines if the checks in the group are running or not.
-        :param pulumi.Input[int] concurrency: Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
-        :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: . Supported values documented below.
-        :param pulumi.Input['CheckGroupApiCheckDefaultsArgs'] api_check_defaults: Default configs to use for all api checks belonging to this group. Supported values documented below.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        :param pulumi.Input[str] name: The name of the check group.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this group.
-        :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for organizing and filtering checks.
-        :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check group.
         """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "concurrency", concurrency)
@@ -86,9 +70,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter
     def activated(self) -> pulumi.Input[bool]:
-        """
-        Determines if the checks in the group are running or not.
-        """
         return pulumi.get(self, "activated")
 
     @activated.setter
@@ -98,9 +79,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter
     def concurrency(self) -> pulumi.Input[int]:
-        """
-        Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        """
         return pulumi.get(self, "concurrency")
 
     @concurrency.setter
@@ -110,9 +88,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter
     def locations(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        An array of one or more data center locations where to run the checks.
-        """
         return pulumi.get(self, "locations")
 
     @locations.setter
@@ -131,9 +106,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckGroupAlertSettingsArgs']]:
-        """
-        . Supported values documented below.
-        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -143,9 +115,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="apiCheckDefaults")
     def api_check_defaults(self) -> Optional[pulumi.Input['CheckGroupApiCheckDefaultsArgs']]:
-        """
-        Default configs to use for all api checks belonging to this group. Supported values documented below.
-        """
         return pulumi.get(self, "api_check_defaults")
 
     @api_check_defaults.setter
@@ -155,9 +124,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="doubleCheck")
     def double_check(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        """
         return pulumi.get(self, "double_check")
 
     @double_check.setter
@@ -167,9 +133,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        """
         return pulumi.get(self, "environment_variables")
 
     @environment_variables.setter
@@ -179,9 +142,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="localSetupScript")
     def local_setup_script(self) -> Optional[pulumi.Input[str]]:
-        """
-        A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        """
         return pulumi.get(self, "local_setup_script")
 
     @local_setup_script.setter
@@ -191,9 +151,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="localTeardownScript")
     def local_teardown_script(self) -> Optional[pulumi.Input[str]]:
-        """
-        A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        """
         return pulumi.get(self, "local_teardown_script")
 
     @local_teardown_script.setter
@@ -203,9 +160,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        """
         return pulumi.get(self, "muted")
 
     @muted.setter
@@ -215,9 +169,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        The name of the check group.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -227,9 +178,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        . The id of the runtime to use for this group.
-        """
         return pulumi.get(self, "runtime_id")
 
     @runtime_id.setter
@@ -239,9 +187,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="setupSnippetId")
     def setup_snippet_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        An ID reference to a snippet to use in the setup phase of an API check.
-        """
         return pulumi.get(self, "setup_snippet_id")
 
     @setup_snippet_id.setter
@@ -251,9 +196,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        """
-        Tags for organizing and filtering checks.
-        """
         return pulumi.get(self, "tags")
 
     @tags.setter
@@ -263,9 +205,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="teardownSnippetId")
     def teardown_snippet_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        An ID reference to a snippet to use in the teardown phase of an API check.
-        """
         return pulumi.get(self, "teardown_snippet_id")
 
     @teardown_snippet_id.setter
@@ -275,9 +214,6 @@ class CheckGroupArgs:
     @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
-        """
-        When true, the account level alert setting will be used, not the alert setting defined on this check group.
-        """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
@@ -307,22 +243,6 @@ class _CheckGroupState:
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         Input properties used for looking up and filtering CheckGroup resources.
-        :param pulumi.Input[bool] activated: Determines if the checks in the group are running or not.
-        :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: . Supported values documented below.
-        :param pulumi.Input['CheckGroupApiCheckDefaultsArgs'] api_check_defaults: Default configs to use for all api checks belonging to this group. Supported values documented below.
-        :param pulumi.Input[int] concurrency: Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        :param pulumi.Input[str] name: The name of the check group.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this group.
-        :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for organizing and filtering checks.
-        :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check group.
         """
         if activated is not None:
             pulumi.set(__self__, "activated", activated)
@@ -362,9 +282,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter
     def activated(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Determines if the checks in the group are running or not.
-        """
         return pulumi.get(self, "activated")
 
     @activated.setter
@@ -383,9 +300,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckGroupAlertSettingsArgs']]:
-        """
-        . Supported values documented below.
-        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -395,9 +309,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="apiCheckDefaults")
     def api_check_defaults(self) -> Optional[pulumi.Input['CheckGroupApiCheckDefaultsArgs']]:
-        """
-        Default configs to use for all api checks belonging to this group. Supported values documented below.
-        """
         return pulumi.get(self, "api_check_defaults")
 
     @api_check_defaults.setter
@@ -407,9 +318,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter
     def concurrency(self) -> Optional[pulumi.Input[int]]:
-        """
-        Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        """
         return pulumi.get(self, "concurrency")
 
     @concurrency.setter
@@ -419,9 +327,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="doubleCheck")
     def double_check(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        """
         return pulumi.get(self, "double_check")
 
     @double_check.setter
@@ -431,9 +336,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
-        """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        """
         return pulumi.get(self, "environment_variables")
 
     @environment_variables.setter
@@ -443,9 +345,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="localSetupScript")
     def local_setup_script(self) -> Optional[pulumi.Input[str]]:
-        """
-        A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        """
         return pulumi.get(self, "local_setup_script")
 
     @local_setup_script.setter
@@ -455,9 +354,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="localTeardownScript")
     def local_teardown_script(self) -> Optional[pulumi.Input[str]]:
-        """
-        A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        """
         return pulumi.get(self, "local_teardown_script")
 
     @local_teardown_script.setter
@@ -467,9 +363,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter
     def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        """
-        An array of one or more data center locations where to run the checks.
-        """
         return pulumi.get(self, "locations")
 
     @locations.setter
@@ -479,9 +372,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        """
         return pulumi.get(self, "muted")
 
     @muted.setter
@@ -491,9 +381,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        The name of the check group.
-        """
         return pulumi.get(self, "name")
 
     @name.setter
@@ -503,9 +390,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        . The id of the runtime to use for this group.
-        """
         return pulumi.get(self, "runtime_id")
 
     @runtime_id.setter
@@ -515,9 +399,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="setupSnippetId")
     def setup_snippet_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        An ID reference to a snippet to use in the setup phase of an API check.
-        """
         return pulumi.get(self, "setup_snippet_id")
 
     @setup_snippet_id.setter
@@ -527,9 +408,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        """
-        Tags for organizing and filtering checks.
-        """
         return pulumi.get(self, "tags")
 
     @tags.setter
@@ -539,9 +417,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="teardownSnippetId")
     def teardown_snippet_id(self) -> Optional[pulumi.Input[int]]:
-        """
-        An ID reference to a snippet to use in the teardown phase of an API check.
-        """
         return pulumi.get(self, "teardown_snippet_id")
 
     @teardown_snippet_id.setter
@@ -551,9 +426,6 @@ class _CheckGroupState:
     @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
-        """
-        When true, the account level alert setting will be used, not the alert setting defined on this check group.
-        """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
@@ -588,22 +460,6 @@ class CheckGroup(pulumi.CustomResource):
         Create a CheckGroup resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] activated: Determines if the checks in the group are running or not.
-        :param pulumi.Input[pulumi.InputType['CheckGroupAlertSettingsArgs']] alert_settings: . Supported values documented below.
-        :param pulumi.Input[pulumi.InputType['CheckGroupApiCheckDefaultsArgs']] api_check_defaults: Default configs to use for all api checks belonging to this group. Supported values documented below.
-        :param pulumi.Input[int] concurrency: Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        :param pulumi.Input[str] name: The name of the check group.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this group.
-        :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for organizing and filtering checks.
-        :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check group.
         """
         ...
     @overload
@@ -714,22 +570,6 @@ class CheckGroup(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] activated: Determines if the checks in the group are running or not.
-        :param pulumi.Input[pulumi.InputType['CheckGroupAlertSettingsArgs']] alert_settings: . Supported values documented below.
-        :param pulumi.Input[pulumi.InputType['CheckGroupApiCheckDefaultsArgs']] api_check_defaults: Default configs to use for all api checks belonging to this group. Supported values documented below.
-        :param pulumi.Input[int] concurrency: Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        :param pulumi.Input[str] name: The name of the check group.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this group.
-        :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for organizing and filtering checks.
-        :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check group.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -757,9 +597,6 @@ class CheckGroup(pulumi.CustomResource):
     @property
     @pulumi.getter
     def activated(self) -> pulumi.Output[bool]:
-        """
-        Determines if the checks in the group are running or not.
-        """
         return pulumi.get(self, "activated")
 
     @property
@@ -770,120 +607,75 @@ class CheckGroup(pulumi.CustomResource):
     @property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> pulumi.Output['outputs.CheckGroupAlertSettings']:
-        """
-        . Supported values documented below.
-        """
         return pulumi.get(self, "alert_settings")
 
     @property
     @pulumi.getter(name="apiCheckDefaults")
     def api_check_defaults(self) -> pulumi.Output['outputs.CheckGroupApiCheckDefaults']:
-        """
-        Default configs to use for all api checks belonging to this group. Supported values documented below.
-        """
         return pulumi.get(self, "api_check_defaults")
 
     @property
     @pulumi.getter
     def concurrency(self) -> pulumi.Output[int]:
-        """
-        Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        """
         return pulumi.get(self, "concurrency")
 
     @property
     @pulumi.getter(name="doubleCheck")
     def double_check(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        """
         return pulumi.get(self, "double_check")
 
     @property
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
-        """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        """
         return pulumi.get(self, "environment_variables")
 
     @property
     @pulumi.getter(name="localSetupScript")
     def local_setup_script(self) -> pulumi.Output[Optional[str]]:
-        """
-        A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        """
         return pulumi.get(self, "local_setup_script")
 
     @property
     @pulumi.getter(name="localTeardownScript")
     def local_teardown_script(self) -> pulumi.Output[Optional[str]]:
-        """
-        A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        """
         return pulumi.get(self, "local_teardown_script")
 
     @property
     @pulumi.getter
     def locations(self) -> pulumi.Output[Sequence[str]]:
-        """
-        An array of one or more data center locations where to run the checks.
-        """
         return pulumi.get(self, "locations")
 
     @property
     @pulumi.getter
     def muted(self) -> pulumi.Output[Optional[bool]]:
-        """
-        Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        """
         return pulumi.get(self, "muted")
 
     @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
-        """
-        The name of the check group.
-        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> pulumi.Output[Optional[str]]:
-        """
-        . The id of the runtime to use for this group.
-        """
         return pulumi.get(self, "runtime_id")
 
     @property
     @pulumi.getter(name="setupSnippetId")
     def setup_snippet_id(self) -> pulumi.Output[Optional[int]]:
-        """
-        An ID reference to a snippet to use in the setup phase of an API check.
-        """
         return pulumi.get(self, "setup_snippet_id")
 
     @property
     @pulumi.getter
     def tags(self) -> pulumi.Output[Optional[Sequence[str]]]:
-        """
-        Tags for organizing and filtering checks.
-        """
         return pulumi.get(self, "tags")
 
     @property
     @pulumi.getter(name="teardownSnippetId")
     def teardown_snippet_id(self) -> pulumi.Output[Optional[int]]:
-        """
-        An ID reference to a snippet to use in the teardown phase of an API check.
-        """
         return pulumi.get(self, "teardown_snippet_id")
 
     @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> pulumi.Output[Optional[bool]]:
-        """
-        When true, the account level alert setting will be used, not the alert setting defined on this check group.
-        """
         return pulumi.get(self, "use_global_alert_settings")
 

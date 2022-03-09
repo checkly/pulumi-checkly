@@ -12,102 +12,54 @@ namespace Pulumi.Checkly
     [ChecklyResourceType("checkly:index/checkGroup:CheckGroup")]
     public partial class CheckGroup : Pulumi.CustomResource
     {
-        /// <summary>
-        /// Determines if the checks in the group are running or not.
-        /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.CheckGroupAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
-        /// <summary>
-        /// . Supported values documented below.
-        /// </summary>
         [Output("alertSettings")]
         public Output<Outputs.CheckGroupAlertSettings> AlertSettings { get; private set; } = null!;
 
-        /// <summary>
-        /// Default configs to use for all api checks belonging to this group. Supported values documented below.
-        /// </summary>
         [Output("apiCheckDefaults")]
         public Output<Outputs.CheckGroupApiCheckDefaults> ApiCheckDefaults { get; private set; } = null!;
 
-        /// <summary>
-        /// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        /// </summary>
         [Output("concurrency")]
         public Output<int> Concurrency { get; private set; } = null!;
 
-        /// <summary>
-        /// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        /// </summary>
         [Output("doubleCheck")]
         public Output<bool?> DoubleCheck { get; private set; } = null!;
 
-        /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        /// </summary>
         [Output("environmentVariables")]
         public Output<ImmutableDictionary<string, object>?> EnvironmentVariables { get; private set; } = null!;
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        /// </summary>
         [Output("localSetupScript")]
         public Output<string?> LocalSetupScript { get; private set; } = null!;
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        /// </summary>
         [Output("localTeardownScript")]
         public Output<string?> LocalTeardownScript { get; private set; } = null!;
 
-        /// <summary>
-        /// An array of one or more data center locations where to run the checks.
-        /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
-        /// <summary>
-        /// Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        /// </summary>
         [Output("muted")]
         public Output<bool?> Muted { get; private set; } = null!;
 
-        /// <summary>
-        /// The name of the check group.
-        /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
-        /// <summary>
-        /// . The id of the runtime to use for this group.
-        /// </summary>
         [Output("runtimeId")]
         public Output<string?> RuntimeId { get; private set; } = null!;
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
-        /// </summary>
         [Output("setupSnippetId")]
         public Output<int?> SetupSnippetId { get; private set; } = null!;
 
-        /// <summary>
-        /// Tags for organizing and filtering checks.
-        /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
-        /// </summary>
         [Output("teardownSnippetId")]
         public Output<int?> TeardownSnippetId { get; private set; } = null!;
 
-        /// <summary>
-        /// When true, the account level alert setting will be used, not the alert setting defined on this check group.
-        /// </summary>
         [Output("useGlobalAlertSettings")]
         public Output<bool?> UseGlobalAlertSettings { get; private set; } = null!;
 
@@ -157,9 +109,6 @@ namespace Pulumi.Checkly
 
     public sealed class CheckGroupArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Determines if the checks in the group are running or not.
-        /// </summary>
         [Input("activated", required: true)]
         public Input<bool> Activated { get; set; } = null!;
 
@@ -171,111 +120,63 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
-        /// <summary>
-        /// . Supported values documented below.
-        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckGroupAlertSettingsArgs>? AlertSettings { get; set; }
 
-        /// <summary>
-        /// Default configs to use for all api checks belonging to this group. Supported values documented below.
-        /// </summary>
         [Input("apiCheckDefaults")]
         public Input<Inputs.CheckGroupApiCheckDefaultsArgs>? ApiCheckDefaults { get; set; }
 
-        /// <summary>
-        /// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        /// </summary>
         [Input("concurrency", required: true)]
         public Input<int> Concurrency { get; set; } = null!;
 
-        /// <summary>
-        /// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
         [Input("environmentVariables")]
         private InputMap<object>? _environmentVariables;
-
-        /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        /// </summary>
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
             set => _environmentVariables = value;
         }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        /// </summary>
         [Input("localSetupScript")]
         public Input<string>? LocalSetupScript { get; set; }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        /// </summary>
         [Input("localTeardownScript")]
         public Input<string>? LocalTeardownScript { get; set; }
 
         [Input("locations", required: true)]
         private InputList<string>? _locations;
-
-        /// <summary>
-        /// An array of one or more data center locations where to run the checks.
-        /// </summary>
         public InputList<string> Locations
         {
             get => _locations ?? (_locations = new InputList<string>());
             set => _locations = value;
         }
 
-        /// <summary>
-        /// Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
 
-        /// <summary>
-        /// The name of the check group.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// . The id of the runtime to use for this group.
-        /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
-        /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
-
-        /// <summary>
-        /// Tags for organizing and filtering checks.
-        /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
-        /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
 
-        /// <summary>
-        /// When true, the account level alert setting will be used, not the alert setting defined on this check group.
-        /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
 
@@ -286,9 +187,6 @@ namespace Pulumi.Checkly
 
     public sealed class CheckGroupState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Determines if the checks in the group are running or not.
-        /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
 
@@ -300,111 +198,63 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
-        /// <summary>
-        /// . Supported values documented below.
-        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckGroupAlertSettingsGetArgs>? AlertSettings { get; set; }
 
-        /// <summary>
-        /// Default configs to use for all api checks belonging to this group. Supported values documented below.
-        /// </summary>
         [Input("apiCheckDefaults")]
         public Input<Inputs.CheckGroupApiCheckDefaultsGetArgs>? ApiCheckDefaults { get; set; }
 
-        /// <summary>
-        /// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
-        /// </summary>
         [Input("concurrency")]
         public Input<int>? Concurrency { get; set; }
 
-        /// <summary>
-        /// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
-        /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
         [Input("environmentVariables")]
         private InputMap<object>? _environmentVariables;
-
-        /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        /// </summary>
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
             set => _environmentVariables = value;
         }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase of an API check in this group.
-        /// </summary>
         [Input("localSetupScript")]
         public Input<string>? LocalSetupScript { get; set; }
 
-        /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase of an API check in this group.
-        /// </summary>
         [Input("localTeardownScript")]
         public Input<string>? LocalTeardownScript { get; set; }
 
         [Input("locations")]
         private InputList<string>? _locations;
-
-        /// <summary>
-        /// An array of one or more data center locations where to run the checks.
-        /// </summary>
         public InputList<string> Locations
         {
             get => _locations ?? (_locations = new InputList<string>());
             set => _locations = value;
         }
 
-        /// <summary>
-        /// Determines if any notifications will be send out when a check in this group fails and/or recovers.
-        /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
 
-        /// <summary>
-        /// The name of the check group.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// . The id of the runtime to use for this group.
-        /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
-        /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
-
-        /// <summary>
-        /// Tags for organizing and filtering checks.
-        /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
 
-        /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
-        /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
 
-        /// <summary>
-        /// When true, the account level alert setting will be used, not the alert setting defined on this check group.
-        /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
 

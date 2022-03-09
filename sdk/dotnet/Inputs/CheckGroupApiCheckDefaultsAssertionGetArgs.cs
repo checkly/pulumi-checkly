@@ -12,21 +12,12 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class CheckGroupApiCheckDefaultsAssertionGetArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
-        /// </summary>
         [Input("comparison", required: true)]
         public Input<string> Comparison { get; set; } = null!;
 
-        /// <summary>
-        /// .
-        /// </summary>
         [Input("property")]
         public Input<string>? Property { get; set; }
 
-        /// <summary>
-        /// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
-        /// </summary>
         [Input("source", required: true)]
         public Input<string> Source { get; set; } = null!;
 

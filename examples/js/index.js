@@ -1,70 +1,79 @@
 const fs = require('fs')
-const checkly = require( "@pulumi/checkly")
+const checkly = require("@pulumi/checkly")
 
-const script = fs.readFileSync("./test.js", 'utf-8')
+const snippetScript = fs.readFileSync("./scripts/snippet.js", 'utf-8')
+const browerCheckScript = fs.readFileSync("./scripts/browser-check.js", 'utf-8')
 
-const channel = new checkly.AlertChannel("pulumi-channel", {
+const PREFIX = 'pulimi-js'
+
+
+const emailChannel = new checkly.AlertChannel(PREFIX + "email-channel", {
   email: {
-    address: 'nacho@checklyhq.com'
+    address: 'your@email.com'
   }
 })
 
-const group = new checkly.CheckGroup("pulumi-group", {
+const slackChannel = new checkly.AlertChannel(PREFIX + "slack-channel", {
+  slack: {
+    url: 'https://hooks.slack.com/services/X0JKQJQ0P',
+    channel: '#alerts',
+  }
+})
+
+const group = new checkly.CheckGroup(PREFIX + "group", {
   name: "Pulumi Group",
   activated: true,
   concurrency: 1,
-  locations: ['us-east-1'],
-  apiCheckDefaults: null,
+  locations: ['us-east-1', 'us-west-1'],
+  apiCheckDefaults: {},
   alertChannelSubscriptions: [
     {
       activated: true,
-      channelId: channel.id.apply(id => parseInt(id)),
+      channelId: slackChannel.id.apply(id => parseInt(id)),
+    },
+    {
+      activated: true,
+      channelId: emailChannel.id.apply(id => parseInt(id)),
     }
   ]
 })
 
-new checkly.Check("pulumi-api-check", {
+new checkly.Check(PREFIX + "api-check", {
+  name: 'Pulumi API Check',
   activated: true,
   frequency: 10,
   type: "API",
   groupId: group.id.apply(id => parseInt(id)),
   request: {
     method: "GET",
-    url: "https://checklhq.com",
+    url: "https://checklyhq.com",
   }
 })
 
-new checkly.Check("pulumi-brwoser-check", {
+new checkly.Check(PREFIX + "brwoser-check", {
+  name: 'Pulumi Browser Check',
   activated: true,
   frequency: 10,
   type: "BROWSER",
   groupId: group.id.apply(id => parseInt(id)),
-  script,
+  script: browerCheckScript
 })
 
-new checkly.Snippet('snippet', {
-  script,
-})
+new checkly.Snippet('snippet', { script: snippetScript})
 
-new checkly.MaintenanceWindow('maintenance', {
+new checkly.MaintenanceWindow(PREFIX + 'maintenance', {
   startsAt: '2022-03-01',
   endsAt: '2022-03-02',
-  repeatEndsAt: '2022-03-02',
   repeatInterval: 1,
   repeatUnit: 'DAY',
 })
 
-new checkly.TriggerCheckGroup('trigger', {
-  groupId:  group.id.apply(id => parseInt(id)),
+new checkly.TriggerCheckGroup(PREFIX + 'trigger', {
+groupId: group.id.apply(id => parseInt(id)),
 })
 
-new checkly.PublicDashboard('dashboard', {
-  customDomain: 'nacho',
-  customUrl: '',
-  header: '',
-  hideTags: false,
-  logo: '',
-  paginate: false,
+new checkly.PublicDashboard(PREFIX + 'dashboard', {
+  customUrl: PREFIX + 'js',
   paginationRate: 30,
   refreshRate: 300,
 })
