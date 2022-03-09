@@ -21,7 +21,6 @@ const slackChannel = new checkly.AlertChannel(PREFIX + "slack-channel", {
 })
 
 const group = new checkly.CheckGroup(PREFIX + "group", {
-  name: "Pulumi Group",
   activated: true,
   concurrency: 1,
   locations: ['us-east-1', 'us-west-1'],
@@ -39,7 +38,6 @@ const group = new checkly.CheckGroup(PREFIX + "group", {
 })
 
 new checkly.Check(PREFIX + "api-check", {
-  name: 'Pulumi API Check',
   activated: true,
   frequency: 10,
   type: "API",
@@ -51,7 +49,6 @@ new checkly.Check(PREFIX + "api-check", {
 })
 
 new checkly.Check(PREFIX + "brwoser-check", {
-  name: 'Pulumi Browser Check',
   activated: true,
   frequency: 10,
   type: "BROWSER",
