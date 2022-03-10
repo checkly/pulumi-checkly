@@ -1,0 +1,41 @@
+name: Release 🚀
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  release:
+    name: release 🚀
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Unshallow to restore tags
+        run: git fetch --prune --unshallow
+
+      - name: Set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.16.x
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v2
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          always-auth: true
+
+      - name: Install pulumictl
+        run: curl -L https://github.com/pulumi/pulumictl/releases/download/v0.0.25/pulumictl-v0.0.25-linux-amd64.tar.gz | sudo tar zxv -C /usr/bin -f- pulumictl
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          version: latest
+          args: release --rm-dist
