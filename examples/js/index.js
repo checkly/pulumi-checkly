@@ -4,7 +4,7 @@ const checkly = require("@checkly/pulumi")
 const snippetScript = fs.readFileSync("./scripts/snippet.js", 'utf-8')
 const browerCheckScript = fs.readFileSync("./scripts/browser-check.js", 'utf-8')
 
-const PREFIX = 'pulimi-js'
+const PREFIX = 'pulimi-js-'
 
 
 const emailChannel = new checkly.AlertChannel(PREFIX + "email-channel", {

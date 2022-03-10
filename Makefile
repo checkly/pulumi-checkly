@@ -11,7 +11,7 @@ VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
 # VERSION         := $(shell pulumictl get version)
-VERSION         := 0.0.1-alpha.0
+VERSION         := 0.0.1-alpha.1
 
 TESTPARALLELISM := 4
 
@@ -57,7 +57,7 @@ provider:: tfgen install_plugins # build the provider binary
 
 build_sdks:: install_plugins provider build_nodejs build_python build_go build_dotnet # build all the sdks
 
-build_nodejs:: VERSION := $(shell pulumictl get version --language javascript)
+# build_nodejs:: VERSION := $(shell pulumictl get version --language javascript)
 build_nodejs:: install_plugins tfgen # build the node sdk
 	$(WORKING_DIR)/bin/$(TFGEN) nodejs --overlays provider/overlays/nodejs --out sdk/nodejs/
 	cd sdk/nodejs/ && \
@@ -127,8 +127,8 @@ do::
 	make tfgen
 	make provider
 	make build_sdks
-	jq '.version = "${VERSION}"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
-	jq '.pulumi.pluginDownloadURL = "${VERSION}"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+	jq '.version = "(echo ${VERSION})"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+	jq '.pulumi.pluginDownloadURL = "https://github.com/checkly/pulumi-checkly/releases/(echo ${VERSION})"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
 	make install_nodejs_sdk
 	cd examples/js && yarn link @checkly/pulumi && cd -
