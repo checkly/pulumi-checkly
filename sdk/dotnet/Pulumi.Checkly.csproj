@@ -4,8 +4,8 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Pulumi Corp.</Authors>
     <Company>Pulumi Corp.</Company>
-    <Description>A Pulumi package for creating and managing checkly cloud resources.</Description>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Description>A Pulumi package for creating and managing Checkly monitoring resources.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://www.pulumi.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/checkly/pulumi-checkly</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>

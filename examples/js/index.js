@@ -69,7 +69,7 @@ new checkly.TriggerCheckGroup(PREFIX + 'trigger', {
 groupId: group.id.apply(id => parseInt(id)),
 })
 
-new checkly.PublicDashboard(PREFIX + 'dashboard', {
+new checkly.Dashboard(PREFIX + 'dashboard', {
   customUrl: PREFIX + 'js',
   paginationRate: 30,
   refreshRate: 300,

@@ -8,9 +8,9 @@ import typing
 from .alert_channel import *
 from .check import *
 from .check_group import *
+from .dashboard import *
 from .maintenance_window import *
 from .provider import *
-from .public_dashboard import *
 from .snippet import *
 from .trigger_check import *
 from .trigger_check_group import *
@@ -53,18 +53,18 @@ _utilities.register(
  },
  {
   "pkg": "checkly",
-  "mod": "index/maintenanceWindow",
+  "mod": "index/dashboard",
   "fqn": "pulumi_checkly",
   "classes": {
-   "checkly:index/maintenanceWindow:MaintenanceWindow": "MaintenanceWindow"
+   "checkly:index/dashboard:Dashboard": "Dashboard"
   }
  },
  {
   "pkg": "checkly",
-  "mod": "index/publicDashboard",
+  "mod": "index/maintenanceWindow",
   "fqn": "pulumi_checkly",
   "classes": {
-   "checkly:index/publicDashboard:PublicDashboard": "PublicDashboard"
+   "checkly:index/maintenanceWindow:MaintenanceWindow": "MaintenanceWindow"
   }
  },
  {

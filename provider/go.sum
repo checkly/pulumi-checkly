@@ -179,6 +179,8 @@ github.com/checkly/checkly-go-sdk v1.5.6 h1:/P+7R0rxsC3g6eEQYLft4EM0ftI8KK55FUIo
 github.com/checkly/checkly-go-sdk v1.5.6/go.mod h1:wkAoXD2cVCNQEXi9lHZqy/zONIAZc5D9frih6Gas3Rs=
 github.com/checkly/terraform-provider-checkly v1.4.1 h1:2aUlDk++54uDopbmibSu8Qb332XUc2FPBp2UV0G2Dwc=
 github.com/checkly/terraform-provider-checkly v1.4.1/go.mod h1:Jt/EzjaixXV93etrPH3tMk2NSZYljFHvit1pq0MLsoo=
+github.com/checkly/terraform-provider-checkly v1.4.2 h1:pTL4/Uo7QbgOcPsIBfakCKiV8s6PVkxmtK4P9qqsSP0=
+github.com/checkly/terraform-provider-checkly v1.4.2/go.mod h1:Jt/EzjaixXV93etrPH3tMk2NSZYljFHvit1pq0MLsoo=
 github.com/cheggaaa/pb v1.0.18/go.mod h1:pQciLPpbU0oxA0h+VJYYLxO+XeDQb5pZijXscXHm81s=
 github.com/cheggaaa/pb v1.0.27 h1:wIkZHkNfC7R6GI5w7l/PdAdzXzlrbcI3p8OAlnkTsnc=
 github.com/cheggaaa/pb v1.0.27/go.mod h1:pQciLPpbU0oxA0h+VJYYLxO+XeDQb5pZijXscXHm81s=

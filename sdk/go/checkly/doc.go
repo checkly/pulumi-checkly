@@ -1,3 +1,3 @@
-// A Pulumi package for creating and managing checkly cloud resources.
+// A Pulumi package for creating and managing Checkly monitoring resources.
 //
 package checkly

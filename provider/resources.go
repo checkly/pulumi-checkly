@@ -55,10 +55,10 @@ func Provider() tfbridge.ProviderInfo {
 		Name:                 "checkly",
 		Publisher:            "checkly",
 		LogoURL:              "",
-		Description:          "A Pulumi package for creating and managing checkly cloud resources.",
+		Description:          "A Pulumi package for creating and managing Checkly monitoring resources.",
 		PluginDownloadURL:    "https://github.com/checkly/pulumi-checkly/releases/${VERSION}",
 		Keywords:             []string{"pulumi", "checkly", "category/monitoring"},
-		License:              "Apache-2.0",
+		License:              "MIT",
 		Homepage:             "https://www.pulumi.com",
 		Repository:           "https://github.com/checkly/pulumi-checkly",
 		GitHubOrg:            "checkly",
@@ -99,7 +99,7 @@ func Provider() tfbridge.ProviderInfo {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MaintenanceWindow"),
 			},
 			"checkly_dashboard": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PublicDashboard"),
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Dashboard"),
 				// Fields: map[string]*tfbridge.SchemaInfo{
 				// 	"header": {
 				// 		Default: &tfbridge.DefaultInfo{

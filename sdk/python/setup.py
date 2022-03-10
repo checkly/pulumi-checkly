@@ -39,7 +39,7 @@ def readme():
 
 setup(name='pulumi_checkly',
       version=VERSION,
-      description="A Pulumi package for creating and managing checkly cloud resources.",
+      description="A Pulumi package for creating and managing Checkly monitoring resources.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
@@ -50,7 +50,7 @@ setup(name='pulumi_checkly',
       project_urls={
           'Repository': 'https://github.com/checkly/pulumi-checkly'
       },
-      license='Apache-2.0',
+      license='MIT',
       packages=find_packages(),
       package_data={
           'pulumi_checkly': [

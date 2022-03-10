@@ -8,10 +8,10 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
-__all__ = ['PublicDashboardArgs', 'PublicDashboard']
+__all__ = ['DashboardArgs', 'Dashboard']
 
 @pulumi.input_type
-class PublicDashboardArgs:
+class DashboardArgs:
     def __init__(__self__, *,
                  custom_url: pulumi.Input[str],
                  custom_domain: Optional[pulumi.Input[str]] = None,
@@ -24,7 +24,7 @@ class PublicDashboardArgs:
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  width: Optional[pulumi.Input[str]] = None):
         """
-        The set of arguments for constructing a PublicDashboard resource.
+        The set of arguments for constructing a Dashboard resource.
         """
         pulumi.set(__self__, "custom_url", custom_url)
         if custom_domain is not None:
@@ -138,7 +138,7 @@ class PublicDashboardArgs:
 
 
 @pulumi.input_type
-class _PublicDashboardState:
+class _DashboardState:
     def __init__(__self__, *,
                  custom_domain: Optional[pulumi.Input[str]] = None,
                  custom_url: Optional[pulumi.Input[str]] = None,
@@ -151,7 +151,7 @@ class _PublicDashboardState:
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  width: Optional[pulumi.Input[str]] = None):
         """
-        Input properties used for looking up and filtering PublicDashboard resources.
+        Input properties used for looking up and filtering Dashboard resources.
         """
         if custom_domain is not None:
             pulumi.set(__self__, "custom_domain", custom_domain)
@@ -265,7 +265,7 @@ class _PublicDashboardState:
         pulumi.set(self, "width", value)
 
 
-class PublicDashboard(pulumi.CustomResource):
+class Dashboard(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
@@ -282,7 +282,7 @@ class PublicDashboard(pulumi.CustomResource):
                  width: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a PublicDashboard resource with the given unique name, props, and options.
+        Create a Dashboard resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
@@ -290,17 +290,17 @@ class PublicDashboard(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: PublicDashboardArgs,
+                 args: DashboardArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a PublicDashboard resource with the given unique name, props, and options.
+        Create a Dashboard resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
-        :param PublicDashboardArgs args: The arguments to use to populate this resource's properties.
+        :param DashboardArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(PublicDashboardArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(DashboardArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -329,7 +329,7 @@ class PublicDashboard(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = PublicDashboardArgs.__new__(PublicDashboardArgs)
+            __props__ = DashboardArgs.__new__(DashboardArgs)
 
             __props__.__dict__["custom_domain"] = custom_domain
             if custom_url is None and not opts.urn:
@@ -343,8 +343,8 @@ class PublicDashboard(pulumi.CustomResource):
             __props__.__dict__["refresh_rate"] = refresh_rate
             __props__.__dict__["tags"] = tags
             __props__.__dict__["width"] = width
-        super(PublicDashboard, __self__).__init__(
-            'checkly:index/publicDashboard:PublicDashboard',
+        super(Dashboard, __self__).__init__(
+            'checkly:index/dashboard:Dashboard',
             resource_name,
             __props__,
             opts)
@@ -362,9 +362,9 @@ class PublicDashboard(pulumi.CustomResource):
             pagination_rate: Optional[pulumi.Input[int]] = None,
             refresh_rate: Optional[pulumi.Input[int]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-            width: Optional[pulumi.Input[str]] = None) -> 'PublicDashboard':
+            width: Optional[pulumi.Input[str]] = None) -> 'Dashboard':
         """
-        Get an existing PublicDashboard resource's state with the given name, id, and optional extra
+        Get an existing Dashboard resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
 
         :param str resource_name: The unique name of the resulting resource.
@@ -373,7 +373,7 @@ class PublicDashboard(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = _PublicDashboardState.__new__(_PublicDashboardState)
+        __props__ = _DashboardState.__new__(_DashboardState)
 
         __props__.__dict__["custom_domain"] = custom_domain
         __props__.__dict__["custom_url"] = custom_url
@@ -385,7 +385,7 @@ class PublicDashboard(pulumi.CustomResource):
         __props__.__dict__["refresh_rate"] = refresh_rate
         __props__.__dict__["tags"] = tags
         __props__.__dict__["width"] = width
-        return PublicDashboard(resource_name, opts=opts, __props__=__props__)
+        return Dashboard(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter(name="customDomain")

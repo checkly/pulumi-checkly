@@ -1,7 +1,7 @@
 {
   "name": "@pulumi/checkly",
   "version": "1.0.0",
-  "description": "A Pulumi package for creating and managing checkly cloud resources.",
+  "description": "A Pulumi package for creating and managing Checkly monitoring resources.",
   "keywords": [
     "pulumi",
     "checkly",
@@ -9,7 +9,7 @@
   ],
   "homepage": "https://www.pulumi.com",
   "repository": "https://github.com/checkly/pulumi-checkly",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "scripts": {
     "build": "tsc"
   },

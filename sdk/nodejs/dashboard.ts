@@ -4,9 +4,9 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-export class PublicDashboard extends pulumi.CustomResource {
+export class Dashboard extends pulumi.CustomResource {
     /**
-     * Get an existing PublicDashboard resource's state with the given name, ID, and optional extra
+     * Get an existing Dashboard resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
@@ -14,22 +14,22 @@ export class PublicDashboard extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: PublicDashboardState, opts?: pulumi.CustomResourceOptions): PublicDashboard {
-        return new PublicDashboard(name, <any>state, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: DashboardState, opts?: pulumi.CustomResourceOptions): Dashboard {
+        return new Dashboard(name, <any>state, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'checkly:index/publicDashboard:PublicDashboard';
+    public static readonly __pulumiType = 'checkly:index/dashboard:Dashboard';
 
     /**
-     * Returns true if the given object is an instance of PublicDashboard.  This is designed to work even
+     * Returns true if the given object is an instance of Dashboard.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is PublicDashboard {
+    public static isInstance(obj: any): obj is Dashboard {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === PublicDashboard.__pulumiType;
+        return obj['__pulumiType'] === Dashboard.__pulumiType;
     }
 
     public readonly customDomain!: pulumi.Output<string | undefined>;
@@ -44,18 +44,18 @@ export class PublicDashboard extends pulumi.CustomResource {
     public readonly width!: pulumi.Output<string | undefined>;
 
     /**
-     * Create a PublicDashboard resource with the given unique name, arguments, and options.
+     * Create a Dashboard resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: PublicDashboardArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: PublicDashboardArgs | PublicDashboardState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: DashboardArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: DashboardArgs | DashboardState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
-            const state = argsOrState as PublicDashboardState | undefined;
+            const state = argsOrState as DashboardState | undefined;
             resourceInputs["customDomain"] = state ? state.customDomain : undefined;
             resourceInputs["customUrl"] = state ? state.customUrl : undefined;
             resourceInputs["header"] = state ? state.header : undefined;
@@ -67,7 +67,7 @@ export class PublicDashboard extends pulumi.CustomResource {
             resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["width"] = state ? state.width : undefined;
         } else {
-            const args = argsOrState as PublicDashboardArgs | undefined;
+            const args = argsOrState as DashboardArgs | undefined;
             if ((!args || args.customUrl === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'customUrl'");
             }
@@ -85,14 +85,14 @@ export class PublicDashboard extends pulumi.CustomResource {
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(PublicDashboard.__pulumiType, name, resourceInputs, opts);
+        super(Dashboard.__pulumiType, name, resourceInputs, opts);
     }
 }
 
 /**
- * Input properties used for looking up and filtering PublicDashboard resources.
+ * Input properties used for looking up and filtering Dashboard resources.
  */
-export interface PublicDashboardState {
+export interface DashboardState {
     customDomain?: pulumi.Input<string>;
     customUrl?: pulumi.Input<string>;
     header?: pulumi.Input<string>;
@@ -106,9 +106,9 @@ export interface PublicDashboardState {
 }
 
 /**
- * The set of arguments for constructing a PublicDashboard resource.
+ * The set of arguments for constructing a Dashboard resource.
  */
-export interface PublicDashboardArgs {
+export interface DashboardArgs {
     customDomain?: pulumi.Input<string>;
     customUrl: pulumi.Input<string>;
     header?: pulumi.Input<string>;

@@ -9,8 +9,8 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
-    [ChecklyResourceType("checkly:index/publicDashboard:PublicDashboard")]
-    public partial class PublicDashboard : Pulumi.CustomResource
+    [ChecklyResourceType("checkly:index/dashboard:Dashboard")]
+    public partial class Dashboard : Pulumi.CustomResource
     {
         [Output("customDomain")]
         public Output<string?> CustomDomain { get; private set; } = null!;
@@ -44,19 +44,19 @@ namespace Pulumi.Checkly
 
 
         /// <summary>
-        /// Create a PublicDashboard resource with the given unique name, arguments, and options.
+        /// Create a Dashboard resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public PublicDashboard(string name, PublicDashboardArgs args, CustomResourceOptions? options = null)
-            : base("checkly:index/publicDashboard:PublicDashboard", name, args ?? new PublicDashboardArgs(), MakeResourceOptions(options, ""))
+        public Dashboard(string name, DashboardArgs args, CustomResourceOptions? options = null)
+            : base("checkly:index/dashboard:Dashboard", name, args ?? new DashboardArgs(), MakeResourceOptions(options, ""))
         {
         }
 
-        private PublicDashboard(string name, Input<string> id, PublicDashboardState? state = null, CustomResourceOptions? options = null)
-            : base("checkly:index/publicDashboard:PublicDashboard", name, state, MakeResourceOptions(options, id))
+        private Dashboard(string name, Input<string> id, DashboardState? state = null, CustomResourceOptions? options = null)
+            : base("checkly:index/dashboard:Dashboard", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -72,7 +72,7 @@ namespace Pulumi.Checkly
             return merged;
         }
         /// <summary>
-        /// Get an existing PublicDashboard resource's state with the given name, ID, and optional extra
+        /// Get an existing Dashboard resource's state with the given name, ID, and optional extra
         /// properties used to qualify the lookup.
         /// </summary>
         ///
@@ -80,13 +80,13 @@ namespace Pulumi.Checkly
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="state">Any extra arguments used during the lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static PublicDashboard Get(string name, Input<string> id, PublicDashboardState? state = null, CustomResourceOptions? options = null)
+        public static Dashboard Get(string name, Input<string> id, DashboardState? state = null, CustomResourceOptions? options = null)
         {
-            return new PublicDashboard(name, id, state, options);
+            return new Dashboard(name, id, state, options);
         }
     }
 
-    public sealed class PublicDashboardArgs : Pulumi.ResourceArgs
+    public sealed class DashboardArgs : Pulumi.ResourceArgs
     {
         [Input("customDomain")]
         public Input<string>? CustomDomain { get; set; }
@@ -123,12 +123,12 @@ namespace Pulumi.Checkly
         [Input("width")]
         public Input<string>? Width { get; set; }
 
-        public PublicDashboardArgs()
+        public DashboardArgs()
         {
         }
     }
 
-    public sealed class PublicDashboardState : Pulumi.ResourceArgs
+    public sealed class DashboardState : Pulumi.ResourceArgs
     {
         [Input("customDomain")]
         public Input<string>? CustomDomain { get; set; }
@@ -165,7 +165,7 @@ namespace Pulumi.Checkly
         [Input("width")]
         public Input<string>? Width { get; set; }
 
-        public PublicDashboardState()
+        public DashboardState()
         {
         }
     }
