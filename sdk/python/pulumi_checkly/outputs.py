@@ -40,11 +40,17 @@ __all__ = [
 class AlertChannelEmail(dict):
     def __init__(__self__, *,
                  address: str):
+        """
+        :param str address: the email address of this email alert channel.
+        """
         pulumi.set(__self__, "address", address)
 
     @property
     @pulumi.getter
     def address(self) -> str:
+        """
+        the email address of this email alert channel.
+        """
         return pulumi.get(self, "address")
 
 
@@ -72,6 +78,12 @@ class AlertChannelOpsgenie(dict):
                  name: str,
                  priority: str,
                  region: str):
+        """
+        :param str api_key: .
+        :param str name: Webhook's channel name.
+        :param str priority: .
+        :param str region: .
+        """
         pulumi.set(__self__, "api_key", api_key)
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "priority", priority)
@@ -80,21 +92,33 @@ class AlertChannelOpsgenie(dict):
     @property
     @pulumi.getter(name="apiKey")
     def api_key(self) -> str:
+        """
+        .
+        """
         return pulumi.get(self, "api_key")
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        Webhook's channel name.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def priority(self) -> str:
+        """
+        .
+        """
         return pulumi.get(self, "priority")
 
     @property
     @pulumi.getter
     def region(self) -> str:
+        """
+        .
+        """
         return pulumi.get(self, "region")
 
 
@@ -123,6 +147,11 @@ class AlertChannelPagerduty(dict):
                  service_key: str,
                  account: Optional[str] = None,
                  service_name: Optional[str] = None):
+        """
+        :param str service_key: Pagerduty's service integration key.
+        :param str account: Pagerduty's account name.
+        :param str service_name: Pagerduty's service name.
+        """
         pulumi.set(__self__, "service_key", service_key)
         if account is not None:
             pulumi.set(__self__, "account", account)
@@ -132,16 +161,25 @@ class AlertChannelPagerduty(dict):
     @property
     @pulumi.getter(name="serviceKey")
     def service_key(self) -> str:
+        """
+        Pagerduty's service integration key.
+        """
         return pulumi.get(self, "service_key")
 
     @property
     @pulumi.getter
     def account(self) -> Optional[str]:
+        """
+        Pagerduty's account name.
+        """
         return pulumi.get(self, "account")
 
     @property
     @pulumi.getter(name="serviceName")
     def service_name(self) -> Optional[str]:
+        """
+        Pagerduty's service name.
+        """
         return pulumi.get(self, "service_name")
 
 
@@ -150,17 +188,27 @@ class AlertChannelSlack(dict):
     def __init__(__self__, *,
                  channel: str,
                  url: str):
+        """
+        :param str channel: Slack's channel name.
+        :param str url: .
+        """
         pulumi.set(__self__, "channel", channel)
         pulumi.set(__self__, "url", url)
 
     @property
     @pulumi.getter
     def channel(self) -> str:
+        """
+        Slack's channel name.
+        """
         return pulumi.get(self, "channel")
 
     @property
     @pulumi.getter
     def url(self) -> str:
+        """
+        .
+        """
         return pulumi.get(self, "url")
 
 
@@ -169,17 +217,27 @@ class AlertChannelSms(dict):
     def __init__(__self__, *,
                  name: str,
                  number: str):
+        """
+        :param str name: Webhook's channel name.
+        :param str number: Mobile number to receive alerts.
+        """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "number", number)
 
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        Webhook's channel name.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def number(self) -> str:
+        """
+        Mobile number to receive alerts.
+        """
         return pulumi.get(self, "number")
 
 
@@ -212,6 +270,15 @@ class AlertChannelWebhook(dict):
                  query_parameters: Optional[Mapping[str, Any]] = None,
                  template: Optional[str] = None,
                  webhook_secret: Optional[str] = None):
+        """
+        :param str name: Webhook's channel name.
+        :param str url: .
+        :param Mapping[str, Any] headers: .
+        :param str method: Default is `POST`.
+        :param Mapping[str, Any] query_parameters: .
+        :param str template: .
+        :param str webhook_secret: .
+        """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "url", url)
         if headers is not None:
@@ -228,36 +295,57 @@ class AlertChannelWebhook(dict):
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        Webhook's channel name.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def url(self) -> str:
+        """
+        .
+        """
         return pulumi.get(self, "url")
 
     @property
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
         return pulumi.get(self, "headers")
 
     @property
     @pulumi.getter
     def method(self) -> Optional[str]:
+        """
+        Default is `POST`.
+        """
         return pulumi.get(self, "method")
 
     @property
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
         return pulumi.get(self, "query_parameters")
 
     @property
     @pulumi.getter
     def template(self) -> Optional[str]:
+        """
+        .
+        """
         return pulumi.get(self, "template")
 
     @property
     @pulumi.getter(name="webhookSecret")
     def webhook_secret(self) -> Optional[str]:
+        """
+        .
+        """
         return pulumi.get(self, "webhook_secret")
 
 
@@ -283,12 +371,18 @@ class CheckAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: bool,
                  channel_id: int):
+        """
+        :param bool activated: Determines if the check is running or not. Possible values `true`, and `false`.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @property
     @pulumi.getter
     def activated(self) -> bool:
+        """
+        Determines if the check is running or not. Possible values `true`, and `false`.
+        """
         return pulumi.get(self, "activated")
 
     @property
@@ -328,6 +422,13 @@ class CheckAlertSettings(dict):
                  run_based_escalations: Optional[Sequence['outputs.CheckAlertSettingsRunBasedEscalation']] = None,
                  ssl_certificates: Optional[Sequence['outputs.CheckAlertSettingsSslCertificate']] = None,
                  time_based_escalations: Optional[Sequence['outputs.CheckAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param Sequence['CheckAlertSettingsReminderArgs'] reminders: . Possible arguments:
+        :param Sequence['CheckAlertSettingsRunBasedEscalationArgs'] run_based_escalations: . Possible arguments:
+        :param Sequence['CheckAlertSettingsSslCertificateArgs'] ssl_certificates: At what interval the reminders should be send.  Possible arguments:
+        :param Sequence['CheckAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: . Possible arguments:
+        """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
         if reminders is not None:
@@ -342,26 +443,41 @@ class CheckAlertSettings(dict):
     @property
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[str]:
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
         return pulumi.get(self, "escalation_type")
 
     @property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.CheckAlertSettingsReminder']]:
+        """
+        . Possible arguments:
+        """
         return pulumi.get(self, "reminders")
 
     @property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.CheckAlertSettingsRunBasedEscalation']]:
+        """
+        . Possible arguments:
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @property
     @pulumi.getter(name="sslCertificates")
     def ssl_certificates(self) -> Optional[Sequence['outputs.CheckAlertSettingsSslCertificate']]:
+        """
+        At what interval the reminders should be send.  Possible arguments:
+        """
         return pulumi.get(self, "ssl_certificates")
 
     @property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.CheckAlertSettingsTimeBasedEscalation']]:
+        """
+        . Possible arguments:
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -370,6 +486,10 @@ class CheckAlertSettingsReminder(dict):
     def __init__(__self__, *,
                  amount: Optional[int] = None,
                  interval: Optional[int] = None):
+        """
+        :param int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        :param int interval: . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
         if interval is not None:
@@ -378,11 +498,17 @@ class CheckAlertSettingsReminder(dict):
     @property
     @pulumi.getter
     def amount(self) -> Optional[int]:
+        """
+        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        """
         return pulumi.get(self, "amount")
 
     @property
     @pulumi.getter
     def interval(self) -> Optional[int]:
+        """
+        . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         return pulumi.get(self, "interval")
 
 
@@ -407,12 +533,18 @@ class CheckAlertSettingsRunBasedEscalation(dict):
 
     def __init__(__self__, *,
                  failed_run_threshold: Optional[int] = None):
+        """
+        :param int failed_run_threshold: After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+        """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
 
     @property
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[int]:
+        """
+        After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+        """
         return pulumi.get(self, "failed_run_threshold")
 
 
@@ -438,6 +570,10 @@ class CheckAlertSettingsSslCertificate(dict):
     def __init__(__self__, *,
                  alert_threshold: Optional[int] = None,
                  enabled: Optional[bool] = None):
+        """
+        :param int alert_threshold: At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+        :param bool enabled: Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+        """
         if alert_threshold is not None:
             pulumi.set(__self__, "alert_threshold", alert_threshold)
         if enabled is not None:
@@ -446,11 +582,17 @@ class CheckAlertSettingsSslCertificate(dict):
     @property
     @pulumi.getter(name="alertThreshold")
     def alert_threshold(self) -> Optional[int]:
+        """
+        At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+        """
         return pulumi.get(self, "alert_threshold")
 
     @property
     @pulumi.getter
     def enabled(self) -> Optional[bool]:
+        """
+        Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+        """
         return pulumi.get(self, "enabled")
 
 
@@ -475,12 +617,18 @@ class CheckAlertSettingsTimeBasedEscalation(dict):
 
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[int] = None):
+        """
+        :param int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
 
     @property
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[int]:
+        """
+        After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         return pulumi.get(self, "minutes_failing_threshold")
 
 
@@ -506,12 +654,18 @@ class CheckGroupAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: bool,
                  channel_id: int):
+        """
+        :param bool activated: Determines if the checks in the group are running or not.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @property
     @pulumi.getter
     def activated(self) -> bool:
+        """
+        Determines if the checks in the group are running or not.
+        """
         return pulumi.get(self, "activated")
 
     @property
@@ -551,6 +705,13 @@ class CheckGroupAlertSettings(dict):
                  run_based_escalations: Optional[Sequence['outputs.CheckGroupAlertSettingsRunBasedEscalation']] = None,
                  ssl_certificates: Optional[Sequence['outputs.CheckGroupAlertSettingsSslCertificate']] = None,
                  time_based_escalations: Optional[Sequence['outputs.CheckGroupAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param Sequence['CheckGroupAlertSettingsReminderArgs'] reminders: . Possible arguments:
+        :param Sequence['CheckGroupAlertSettingsRunBasedEscalationArgs'] run_based_escalations: . Possible arguments:
+        :param Sequence['CheckGroupAlertSettingsSslCertificateArgs'] ssl_certificates: At what interval the reminders should be send.  Possible arguments:
+        :param Sequence['CheckGroupAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: . Possible arguments:
+        """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
         if reminders is not None:
@@ -565,26 +726,41 @@ class CheckGroupAlertSettings(dict):
     @property
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[str]:
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
         return pulumi.get(self, "escalation_type")
 
     @property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsReminder']]:
+        """
+        . Possible arguments:
+        """
         return pulumi.get(self, "reminders")
 
     @property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsRunBasedEscalation']]:
+        """
+        . Possible arguments:
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @property
     @pulumi.getter(name="sslCertificates")
     def ssl_certificates(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsSslCertificate']]:
+        """
+        At what interval the reminders should be send.  Possible arguments:
+        """
         return pulumi.get(self, "ssl_certificates")
 
     @property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsTimeBasedEscalation']]:
+        """
+        . Possible arguments:
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -593,6 +769,10 @@ class CheckGroupAlertSettingsReminder(dict):
     def __init__(__self__, *,
                  amount: Optional[int] = None,
                  interval: Optional[int] = None):
+        """
+        :param int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        :param int interval: . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
         if interval is not None:
@@ -601,11 +781,17 @@ class CheckGroupAlertSettingsReminder(dict):
     @property
     @pulumi.getter
     def amount(self) -> Optional[int]:
+        """
+        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        """
         return pulumi.get(self, "amount")
 
     @property
     @pulumi.getter
     def interval(self) -> Optional[int]:
+        """
+        . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         return pulumi.get(self, "interval")
 
 
@@ -630,12 +816,18 @@ class CheckGroupAlertSettingsRunBasedEscalation(dict):
 
     def __init__(__self__, *,
                  failed_run_threshold: Optional[int] = None):
+        """
+        :param int failed_run_threshold: After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+        """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
 
     @property
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[int]:
+        """
+        After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
+        """
         return pulumi.get(self, "failed_run_threshold")
 
 
@@ -661,6 +853,10 @@ class CheckGroupAlertSettingsSslCertificate(dict):
     def __init__(__self__, *,
                  alert_threshold: Optional[int] = None,
                  enabled: Optional[bool] = None):
+        """
+        :param int alert_threshold: At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+        :param bool enabled: Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+        """
         if alert_threshold is not None:
             pulumi.set(__self__, "alert_threshold", alert_threshold)
         if enabled is not None:
@@ -669,11 +865,17 @@ class CheckGroupAlertSettingsSslCertificate(dict):
     @property
     @pulumi.getter(name="alertThreshold")
     def alert_threshold(self) -> Optional[int]:
+        """
+        At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+        """
         return pulumi.get(self, "alert_threshold")
 
     @property
     @pulumi.getter
     def enabled(self) -> Optional[bool]:
+        """
+        Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+        """
         return pulumi.get(self, "enabled")
 
 
@@ -698,12 +900,18 @@ class CheckGroupAlertSettingsTimeBasedEscalation(dict):
 
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[int] = None):
+        """
+        :param int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
 
     @property
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[int]:
+        """
+        After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        """
         return pulumi.get(self, "minutes_failing_threshold")
 
 
@@ -734,6 +942,13 @@ class CheckGroupApiCheckDefaults(dict):
                  headers: Optional[Mapping[str, Any]] = None,
                  query_parameters: Optional[Mapping[str, Any]] = None,
                  url: Optional[str] = None):
+        """
+        :param Sequence['CheckGroupApiCheckDefaultsAssertionArgs'] assertions: . Possible arguments:
+        :param 'CheckGroupApiCheckDefaultsBasicAuthArgs' basic_auth: . Possible arguments
+        :param Mapping[str, Any] headers: .
+        :param Mapping[str, Any] query_parameters: .
+        :param str url: The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+        """
         if assertions is not None:
             pulumi.set(__self__, "assertions", assertions)
         if basic_auth is not None:
@@ -750,26 +965,41 @@ class CheckGroupApiCheckDefaults(dict):
     @property
     @pulumi.getter
     def assertions(self) -> Optional[Sequence['outputs.CheckGroupApiCheckDefaultsAssertion']]:
+        """
+        . Possible arguments:
+        """
         return pulumi.get(self, "assertions")
 
     @property
     @pulumi.getter(name="basicAuth")
     def basic_auth(self) -> Optional['outputs.CheckGroupApiCheckDefaultsBasicAuth']:
+        """
+        . Possible arguments
+        """
         return pulumi.get(self, "basic_auth")
 
     @property
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
         return pulumi.get(self, "headers")
 
     @property
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
         return pulumi.get(self, "query_parameters")
 
     @property
     @pulumi.getter
     def url(self) -> Optional[str]:
+        """
+        The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+        """
         return pulumi.get(self, "url")
 
 
@@ -780,6 +1010,11 @@ class CheckGroupApiCheckDefaultsAssertion(dict):
                  source: str,
                  target: str,
                  property: Optional[str] = None):
+        """
+        :param str comparison: Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        :param str source: Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        :param str property: .
+        """
         pulumi.set(__self__, "comparison", comparison)
         pulumi.set(__self__, "source", source)
         pulumi.set(__self__, "target", target)
@@ -789,11 +1024,17 @@ class CheckGroupApiCheckDefaultsAssertion(dict):
     @property
     @pulumi.getter
     def comparison(self) -> str:
+        """
+        Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        """
         return pulumi.get(self, "comparison")
 
     @property
     @pulumi.getter
     def source(self) -> str:
+        """
+        Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        """
         return pulumi.get(self, "source")
 
     @property
@@ -804,6 +1045,9 @@ class CheckGroupApiCheckDefaultsAssertion(dict):
     @property
     @pulumi.getter
     def property(self) -> Optional[str]:
+        """
+        .
+        """
         return pulumi.get(self, "property")
 
 
@@ -864,6 +1108,17 @@ class CheckRequest(dict):
                  method: Optional[str] = None,
                  query_parameters: Optional[Mapping[str, Any]] = None,
                  skip_ssl: Optional[bool] = None):
+        """
+        :param str url: .
+        :param Sequence['CheckRequestAssertionArgs'] assertions: A request can have multiple assetions. Assertion has the following arguments:
+        :param 'CheckRequestBasicAuthArgs' basic_auth: A request might have one basic_auth config. basic_auth has two arguments:
+        :param str body_type: Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+        :param bool follow_redirects: .
+        :param Mapping[str, Any] headers: .
+        :param str method: The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.
+        :param Mapping[str, Any] query_parameters: .
+        :param bool skip_ssl: .
+        """
         pulumi.set(__self__, "url", url)
         if assertions is not None:
             pulumi.set(__self__, "assertions", assertions)
@@ -887,16 +1142,25 @@ class CheckRequest(dict):
     @property
     @pulumi.getter
     def url(self) -> str:
+        """
+        .
+        """
         return pulumi.get(self, "url")
 
     @property
     @pulumi.getter
     def assertions(self) -> Optional[Sequence['outputs.CheckRequestAssertion']]:
+        """
+        A request can have multiple assetions. Assertion has the following arguments:
+        """
         return pulumi.get(self, "assertions")
 
     @property
     @pulumi.getter(name="basicAuth")
     def basic_auth(self) -> Optional['outputs.CheckRequestBasicAuth']:
+        """
+        A request might have one basic_auth config. basic_auth has two arguments:
+        """
         return pulumi.get(self, "basic_auth")
 
     @property
@@ -907,31 +1171,49 @@ class CheckRequest(dict):
     @property
     @pulumi.getter(name="bodyType")
     def body_type(self) -> Optional[str]:
+        """
+        Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+        """
         return pulumi.get(self, "body_type")
 
     @property
     @pulumi.getter(name="followRedirects")
     def follow_redirects(self) -> Optional[bool]:
+        """
+        .
+        """
         return pulumi.get(self, "follow_redirects")
 
     @property
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
         return pulumi.get(self, "headers")
 
     @property
     @pulumi.getter
     def method(self) -> Optional[str]:
+        """
+        The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.
+        """
         return pulumi.get(self, "method")
 
     @property
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, Any]]:
+        """
+        .
+        """
         return pulumi.get(self, "query_parameters")
 
     @property
     @pulumi.getter(name="skipSsl")
     def skip_ssl(self) -> Optional[bool]:
+        """
+        .
+        """
         return pulumi.get(self, "skip_ssl")
 
 
@@ -942,6 +1224,12 @@ class CheckRequestAssertion(dict):
                  source: str,
                  property: Optional[str] = None,
                  target: Optional[str] = None):
+        """
+        :param str comparison: Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        :param str source: Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        :param str property: .
+        :param str target: .
+        """
         pulumi.set(__self__, "comparison", comparison)
         pulumi.set(__self__, "source", source)
         if property is not None:
@@ -952,21 +1240,33 @@ class CheckRequestAssertion(dict):
     @property
     @pulumi.getter
     def comparison(self) -> str:
+        """
+        Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        """
         return pulumi.get(self, "comparison")
 
     @property
     @pulumi.getter
     def source(self) -> str:
+        """
+        Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        """
         return pulumi.get(self, "source")
 
     @property
     @pulumi.getter
     def target(self) -> Optional[str]:
+        """
+        .
+        """
         return pulumi.get(self, "target")
 
     @property
     @pulumi.getter
     def property(self) -> Optional[str]:
+        """
+        .
+        """
         return pulumi.get(self, "property")
 
 

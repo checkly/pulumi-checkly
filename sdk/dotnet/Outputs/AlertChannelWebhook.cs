@@ -13,12 +13,33 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class AlertChannelWebhook
     {
+        /// <summary>
+        /// .
+        /// </summary>
         public readonly ImmutableDictionary<string, object>? Headers;
+        /// <summary>
+        /// Default is `POST`.
+        /// </summary>
         public readonly string? Method;
+        /// <summary>
+        /// Webhook's channel name.
+        /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// .
+        /// </summary>
         public readonly ImmutableDictionary<string, object>? QueryParameters;
+        /// <summary>
+        /// .
+        /// </summary>
         public readonly string? Template;
+        /// <summary>
+        /// .
+        /// </summary>
         public readonly string Url;
+        /// <summary>
+        /// .
+        /// </summary>
         public readonly string? WebhookSecret;
 
         [OutputConstructor]

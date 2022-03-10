@@ -12,11 +12,18 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class CheckAlertSettingsGetArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
         [Input("reminders")]
         private InputList<Inputs.CheckAlertSettingsReminderGetArgs>? _reminders;
+
+        /// <summary>
+        /// . Possible arguments:
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsReminderGetArgs> Reminders
         {
             get => _reminders ?? (_reminders = new InputList<Inputs.CheckAlertSettingsReminderGetArgs>());
@@ -25,6 +32,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("runBasedEscalations")]
         private InputList<Inputs.CheckAlertSettingsRunBasedEscalationGetArgs>? _runBasedEscalations;
+
+        /// <summary>
+        /// . Possible arguments:
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsRunBasedEscalationGetArgs> RunBasedEscalations
         {
             get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.CheckAlertSettingsRunBasedEscalationGetArgs>());
@@ -33,6 +44,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("sslCertificates")]
         private InputList<Inputs.CheckAlertSettingsSslCertificateGetArgs>? _sslCertificates;
+
+        /// <summary>
+        /// At what interval the reminders should be send.  Possible arguments:
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsSslCertificateGetArgs> SslCertificates
         {
             get => _sslCertificates ?? (_sslCertificates = new InputList<Inputs.CheckAlertSettingsSslCertificateGetArgs>());
@@ -41,6 +56,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("timeBasedEscalations")]
         private InputList<Inputs.CheckAlertSettingsTimeBasedEscalationGetArgs>? _timeBasedEscalations;
+
+        /// <summary>
+        /// . Possible arguments:
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsTimeBasedEscalationGetArgs> TimeBasedEscalations
         {
             get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.CheckAlertSettingsTimeBasedEscalationGetArgs>());

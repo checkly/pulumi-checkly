@@ -1,5 +1,5 @@
 import * as fs from 'fs'
-import * as checkly from "@pulumi/checkly"
+import * as checkly from "@checkly/pulumi"
 
 const snippetScript = fs.readFileSync("./scripts/snippet.js", 'utf-8')
 const browerCheckScript = fs.readFileSync("./scripts/browser-check.js", 'utf-8')

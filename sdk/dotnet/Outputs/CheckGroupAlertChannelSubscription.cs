@@ -13,6 +13,9 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupAlertChannelSubscription
     {
+        /// <summary>
+        /// Determines if the checks in the group are running or not.
+        /// </summary>
         public readonly bool Activated;
         public readonly int ChannelId;
 

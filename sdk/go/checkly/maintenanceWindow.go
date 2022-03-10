@@ -11,16 +11,86 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## # MaintenanceWindow
+//
+// `MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `MaintenanceWindow` resource to your resource file.
+//
+// ## Example Usage
+//
+// Minimal maintenance windows example
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewMaintenanceWindow(ctx, "maintenance-1", &checkly.MaintenanceWindowArgs{
+// 			EndsAt:     pulumi.String("2014-08-25T00:00:00.000Z"),
+// 			RepeatUnit: pulumi.String("MONTH"),
+// 			StartsAt:   pulumi.String("2014-08-24T00:00:00.000Z"),
+// 			Tags: pulumi.StringArray{
+// 				pulumi.String("auto"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// Full maintenance windows example (includes optional fields)
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewMaintenanceWindow(ctx, "maintenance-1", &checkly.MaintenanceWindowArgs{
+// 			EndsAt:         pulumi.String("2014-08-25T00:00:00.000Z"),
+// 			RepeatEndsAt:   pulumi.String("2014-08-24T00:00:00.000Z"),
+// 			RepeatInterval: pulumi.Int(1),
+// 			RepeatUnit:     pulumi.String("MONTH"),
+// 			StartsAt:       pulumi.String("2014-08-24T00:00:00.000Z"),
+// 			Tags: pulumi.StringArray{
+// 				pulumi.String("auto"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
 type MaintenanceWindow struct {
 	pulumi.CustomResourceState
 
-	EndsAt         pulumi.StringOutput      `pulumi:"endsAt"`
-	Name           pulumi.StringOutput      `pulumi:"name"`
-	RepeatEndsAt   pulumi.StringPtrOutput   `pulumi:"repeatEndsAt"`
-	RepeatInterval pulumi.IntPtrOutput      `pulumi:"repeatInterval"`
-	RepeatUnit     pulumi.StringPtrOutput   `pulumi:"repeatUnit"`
-	StartsAt       pulumi.StringOutput      `pulumi:"startsAt"`
-	Tags           pulumi.StringArrayOutput `pulumi:"tags"`
+	// The end date of the maintenance window.
+	EndsAt pulumi.StringOutput `pulumi:"endsAt"`
+	// The maintenance window name.
+	Name pulumi.StringOutput `pulumi:"name"`
+	// The end date where the maintenance window should stop repeating.
+	RepeatEndsAt pulumi.StringOutput `pulumi:"repeatEndsAt"`
+	// The repeat interval of the maintenance window from the first occurance.
+	RepeatInterval pulumi.IntOutput `pulumi:"repeatInterval"`
+	// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+	RepeatUnit pulumi.StringOutput `pulumi:"repeatUnit"`
+	// The start date of the maintenance window.
+	StartsAt pulumi.StringOutput `pulumi:"startsAt"`
+	// The names of the checks and groups maintenance window should apply to.
+	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 }
 
 // NewMaintenanceWindow registers a new resource with the given unique name, arguments, and options.
@@ -32,6 +102,15 @@ func NewMaintenanceWindow(ctx *pulumi.Context,
 
 	if args.EndsAt == nil {
 		return nil, errors.New("invalid value for required argument 'EndsAt'")
+	}
+	if args.RepeatEndsAt == nil {
+		return nil, errors.New("invalid value for required argument 'RepeatEndsAt'")
+	}
+	if args.RepeatInterval == nil {
+		return nil, errors.New("invalid value for required argument 'RepeatInterval'")
+	}
+	if args.RepeatUnit == nil {
+		return nil, errors.New("invalid value for required argument 'RepeatUnit'")
 	}
 	if args.StartsAt == nil {
 		return nil, errors.New("invalid value for required argument 'StartsAt'")
@@ -58,23 +137,37 @@ func GetMaintenanceWindow(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering MaintenanceWindow resources.
 type maintenanceWindowState struct {
-	EndsAt         *string  `pulumi:"endsAt"`
-	Name           *string  `pulumi:"name"`
-	RepeatEndsAt   *string  `pulumi:"repeatEndsAt"`
-	RepeatInterval *int     `pulumi:"repeatInterval"`
-	RepeatUnit     *string  `pulumi:"repeatUnit"`
-	StartsAt       *string  `pulumi:"startsAt"`
-	Tags           []string `pulumi:"tags"`
+	// The end date of the maintenance window.
+	EndsAt *string `pulumi:"endsAt"`
+	// The maintenance window name.
+	Name *string `pulumi:"name"`
+	// The end date where the maintenance window should stop repeating.
+	RepeatEndsAt *string `pulumi:"repeatEndsAt"`
+	// The repeat interval of the maintenance window from the first occurance.
+	RepeatInterval *int `pulumi:"repeatInterval"`
+	// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+	RepeatUnit *string `pulumi:"repeatUnit"`
+	// The start date of the maintenance window.
+	StartsAt *string `pulumi:"startsAt"`
+	// The names of the checks and groups maintenance window should apply to.
+	Tags []string `pulumi:"tags"`
 }
 
 type MaintenanceWindowState struct {
-	EndsAt         pulumi.StringPtrInput
-	Name           pulumi.StringPtrInput
-	RepeatEndsAt   pulumi.StringPtrInput
+	// The end date of the maintenance window.
+	EndsAt pulumi.StringPtrInput
+	// The maintenance window name.
+	Name pulumi.StringPtrInput
+	// The end date where the maintenance window should stop repeating.
+	RepeatEndsAt pulumi.StringPtrInput
+	// The repeat interval of the maintenance window from the first occurance.
 	RepeatInterval pulumi.IntPtrInput
-	RepeatUnit     pulumi.StringPtrInput
-	StartsAt       pulumi.StringPtrInput
-	Tags           pulumi.StringArrayInput
+	// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+	RepeatUnit pulumi.StringPtrInput
+	// The start date of the maintenance window.
+	StartsAt pulumi.StringPtrInput
+	// The names of the checks and groups maintenance window should apply to.
+	Tags pulumi.StringArrayInput
 }
 
 func (MaintenanceWindowState) ElementType() reflect.Type {
@@ -82,24 +175,38 @@ func (MaintenanceWindowState) ElementType() reflect.Type {
 }
 
 type maintenanceWindowArgs struct {
-	EndsAt         string   `pulumi:"endsAt"`
-	Name           *string  `pulumi:"name"`
-	RepeatEndsAt   *string  `pulumi:"repeatEndsAt"`
-	RepeatInterval *int     `pulumi:"repeatInterval"`
-	RepeatUnit     *string  `pulumi:"repeatUnit"`
-	StartsAt       string   `pulumi:"startsAt"`
-	Tags           []string `pulumi:"tags"`
+	// The end date of the maintenance window.
+	EndsAt string `pulumi:"endsAt"`
+	// The maintenance window name.
+	Name *string `pulumi:"name"`
+	// The end date where the maintenance window should stop repeating.
+	RepeatEndsAt string `pulumi:"repeatEndsAt"`
+	// The repeat interval of the maintenance window from the first occurance.
+	RepeatInterval int `pulumi:"repeatInterval"`
+	// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+	RepeatUnit string `pulumi:"repeatUnit"`
+	// The start date of the maintenance window.
+	StartsAt string `pulumi:"startsAt"`
+	// The names of the checks and groups maintenance window should apply to.
+	Tags []string `pulumi:"tags"`
 }
 
 // The set of arguments for constructing a MaintenanceWindow resource.
 type MaintenanceWindowArgs struct {
-	EndsAt         pulumi.StringInput
-	Name           pulumi.StringPtrInput
-	RepeatEndsAt   pulumi.StringPtrInput
-	RepeatInterval pulumi.IntPtrInput
-	RepeatUnit     pulumi.StringPtrInput
-	StartsAt       pulumi.StringInput
-	Tags           pulumi.StringArrayInput
+	// The end date of the maintenance window.
+	EndsAt pulumi.StringInput
+	// The maintenance window name.
+	Name pulumi.StringPtrInput
+	// The end date where the maintenance window should stop repeating.
+	RepeatEndsAt pulumi.StringInput
+	// The repeat interval of the maintenance window from the first occurance.
+	RepeatInterval pulumi.IntInput
+	// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+	RepeatUnit pulumi.StringInput
+	// The start date of the maintenance window.
+	StartsAt pulumi.StringInput
+	// The names of the checks and groups maintenance window should apply to.
+	Tags pulumi.StringArrayInput
 }
 
 func (MaintenanceWindowArgs) ElementType() reflect.Type {

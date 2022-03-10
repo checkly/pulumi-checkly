@@ -1,6 +1,6 @@
 {
-  "name": "@pulumi/checkly",
-  "version": "1.0.0",
+  "name": "@checkly/pulumi",
+  "version": "0.0.1-alpha.0",
   "description": "A Pulumi package for creating and managing Checkly monitoring resources.",
   "keywords": [
     "pulumi",
@@ -23,6 +23,6 @@
   },
   "pulumi": {
     "resource": true,
-    "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/${VERSION}"
+    "pluginDownloadURL": "0.0.1-alpha.0"
   }
 }

@@ -10,20 +10,258 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## # AlertChannel
+//
+// The `AlertChannel` resource allows users to manage Checkly alert channels.
+//
+// Checkly's Alert Channels feature allows you to define global alerting channels for the checks in your account:
+//
+// ## Example Usage
+//
+// *An Email alert channel*
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewAlertChannel(ctx, "emailAc", &checkly.AlertChannelArgs{
+// 			Email: &AlertChannelEmailArgs{
+// 				Address: pulumi.String("john@example.com"),
+// 			},
+// 			SendDegraded:       pulumi.Bool(true),
+// 			SendFailure:        pulumi.Bool(false),
+// 			SendRecovery:       pulumi.Bool(true),
+// 			SslExpiry:          pulumi.Bool(true),
+// 			SslExpiryThreshold: pulumi.Int(22),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// *A SMS alert channel*
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewAlertChannel(ctx, "smsAc", &checkly.AlertChannelArgs{
+// 			SendFailure:  pulumi.Bool(true),
+// 			SendRecovery: pulumi.Bool(true),
+// 			Sms: &AlertChannelSmsArgs{
+// 				Name:   pulumi.String("john"),
+// 				Number: pulumi.String("0123456789"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// *A Slack alert channel*
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewAlertChannel(ctx, "slackAc", &checkly.AlertChannelArgs{
+// 			Slack: &AlertChannelSlackArgs{
+// 				Channel: pulumi.String("#checkly-notifications"),
+// 				Url:     pulumi.String("https://slack.com/webhook"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// *An Opsgenie alert channel*
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewAlertChannel(ctx, "opsgenieAc", &checkly.AlertChannelArgs{
+// 			Opsgenie: &AlertChannelOpsgenieArgs{
+// 				ApiKey:   pulumi.String("fookey"),
+// 				Name:     pulumi.String("opsalerts"),
+// 				Priority: pulumi.String("foopriority"),
+// 				Region:   pulumi.String("fooregion"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// *An Pagerduty alert channel*
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewAlertChannel(ctx, "pagerdutyAc", &checkly.AlertChannelArgs{
+// 			Pagerduty: &AlertChannelPagerdutyArgs{
+// 				Account:     pulumi.String("checkly"),
+// 				ServiceKey:  pulumi.String("key1"),
+// 				ServiceName: pulumi.String("pdalert"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// *An Webhook alert channel*
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewAlertChannel(ctx, "webhookAc", &checkly.AlertChannelArgs{
+// 			Webhook: &AlertChannelWebhookArgs{
+// 				Method:        pulumi.String("get"),
+// 				Name:          pulumi.String("foo"),
+// 				Template:      pulumi.String("footemplate"),
+// 				Url:           pulumi.String("http://example.com/foo"),
+// 				WebhookSecret: pulumi.String("foosecret"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// *Connecting the alert channel to a check
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewCheck(ctx, "example-check", &checkly.CheckArgs{
+// 			AlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{
+// 				&CheckAlertChannelSubscriptionArgs{
+// 					ChannelId: pulumi.Any(checkly_alert_channel.Email_ac.Id),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 				&CheckAlertChannelSubscriptionArgs{
+// 					ChannelId: pulumi.Any(checkly_alert_channel.Sms_ac.Id),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+//
+// *Connecting the alert channel to a check group
+// ```go
+// package main
+//
+// import (
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewCheckGroup(ctx, "test-group1", &checkly.CheckGroupArgs{
+// 			AlertChannelSubscriptions: CheckGroupAlertChannelSubscriptionArray{
+// 				&CheckGroupAlertChannelSubscriptionArgs{
+// 					ChannelId: pulumi.Any(checkly_alert_channel.Email_ac.Id),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 				&CheckGroupAlertChannelSubscriptionArgs{
+// 					ChannelId: pulumi.Any(checkly_alert_channel.Sms_ac.Id),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
 type AlertChannel struct {
 	pulumi.CustomResourceState
 
-	Email              AlertChannelEmailPtrOutput     `pulumi:"email"`
-	Opsgenie           AlertChannelOpsgeniePtrOutput  `pulumi:"opsgenie"`
-	Pagerduty          AlertChannelPagerdutyPtrOutput `pulumi:"pagerduty"`
-	SendDegraded       pulumi.BoolPtrOutput           `pulumi:"sendDegraded"`
-	SendFailure        pulumi.BoolPtrOutput           `pulumi:"sendFailure"`
-	SendRecovery       pulumi.BoolPtrOutput           `pulumi:"sendRecovery"`
-	Slack              AlertChannelSlackPtrOutput     `pulumi:"slack"`
-	Sms                AlertChannelSmsPtrOutput       `pulumi:"sms"`
-	SslExpiry          pulumi.BoolPtrOutput           `pulumi:"sslExpiry"`
-	SslExpiryThreshold pulumi.IntPtrOutput            `pulumi:"sslExpiryThreshold"`
-	Webhook            AlertChannelWebhookPtrOutput   `pulumi:"webhook"`
+	// :
+	Email     AlertChannelEmailPtrOutput     `pulumi:"email"`
+	Opsgenie  AlertChannelOpsgeniePtrOutput  `pulumi:"opsgenie"`
+	Pagerduty AlertChannelPagerdutyPtrOutput `pulumi:"pagerduty"`
+	// . Possible values: `true` | `false`.
+	SendDegraded pulumi.BoolPtrOutput `pulumi:"sendDegraded"`
+	// . Possible values: `true` | `false`.
+	SendFailure pulumi.BoolPtrOutput `pulumi:"sendFailure"`
+	// . Possible values: `true` | `false`.
+	SendRecovery pulumi.BoolPtrOutput       `pulumi:"sendRecovery"`
+	Slack        AlertChannelSlackPtrOutput `pulumi:"slack"`
+	// :
+	Sms AlertChannelSmsPtrOutput `pulumi:"sms"`
+	// . Possible values: `true` | `false`.
+	SslExpiry pulumi.BoolPtrOutput `pulumi:"sslExpiry"`
+	// . Possible values between 1 and 30. Default is `30`.
+	SslExpiryThreshold pulumi.IntPtrOutput          `pulumi:"sslExpiryThreshold"`
+	Webhook            AlertChannelWebhookPtrOutput `pulumi:"webhook"`
 }
 
 // NewAlertChannel registers a new resource with the given unique name, arguments, and options.
@@ -55,29 +293,43 @@ func GetAlertChannel(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering AlertChannel resources.
 type alertChannelState struct {
-	Email              *AlertChannelEmail     `pulumi:"email"`
-	Opsgenie           *AlertChannelOpsgenie  `pulumi:"opsgenie"`
-	Pagerduty          *AlertChannelPagerduty `pulumi:"pagerduty"`
-	SendDegraded       *bool                  `pulumi:"sendDegraded"`
-	SendFailure        *bool                  `pulumi:"sendFailure"`
-	SendRecovery       *bool                  `pulumi:"sendRecovery"`
-	Slack              *AlertChannelSlack     `pulumi:"slack"`
-	Sms                *AlertChannelSms       `pulumi:"sms"`
-	SslExpiry          *bool                  `pulumi:"sslExpiry"`
-	SslExpiryThreshold *int                   `pulumi:"sslExpiryThreshold"`
-	Webhook            *AlertChannelWebhook   `pulumi:"webhook"`
+	// :
+	Email     *AlertChannelEmail     `pulumi:"email"`
+	Opsgenie  *AlertChannelOpsgenie  `pulumi:"opsgenie"`
+	Pagerduty *AlertChannelPagerduty `pulumi:"pagerduty"`
+	// . Possible values: `true` | `false`.
+	SendDegraded *bool `pulumi:"sendDegraded"`
+	// . Possible values: `true` | `false`.
+	SendFailure *bool `pulumi:"sendFailure"`
+	// . Possible values: `true` | `false`.
+	SendRecovery *bool              `pulumi:"sendRecovery"`
+	Slack        *AlertChannelSlack `pulumi:"slack"`
+	// :
+	Sms *AlertChannelSms `pulumi:"sms"`
+	// . Possible values: `true` | `false`.
+	SslExpiry *bool `pulumi:"sslExpiry"`
+	// . Possible values between 1 and 30. Default is `30`.
+	SslExpiryThreshold *int                 `pulumi:"sslExpiryThreshold"`
+	Webhook            *AlertChannelWebhook `pulumi:"webhook"`
 }
 
 type AlertChannelState struct {
-	Email              AlertChannelEmailPtrInput
-	Opsgenie           AlertChannelOpsgeniePtrInput
-	Pagerduty          AlertChannelPagerdutyPtrInput
-	SendDegraded       pulumi.BoolPtrInput
-	SendFailure        pulumi.BoolPtrInput
-	SendRecovery       pulumi.BoolPtrInput
-	Slack              AlertChannelSlackPtrInput
-	Sms                AlertChannelSmsPtrInput
-	SslExpiry          pulumi.BoolPtrInput
+	// :
+	Email     AlertChannelEmailPtrInput
+	Opsgenie  AlertChannelOpsgeniePtrInput
+	Pagerduty AlertChannelPagerdutyPtrInput
+	// . Possible values: `true` | `false`.
+	SendDegraded pulumi.BoolPtrInput
+	// . Possible values: `true` | `false`.
+	SendFailure pulumi.BoolPtrInput
+	// . Possible values: `true` | `false`.
+	SendRecovery pulumi.BoolPtrInput
+	Slack        AlertChannelSlackPtrInput
+	// :
+	Sms AlertChannelSmsPtrInput
+	// . Possible values: `true` | `false`.
+	SslExpiry pulumi.BoolPtrInput
+	// . Possible values between 1 and 30. Default is `30`.
 	SslExpiryThreshold pulumi.IntPtrInput
 	Webhook            AlertChannelWebhookPtrInput
 }
@@ -87,30 +339,44 @@ func (AlertChannelState) ElementType() reflect.Type {
 }
 
 type alertChannelArgs struct {
-	Email              *AlertChannelEmail     `pulumi:"email"`
-	Opsgenie           *AlertChannelOpsgenie  `pulumi:"opsgenie"`
-	Pagerduty          *AlertChannelPagerduty `pulumi:"pagerduty"`
-	SendDegraded       *bool                  `pulumi:"sendDegraded"`
-	SendFailure        *bool                  `pulumi:"sendFailure"`
-	SendRecovery       *bool                  `pulumi:"sendRecovery"`
-	Slack              *AlertChannelSlack     `pulumi:"slack"`
-	Sms                *AlertChannelSms       `pulumi:"sms"`
-	SslExpiry          *bool                  `pulumi:"sslExpiry"`
-	SslExpiryThreshold *int                   `pulumi:"sslExpiryThreshold"`
-	Webhook            *AlertChannelWebhook   `pulumi:"webhook"`
+	// :
+	Email     *AlertChannelEmail     `pulumi:"email"`
+	Opsgenie  *AlertChannelOpsgenie  `pulumi:"opsgenie"`
+	Pagerduty *AlertChannelPagerduty `pulumi:"pagerduty"`
+	// . Possible values: `true` | `false`.
+	SendDegraded *bool `pulumi:"sendDegraded"`
+	// . Possible values: `true` | `false`.
+	SendFailure *bool `pulumi:"sendFailure"`
+	// . Possible values: `true` | `false`.
+	SendRecovery *bool              `pulumi:"sendRecovery"`
+	Slack        *AlertChannelSlack `pulumi:"slack"`
+	// :
+	Sms *AlertChannelSms `pulumi:"sms"`
+	// . Possible values: `true` | `false`.
+	SslExpiry *bool `pulumi:"sslExpiry"`
+	// . Possible values between 1 and 30. Default is `30`.
+	SslExpiryThreshold *int                 `pulumi:"sslExpiryThreshold"`
+	Webhook            *AlertChannelWebhook `pulumi:"webhook"`
 }
 
 // The set of arguments for constructing a AlertChannel resource.
 type AlertChannelArgs struct {
-	Email              AlertChannelEmailPtrInput
-	Opsgenie           AlertChannelOpsgeniePtrInput
-	Pagerduty          AlertChannelPagerdutyPtrInput
-	SendDegraded       pulumi.BoolPtrInput
-	SendFailure        pulumi.BoolPtrInput
-	SendRecovery       pulumi.BoolPtrInput
-	Slack              AlertChannelSlackPtrInput
-	Sms                AlertChannelSmsPtrInput
-	SslExpiry          pulumi.BoolPtrInput
+	// :
+	Email     AlertChannelEmailPtrInput
+	Opsgenie  AlertChannelOpsgeniePtrInput
+	Pagerduty AlertChannelPagerdutyPtrInput
+	// . Possible values: `true` | `false`.
+	SendDegraded pulumi.BoolPtrInput
+	// . Possible values: `true` | `false`.
+	SendFailure pulumi.BoolPtrInput
+	// . Possible values: `true` | `false`.
+	SendRecovery pulumi.BoolPtrInput
+	Slack        AlertChannelSlackPtrInput
+	// :
+	Sms AlertChannelSmsPtrInput
+	// . Possible values: `true` | `false`.
+	SslExpiry pulumi.BoolPtrInput
+	// . Possible values between 1 and 30. Default is `30`.
 	SslExpiryThreshold pulumi.IntPtrInput
 	Webhook            AlertChannelWebhookPtrInput
 }

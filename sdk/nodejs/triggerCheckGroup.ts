@@ -4,6 +4,23 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## # checkly.TriggerCheckGroup
+ *
+ * `checkly.TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `checkly.TriggerCheckGroup` resource to your resource file.
+ *
+ * ## Example Usage
+ *
+ * Trigger group example
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@pulumi/checkly";
+ *
+ * const test_trigger_group = new checkly.TriggerCheckGroup("test-trigger-group", {groupId: "215"});
+ * export const test_trigger_group_url = test_trigger_group.url;
+ * ```
+ */
 export class TriggerCheckGroup extends pulumi.CustomResource {
     /**
      * Get an existing TriggerCheckGroup resource's state with the given name, ID, and optional extra
@@ -32,6 +49,9 @@ export class TriggerCheckGroup extends pulumi.CustomResource {
         return obj['__pulumiType'] === TriggerCheckGroup.__pulumiType;
     }
 
+    /**
+     * The id of the group that you want to attach the trigger to.
+     */
     public readonly groupId!: pulumi.Output<number>;
     public readonly token!: pulumi.Output<string>;
     public readonly url!: pulumi.Output<string>;
@@ -72,6 +92,9 @@ export class TriggerCheckGroup extends pulumi.CustomResource {
  * Input properties used for looking up and filtering TriggerCheckGroup resources.
  */
 export interface TriggerCheckGroupState {
+    /**
+     * The id of the group that you want to attach the trigger to.
+     */
     groupId?: pulumi.Input<number>;
     token?: pulumi.Input<string>;
     url?: pulumi.Input<string>;
@@ -81,6 +104,9 @@ export interface TriggerCheckGroupState {
  * The set of arguments for constructing a TriggerCheckGroup resource.
  */
 export interface TriggerCheckGroupArgs {
+    /**
+     * The id of the group that you want to attach the trigger to.
+     */
     groupId: pulumi.Input<number>;
     token?: pulumi.Input<string>;
     url?: pulumi.Input<string>;

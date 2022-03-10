@@ -13,28 +13,28 @@ namespace Pulumi.Checkly
     public partial class Dashboard : Pulumi.CustomResource
     {
         [Output("customDomain")]
-        public Output<string?> CustomDomain { get; private set; } = null!;
+        public Output<string> CustomDomain { get; private set; } = null!;
 
         [Output("customUrl")]
         public Output<string> CustomUrl { get; private set; } = null!;
 
         [Output("header")]
-        public Output<string?> Header { get; private set; } = null!;
+        public Output<string> Header { get; private set; } = null!;
 
         [Output("hideTags")]
-        public Output<bool?> HideTags { get; private set; } = null!;
+        public Output<bool> HideTags { get; private set; } = null!;
 
         [Output("logo")]
-        public Output<string?> Logo { get; private set; } = null!;
+        public Output<string> Logo { get; private set; } = null!;
 
         [Output("paginate")]
-        public Output<bool?> Paginate { get; private set; } = null!;
+        public Output<bool> Paginate { get; private set; } = null!;
 
         [Output("paginationRate")]
-        public Output<int?> PaginationRate { get; private set; } = null!;
+        public Output<int> PaginationRate { get; private set; } = null!;
 
         [Output("refreshRate")]
-        public Output<int?> RefreshRate { get; private set; } = null!;
+        public Output<int> RefreshRate { get; private set; } = null!;
 
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
@@ -88,29 +88,29 @@ namespace Pulumi.Checkly
 
     public sealed class DashboardArgs : Pulumi.ResourceArgs
     {
-        [Input("customDomain")]
-        public Input<string>? CustomDomain { get; set; }
+        [Input("customDomain", required: true)]
+        public Input<string> CustomDomain { get; set; } = null!;
 
         [Input("customUrl", required: true)]
         public Input<string> CustomUrl { get; set; } = null!;
 
-        [Input("header")]
-        public Input<string>? Header { get; set; }
+        [Input("header", required: true)]
+        public Input<string> Header { get; set; } = null!;
 
-        [Input("hideTags")]
-        public Input<bool>? HideTags { get; set; }
+        [Input("hideTags", required: true)]
+        public Input<bool> HideTags { get; set; } = null!;
 
-        [Input("logo")]
-        public Input<string>? Logo { get; set; }
+        [Input("logo", required: true)]
+        public Input<string> Logo { get; set; } = null!;
 
-        [Input("paginate")]
-        public Input<bool>? Paginate { get; set; }
+        [Input("paginate", required: true)]
+        public Input<bool> Paginate { get; set; } = null!;
 
-        [Input("paginationRate")]
-        public Input<int>? PaginationRate { get; set; }
+        [Input("paginationRate", required: true)]
+        public Input<int> PaginationRate { get; set; } = null!;
 
-        [Input("refreshRate")]
-        public Input<int>? RefreshRate { get; set; }
+        [Input("refreshRate", required: true)]
+        public Input<int> RefreshRate { get; set; } = null!;
 
         [Input("tags")]
         private InputList<string>? _tags;

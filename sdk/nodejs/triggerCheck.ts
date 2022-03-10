@@ -4,6 +4,23 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## # checkly.TriggerCheck
+ *
+ * `checkly.TriggerCheck` allows users to manage Checkly trigger checks. Add a `checkly.TriggerCheck` resource to your resource file.
+ *
+ * ## Example Usage
+ *
+ * Trigger check example
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@pulumi/checkly";
+ *
+ * const test_trigger_check = new checkly.TriggerCheck("test-trigger-check", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
+ * export const test_trigger_check_url = test_trigger_check.url;
+ * ```
+ */
 export class TriggerCheck extends pulumi.CustomResource {
     /**
      * Get an existing TriggerCheck resource's state with the given name, ID, and optional extra
@@ -32,6 +49,9 @@ export class TriggerCheck extends pulumi.CustomResource {
         return obj['__pulumiType'] === TriggerCheck.__pulumiType;
     }
 
+    /**
+     * The id of the check that you want to attach the trigger to.
+     */
     public readonly checkId!: pulumi.Output<string>;
     public readonly token!: pulumi.Output<string>;
     public readonly url!: pulumi.Output<string>;
@@ -72,6 +92,9 @@ export class TriggerCheck extends pulumi.CustomResource {
  * Input properties used for looking up and filtering TriggerCheck resources.
  */
 export interface TriggerCheckState {
+    /**
+     * The id of the check that you want to attach the trigger to.
+     */
     checkId?: pulumi.Input<string>;
     token?: pulumi.Input<string>;
     url?: pulumi.Input<string>;
@@ -81,6 +104,9 @@ export interface TriggerCheckState {
  * The set of arguments for constructing a TriggerCheck resource.
  */
 export interface TriggerCheckArgs {
+    /**
+     * The id of the check that you want to attach the trigger to.
+     */
     checkId: pulumi.Input<string>;
     token?: pulumi.Input<string>;
     url?: pulumi.Input<string>;

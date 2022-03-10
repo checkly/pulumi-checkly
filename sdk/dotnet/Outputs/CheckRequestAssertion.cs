@@ -13,9 +13,21 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckRequestAssertion
     {
+        /// <summary>
+        /// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        /// </summary>
         public readonly string Comparison;
+        /// <summary>
+        /// .
+        /// </summary>
         public readonly string? Property;
+        /// <summary>
+        /// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        /// </summary>
         public readonly string Source;
+        /// <summary>
+        /// .
+        /// </summary>
         public readonly string? Target;
 
         [OutputConstructor]

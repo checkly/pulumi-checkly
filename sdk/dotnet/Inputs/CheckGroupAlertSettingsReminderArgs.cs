@@ -12,9 +12,15 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class CheckGroupAlertSettingsReminderArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        /// </summary>
         [Input("amount")]
         public Input<int>? Amount { get; set; }
 
+        /// <summary>
+        /// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
+        /// </summary>
         [Input("interval")]
         public Input<int>? Interval { get; set; }
 

@@ -13,7 +13,13 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class AlertChannelSms
     {
+        /// <summary>
+        /// Webhook's channel name.
+        /// </summary>
         public readonly string Name;
+        /// <summary>
+        /// Mobile number to receive alerts.
+        /// </summary>
         public readonly string Number;
 
         [OutputConstructor]

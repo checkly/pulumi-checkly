@@ -18,6 +18,7 @@ class TriggerCheckArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a TriggerCheck resource.
+        :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
         """
         pulumi.set(__self__, "check_id", check_id)
         if token is not None:
@@ -28,6 +29,9 @@ class TriggerCheckArgs:
     @property
     @pulumi.getter(name="checkId")
     def check_id(self) -> pulumi.Input[str]:
+        """
+        The id of the check that you want to attach the trigger to.
+        """
         return pulumi.get(self, "check_id")
 
     @check_id.setter
@@ -61,6 +65,7 @@ class _TriggerCheckState:
                  url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering TriggerCheck resources.
+        :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
         """
         if check_id is not None:
             pulumi.set(__self__, "check_id", check_id)
@@ -72,6 +77,9 @@ class _TriggerCheckState:
     @property
     @pulumi.getter(name="checkId")
     def check_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The id of the check that you want to attach the trigger to.
+        """
         return pulumi.get(self, "check_id")
 
     @check_id.setter
@@ -107,9 +115,25 @@ class TriggerCheck(pulumi.CustomResource):
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a TriggerCheck resource with the given unique name, props, and options.
+        ## # TriggerCheck
+
+        `TriggerCheck` allows users to manage Checkly trigger checks. Add a `TriggerCheck` resource to your resource file.
+
+        ## Example Usage
+
+        Trigger check example
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
+        pulumi.export("test-trigger-check-url", test_trigger_check.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
         """
         ...
     @overload
@@ -118,7 +142,22 @@ class TriggerCheck(pulumi.CustomResource):
                  args: TriggerCheckArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a TriggerCheck resource with the given unique name, props, and options.
+        ## # TriggerCheck
+
+        `TriggerCheck` allows users to manage Checkly trigger checks. Add a `TriggerCheck` resource to your resource file.
+
+        ## Example Usage
+
+        Trigger check example
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
+        pulumi.export("test-trigger-check-url", test_trigger_check.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param TriggerCheckArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -174,6 +213,7 @@ class TriggerCheck(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -187,6 +227,9 @@ class TriggerCheck(pulumi.CustomResource):
     @property
     @pulumi.getter(name="checkId")
     def check_id(self) -> pulumi.Output[str]:
+        """
+        The id of the check that you want to attach the trigger to.
+        """
         return pulumi.get(self, "check_id")
 
     @property

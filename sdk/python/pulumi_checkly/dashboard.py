@@ -13,38 +13,40 @@ __all__ = ['DashboardArgs', 'Dashboard']
 @pulumi.input_type
 class DashboardArgs:
     def __init__(__self__, *,
+                 custom_domain: pulumi.Input[str],
                  custom_url: pulumi.Input[str],
-                 custom_domain: Optional[pulumi.Input[str]] = None,
-                 header: Optional[pulumi.Input[str]] = None,
-                 hide_tags: Optional[pulumi.Input[bool]] = None,
-                 logo: Optional[pulumi.Input[str]] = None,
-                 paginate: Optional[pulumi.Input[bool]] = None,
-                 pagination_rate: Optional[pulumi.Input[int]] = None,
-                 refresh_rate: Optional[pulumi.Input[int]] = None,
+                 header: pulumi.Input[str],
+                 hide_tags: pulumi.Input[bool],
+                 logo: pulumi.Input[str],
+                 paginate: pulumi.Input[bool],
+                 pagination_rate: pulumi.Input[int],
+                 refresh_rate: pulumi.Input[int],
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  width: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Dashboard resource.
         """
+        pulumi.set(__self__, "custom_domain", custom_domain)
         pulumi.set(__self__, "custom_url", custom_url)
-        if custom_domain is not None:
-            pulumi.set(__self__, "custom_domain", custom_domain)
-        if header is not None:
-            pulumi.set(__self__, "header", header)
-        if hide_tags is not None:
-            pulumi.set(__self__, "hide_tags", hide_tags)
-        if logo is not None:
-            pulumi.set(__self__, "logo", logo)
-        if paginate is not None:
-            pulumi.set(__self__, "paginate", paginate)
-        if pagination_rate is not None:
-            pulumi.set(__self__, "pagination_rate", pagination_rate)
-        if refresh_rate is not None:
-            pulumi.set(__self__, "refresh_rate", refresh_rate)
+        pulumi.set(__self__, "header", header)
+        pulumi.set(__self__, "hide_tags", hide_tags)
+        pulumi.set(__self__, "logo", logo)
+        pulumi.set(__self__, "paginate", paginate)
+        pulumi.set(__self__, "pagination_rate", pagination_rate)
+        pulumi.set(__self__, "refresh_rate", refresh_rate)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if width is not None:
             pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter(name="customDomain")
+    def custom_domain(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "custom_domain")
+
+    @custom_domain.setter
+    def custom_domain(self, value: pulumi.Input[str]):
+        pulumi.set(self, "custom_domain", value)
 
     @property
     @pulumi.getter(name="customUrl")
@@ -56,66 +58,57 @@ class DashboardArgs:
         pulumi.set(self, "custom_url", value)
 
     @property
-    @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "custom_domain")
-
-    @custom_domain.setter
-    def custom_domain(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "custom_domain", value)
-
-    @property
     @pulumi.getter
-    def header(self) -> Optional[pulumi.Input[str]]:
+    def header(self) -> pulumi.Input[str]:
         return pulumi.get(self, "header")
 
     @header.setter
-    def header(self, value: Optional[pulumi.Input[str]]):
+    def header(self, value: pulumi.Input[str]):
         pulumi.set(self, "header", value)
 
     @property
     @pulumi.getter(name="hideTags")
-    def hide_tags(self) -> Optional[pulumi.Input[bool]]:
+    def hide_tags(self) -> pulumi.Input[bool]:
         return pulumi.get(self, "hide_tags")
 
     @hide_tags.setter
-    def hide_tags(self, value: Optional[pulumi.Input[bool]]):
+    def hide_tags(self, value: pulumi.Input[bool]):
         pulumi.set(self, "hide_tags", value)
 
     @property
     @pulumi.getter
-    def logo(self) -> Optional[pulumi.Input[str]]:
+    def logo(self) -> pulumi.Input[str]:
         return pulumi.get(self, "logo")
 
     @logo.setter
-    def logo(self, value: Optional[pulumi.Input[str]]):
+    def logo(self, value: pulumi.Input[str]):
         pulumi.set(self, "logo", value)
 
     @property
     @pulumi.getter
-    def paginate(self) -> Optional[pulumi.Input[bool]]:
+    def paginate(self) -> pulumi.Input[bool]:
         return pulumi.get(self, "paginate")
 
     @paginate.setter
-    def paginate(self, value: Optional[pulumi.Input[bool]]):
+    def paginate(self, value: pulumi.Input[bool]):
         pulumi.set(self, "paginate", value)
 
     @property
     @pulumi.getter(name="paginationRate")
-    def pagination_rate(self) -> Optional[pulumi.Input[int]]:
+    def pagination_rate(self) -> pulumi.Input[int]:
         return pulumi.get(self, "pagination_rate")
 
     @pagination_rate.setter
-    def pagination_rate(self, value: Optional[pulumi.Input[int]]):
+    def pagination_rate(self, value: pulumi.Input[int]):
         pulumi.set(self, "pagination_rate", value)
 
     @property
     @pulumi.getter(name="refreshRate")
-    def refresh_rate(self) -> Optional[pulumi.Input[int]]:
+    def refresh_rate(self) -> pulumi.Input[int]:
         return pulumi.get(self, "refresh_rate")
 
     @refresh_rate.setter
-    def refresh_rate(self, value: Optional[pulumi.Input[int]]):
+    def refresh_rate(self, value: pulumi.Input[int]):
         pulumi.set(self, "refresh_rate", value)
 
     @property
@@ -331,15 +324,29 @@ class Dashboard(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = DashboardArgs.__new__(DashboardArgs)
 
+            if custom_domain is None and not opts.urn:
+                raise TypeError("Missing required property 'custom_domain'")
             __props__.__dict__["custom_domain"] = custom_domain
             if custom_url is None and not opts.urn:
                 raise TypeError("Missing required property 'custom_url'")
             __props__.__dict__["custom_url"] = custom_url
+            if header is None and not opts.urn:
+                raise TypeError("Missing required property 'header'")
             __props__.__dict__["header"] = header
+            if hide_tags is None and not opts.urn:
+                raise TypeError("Missing required property 'hide_tags'")
             __props__.__dict__["hide_tags"] = hide_tags
+            if logo is None and not opts.urn:
+                raise TypeError("Missing required property 'logo'")
             __props__.__dict__["logo"] = logo
+            if paginate is None and not opts.urn:
+                raise TypeError("Missing required property 'paginate'")
             __props__.__dict__["paginate"] = paginate
+            if pagination_rate is None and not opts.urn:
+                raise TypeError("Missing required property 'pagination_rate'")
             __props__.__dict__["pagination_rate"] = pagination_rate
+            if refresh_rate is None and not opts.urn:
+                raise TypeError("Missing required property 'refresh_rate'")
             __props__.__dict__["refresh_rate"] = refresh_rate
             __props__.__dict__["tags"] = tags
             __props__.__dict__["width"] = width
@@ -389,7 +396,7 @@ class Dashboard(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> pulumi.Output[Optional[str]]:
+    def custom_domain(self) -> pulumi.Output[str]:
         return pulumi.get(self, "custom_domain")
 
     @property
@@ -399,32 +406,32 @@ class Dashboard(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def header(self) -> pulumi.Output[Optional[str]]:
+    def header(self) -> pulumi.Output[str]:
         return pulumi.get(self, "header")
 
     @property
     @pulumi.getter(name="hideTags")
-    def hide_tags(self) -> pulumi.Output[Optional[bool]]:
+    def hide_tags(self) -> pulumi.Output[bool]:
         return pulumi.get(self, "hide_tags")
 
     @property
     @pulumi.getter
-    def logo(self) -> pulumi.Output[Optional[str]]:
+    def logo(self) -> pulumi.Output[str]:
         return pulumi.get(self, "logo")
 
     @property
     @pulumi.getter
-    def paginate(self) -> pulumi.Output[Optional[bool]]:
+    def paginate(self) -> pulumi.Output[bool]:
         return pulumi.get(self, "paginate")
 
     @property
     @pulumi.getter(name="paginationRate")
-    def pagination_rate(self) -> pulumi.Output[Optional[int]]:
+    def pagination_rate(self) -> pulumi.Output[int]:
         return pulumi.get(self, "pagination_rate")
 
     @property
     @pulumi.getter(name="refreshRate")
-    def refresh_rate(self) -> pulumi.Output[Optional[int]]:
+    def refresh_rate(self) -> pulumi.Output[int]:
         return pulumi.get(self, "refresh_rate")
 
     @property

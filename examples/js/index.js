@@ -1,5 +1,5 @@
 const fs = require('fs')
-const checkly = require("@pulumi/checkly")
+const checkly = require("@checkly/pulumi")
 
 const snippetScript = fs.readFileSync("./scripts/snippet.js", 'utf-8')
 const browerCheckScript = fs.readFileSync("./scripts/browser-check.js", 'utf-8')
@@ -61,6 +61,7 @@ new checkly.Snippet('snippet', { script: snippetScript})
 new checkly.MaintenanceWindow(PREFIX + 'maintenance', {
   startsAt: '2022-03-01',
   endsAt: '2022-03-02',
+  repeatEndsAt: '2022-03-02',
   repeatInterval: 1,
   repeatUnit: 'DAY',
 })

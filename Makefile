@@ -3,14 +3,15 @@ PROJECT_NAME := checkly Package
 PACK             := checkly
 ORG              := checkly
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
-NODE_MODULE_NAME := @pulumi/${PACK}
+NODE_MODULE_NAME := @checkly/${PACK}
 TF_NAME          := ${PACK}
 PROVIDER_PATH    := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
 TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
-VERSION         := $(shell pulumictl get version)
+# VERSION         := $(shell pulumictl get version)
+VERSION         := 0.0.1-alpha.0
 
 TESTPARALLELISM := 4
 
@@ -126,8 +127,9 @@ do::
 	make tfgen
 	make provider
 	make build_sdks
-	jq '.version = "1.0.0"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+	jq '.version = "${VERSION}"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+	jq '.pulumi.pluginDownloadURL = "${VERSION}"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
 	make install_nodejs_sdk
-	cd examples/js && yarn link @pulumi/checkly && cd -
-	cd examples/ts && yarn link @pulumi/checkly && cd -
+	cd examples/js && yarn link @checkly/pulumi && cd -
+	cd examples/ts && yarn link @checkly/pulumi && cd -

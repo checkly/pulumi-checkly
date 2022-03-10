@@ -54,7 +54,7 @@ func Provider() tfbridge.ProviderInfo {
 		P:                    p,
 		Name:                 "checkly",
 		Publisher:            "checkly",
-		LogoURL:              "",
+		LogoURL:              "../assets/checkly.svg",
 		Description:          "A Pulumi package for creating and managing Checkly monitoring resources.",
 		PluginDownloadURL:    "https://github.com/checkly/pulumi-checkly/releases/${VERSION}",
 		Keywords:             []string{"pulumi", "checkly", "category/monitoring"},
@@ -120,7 +120,7 @@ func Provider() tfbridge.ProviderInfo {
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
-			// List any npm dependencies and their versions
+			PackageName: "@checkly/pulumi",
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",
 			},

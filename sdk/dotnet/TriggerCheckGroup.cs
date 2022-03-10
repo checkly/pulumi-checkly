@@ -9,9 +9,41 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// ## # checkly.TriggerCheckGroup
+    /// 
+    /// `checkly.TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `checkly.TriggerCheckGroup` resource to your resource file.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// Trigger group example
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var test_trigger_group = new Checkly.TriggerCheckGroup("test-trigger-group", new Checkly.TriggerCheckGroupArgs
+    ///         {
+    ///             GroupId = 215,
+    ///         });
+    ///         this.Test_trigger_group_url = test_trigger_group.Url;
+    ///     }
+    /// 
+    ///     [Output("test-trigger-group-url")]
+    ///     public Output&lt;string&gt; Test_trigger_group_url { get; set; }
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/triggerCheckGroup:TriggerCheckGroup")]
     public partial class TriggerCheckGroup : Pulumi.CustomResource
     {
+        /// <summary>
+        /// The id of the group that you want to attach the trigger to.
+        /// </summary>
         [Output("groupId")]
         public Output<int> GroupId { get; private set; } = null!;
 
@@ -67,6 +99,9 @@ namespace Pulumi.Checkly
 
     public sealed class TriggerCheckGroupArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The id of the group that you want to attach the trigger to.
+        /// </summary>
         [Input("groupId", required: true)]
         public Input<int> GroupId { get; set; } = null!;
 
@@ -83,6 +118,9 @@ namespace Pulumi.Checkly
 
     public sealed class TriggerCheckGroupState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The id of the group that you want to attach the trigger to.
+        /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 

@@ -11,6 +11,7 @@ import (
 )
 
 type AlertChannelEmail struct {
+	// the email address of this email alert channel.
 	Address string `pulumi:"address"`
 }
 
@@ -26,6 +27,7 @@ type AlertChannelEmailInput interface {
 }
 
 type AlertChannelEmailArgs struct {
+	// the email address of this email alert channel.
 	Address pulumi.StringInput `pulumi:"address"`
 }
 
@@ -106,6 +108,7 @@ func (o AlertChannelEmailOutput) ToAlertChannelEmailPtrOutputWithContext(ctx con
 	}).(AlertChannelEmailPtrOutput)
 }
 
+// the email address of this email alert channel.
 func (o AlertChannelEmailOutput) Address() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelEmail) string { return v.Address }).(pulumi.StringOutput)
 }
@@ -134,6 +137,7 @@ func (o AlertChannelEmailPtrOutput) Elem() AlertChannelEmailOutput {
 	}).(AlertChannelEmailOutput)
 }
 
+// the email address of this email alert channel.
 func (o AlertChannelEmailPtrOutput) Address() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelEmail) *string {
 		if v == nil {
@@ -144,10 +148,14 @@ func (o AlertChannelEmailPtrOutput) Address() pulumi.StringPtrOutput {
 }
 
 type AlertChannelOpsgenie struct {
-	ApiKey   string `pulumi:"apiKey"`
-	Name     string `pulumi:"name"`
+	// .
+	ApiKey string `pulumi:"apiKey"`
+	// Webhook's channel name.
+	Name string `pulumi:"name"`
+	// .
 	Priority string `pulumi:"priority"`
-	Region   string `pulumi:"region"`
+	// .
+	Region string `pulumi:"region"`
 }
 
 // AlertChannelOpsgenieInput is an input type that accepts AlertChannelOpsgenieArgs and AlertChannelOpsgenieOutput values.
@@ -162,10 +170,14 @@ type AlertChannelOpsgenieInput interface {
 }
 
 type AlertChannelOpsgenieArgs struct {
-	ApiKey   pulumi.StringInput `pulumi:"apiKey"`
-	Name     pulumi.StringInput `pulumi:"name"`
+	// .
+	ApiKey pulumi.StringInput `pulumi:"apiKey"`
+	// Webhook's channel name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// .
 	Priority pulumi.StringInput `pulumi:"priority"`
-	Region   pulumi.StringInput `pulumi:"region"`
+	// .
+	Region pulumi.StringInput `pulumi:"region"`
 }
 
 func (AlertChannelOpsgenieArgs) ElementType() reflect.Type {
@@ -245,18 +257,22 @@ func (o AlertChannelOpsgenieOutput) ToAlertChannelOpsgeniePtrOutputWithContext(c
 	}).(AlertChannelOpsgeniePtrOutput)
 }
 
+// .
 func (o AlertChannelOpsgenieOutput) ApiKey() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.ApiKey }).(pulumi.StringOutput)
 }
 
+// Webhook's channel name.
 func (o AlertChannelOpsgenieOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// .
 func (o AlertChannelOpsgenieOutput) Priority() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.Priority }).(pulumi.StringOutput)
 }
 
+// .
 func (o AlertChannelOpsgenieOutput) Region() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelOpsgenie) string { return v.Region }).(pulumi.StringOutput)
 }
@@ -285,6 +301,7 @@ func (o AlertChannelOpsgeniePtrOutput) Elem() AlertChannelOpsgenieOutput {
 	}).(AlertChannelOpsgenieOutput)
 }
 
+// .
 func (o AlertChannelOpsgeniePtrOutput) ApiKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
 		if v == nil {
@@ -294,6 +311,7 @@ func (o AlertChannelOpsgeniePtrOutput) ApiKey() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Webhook's channel name.
 func (o AlertChannelOpsgeniePtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
 		if v == nil {
@@ -303,6 +321,7 @@ func (o AlertChannelOpsgeniePtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o AlertChannelOpsgeniePtrOutput) Priority() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
 		if v == nil {
@@ -312,6 +331,7 @@ func (o AlertChannelOpsgeniePtrOutput) Priority() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o AlertChannelOpsgeniePtrOutput) Region() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelOpsgenie) *string {
 		if v == nil {
@@ -322,8 +342,11 @@ func (o AlertChannelOpsgeniePtrOutput) Region() pulumi.StringPtrOutput {
 }
 
 type AlertChannelPagerduty struct {
-	Account     *string `pulumi:"account"`
-	ServiceKey  string  `pulumi:"serviceKey"`
+	// Pagerduty's account name.
+	Account *string `pulumi:"account"`
+	// Pagerduty's service integration key.
+	ServiceKey string `pulumi:"serviceKey"`
+	// Pagerduty's service name.
 	ServiceName *string `pulumi:"serviceName"`
 }
 
@@ -339,8 +362,11 @@ type AlertChannelPagerdutyInput interface {
 }
 
 type AlertChannelPagerdutyArgs struct {
-	Account     pulumi.StringPtrInput `pulumi:"account"`
-	ServiceKey  pulumi.StringInput    `pulumi:"serviceKey"`
+	// Pagerduty's account name.
+	Account pulumi.StringPtrInput `pulumi:"account"`
+	// Pagerduty's service integration key.
+	ServiceKey pulumi.StringInput `pulumi:"serviceKey"`
+	// Pagerduty's service name.
 	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
 }
 
@@ -421,14 +447,17 @@ func (o AlertChannelPagerdutyOutput) ToAlertChannelPagerdutyPtrOutputWithContext
 	}).(AlertChannelPagerdutyPtrOutput)
 }
 
+// Pagerduty's account name.
 func (o AlertChannelPagerdutyOutput) Account() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlertChannelPagerduty) *string { return v.Account }).(pulumi.StringPtrOutput)
 }
 
+// Pagerduty's service integration key.
 func (o AlertChannelPagerdutyOutput) ServiceKey() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelPagerduty) string { return v.ServiceKey }).(pulumi.StringOutput)
 }
 
+// Pagerduty's service name.
 func (o AlertChannelPagerdutyOutput) ServiceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlertChannelPagerduty) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
@@ -457,6 +486,7 @@ func (o AlertChannelPagerdutyPtrOutput) Elem() AlertChannelPagerdutyOutput {
 	}).(AlertChannelPagerdutyOutput)
 }
 
+// Pagerduty's account name.
 func (o AlertChannelPagerdutyPtrOutput) Account() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelPagerduty) *string {
 		if v == nil {
@@ -466,6 +496,7 @@ func (o AlertChannelPagerdutyPtrOutput) Account() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Pagerduty's service integration key.
 func (o AlertChannelPagerdutyPtrOutput) ServiceKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelPagerduty) *string {
 		if v == nil {
@@ -475,6 +506,7 @@ func (o AlertChannelPagerdutyPtrOutput) ServiceKey() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Pagerduty's service name.
 func (o AlertChannelPagerdutyPtrOutput) ServiceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelPagerduty) *string {
 		if v == nil {
@@ -485,8 +517,10 @@ func (o AlertChannelPagerdutyPtrOutput) ServiceName() pulumi.StringPtrOutput {
 }
 
 type AlertChannelSlack struct {
+	// Slack's channel name.
 	Channel string `pulumi:"channel"`
-	Url     string `pulumi:"url"`
+	// .
+	Url string `pulumi:"url"`
 }
 
 // AlertChannelSlackInput is an input type that accepts AlertChannelSlackArgs and AlertChannelSlackOutput values.
@@ -501,8 +535,10 @@ type AlertChannelSlackInput interface {
 }
 
 type AlertChannelSlackArgs struct {
+	// Slack's channel name.
 	Channel pulumi.StringInput `pulumi:"channel"`
-	Url     pulumi.StringInput `pulumi:"url"`
+	// .
+	Url pulumi.StringInput `pulumi:"url"`
 }
 
 func (AlertChannelSlackArgs) ElementType() reflect.Type {
@@ -582,10 +618,12 @@ func (o AlertChannelSlackOutput) ToAlertChannelSlackPtrOutputWithContext(ctx con
 	}).(AlertChannelSlackPtrOutput)
 }
 
+// Slack's channel name.
 func (o AlertChannelSlackOutput) Channel() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelSlack) string { return v.Channel }).(pulumi.StringOutput)
 }
 
+// .
 func (o AlertChannelSlackOutput) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelSlack) string { return v.Url }).(pulumi.StringOutput)
 }
@@ -614,6 +652,7 @@ func (o AlertChannelSlackPtrOutput) Elem() AlertChannelSlackOutput {
 	}).(AlertChannelSlackOutput)
 }
 
+// Slack's channel name.
 func (o AlertChannelSlackPtrOutput) Channel() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelSlack) *string {
 		if v == nil {
@@ -623,6 +662,7 @@ func (o AlertChannelSlackPtrOutput) Channel() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o AlertChannelSlackPtrOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelSlack) *string {
 		if v == nil {
@@ -633,7 +673,9 @@ func (o AlertChannelSlackPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 type AlertChannelSms struct {
-	Name   string `pulumi:"name"`
+	// Webhook's channel name.
+	Name string `pulumi:"name"`
+	// Mobile number to receive alerts.
 	Number string `pulumi:"number"`
 }
 
@@ -649,7 +691,9 @@ type AlertChannelSmsInput interface {
 }
 
 type AlertChannelSmsArgs struct {
-	Name   pulumi.StringInput `pulumi:"name"`
+	// Webhook's channel name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Mobile number to receive alerts.
 	Number pulumi.StringInput `pulumi:"number"`
 }
 
@@ -730,10 +774,12 @@ func (o AlertChannelSmsOutput) ToAlertChannelSmsPtrOutputWithContext(ctx context
 	}).(AlertChannelSmsPtrOutput)
 }
 
+// Webhook's channel name.
 func (o AlertChannelSmsOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelSms) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// Mobile number to receive alerts.
 func (o AlertChannelSmsOutput) Number() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelSms) string { return v.Number }).(pulumi.StringOutput)
 }
@@ -762,6 +808,7 @@ func (o AlertChannelSmsPtrOutput) Elem() AlertChannelSmsOutput {
 	}).(AlertChannelSmsOutput)
 }
 
+// Webhook's channel name.
 func (o AlertChannelSmsPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelSms) *string {
 		if v == nil {
@@ -771,6 +818,7 @@ func (o AlertChannelSmsPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Mobile number to receive alerts.
 func (o AlertChannelSmsPtrOutput) Number() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelSms) *string {
 		if v == nil {
@@ -781,13 +829,20 @@ func (o AlertChannelSmsPtrOutput) Number() pulumi.StringPtrOutput {
 }
 
 type AlertChannelWebhook struct {
-	Headers         map[string]interface{} `pulumi:"headers"`
-	Method          *string                `pulumi:"method"`
-	Name            string                 `pulumi:"name"`
+	// .
+	Headers map[string]interface{} `pulumi:"headers"`
+	// Default is `POST`.
+	Method *string `pulumi:"method"`
+	// Webhook's channel name.
+	Name string `pulumi:"name"`
+	// .
 	QueryParameters map[string]interface{} `pulumi:"queryParameters"`
-	Template        *string                `pulumi:"template"`
-	Url             string                 `pulumi:"url"`
-	WebhookSecret   *string                `pulumi:"webhookSecret"`
+	// .
+	Template *string `pulumi:"template"`
+	// .
+	Url string `pulumi:"url"`
+	// .
+	WebhookSecret *string `pulumi:"webhookSecret"`
 }
 
 // AlertChannelWebhookInput is an input type that accepts AlertChannelWebhookArgs and AlertChannelWebhookOutput values.
@@ -802,13 +857,20 @@ type AlertChannelWebhookInput interface {
 }
 
 type AlertChannelWebhookArgs struct {
-	Headers         pulumi.MapInput       `pulumi:"headers"`
-	Method          pulumi.StringPtrInput `pulumi:"method"`
-	Name            pulumi.StringInput    `pulumi:"name"`
-	QueryParameters pulumi.MapInput       `pulumi:"queryParameters"`
-	Template        pulumi.StringPtrInput `pulumi:"template"`
-	Url             pulumi.StringInput    `pulumi:"url"`
-	WebhookSecret   pulumi.StringPtrInput `pulumi:"webhookSecret"`
+	// .
+	Headers pulumi.MapInput `pulumi:"headers"`
+	// Default is `POST`.
+	Method pulumi.StringPtrInput `pulumi:"method"`
+	// Webhook's channel name.
+	Name pulumi.StringInput `pulumi:"name"`
+	// .
+	QueryParameters pulumi.MapInput `pulumi:"queryParameters"`
+	// .
+	Template pulumi.StringPtrInput `pulumi:"template"`
+	// .
+	Url pulumi.StringInput `pulumi:"url"`
+	// .
+	WebhookSecret pulumi.StringPtrInput `pulumi:"webhookSecret"`
 }
 
 func (AlertChannelWebhookArgs) ElementType() reflect.Type {
@@ -888,30 +950,37 @@ func (o AlertChannelWebhookOutput) ToAlertChannelWebhookPtrOutputWithContext(ctx
 	}).(AlertChannelWebhookPtrOutput)
 }
 
+// .
 func (o AlertChannelWebhookOutput) Headers() pulumi.MapOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) map[string]interface{} { return v.Headers }).(pulumi.MapOutput)
 }
 
+// Default is `POST`.
 func (o AlertChannelWebhookOutput) Method() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.Method }).(pulumi.StringPtrOutput)
 }
 
+// Webhook's channel name.
 func (o AlertChannelWebhookOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// .
 func (o AlertChannelWebhookOutput) QueryParameters() pulumi.MapOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) map[string]interface{} { return v.QueryParameters }).(pulumi.MapOutput)
 }
 
+// .
 func (o AlertChannelWebhookOutput) Template() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.Template }).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o AlertChannelWebhookOutput) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) string { return v.Url }).(pulumi.StringOutput)
 }
 
+// .
 func (o AlertChannelWebhookOutput) WebhookSecret() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.WebhookSecret }).(pulumi.StringPtrOutput)
 }
@@ -940,6 +1009,7 @@ func (o AlertChannelWebhookPtrOutput) Elem() AlertChannelWebhookOutput {
 	}).(AlertChannelWebhookOutput)
 }
 
+// .
 func (o AlertChannelWebhookPtrOutput) Headers() pulumi.MapOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) map[string]interface{} {
 		if v == nil {
@@ -949,6 +1019,7 @@ func (o AlertChannelWebhookPtrOutput) Headers() pulumi.MapOutput {
 	}).(pulumi.MapOutput)
 }
 
+// Default is `POST`.
 func (o AlertChannelWebhookPtrOutput) Method() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) *string {
 		if v == nil {
@@ -958,6 +1029,7 @@ func (o AlertChannelWebhookPtrOutput) Method() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Webhook's channel name.
 func (o AlertChannelWebhookPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) *string {
 		if v == nil {
@@ -967,6 +1039,7 @@ func (o AlertChannelWebhookPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o AlertChannelWebhookPtrOutput) QueryParameters() pulumi.MapOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) map[string]interface{} {
 		if v == nil {
@@ -976,6 +1049,7 @@ func (o AlertChannelWebhookPtrOutput) QueryParameters() pulumi.MapOutput {
 	}).(pulumi.MapOutput)
 }
 
+// .
 func (o AlertChannelWebhookPtrOutput) Template() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) *string {
 		if v == nil {
@@ -985,6 +1059,7 @@ func (o AlertChannelWebhookPtrOutput) Template() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o AlertChannelWebhookPtrOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) *string {
 		if v == nil {
@@ -994,6 +1069,7 @@ func (o AlertChannelWebhookPtrOutput) Url() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o AlertChannelWebhookPtrOutput) WebhookSecret() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) *string {
 		if v == nil {
@@ -1004,6 +1080,7 @@ func (o AlertChannelWebhookPtrOutput) WebhookSecret() pulumi.StringPtrOutput {
 }
 
 type CheckAlertChannelSubscription struct {
+	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated bool `pulumi:"activated"`
 	ChannelId int  `pulumi:"channelId"`
 }
@@ -1020,6 +1097,7 @@ type CheckAlertChannelSubscriptionInput interface {
 }
 
 type CheckAlertChannelSubscriptionArgs struct {
+	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated pulumi.BoolInput `pulumi:"activated"`
 	ChannelId pulumi.IntInput  `pulumi:"channelId"`
 }
@@ -1075,6 +1153,7 @@ func (o CheckAlertChannelSubscriptionOutput) ToCheckAlertChannelSubscriptionOutp
 	return o
 }
 
+// Determines if the check is running or not. Possible values `true`, and `false`.
 func (o CheckAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v CheckAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
@@ -1104,10 +1183,15 @@ func (o CheckAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) Check
 }
 
 type CheckAlertSettings struct {
-	EscalationType       *string                                 `pulumi:"escalationType"`
-	Reminders            []CheckAlertSettingsReminder            `pulumi:"reminders"`
-	RunBasedEscalations  []CheckAlertSettingsRunBasedEscalation  `pulumi:"runBasedEscalations"`
-	SslCertificates      []CheckAlertSettingsSslCertificate      `pulumi:"sslCertificates"`
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType *string `pulumi:"escalationType"`
+	// . Possible arguments:
+	Reminders []CheckAlertSettingsReminder `pulumi:"reminders"`
+	// . Possible arguments:
+	RunBasedEscalations []CheckAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// At what interval the reminders should be send.  Possible arguments:
+	SslCertificates []CheckAlertSettingsSslCertificate `pulumi:"sslCertificates"`
+	// . Possible arguments:
 	TimeBasedEscalations []CheckAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
 }
 
@@ -1123,10 +1207,15 @@ type CheckAlertSettingsInput interface {
 }
 
 type CheckAlertSettingsArgs struct {
-	EscalationType       pulumi.StringPtrInput                           `pulumi:"escalationType"`
-	Reminders            CheckAlertSettingsReminderArrayInput            `pulumi:"reminders"`
-	RunBasedEscalations  CheckAlertSettingsRunBasedEscalationArrayInput  `pulumi:"runBasedEscalations"`
-	SslCertificates      CheckAlertSettingsSslCertificateArrayInput      `pulumi:"sslCertificates"`
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// . Possible arguments:
+	Reminders CheckAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// . Possible arguments:
+	RunBasedEscalations CheckAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// At what interval the reminders should be send.  Possible arguments:
+	SslCertificates CheckAlertSettingsSslCertificateArrayInput `pulumi:"sslCertificates"`
+	// . Possible arguments:
 	TimeBasedEscalations CheckAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
 }
 
@@ -1207,22 +1296,27 @@ func (o CheckAlertSettingsOutput) ToCheckAlertSettingsPtrOutputWithContext(ctx c
 	}).(CheckAlertSettingsPtrOutput)
 }
 
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
 func (o CheckAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
 }
 
+// . Possible arguments:
 func (o CheckAlertSettingsOutput) Reminders() CheckAlertSettingsReminderArrayOutput {
 	return o.ApplyT(func(v CheckAlertSettings) []CheckAlertSettingsReminder { return v.Reminders }).(CheckAlertSettingsReminderArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckAlertSettingsOutput) RunBasedEscalations() CheckAlertSettingsRunBasedEscalationArrayOutput {
 	return o.ApplyT(func(v CheckAlertSettings) []CheckAlertSettingsRunBasedEscalation { return v.RunBasedEscalations }).(CheckAlertSettingsRunBasedEscalationArrayOutput)
 }
 
+// At what interval the reminders should be send.  Possible arguments:
 func (o CheckAlertSettingsOutput) SslCertificates() CheckAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v CheckAlertSettings) []CheckAlertSettingsSslCertificate { return v.SslCertificates }).(CheckAlertSettingsSslCertificateArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckAlertSettingsOutput) TimeBasedEscalations() CheckAlertSettingsTimeBasedEscalationArrayOutput {
 	return o.ApplyT(func(v CheckAlertSettings) []CheckAlertSettingsTimeBasedEscalation { return v.TimeBasedEscalations }).(CheckAlertSettingsTimeBasedEscalationArrayOutput)
 }
@@ -1251,6 +1345,7 @@ func (o CheckAlertSettingsPtrOutput) Elem() CheckAlertSettingsOutput {
 	}).(CheckAlertSettingsOutput)
 }
 
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
 func (o CheckAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CheckAlertSettings) *string {
 		if v == nil {
@@ -1260,6 +1355,7 @@ func (o CheckAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// . Possible arguments:
 func (o CheckAlertSettingsPtrOutput) Reminders() CheckAlertSettingsReminderArrayOutput {
 	return o.ApplyT(func(v *CheckAlertSettings) []CheckAlertSettingsReminder {
 		if v == nil {
@@ -1269,6 +1365,7 @@ func (o CheckAlertSettingsPtrOutput) Reminders() CheckAlertSettingsReminderArray
 	}).(CheckAlertSettingsReminderArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckAlertSettingsPtrOutput) RunBasedEscalations() CheckAlertSettingsRunBasedEscalationArrayOutput {
 	return o.ApplyT(func(v *CheckAlertSettings) []CheckAlertSettingsRunBasedEscalation {
 		if v == nil {
@@ -1278,6 +1375,7 @@ func (o CheckAlertSettingsPtrOutput) RunBasedEscalations() CheckAlertSettingsRun
 	}).(CheckAlertSettingsRunBasedEscalationArrayOutput)
 }
 
+// At what interval the reminders should be send.  Possible arguments:
 func (o CheckAlertSettingsPtrOutput) SslCertificates() CheckAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v *CheckAlertSettings) []CheckAlertSettingsSslCertificate {
 		if v == nil {
@@ -1287,6 +1385,7 @@ func (o CheckAlertSettingsPtrOutput) SslCertificates() CheckAlertSettingsSslCert
 	}).(CheckAlertSettingsSslCertificateArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckAlertSettingsPtrOutput) TimeBasedEscalations() CheckAlertSettingsTimeBasedEscalationArrayOutput {
 	return o.ApplyT(func(v *CheckAlertSettings) []CheckAlertSettingsTimeBasedEscalation {
 		if v == nil {
@@ -1297,7 +1396,9 @@ func (o CheckAlertSettingsPtrOutput) TimeBasedEscalations() CheckAlertSettingsTi
 }
 
 type CheckAlertSettingsReminder struct {
-	Amount   *int `pulumi:"amount"`
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount *int `pulumi:"amount"`
+	// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	Interval *int `pulumi:"interval"`
 }
 
@@ -1313,7 +1414,9 @@ type CheckAlertSettingsReminderInput interface {
 }
 
 type CheckAlertSettingsReminderArgs struct {
-	Amount   pulumi.IntPtrInput `pulumi:"amount"`
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	Interval pulumi.IntPtrInput `pulumi:"interval"`
 }
 
@@ -1368,10 +1471,12 @@ func (o CheckAlertSettingsReminderOutput) ToCheckAlertSettingsReminderOutputWith
 	return o
 }
 
+// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
 func (o CheckAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
 }
 
+// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 func (o CheckAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
 }
@@ -1397,6 +1502,7 @@ func (o CheckAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) CheckAle
 }
 
 type CheckAlertSettingsRunBasedEscalation struct {
+	// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
 	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
 }
 
@@ -1412,6 +1518,7 @@ type CheckAlertSettingsRunBasedEscalationInput interface {
 }
 
 type CheckAlertSettingsRunBasedEscalationArgs struct {
+	// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
 	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
 }
 
@@ -1466,6 +1573,7 @@ func (o CheckAlertSettingsRunBasedEscalationOutput) ToCheckAlertSettingsRunBased
 	return o
 }
 
+// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
 func (o CheckAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
 }
@@ -1491,8 +1599,10 @@ func (o CheckAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput
 }
 
 type CheckAlertSettingsSslCertificate struct {
-	AlertThreshold *int  `pulumi:"alertThreshold"`
-	Enabled        *bool `pulumi:"enabled"`
+	// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+	AlertThreshold *int `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+	Enabled *bool `pulumi:"enabled"`
 }
 
 // CheckAlertSettingsSslCertificateInput is an input type that accepts CheckAlertSettingsSslCertificateArgs and CheckAlertSettingsSslCertificateOutput values.
@@ -1507,8 +1617,10 @@ type CheckAlertSettingsSslCertificateInput interface {
 }
 
 type CheckAlertSettingsSslCertificateArgs struct {
-	AlertThreshold pulumi.IntPtrInput  `pulumi:"alertThreshold"`
-	Enabled        pulumi.BoolPtrInput `pulumi:"enabled"`
+	// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+	AlertThreshold pulumi.IntPtrInput `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
 }
 
 func (CheckAlertSettingsSslCertificateArgs) ElementType() reflect.Type {
@@ -1562,10 +1674,12 @@ func (o CheckAlertSettingsSslCertificateOutput) ToCheckAlertSettingsSslCertifica
 	return o
 }
 
+// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
 func (o CheckAlertSettingsSslCertificateOutput) AlertThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckAlertSettingsSslCertificate) *int { return v.AlertThreshold }).(pulumi.IntPtrOutput)
 }
 
+// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
 func (o CheckAlertSettingsSslCertificateOutput) Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckAlertSettingsSslCertificate) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
@@ -1591,6 +1705,7 @@ func (o CheckAlertSettingsSslCertificateArrayOutput) Index(i pulumi.IntInput) Ch
 }
 
 type CheckAlertSettingsTimeBasedEscalation struct {
+	// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
 }
 
@@ -1606,6 +1721,7 @@ type CheckAlertSettingsTimeBasedEscalationInput interface {
 }
 
 type CheckAlertSettingsTimeBasedEscalationArgs struct {
+	// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
 }
 
@@ -1660,6 +1776,7 @@ func (o CheckAlertSettingsTimeBasedEscalationOutput) ToCheckAlertSettingsTimeBas
 	return o
 }
 
+// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 func (o CheckAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
 }
@@ -1685,6 +1802,7 @@ func (o CheckAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInpu
 }
 
 type CheckGroupAlertChannelSubscription struct {
+	// Determines if the checks in the group are running or not.
 	Activated bool `pulumi:"activated"`
 	ChannelId int  `pulumi:"channelId"`
 }
@@ -1701,6 +1819,7 @@ type CheckGroupAlertChannelSubscriptionInput interface {
 }
 
 type CheckGroupAlertChannelSubscriptionArgs struct {
+	// Determines if the checks in the group are running or not.
 	Activated pulumi.BoolInput `pulumi:"activated"`
 	ChannelId pulumi.IntInput  `pulumi:"channelId"`
 }
@@ -1756,6 +1875,7 @@ func (o CheckGroupAlertChannelSubscriptionOutput) ToCheckGroupAlertChannelSubscr
 	return o
 }
 
+// Determines if the checks in the group are running or not.
 func (o CheckGroupAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v CheckGroupAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
@@ -1785,10 +1905,15 @@ func (o CheckGroupAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) 
 }
 
 type CheckGroupAlertSettings struct {
-	EscalationType       *string                                      `pulumi:"escalationType"`
-	Reminders            []CheckGroupAlertSettingsReminder            `pulumi:"reminders"`
-	RunBasedEscalations  []CheckGroupAlertSettingsRunBasedEscalation  `pulumi:"runBasedEscalations"`
-	SslCertificates      []CheckGroupAlertSettingsSslCertificate      `pulumi:"sslCertificates"`
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType *string `pulumi:"escalationType"`
+	// . Possible arguments:
+	Reminders []CheckGroupAlertSettingsReminder `pulumi:"reminders"`
+	// . Possible arguments:
+	RunBasedEscalations []CheckGroupAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// At what interval the reminders should be send.  Possible arguments:
+	SslCertificates []CheckGroupAlertSettingsSslCertificate `pulumi:"sslCertificates"`
+	// . Possible arguments:
 	TimeBasedEscalations []CheckGroupAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
 }
 
@@ -1804,10 +1929,15 @@ type CheckGroupAlertSettingsInput interface {
 }
 
 type CheckGroupAlertSettingsArgs struct {
-	EscalationType       pulumi.StringPtrInput                                `pulumi:"escalationType"`
-	Reminders            CheckGroupAlertSettingsReminderArrayInput            `pulumi:"reminders"`
-	RunBasedEscalations  CheckGroupAlertSettingsRunBasedEscalationArrayInput  `pulumi:"runBasedEscalations"`
-	SslCertificates      CheckGroupAlertSettingsSslCertificateArrayInput      `pulumi:"sslCertificates"`
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// . Possible arguments:
+	Reminders CheckGroupAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// . Possible arguments:
+	RunBasedEscalations CheckGroupAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// At what interval the reminders should be send.  Possible arguments:
+	SslCertificates CheckGroupAlertSettingsSslCertificateArrayInput `pulumi:"sslCertificates"`
+	// . Possible arguments:
 	TimeBasedEscalations CheckGroupAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
 }
 
@@ -1888,24 +2018,29 @@ func (o CheckGroupAlertSettingsOutput) ToCheckGroupAlertSettingsPtrOutputWithCon
 	}).(CheckGroupAlertSettingsPtrOutput)
 }
 
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
 func (o CheckGroupAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupAlertSettingsOutput) Reminders() CheckGroupAlertSettingsReminderArrayOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsReminder { return v.Reminders }).(CheckGroupAlertSettingsReminderArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupAlertSettingsOutput) RunBasedEscalations() CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsRunBasedEscalation {
 		return v.RunBasedEscalations
 	}).(CheckGroupAlertSettingsRunBasedEscalationArrayOutput)
 }
 
+// At what interval the reminders should be send.  Possible arguments:
 func (o CheckGroupAlertSettingsOutput) SslCertificates() CheckGroupAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsSslCertificate { return v.SslCertificates }).(CheckGroupAlertSettingsSslCertificateArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupAlertSettingsOutput) TimeBasedEscalations() CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsTimeBasedEscalation {
 		return v.TimeBasedEscalations
@@ -1936,6 +2071,7 @@ func (o CheckGroupAlertSettingsPtrOutput) Elem() CheckGroupAlertSettingsOutput {
 	}).(CheckGroupAlertSettingsOutput)
 }
 
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
 func (o CheckGroupAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CheckGroupAlertSettings) *string {
 		if v == nil {
@@ -1945,6 +2081,7 @@ func (o CheckGroupAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupAlertSettingsPtrOutput) Reminders() CheckGroupAlertSettingsReminderArrayOutput {
 	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsReminder {
 		if v == nil {
@@ -1954,6 +2091,7 @@ func (o CheckGroupAlertSettingsPtrOutput) Reminders() CheckGroupAlertSettingsRem
 	}).(CheckGroupAlertSettingsReminderArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupAlertSettingsPtrOutput) RunBasedEscalations() CheckGroupAlertSettingsRunBasedEscalationArrayOutput {
 	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsRunBasedEscalation {
 		if v == nil {
@@ -1963,6 +2101,7 @@ func (o CheckGroupAlertSettingsPtrOutput) RunBasedEscalations() CheckGroupAlertS
 	}).(CheckGroupAlertSettingsRunBasedEscalationArrayOutput)
 }
 
+// At what interval the reminders should be send.  Possible arguments:
 func (o CheckGroupAlertSettingsPtrOutput) SslCertificates() CheckGroupAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsSslCertificate {
 		if v == nil {
@@ -1972,6 +2111,7 @@ func (o CheckGroupAlertSettingsPtrOutput) SslCertificates() CheckGroupAlertSetti
 	}).(CheckGroupAlertSettingsSslCertificateArrayOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupAlertSettingsPtrOutput) TimeBasedEscalations() CheckGroupAlertSettingsTimeBasedEscalationArrayOutput {
 	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsTimeBasedEscalation {
 		if v == nil {
@@ -1982,7 +2122,9 @@ func (o CheckGroupAlertSettingsPtrOutput) TimeBasedEscalations() CheckGroupAlert
 }
 
 type CheckGroupAlertSettingsReminder struct {
-	Amount   *int `pulumi:"amount"`
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount *int `pulumi:"amount"`
+	// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	Interval *int `pulumi:"interval"`
 }
 
@@ -1998,7 +2140,9 @@ type CheckGroupAlertSettingsReminderInput interface {
 }
 
 type CheckGroupAlertSettingsReminderArgs struct {
-	Amount   pulumi.IntPtrInput `pulumi:"amount"`
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	Interval pulumi.IntPtrInput `pulumi:"interval"`
 }
 
@@ -2053,10 +2197,12 @@ func (o CheckGroupAlertSettingsReminderOutput) ToCheckGroupAlertSettingsReminder
 	return o
 }
 
+// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
 func (o CheckGroupAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
 }
 
+// . Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 func (o CheckGroupAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
 }
@@ -2082,6 +2228,7 @@ func (o CheckGroupAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) Che
 }
 
 type CheckGroupAlertSettingsRunBasedEscalation struct {
+	// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
 	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
 }
 
@@ -2097,6 +2244,7 @@ type CheckGroupAlertSettingsRunBasedEscalationInput interface {
 }
 
 type CheckGroupAlertSettingsRunBasedEscalationArgs struct {
+	// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
 	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
 }
 
@@ -2151,6 +2299,7 @@ func (o CheckGroupAlertSettingsRunBasedEscalationOutput) ToCheckGroupAlertSettin
 	return o
 }
 
+// After how many failed consecutive check runs an alert notification should be send. Possible values are between 1 and 5. Defaults to `1`.
 func (o CheckGroupAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
 }
@@ -2176,8 +2325,10 @@ func (o CheckGroupAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.Int
 }
 
 type CheckGroupAlertSettingsSslCertificate struct {
-	AlertThreshold *int  `pulumi:"alertThreshold"`
-	Enabled        *bool `pulumi:"enabled"`
+	// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+	AlertThreshold *int `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+	Enabled *bool `pulumi:"enabled"`
 }
 
 // CheckGroupAlertSettingsSslCertificateInput is an input type that accepts CheckGroupAlertSettingsSslCertificateArgs and CheckGroupAlertSettingsSslCertificateOutput values.
@@ -2192,8 +2343,10 @@ type CheckGroupAlertSettingsSslCertificateInput interface {
 }
 
 type CheckGroupAlertSettingsSslCertificateArgs struct {
-	AlertThreshold pulumi.IntPtrInput  `pulumi:"alertThreshold"`
-	Enabled        pulumi.BoolPtrInput `pulumi:"enabled"`
+	// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
+	AlertThreshold pulumi.IntPtrInput `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
 }
 
 func (CheckGroupAlertSettingsSslCertificateArgs) ElementType() reflect.Type {
@@ -2247,10 +2400,12 @@ func (o CheckGroupAlertSettingsSslCertificateOutput) ToCheckGroupAlertSettingsSs
 	return o
 }
 
+// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. Defaults to `3`.
 func (o CheckGroupAlertSettingsSslCertificateOutput) AlertThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettingsSslCertificate) *int { return v.AlertThreshold }).(pulumi.IntPtrOutput)
 }
 
+// Determines if alert notifications should be send for expiring SSL certificates. Possible values `true`, and `false`. Defaults to `true`.
 func (o CheckGroupAlertSettingsSslCertificateOutput) Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettingsSslCertificate) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
@@ -2276,6 +2431,7 @@ func (o CheckGroupAlertSettingsSslCertificateArrayOutput) Index(i pulumi.IntInpu
 }
 
 type CheckGroupAlertSettingsTimeBasedEscalation struct {
+	// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
 }
 
@@ -2291,6 +2447,7 @@ type CheckGroupAlertSettingsTimeBasedEscalationInput interface {
 }
 
 type CheckGroupAlertSettingsTimeBasedEscalationArgs struct {
+	// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
 }
 
@@ -2345,6 +2502,7 @@ func (o CheckGroupAlertSettingsTimeBasedEscalationOutput) ToCheckGroupAlertSetti
 	return o
 }
 
+// After how many minutes after a check starts failing an alert should be send. Possible values are `5`, `10`, `15`, and `30`. Defaults to `5`.
 func (o CheckGroupAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
 }
@@ -2370,11 +2528,16 @@ func (o CheckGroupAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.In
 }
 
 type CheckGroupApiCheckDefaults struct {
-	Assertions      []CheckGroupApiCheckDefaultsAssertion `pulumi:"assertions"`
-	BasicAuth       *CheckGroupApiCheckDefaultsBasicAuth  `pulumi:"basicAuth"`
-	Headers         map[string]interface{}                `pulumi:"headers"`
-	QueryParameters map[string]interface{}                `pulumi:"queryParameters"`
-	Url             *string                               `pulumi:"url"`
+	// . Possible arguments:
+	Assertions []CheckGroupApiCheckDefaultsAssertion `pulumi:"assertions"`
+	// . Possible arguments
+	BasicAuth *CheckGroupApiCheckDefaultsBasicAuth `pulumi:"basicAuth"`
+	// .
+	Headers map[string]interface{} `pulumi:"headers"`
+	// .
+	QueryParameters map[string]interface{} `pulumi:"queryParameters"`
+	// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+	Url *string `pulumi:"url"`
 }
 
 // Defaults sets the appropriate defaults for CheckGroupApiCheckDefaults
@@ -2402,11 +2565,16 @@ type CheckGroupApiCheckDefaultsInput interface {
 }
 
 type CheckGroupApiCheckDefaultsArgs struct {
-	Assertions      CheckGroupApiCheckDefaultsAssertionArrayInput `pulumi:"assertions"`
-	BasicAuth       CheckGroupApiCheckDefaultsBasicAuthPtrInput   `pulumi:"basicAuth"`
-	Headers         pulumi.MapInput                               `pulumi:"headers"`
-	QueryParameters pulumi.MapInput                               `pulumi:"queryParameters"`
-	Url             pulumi.StringPtrInput                         `pulumi:"url"`
+	// . Possible arguments:
+	Assertions CheckGroupApiCheckDefaultsAssertionArrayInput `pulumi:"assertions"`
+	// . Possible arguments
+	BasicAuth CheckGroupApiCheckDefaultsBasicAuthPtrInput `pulumi:"basicAuth"`
+	// .
+	Headers pulumi.MapInput `pulumi:"headers"`
+	// .
+	QueryParameters pulumi.MapInput `pulumi:"queryParameters"`
+	// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
+	Url pulumi.StringPtrInput `pulumi:"url"`
 }
 
 func (CheckGroupApiCheckDefaultsArgs) ElementType() reflect.Type {
@@ -2486,22 +2654,27 @@ func (o CheckGroupApiCheckDefaultsOutput) ToCheckGroupApiCheckDefaultsPtrOutputW
 	}).(CheckGroupApiCheckDefaultsPtrOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupApiCheckDefaultsOutput) Assertions() CheckGroupApiCheckDefaultsAssertionArrayOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) []CheckGroupApiCheckDefaultsAssertion { return v.Assertions }).(CheckGroupApiCheckDefaultsAssertionArrayOutput)
 }
 
+// . Possible arguments
 func (o CheckGroupApiCheckDefaultsOutput) BasicAuth() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaultsBasicAuth { return v.BasicAuth }).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
 }
 
+// .
 func (o CheckGroupApiCheckDefaultsOutput) Headers() pulumi.MapOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) map[string]interface{} { return v.Headers }).(pulumi.MapOutput)
 }
 
+// .
 func (o CheckGroupApiCheckDefaultsOutput) QueryParameters() pulumi.MapOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) map[string]interface{} { return v.QueryParameters }).(pulumi.MapOutput)
 }
 
+// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
 func (o CheckGroupApiCheckDefaultsOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) *string { return v.Url }).(pulumi.StringPtrOutput)
 }
@@ -2530,6 +2703,7 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) Elem() CheckGroupApiCheckDefaultsOu
 	}).(CheckGroupApiCheckDefaultsOutput)
 }
 
+// . Possible arguments:
 func (o CheckGroupApiCheckDefaultsPtrOutput) Assertions() CheckGroupApiCheckDefaultsAssertionArrayOutput {
 	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) []CheckGroupApiCheckDefaultsAssertion {
 		if v == nil {
@@ -2539,6 +2713,7 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) Assertions() CheckGroupApiCheckDefa
 	}).(CheckGroupApiCheckDefaultsAssertionArrayOutput)
 }
 
+// . Possible arguments
 func (o CheckGroupApiCheckDefaultsPtrOutput) BasicAuth() CheckGroupApiCheckDefaultsBasicAuthPtrOutput {
 	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaultsBasicAuth {
 		if v == nil {
@@ -2548,6 +2723,7 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) BasicAuth() CheckGroupApiCheckDefau
 	}).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
 }
 
+// .
 func (o CheckGroupApiCheckDefaultsPtrOutput) Headers() pulumi.MapOutput {
 	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) map[string]interface{} {
 		if v == nil {
@@ -2557,6 +2733,7 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) Headers() pulumi.MapOutput {
 	}).(pulumi.MapOutput)
 }
 
+// .
 func (o CheckGroupApiCheckDefaultsPtrOutput) QueryParameters() pulumi.MapOutput {
 	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) map[string]interface{} {
 		if v == nil {
@@ -2566,6 +2743,7 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) QueryParameters() pulumi.MapOutput 
 	}).(pulumi.MapOutput)
 }
 
+// The base url for this group which you can reference with the {{GROUP_BASE_URL}} variable in all group checks.
 func (o CheckGroupApiCheckDefaultsPtrOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) *string {
 		if v == nil {
@@ -2576,10 +2754,13 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 type CheckGroupApiCheckDefaultsAssertion struct {
-	Comparison string  `pulumi:"comparison"`
-	Property   *string `pulumi:"property"`
-	Source     string  `pulumi:"source"`
-	Target     string  `pulumi:"target"`
+	// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison string `pulumi:"comparison"`
+	// .
+	Property *string `pulumi:"property"`
+	// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source string `pulumi:"source"`
+	Target string `pulumi:"target"`
 }
 
 // CheckGroupApiCheckDefaultsAssertionInput is an input type that accepts CheckGroupApiCheckDefaultsAssertionArgs and CheckGroupApiCheckDefaultsAssertionOutput values.
@@ -2594,10 +2775,13 @@ type CheckGroupApiCheckDefaultsAssertionInput interface {
 }
 
 type CheckGroupApiCheckDefaultsAssertionArgs struct {
-	Comparison pulumi.StringInput    `pulumi:"comparison"`
-	Property   pulumi.StringPtrInput `pulumi:"property"`
-	Source     pulumi.StringInput    `pulumi:"source"`
-	Target     pulumi.StringInput    `pulumi:"target"`
+	// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison pulumi.StringInput `pulumi:"comparison"`
+	// .
+	Property pulumi.StringPtrInput `pulumi:"property"`
+	// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source pulumi.StringInput `pulumi:"source"`
+	Target pulumi.StringInput `pulumi:"target"`
 }
 
 func (CheckGroupApiCheckDefaultsAssertionArgs) ElementType() reflect.Type {
@@ -2651,14 +2835,17 @@ func (o CheckGroupApiCheckDefaultsAssertionOutput) ToCheckGroupApiCheckDefaultsA
 	return o
 }
 
+// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
 func (o CheckGroupApiCheckDefaultsAssertionOutput) Comparison() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaultsAssertion) string { return v.Comparison }).(pulumi.StringOutput)
 }
 
+// .
 func (o CheckGroupApiCheckDefaultsAssertionOutput) Property() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaultsAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
 }
 
+// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
 func (o CheckGroupApiCheckDefaultsAssertionOutput) Source() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaultsAssertion) string { return v.Source }).(pulumi.StringOutput)
 }
@@ -2836,16 +3023,25 @@ func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) Username() pulumi.StringPt
 }
 
 type CheckRequest struct {
-	Assertions      []CheckRequestAssertion `pulumi:"assertions"`
-	BasicAuth       *CheckRequestBasicAuth  `pulumi:"basicAuth"`
-	Body            *string                 `pulumi:"body"`
-	BodyType        *string                 `pulumi:"bodyType"`
-	FollowRedirects *bool                   `pulumi:"followRedirects"`
-	Headers         map[string]interface{}  `pulumi:"headers"`
-	Method          *string                 `pulumi:"method"`
-	QueryParameters map[string]interface{}  `pulumi:"queryParameters"`
-	SkipSsl         *bool                   `pulumi:"skipSsl"`
-	Url             string                  `pulumi:"url"`
+	// A request can have multiple assetions. Assertion has the following arguments:
+	Assertions []CheckRequestAssertion `pulumi:"assertions"`
+	// A request might have one basicAuth config. basicAuth has two arguments:
+	BasicAuth *CheckRequestBasicAuth `pulumi:"basicAuth"`
+	Body      *string                `pulumi:"body"`
+	// Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+	BodyType *string `pulumi:"bodyType"`
+	// .
+	FollowRedirects *bool `pulumi:"followRedirects"`
+	// .
+	Headers map[string]interface{} `pulumi:"headers"`
+	// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.
+	Method *string `pulumi:"method"`
+	// .
+	QueryParameters map[string]interface{} `pulumi:"queryParameters"`
+	// .
+	SkipSsl *bool `pulumi:"skipSsl"`
+	// .
+	Url string `pulumi:"url"`
 }
 
 // CheckRequestInput is an input type that accepts CheckRequestArgs and CheckRequestOutput values.
@@ -2860,16 +3056,25 @@ type CheckRequestInput interface {
 }
 
 type CheckRequestArgs struct {
-	Assertions      CheckRequestAssertionArrayInput `pulumi:"assertions"`
-	BasicAuth       CheckRequestBasicAuthPtrInput   `pulumi:"basicAuth"`
-	Body            pulumi.StringPtrInput           `pulumi:"body"`
-	BodyType        pulumi.StringPtrInput           `pulumi:"bodyType"`
-	FollowRedirects pulumi.BoolPtrInput             `pulumi:"followRedirects"`
-	Headers         pulumi.MapInput                 `pulumi:"headers"`
-	Method          pulumi.StringPtrInput           `pulumi:"method"`
-	QueryParameters pulumi.MapInput                 `pulumi:"queryParameters"`
-	SkipSsl         pulumi.BoolPtrInput             `pulumi:"skipSsl"`
-	Url             pulumi.StringInput              `pulumi:"url"`
+	// A request can have multiple assetions. Assertion has the following arguments:
+	Assertions CheckRequestAssertionArrayInput `pulumi:"assertions"`
+	// A request might have one basicAuth config. basicAuth has two arguments:
+	BasicAuth CheckRequestBasicAuthPtrInput `pulumi:"basicAuth"`
+	Body      pulumi.StringPtrInput         `pulumi:"body"`
+	// Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+	BodyType pulumi.StringPtrInput `pulumi:"bodyType"`
+	// .
+	FollowRedirects pulumi.BoolPtrInput `pulumi:"followRedirects"`
+	// .
+	Headers pulumi.MapInput `pulumi:"headers"`
+	// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.
+	Method pulumi.StringPtrInput `pulumi:"method"`
+	// .
+	QueryParameters pulumi.MapInput `pulumi:"queryParameters"`
+	// .
+	SkipSsl pulumi.BoolPtrInput `pulumi:"skipSsl"`
+	// .
+	Url pulumi.StringInput `pulumi:"url"`
 }
 
 func (CheckRequestArgs) ElementType() reflect.Type {
@@ -2949,10 +3154,12 @@ func (o CheckRequestOutput) ToCheckRequestPtrOutputWithContext(ctx context.Conte
 	}).(CheckRequestPtrOutput)
 }
 
+// A request can have multiple assetions. Assertion has the following arguments:
 func (o CheckRequestOutput) Assertions() CheckRequestAssertionArrayOutput {
 	return o.ApplyT(func(v CheckRequest) []CheckRequestAssertion { return v.Assertions }).(CheckRequestAssertionArrayOutput)
 }
 
+// A request might have one basicAuth config. basicAuth has two arguments:
 func (o CheckRequestOutput) BasicAuth() CheckRequestBasicAuthPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *CheckRequestBasicAuth { return v.BasicAuth }).(CheckRequestBasicAuthPtrOutput)
 }
@@ -2961,30 +3168,37 @@ func (o CheckRequestOutput) Body() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *string { return v.Body }).(pulumi.StringPtrOutput)
 }
 
+// Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
 func (o CheckRequestOutput) BodyType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *string { return v.BodyType }).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o CheckRequestOutput) FollowRedirects() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *bool { return v.FollowRedirects }).(pulumi.BoolPtrOutput)
 }
 
+// .
 func (o CheckRequestOutput) Headers() pulumi.MapOutput {
 	return o.ApplyT(func(v CheckRequest) map[string]interface{} { return v.Headers }).(pulumi.MapOutput)
 }
 
+// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.
 func (o CheckRequestOutput) Method() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *string { return v.Method }).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o CheckRequestOutput) QueryParameters() pulumi.MapOutput {
 	return o.ApplyT(func(v CheckRequest) map[string]interface{} { return v.QueryParameters }).(pulumi.MapOutput)
 }
 
+// .
 func (o CheckRequestOutput) SkipSsl() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *bool { return v.SkipSsl }).(pulumi.BoolPtrOutput)
 }
 
+// .
 func (o CheckRequestOutput) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckRequest) string { return v.Url }).(pulumi.StringOutput)
 }
@@ -3013,6 +3227,7 @@ func (o CheckRequestPtrOutput) Elem() CheckRequestOutput {
 	}).(CheckRequestOutput)
 }
 
+// A request can have multiple assetions. Assertion has the following arguments:
 func (o CheckRequestPtrOutput) Assertions() CheckRequestAssertionArrayOutput {
 	return o.ApplyT(func(v *CheckRequest) []CheckRequestAssertion {
 		if v == nil {
@@ -3022,6 +3237,7 @@ func (o CheckRequestPtrOutput) Assertions() CheckRequestAssertionArrayOutput {
 	}).(CheckRequestAssertionArrayOutput)
 }
 
+// A request might have one basicAuth config. basicAuth has two arguments:
 func (o CheckRequestPtrOutput) BasicAuth() CheckRequestBasicAuthPtrOutput {
 	return o.ApplyT(func(v *CheckRequest) *CheckRequestBasicAuth {
 		if v == nil {
@@ -3040,6 +3256,7 @@ func (o CheckRequestPtrOutput) Body() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
 func (o CheckRequestPtrOutput) BodyType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CheckRequest) *string {
 		if v == nil {
@@ -3049,6 +3266,7 @@ func (o CheckRequestPtrOutput) BodyType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o CheckRequestPtrOutput) FollowRedirects() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CheckRequest) *bool {
 		if v == nil {
@@ -3058,6 +3276,7 @@ func (o CheckRequestPtrOutput) FollowRedirects() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
+// .
 func (o CheckRequestPtrOutput) Headers() pulumi.MapOutput {
 	return o.ApplyT(func(v *CheckRequest) map[string]interface{} {
 		if v == nil {
@@ -3067,6 +3286,7 @@ func (o CheckRequestPtrOutput) Headers() pulumi.MapOutput {
 	}).(pulumi.MapOutput)
 }
 
+// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. Defaults to `GET`.
 func (o CheckRequestPtrOutput) Method() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CheckRequest) *string {
 		if v == nil {
@@ -3076,6 +3296,7 @@ func (o CheckRequestPtrOutput) Method() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// .
 func (o CheckRequestPtrOutput) QueryParameters() pulumi.MapOutput {
 	return o.ApplyT(func(v *CheckRequest) map[string]interface{} {
 		if v == nil {
@@ -3085,6 +3306,7 @@ func (o CheckRequestPtrOutput) QueryParameters() pulumi.MapOutput {
 	}).(pulumi.MapOutput)
 }
 
+// .
 func (o CheckRequestPtrOutput) SkipSsl() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CheckRequest) *bool {
 		if v == nil {
@@ -3094,6 +3316,7 @@ func (o CheckRequestPtrOutput) SkipSsl() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
+// .
 func (o CheckRequestPtrOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CheckRequest) *string {
 		if v == nil {
@@ -3104,10 +3327,14 @@ func (o CheckRequestPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 type CheckRequestAssertion struct {
-	Comparison string  `pulumi:"comparison"`
-	Property   *string `pulumi:"property"`
-	Source     string  `pulumi:"source"`
-	Target     *string `pulumi:"target"`
+	// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison string `pulumi:"comparison"`
+	// .
+	Property *string `pulumi:"property"`
+	// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source string `pulumi:"source"`
+	// .
+	Target *string `pulumi:"target"`
 }
 
 // CheckRequestAssertionInput is an input type that accepts CheckRequestAssertionArgs and CheckRequestAssertionOutput values.
@@ -3122,10 +3349,14 @@ type CheckRequestAssertionInput interface {
 }
 
 type CheckRequestAssertionArgs struct {
-	Comparison pulumi.StringInput    `pulumi:"comparison"`
-	Property   pulumi.StringPtrInput `pulumi:"property"`
-	Source     pulumi.StringInput    `pulumi:"source"`
-	Target     pulumi.StringPtrInput `pulumi:"target"`
+	// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison pulumi.StringInput `pulumi:"comparison"`
+	// .
+	Property pulumi.StringPtrInput `pulumi:"property"`
+	// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source pulumi.StringInput `pulumi:"source"`
+	// .
+	Target pulumi.StringPtrInput `pulumi:"target"`
 }
 
 func (CheckRequestAssertionArgs) ElementType() reflect.Type {
@@ -3179,18 +3410,22 @@ func (o CheckRequestAssertionOutput) ToCheckRequestAssertionOutputWithContext(ct
 	return o
 }
 
+// Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
 func (o CheckRequestAssertionOutput) Comparison() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
 }
 
+// .
 func (o CheckRequestAssertionOutput) Property() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
 }
 
+// Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
 func (o CheckRequestAssertionOutput) Source() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
 }
 
+// .
 func (o CheckRequestAssertionOutput) Target() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckRequestAssertion) *string { return v.Target }).(pulumi.StringPtrOutput)
 }

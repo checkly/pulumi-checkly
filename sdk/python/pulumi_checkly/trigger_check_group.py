@@ -18,6 +18,7 @@ class TriggerCheckGroupArgs:
                  url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a TriggerCheckGroup resource.
+        :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
         """
         pulumi.set(__self__, "group_id", group_id)
         if token is not None:
@@ -28,6 +29,9 @@ class TriggerCheckGroupArgs:
     @property
     @pulumi.getter(name="groupId")
     def group_id(self) -> pulumi.Input[int]:
+        """
+        The id of the group that you want to attach the trigger to.
+        """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
@@ -61,6 +65,7 @@ class _TriggerCheckGroupState:
                  url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering TriggerCheckGroup resources.
+        :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
         """
         if group_id is not None:
             pulumi.set(__self__, "group_id", group_id)
@@ -72,6 +77,9 @@ class _TriggerCheckGroupState:
     @property
     @pulumi.getter(name="groupId")
     def group_id(self) -> Optional[pulumi.Input[int]]:
+        """
+        The id of the group that you want to attach the trigger to.
+        """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
@@ -107,9 +115,25 @@ class TriggerCheckGroup(pulumi.CustomResource):
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a TriggerCheckGroup resource with the given unique name, props, and options.
+        ## # TriggerCheckGroup
+
+        `TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `TriggerCheckGroup` resource to your resource file.
+
+        ## Example Usage
+
+        Trigger group example
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
+        pulumi.export("test-trigger-group-url", test_trigger_group.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
         """
         ...
     @overload
@@ -118,7 +142,22 @@ class TriggerCheckGroup(pulumi.CustomResource):
                  args: TriggerCheckGroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a TriggerCheckGroup resource with the given unique name, props, and options.
+        ## # TriggerCheckGroup
+
+        `TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `TriggerCheckGroup` resource to your resource file.
+
+        ## Example Usage
+
+        Trigger group example
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
+        pulumi.export("test-trigger-group-url", test_trigger_group.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param TriggerCheckGroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -174,6 +213,7 @@ class TriggerCheckGroup(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -187,6 +227,9 @@ class TriggerCheckGroup(pulumi.CustomResource):
     @property
     @pulumi.getter(name="groupId")
     def group_id(self) -> pulumi.Output[int]:
+        """
+        The id of the group that you want to attach the trigger to.
+        """
         return pulumi.get(self, "group_id")
 
     @property

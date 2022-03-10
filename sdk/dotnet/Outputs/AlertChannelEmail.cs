@@ -13,6 +13,9 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class AlertChannelEmail
     {
+        /// <summary>
+        /// the email address of this email alert channel.
+        /// </summary>
         public readonly string Address;
 
         [OutputConstructor]

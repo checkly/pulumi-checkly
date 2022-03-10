@@ -12,9 +12,15 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class AlertChannelSlackArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Slack's channel name.
+        /// </summary>
         [Input("channel", required: true)]
         public Input<string> Channel { get; set; } = null!;
 
+        /// <summary>
+        /// .
+        /// </summary>
         [Input("url", required: true)]
         public Input<string> Url { get; set; } = null!;
 

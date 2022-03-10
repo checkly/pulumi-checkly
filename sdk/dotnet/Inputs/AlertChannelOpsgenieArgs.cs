@@ -12,15 +12,27 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class AlertChannelOpsgenieArgs : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// .
+        /// </summary>
         [Input("apiKey", required: true)]
         public Input<string> ApiKey { get; set; } = null!;
 
+        /// <summary>
+        /// Webhook's channel name.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// .
+        /// </summary>
         [Input("priority", required: true)]
         public Input<string> Priority { get; set; } = null!;
 
+        /// <summary>
+        /// .
+        /// </summary>
         [Input("region", required: true)]
         public Input<string> Region { get; set; } = null!;
 
