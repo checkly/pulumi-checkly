@@ -1,58 +1,57 @@
-
 # Checkly
 
-> 🟪 Pulumi provider for the [Checkly](https://checklyhq.com) Delightful Active Monitoring
+The Checkly provider for Pulumi can be used to provision any of the monitoring resources available in [Checkly](https://checklhyhq.com/).
+The Checkly provider must be configured with the an `API Key` and also set the target `Account ID` in order to deploy Checkly resources.
 
-## 🪛 Installing
+## Example
 
-This package is available for several languages/platforms:
+{{< chooser language "javascript,typescript" >}}
 
-### Node.js (JavaScript/TypeScript)
+{{% choosable language javascript %}}
 
-To use from JavaScript or TypeScript in Node.js, install using either `npm`:
+```javascript
+const checkly = require("@checkly/pulumi")
 
-```bash
-npm install @pulumi/checkly
+new checkly.Check("api-check", {
+  activated: true,
+  frequency: 10,
+  type: "API",
+  request: {
+    method: "GET",
+    url: "https://checklyhq.com",
+  }
+})
+
+new checkly.Check("brwoser-check", {
+  activated: true,
+  frequency: 10,
+  type: "BROWSER",
+  script: 'console.log("Hello World!")'
+})
 ```
 
-or `yarn`:
+{{% /choosable %}}
+{{% choosable language typescript %}}
 
-```bash
-yarn add @pulumi/checkly
+```typescript
+import * as checkly from "@pulumi/checkly";
+
+new checkly.Check( "api-check", {
+  activated: true,
+  frequency: 10,
+  type: "API",
+  request: {
+    method: "GET",
+    url: "https://checklyhq.com",
+  }
+})
+
+new checkly.Check( "brwoser-check", {
+  activated: true,
+  frequency: 10,
+  type: "BROWSER",
+  script: 'console.log("Hello World!")'
+})
 ```
-
-### Python
-
-To use from Python, install using `pip`:
-
-```bash
-pip install pulumi_checkly
-```
-
-### Go
-
-To use from Go, use `go get` to grab the latest version of the library:
-
-```bash
-go get github.com/pulumi/pulumi-checkly/sdk/go/...
-```
-
-### .NET
-
-To use from .NET, install using `dotnet add package`:
-
-```bash
-dotnet add package Pulumi.Checkly
-```
-
-## ⚙️  Configuration
-
-The following configuration points are available for the `foo` provider:
-
-- `checkly:apiKey` (environment: `CHECKLY_API_KEY`) - the Checkly API Key.
-- `checkly:accountId` (environment: `CHECKLY_ACCOUNT_ID`) - the Checkly account ID.
-
-## 📖 Reference
-
-For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/checkly/api-docs/).
-
+{{% /choosable %}}
+{{< /chooser >}}
