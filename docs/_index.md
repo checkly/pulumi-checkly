@@ -38,7 +38,7 @@ new checkly.Check("brwoser-check", {
 {{% choosable language typescript %}}
 
 ```typescript
-import * as checkly from "@pulumi/checkly";
+import * as checkly from "@checkly/pulumi";
 
 new checkly.Check( "api-check", {
   activated: true,
