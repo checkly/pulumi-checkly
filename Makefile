@@ -133,3 +133,4 @@ do::
 	make install_nodejs_sdk
 	cd examples/js && yarn link @checkly/pulumi && cd -
 	cd examples/ts && yarn link @checkly/pulumi && cd -
+	cp README.md sdk/nodejs/README.md
