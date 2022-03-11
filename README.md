@@ -1,4 +1,4 @@
-**🚨 This project is still in very early stages and is not stable, _use at your own risk_! 🚨**
+**⚠️ This project is still in very early stages and breaking change could happen**
 
 <p align="center">
   <img width="400px" src="./assets/pulumi.svg" alt="Pulumi" />
