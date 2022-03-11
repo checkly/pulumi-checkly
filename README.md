@@ -15,7 +15,7 @@
 
 ## 🪛 Installing
 
-This package is available for several languages/platforms:
+This package is only available for JavaScript and TypeScript but support for other languages/platforms, will be available soon.
 
 ### Node.js (JavaScript/TypeScript)
 
@@ -32,30 +32,65 @@ yarn add @pulumi/checkly
 ```
 
 ### Python
-
-To use from Python, install using `pip`:
-
-```bash
-pip install pulumi_checkly
-```
+> TBA
 
 ### Go
-
-To use from Go, use `go get` to grab the latest version of the library:
-
-```bash
-go get github.com/pulumi/pulumi-checkly/sdk/go/...
-```
+> TBA
 
 ### .NET
-
-To use from .NET, install using `dotnet add package`:
-
-```bash
-dotnet add package Pulumi.Checkly
-```
+> TBA
 
 <br>
+
+## 🔑 Authentication
+
+The Pulumi Checkly Provider needs to be configured with Checkly `API Key` and `Account ID` before it can be used to create resources.
+
+> If you don't have and `API Key`, you can create one [here](https://app.checklyhq.com/settings/user/api-keys).
+
+Once you generated the `API Key` there are two ways to communicate your authorization tokens to Pulumi:
+
+1. Set the environment variables `CHECKLY_API_KEY` and `CHECKLY_ACCOUNT_ID`:
+    ```bash
+    $ export CHECKLY_API_KEY=cu_xxx
+    $ export CHECKLY_ACCOUNT_ID=xxx
+    ```
+
+2. Set them using `pulumi config` command, if you prefer that they be stored alongside your Pulumi stack for easy multi-user access:
+    ```bash
+    $ pulumi config set checkly:apiKey cu_xxx --secret
+    $ pulumi config set checkly:accountId xxx
+    ```
+
+> Remember to pass `--secret` when setting `checkly:apiKey` so it is properly encrypted.
+
+<br>
+
+
+## 🦝 Creating Resources
+
+```javascript
+const checkly = require("@checkly/pulumi")
+
+new checkly.Check("api-check", {
+  activated: true,
+  frequency: 10,
+  type: "API",
+  request: {
+    method: "GET",
+    url: "https://checklyhq.com",
+  }
+})
+
+new checkly.Check("brwoser-check", {
+  activated: true,
+  frequency: 10,
+  type: "BROWSER",
+  script: 'console.log("Hello World!")'
+})
+```
+
+> Check the `examples` directory for more detailed code samples.
 
 ## ⚙️  Configuration
 
