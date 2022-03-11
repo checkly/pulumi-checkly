@@ -55,6 +55,7 @@ setup(name='pulumi_checkly',
       package_data={
           'pulumi_checkly': [
               'py.typed',
+              'pulumi-plugin.json',
           ]
       },
       install_requires=[

@@ -23,7 +23,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -59,6 +59,7 @@ func NewTriggerCheck(ctx *pulumi.Context,
 	if args.CheckId == nil {
 		return nil, errors.New("invalid value for required argument 'CheckId'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource TriggerCheck
 	err := ctx.RegisterResource("checkly:index/triggerCheck:TriggerCheck", name, args, &resource, opts...)
 	if err != nil {

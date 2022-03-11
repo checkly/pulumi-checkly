@@ -2,7 +2,7 @@
 
 ## Installation
 
-The Checkly provider is available as a package in only in JavaScript and TypeScript (support for other languages is coming soon):
+The Checkly provider is available as JavaScript/TypeScript package (support for other languages is coming soon):
 
 * JavaScript/TypeScript: [`@checkly/pulumi`](https://www.npmjs.com/package/@checkly/pulumi)
 
@@ -13,10 +13,9 @@ to pulumi.com. The Pulumi Checkly Provider needs to be configured with Checkly `
 
 > If you don't have and `API Key`, you can create one [here](https://app.checklyhq.com/settings/user/api-keys).
 
-Once you generated the `API Key` there are two ways to communicate your authorization tokens to Pulumi:
+Once you generated the `API Key` there are two ways to communicate your authorization keys to Pulumi:
 
 1. Set the environment variables `CHECKLY_API_KEY` and `CHECKLY_ACCOUNT_ID`:
-
     ```bash
     $ export CHECKLY_API_KEY=cu_xxx
     $ export CHECKLY_ACCOUNT_ID=xxx
@@ -28,4 +27,4 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
     $ pulumi config set checkly:accountId xxx
     ```
 
-Remember to pass `--secret` when setting `checkly:apiKey` so it is properly encrypted.
+> Remember to pass `--secret` when setting `checkly:apiKey` so it is properly encrypted.

@@ -107,7 +107,7 @@ import * as utilities from "./utilities";
  * *Connecting the alert channel to a check
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
+ * import * as pulumi from "@checkly/pulumi";
  *
  * const example_check = new checkly.Check("example-check", {alertChannelSubscriptions: [
  *     {
@@ -124,7 +124,7 @@ import * as utilities from "./utilities";
  * *Connecting the alert channel to a check group
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
+ * import * as pulumi from "@checkly/pulumi";
  *
  * const test_group1 = new checkly.CheckGroup("test-group1", {alertChannelSubscriptions: [
  *     {
@@ -237,9 +237,7 @@ export class AlertChannel extends pulumi.CustomResource {
             resourceInputs["sslExpiryThreshold"] = args ? args.sslExpiryThreshold : undefined;
             resourceInputs["webhook"] = args ? args.webhook : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(AlertChannel.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -65,10 +65,10 @@ func NewCheckGroup(ctx *pulumi.Context,
 	if args.Locations == nil {
 		return nil, errors.New("invalid value for required argument 'Locations'")
 	}
-	apiCheckDefaultsApplier := func(v CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaults { return v.Defaults() }
 	if args.ApiCheckDefaults != nil {
-		args.ApiCheckDefaults = args.ApiCheckDefaults.ToCheckGroupApiCheckDefaultsPtrOutput().Elem().ApplyT(apiCheckDefaultsApplier).(CheckGroupApiCheckDefaultsPtrOutput)
+		args.ApiCheckDefaults = args.ApiCheckDefaults.ToCheckGroupApiCheckDefaultsPtrOutput().ApplyT(func(v *CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaults { return v.Defaults() }).(CheckGroupApiCheckDefaultsPtrOutput)
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource CheckGroup
 	err := ctx.RegisterResource("checkly:index/checkGroup:CheckGroup", name, args, &resource, opts...)
 	if err != nil {

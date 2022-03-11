@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Pulumi Corp.</Authors>
-    <Company>Pulumi Corp.</Company>
+    <Authors>checkly</Authors>
+    <Company>checkly</Company>
     <Description>A Pulumi package for creating and managing Checkly monitoring resources.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://www.pulumi.com</PackageProjectUrl>
@@ -37,6 +37,11 @@
   <ItemGroup>
     <EmbeddedResource Include="version.txt" />
     <None Include="version.txt" Pack="True" PackagePath="content" />
+  </ItemGroup>
+
+   <ItemGroup>
+    <EmbeddedResource Include="pulumi-plugin.json" />
+    <None Include="pulumi-plugin.json" Pack="True" PackagePath="content" />
   </ItemGroup>
 
   <ItemGroup>

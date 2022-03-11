@@ -47,3 +47,8 @@ export function getVersion(): string {
     }
     return version;
 }
+
+/** @internal */
+export function resourceOptsDefaults(): any {
+    return { version: getVersion(), pluginDownloadURL: "https://github.com/checkly/pulumi-checkly/releases/${VERSION}" };
+}

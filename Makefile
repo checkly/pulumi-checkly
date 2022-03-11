@@ -11,7 +11,7 @@ VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
 # VERSION         := $(shell pulumictl get version)
-VERSION         := 0.0.1-alpha.1
+VERSION         := 0.0.1-alpha.3
 
 TESTPARALLELISM := 4
 

@@ -206,9 +206,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["type"] = args ? args.type : undefined;
             resourceInputs["useGlobalAlertSettings"] = args ? args.useGlobalAlertSettings : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Check.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -33,6 +33,7 @@ func NewProvider(ctx *pulumi.Context,
 	if args.ApiKey == nil {
 		return nil, errors.New("invalid value for required argument 'ApiKey'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:checkly", name, args, &resource, opts...)
 	if err != nil {

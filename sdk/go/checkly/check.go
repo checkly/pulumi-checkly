@@ -81,6 +81,7 @@ func NewCheck(ctx *pulumi.Context,
 	if args.Type == nil {
 		return nil, errors.New("invalid value for required argument 'Type'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource Check
 	err := ctx.RegisterResource("checkly:index/check:Check", name, args, &resource, opts...)
 	if err != nil {

@@ -30,6 +30,7 @@ func NewSnippet(ctx *pulumi.Context,
 	if args.Script == nil {
 		return nil, errors.New("invalid value for required argument 'Script'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource Snippet
 	err := ctx.RegisterResource("checkly:index/snippet:Snippet", name, args, &resource, opts...)
 	if err != nil {

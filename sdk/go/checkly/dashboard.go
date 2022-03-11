@@ -57,6 +57,7 @@ func NewDashboard(ctx *pulumi.Context,
 	if args.RefreshRate == nil {
 		return nil, errors.New("invalid value for required argument 'RefreshRate'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource Dashboard
 	err := ctx.RegisterResource("checkly:index/dashboard:Dashboard", name, args, &resource, opts...)
 	if err != nil {

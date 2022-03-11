@@ -103,9 +103,7 @@ export class Dashboard extends pulumi.CustomResource {
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["width"] = args ? args.width : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Dashboard.__pulumiType, name, resourceInputs, opts);
     }
 }

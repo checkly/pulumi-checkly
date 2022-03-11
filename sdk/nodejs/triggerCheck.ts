@@ -15,7 +15,7 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
+ * import * as pulumi from "@checkly/pulumi";
  *
  * const test_trigger_check = new checkly.TriggerCheck("test-trigger-check", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
  * export const test_trigger_check_url = test_trigger_check.url;
@@ -81,9 +81,7 @@ export class TriggerCheck extends pulumi.CustomResource {
             resourceInputs["token"] = args ? args.token : undefined;
             resourceInputs["url"] = args ? args.url : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(TriggerCheck.__pulumiType, name, resourceInputs, opts);
     }
 }

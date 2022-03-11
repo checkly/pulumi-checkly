@@ -158,9 +158,7 @@ export class CheckGroup extends pulumi.CustomResource {
             resourceInputs["teardownSnippetId"] = args ? args.teardownSnippetId : undefined;
             resourceInputs["useGlobalAlertSettings"] = args ? args.useGlobalAlertSettings : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(CheckGroup.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -23,6 +23,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -52,6 +53,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -79,6 +81,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -104,6 +107,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -131,6 +135,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -157,6 +162,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -185,6 +191,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -216,6 +223,7 @@ import (
 // package main
 //
 // import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
@@ -271,6 +279,7 @@ func NewAlertChannel(ctx *pulumi.Context,
 		args = &AlertChannelArgs{}
 	}
 
+	opts = pkgResourceDefaultOpts(opts)
 	var resource AlertChannel
 	err := ctx.RegisterResource("checkly:index/alertChannel:AlertChannel", name, args, &resource, opts...)
 	if err != nil {

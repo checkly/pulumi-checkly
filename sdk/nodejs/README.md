@@ -1,34 +1,26 @@
-**⚠️ This project is still in very early stages and breaking change could happen**
+**⚠️ This project is still in very early stages and breaking changes could happen**
 
-<p align="center">
-  <img width="400px" src="./assets/pulumi.svg" alt="Pulumi" />
-</p>
+# Checkly Pulumi Provider
 
-<p>
-  <img height="128" src="./assets/checkly.svg" align="right" />
-  <h1>Checkly Pulumi Provider</h1>
-</p>
+The Checkly Pulumi provider enables you to create and configure Checkly resources using your favourite programming language.
 
-> 🟪 Pulumi provider for the [Checkly](https://checklyhq.com) Delightful Active Monitoring
+## Installation
 
-<br>
-
-## 🪛 Installing
-
-This package is only available for JavaScript and TypeScript but support for other languages/platforms, will be available soon.
+1. To use this package, please install the Pulumi CLI first.
+2. This package is only available for JavaScript and TypeScript but support for other languages/platforms, will be available soon.
 
 ### Node.js (JavaScript/TypeScript)
 
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumi/checkly
+npm install @checkly/pulumi
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumi/checkly
+yarn add @checkly/pulumi
 ```
 
 ### Python
@@ -40,13 +32,11 @@ yarn add @pulumi/checkly
 ### .NET
 > TBA
 
-<br>
+## Authentication
 
-## 🔑 Authentication
+The Pulumi Checkly Provider needs to be configured with a Checkly `API Key` and `Account ID` before it can be used to create resources.
 
-The Pulumi Checkly Provider needs to be configured with Checkly `API Key` and `Account ID` before it can be used to create resources.
-
-> If you don't have and `API Key`, you can create one [here](https://app.checklyhq.com/settings/user/api-keys).
+> If you don't have an `API Key`, you can create one [here](https://app.checklyhq.com/settings/user/api-keys).
 
 Once you generated the `API Key` there are two ways to communicate your authorization tokens to Pulumi:
 
@@ -64,10 +54,7 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
 
 > Remember to pass `--secret` when setting `checkly:apiKey` so it is properly encrypted.
 
-<br>
-
-
-## 🦝 Creating Resources
+## Creating Resources
 
 ```javascript
 const checkly = require("@checkly/pulumi")
@@ -78,36 +65,32 @@ new checkly.Check("api-check", {
   type: "API",
   request: {
     method: "GET",
-    url: "https://checklyhq.com",
+    url: "https://api.spacexdata.com/v3",
   }
 })
 
-new checkly.Check("brwoser-check", {
+new checkly.Check("browser-check", {
   activated: true,
   frequency: 10,
   type: "BROWSER",
-  script: 'console.log("Hello World!")'
+  script: `console`
 })
 ```
 
 > Check the `examples` directory for more detailed code samples.
 
-## ⚙️  Configuration
+## Configuration
 
 The following configuration points are available for the `foo` provider:
 
 - `checkly:apiKey` (environment: `CHECKLY_API_KEY`) - the Checkly API Key.
 - `checkly:accountId` (environment: `CHECKLY_ACCOUNT_ID`) - the Checkly account ID.
 
-<br>
-
-## 📖 Reference
+## Reference
 
 For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/checkly/api-docs/).
 
-<br>
-
-## 📄 License
+## License
 
 [MIT](https://github.com/checkly/pulumi-checkly/blob/main/LICENSE)
 

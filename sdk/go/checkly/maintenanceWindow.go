@@ -23,7 +23,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -51,7 +51,7 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
@@ -115,6 +115,7 @@ func NewMaintenanceWindow(ctx *pulumi.Context,
 	if args.StartsAt == nil {
 		return nil, errors.New("invalid value for required argument 'StartsAt'")
 	}
+	opts = pkgResourceDefaultOpts(opts)
 	var resource MaintenanceWindow
 	err := ctx.RegisterResource("checkly:index/maintenanceWindow:MaintenanceWindow", name, args, &resource, opts...)
 	if err != nil {

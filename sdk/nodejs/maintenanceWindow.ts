@@ -143,9 +143,7 @@ export class MaintenanceWindow extends pulumi.CustomResource {
             resourceInputs["startsAt"] = args ? args.startsAt : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(MaintenanceWindow.__pulumiType, name, resourceInputs, opts);
     }
 }
