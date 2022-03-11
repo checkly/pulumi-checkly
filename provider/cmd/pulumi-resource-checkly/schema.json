@@ -10,7 +10,7 @@
     "license": "MIT",
     "attribution": "This Pulumi package is based on the [`checkly` Terraform Provider](https://github.com/checkly/terraform-provider-checkly).",
     "repository": "https://github.com/checkly/pulumi-checkly",
-    "logoUrl": "../assets/checkly.svg",
+    "logoUrl": "https://raw.githubusercontent.com/checkly/pulumi-checkly/main/assets/checkly.svg",
     "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/${VERSION}",
     "publisher": "checkly",
     "meta": {
