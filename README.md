@@ -14,13 +14,13 @@ The Checkly Pulumi provider enables you to create and configure Checkly resource
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumi/checkly
+npm install @checkly/pulumi
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumi/checkly
+yarn add @checkly/pulumi
 ```
 
 ### Python
