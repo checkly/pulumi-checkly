@@ -1,30 +1,37 @@
 import * as fs from 'fs'
 import * as checkly from "@checkly/pulumi"
 
-const snippetScript = fs.readFileSync("./scripts/snippet.js", 'utf-8')
-const browerCheckScript = fs.readFileSync("./scripts/browser-check.js", 'utf-8')
+// We store code snippets separately from the Checkly entities.
+const snippetScript = fs.readFileSync("./scripts/snippet-script.js", "utf-8")
+const playwrightScript = fs.readFileSync("./scripts/playwright-script.js", "utf-8")
 
-const PREFIX = 'pulimi-js-s'
+// Some variables we can reuse in checks and check groups
+const locations = ['eu-west-1', 'us-west-2']
+const tags = ['pulumi']
 
-
-const emailChannel = new checkly.AlertChannel(PREFIX + "email-channel", {
+// Alert channels are defined up front so we can add them to checks and check groups later.
+const emailChannel = new checkly.AlertChannel("my-email-channel", {
   email: {
     address: 'your@email.com'
   }
 })
 
-const slackChannel = new checkly.AlertChannel(PREFIX + "slack-channel", {
+const slackChannel = new checkly.AlertChannel("my-slack-channel", {
   slack: {
-    url: 'https://hooks.slack.com/services/X0JKQJQ0P',
+    url: 'https://hooks.slack.com/services/<REPLACE_WITH_ACTUAL_SLACK_HOOK>',
     channel: '#alerts',
   }
 })
 
-const group = new checkly.CheckGroup(PREFIX + "group", {
+// We create a group, add the tags, locations and alert channels.
+const group = new checkly.CheckGroup("my-group", {
+  name: 'Check Group #1',
   activated: true,
   concurrency: 1,
-  locations: ['us-east-1', 'us-west-1'],
   apiCheckDefaults: {},
+  locations,
+  tags,
+  useGlobalAlertSettings: true,
   alertChannelSubscriptions: [
     {
       activated: true,
@@ -32,45 +39,87 @@ const group = new checkly.CheckGroup(PREFIX + "group", {
     },
     {
       activated: true,
+      channelId: emailChannel.id.apply((id: string) => parseInt(id))
+    }
+  ]
+})
+
+// Our first Browser check is added to group created above and uses the Playwright script.
+new checkly.Check("browser-check", {
+  name: "Google.com Playwright check",
+  activated: true,
+  frequency: 10,
+  type: "BROWSER",
+  groupId: group.id.apply((id: string) => parseInt(id)),
+  script: playwrightScript,
+  locations,
+  tags
+})
+
+const setupSnippet = new checkly.Snippet('my-snippet', {
+  name: 'set-header',
+  script: snippetScript
+})
+
+// Our first API check uses the setup script defined above and has two assertions.
+new checkly.Check("api-check", {
+  name: "Public SpaceX API",
+  activated: true,
+  frequency: 10,
+  type: "API",
+  locations,
+  tags,
+  setupSnippetId: setupSnippet.id.apply((id: string) => parseInt(id)),
+  degradedResponseTime: 5000,
+  maxResponseTime: 15000,
+  request: {
+    method: "GET",
+    url: "https://api.spacexdata.com/v3",
+    assertions: [
+      {
+        source: 'STATUS_CODE',
+        comparison: 'EQUALS',
+        target: '200'
+      },
+      {
+        source: 'JSON_BODY',
+        property: '$.project_name',
+        comparison: 'EQUALS',
+        target: 'SpaceX-API'
+      }
+    ]
+  },
+  useGlobalAlertSettings: true,
+  alertChannelSubscriptions: [
+    {
+      activated: true,
       channelId: emailChannel.id.apply((id: string) => parseInt(id)),
     }
   ]
 })
 
-new checkly.Check(PREFIX + "api-check", {
-  activated: true,
-  frequency: 10,
-  type: "API",
-  groupId: group.id.apply((id: string) => parseInt(id)),
-  request: {
-    method: "GET",
-    url: "https://checklyhq.com",
-  }
-})
-
-new checkly.Check(PREFIX + "brwoser-check", {
-  activated: true,
-  frequency: 10,
-  type: "BROWSER",
-  groupId: group.id.apply((id: string) => parseInt(id)),
-  script: browerCheckScript
-})
-
-new checkly.Snippet('snippet', { script: snippetScript})
-
-new checkly.MaintenanceWindow(PREFIX + 'maintenance', {
-  startsAt: '2022-03-01',
-  endsAt: '2022-03-02',
+// This maintenance window runs for 1 hour after midnight UTC and repeats daily for two months.
+// All the checks with the "tags" array are included in this window.
+new checkly.MaintenanceWindow('my-maintenance-window', {
+  name: "Daily maintenance",
+  startsAt: '2022-03-01T00:00:00.000Z',
+  endsAt: '2022-03-01T01:00:00.000Z',
+  repeatEndsAt: '2022-05-02T00:00:00.000Z',
   repeatInterval: 1,
   repeatUnit: 'DAY',
+  tags
 })
 
-new checkly.TriggerCheckGroup(PREFIX + 'trigger', {
-groupId: group.id.apply((id: string) => parseInt(id)),
-})
-
-new checkly.Dashboard(PREFIX + 'dashboard', {
-  customUrl: PREFIX + 'js',
+// The public dashboard shows all the checks tags with the "tags" array
+new checkly.Dashboard('dashboard', {
+  customUrl: "my-pulumi-checkly-dash",
+  customDomain: "",
+  header: "Checks created with Pulumi",
+  hideTags: false,
+  logo: "",
+  paginate: false,
   paginationRate: 30,
   refreshRate: 300,
+  tags
 })
+

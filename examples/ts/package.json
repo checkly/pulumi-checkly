@@ -4,6 +4,7 @@
         "@types/node": "^14"
     },
     "dependencies": {
+        "@checkly/pulumi": "0.0.1-alpha.3",
         "@pulumi/pulumi": "^3.0.0"
     }
 }
