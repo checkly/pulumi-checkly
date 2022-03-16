@@ -142,7 +142,7 @@ For detailed reference documentation, please visit [the Pulumi registry](https:/
 
 
 <p align="center">
-  <a href="https://checklyhq.com?utm_source=github&utm_medium=sponsor-logo-github&utm_campaign=headless-recorder" target="_blank">
+  <a href="https://checklyhq.com?utm_source=github&utm_medium=sponsor-logo-github&utm_campaign=pulumi-checkly" target="_blank">
   <img width="100px" src="https://www.checklyhq.com/images/text_racoon_logo.svg" alt="Checkly" />
   </a>
   <br />
