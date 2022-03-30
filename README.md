@@ -1,8 +1,7 @@
-**⚠️ This project is still in very early stages and breaking changes could happen**
-
-# Checkly Pulumi Provider
+# Checkly Pulumi Provider 
 
 The Checkly Pulumi provider enables you to create and configure Checkly resources using your favourite programming language.
+Note that this project is in its early stages and breaking changes could happen.
 
 ## Installation
 
