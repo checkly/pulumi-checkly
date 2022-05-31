@@ -1,4 +1,4 @@
-# Checkly Pulumi Provider 
+# Checkly Pulumi Provider
 
 The Checkly Pulumi provider enables you to create and configure Checkly resources using your favourite programming language.
 Note that this project is in its early stages and breaking changes could happen.
@@ -25,7 +25,7 @@ yarn add @checkly/pulumi
 Install the provider binary plugin. This is only needed due to an outstanding bug in with Pulumi registry
 
 ```bash
-pulumi plugin install resource checkly v0.0.1-alpha.4 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.4
+pulumi plugin install resource checkly v0.0.1-alpha.5 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.5
 ```
 
 ### Python, Go & .NET
@@ -56,7 +56,7 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
 
 ## Creating Resources
 
-The example below shows a basic API check and Browser check. 
+The example below shows a basic API check and Browser check.
 
 ```javascript
 // index.js
@@ -119,7 +119,7 @@ run()`
 
 ## Syncing resources
 
-Just run the regular `pulumi up` command 
+Just run the regular `pulumi up` command
 
 
 ## Configuration

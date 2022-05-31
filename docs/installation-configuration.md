@@ -26,7 +26,7 @@ yarn add @checkly/pulumi
 2. Install the provider binary plugin. This is only needed due to an outstanding bug in with Pulumi registry
 
 ```bash
-pulumi plugin install resource checkly v0.0.1-alpha.1 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.1
+pulumi plugin install resource checkly v0.0.1-alpha.5 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.5
 ```
 
 ## Authentication
