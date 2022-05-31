@@ -18,7 +18,7 @@ class SnippetArgs:
         """
         The set of arguments for constructing a Snippet resource.
         :param pulumi.Input[str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
-        :param pulumi.Input[str] name: The name of the snippet.
+        :param pulumi.Input[str] name: The name of the snippet
         """
         pulumi.set(__self__, "script", script)
         if name is not None:
@@ -40,7 +40,7 @@ class SnippetArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        The name of the snippet.
+        The name of the snippet
         """
         return pulumi.get(self, "name")
 
@@ -56,7 +56,7 @@ class _SnippetState:
                  script: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Snippet resources.
-        :param pulumi.Input[str] name: The name of the snippet.
+        :param pulumi.Input[str] name: The name of the snippet
         :param pulumi.Input[str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
         """
         if name is not None:
@@ -68,7 +68,7 @@ class _SnippetState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        The name of the snippet.
+        The name of the snippet
         """
         return pulumi.get(self, "name")
 
@@ -101,7 +101,7 @@ class Snippet(pulumi.CustomResource):
         Create a Snippet resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] name: The name of the snippet.
+        :param pulumi.Input[str] name: The name of the snippet
         :param pulumi.Input[str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
         """
         ...
@@ -166,7 +166,7 @@ class Snippet(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] name: The name of the snippet.
+        :param pulumi.Input[str] name: The name of the snippet
         :param pulumi.Input[str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -181,7 +181,7 @@ class Snippet(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
-        The name of the snippet.
+        The name of the snippet
         """
         return pulumi.get(self, "name")
 

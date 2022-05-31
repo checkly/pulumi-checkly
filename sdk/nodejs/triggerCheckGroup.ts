@@ -4,23 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## # checkly.TriggerCheckGroup
- *
- * `checkly.TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `checkly.TriggerCheckGroup` resource to your resource file.
- *
- * ## Example Usage
- *
- * Trigger group example
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi from "@checkly/pulumi";
- *
- * const test_trigger_group = new checkly.TriggerCheckGroup("test-trigger-group", {groupId: "215"});
- * export const test_trigger_group_url = test_trigger_group.url;
- * ```
- */
 export class TriggerCheckGroup extends pulumi.CustomResource {
     /**
      * Get an existing TriggerCheckGroup resource's state with the given name, ID, and optional extra
@@ -53,7 +36,13 @@ export class TriggerCheckGroup extends pulumi.CustomResource {
      * The id of the group that you want to attach the trigger to.
      */
     public readonly groupId!: pulumi.Output<number>;
+    /**
+     * The token value created to trigger the group
+     */
     public readonly token!: pulumi.Output<string>;
+    /**
+     * The request URL to trigger the group run.
+     */
     public readonly url!: pulumi.Output<string>;
 
     /**
@@ -94,7 +83,13 @@ export interface TriggerCheckGroupState {
      * The id of the group that you want to attach the trigger to.
      */
     groupId?: pulumi.Input<number>;
+    /**
+     * The token value created to trigger the group
+     */
     token?: pulumi.Input<string>;
+    /**
+     * The request URL to trigger the group run.
+     */
     url?: pulumi.Input<string>;
 }
 
@@ -106,6 +101,12 @@ export interface TriggerCheckGroupArgs {
      * The id of the group that you want to attach the trigger to.
      */
     groupId: pulumi.Input<number>;
+    /**
+     * The token value created to trigger the group
+     */
     token?: pulumi.Input<string>;
+    /**
+     * The request URL to trigger the group run.
+     */
     url?: pulumi.Input<string>;
 }

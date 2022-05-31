@@ -46,26 +46,34 @@ class CheckArgs:
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, and `BROWSER`.
-        :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: . Supported values documented below.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
-        :param pulumi.Input[int] group_id: . The id of the check group this check is part of.
-        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
+               0 and 30000. (Default `15000`).
+        :param pulumi.Input[bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+               region before marking the check as failed.
+        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+               Use global environment variables whenever possible.
+        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
+               be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[int] group_id: The id of the check group this check is part of.
+        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from
+               the API or from CI/CD.
         :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
         :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between
+               0 and 30000. (Default `30000`).
+        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
-        :param pulumi.Input['CheckRequestArgs'] request: . An API check might have one request config. Supported values documented below.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this check.
+        :param pulumi.Input['CheckRequestArgs'] request: An API check might have one request config.
+        :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
+        :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
+               reference to an external JavaScript file.
         :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
-        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "frequency", frequency)
@@ -108,6 +116,9 @@ class CheckArgs:
             pulumi.set(__self__, "setup_snippet_id", setup_snippet_id)
         if should_fail is not None:
             pulumi.set(__self__, "should_fail", should_fail)
+        if ssl_check is not None:
+            warnings.warn("""The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""", DeprecationWarning)
+            pulumi.log.warn("""ssl_check is deprecated: The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
         if ssl_check is not None:
             pulumi.set(__self__, "ssl_check", ssl_check)
         if tags is not None:
@@ -165,9 +176,6 @@ class CheckArgs:
     @property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckAlertSettingsArgs']]:
-        """
-        . Supported values documented below.
-        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -178,7 +186,8 @@ class CheckArgs:
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
+        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
+        0 and 30000. (Default `15000`).
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -190,7 +199,8 @@ class CheckArgs:
     @pulumi.getter(name="doubleCheck")
     def double_check(self) -> Optional[pulumi.Input[bool]]:
         """
-        Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
+        Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+        region before marking the check as failed.
         """
         return pulumi.get(self, "double_check")
 
@@ -202,7 +212,8 @@ class CheckArgs:
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+        Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -214,7 +225,8 @@ class CheckArgs:
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[int]]:
         """
-        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
+        be `0` and `frequency_offset` could be `10`, `20` or `30`.
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -226,7 +238,7 @@ class CheckArgs:
     @pulumi.getter(name="groupId")
     def group_id(self) -> Optional[pulumi.Input[int]]:
         """
-        . The id of the check group this check is part of.
+        The id of the check group this check is part of.
         """
         return pulumi.get(self, "group_id")
 
@@ -238,7 +250,8 @@ class CheckArgs:
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> Optional[pulumi.Input[int]]:
         """
-        The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        The position of this check in a check group. It determines in what order checks are run when a group is triggered from
+        the API or from CI/CD.
         """
         return pulumi.get(self, "group_order")
 
@@ -274,7 +287,7 @@ class CheckArgs:
     @pulumi.getter
     def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
+        An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
         """
         return pulumi.get(self, "locations")
 
@@ -286,7 +299,8 @@ class CheckArgs:
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
+        The response time in milliseconds starting from which a check should be considered failing. Possible values are between
+        0 and 30000. (Default `30000`).
         """
         return pulumi.get(self, "max_response_time")
 
@@ -298,7 +312,7 @@ class CheckArgs:
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[bool]]:
         """
-        Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
+        Determines if any notifications will be sent out when a check fails/degrades/recovers.
         """
         return pulumi.get(self, "muted")
 
@@ -322,7 +336,7 @@ class CheckArgs:
     @pulumi.getter
     def request(self) -> Optional[pulumi.Input['CheckRequestArgs']]:
         """
-        . An API check might have one request config. Supported values documented below.
+        An API check might have one request config.
         """
         return pulumi.get(self, "request")
 
@@ -334,7 +348,7 @@ class CheckArgs:
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> Optional[pulumi.Input[str]]:
         """
-        . The id of the runtime to use for this check.
+        The id of the runtime to use for this check.
         """
         return pulumi.get(self, "runtime_id")
 
@@ -345,6 +359,10 @@ class CheckArgs:
     @property
     @pulumi.getter
     def script(self) -> Optional[pulumi.Input[str]]:
+        """
+        A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
+        reference to an external JavaScript file.
+        """
         return pulumi.get(self, "script")
 
     @script.setter
@@ -367,7 +385,7 @@ class CheckArgs:
     @pulumi.getter(name="shouldFail")
     def should_fail(self) -> Optional[pulumi.Input[bool]]:
         """
-        Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
+        Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
         """
         return pulumi.get(self, "should_fail")
 
@@ -379,7 +397,7 @@ class CheckArgs:
     @pulumi.getter(name="sslCheck")
     def ssl_check(self) -> Optional[pulumi.Input[bool]]:
         """
-        Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
+        Determines if the SSL certificate should be validated for expiry.
         """
         return pulumi.get(self, "ssl_check")
 
@@ -390,6 +408,9 @@ class CheckArgs:
     @property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        A list of tags for organizing and filtering checks.
+        """
         return pulumi.get(self, "tags")
 
     @tags.setter
@@ -412,7 +433,7 @@ class CheckArgs:
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
-        When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
+        When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
@@ -453,28 +474,36 @@ class _CheckState:
         """
         Input properties used for looking up and filtering Check resources.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: . Supported values documented below.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
+               0 and 30000. (Default `15000`).
+        :param pulumi.Input[bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+               region before marking the check as failed.
+        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+               Use global environment variables whenever possible.
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
-        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
-        :param pulumi.Input[int] group_id: . The id of the check group this check is part of.
-        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
+               be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[int] group_id: The id of the check group this check is part of.
+        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from
+               the API or from CI/CD.
         :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
         :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between
+               0 and 30000. (Default `30000`).
+        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
-        :param pulumi.Input['CheckRequestArgs'] request: . An API check might have one request config. Supported values documented below.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this check.
+        :param pulumi.Input['CheckRequestArgs'] request: An API check might have one request config.
+        :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
+        :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
+               reference to an external JavaScript file.
         :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
-        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, and `BROWSER`.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         if activated is not None:
             pulumi.set(__self__, "activated", activated)
@@ -519,6 +548,9 @@ class _CheckState:
         if should_fail is not None:
             pulumi.set(__self__, "should_fail", should_fail)
         if ssl_check is not None:
+            warnings.warn("""The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""", DeprecationWarning)
+            pulumi.log.warn("""ssl_check is deprecated: The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+        if ssl_check is not None:
             pulumi.set(__self__, "ssl_check", ssl_check)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
@@ -553,9 +585,6 @@ class _CheckState:
     @property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckAlertSettingsArgs']]:
-        """
-        . Supported values documented below.
-        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -566,7 +595,8 @@ class _CheckState:
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
+        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
+        0 and 30000. (Default `15000`).
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -578,7 +608,8 @@ class _CheckState:
     @pulumi.getter(name="doubleCheck")
     def double_check(self) -> Optional[pulumi.Input[bool]]:
         """
-        Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
+        Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+        region before marking the check as failed.
         """
         return pulumi.get(self, "double_check")
 
@@ -590,7 +621,8 @@ class _CheckState:
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+        Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -614,7 +646,8 @@ class _CheckState:
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[int]]:
         """
-        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
+        be `0` and `frequency_offset` could be `10`, `20` or `30`.
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -626,7 +659,7 @@ class _CheckState:
     @pulumi.getter(name="groupId")
     def group_id(self) -> Optional[pulumi.Input[int]]:
         """
-        . The id of the check group this check is part of.
+        The id of the check group this check is part of.
         """
         return pulumi.get(self, "group_id")
 
@@ -638,7 +671,8 @@ class _CheckState:
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> Optional[pulumi.Input[int]]:
         """
-        The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        The position of this check in a check group. It determines in what order checks are run when a group is triggered from
+        the API or from CI/CD.
         """
         return pulumi.get(self, "group_order")
 
@@ -674,7 +708,7 @@ class _CheckState:
     @pulumi.getter
     def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
+        An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
         """
         return pulumi.get(self, "locations")
 
@@ -686,7 +720,8 @@ class _CheckState:
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
+        The response time in milliseconds starting from which a check should be considered failing. Possible values are between
+        0 and 30000. (Default `30000`).
         """
         return pulumi.get(self, "max_response_time")
 
@@ -698,7 +733,7 @@ class _CheckState:
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[bool]]:
         """
-        Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
+        Determines if any notifications will be sent out when a check fails/degrades/recovers.
         """
         return pulumi.get(self, "muted")
 
@@ -722,7 +757,7 @@ class _CheckState:
     @pulumi.getter
     def request(self) -> Optional[pulumi.Input['CheckRequestArgs']]:
         """
-        . An API check might have one request config. Supported values documented below.
+        An API check might have one request config.
         """
         return pulumi.get(self, "request")
 
@@ -734,7 +769,7 @@ class _CheckState:
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> Optional[pulumi.Input[str]]:
         """
-        . The id of the runtime to use for this check.
+        The id of the runtime to use for this check.
         """
         return pulumi.get(self, "runtime_id")
 
@@ -745,6 +780,10 @@ class _CheckState:
     @property
     @pulumi.getter
     def script(self) -> Optional[pulumi.Input[str]]:
+        """
+        A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
+        reference to an external JavaScript file.
+        """
         return pulumi.get(self, "script")
 
     @script.setter
@@ -767,7 +806,7 @@ class _CheckState:
     @pulumi.getter(name="shouldFail")
     def should_fail(self) -> Optional[pulumi.Input[bool]]:
         """
-        Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
+        Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
         """
         return pulumi.get(self, "should_fail")
 
@@ -779,7 +818,7 @@ class _CheckState:
     @pulumi.getter(name="sslCheck")
     def ssl_check(self) -> Optional[pulumi.Input[bool]]:
         """
-        Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
+        Determines if the SSL certificate should be validated for expiry.
         """
         return pulumi.get(self, "ssl_check")
 
@@ -790,6 +829,9 @@ class _CheckState:
     @property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        A list of tags for organizing and filtering checks.
+        """
         return pulumi.get(self, "tags")
 
     @tags.setter
@@ -824,7 +866,7 @@ class _CheckState:
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
-        When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
+        When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
@@ -870,28 +912,36 @@ class Check(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[pulumi.InputType['CheckAlertSettingsArgs']] alert_settings: . Supported values documented below.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
+               0 and 30000. (Default `15000`).
+        :param pulumi.Input[bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+               region before marking the check as failed.
+        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+               Use global environment variables whenever possible.
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
-        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
-        :param pulumi.Input[int] group_id: . The id of the check group this check is part of.
-        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
+               be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[int] group_id: The id of the check group this check is part of.
+        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from
+               the API or from CI/CD.
         :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
         :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between
+               0 and 30000. (Default `30000`).
+        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
-        :param pulumi.Input[pulumi.InputType['CheckRequestArgs']] request: . An API check might have one request config. Supported values documented below.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this check.
+        :param pulumi.Input[pulumi.InputType['CheckRequestArgs']] request: An API check might have one request config.
+        :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
+        :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
+               reference to an external JavaScript file.
         :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
-        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, and `BROWSER`.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         ...
     @overload
@@ -981,6 +1031,9 @@ class Check(pulumi.CustomResource):
             __props__.__dict__["script"] = script
             __props__.__dict__["setup_snippet_id"] = setup_snippet_id
             __props__.__dict__["should_fail"] = should_fail
+            if ssl_check is not None and not opts.urn:
+                warnings.warn("""The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""", DeprecationWarning)
+                pulumi.log.warn("""ssl_check is deprecated: The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
             __props__.__dict__["ssl_check"] = ssl_check
             __props__.__dict__["tags"] = tags
             __props__.__dict__["teardown_snippet_id"] = teardown_snippet_id
@@ -1032,28 +1085,36 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[pulumi.InputType['CheckAlertSettingsArgs']] alert_settings: . Supported values documented below.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
-        :param pulumi.Input[bool] double_check: Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
-        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
+               0 and 30000. (Default `15000`).
+        :param pulumi.Input[bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+               region before marking the check as failed.
+        :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+               Use global environment variables whenever possible.
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
-        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
-        :param pulumi.Input[int] group_id: . The id of the check group this check is part of.
-        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
+               be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[int] group_id: The id of the check group this check is part of.
+        :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from
+               the API or from CI/CD.
         :param pulumi.Input[str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
         :param pulumi.Input[str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
-        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between
+               0 and 30000. (Default `30000`).
+        :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
-        :param pulumi.Input[pulumi.InputType['CheckRequestArgs']] request: . An API check might have one request config. Supported values documented below.
-        :param pulumi.Input[str] runtime_id: . The id of the runtime to use for this check.
+        :param pulumi.Input[pulumi.InputType['CheckRequestArgs']] request: An API check might have one request config.
+        :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
+        :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
+               reference to an external JavaScript file.
         :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
-        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
-        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+        :param pulumi.Input[bool] ssl_check: Determines if the SSL certificate should be validated for expiry.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, and `BROWSER`.
-        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
+        :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1103,16 +1164,14 @@ class Check(pulumi.CustomResource):
     @property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> pulumi.Output['outputs.CheckAlertSettings']:
-        """
-        . Supported values documented below.
-        """
         return pulumi.get(self, "alert_settings")
 
     @property
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> pulumi.Output[Optional[int]]:
         """
-        The response time in milliseconds where a check should be considered degraded. Possible values are between 0 and 30000. Defaults to `15000`.
+        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
+        0 and 30000. (Default `15000`).
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -1120,7 +1179,8 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="doubleCheck")
     def double_check(self) -> pulumi.Output[Optional[bool]]:
         """
-        Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Possible values `true`, and `false`.
+        Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+        region before marking the check as failed.
         """
         return pulumi.get(self, "double_check")
 
@@ -1128,7 +1188,8 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+        Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -1144,7 +1205,8 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> pulumi.Output[Optional[int]]:
         """
-        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
+        be `0` and `frequency_offset` could be `10`, `20` or `30`.
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -1152,7 +1214,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="groupId")
     def group_id(self) -> pulumi.Output[Optional[int]]:
         """
-        . The id of the check group this check is part of.
+        The id of the check group this check is part of.
         """
         return pulumi.get(self, "group_id")
 
@@ -1160,7 +1222,8 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> pulumi.Output[Optional[int]]:
         """
-        The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        The position of this check in a check group. It determines in what order checks are run when a group is triggered from
+        the API or from CI/CD.
         """
         return pulumi.get(self, "group_order")
 
@@ -1184,7 +1247,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter
     def locations(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
-        An array of one or more data center locations where to run the this check. Defaults to["us-east-1"].
+        An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
         """
         return pulumi.get(self, "locations")
 
@@ -1192,7 +1255,8 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> pulumi.Output[Optional[int]]:
         """
-        The response time in milliseconds where a check should be considered failing. Possible values are between 0 and 30000. Defaults to `30000`.
+        The response time in milliseconds starting from which a check should be considered failing. Possible values are between
+        0 and 30000. (Default `30000`).
         """
         return pulumi.get(self, "max_response_time")
 
@@ -1200,7 +1264,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter
     def muted(self) -> pulumi.Output[Optional[bool]]:
         """
-        Determines if any notifications will be sent out when a check fails and/or recovers. Possible values `true`, and `false`.
+        Determines if any notifications will be sent out when a check fails/degrades/recovers.
         """
         return pulumi.get(self, "muted")
 
@@ -1216,7 +1280,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter
     def request(self) -> pulumi.Output[Optional['outputs.CheckRequest']]:
         """
-        . An API check might have one request config. Supported values documented below.
+        An API check might have one request config.
         """
         return pulumi.get(self, "request")
 
@@ -1224,13 +1288,17 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> pulumi.Output[Optional[str]]:
         """
-        . The id of the runtime to use for this check.
+        The id of the runtime to use for this check.
         """
         return pulumi.get(self, "runtime_id")
 
     @property
     @pulumi.getter
     def script(self) -> pulumi.Output[Optional[str]]:
+        """
+        A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
+        reference to an external JavaScript file.
+        """
         return pulumi.get(self, "script")
 
     @property
@@ -1245,7 +1313,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="shouldFail")
     def should_fail(self) -> pulumi.Output[Optional[bool]]:
         """
-        Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404. Possible values `true`, and `false`.
+        Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
         """
         return pulumi.get(self, "should_fail")
 
@@ -1253,13 +1321,16 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="sslCheck")
     def ssl_check(self) -> pulumi.Output[Optional[bool]]:
         """
-        Determines if the SSL certificate should be validated for expiry. Possible values `true`, and `false`.
+        Determines if the SSL certificate should be validated for expiry.
         """
         return pulumi.get(self, "ssl_check")
 
     @property
     @pulumi.getter
     def tags(self) -> pulumi.Output[Optional[Sequence[str]]]:
+        """
+        A list of tags for organizing and filtering checks.
+        """
         return pulumi.get(self, "tags")
 
     @property
@@ -1282,7 +1353,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> pulumi.Output[Optional[bool]]:
         """
-        When true, the account level alert setting will be used, not the alert setting defined on this check. Possible values `true`, and `false`.
+        When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         return pulumi.get(self, "use_global_alert_settings")
 

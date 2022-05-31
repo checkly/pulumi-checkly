@@ -38,24 +38,20 @@ export class CheckGroup extends pulumi.CustomResource {
      */
     public readonly activated!: pulumi.Output<boolean>;
     public readonly alertChannelSubscriptions!: pulumi.Output<outputs.CheckGroupAlertChannelSubscription[] | undefined>;
-    /**
-     * . Supported values documented below.
-     */
     public readonly alertSettings!: pulumi.Output<outputs.CheckGroupAlertSettings>;
-    /**
-     * Default configs to use for all api checks belonging to this group. Supported values documented below.
-     */
     public readonly apiCheckDefaults!: pulumi.Output<outputs.CheckGroupApiCheckDefaults>;
     /**
-     * Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+     * Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
      */
     public readonly concurrency!: pulumi.Output<number>;
     /**
-     * Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+     * region before marking the check as failed.
      */
     public readonly doubleCheck!: pulumi.Output<boolean | undefined>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+     * Use global environment variables whenever possible.
      */
     public readonly environmentVariables!: pulumi.Output<{[key: string]: any} | undefined>;
     /**
@@ -71,7 +67,7 @@ export class CheckGroup extends pulumi.CustomResource {
      */
     public readonly locations!: pulumi.Output<string[]>;
     /**
-     * Determines if any notifications will be send out when a check in this group fails and/or recovers.
+     * Determines if any notifications will be sent out when a check in this group fails and/or recovers.
      */
     public readonly muted!: pulumi.Output<boolean | undefined>;
     /**
@@ -79,7 +75,7 @@ export class CheckGroup extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * . The id of the runtime to use for this group.
+     * The id of the runtime to use for this group.
      */
     public readonly runtimeId!: pulumi.Output<string | undefined>;
     /**
@@ -95,7 +91,7 @@ export class CheckGroup extends pulumi.CustomResource {
      */
     public readonly teardownSnippetId!: pulumi.Output<number | undefined>;
     /**
-     * When true, the account level alert setting will be used, not the alert setting defined on this check group.
+     * When true, the account level alert settings will be used, not the alert setting defined on this check group.
      */
     public readonly useGlobalAlertSettings!: pulumi.Output<boolean | undefined>;
 
@@ -172,24 +168,20 @@ export interface CheckGroupState {
      */
     activated?: pulumi.Input<boolean>;
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[]>;
-    /**
-     * . Supported values documented below.
-     */
     alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings>;
-    /**
-     * Default configs to use for all api checks belonging to this group. Supported values documented below.
-     */
     apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults>;
     /**
-     * Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+     * Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
      */
     concurrency?: pulumi.Input<number>;
     /**
-     * Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+     * region before marking the check as failed.
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+     * Use global environment variables whenever possible.
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**
@@ -205,7 +197,7 @@ export interface CheckGroupState {
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Determines if any notifications will be send out when a check in this group fails and/or recovers.
+     * Determines if any notifications will be sent out when a check in this group fails and/or recovers.
      */
     muted?: pulumi.Input<boolean>;
     /**
@@ -213,7 +205,7 @@ export interface CheckGroupState {
      */
     name?: pulumi.Input<string>;
     /**
-     * . The id of the runtime to use for this group.
+     * The id of the runtime to use for this group.
      */
     runtimeId?: pulumi.Input<string>;
     /**
@@ -229,7 +221,7 @@ export interface CheckGroupState {
      */
     teardownSnippetId?: pulumi.Input<number>;
     /**
-     * When true, the account level alert setting will be used, not the alert setting defined on this check group.
+     * When true, the account level alert settings will be used, not the alert setting defined on this check group.
      */
     useGlobalAlertSettings?: pulumi.Input<boolean>;
 }
@@ -243,24 +235,20 @@ export interface CheckGroupArgs {
      */
     activated: pulumi.Input<boolean>;
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[]>;
-    /**
-     * . Supported values documented below.
-     */
     alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings>;
-    /**
-     * Default configs to use for all api checks belonging to this group. Supported values documented below.
-     */
     apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults>;
     /**
-     * Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+     * Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
      */
     concurrency: pulumi.Input<number>;
     /**
-     * Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+     * region before marking the check as failed.
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+     * Use global environment variables whenever possible.
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**
@@ -276,7 +264,7 @@ export interface CheckGroupArgs {
      */
     locations: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Determines if any notifications will be send out when a check in this group fails and/or recovers.
+     * Determines if any notifications will be sent out when a check in this group fails and/or recovers.
      */
     muted?: pulumi.Input<boolean>;
     /**
@@ -284,7 +272,7 @@ export interface CheckGroupArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * . The id of the runtime to use for this group.
+     * The id of the runtime to use for this group.
      */
     runtimeId?: pulumi.Input<string>;
     /**
@@ -300,7 +288,7 @@ export interface CheckGroupArgs {
      */
     teardownSnippetId?: pulumi.Input<number>;
     /**
-     * When true, the account level alert setting will be used, not the alert setting defined on this check group.
+     * When true, the account level alert settings will be used, not the alert setting defined on this check group.
      */
     useGlobalAlertSettings?: pulumi.Input<boolean>;
 }

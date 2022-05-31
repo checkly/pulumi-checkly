@@ -1,13 +1,12 @@
-**⚠️ This project is still in very early stages and breaking changes could happen**
-
-# Checkly Pulumi Provider
+# Checkly Pulumi Provider 
 
 The Checkly Pulumi provider enables you to create and configure Checkly resources using your favourite programming language.
+Note that this project is in its early stages and breaking changes could happen.
 
 ## Installation
 
-1. To use this package, please install the Pulumi CLI first.
-2. This package is only available for JavaScript and TypeScript but support for other languages/platforms, will be available soon.
+1. To use this package, please [install the Pulumi CLI first](https://www.pulumi.com/docs/get-started/install/).
+2. This package is only available for JavaScript and TypeScript but support for other languages will be available soon.
 
 ### Node.js (JavaScript/TypeScript)
 
@@ -23,14 +22,15 @@ or `yarn`:
 yarn add @checkly/pulumi
 ```
 
-### Python
-> TBA
+Install the provider binary plugin. This is only needed due to an outstanding bug in with Pulumi registry
 
-### Go
-> TBA
+```bash
+pulumi plugin install resource checkly v0.0.1-alpha.4 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.4
+```
 
-### .NET
-> TBA
+### Python, Go & .NET
+
+*TBA*
 
 ## Authentication
 
@@ -56,28 +56,71 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
 
 ## Creating Resources
 
+The example below shows a basic API check and Browser check. 
+
 ```javascript
+// index.js
 const checkly = require("@checkly/pulumi")
 
 new checkly.Check("api-check", {
+  type: "API",
+  name: "Public SpaceX API",
   activated: true,
   frequency: 10,
-  type: "API",
+  locations: ["us-east-1"],
   request: {
     method: "GET",
     url: "https://api.spacexdata.com/v3",
+    assertions: [
+      {
+        source: 'STATUS_CODE',
+        comparison: 'EQUALS',
+        target: 200
+      },
+      {
+        source: 'JSON_BODY',
+        property: '$.project_name',
+        comparison: 'EQUALS',
+        target: 'SpaceX-API'
+      }
+    ]
   }
 })
 
 new checkly.Check("browser-check", {
+  type: "BROWSER",
+  name: "Google.com Playwright check",
   activated: true,
   frequency: 10,
-  type: "BROWSER",
-  script: `console`
+  locations: ["us-east-1"],
+  script: `const { chromium } = require('playwright')
+
+async function run () {
+  const browser = await chromium.launch()
+  const page = await browser.newPage()
+
+  const response = await page.goto('https://google.com')
+
+  if (response.status() > 399) {
+    throw new Error('Failed with response code ${response.status()}')
+  }
+
+  await page.screenshot({ path: 'screenshot.jpg' })
+
+  await page.close()
+  await browser.close()
+}
+
+run()`
 })
 ```
 
-> Check the `examples` directory for more detailed code samples.
+> Check the [examples directory](https://github.com/checkly/pulumi-checkly/tree/main/examples) for more detailed code samples.
+
+## Syncing resources
+
+Just run the regular `pulumi up` command 
+
 
 ## Configuration
 
@@ -98,7 +141,7 @@ For detailed reference documentation, please visit [the Pulumi registry](https:/
 
 
 <p align="center">
-  <a href="https://checklyhq.com?utm_source=github&utm_medium=sponsor-logo-github&utm_campaign=headless-recorder" target="_blank">
+  <a href="https://checklyhq.com?utm_source=github&utm_medium=sponsor-logo-github&utm_campaign=pulumi-checkly" target="_blank">
   <img width="100px" src="https://www.checklyhq.com/images/text_racoon_logo.svg" alt="Checkly" />
   </a>
   <br />

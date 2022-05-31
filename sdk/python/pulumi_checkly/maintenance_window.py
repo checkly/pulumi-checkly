@@ -14,29 +14,32 @@ __all__ = ['MaintenanceWindowArgs', 'MaintenanceWindow']
 class MaintenanceWindowArgs:
     def __init__(__self__, *,
                  ends_at: pulumi.Input[str],
-                 repeat_ends_at: pulumi.Input[str],
-                 repeat_interval: pulumi.Input[int],
-                 repeat_unit: pulumi.Input[str],
                  starts_at: pulumi.Input[str],
                  name: Optional[pulumi.Input[str]] = None,
+                 repeat_ends_at: Optional[pulumi.Input[str]] = None,
+                 repeat_interval: Optional[pulumi.Input[int]] = None,
+                 repeat_unit: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         The set of arguments for constructing a MaintenanceWindow resource.
         :param pulumi.Input[str] ends_at: The end date of the maintenance window.
-        :param pulumi.Input[str] repeat_ends_at: The end date where the maintenance window should stop repeating.
-        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurance.
-        :param pulumi.Input[str] repeat_unit: The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[str] starts_at: The start date of the maintenance window.
         :param pulumi.Input[str] name: The maintenance window name.
+        :param pulumi.Input[str] repeat_ends_at: The date on which the maintenance window should stop repeating.
+        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
+        :param pulumi.Input[str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: The names of the checks and groups maintenance window should apply to.
         """
         pulumi.set(__self__, "ends_at", ends_at)
-        pulumi.set(__self__, "repeat_ends_at", repeat_ends_at)
-        pulumi.set(__self__, "repeat_interval", repeat_interval)
-        pulumi.set(__self__, "repeat_unit", repeat_unit)
         pulumi.set(__self__, "starts_at", starts_at)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if repeat_ends_at is not None:
+            pulumi.set(__self__, "repeat_ends_at", repeat_ends_at)
+        if repeat_interval is not None:
+            pulumi.set(__self__, "repeat_interval", repeat_interval)
+        if repeat_unit is not None:
+            pulumi.set(__self__, "repeat_unit", repeat_unit)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
 
@@ -51,42 +54,6 @@ class MaintenanceWindowArgs:
     @ends_at.setter
     def ends_at(self, value: pulumi.Input[str]):
         pulumi.set(self, "ends_at", value)
-
-    @property
-    @pulumi.getter(name="repeatEndsAt")
-    def repeat_ends_at(self) -> pulumi.Input[str]:
-        """
-        The end date where the maintenance window should stop repeating.
-        """
-        return pulumi.get(self, "repeat_ends_at")
-
-    @repeat_ends_at.setter
-    def repeat_ends_at(self, value: pulumi.Input[str]):
-        pulumi.set(self, "repeat_ends_at", value)
-
-    @property
-    @pulumi.getter(name="repeatInterval")
-    def repeat_interval(self) -> pulumi.Input[int]:
-        """
-        The repeat interval of the maintenance window from the first occurance.
-        """
-        return pulumi.get(self, "repeat_interval")
-
-    @repeat_interval.setter
-    def repeat_interval(self, value: pulumi.Input[int]):
-        pulumi.set(self, "repeat_interval", value)
-
-    @property
-    @pulumi.getter(name="repeatUnit")
-    def repeat_unit(self) -> pulumi.Input[str]:
-        """
-        The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
-        """
-        return pulumi.get(self, "repeat_unit")
-
-    @repeat_unit.setter
-    def repeat_unit(self, value: pulumi.Input[str]):
-        pulumi.set(self, "repeat_unit", value)
 
     @property
     @pulumi.getter(name="startsAt")
@@ -111,6 +78,42 @@ class MaintenanceWindowArgs:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="repeatEndsAt")
+    def repeat_ends_at(self) -> Optional[pulumi.Input[str]]:
+        """
+        The date on which the maintenance window should stop repeating.
+        """
+        return pulumi.get(self, "repeat_ends_at")
+
+    @repeat_ends_at.setter
+    def repeat_ends_at(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "repeat_ends_at", value)
+
+    @property
+    @pulumi.getter(name="repeatInterval")
+    def repeat_interval(self) -> Optional[pulumi.Input[int]]:
+        """
+        The repeat interval of the maintenance window from the first occurrence.
+        """
+        return pulumi.get(self, "repeat_interval")
+
+    @repeat_interval.setter
+    def repeat_interval(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "repeat_interval", value)
+
+    @property
+    @pulumi.getter(name="repeatUnit")
+    def repeat_unit(self) -> Optional[pulumi.Input[str]]:
+        """
+        The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        """
+        return pulumi.get(self, "repeat_unit")
+
+    @repeat_unit.setter
+    def repeat_unit(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "repeat_unit", value)
 
     @property
     @pulumi.getter
@@ -139,9 +142,9 @@ class _MaintenanceWindowState:
         Input properties used for looking up and filtering MaintenanceWindow resources.
         :param pulumi.Input[str] ends_at: The end date of the maintenance window.
         :param pulumi.Input[str] name: The maintenance window name.
-        :param pulumi.Input[str] repeat_ends_at: The end date where the maintenance window should stop repeating.
-        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurance.
-        :param pulumi.Input[str] repeat_unit: The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        :param pulumi.Input[str] repeat_ends_at: The date on which the maintenance window should stop repeating.
+        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
+        :param pulumi.Input[str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[str] starts_at: The start date of the maintenance window.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: The names of the checks and groups maintenance window should apply to.
         """
@@ -188,7 +191,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="repeatEndsAt")
     def repeat_ends_at(self) -> Optional[pulumi.Input[str]]:
         """
-        The end date where the maintenance window should stop repeating.
+        The date on which the maintenance window should stop repeating.
         """
         return pulumi.get(self, "repeat_ends_at")
 
@@ -200,7 +203,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="repeatInterval")
     def repeat_interval(self) -> Optional[pulumi.Input[int]]:
         """
-        The repeat interval of the maintenance window from the first occurance.
+        The repeat interval of the maintenance window from the first occurrence.
         """
         return pulumi.get(self, "repeat_interval")
 
@@ -212,7 +215,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="repeatUnit")
     def repeat_unit(self) -> Optional[pulumi.Input[str]]:
         """
-        The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         """
         return pulumi.get(self, "repeat_unit")
 
@@ -259,47 +262,14 @@ class MaintenanceWindow(pulumi.CustomResource):
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
-        ## # MaintenanceWindow
-
-        `MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `MaintenanceWindow` resource to your resource file.
-
-        ## Example Usage
-
-        Minimal maintenance windows example
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
-            ends_at="2014-08-25T00:00:00.000Z",
-            repeat_unit="MONTH",
-            starts_at="2014-08-24T00:00:00.000Z",
-            tags=["auto"])
-        ```
-
-        Full maintenance windows example (includes optional fields)
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
-            ends_at="2014-08-25T00:00:00.000Z",
-            repeat_ends_at="2014-08-24T00:00:00.000Z",
-            repeat_interval=1,
-            repeat_unit="MONTH",
-            starts_at="2014-08-24T00:00:00.000Z",
-            tags=["auto"])
-        ```
-
+        Create a MaintenanceWindow resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] ends_at: The end date of the maintenance window.
         :param pulumi.Input[str] name: The maintenance window name.
-        :param pulumi.Input[str] repeat_ends_at: The end date where the maintenance window should stop repeating.
-        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurance.
-        :param pulumi.Input[str] repeat_unit: The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        :param pulumi.Input[str] repeat_ends_at: The date on which the maintenance window should stop repeating.
+        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
+        :param pulumi.Input[str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[str] starts_at: The start date of the maintenance window.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: The names of the checks and groups maintenance window should apply to.
         """
@@ -310,40 +280,7 @@ class MaintenanceWindow(pulumi.CustomResource):
                  args: MaintenanceWindowArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # MaintenanceWindow
-
-        `MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `MaintenanceWindow` resource to your resource file.
-
-        ## Example Usage
-
-        Minimal maintenance windows example
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
-            ends_at="2014-08-25T00:00:00.000Z",
-            repeat_unit="MONTH",
-            starts_at="2014-08-24T00:00:00.000Z",
-            tags=["auto"])
-        ```
-
-        Full maintenance windows example (includes optional fields)
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
-            ends_at="2014-08-25T00:00:00.000Z",
-            repeat_ends_at="2014-08-24T00:00:00.000Z",
-            repeat_interval=1,
-            repeat_unit="MONTH",
-            starts_at="2014-08-24T00:00:00.000Z",
-            tags=["auto"])
-        ```
-
+        Create a MaintenanceWindow resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param MaintenanceWindowArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -384,14 +321,8 @@ class MaintenanceWindow(pulumi.CustomResource):
                 raise TypeError("Missing required property 'ends_at'")
             __props__.__dict__["ends_at"] = ends_at
             __props__.__dict__["name"] = name
-            if repeat_ends_at is None and not opts.urn:
-                raise TypeError("Missing required property 'repeat_ends_at'")
             __props__.__dict__["repeat_ends_at"] = repeat_ends_at
-            if repeat_interval is None and not opts.urn:
-                raise TypeError("Missing required property 'repeat_interval'")
             __props__.__dict__["repeat_interval"] = repeat_interval
-            if repeat_unit is None and not opts.urn:
-                raise TypeError("Missing required property 'repeat_unit'")
             __props__.__dict__["repeat_unit"] = repeat_unit
             if starts_at is None and not opts.urn:
                 raise TypeError("Missing required property 'starts_at'")
@@ -423,9 +354,9 @@ class MaintenanceWindow(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] ends_at: The end date of the maintenance window.
         :param pulumi.Input[str] name: The maintenance window name.
-        :param pulumi.Input[str] repeat_ends_at: The end date where the maintenance window should stop repeating.
-        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurance.
-        :param pulumi.Input[str] repeat_unit: The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        :param pulumi.Input[str] repeat_ends_at: The date on which the maintenance window should stop repeating.
+        :param pulumi.Input[int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
+        :param pulumi.Input[str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[str] starts_at: The start date of the maintenance window.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: The names of the checks and groups maintenance window should apply to.
         """
@@ -460,25 +391,25 @@ class MaintenanceWindow(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="repeatEndsAt")
-    def repeat_ends_at(self) -> pulumi.Output[str]:
+    def repeat_ends_at(self) -> pulumi.Output[Optional[str]]:
         """
-        The end date where the maintenance window should stop repeating.
+        The date on which the maintenance window should stop repeating.
         """
         return pulumi.get(self, "repeat_ends_at")
 
     @property
     @pulumi.getter(name="repeatInterval")
-    def repeat_interval(self) -> pulumi.Output[int]:
+    def repeat_interval(self) -> pulumi.Output[Optional[int]]:
         """
-        The repeat interval of the maintenance window from the first occurance.
+        The repeat interval of the maintenance window from the first occurrence.
         """
         return pulumi.get(self, "repeat_interval")
 
     @property
     @pulumi.getter(name="repeatUnit")
-    def repeat_unit(self) -> pulumi.Output[str]:
+    def repeat_unit(self) -> pulumi.Output[Optional[str]]:
         """
-        The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         """
         return pulumi.get(self, "repeat_unit")
 

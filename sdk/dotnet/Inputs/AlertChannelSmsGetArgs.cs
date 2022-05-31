@@ -12,15 +12,9 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class AlertChannelSmsGetArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Webhook's channel name.
-        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
-        /// <summary>
-        /// Mobile number to receive alerts.
-        /// </summary>
         [Input("number", required: true)]
         public Input<string> Number { get; set; } = null!;
 

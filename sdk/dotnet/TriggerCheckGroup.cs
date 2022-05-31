@@ -9,35 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
-    /// <summary>
-    /// ## # checkly.TriggerCheckGroup
-    /// 
-    /// `checkly.TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `checkly.TriggerCheckGroup` resource to your resource file.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// Trigger group example
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var test_trigger_group = new Checkly.TriggerCheckGroup("test-trigger-group", new Checkly.TriggerCheckGroupArgs
-    ///         {
-    ///             GroupId = 215,
-    ///         });
-    ///         this.Test_trigger_group_url = test_trigger_group.Url;
-    ///     }
-    /// 
-    ///     [Output("test-trigger-group-url")]
-    ///     public Output&lt;string&gt; Test_trigger_group_url { get; set; }
-    /// }
-    /// ```
-    /// </summary>
     [ChecklyResourceType("checkly:index/triggerCheckGroup:TriggerCheckGroup")]
     public partial class TriggerCheckGroup : Pulumi.CustomResource
     {
@@ -47,9 +18,15 @@ namespace Pulumi.Checkly
         [Output("groupId")]
         public Output<int> GroupId { get; private set; } = null!;
 
+        /// <summary>
+        /// The token value created to trigger the group
+        /// </summary>
         [Output("token")]
         public Output<string> Token { get; private set; } = null!;
 
+        /// <summary>
+        /// The request URL to trigger the group run.
+        /// </summary>
         [Output("url")]
         public Output<string> Url { get; private set; } = null!;
 
@@ -106,9 +83,15 @@ namespace Pulumi.Checkly
         [Input("groupId", required: true)]
         public Input<int> GroupId { get; set; } = null!;
 
+        /// <summary>
+        /// The token value created to trigger the group
+        /// </summary>
         [Input("token")]
         public Input<string>? Token { get; set; }
 
+        /// <summary>
+        /// The request URL to trigger the group run.
+        /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }
 
@@ -125,9 +108,15 @@ namespace Pulumi.Checkly
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
+        /// <summary>
+        /// The token value created to trigger the group
+        /// </summary>
         [Input("token")]
         public Input<string>? Token { get; set; }
 
+        /// <summary>
+        /// The request URL to trigger the group run.
+        /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }
 

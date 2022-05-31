@@ -12,33 +12,63 @@ namespace Pulumi.Checkly
     [ChecklyResourceType("checkly:index/dashboard:Dashboard")]
     public partial class Dashboard : Pulumi.CustomResource
     {
+        /// <summary>
+        /// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+        /// </summary>
         [Output("customDomain")]
-        public Output<string> CustomDomain { get; private set; } = null!;
+        public Output<string?> CustomDomain { get; private set; } = null!;
 
+        /// <summary>
+        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        /// </summary>
         [Output("customUrl")]
         public Output<string> CustomUrl { get; private set; } = null!;
 
+        /// <summary>
+        /// A piece of text displayed at the top of your dashboard.
+        /// </summary>
         [Output("header")]
-        public Output<string> Header { get; private set; } = null!;
+        public Output<string?> Header { get; private set; } = null!;
 
+        /// <summary>
+        /// Show or hide the tags on the dashboard.
+        /// </summary>
         [Output("hideTags")]
-        public Output<bool> HideTags { get; private set; } = null!;
+        public Output<bool?> HideTags { get; private set; } = null!;
 
+        /// <summary>
+        /// A URL pointing to an image file.
+        /// </summary>
         [Output("logo")]
-        public Output<string> Logo { get; private set; } = null!;
+        public Output<string?> Logo { get; private set; } = null!;
 
+        /// <summary>
+        /// Determines if pagination is on or off.
+        /// </summary>
         [Output("paginate")]
-        public Output<bool> Paginate { get; private set; } = null!;
+        public Output<bool?> Paginate { get; private set; } = null!;
 
+        /// <summary>
+        /// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+        /// </summary>
         [Output("paginationRate")]
-        public Output<int> PaginationRate { get; private set; } = null!;
+        public Output<int?> PaginationRate { get; private set; } = null!;
 
+        /// <summary>
+        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        /// </summary>
         [Output("refreshRate")]
-        public Output<int> RefreshRate { get; private set; } = null!;
+        public Output<int?> RefreshRate { get; private set; } = null!;
 
+        /// <summary>
+        /// A list of one or more tags that filter which checks to display on the dashboard.
+        /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
+        /// <summary>
+        /// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+        /// </summary>
         [Output("width")]
         public Output<string?> Width { get; private set; } = null!;
 
@@ -89,38 +119,69 @@ namespace Pulumi.Checkly
 
     public sealed class DashboardArgs : Pulumi.ResourceArgs
     {
-        [Input("customDomain", required: true)]
-        public Input<string> CustomDomain { get; set; } = null!;
+        /// <summary>
+        /// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+        /// </summary>
+        [Input("customDomain")]
+        public Input<string>? CustomDomain { get; set; }
 
+        /// <summary>
+        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        /// </summary>
         [Input("customUrl", required: true)]
         public Input<string> CustomUrl { get; set; } = null!;
 
-        [Input("header", required: true)]
-        public Input<string> Header { get; set; } = null!;
+        /// <summary>
+        /// A piece of text displayed at the top of your dashboard.
+        /// </summary>
+        [Input("header")]
+        public Input<string>? Header { get; set; }
 
-        [Input("hideTags", required: true)]
-        public Input<bool> HideTags { get; set; } = null!;
+        /// <summary>
+        /// Show or hide the tags on the dashboard.
+        /// </summary>
+        [Input("hideTags")]
+        public Input<bool>? HideTags { get; set; }
 
-        [Input("logo", required: true)]
-        public Input<string> Logo { get; set; } = null!;
+        /// <summary>
+        /// A URL pointing to an image file.
+        /// </summary>
+        [Input("logo")]
+        public Input<string>? Logo { get; set; }
 
-        [Input("paginate", required: true)]
-        public Input<bool> Paginate { get; set; } = null!;
+        /// <summary>
+        /// Determines if pagination is on or off.
+        /// </summary>
+        [Input("paginate")]
+        public Input<bool>? Paginate { get; set; }
 
-        [Input("paginationRate", required: true)]
-        public Input<int> PaginationRate { get; set; } = null!;
+        /// <summary>
+        /// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+        /// </summary>
+        [Input("paginationRate")]
+        public Input<int>? PaginationRate { get; set; }
 
-        [Input("refreshRate", required: true)]
-        public Input<int> RefreshRate { get; set; } = null!;
+        /// <summary>
+        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        /// </summary>
+        [Input("refreshRate")]
+        public Input<int>? RefreshRate { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
+
+        /// <summary>
+        /// A list of one or more tags that filter which checks to display on the dashboard.
+        /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
 
+        /// <summary>
+        /// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+        /// </summary>
         [Input("width")]
         public Input<string>? Width { get; set; }
 
@@ -131,38 +192,69 @@ namespace Pulumi.Checkly
 
     public sealed class DashboardState : Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+        /// </summary>
         [Input("customDomain")]
         public Input<string>? CustomDomain { get; set; }
 
+        /// <summary>
+        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        /// </summary>
         [Input("customUrl")]
         public Input<string>? CustomUrl { get; set; }
 
+        /// <summary>
+        /// A piece of text displayed at the top of your dashboard.
+        /// </summary>
         [Input("header")]
         public Input<string>? Header { get; set; }
 
+        /// <summary>
+        /// Show or hide the tags on the dashboard.
+        /// </summary>
         [Input("hideTags")]
         public Input<bool>? HideTags { get; set; }
 
+        /// <summary>
+        /// A URL pointing to an image file.
+        /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
 
+        /// <summary>
+        /// Determines if pagination is on or off.
+        /// </summary>
         [Input("paginate")]
         public Input<bool>? Paginate { get; set; }
 
+        /// <summary>
+        /// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+        /// </summary>
         [Input("paginationRate")]
         public Input<int>? PaginationRate { get; set; }
 
+        /// <summary>
+        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        /// </summary>
         [Input("refreshRate")]
         public Input<int>? RefreshRate { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
+
+        /// <summary>
+        /// A list of one or more tags that filter which checks to display on the dashboard.
+        /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
 
+        /// <summary>
+        /// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+        /// </summary>
         [Input("width")]
         public Input<string>? Width { get; set; }
 

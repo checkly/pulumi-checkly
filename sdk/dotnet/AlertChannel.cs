@@ -9,225 +9,9 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
-    /// <summary>
-    /// ## # checkly.AlertChannel
-    /// 
-    /// The `checkly.AlertChannel` resource allows users to manage Checkly alert channels.
-    /// 
-    /// Checkly's Alert Channels feature allows you to define global alerting channels for the checks in your account:
-    /// 
-    /// ## Example Usage
-    /// 
-    /// *An Email alert channel*
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var emailAc = new Checkly.AlertChannel("emailAc", new Checkly.AlertChannelArgs
-    ///         {
-    ///             Email = new Checkly.Inputs.AlertChannelEmailArgs
-    ///             {
-    ///                 Address = "john@example.com",
-    ///             },
-    ///             SendDegraded = true,
-    ///             SendFailure = false,
-    ///             SendRecovery = true,
-    ///             SslExpiry = true,
-    ///             SslExpiryThreshold = 22,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// *A SMS alert channel*
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var smsAc = new Checkly.AlertChannel("smsAc", new Checkly.AlertChannelArgs
-    ///         {
-    ///             SendFailure = true,
-    ///             SendRecovery = true,
-    ///             Sms = new Checkly.Inputs.AlertChannelSmsArgs
-    ///             {
-    ///                 Name = "john",
-    ///                 Number = "0123456789",
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// *A Slack alert channel*
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var slackAc = new Checkly.AlertChannel("slackAc", new Checkly.AlertChannelArgs
-    ///         {
-    ///             Slack = new Checkly.Inputs.AlertChannelSlackArgs
-    ///             {
-    ///                 Channel = "#checkly-notifications",
-    ///                 Url = "https://slack.com/webhook",
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// *An Opsgenie alert channel*
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var opsgenieAc = new Checkly.AlertChannel("opsgenieAc", new Checkly.AlertChannelArgs
-    ///         {
-    ///             Opsgenie = new Checkly.Inputs.AlertChannelOpsgenieArgs
-    ///             {
-    ///                 ApiKey = "fookey",
-    ///                 Name = "opsalerts",
-    ///                 Priority = "foopriority",
-    ///                 Region = "fooregion",
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// *An Pagerduty alert channel*
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var pagerdutyAc = new Checkly.AlertChannel("pagerdutyAc", new Checkly.AlertChannelArgs
-    ///         {
-    ///             Pagerduty = new Checkly.Inputs.AlertChannelPagerdutyArgs
-    ///             {
-    ///                 Account = "checkly",
-    ///                 ServiceKey = "key1",
-    ///                 ServiceName = "pdalert",
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// *An Webhook alert channel*
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var webhookAc = new Checkly.AlertChannel("webhookAc", new Checkly.AlertChannelArgs
-    ///         {
-    ///             Webhook = new Checkly.Inputs.AlertChannelWebhookArgs
-    ///             {
-    ///                 Method = "get",
-    ///                 Name = "foo",
-    ///                 Template = "footemplate",
-    ///                 Url = "http://example.com/foo",
-    ///                 WebhookSecret = "foosecret",
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// *Connecting the alert channel to a check
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var example_check = new Checkly.Check("example-check", new Checkly.CheckArgs
-    ///         {
-    ///             AlertChannelSubscriptions = 
-    ///             {
-    ///                 new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
-    ///                 {
-    ///                     ChannelId = checkly_alert_channel.Email_ac.Id,
-    ///                     Activated = true,
-    ///                 },
-    ///                 new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
-    ///                 {
-    ///                     ChannelId = checkly_alert_channel.Sms_ac.Id,
-    ///                     Activated = true,
-    ///                 },
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// *Connecting the alert channel to a check group
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var test_group1 = new Checkly.CheckGroup("test-group1", new Checkly.CheckGroupArgs
-    ///         {
-    ///             AlertChannelSubscriptions = 
-    ///             {
-    ///                 new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
-    ///                 {
-    ///                     ChannelId = checkly_alert_channel.Email_ac.Id,
-    ///                     Activated = true,
-    ///                 },
-    ///                 new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
-    ///                 {
-    ///                     ChannelId = checkly_alert_channel.Sms_ac.Id,
-    ///                     Activated = true,
-    ///                 },
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// </summary>
     [ChecklyResourceType("checkly:index/alertChannel:AlertChannel")]
     public partial class AlertChannel : Pulumi.CustomResource
     {
-        /// <summary>
-        /// :
-        /// </summary>
         [Output("email")]
         public Output<Outputs.AlertChannelEmail?> Email { get; private set; } = null!;
 
@@ -238,19 +22,19 @@ namespace Pulumi.Checkly
         public Output<Outputs.AlertChannelPagerduty?> Pagerduty { get; private set; } = null!;
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `false`)
         /// </summary>
         [Output("sendDegraded")]
         public Output<bool?> SendDegraded { get; private set; } = null!;
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `true`)
         /// </summary>
         [Output("sendFailure")]
         public Output<bool?> SendFailure { get; private set; } = null!;
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `true`)
         /// </summary>
         [Output("sendRecovery")]
         public Output<bool?> SendRecovery { get; private set; } = null!;
@@ -258,20 +42,17 @@ namespace Pulumi.Checkly
         [Output("slack")]
         public Output<Outputs.AlertChannelSlack?> Slack { get; private set; } = null!;
 
-        /// <summary>
-        /// :
-        /// </summary>
         [Output("sms")]
         public Output<Outputs.AlertChannelSms?> Sms { get; private set; } = null!;
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `false`)
         /// </summary>
         [Output("sslExpiry")]
         public Output<bool?> SslExpiry { get; private set; } = null!;
 
         /// <summary>
-        /// . Possible values between 1 and 30. Default is `30`.
+        /// Value must be between 1 and 30 (Default `30`)
         /// </summary>
         [Output("sslExpiryThreshold")]
         public Output<int?> SslExpiryThreshold { get; private set; } = null!;
@@ -326,9 +107,6 @@ namespace Pulumi.Checkly
 
     public sealed class AlertChannelArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// :
-        /// </summary>
         [Input("email")]
         public Input<Inputs.AlertChannelEmailArgs>? Email { get; set; }
 
@@ -339,19 +117,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.AlertChannelPagerdutyArgs>? Pagerduty { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `false`)
         /// </summary>
         [Input("sendDegraded")]
         public Input<bool>? SendDegraded { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `true`)
         /// </summary>
         [Input("sendFailure")]
         public Input<bool>? SendFailure { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `true`)
         /// </summary>
         [Input("sendRecovery")]
         public Input<bool>? SendRecovery { get; set; }
@@ -359,20 +137,17 @@ namespace Pulumi.Checkly
         [Input("slack")]
         public Input<Inputs.AlertChannelSlackArgs>? Slack { get; set; }
 
-        /// <summary>
-        /// :
-        /// </summary>
         [Input("sms")]
         public Input<Inputs.AlertChannelSmsArgs>? Sms { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `false`)
         /// </summary>
         [Input("sslExpiry")]
         public Input<bool>? SslExpiry { get; set; }
 
         /// <summary>
-        /// . Possible values between 1 and 30. Default is `30`.
+        /// Value must be between 1 and 30 (Default `30`)
         /// </summary>
         [Input("sslExpiryThreshold")]
         public Input<int>? SslExpiryThreshold { get; set; }
@@ -387,9 +162,6 @@ namespace Pulumi.Checkly
 
     public sealed class AlertChannelState : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// :
-        /// </summary>
         [Input("email")]
         public Input<Inputs.AlertChannelEmailGetArgs>? Email { get; set; }
 
@@ -400,19 +172,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.AlertChannelPagerdutyGetArgs>? Pagerduty { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `false`)
         /// </summary>
         [Input("sendDegraded")]
         public Input<bool>? SendDegraded { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `true`)
         /// </summary>
         [Input("sendFailure")]
         public Input<bool>? SendFailure { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `true`)
         /// </summary>
         [Input("sendRecovery")]
         public Input<bool>? SendRecovery { get; set; }
@@ -420,20 +192,17 @@ namespace Pulumi.Checkly
         [Input("slack")]
         public Input<Inputs.AlertChannelSlackGetArgs>? Slack { get; set; }
 
-        /// <summary>
-        /// :
-        /// </summary>
         [Input("sms")]
         public Input<Inputs.AlertChannelSmsGetArgs>? Sms { get; set; }
 
         /// <summary>
-        /// . Possible values: `true` | `false`.
+        /// (Default `false`)
         /// </summary>
         [Input("sslExpiry")]
         public Input<bool>? SslExpiry { get; set; }
 
         /// <summary>
-        /// . Possible values between 1 and 30. Default is `30`.
+        /// Value must be between 1 and 30 (Default `30`)
         /// </summary>
         [Input("sslExpiryThreshold")]
         public Input<int>? SslExpiryThreshold { get; set; }

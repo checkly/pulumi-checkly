@@ -17,15 +17,15 @@ type CheckGroup struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 pulumi.BoolOutput                             `pulumi:"activated"`
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
-	// . Supported values documented below.
-	AlertSettings CheckGroupAlertSettingsOutput `pulumi:"alertSettings"`
-	// Default configs to use for all api checks belonging to this group. Supported values documented below.
-	ApiCheckDefaults CheckGroupApiCheckDefaultsOutput `pulumi:"apiCheckDefaults"`
-	// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+	AlertSettings             CheckGroupAlertSettingsOutput                 `pulumi:"alertSettings"`
+	ApiCheckDefaults          CheckGroupApiCheckDefaultsOutput              `pulumi:"apiCheckDefaults"`
+	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency pulumi.IntOutput `pulumi:"concurrency"`
-	// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+	// region before marking the check as failed.
 	DoubleCheck pulumi.BoolPtrOutput `pulumi:"doubleCheck"`
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+	// Use global environment variables whenever possible.
 	EnvironmentVariables pulumi.MapOutput `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrOutput `pulumi:"localSetupScript"`
@@ -33,11 +33,11 @@ type CheckGroup struct {
 	LocalTeardownScript pulumi.StringPtrOutput `pulumi:"localTeardownScript"`
 	// An array of one or more data center locations where to run the checks.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// Determines if any notifications will be send out when a check in this group fails and/or recovers.
+	// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
 	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
 	// The name of the check group.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// . The id of the runtime to use for this group.
+	// The id of the runtime to use for this group.
 	RuntimeId pulumi.StringPtrOutput `pulumi:"runtimeId"`
 	// An ID reference to a snippet to use in the setup phase of an API check.
 	SetupSnippetId pulumi.IntPtrOutput `pulumi:"setupSnippetId"`
@@ -45,7 +45,7 @@ type CheckGroup struct {
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId pulumi.IntPtrOutput `pulumi:"teardownSnippetId"`
-	// When true, the account level alert setting will be used, not the alert setting defined on this check group.
+	// When true, the account level alert settings will be used, not the alert setting defined on this check group.
 	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
 }
 
@@ -94,15 +94,15 @@ type checkGroupState struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 *bool                                `pulumi:"activated"`
 	AlertChannelSubscriptions []CheckGroupAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	// . Supported values documented below.
-	AlertSettings *CheckGroupAlertSettings `pulumi:"alertSettings"`
-	// Default configs to use for all api checks belonging to this group. Supported values documented below.
-	ApiCheckDefaults *CheckGroupApiCheckDefaults `pulumi:"apiCheckDefaults"`
-	// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+	AlertSettings             *CheckGroupAlertSettings             `pulumi:"alertSettings"`
+	ApiCheckDefaults          *CheckGroupApiCheckDefaults          `pulumi:"apiCheckDefaults"`
+	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency *int `pulumi:"concurrency"`
-	// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+	// region before marking the check as failed.
 	DoubleCheck *bool `pulumi:"doubleCheck"`
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+	// Use global environment variables whenever possible.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -110,11 +110,11 @@ type checkGroupState struct {
 	LocalTeardownScript *string `pulumi:"localTeardownScript"`
 	// An array of one or more data center locations where to run the checks.
 	Locations []string `pulumi:"locations"`
-	// Determines if any notifications will be send out when a check in this group fails and/or recovers.
+	// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check group.
 	Name *string `pulumi:"name"`
-	// . The id of the runtime to use for this group.
+	// The id of the runtime to use for this group.
 	RuntimeId *string `pulumi:"runtimeId"`
 	// An ID reference to a snippet to use in the setup phase of an API check.
 	SetupSnippetId *int `pulumi:"setupSnippetId"`
@@ -122,7 +122,7 @@ type checkGroupState struct {
 	Tags []string `pulumi:"tags"`
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId *int `pulumi:"teardownSnippetId"`
-	// When true, the account level alert setting will be used, not the alert setting defined on this check group.
+	// When true, the account level alert settings will be used, not the alert setting defined on this check group.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
@@ -130,15 +130,15 @@ type CheckGroupState struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 pulumi.BoolPtrInput
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayInput
-	// . Supported values documented below.
-	AlertSettings CheckGroupAlertSettingsPtrInput
-	// Default configs to use for all api checks belonging to this group. Supported values documented below.
-	ApiCheckDefaults CheckGroupApiCheckDefaultsPtrInput
-	// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+	AlertSettings             CheckGroupAlertSettingsPtrInput
+	ApiCheckDefaults          CheckGroupApiCheckDefaultsPtrInput
+	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency pulumi.IntPtrInput
-	// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+	// region before marking the check as failed.
 	DoubleCheck pulumi.BoolPtrInput
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+	// Use global environment variables whenever possible.
 	EnvironmentVariables pulumi.MapInput
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrInput
@@ -146,11 +146,11 @@ type CheckGroupState struct {
 	LocalTeardownScript pulumi.StringPtrInput
 	// An array of one or more data center locations where to run the checks.
 	Locations pulumi.StringArrayInput
-	// Determines if any notifications will be send out when a check in this group fails and/or recovers.
+	// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
 	Muted pulumi.BoolPtrInput
 	// The name of the check group.
 	Name pulumi.StringPtrInput
-	// . The id of the runtime to use for this group.
+	// The id of the runtime to use for this group.
 	RuntimeId pulumi.StringPtrInput
 	// An ID reference to a snippet to use in the setup phase of an API check.
 	SetupSnippetId pulumi.IntPtrInput
@@ -158,7 +158,7 @@ type CheckGroupState struct {
 	Tags pulumi.StringArrayInput
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId pulumi.IntPtrInput
-	// When true, the account level alert setting will be used, not the alert setting defined on this check group.
+	// When true, the account level alert settings will be used, not the alert setting defined on this check group.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -170,15 +170,15 @@ type checkGroupArgs struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 bool                                 `pulumi:"activated"`
 	AlertChannelSubscriptions []CheckGroupAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	// . Supported values documented below.
-	AlertSettings *CheckGroupAlertSettings `pulumi:"alertSettings"`
-	// Default configs to use for all api checks belonging to this group. Supported values documented below.
-	ApiCheckDefaults *CheckGroupApiCheckDefaults `pulumi:"apiCheckDefaults"`
-	// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+	AlertSettings             *CheckGroupAlertSettings             `pulumi:"alertSettings"`
+	ApiCheckDefaults          *CheckGroupApiCheckDefaults          `pulumi:"apiCheckDefaults"`
+	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency int `pulumi:"concurrency"`
-	// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+	// region before marking the check as failed.
 	DoubleCheck *bool `pulumi:"doubleCheck"`
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+	// Use global environment variables whenever possible.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -186,11 +186,11 @@ type checkGroupArgs struct {
 	LocalTeardownScript *string `pulumi:"localTeardownScript"`
 	// An array of one or more data center locations where to run the checks.
 	Locations []string `pulumi:"locations"`
-	// Determines if any notifications will be send out when a check in this group fails and/or recovers.
+	// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check group.
 	Name *string `pulumi:"name"`
-	// . The id of the runtime to use for this group.
+	// The id of the runtime to use for this group.
 	RuntimeId *string `pulumi:"runtimeId"`
 	// An ID reference to a snippet to use in the setup phase of an API check.
 	SetupSnippetId *int `pulumi:"setupSnippetId"`
@@ -198,7 +198,7 @@ type checkGroupArgs struct {
 	Tags []string `pulumi:"tags"`
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId *int `pulumi:"teardownSnippetId"`
-	// When true, the account level alert setting will be used, not the alert setting defined on this check group.
+	// When true, the account level alert settings will be used, not the alert setting defined on this check group.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
@@ -207,15 +207,15 @@ type CheckGroupArgs struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 pulumi.BoolInput
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayInput
-	// . Supported values documented below.
-	AlertSettings CheckGroupAlertSettingsPtrInput
-	// Default configs to use for all api checks belonging to this group. Supported values documented below.
-	ApiCheckDefaults CheckGroupApiCheckDefaultsPtrInput
-	// Determines how many checks are invoked concurrently when triggering a check group from CI/CD or through the API.
+	AlertSettings             CheckGroupAlertSettingsPtrInput
+	ApiCheckDefaults          CheckGroupApiCheckDefaultsPtrInput
+	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency pulumi.IntInput
-	// Setting this to "true" will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
+	// region before marking the check as failed.
 	DoubleCheck pulumi.BoolPtrInput
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for Browser checks. Use global environment variables whenever possible.
+	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
+	// Use global environment variables whenever possible.
 	EnvironmentVariables pulumi.MapInput
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrInput
@@ -223,11 +223,11 @@ type CheckGroupArgs struct {
 	LocalTeardownScript pulumi.StringPtrInput
 	// An array of one or more data center locations where to run the checks.
 	Locations pulumi.StringArrayInput
-	// Determines if any notifications will be send out when a check in this group fails and/or recovers.
+	// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
 	Muted pulumi.BoolPtrInput
 	// The name of the check group.
 	Name pulumi.StringPtrInput
-	// . The id of the runtime to use for this group.
+	// The id of the runtime to use for this group.
 	RuntimeId pulumi.StringPtrInput
 	// An ID reference to a snippet to use in the setup phase of an API check.
 	SetupSnippetId pulumi.IntPtrInput
@@ -235,7 +235,7 @@ type CheckGroupArgs struct {
 	Tags pulumi.StringArrayInput
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId pulumi.IntPtrInput
-	// When true, the account level alert setting will be used, not the alert setting defined on this check group.
+	// When true, the account level alert settings will be used, not the alert setting defined on this check group.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 

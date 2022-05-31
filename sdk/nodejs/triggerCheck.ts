@@ -4,23 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## # checkly.TriggerCheck
- *
- * `checkly.TriggerCheck` allows users to manage Checkly trigger checks. Add a `checkly.TriggerCheck` resource to your resource file.
- *
- * ## Example Usage
- *
- * Trigger check example
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi from "@checkly/pulumi";
- *
- * const test_trigger_check = new checkly.TriggerCheck("test-trigger-check", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
- * export const test_trigger_check_url = test_trigger_check.url;
- * ```
- */
 export class TriggerCheck extends pulumi.CustomResource {
     /**
      * Get an existing TriggerCheck resource's state with the given name, ID, and optional extra
@@ -53,7 +36,13 @@ export class TriggerCheck extends pulumi.CustomResource {
      * The id of the check that you want to attach the trigger to.
      */
     public readonly checkId!: pulumi.Output<string>;
+    /**
+     * The token value created to trigger the check
+     */
     public readonly token!: pulumi.Output<string>;
+    /**
+     * The request URL to trigger the check run.
+     */
     public readonly url!: pulumi.Output<string>;
 
     /**
@@ -94,7 +83,13 @@ export interface TriggerCheckState {
      * The id of the check that you want to attach the trigger to.
      */
     checkId?: pulumi.Input<string>;
+    /**
+     * The token value created to trigger the check
+     */
     token?: pulumi.Input<string>;
+    /**
+     * The request URL to trigger the check run.
+     */
     url?: pulumi.Input<string>;
 }
 
@@ -106,6 +101,12 @@ export interface TriggerCheckArgs {
      * The id of the check that you want to attach the trigger to.
      */
     checkId: pulumi.Input<string>;
+    /**
+     * The token value created to trigger the check
+     */
     token?: pulumi.Input<string>;
+    /**
+     * The request URL to trigger the check run.
+     */
     url?: pulumi.Input<string>;
 }

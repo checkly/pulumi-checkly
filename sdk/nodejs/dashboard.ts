@@ -32,15 +32,45 @@ export class Dashboard extends pulumi.CustomResource {
         return obj['__pulumiType'] === Dashboard.__pulumiType;
     }
 
-    public readonly customDomain!: pulumi.Output<string>;
+    /**
+     * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+     */
+    public readonly customDomain!: pulumi.Output<string | undefined>;
+    /**
+     * A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+     */
     public readonly customUrl!: pulumi.Output<string>;
-    public readonly header!: pulumi.Output<string>;
-    public readonly hideTags!: pulumi.Output<boolean>;
-    public readonly logo!: pulumi.Output<string>;
-    public readonly paginate!: pulumi.Output<boolean>;
-    public readonly paginationRate!: pulumi.Output<number>;
-    public readonly refreshRate!: pulumi.Output<number>;
+    /**
+     * A piece of text displayed at the top of your dashboard.
+     */
+    public readonly header!: pulumi.Output<string | undefined>;
+    /**
+     * Show or hide the tags on the dashboard.
+     */
+    public readonly hideTags!: pulumi.Output<boolean | undefined>;
+    /**
+     * A URL pointing to an image file.
+     */
+    public readonly logo!: pulumi.Output<string | undefined>;
+    /**
+     * Determines if pagination is on or off.
+     */
+    public readonly paginate!: pulumi.Output<boolean | undefined>;
+    /**
+     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+     */
+    public readonly paginationRate!: pulumi.Output<number | undefined>;
+    /**
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     */
+    public readonly refreshRate!: pulumi.Output<number | undefined>;
+    /**
+     * A list of one or more tags that filter which checks to display on the dashboard.
+     */
     public readonly tags!: pulumi.Output<string[] | undefined>;
+    /**
+     * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+     */
     public readonly width!: pulumi.Output<string | undefined>;
 
     /**
@@ -68,29 +98,8 @@ export class Dashboard extends pulumi.CustomResource {
             resourceInputs["width"] = state ? state.width : undefined;
         } else {
             const args = argsOrState as DashboardArgs | undefined;
-            if ((!args || args.customDomain === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'customDomain'");
-            }
             if ((!args || args.customUrl === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'customUrl'");
-            }
-            if ((!args || args.header === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'header'");
-            }
-            if ((!args || args.hideTags === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'hideTags'");
-            }
-            if ((!args || args.logo === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'logo'");
-            }
-            if ((!args || args.paginate === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'paginate'");
-            }
-            if ((!args || args.paginationRate === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'paginationRate'");
-            }
-            if ((!args || args.refreshRate === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'refreshRate'");
             }
             resourceInputs["customDomain"] = args ? args.customDomain : undefined;
             resourceInputs["customUrl"] = args ? args.customUrl : undefined;
@@ -112,15 +121,45 @@ export class Dashboard extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Dashboard resources.
  */
 export interface DashboardState {
+    /**
+     * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+     */
     customDomain?: pulumi.Input<string>;
+    /**
+     * A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+     */
     customUrl?: pulumi.Input<string>;
+    /**
+     * A piece of text displayed at the top of your dashboard.
+     */
     header?: pulumi.Input<string>;
+    /**
+     * Show or hide the tags on the dashboard.
+     */
     hideTags?: pulumi.Input<boolean>;
+    /**
+     * A URL pointing to an image file.
+     */
     logo?: pulumi.Input<string>;
+    /**
+     * Determines if pagination is on or off.
+     */
     paginate?: pulumi.Input<boolean>;
+    /**
+     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+     */
     paginationRate?: pulumi.Input<number>;
+    /**
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     */
     refreshRate?: pulumi.Input<number>;
+    /**
+     * A list of one or more tags that filter which checks to display on the dashboard.
+     */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+     */
     width?: pulumi.Input<string>;
 }
 
@@ -128,14 +167,44 @@ export interface DashboardState {
  * The set of arguments for constructing a Dashboard resource.
  */
 export interface DashboardArgs {
-    customDomain: pulumi.Input<string>;
+    /**
+     * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+     */
+    customDomain?: pulumi.Input<string>;
+    /**
+     * A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+     */
     customUrl: pulumi.Input<string>;
-    header: pulumi.Input<string>;
-    hideTags: pulumi.Input<boolean>;
-    logo: pulumi.Input<string>;
-    paginate: pulumi.Input<boolean>;
-    paginationRate: pulumi.Input<number>;
-    refreshRate: pulumi.Input<number>;
+    /**
+     * A piece of text displayed at the top of your dashboard.
+     */
+    header?: pulumi.Input<string>;
+    /**
+     * Show or hide the tags on the dashboard.
+     */
+    hideTags?: pulumi.Input<boolean>;
+    /**
+     * A URL pointing to an image file.
+     */
+    logo?: pulumi.Input<string>;
+    /**
+     * Determines if pagination is on or off.
+     */
+    paginate?: pulumi.Input<boolean>;
+    /**
+     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+     */
+    paginationRate?: pulumi.Input<number>;
+    /**
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     */
+    refreshRate?: pulumi.Input<number>;
+    /**
+     * A list of one or more tags that filter which checks to display on the dashboard.
+     */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+     */
     width?: pulumi.Input<string>;
 }

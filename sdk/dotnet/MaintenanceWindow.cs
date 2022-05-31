@@ -9,65 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
-    /// <summary>
-    /// ## # checkly.MaintenanceWindow
-    /// 
-    /// `checkly.MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindow` resource to your resource file.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// Minimal maintenance windows example
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var maintenance_1 = new Checkly.MaintenanceWindow("maintenance-1", new Checkly.MaintenanceWindowArgs
-    ///         {
-    ///             EndsAt = "2014-08-25T00:00:00.000Z",
-    ///             RepeatUnit = "MONTH",
-    ///             StartsAt = "2014-08-24T00:00:00.000Z",
-    ///             Tags = 
-    ///             {
-    ///                 "auto",
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
-    /// Full maintenance windows example (includes optional fields)
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var maintenance_1 = new Checkly.MaintenanceWindow("maintenance-1", new Checkly.MaintenanceWindowArgs
-    ///         {
-    ///             EndsAt = "2014-08-25T00:00:00.000Z",
-    ///             RepeatEndsAt = "2014-08-24T00:00:00.000Z",
-    ///             RepeatInterval = 1,
-    ///             RepeatUnit = "MONTH",
-    ///             StartsAt = "2014-08-24T00:00:00.000Z",
-    ///             Tags = 
-    ///             {
-    ///                 "auto",
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// </summary>
     [ChecklyResourceType("checkly:index/maintenanceWindow:MaintenanceWindow")]
     public partial class MaintenanceWindow : Pulumi.CustomResource
     {
@@ -84,22 +25,22 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The end date where the maintenance window should stop repeating.
+        /// The date on which the maintenance window should stop repeating.
         /// </summary>
         [Output("repeatEndsAt")]
-        public Output<string> RepeatEndsAt { get; private set; } = null!;
+        public Output<string?> RepeatEndsAt { get; private set; } = null!;
 
         /// <summary>
-        /// The repeat interval of the maintenance window from the first occurance.
+        /// The repeat interval of the maintenance window from the first occurrence.
         /// </summary>
         [Output("repeatInterval")]
-        public Output<int> RepeatInterval { get; private set; } = null!;
+        public Output<int?> RepeatInterval { get; private set; } = null!;
 
         /// <summary>
-        /// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        /// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         /// </summary>
         [Output("repeatUnit")]
-        public Output<string> RepeatUnit { get; private set; } = null!;
+        public Output<string?> RepeatUnit { get; private set; } = null!;
 
         /// <summary>
         /// The start date of the maintenance window.
@@ -173,22 +114,22 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The end date where the maintenance window should stop repeating.
+        /// The date on which the maintenance window should stop repeating.
         /// </summary>
-        [Input("repeatEndsAt", required: true)]
-        public Input<string> RepeatEndsAt { get; set; } = null!;
+        [Input("repeatEndsAt")]
+        public Input<string>? RepeatEndsAt { get; set; }
 
         /// <summary>
-        /// The repeat interval of the maintenance window from the first occurance.
+        /// The repeat interval of the maintenance window from the first occurrence.
         /// </summary>
-        [Input("repeatInterval", required: true)]
-        public Input<int> RepeatInterval { get; set; } = null!;
+        [Input("repeatInterval")]
+        public Input<int>? RepeatInterval { get; set; }
 
         /// <summary>
-        /// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        /// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         /// </summary>
-        [Input("repeatUnit", required: true)]
-        public Input<string> RepeatUnit { get; set; } = null!;
+        [Input("repeatUnit")]
+        public Input<string>? RepeatUnit { get; set; }
 
         /// <summary>
         /// The start date of the maintenance window.
@@ -228,19 +169,19 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The end date where the maintenance window should stop repeating.
+        /// The date on which the maintenance window should stop repeating.
         /// </summary>
         [Input("repeatEndsAt")]
         public Input<string>? RepeatEndsAt { get; set; }
 
         /// <summary>
-        /// The repeat interval of the maintenance window from the first occurance.
+        /// The repeat interval of the maintenance window from the first occurrence.
         /// </summary>
         [Input("repeatInterval")]
         public Input<int>? RepeatInterval { get; set; }
 
         /// <summary>
-        /// The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        /// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
         /// </summary>
         [Input("repeatUnit")]
         public Input<string>? RepeatUnit { get; set; }

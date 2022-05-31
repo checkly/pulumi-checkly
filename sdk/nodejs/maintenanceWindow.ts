@@ -4,43 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * ## # checkly.MaintenanceWindow
- *
- * `checkly.MaintenanceWindow` allows users to manage Checkly maintenance windows. Add a `checkly.MaintenanceWindow` resource to your resource file.
- *
- * ## Example Usage
- *
- * Minimal maintenance windows example
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
- *
- * const maintenance_1 = new checkly.MaintenanceWindow("maintenance-1", {
- *     endsAt: "2014-08-25T00:00:00.000Z",
- *     repeatUnit: "MONTH",
- *     startsAt: "2014-08-24T00:00:00.000Z",
- *     tags: ["auto"],
- * });
- * ```
- *
- * Full maintenance windows example (includes optional fields)
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
- *
- * const maintenance_1 = new checkly.MaintenanceWindow("maintenance-1", {
- *     endsAt: "2014-08-25T00:00:00.000Z",
- *     repeatEndsAt: "2014-08-24T00:00:00.000Z",
- *     repeatInterval: 1,
- *     repeatUnit: "MONTH",
- *     startsAt: "2014-08-24T00:00:00.000Z",
- *     tags: ["auto"],
- * });
- * ```
- */
 export class MaintenanceWindow extends pulumi.CustomResource {
     /**
      * Get an existing MaintenanceWindow resource's state with the given name, ID, and optional extra
@@ -78,17 +41,17 @@ export class MaintenanceWindow extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * The end date where the maintenance window should stop repeating.
+     * The date on which the maintenance window should stop repeating.
      */
-    public readonly repeatEndsAt!: pulumi.Output<string>;
+    public readonly repeatEndsAt!: pulumi.Output<string | undefined>;
     /**
-     * The repeat interval of the maintenance window from the first occurance.
+     * The repeat interval of the maintenance window from the first occurrence.
      */
-    public readonly repeatInterval!: pulumi.Output<number>;
+    public readonly repeatInterval!: pulumi.Output<number | undefined>;
     /**
-     * The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+     * The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
      */
-    public readonly repeatUnit!: pulumi.Output<string>;
+    public readonly repeatUnit!: pulumi.Output<string | undefined>;
     /**
      * The start date of the maintenance window.
      */
@@ -123,15 +86,6 @@ export class MaintenanceWindow extends pulumi.CustomResource {
             if ((!args || args.endsAt === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'endsAt'");
             }
-            if ((!args || args.repeatEndsAt === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'repeatEndsAt'");
-            }
-            if ((!args || args.repeatInterval === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'repeatInterval'");
-            }
-            if ((!args || args.repeatUnit === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'repeatUnit'");
-            }
             if ((!args || args.startsAt === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'startsAt'");
             }
@@ -161,15 +115,15 @@ export interface MaintenanceWindowState {
      */
     name?: pulumi.Input<string>;
     /**
-     * The end date where the maintenance window should stop repeating.
+     * The date on which the maintenance window should stop repeating.
      */
     repeatEndsAt?: pulumi.Input<string>;
     /**
-     * The repeat interval of the maintenance window from the first occurance.
+     * The repeat interval of the maintenance window from the first occurrence.
      */
     repeatInterval?: pulumi.Input<number>;
     /**
-     * The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+     * The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
      */
     repeatUnit?: pulumi.Input<string>;
     /**
@@ -195,17 +149,17 @@ export interface MaintenanceWindowArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * The end date where the maintenance window should stop repeating.
+     * The date on which the maintenance window should stop repeating.
      */
-    repeatEndsAt: pulumi.Input<string>;
+    repeatEndsAt?: pulumi.Input<string>;
     /**
-     * The repeat interval of the maintenance window from the first occurance.
+     * The repeat interval of the maintenance window from the first occurrence.
      */
-    repeatInterval: pulumi.Input<number>;
+    repeatInterval?: pulumi.Input<number>;
     /**
-     * The repeat strategy for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+     * The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
      */
-    repeatUnit: pulumi.Input<string>;
+    repeatUnit?: pulumi.Input<string>;
     /**
      * The start date of the maintenance window.
      */

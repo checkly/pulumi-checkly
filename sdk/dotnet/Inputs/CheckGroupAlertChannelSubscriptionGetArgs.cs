@@ -12,9 +12,6 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class CheckGroupAlertChannelSubscriptionGetArgs : Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// Determines if the checks in the group are running or not.
-        /// </summary>
         [Input("activated", required: true)]
         public Input<bool> Activated { get; set; } = null!;
 

@@ -123,3 +123,9 @@ new checkly.Dashboard('dashboard', {
   tags
 })
 
+
+new checkly.EnvironmentVariable('my-env-var', {
+  key: 'MY_VAR',
+  value: 'my-value',
+  locked: true
+})

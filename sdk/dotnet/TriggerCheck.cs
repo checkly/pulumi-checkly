@@ -9,35 +9,6 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
-    /// <summary>
-    /// ## # checkly.TriggerCheck
-    /// 
-    /// `checkly.TriggerCheck` allows users to manage Checkly trigger checks. Add a `checkly.TriggerCheck` resource to your resource file.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// Trigger check example
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var test_trigger_check = new Checkly.TriggerCheck("test-trigger-check", new Checkly.TriggerCheckArgs
-    ///         {
-    ///             CheckId = "c1ff95c5-d7f6-4a90-9ce2-1e605f117592",
-    ///         });
-    ///         this.Test_trigger_check_url = test_trigger_check.Url;
-    ///     }
-    /// 
-    ///     [Output("test-trigger-check-url")]
-    ///     public Output&lt;string&gt; Test_trigger_check_url { get; set; }
-    /// }
-    /// ```
-    /// </summary>
     [ChecklyResourceType("checkly:index/triggerCheck:TriggerCheck")]
     public partial class TriggerCheck : Pulumi.CustomResource
     {
@@ -47,9 +18,15 @@ namespace Pulumi.Checkly
         [Output("checkId")]
         public Output<string> CheckId { get; private set; } = null!;
 
+        /// <summary>
+        /// The token value created to trigger the check
+        /// </summary>
         [Output("token")]
         public Output<string> Token { get; private set; } = null!;
 
+        /// <summary>
+        /// The request URL to trigger the check run.
+        /// </summary>
         [Output("url")]
         public Output<string> Url { get; private set; } = null!;
 
@@ -106,9 +83,15 @@ namespace Pulumi.Checkly
         [Input("checkId", required: true)]
         public Input<string> CheckId { get; set; } = null!;
 
+        /// <summary>
+        /// The token value created to trigger the check
+        /// </summary>
         [Input("token")]
         public Input<string>? Token { get; set; }
 
+        /// <summary>
+        /// The request URL to trigger the check run.
+        /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }
 
@@ -125,9 +108,15 @@ namespace Pulumi.Checkly
         [Input("checkId")]
         public Input<string>? CheckId { get; set; }
 
+        /// <summary>
+        /// The token value created to trigger the check
+        /// </summary>
         [Input("token")]
         public Input<string>? Token { get; set; }
 
+        /// <summary>
+        /// The request URL to trigger the check run.
+        /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }
 

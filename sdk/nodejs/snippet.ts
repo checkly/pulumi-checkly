@@ -33,7 +33,7 @@ export class Snippet extends pulumi.CustomResource {
     }
 
     /**
-     * The name of the snippet.
+     * The name of the snippet
      */
     public readonly name!: pulumi.Output<string>;
     /**
@@ -74,7 +74,7 @@ export class Snippet extends pulumi.CustomResource {
  */
 export interface SnippetState {
     /**
-     * The name of the snippet.
+     * The name of the snippet
      */
     name?: pulumi.Input<string>;
     /**
@@ -88,7 +88,7 @@ export interface SnippetState {
  */
 export interface SnippetArgs {
     /**
-     * The name of the snippet.
+     * The name of the snippet
      */
     name?: pulumi.Input<string>;
     /**

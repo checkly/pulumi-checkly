@@ -100,23 +100,9 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_dashboard": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Dashboard"),
-				// Fields: map[string]*tfbridge.SchemaInfo{
-				// 	"header": {
-				// 		Default: &tfbridge.DefaultInfo{
-				// 			Value: "",
-				// 		},
-				// 	},
-				// 	"custom_url": {
-				// 		Default: &tfbridge.DefaultInfo{
-				// 			Value: "",
-				// 		},
-				// 	},
-				// 	"logo": {
-				// 		Default: &tfbridge.DefaultInfo{
-				// 			Value: "",
-				// 		},
-				// 	},
-				// },
+			},
+			"checkly_environment_variable": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "EnvironmentVariable"),
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{

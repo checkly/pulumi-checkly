@@ -19,6 +19,8 @@ class TriggerCheckGroupArgs:
         """
         The set of arguments for constructing a TriggerCheckGroup resource.
         :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the group
+        :param pulumi.Input[str] url: The request URL to trigger the group run.
         """
         pulumi.set(__self__, "group_id", group_id)
         if token is not None:
@@ -41,6 +43,9 @@ class TriggerCheckGroupArgs:
     @property
     @pulumi.getter
     def token(self) -> Optional[pulumi.Input[str]]:
+        """
+        The token value created to trigger the group
+        """
         return pulumi.get(self, "token")
 
     @token.setter
@@ -50,6 +55,9 @@ class TriggerCheckGroupArgs:
     @property
     @pulumi.getter
     def url(self) -> Optional[pulumi.Input[str]]:
+        """
+        The request URL to trigger the group run.
+        """
         return pulumi.get(self, "url")
 
     @url.setter
@@ -66,6 +74,8 @@ class _TriggerCheckGroupState:
         """
         Input properties used for looking up and filtering TriggerCheckGroup resources.
         :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the group
+        :param pulumi.Input[str] url: The request URL to trigger the group run.
         """
         if group_id is not None:
             pulumi.set(__self__, "group_id", group_id)
@@ -89,6 +99,9 @@ class _TriggerCheckGroupState:
     @property
     @pulumi.getter
     def token(self) -> Optional[pulumi.Input[str]]:
+        """
+        The token value created to trigger the group
+        """
         return pulumi.get(self, "token")
 
     @token.setter
@@ -98,6 +111,9 @@ class _TriggerCheckGroupState:
     @property
     @pulumi.getter
     def url(self) -> Optional[pulumi.Input[str]]:
+        """
+        The request URL to trigger the group run.
+        """
         return pulumi.get(self, "url")
 
     @url.setter
@@ -115,25 +131,12 @@ class TriggerCheckGroup(pulumi.CustomResource):
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # TriggerCheckGroup
-
-        `TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `TriggerCheckGroup` resource to your resource file.
-
-        ## Example Usage
-
-        Trigger group example
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
-        pulumi.export("test-trigger-group-url", test_trigger_group.url)
-        ```
-
+        Create a TriggerCheckGroup resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the group
+        :param pulumi.Input[str] url: The request URL to trigger the group run.
         """
         ...
     @overload
@@ -142,22 +145,7 @@ class TriggerCheckGroup(pulumi.CustomResource):
                  args: TriggerCheckGroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # TriggerCheckGroup
-
-        `TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `TriggerCheckGroup` resource to your resource file.
-
-        ## Example Usage
-
-        Trigger group example
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
-        pulumi.export("test-trigger-group-url", test_trigger_group.url)
-        ```
-
+        Create a TriggerCheckGroup resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param TriggerCheckGroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -216,6 +204,8 @@ class TriggerCheckGroup(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the group
+        :param pulumi.Input[str] url: The request URL to trigger the group run.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -237,10 +227,16 @@ class TriggerCheckGroup(pulumi.CustomResource):
     @property
     @pulumi.getter
     def token(self) -> pulumi.Output[str]:
+        """
+        The token value created to trigger the group
+        """
         return pulumi.get(self, "token")
 
     @property
     @pulumi.getter
     def url(self) -> pulumi.Output[str]:
+        """
+        The request URL to trigger the group run.
+        """
         return pulumi.get(self, "url")
 

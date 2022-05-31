@@ -11,42 +11,15 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## # TriggerCheckGroup
-//
-// `TriggerCheckGroup` allows users to manage Checkly trigger groups. Add a `TriggerCheckGroup` resource to your resource file.
-//
-// ## Example Usage
-//
-// Trigger group example
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewTriggerCheckGroup(ctx, "test-trigger-group", &checkly.TriggerCheckGroupArgs{
-// 			GroupId: pulumi.Int(215),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("test-trigger-group-url", test_trigger_group.Url)
-// 		return nil
-// 	})
-// }
-// ```
 type TriggerCheckGroup struct {
 	pulumi.CustomResourceState
 
 	// The id of the group that you want to attach the trigger to.
-	GroupId pulumi.IntOutput    `pulumi:"groupId"`
-	Token   pulumi.StringOutput `pulumi:"token"`
-	Url     pulumi.StringOutput `pulumi:"url"`
+	GroupId pulumi.IntOutput `pulumi:"groupId"`
+	// The token value created to trigger the group
+	Token pulumi.StringOutput `pulumi:"token"`
+	// The request URL to trigger the group run.
+	Url pulumi.StringOutput `pulumi:"url"`
 }
 
 // NewTriggerCheckGroup registers a new resource with the given unique name, arguments, and options.
@@ -83,16 +56,20 @@ func GetTriggerCheckGroup(ctx *pulumi.Context,
 // Input properties used for looking up and filtering TriggerCheckGroup resources.
 type triggerCheckGroupState struct {
 	// The id of the group that you want to attach the trigger to.
-	GroupId *int    `pulumi:"groupId"`
-	Token   *string `pulumi:"token"`
-	Url     *string `pulumi:"url"`
+	GroupId *int `pulumi:"groupId"`
+	// The token value created to trigger the group
+	Token *string `pulumi:"token"`
+	// The request URL to trigger the group run.
+	Url *string `pulumi:"url"`
 }
 
 type TriggerCheckGroupState struct {
 	// The id of the group that you want to attach the trigger to.
 	GroupId pulumi.IntPtrInput
-	Token   pulumi.StringPtrInput
-	Url     pulumi.StringPtrInput
+	// The token value created to trigger the group
+	Token pulumi.StringPtrInput
+	// The request URL to trigger the group run.
+	Url pulumi.StringPtrInput
 }
 
 func (TriggerCheckGroupState) ElementType() reflect.Type {
@@ -101,17 +78,21 @@ func (TriggerCheckGroupState) ElementType() reflect.Type {
 
 type triggerCheckGroupArgs struct {
 	// The id of the group that you want to attach the trigger to.
-	GroupId int     `pulumi:"groupId"`
-	Token   *string `pulumi:"token"`
-	Url     *string `pulumi:"url"`
+	GroupId int `pulumi:"groupId"`
+	// The token value created to trigger the group
+	Token *string `pulumi:"token"`
+	// The request URL to trigger the group run.
+	Url *string `pulumi:"url"`
 }
 
 // The set of arguments for constructing a TriggerCheckGroup resource.
 type TriggerCheckGroupArgs struct {
 	// The id of the group that you want to attach the trigger to.
 	GroupId pulumi.IntInput
-	Token   pulumi.StringPtrInput
-	Url     pulumi.StringPtrInput
+	// The token value created to trigger the group
+	Token pulumi.StringPtrInput
+	// The request URL to trigger the group run.
+	Url pulumi.StringPtrInput
 }
 
 func (TriggerCheckGroupArgs) ElementType() reflect.Type {

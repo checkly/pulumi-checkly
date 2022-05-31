@@ -9,6 +9,7 @@ from .alert_channel import *
 from .check import *
 from .check_group import *
 from .dashboard import *
+from .environment_variable import *
 from .maintenance_window import *
 from .provider import *
 from .snippet import *
@@ -57,6 +58,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/dashboard:Dashboard": "Dashboard"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/environmentVariable",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/environmentVariable:EnvironmentVariable": "EnvironmentVariable"
   }
  },
  {

@@ -14,16 +14,26 @@ import (
 type Dashboard struct {
 	pulumi.CustomResourceState
 
-	CustomDomain   pulumi.StringOutput      `pulumi:"customDomain"`
-	CustomUrl      pulumi.StringOutput      `pulumi:"customUrl"`
-	Header         pulumi.StringOutput      `pulumi:"header"`
-	HideTags       pulumi.BoolOutput        `pulumi:"hideTags"`
-	Logo           pulumi.StringOutput      `pulumi:"logo"`
-	Paginate       pulumi.BoolOutput        `pulumi:"paginate"`
-	PaginationRate pulumi.IntOutput         `pulumi:"paginationRate"`
-	RefreshRate    pulumi.IntOutput         `pulumi:"refreshRate"`
-	Tags           pulumi.StringArrayOutput `pulumi:"tags"`
-	Width          pulumi.StringPtrOutput   `pulumi:"width"`
+	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+	CustomDomain pulumi.StringPtrOutput `pulumi:"customDomain"`
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	CustomUrl pulumi.StringOutput `pulumi:"customUrl"`
+	// A piece of text displayed at the top of your dashboard.
+	Header pulumi.StringPtrOutput `pulumi:"header"`
+	// Show or hide the tags on the dashboard.
+	HideTags pulumi.BoolPtrOutput `pulumi:"hideTags"`
+	// A URL pointing to an image file.
+	Logo pulumi.StringPtrOutput `pulumi:"logo"`
+	// Determines if pagination is on or off.
+	Paginate pulumi.BoolPtrOutput `pulumi:"paginate"`
+	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+	PaginationRate pulumi.IntPtrOutput `pulumi:"paginationRate"`
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	RefreshRate pulumi.IntPtrOutput `pulumi:"refreshRate"`
+	// A list of one or more tags that filter which checks to display on the dashboard.
+	Tags pulumi.StringArrayOutput `pulumi:"tags"`
+	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+	Width pulumi.StringPtrOutput `pulumi:"width"`
 }
 
 // NewDashboard registers a new resource with the given unique name, arguments, and options.
@@ -33,29 +43,8 @@ func NewDashboard(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.CustomDomain == nil {
-		return nil, errors.New("invalid value for required argument 'CustomDomain'")
-	}
 	if args.CustomUrl == nil {
 		return nil, errors.New("invalid value for required argument 'CustomUrl'")
-	}
-	if args.Header == nil {
-		return nil, errors.New("invalid value for required argument 'Header'")
-	}
-	if args.HideTags == nil {
-		return nil, errors.New("invalid value for required argument 'HideTags'")
-	}
-	if args.Logo == nil {
-		return nil, errors.New("invalid value for required argument 'Logo'")
-	}
-	if args.Paginate == nil {
-		return nil, errors.New("invalid value for required argument 'Paginate'")
-	}
-	if args.PaginationRate == nil {
-		return nil, errors.New("invalid value for required argument 'PaginationRate'")
-	}
-	if args.RefreshRate == nil {
-		return nil, errors.New("invalid value for required argument 'RefreshRate'")
 	}
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Dashboard
@@ -80,29 +69,49 @@ func GetDashboard(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Dashboard resources.
 type dashboardState struct {
-	CustomDomain   *string  `pulumi:"customDomain"`
-	CustomUrl      *string  `pulumi:"customUrl"`
-	Header         *string  `pulumi:"header"`
-	HideTags       *bool    `pulumi:"hideTags"`
-	Logo           *string  `pulumi:"logo"`
-	Paginate       *bool    `pulumi:"paginate"`
-	PaginationRate *int     `pulumi:"paginationRate"`
-	RefreshRate    *int     `pulumi:"refreshRate"`
-	Tags           []string `pulumi:"tags"`
-	Width          *string  `pulumi:"width"`
+	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+	CustomDomain *string `pulumi:"customDomain"`
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	CustomUrl *string `pulumi:"customUrl"`
+	// A piece of text displayed at the top of your dashboard.
+	Header *string `pulumi:"header"`
+	// Show or hide the tags on the dashboard.
+	HideTags *bool `pulumi:"hideTags"`
+	// A URL pointing to an image file.
+	Logo *string `pulumi:"logo"`
+	// Determines if pagination is on or off.
+	Paginate *bool `pulumi:"paginate"`
+	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+	PaginationRate *int `pulumi:"paginationRate"`
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	RefreshRate *int `pulumi:"refreshRate"`
+	// A list of one or more tags that filter which checks to display on the dashboard.
+	Tags []string `pulumi:"tags"`
+	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+	Width *string `pulumi:"width"`
 }
 
 type DashboardState struct {
-	CustomDomain   pulumi.StringPtrInput
-	CustomUrl      pulumi.StringPtrInput
-	Header         pulumi.StringPtrInput
-	HideTags       pulumi.BoolPtrInput
-	Logo           pulumi.StringPtrInput
-	Paginate       pulumi.BoolPtrInput
+	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+	CustomDomain pulumi.StringPtrInput
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	CustomUrl pulumi.StringPtrInput
+	// A piece of text displayed at the top of your dashboard.
+	Header pulumi.StringPtrInput
+	// Show or hide the tags on the dashboard.
+	HideTags pulumi.BoolPtrInput
+	// A URL pointing to an image file.
+	Logo pulumi.StringPtrInput
+	// Determines if pagination is on or off.
+	Paginate pulumi.BoolPtrInput
+	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate pulumi.IntPtrInput
-	RefreshRate    pulumi.IntPtrInput
-	Tags           pulumi.StringArrayInput
-	Width          pulumi.StringPtrInput
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	RefreshRate pulumi.IntPtrInput
+	// A list of one or more tags that filter which checks to display on the dashboard.
+	Tags pulumi.StringArrayInput
+	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+	Width pulumi.StringPtrInput
 }
 
 func (DashboardState) ElementType() reflect.Type {
@@ -110,30 +119,50 @@ func (DashboardState) ElementType() reflect.Type {
 }
 
 type dashboardArgs struct {
-	CustomDomain   string   `pulumi:"customDomain"`
-	CustomUrl      string   `pulumi:"customUrl"`
-	Header         string   `pulumi:"header"`
-	HideTags       bool     `pulumi:"hideTags"`
-	Logo           string   `pulumi:"logo"`
-	Paginate       bool     `pulumi:"paginate"`
-	PaginationRate int      `pulumi:"paginationRate"`
-	RefreshRate    int      `pulumi:"refreshRate"`
-	Tags           []string `pulumi:"tags"`
-	Width          *string  `pulumi:"width"`
+	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+	CustomDomain *string `pulumi:"customDomain"`
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	CustomUrl string `pulumi:"customUrl"`
+	// A piece of text displayed at the top of your dashboard.
+	Header *string `pulumi:"header"`
+	// Show or hide the tags on the dashboard.
+	HideTags *bool `pulumi:"hideTags"`
+	// A URL pointing to an image file.
+	Logo *string `pulumi:"logo"`
+	// Determines if pagination is on or off.
+	Paginate *bool `pulumi:"paginate"`
+	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+	PaginationRate *int `pulumi:"paginationRate"`
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	RefreshRate *int `pulumi:"refreshRate"`
+	// A list of one or more tags that filter which checks to display on the dashboard.
+	Tags []string `pulumi:"tags"`
+	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+	Width *string `pulumi:"width"`
 }
 
 // The set of arguments for constructing a Dashboard resource.
 type DashboardArgs struct {
-	CustomDomain   pulumi.StringInput
-	CustomUrl      pulumi.StringInput
-	Header         pulumi.StringInput
-	HideTags       pulumi.BoolInput
-	Logo           pulumi.StringInput
-	Paginate       pulumi.BoolInput
-	PaginationRate pulumi.IntInput
-	RefreshRate    pulumi.IntInput
-	Tags           pulumi.StringArrayInput
-	Width          pulumi.StringPtrInput
+	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+	CustomDomain pulumi.StringPtrInput
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	CustomUrl pulumi.StringInput
+	// A piece of text displayed at the top of your dashboard.
+	Header pulumi.StringPtrInput
+	// Show or hide the tags on the dashboard.
+	HideTags pulumi.BoolPtrInput
+	// A URL pointing to an image file.
+	Logo pulumi.StringPtrInput
+	// Determines if pagination is on or off.
+	Paginate pulumi.BoolPtrInput
+	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+	PaginationRate pulumi.IntPtrInput
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	RefreshRate pulumi.IntPtrInput
+	// A list of one or more tags that filter which checks to display on the dashboard.
+	Tags pulumi.StringArrayInput
+	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+	Width pulumi.StringPtrInput
 }
 
 func (DashboardArgs) ElementType() reflect.Type {

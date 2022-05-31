@@ -13,7 +13,7 @@ namespace Pulumi.Checkly
     public partial class Snippet : Pulumi.CustomResource
     {
         /// <summary>
-        /// The name of the snippet.
+        /// The name of the snippet
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -72,7 +72,7 @@ namespace Pulumi.Checkly
     public sealed class SnippetArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the snippet.
+        /// The name of the snippet
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -91,7 +91,7 @@ namespace Pulumi.Checkly
     public sealed class SnippetState : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the snippet.
+        /// The name of the snippet
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }

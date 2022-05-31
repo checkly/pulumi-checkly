@@ -19,6 +19,8 @@ class TriggerCheckArgs:
         """
         The set of arguments for constructing a TriggerCheck resource.
         :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the check
+        :param pulumi.Input[str] url: The request URL to trigger the check run.
         """
         pulumi.set(__self__, "check_id", check_id)
         if token is not None:
@@ -41,6 +43,9 @@ class TriggerCheckArgs:
     @property
     @pulumi.getter
     def token(self) -> Optional[pulumi.Input[str]]:
+        """
+        The token value created to trigger the check
+        """
         return pulumi.get(self, "token")
 
     @token.setter
@@ -50,6 +55,9 @@ class TriggerCheckArgs:
     @property
     @pulumi.getter
     def url(self) -> Optional[pulumi.Input[str]]:
+        """
+        The request URL to trigger the check run.
+        """
         return pulumi.get(self, "url")
 
     @url.setter
@@ -66,6 +74,8 @@ class _TriggerCheckState:
         """
         Input properties used for looking up and filtering TriggerCheck resources.
         :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the check
+        :param pulumi.Input[str] url: The request URL to trigger the check run.
         """
         if check_id is not None:
             pulumi.set(__self__, "check_id", check_id)
@@ -89,6 +99,9 @@ class _TriggerCheckState:
     @property
     @pulumi.getter
     def token(self) -> Optional[pulumi.Input[str]]:
+        """
+        The token value created to trigger the check
+        """
         return pulumi.get(self, "token")
 
     @token.setter
@@ -98,6 +111,9 @@ class _TriggerCheckState:
     @property
     @pulumi.getter
     def url(self) -> Optional[pulumi.Input[str]]:
+        """
+        The request URL to trigger the check run.
+        """
         return pulumi.get(self, "url")
 
     @url.setter
@@ -115,25 +131,12 @@ class TriggerCheck(pulumi.CustomResource):
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## # TriggerCheck
-
-        `TriggerCheck` allows users to manage Checkly trigger checks. Add a `TriggerCheck` resource to your resource file.
-
-        ## Example Usage
-
-        Trigger check example
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
-        pulumi.export("test-trigger-check-url", test_trigger_check.url)
-        ```
-
+        Create a TriggerCheck resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the check
+        :param pulumi.Input[str] url: The request URL to trigger the check run.
         """
         ...
     @overload
@@ -142,22 +145,7 @@ class TriggerCheck(pulumi.CustomResource):
                  args: TriggerCheckArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## # TriggerCheck
-
-        `TriggerCheck` allows users to manage Checkly trigger checks. Add a `TriggerCheck` resource to your resource file.
-
-        ## Example Usage
-
-        Trigger check example
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
-        pulumi.export("test-trigger-check-url", test_trigger_check.url)
-        ```
-
+        Create a TriggerCheck resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param TriggerCheckArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -216,6 +204,8 @@ class TriggerCheck(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
+        :param pulumi.Input[str] token: The token value created to trigger the check
+        :param pulumi.Input[str] url: The request URL to trigger the check run.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -237,10 +227,16 @@ class TriggerCheck(pulumi.CustomResource):
     @property
     @pulumi.getter
     def token(self) -> pulumi.Output[str]:
+        """
+        The token value created to trigger the check
+        """
         return pulumi.get(self, "token")
 
     @property
     @pulumi.getter
     def url(self) -> pulumi.Output[str]:
+        """
+        The request URL to trigger the check run.
+        """
         return pulumi.get(self, "url")
 
