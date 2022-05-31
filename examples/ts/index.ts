@@ -45,7 +45,7 @@ const group = new checkly.CheckGroup("my-group", {
 })
 
 // Our first Browser check is added to group created above and uses the Playwright script.
-new checkly.Check("browser-check", {
+new checkly.Check("my-browser-check", {
   name: "Google.com Playwright check",
   activated: true,
   frequency: 10,
@@ -62,7 +62,7 @@ const setupSnippet = new checkly.Snippet('my-snippet', {
 })
 
 // Our first API check uses the setup script defined above and has two assertions.
-new checkly.Check("api-check", {
+new checkly.Check("my-api-check", {
   name: "Public SpaceX API",
   activated: true,
   frequency: 10,
@@ -111,7 +111,7 @@ new checkly.MaintenanceWindow('my-maintenance-window', {
 })
 
 // The public dashboard shows all the checks tags with the "tags" array
-new checkly.Dashboard('dashboard', {
+new checkly.Dashboard('my-dashboard', {
   customUrl: "my-pulumi-checkly-dash",
   customDomain: "",
   header: "Checks created with Pulumi",
@@ -123,3 +123,11 @@ new checkly.Dashboard('dashboard', {
   tags
 })
 
+
+// Environment variables can be used in API request URLs, headers, query parameters etc.
+// Use variables in API checks by using the {{MY_VAR}} notation.
+// Use variables in Browser checks with the process.env.MY_VAR notation
+new checkly.EnvironmentVariable('my-env-var', {
+  key: 'API_URL',
+  value: 'https://localhost:3000',
+})
