@@ -127,7 +127,7 @@ do::
 	make build_sdks
 
 	jq --arg v "${VERSION}" '.version =$$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
-	jq --arg v "https://github.com/checkly/pulumi-checkly/releases/download/${VERSION}" '.pulumi.pluginDownloadURL = $$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+	jq --arg v "https://github.com/checkly/pulumi-checkly/releases/download/v${VERSION}" '.pulumi.pluginDownloadURL = $$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
 	jq --arg v "node scripts/install-pulumi-plugin.js resource checkly ${VERSION}" '.scripts.install = $$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
 
 	jq '.main = "./bin/index.js"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
