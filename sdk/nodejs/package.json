@@ -1,6 +1,6 @@
 {
   "name": "@checkly/pulumi",
-  "version": "0.0.1-alpha.9",
+  "version": "0.0.1-alpha.10",
   "description": "A Pulumi package for creating and managing Checkly monitoring resources.",
   "keywords": [
     "pulumi",
@@ -12,7 +12,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "install": "node scripts/install-pulumi-plugin.js resource checkly 0.0.1-alpha.9"
+    "install": "node scripts/install-pulumi-plugin.js resource checkly 0.0.1-alpha.10"
   },
   "dependencies": {
     "@pulumi/pulumi": "^3.0.0"
@@ -24,7 +24,7 @@
   },
   "pulumi": {
     "resource": true,
-    "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/download/0.0.1-alpha.9"
+    "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.10"
   },
   "main": "./bin/index.js",
   "types": "./bin/index.d.ts"
