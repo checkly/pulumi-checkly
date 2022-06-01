@@ -15,7 +15,7 @@ class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'checkly', PLUGIN_VERSION, '--server', 'https://github.com/checkly/pulumi-checkly/releases/${VERSION}'])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'checkly', PLUGIN_VERSION, '--server', 'https://github.com/checkly/pulumi-checkly/releases/download/${VERSION}'])
         except OSError as error:
             if error.errno == errno.ENOENT:
                 print(f"""
@@ -46,7 +46,7 @@ setup(name='pulumi_checkly',
           'install': InstallPluginCommand,
       },
       keywords='pulumi checkly category/monitoring',
-      url='https://www.pulumi.com',
+      url='https://www.pulumi.com/registry/packages/checkly',
       project_urls={
           'Repository': 'https://github.com/checkly/pulumi-checkly'
       },

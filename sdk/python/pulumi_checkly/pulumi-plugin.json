@@ -1,5 +1,5 @@
 {
   "resource": true,
   "name": "checkly",
-  "server": "https://github.com/checkly/pulumi-checkly/releases/${VERSION}"
+  "server": "https://github.com/checkly/pulumi-checkly/releases/download/${VERSION}"
 }

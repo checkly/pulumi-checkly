@@ -6,7 +6,7 @@
     <Company>checkly</Company>
     <Description>A Pulumi package for creating and managing Checkly monitoring resources.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://www.pulumi.com</PackageProjectUrl>
+    <PackageProjectUrl>https://www.pulumi.com/registry/packages/checkly</PackageProjectUrl>
     <RepositoryUrl>https://github.com/checkly/pulumi-checkly</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
 
