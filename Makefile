@@ -125,10 +125,14 @@ do::
 	make tfgen
 	make provider
 	make build_sdks
+
 	jq --arg v "${VERSION}" '.version =$$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
 	jq --arg v "https://github.com/checkly/pulumi-checkly/releases/${VERSION}" '.pulumi.pluginDownloadURL = $$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+	jq --arg v "node scripts/install-pulumi-plugin.js resource checkly ${VERSION}" '.scripts.install = $$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+
 	jq '.main = "./bin/index.js"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
 	jq '.types = "./bin/index.d.ts"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
+
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
 	make install_nodejs_sdk
 	cd examples/js && yarn link @checkly/pulumi && cd -
