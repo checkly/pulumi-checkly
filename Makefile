@@ -1,6 +1,6 @@
-SHELL := /bin/bash
 PROJECT_NAME := checkly Package
 
+SHELL            := /bin/bash
 PACK             := checkly
 ORG              := checkly
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
@@ -12,9 +12,7 @@ VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
 VERSION         := $(shell pulumictl get version --omit-commit-hash)
-
 TESTPARALLELISM := 4
-
 WORKING_DIR     := $(shell pwd)
 
 OS := $(shell uname)
