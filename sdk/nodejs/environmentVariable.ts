@@ -4,6 +4,25 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@pulumi/checkly";
+ *
+ * // Simple Enviroment Variable example
+ * const variable_1 = new checkly.EnvironmentVariable("variable-1", {
+ *     key: "API_KEY",
+ *     locked: true,
+ *     value: "loZd9hOGHDUrGvmW",
+ * });
+ * const variable_2 = new checkly.EnvironmentVariable("variable-2", {
+ *     key: "API_URL",
+ *     value: "http://localhost:3000",
+ * });
+ * ```
+ */
 export class EnvironmentVariable extends pulumi.CustomResource {
     /**
      * Get an existing EnvironmentVariable resource's state with the given name, ID, and optional extra

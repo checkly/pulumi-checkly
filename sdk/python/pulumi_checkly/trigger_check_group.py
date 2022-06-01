@@ -131,7 +131,16 @@ class TriggerCheckGroup(pulumi.CustomResource):
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a TriggerCheckGroup resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
+        pulumi.export("test-trigger-group-url", test_trigger_group.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] group_id: The id of the group that you want to attach the trigger to.
@@ -145,7 +154,16 @@ class TriggerCheckGroup(pulumi.CustomResource):
                  args: TriggerCheckGroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a TriggerCheckGroup resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
+        pulumi.export("test-trigger-group-url", test_trigger_group.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param TriggerCheckGroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

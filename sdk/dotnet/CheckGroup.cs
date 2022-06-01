@@ -9,6 +9,144 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var test_group1CheckGroup = new Checkly.CheckGroup("test-group1CheckGroup", new Checkly.CheckGroupArgs
+    ///         {
+    ///             Activated = true,
+    ///             Muted = false,
+    ///             Tags = 
+    ///             {
+    ///                 "auto",
+    ///             },
+    ///             Locations = 
+    ///             {
+    ///                 "eu-west-1",
+    ///             },
+    ///             Concurrency = 3,
+    ///             ApiCheckDefaults = new Checkly.Inputs.CheckGroupApiCheckDefaultsArgs
+    ///             {
+    ///                 Url = "http://example.com/",
+    ///                 Headers = 
+    ///                 {
+    ///                     { "X-Test", "foo" },
+    ///                 },
+    ///                 QueryParameters = 
+    ///                 {
+    ///                     { "query", "foo" },
+    ///                 },
+    ///                 Assertions = 
+    ///                 {
+    ///                     new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs
+    ///                     {
+    ///                         Source = "STATUS_CODE",
+    ///                         Property = "",
+    ///                         Comparison = "EQUALS",
+    ///                         Target = "200",
+    ///                     },
+    ///                     new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs
+    ///                     {
+    ///                         Source = "TEXT_BODY",
+    ///                         Property = "",
+    ///                         Comparison = "CONTAINS",
+    ///                         Target = "welcome",
+    ///                     },
+    ///                 },
+    ///                 BasicAuth = new Checkly.Inputs.CheckGroupApiCheckDefaultsBasicAuthArgs
+    ///                 {
+    ///                     Username = "user",
+    ///                     Password = "pass",
+    ///                 },
+    ///             },
+    ///             EnvironmentVariables = 
+    ///             {
+    ///                 { "ENVTEST", "Hello world" },
+    ///             },
+    ///             DoubleCheck = true,
+    ///             UseGlobalAlertSettings = false,
+    ///             AlertSettings = new Checkly.Inputs.CheckGroupAlertSettingsArgs
+    ///             {
+    ///                 EscalationType = "RUN_BASED",
+    ///                 RunBasedEscalations = 
+    ///                 {
+    ///                     new Checkly.Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs
+    ///                     {
+    ///                         FailedRunThreshold = 1,
+    ///                     },
+    ///                 },
+    ///                 TimeBasedEscalations = 
+    ///                 {
+    ///                     new Checkly.Inputs.CheckGroupAlertSettingsTimeBasedEscalationArgs
+    ///                     {
+    ///                         MinutesFailingThreshold = 5,
+    ///                     },
+    ///                 },
+    ///                 Reminders = 
+    ///                 {
+    ///                     new Checkly.Inputs.CheckGroupAlertSettingsReminderArgs
+    ///                     {
+    ///                         Amount = 2,
+    ///                         Interval = 5,
+    ///                     },
+    ///                 },
+    ///             },
+    ///             LocalSetupScript = "setup-test",
+    ///             LocalTeardownScript = "teardown-test",
+    ///         });
+    ///         // Add a check to a group
+    ///         var test_check1 = new Checkly.Check("test-check1", new Checkly.CheckArgs
+    ///         {
+    ///             GroupId = test_group1CheckGroup.Id,
+    ///             GroupOrder = 1,
+    ///         });
+    ///         // Using with alert channels
+    ///         var emailAc1 = new Checkly.AlertChannel("emailAc1", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Email = new Checkly.Inputs.AlertChannelEmailArgs
+    ///             {
+    ///                 Address = "info@example.com",
+    ///             },
+    ///         });
+    ///         var emailAc2 = new Checkly.AlertChannel("emailAc2", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Email = new Checkly.Inputs.AlertChannelEmailArgs
+    ///             {
+    ///                 Address = "info2@example.com",
+    ///             },
+    ///         });
+    ///         // Connect the check group to the alert channels
+    ///         var test_group1Index_checkGroupCheckGroup = new Checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", new Checkly.CheckGroupArgs
+    ///         {
+    ///             AlertChannelSubscriptions = 
+    ///             {
+    ///                 new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
+    ///                 {
+    ///                     ChannelId = emailAc1.Id,
+    ///                     Activated = true,
+    ///                 },
+    ///                 new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
+    ///                 {
+    ///                     ChannelId = emailAc2.Id,
+    ///                     Activated = true,
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/checkGroup:CheckGroup")]
     public partial class CheckGroup : Pulumi.CustomResource
     {

@@ -4,6 +4,27 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@pulumi/checkly";
+ *
+ * const dashboard_1 = new checkly.Dashboard("dashboard-1", {
+ *     customDomain: "status.example.com",
+ *     customUrl: "checkly",
+ *     header: "Public dashboard",
+ *     hideTags: false,
+ *     logo: "https://www.checklyhq.com/logo.png",
+ *     paginate: false,
+ *     paginationRate: 30,
+ *     refreshRate: 60,
+ *     tags: ["production"],
+ *     width: "FULL",
+ * });
+ * ```
+ */
 export class Dashboard extends pulumi.CustomResource {
     /**
      * Get an existing Dashboard resource's state with the given name, ID, and optional extra
@@ -61,7 +82,7 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public readonly paginationRate!: pulumi.Output<number | undefined>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
      */
     public readonly refreshRate!: pulumi.Output<number | undefined>;
     /**
@@ -150,7 +171,7 @@ export interface DashboardState {
      */
     paginationRate?: pulumi.Input<number>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
      */
     refreshRate?: pulumi.Input<number>;
     /**
@@ -196,7 +217,7 @@ export interface DashboardArgs {
      */
     paginationRate?: pulumi.Input<number>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
      */
     refreshRate?: pulumi.Input<number>;
     /**

@@ -9,6 +9,29 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var test_trigger_group = new Checkly.TriggerCheckGroup("test-trigger-group", new Checkly.TriggerCheckGroupArgs
+    ///         {
+    ///             GroupId = 215,
+    ///         });
+    ///         this.Test_trigger_group_url = test_trigger_group.Url;
+    ///     }
+    /// 
+    ///     [Output("test-trigger-group-url")]
+    ///     public Output&lt;string&gt; Test_trigger_group_url { get; set; }
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/triggerCheckGroup:TriggerCheckGroup")]
     public partial class TriggerCheckGroup : Pulumi.CustomResource
     {

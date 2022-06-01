@@ -11,6 +11,39 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewDashboard(ctx, "dashboard-1", &checkly.DashboardArgs{
+// 			CustomDomain:   pulumi.String("status.example.com"),
+// 			CustomUrl:      pulumi.String("checkly"),
+// 			Header:         pulumi.String("Public dashboard"),
+// 			HideTags:       pulumi.Bool(false),
+// 			Logo:           pulumi.String("https://www.checklyhq.com/logo.png"),
+// 			Paginate:       pulumi.Bool(false),
+// 			PaginationRate: pulumi.Int(30),
+// 			RefreshRate:    pulumi.Int(60),
+// 			Tags: pulumi.StringArray{
+// 				pulumi.String("production"),
+// 			},
+// 			Width: pulumi.String("FULL"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
 type Dashboard struct {
 	pulumi.CustomResourceState
 
@@ -28,7 +61,7 @@ type Dashboard struct {
 	Paginate pulumi.BoolPtrOutput `pulumi:"paginate"`
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate pulumi.IntPtrOutput `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
 	RefreshRate pulumi.IntPtrOutput `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
@@ -83,7 +116,7 @@ type dashboardState struct {
 	Paginate *bool `pulumi:"paginate"`
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate *int `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
 	RefreshRate *int `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
@@ -106,7 +139,7 @@ type DashboardState struct {
 	Paginate pulumi.BoolPtrInput
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate pulumi.IntPtrInput
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
 	RefreshRate pulumi.IntPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput
@@ -133,7 +166,7 @@ type dashboardArgs struct {
 	Paginate *bool `pulumi:"paginate"`
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate *int `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
 	RefreshRate *int `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
@@ -157,7 +190,7 @@ type DashboardArgs struct {
 	Paginate pulumi.BoolPtrInput
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate pulumi.IntPtrInput
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
 	RefreshRate pulumi.IntPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput

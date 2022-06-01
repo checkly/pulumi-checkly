@@ -11,6 +11,35 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewMaintenanceWindow(ctx, "maintenance-1", &checkly.MaintenanceWindowArgs{
+// 			EndsAt:         pulumi.String("2014-08-25T00:00:00.000Z"),
+// 			RepeatEndsAt:   pulumi.String("2014-08-24T00:00:00.000Z"),
+// 			RepeatInterval: pulumi.Int(1),
+// 			RepeatUnit:     pulumi.String("MONTH"),
+// 			StartsAt:       pulumi.String("2014-08-24T00:00:00.000Z"),
+// 			Tags: pulumi.StringArray{
+// 				pulumi.String("production"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
 type MaintenanceWindow struct {
 	pulumi.CustomResourceState
 

@@ -5,6 +5,9 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+ */
 export class Check extends pulumi.CustomResource {
     /**
      * Get an existing Check resource's state with the given name, ID, and optional extra

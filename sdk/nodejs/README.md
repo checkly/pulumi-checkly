@@ -25,7 +25,7 @@ yarn add @checkly/pulumi
 Install the provider binary plugin. This is only needed due to an outstanding bug in with Pulumi registry
 
 ```bash
-pulumi plugin install resource checkly 5 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.5
+pulumi plugin install resource checkly v0.0.1-alpha.5 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.5
 ```
 
 ### Python, Go & .NET

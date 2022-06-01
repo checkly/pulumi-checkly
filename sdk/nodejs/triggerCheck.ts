@@ -4,6 +4,17 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pulumi from "@checkly/pulumi";
+ *
+ * const test_trigger_check = new checkly.TriggerCheck("test-trigger-check", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
+ * export const test_trigger_check_url = test_trigger_check.url;
+ * ```
+ */
 export class TriggerCheck extends pulumi.CustomResource {
     /**
      * Get an existing TriggerCheck resource's state with the given name, ID, and optional extra

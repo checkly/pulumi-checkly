@@ -9,6 +9,34 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         // Simple Enviroment Variable example
+    ///         var variable_1 = new Checkly.EnvironmentVariable("variable-1", new Checkly.EnvironmentVariableArgs
+    ///         {
+    ///             Key = "API_KEY",
+    ///             Locked = true,
+    ///             Value = "loZd9hOGHDUrGvmW",
+    ///         });
+    ///         var variable_2 = new Checkly.EnvironmentVariable("variable-2", new Checkly.EnvironmentVariableArgs
+    ///         {
+    ///             Key = "API_URL",
+    ///             Value = "http://localhost:3000",
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/environmentVariable:EnvironmentVariable")]
     public partial class EnvironmentVariable : Pulumi.CustomResource
     {

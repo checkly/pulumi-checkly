@@ -5,6 +5,94 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pulumi from "@checkly/pulumi";
+ *
+ * const test_group1CheckGroup = new checkly.CheckGroup("test-group1CheckGroup", {
+ *     activated: true,
+ *     muted: false,
+ *     tags: ["auto"],
+ *     locations: ["eu-west-1"],
+ *     concurrency: 3,
+ *     apiCheckDefaults: {
+ *         url: "http://example.com/",
+ *         headers: {
+ *             "X-Test": "foo",
+ *         },
+ *         queryParameters: {
+ *             query: "foo",
+ *         },
+ *         assertions: [
+ *             {
+ *                 source: "STATUS_CODE",
+ *                 property: "",
+ *                 comparison: "EQUALS",
+ *                 target: "200",
+ *             },
+ *             {
+ *                 source: "TEXT_BODY",
+ *                 property: "",
+ *                 comparison: "CONTAINS",
+ *                 target: "welcome",
+ *             },
+ *         ],
+ *         basicAuth: {
+ *             username: "user",
+ *             password: "pass",
+ *         },
+ *     },
+ *     environmentVariables: {
+ *         ENVTEST: "Hello world",
+ *     },
+ *     doubleCheck: true,
+ *     useGlobalAlertSettings: false,
+ *     alertSettings: {
+ *         escalationType: "RUN_BASED",
+ *         runBasedEscalations: [{
+ *             failedRunThreshold: 1,
+ *         }],
+ *         timeBasedEscalations: [{
+ *             minutesFailingThreshold: 5,
+ *         }],
+ *         reminders: [{
+ *             amount: 2,
+ *             interval: 5,
+ *         }],
+ *     },
+ *     localSetupScript: "setup-test",
+ *     localTeardownScript: "teardown-test",
+ * });
+ * // Add a check to a group
+ * const test_check1 = new checkly.Check("test-check1", {
+ *     groupId: test_group1CheckGroup.id,
+ *     groupOrder: 1,
+ * });
+ * // Using with alert channels
+ * const emailAc1 = new checkly.AlertChannel("emailAc1", {email: {
+ *     address: "info@example.com",
+ * }});
+ * const emailAc2 = new checkly.AlertChannel("emailAc2", {email: {
+ *     address: "info2@example.com",
+ * }});
+ * // Connect the check group to the alert channels
+ * const test_group1Index_checkGroupCheckGroup = new checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", {alertChannelSubscriptions: [
+ *     {
+ *         channelId: emailAc1.id,
+ *         activated: true,
+ *     },
+ *     {
+ *         channelId: emailAc2.id,
+ *         activated: true,
+ *     },
+ * ]});
+ * ```
+ */
 export class CheckGroup extends pulumi.CustomResource {
     /**
      * Get an existing CheckGroup resource's state with the given name, ID, and optional extra

@@ -350,7 +350,71 @@ class AlertChannel(pulumi.CustomResource):
                  webhook: Optional[pulumi.Input[pulumi.InputType['AlertChannelWebhookArgs']]] = None,
                  __props__=None):
         """
-        Create a AlertChannel resource with the given unique name, props, and options.
+        Allows you to define alerting channels for the checks and groups in your account
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        # An Email alert channel
+        email_ac = checkly.AlertChannel("emailAc",
+            email=checkly.AlertChannelEmailArgs(
+                address="john@example.com",
+            ),
+            send_recovery=True,
+            send_failure=False,
+            send_degraded=True,
+            ssl_expiry=True,
+            ssl_expiry_threshold=22)
+        # A SMS alert channel
+        sms_ac = checkly.AlertChannel("smsAc",
+            sms=checkly.AlertChannelSmsArgs(
+                name="john",
+                number="+5491100001111",
+            ),
+            send_recovery=True,
+            send_failure=True)
+        # A Slack alert channel
+        slack_ac = checkly.AlertChannel("slackAc", slack=checkly.AlertChannelSlackArgs(
+            channel="#checkly-notifications",
+            url="https://slack.com/webhook",
+        ))
+        # An Opsgenie alert channel
+        opsgenie_ac = checkly.AlertChannel("opsgenieAc", opsgenie=checkly.AlertChannelOpsgenieArgs(
+            name="opsalerts",
+            api_key="fookey",
+            region="fooregion",
+            priority="foopriority",
+        ))
+        # An Pagerduty alert channel
+        pagerduty_ac = checkly.AlertChannel("pagerdutyAc", pagerduty=checkly.AlertChannelPagerdutyArgs(
+            account="checkly",
+            service_key="key1",
+            service_name="pdalert",
+        ))
+        # An Webhook alert channel
+        webhook_ac = checkly.AlertChannel("webhookAc", webhook=checkly.AlertChannelWebhookArgs(
+            name="foo",
+            method="get",
+            template="footemplate",
+            url="https://example.com/foo",
+            webhook_secret="foosecret",
+        ))
+        # Connecting the alert channel to a check
+        example_check = checkly.Check("example-check", alert_channel_subscriptions=[
+            checkly.CheckAlertChannelSubscriptionArgs(
+                channel_id=email_ac.id,
+                activated=True,
+            ),
+            checkly.CheckAlertChannelSubscriptionArgs(
+                channel_id=sms_ac.id,
+                activated=True,
+            ),
+        ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] send_degraded: (Default `false`)
@@ -366,7 +430,71 @@ class AlertChannel(pulumi.CustomResource):
                  args: Optional[AlertChannelArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a AlertChannel resource with the given unique name, props, and options.
+        Allows you to define alerting channels for the checks and groups in your account
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        # An Email alert channel
+        email_ac = checkly.AlertChannel("emailAc",
+            email=checkly.AlertChannelEmailArgs(
+                address="john@example.com",
+            ),
+            send_recovery=True,
+            send_failure=False,
+            send_degraded=True,
+            ssl_expiry=True,
+            ssl_expiry_threshold=22)
+        # A SMS alert channel
+        sms_ac = checkly.AlertChannel("smsAc",
+            sms=checkly.AlertChannelSmsArgs(
+                name="john",
+                number="+5491100001111",
+            ),
+            send_recovery=True,
+            send_failure=True)
+        # A Slack alert channel
+        slack_ac = checkly.AlertChannel("slackAc", slack=checkly.AlertChannelSlackArgs(
+            channel="#checkly-notifications",
+            url="https://slack.com/webhook",
+        ))
+        # An Opsgenie alert channel
+        opsgenie_ac = checkly.AlertChannel("opsgenieAc", opsgenie=checkly.AlertChannelOpsgenieArgs(
+            name="opsalerts",
+            api_key="fookey",
+            region="fooregion",
+            priority="foopriority",
+        ))
+        # An Pagerduty alert channel
+        pagerduty_ac = checkly.AlertChannel("pagerdutyAc", pagerduty=checkly.AlertChannelPagerdutyArgs(
+            account="checkly",
+            service_key="key1",
+            service_name="pdalert",
+        ))
+        # An Webhook alert channel
+        webhook_ac = checkly.AlertChannel("webhookAc", webhook=checkly.AlertChannelWebhookArgs(
+            name="foo",
+            method="get",
+            template="footemplate",
+            url="https://example.com/foo",
+            webhook_secret="foosecret",
+        ))
+        # Connecting the alert channel to a check
+        example_check = checkly.Check("example-check", alert_channel_subscriptions=[
+            checkly.CheckAlertChannelSubscriptionArgs(
+                channel_id=email_ac.id,
+                activated=True,
+            ),
+            checkly.CheckAlertChannelSubscriptionArgs(
+                channel_id=sms_ac.id,
+                activated=True,
+            ),
+        ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param AlertChannelArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

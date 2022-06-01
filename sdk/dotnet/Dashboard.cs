@@ -9,6 +9,38 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var dashboard_1 = new Checkly.Dashboard("dashboard-1", new Checkly.DashboardArgs
+    ///         {
+    ///             CustomDomain = "status.example.com",
+    ///             CustomUrl = "checkly",
+    ///             Header = "Public dashboard",
+    ///             HideTags = false,
+    ///             Logo = "https://www.checklyhq.com/logo.png",
+    ///             Paginate = false,
+    ///             PaginationRate = 30,
+    ///             RefreshRate = 60,
+    ///             Tags = 
+    ///             {
+    ///                 "production",
+    ///             },
+    ///             Width = "FULL",
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/dashboard:Dashboard")]
     public partial class Dashboard : Pulumi.CustomResource
     {
@@ -55,7 +87,7 @@ namespace Pulumi.Checkly
         public Output<int?> PaginationRate { get; private set; } = null!;
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        /// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         /// </summary>
         [Output("refreshRate")]
         public Output<int?> RefreshRate { get; private set; } = null!;
@@ -162,7 +194,7 @@ namespace Pulumi.Checkly
         public Input<int>? PaginationRate { get; set; }
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        /// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         /// </summary>
         [Input("refreshRate")]
         public Input<int>? RefreshRate { get; set; }
@@ -235,7 +267,7 @@ namespace Pulumi.Checkly
         public Input<int>? PaginationRate { get; set; }
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        /// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         /// </summary>
         [Input("refreshRate")]
         public Input<int>? RefreshRate { get; set; }

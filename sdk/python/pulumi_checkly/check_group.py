@@ -577,7 +577,91 @@ class CheckGroup(pulumi.CustomResource):
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        Create a CheckGroup resource with the given unique name, props, and options.
+        Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_group1_check_group = checkly.CheckGroup("test-group1CheckGroup",
+            activated=True,
+            muted=False,
+            tags=["auto"],
+            locations=["eu-west-1"],
+            concurrency=3,
+            api_check_defaults=checkly.CheckGroupApiCheckDefaultsArgs(
+                url="http://example.com/",
+                headers={
+                    "X-Test": "foo",
+                },
+                query_parameters={
+                    "query": "foo",
+                },
+                assertions=[
+                    checkly.CheckGroupApiCheckDefaultsAssertionArgs(
+                        source="STATUS_CODE",
+                        property="",
+                        comparison="EQUALS",
+                        target="200",
+                    ),
+                    checkly.CheckGroupApiCheckDefaultsAssertionArgs(
+                        source="TEXT_BODY",
+                        property="",
+                        comparison="CONTAINS",
+                        target="welcome",
+                    ),
+                ],
+                basic_auth=checkly.CheckGroupApiCheckDefaultsBasicAuthArgs(
+                    username="user",
+                    password="pass",
+                ),
+            ),
+            environment_variables={
+                "ENVTEST": "Hello world",
+            },
+            double_check=True,
+            use_global_alert_settings=False,
+            alert_settings=checkly.CheckGroupAlertSettingsArgs(
+                escalation_type="RUN_BASED",
+                run_based_escalations=[checkly.CheckGroupAlertSettingsRunBasedEscalationArgs(
+                    failed_run_threshold=1,
+                )],
+                time_based_escalations=[checkly.CheckGroupAlertSettingsTimeBasedEscalationArgs(
+                    minutes_failing_threshold=5,
+                )],
+                reminders=[checkly.CheckGroupAlertSettingsReminderArgs(
+                    amount=2,
+                    interval=5,
+                )],
+            ),
+            local_setup_script="setup-test",
+            local_teardown_script="teardown-test")
+        # Add a check to a group
+        test_check1 = checkly.Check("test-check1",
+            group_id=test_group1_check_group.id,
+            group_order=1)
+        # Using with alert channels
+        email_ac1 = checkly.AlertChannel("emailAc1", email=checkly.AlertChannelEmailArgs(
+            address="info@example.com",
+        ))
+        email_ac2 = checkly.AlertChannel("emailAc2", email=checkly.AlertChannelEmailArgs(
+            address="info2@example.com",
+        ))
+        # Connect the check group to the alert channels
+        test_group1_index_check_group_check_group = checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", alert_channel_subscriptions=[
+            checkly.CheckGroupAlertChannelSubscriptionArgs(
+                channel_id=email_ac1.id,
+                activated=True,
+            ),
+            checkly.CheckGroupAlertChannelSubscriptionArgs(
+                channel_id=email_ac2.id,
+                activated=True,
+            ),
+        ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] activated: Determines if the checks in the group are running or not.
@@ -604,7 +688,91 @@ class CheckGroup(pulumi.CustomResource):
                  args: CheckGroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a CheckGroup resource with the given unique name, props, and options.
+        Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_group1_check_group = checkly.CheckGroup("test-group1CheckGroup",
+            activated=True,
+            muted=False,
+            tags=["auto"],
+            locations=["eu-west-1"],
+            concurrency=3,
+            api_check_defaults=checkly.CheckGroupApiCheckDefaultsArgs(
+                url="http://example.com/",
+                headers={
+                    "X-Test": "foo",
+                },
+                query_parameters={
+                    "query": "foo",
+                },
+                assertions=[
+                    checkly.CheckGroupApiCheckDefaultsAssertionArgs(
+                        source="STATUS_CODE",
+                        property="",
+                        comparison="EQUALS",
+                        target="200",
+                    ),
+                    checkly.CheckGroupApiCheckDefaultsAssertionArgs(
+                        source="TEXT_BODY",
+                        property="",
+                        comparison="CONTAINS",
+                        target="welcome",
+                    ),
+                ],
+                basic_auth=checkly.CheckGroupApiCheckDefaultsBasicAuthArgs(
+                    username="user",
+                    password="pass",
+                ),
+            ),
+            environment_variables={
+                "ENVTEST": "Hello world",
+            },
+            double_check=True,
+            use_global_alert_settings=False,
+            alert_settings=checkly.CheckGroupAlertSettingsArgs(
+                escalation_type="RUN_BASED",
+                run_based_escalations=[checkly.CheckGroupAlertSettingsRunBasedEscalationArgs(
+                    failed_run_threshold=1,
+                )],
+                time_based_escalations=[checkly.CheckGroupAlertSettingsTimeBasedEscalationArgs(
+                    minutes_failing_threshold=5,
+                )],
+                reminders=[checkly.CheckGroupAlertSettingsReminderArgs(
+                    amount=2,
+                    interval=5,
+                )],
+            ),
+            local_setup_script="setup-test",
+            local_teardown_script="teardown-test")
+        # Add a check to a group
+        test_check1 = checkly.Check("test-check1",
+            group_id=test_group1_check_group.id,
+            group_order=1)
+        # Using with alert channels
+        email_ac1 = checkly.AlertChannel("emailAc1", email=checkly.AlertChannelEmailArgs(
+            address="info@example.com",
+        ))
+        email_ac2 = checkly.AlertChannel("emailAc2", email=checkly.AlertChannelEmailArgs(
+            address="info2@example.com",
+        ))
+        # Connect the check group to the alert channels
+        test_group1_index_check_group_check_group = checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", alert_channel_subscriptions=[
+            checkly.CheckGroupAlertChannelSubscriptionArgs(
+                channel_id=email_ac1.id,
+                activated=True,
+            ),
+            checkly.CheckGroupAlertChannelSubscriptionArgs(
+                channel_id=email_ac2.id,
+                activated=True,
+            ),
+        ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param CheckGroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

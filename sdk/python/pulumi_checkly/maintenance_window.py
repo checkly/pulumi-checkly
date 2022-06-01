@@ -262,7 +262,21 @@ class MaintenanceWindow(pulumi.CustomResource):
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
-        Create a MaintenanceWindow resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
+            ends_at="2014-08-25T00:00:00.000Z",
+            repeat_ends_at="2014-08-24T00:00:00.000Z",
+            repeat_interval=1,
+            repeat_unit="MONTH",
+            starts_at="2014-08-24T00:00:00.000Z",
+            tags=["production"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] ends_at: The end date of the maintenance window.
@@ -280,7 +294,21 @@ class MaintenanceWindow(pulumi.CustomResource):
                  args: MaintenanceWindowArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a MaintenanceWindow resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
+            ends_at="2014-08-25T00:00:00.000Z",
+            repeat_ends_at="2014-08-24T00:00:00.000Z",
+            repeat_interval=1,
+            repeat_unit="MONTH",
+            starts_at="2014-08-24T00:00:00.000Z",
+            tags=["production"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param MaintenanceWindowArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

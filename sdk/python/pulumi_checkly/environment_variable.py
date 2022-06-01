@@ -106,7 +106,22 @@ class EnvironmentVariable(pulumi.CustomResource):
                  value: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a EnvironmentVariable resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        # Simple Enviroment Variable example
+        variable_1 = checkly.EnvironmentVariable("variable-1",
+            key="API_KEY",
+            locked=True,
+            value="loZd9hOGHDUrGvmW")
+        variable_2 = checkly.EnvironmentVariable("variable-2",
+            key="API_URL",
+            value="http://localhost:3000")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
@@ -117,7 +132,22 @@ class EnvironmentVariable(pulumi.CustomResource):
                  args: EnvironmentVariableArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a EnvironmentVariable resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        # Simple Enviroment Variable example
+        variable_1 = checkly.EnvironmentVariable("variable-1",
+            key="API_KEY",
+            locked=True,
+            value="loZd9hOGHDUrGvmW")
+        variable_2 = checkly.EnvironmentVariable("variable-2",
+            key="API_URL",
+            value="http://localhost:3000")
+        ```
+
         :param str resource_name: The name of the resource.
         :param EnvironmentVariableArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

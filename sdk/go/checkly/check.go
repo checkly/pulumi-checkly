@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
 type Check struct {
 	pulumi.CustomResourceState
 

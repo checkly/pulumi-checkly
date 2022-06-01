@@ -32,7 +32,7 @@ class DashboardArgs:
         :param pulumi.Input[str] logo: A URL pointing to an image file.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
-        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
@@ -144,7 +144,7 @@ class DashboardArgs:
     @pulumi.getter(name="refreshRate")
     def refresh_rate(self) -> Optional[pulumi.Input[int]]:
         """
-        How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         """
         return pulumi.get(self, "refresh_rate")
 
@@ -199,7 +199,7 @@ class _DashboardState:
         :param pulumi.Input[str] logo: A URL pointing to an image file.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
-        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
@@ -312,7 +312,7 @@ class _DashboardState:
     @pulumi.getter(name="refreshRate")
     def refresh_rate(self) -> Optional[pulumi.Input[int]]:
         """
-        How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         """
         return pulumi.get(self, "refresh_rate")
 
@@ -362,7 +362,25 @@ class Dashboard(pulumi.CustomResource):
                  width: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Dashboard resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        dashboard_1 = checkly.Dashboard("dashboard-1",
+            custom_domain="status.example.com",
+            custom_url="checkly",
+            header="Public dashboard",
+            hide_tags=False,
+            logo="https://www.checklyhq.com/logo.png",
+            paginate=False,
+            pagination_rate=30,
+            refresh_rate=60,
+            tags=["production"],
+            width="FULL")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
@@ -372,7 +390,7 @@ class Dashboard(pulumi.CustomResource):
         :param pulumi.Input[str] logo: A URL pointing to an image file.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
-        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
@@ -383,7 +401,25 @@ class Dashboard(pulumi.CustomResource):
                  args: DashboardArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Dashboard resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        dashboard_1 = checkly.Dashboard("dashboard-1",
+            custom_domain="status.example.com",
+            custom_url="checkly",
+            header="Public dashboard",
+            hide_tags=False,
+            logo="https://www.checklyhq.com/logo.png",
+            paginate=False,
+            pagination_rate=30,
+            refresh_rate=60,
+            tags=["production"],
+            width="FULL")
+        ```
+
         :param str resource_name: The name of the resource.
         :param DashboardArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -469,7 +505,7 @@ class Dashboard(pulumi.CustomResource):
         :param pulumi.Input[str] logo: A URL pointing to an image file.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
-        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
@@ -549,7 +585,7 @@ class Dashboard(pulumi.CustomResource):
     @pulumi.getter(name="refreshRate")
     def refresh_rate(self) -> pulumi.Output[Optional[int]]:
         """
-        How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+        How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
         """
         return pulumi.get(self, "refresh_rate")
 

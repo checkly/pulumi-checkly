@@ -11,6 +11,29 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := checkly.NewTriggerCheckGroup(ctx, "test-trigger-group", &checkly.TriggerCheckGroupArgs{
+// 			GroupId: pulumi.Int(215),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		ctx.Export("test-trigger-group-url", test_trigger_group.Url)
+// 		return nil
+// 	})
+// }
+// ```
 type TriggerCheckGroup struct {
 	pulumi.CustomResourceState
 

@@ -9,6 +9,9 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+    /// </summary>
     [ChecklyResourceType("checkly:index/check:Check")]
     public partial class Check : Pulumi.CustomResource
     {

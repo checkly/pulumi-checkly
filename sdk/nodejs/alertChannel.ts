@@ -5,6 +5,74 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
+/**
+ * Allows you to define alerting channels for the checks and groups in your account
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as pulumi from "@checkly/pulumi";
+ *
+ * // An Email alert channel
+ * const emailAc = new checkly.AlertChannel("emailAc", {
+ *     email: {
+ *         address: "john@example.com",
+ *     },
+ *     sendRecovery: true,
+ *     sendFailure: false,
+ *     sendDegraded: true,
+ *     sslExpiry: true,
+ *     sslExpiryThreshold: 22,
+ * });
+ * // A SMS alert channel
+ * const smsAc = new checkly.AlertChannel("smsAc", {
+ *     sms: {
+ *         name: "john",
+ *         number: "+5491100001111",
+ *     },
+ *     sendRecovery: true,
+ *     sendFailure: true,
+ * });
+ * // A Slack alert channel
+ * const slackAc = new checkly.AlertChannel("slackAc", {slack: {
+ *     channel: "#checkly-notifications",
+ *     url: "https://slack.com/webhook",
+ * }});
+ * // An Opsgenie alert channel
+ * const opsgenieAc = new checkly.AlertChannel("opsgenieAc", {opsgenie: {
+ *     name: "opsalerts",
+ *     apiKey: "fookey",
+ *     region: "fooregion",
+ *     priority: "foopriority",
+ * }});
+ * // An Pagerduty alert channel
+ * const pagerdutyAc = new checkly.AlertChannel("pagerdutyAc", {pagerduty: {
+ *     account: "checkly",
+ *     serviceKey: "key1",
+ *     serviceName: "pdalert",
+ * }});
+ * // An Webhook alert channel
+ * const webhookAc = new checkly.AlertChannel("webhookAc", {webhook: {
+ *     name: "foo",
+ *     method: "get",
+ *     template: "footemplate",
+ *     url: "https://example.com/foo",
+ *     webhookSecret: "foosecret",
+ * }});
+ * // Connecting the alert channel to a check
+ * const example_check = new checkly.Check("example-check", {alertChannelSubscriptions: [
+ *     {
+ *         channelId: emailAc.id,
+ *         activated: true,
+ *     },
+ *     {
+ *         channelId: smsAc.id,
+ *         activated: true,
+ *     },
+ * ]});
+ * ```
+ */
 export class AlertChannel extends pulumi.CustomResource {
     /**
      * Get an existing AlertChannel resource's state with the given name, ID, and optional extra

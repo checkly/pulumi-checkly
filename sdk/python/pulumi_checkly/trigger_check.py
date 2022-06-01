@@ -131,7 +131,16 @@ class TriggerCheck(pulumi.CustomResource):
                  url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a TriggerCheck resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
+        pulumi.export("test-trigger-check-url", test_trigger_check.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] check_id: The id of the check that you want to attach the trigger to.
@@ -145,7 +154,16 @@ class TriggerCheck(pulumi.CustomResource):
                  args: TriggerCheckArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a TriggerCheck resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
+        pulumi.export("test-trigger-check-url", test_trigger_check.url)
+        ```
+
         :param str resource_name: The name of the resource.
         :param TriggerCheckArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

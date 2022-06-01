@@ -9,6 +9,107 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// Allows you to define alerting channels for the checks and groups in your account
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         // An Email alert channel
+    ///         var emailAc = new Checkly.AlertChannel("emailAc", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Email = new Checkly.Inputs.AlertChannelEmailArgs
+    ///             {
+    ///                 Address = "john@example.com",
+    ///             },
+    ///             SendRecovery = true,
+    ///             SendFailure = false,
+    ///             SendDegraded = true,
+    ///             SslExpiry = true,
+    ///             SslExpiryThreshold = 22,
+    ///         });
+    ///         // A SMS alert channel
+    ///         var smsAc = new Checkly.AlertChannel("smsAc", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Sms = new Checkly.Inputs.AlertChannelSmsArgs
+    ///             {
+    ///                 Name = "john",
+    ///                 Number = "+5491100001111",
+    ///             },
+    ///             SendRecovery = true,
+    ///             SendFailure = true,
+    ///         });
+    ///         // A Slack alert channel
+    ///         var slackAc = new Checkly.AlertChannel("slackAc", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Slack = new Checkly.Inputs.AlertChannelSlackArgs
+    ///             {
+    ///                 Channel = "#checkly-notifications",
+    ///                 Url = "https://slack.com/webhook",
+    ///             },
+    ///         });
+    ///         // An Opsgenie alert channel
+    ///         var opsgenieAc = new Checkly.AlertChannel("opsgenieAc", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Opsgenie = new Checkly.Inputs.AlertChannelOpsgenieArgs
+    ///             {
+    ///                 Name = "opsalerts",
+    ///                 ApiKey = "fookey",
+    ///                 Region = "fooregion",
+    ///                 Priority = "foopriority",
+    ///             },
+    ///         });
+    ///         // An Pagerduty alert channel
+    ///         var pagerdutyAc = new Checkly.AlertChannel("pagerdutyAc", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Pagerduty = new Checkly.Inputs.AlertChannelPagerdutyArgs
+    ///             {
+    ///                 Account = "checkly",
+    ///                 ServiceKey = "key1",
+    ///                 ServiceName = "pdalert",
+    ///             },
+    ///         });
+    ///         // An Webhook alert channel
+    ///         var webhookAc = new Checkly.AlertChannel("webhookAc", new Checkly.AlertChannelArgs
+    ///         {
+    ///             Webhook = new Checkly.Inputs.AlertChannelWebhookArgs
+    ///             {
+    ///                 Name = "foo",
+    ///                 Method = "get",
+    ///                 Template = "footemplate",
+    ///                 Url = "https://example.com/foo",
+    ///                 WebhookSecret = "foosecret",
+    ///             },
+    ///         });
+    ///         // Connecting the alert channel to a check
+    ///         var example_check = new Checkly.Check("example-check", new Checkly.CheckArgs
+    ///         {
+    ///             AlertChannelSubscriptions = 
+    ///             {
+    ///                 new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
+    ///                 {
+    ///                     ChannelId = emailAc.Id,
+    ///                     Activated = true,
+    ///                 },
+    ///                 new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
+    ///                 {
+    ///                     ChannelId = smsAc.Id,
+    ///                     Activated = true,
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/alertChannel:AlertChannel")]
     public partial class AlertChannel : Pulumi.CustomResource
     {

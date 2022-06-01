@@ -9,6 +9,34 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var maintenance_1 = new Checkly.MaintenanceWindow("maintenance-1", new Checkly.MaintenanceWindowArgs
+    ///         {
+    ///             EndsAt = "2014-08-25T00:00:00.000Z",
+    ///             RepeatEndsAt = "2014-08-24T00:00:00.000Z",
+    ///             RepeatInterval = 1,
+    ///             RepeatUnit = "MONTH",
+    ///             StartsAt = "2014-08-24T00:00:00.000Z",
+    ///             Tags = 
+    ///             {
+    ///                 "production",
+    ///             },
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/maintenanceWindow:MaintenanceWindow")]
     public partial class MaintenanceWindow : Pulumi.CustomResource
     {

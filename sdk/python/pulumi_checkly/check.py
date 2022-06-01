@@ -908,7 +908,8 @@ class Check(pulumi.CustomResource):
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        Create a Check resource with the given unique name, props, and options.
+        Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
@@ -950,7 +951,8 @@ class Check(pulumi.CustomResource):
                  args: CheckArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Check resource with the given unique name, props, and options.
+        Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+
         :param str resource_name: The name of the resource.
         :param CheckArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
