@@ -59,7 +59,7 @@ func Provider() tfbridge.ProviderInfo {
 		PluginDownloadURL:    "https://github.com/checkly/pulumi-checkly/releases/download/${VERSION}",
 		Keywords:             []string{"pulumi", "checkly", "category/monitoring"},
 		License:              "MIT",
-		Homepage:             "https://www.pulumi.com",
+		Homepage:             "https://www.pulumi.com/registry/packages/checkly",
 		Repository:           "https://github.com/checkly/pulumi-checkly",
 		GitHubOrg:            "checkly",
 		PreConfigureCallback: preConfigureCallback,
