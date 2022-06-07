@@ -25,7 +25,7 @@ yarn add @checkly/pulumi
 Install the provider binary plugin. This is only needed due to an outstanding bug in with Pulumi registry
 
 ```bash
-pulumi plugin install resource checkly v0.0.1-alpha.5 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.5
+pulumi plugin install resource checkly v0.0.1-alpha.9 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.9
 ```
 
 ### Python, Go & .NET
@@ -102,7 +102,7 @@ async function run () {
   const response = await page.goto('https://google.com')
 
   if (response.status() > 399) {
-    throw new Error('Failed with response code ${response.status()}')
+    throw new Error('Failed with response code \${response.status()}')
   }
 
   await page.screenshot({ path: 'screenshot.jpg' })
