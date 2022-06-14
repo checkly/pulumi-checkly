@@ -55,7 +55,7 @@ provider:: tfgen install_plugins # build the provider binary
 
 build_sdks:: install_plugins provider build_nodejs_sdk build_python build_go build_dotnet # build all the sdks
 
-build_nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript --omit-commit-hash)
+build_nodejs_sdk:: VERSION := $(shell pulumictl get version --omit-commit-hash)
 build_nodejs_sdk:: install_plugins tfgen # build the node sdk
 	$(WORKING_DIR)/bin/$(TFGEN) nodejs --overlays provider/overlays/nodejs --out sdk/nodejs/
 	cd sdk/nodejs/ && \
@@ -63,9 +63,7 @@ build_nodejs_sdk:: install_plugins tfgen # build the node sdk
 	yarn run tsc && \
 	cp -R scripts/ bin && \
 	cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
-	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
-	jq '.main = "./bin/index.js"' ./bin/package.json > tmp.$$.json && mv tmp.$$.json ./bin/package.json && \
-	jq '.types = "./bin/index.d.ts"' ./bin/package.json > tmp.$$.json && mv tmp.$$.json ./bin/package.json
+	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json
 
 build_python:: PYPI_VERSION := $(shell pulumictl get version --language python --omit-commit-hash)
 build_python:: install_plugins tfgen # build the python sdk
