@@ -26,7 +26,7 @@ jobs:
           dotnet-version: '3.1.x'
 
       - name: Set up NodeJS
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           registry-url: 'https://registry.npmjs.org'
           always-auth: true
