@@ -4,6 +4,7 @@
 </p>
 
 ![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/checkly/pulumi-checkly?label=Version)
 
 The Checkly Pulumi provider enables you to create and configure Checkly resources using your favourite programming language.
 Note that this project is in its early stages and breaking changes could happen.
@@ -15,22 +16,11 @@ Note that this project is in its early stages and breaking changes could happen.
 
 ### Node.js (JavaScript/TypeScript)
 
-To use from JavaScript or TypeScript in Node.js, install using either `npm`:
+To use from JavaScript or TypeScript in Node.js, install using either `npm` or `yarn`:
 
 ```bash
-npm install @checkly/pulumi
-```
-
-or `yarn`:
-
-```bash
-yarn add @checkly/pulumi
-```
-
-Install the provider binary plugin. This is only needed due to an outstanding bug in with Pulumi registry
-
-```bash
-pulumi plugin install resource checkly v0.0.1-alpha.9 --server https://github.com/checkly/pulumi-checkly/releases/download/v0.0.1-alpha.9
+$ npm install @checkly/pulumi
+$ yarn add @checkly/pulumi
 ```
 
 ### Python, Go & .NET
@@ -59,94 +49,98 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
 
 > Remember to pass `--secret` when setting `checkly:apiKey` so it is properly encrypted.
 
-## Creating Resources
+## Getting Started
 
-The example below shows a basic API check and Browser check.
+1. Open your terminal and run `$ pulumi new` to create a new Pulumi project, chose the `javascript` template and the target stack.
+1. Install the Checkly Pulumi provider using npm: `$ npm i @checkly/pulumi`.
+1. Create an `index.js` file in the root of your project and paste the following code:
 
-```javascript
-// index.js
-const checkly = require("@checkly/pulumi")
+    ```javascript
+    const checkly = require("@checkly/pulumi")
 
-new checkly.Check("api-check", {
-  type: "API",
-  name: "Public SpaceX API",
-  activated: true,
-  frequency: 10,
-  locations: ["us-east-1"],
-  request: {
-    method: "GET",
-    url: "https://api.spacexdata.com/v3",
-    assertions: [
-      {
-        source: 'STATUS_CODE',
-        comparison: 'EQUALS',
-        target: 200
-      },
-      {
-        source: 'JSON_BODY',
-        property: '$.project_name',
-        comparison: 'EQUALS',
-        target: 'SpaceX-API'
+    new checkly.Check("api-check", {
+      type: "API",
+      name: "Public SpaceX API",
+      activated: true,
+      frequency: 10,
+      locations: ["us-east-1"],
+      request: {
+        method: "GET",
+        url: "https://api.spacexdata.com/v3",
+        assertions: [
+          {
+            source: 'STATUS_CODE',
+            comparison: 'EQUALS',
+            target: 200
+          },
+          {
+            source: 'JSON_BODY',
+            property: '$.project_name',
+            comparison: 'EQUALS',
+            target: 'SpaceX-API'
+          }
+        ]
       }
-    ]
-  }
-})
+    })
 
-new checkly.Check("browser-check", {
-  type: "BROWSER",
-  name: "Google.com Playwright check",
-  activated: true,
-  frequency: 10,
-  locations: ["us-east-1"],
-  script: `const { chromium } = require('playwright')
+    new checkly.Check("browser-check", {
+      type: "BROWSER",
+      name: "Google.com Playwright check",
+      activated: true,
+      frequency: 10,
+      locations: ["us-east-1"],
+      script: `const { chromium } = require('playwright')
 
-async function run () {
-  const browser = await chromium.launch()
-  const page = await browser.newPage()
+    async function run () {
+      const browser = await chromium.launch()
+      const page = await browser.newPage()
 
-  const response = await page.goto('https://google.com')
+      const response = await page.goto('https://google.com')
 
-  if (response.status() > 399) {
-    throw new Error('Failed with response code \${response.status()}')
-  }
+      if (response.status() > 399) {
+        throw new Error('Failed with response code \${response.status()}')
+      }
 
-  await page.screenshot({ path: 'screenshot.jpg' })
+      await page.screenshot({ path: 'screenshot.jpg' })
 
-  await page.close()
-  await browser.close()
-}
+      await page.close()
+      await browser.close()
+    }
 
-run()`
-})
-```
+    run()`
+    })
+    ```
+1. Setup you Checkly API Key and Account id:
+    ```bash
+    $ pulumi config set checkly:apiKey cu_xxx --secret
+    $ pulumi config set checkly:accountId xxx
+    ```
+1. You are ready to go, run `$ pulumi up` to deploy your stack 🚀
 
 > Check the [examples directory](https://github.com/checkly/pulumi-checkly/tree/main/examples) for more detailed code samples.
 
-## Syncing resources
+## Learn More
+For documentation and example usage see:
+1. [Checkly's documentation](https://www.checklyhq.com/docs/integrations/pulumi/).
+2. [The official provider documentation](https://www.pulumi.com/registry/packages/checkly/api-docs/)
+3. [Working Examples](https://github.com/checkly/pulumi-checkly/examples).
 
-Just run the regular `pulumi up` command
+## Questions
+For questions and support please open a new  [discussion](https://github.com/checkly/pulumi-checkly/discussions). The issue list of this repo is exclusively for bug reports and feature/docs requests.
 
+## Issues
+Please make sure to respect issue requirements and choose the proper [issue template](https://github.com/checkly/pulumi-checkly/issues/new/choose) when opening an issue. Issues not conforming to the guidelines may be closed.
 
-## Configuration
-
-The following configuration points are available for the `foo` provider:
-
-- `checkly:apiKey` (environment: `CHECKLY_API_KEY`) - the Checkly API Key.
-- `checkly:accountId` (environment: `CHECKLY_ACCOUNT_ID`) - the Checkly account ID.
-
-## Reference
-
-For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/checkly/api-docs/).
+## Contribution
+Please make sure to read the [Contributing Guide](https://github.com/checkly/pulumi-checkly/blob/main/CONTRIBUTING.md) before making a pull request.
 
 ## License
 
 [MIT](https://github.com/checkly/pulumi-checkly/blob/main/LICENSE)
 
 <br>
-
-
 <p align="center">
-  <a href="https://checklyhq.com?utm_source=github&utm_medium=sponsor-logo-github&utm_campaign=pulumi-checkly" target="_blank">
+  <a href="https://checklyhq.com?utm_source=github&utm_medium=sponsor-logo-github&utm_campaign=headless-recorder" target="_blank">
   <img width="100px" src="https://www.checklyhq.com/images/text_racoon_logo.svg" alt="Checkly" />
   </a>
   <br />
