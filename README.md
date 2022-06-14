@@ -1,4 +1,9 @@
-# Checkly Pulumi Provider
+<p>
+  <img height="128" src="https://www.checklyhq.com/images/footer-logo.svg" align="right" />
+  <h1>Checkly Pulumi Provider</h1>
+</p>
+
+![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)
 
 The Checkly Pulumi provider enables you to create and configure Checkly resources using your favourite programming language.
 Note that this project is in its early stages and breaking changes could happen.
