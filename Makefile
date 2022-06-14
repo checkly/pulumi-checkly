@@ -37,7 +37,7 @@ prepare::
 		find ./ ! -path './.git/*' -type f -exec sed -i '' 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
 	fi
 
-.PHONY: development provider build_sdks build_nodejs build_dotnet build_go build_python cleanup
+.PHONY: development provider build_sdks build_nodejs_sdk build_dotnet build_go build_python cleanup
 
 development:: install_plugins provider lint_provider build_sdks install_sdks cleanup # Build the provider & SDKs for a development environment
 
@@ -53,20 +53,19 @@ tfgen:: install_plugins
 provider:: tfgen install_plugins # build the provider binary
 	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/${PROVIDER})
 
-build_sdks:: install_plugins provider build_nodejs build_python build_go build_dotnet # build all the sdks
+build_sdks:: install_plugins provider build_nodejs_sdk build_python build_go build_dotnet # build all the sdks
 
-build_nodejs:: VERSION := $(shell pulumictl get version --language javascript --omit-commit-hash)
-build_nodejs:: install_plugins tfgen # build the node sdk
+build_nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript --omit-commit-hash)
+build_nodejs_sdk:: install_plugins tfgen # build the node sdk
 	$(WORKING_DIR)/bin/$(TFGEN) nodejs --overlays provider/overlays/nodejs --out sdk/nodejs/
 	cd sdk/nodejs/ && \
 	yarn install && \
 	yarn run tsc && \
-	jq '.main = "./bin/index.js"' ./package.json > tmp.$$.json && mv tmp.$$.json ./package.json && \
-	jq '.types = "./bin/index.d.ts"' ./package.json > tmp.$$.json && mv tmp.$$.json ./package.json && \
 	cp -R scripts/ bin && \
 	cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
 	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
-	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./package.json
+	jq '.main = "./bin/index.js"' ./bin/package.json > tmp.$$.json && mv tmp.$$.json ./bin/package.json && \
+	jq '.types = "./bin/index.d.ts"' ./bin/package.json > tmp.$$.json && mv tmp.$$.json ./bin/package.json
 
 build_python:: PYPI_VERSION := $(shell pulumictl get version --language python --omit-commit-hash)
 build_python:: install_plugins tfgen # build the python sdk
