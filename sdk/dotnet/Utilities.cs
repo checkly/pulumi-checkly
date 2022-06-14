@@ -58,7 +58,7 @@ namespace Pulumi.Checkly
         {
             InvokeOptions dst = src ?? new InvokeOptions{};
             dst.Version = src?.Version ?? Version;
-            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "https://github.com/checkly/pulumi-checkly/releases/download/v${VERSION}";
+            dst.PluginDownloadURL = src?.PluginDownloadURL ?? "https://github.com/checkly/pulumi-checkly/releases/download/${VERSION}";
             return dst;
         }
 
