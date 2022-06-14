@@ -61,9 +61,12 @@ build_nodejs:: install_plugins tfgen # build the node sdk
 	cd sdk/nodejs/ && \
 	yarn install && \
 	yarn run tsc && \
+	jq '.main = "./bin/index.js"' ./package.json > tmp.$$.json && mv tmp.$$.json ./package.json && \
+	jq '.types = "./bin/index.d.ts"' ./package.json > tmp.$$.json && mv tmp.$$.json ./package.json && \
 	cp -R scripts/ bin && \
 	cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
-	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json
+	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json && \
+	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./package.json
 
 build_python:: PYPI_VERSION := $(shell pulumictl get version --language python --omit-commit-hash)
 build_python:: install_plugins tfgen # build the python sdk
@@ -126,14 +129,6 @@ do::
 	make tfgen
 	make provider
 	make build_sdks
-
-	# jq --arg v "${VERSION}" '.version =$$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
-	# jq --arg v "https://github.com/checkly/pulumi-checkly/releases/download/v${VERSION}" '.pulumi.pluginDownloadURL = $$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
-	# jq --arg v "node scripts/install-pulumi-plugin.js resource checkly ${VERSION}" '.scripts.install = $$v' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
-
-	jq '.main = "./bin/index.js"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
-	jq '.types = "./bin/index.d.ts"' sdk/nodejs/package.json > tmp.$$.json && mv tmp.$$.json sdk/nodejs/package.json
-
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
 	make install_nodejs_sdk
 	cd examples/js && yarn link @checkly/pulumi && cd -
