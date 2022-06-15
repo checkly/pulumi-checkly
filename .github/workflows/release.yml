@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Unshallow to restore tags
         run: git fetch --prune --unshallow
@@ -53,8 +53,8 @@ jobs:
     needs: publish-binary
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-      - name: Unshallow clone for tags
+        uses: actions/checkout@v3
+      - name: Unshallow clone for tag3
         run: git fetch --prune --unshallow --tags
       - name: Install Go
         uses: actions/setup-go@v2
