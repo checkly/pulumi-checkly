@@ -26,6 +26,7 @@ changelog:
   skip: true
 release:
   disable: false
+  prerelease: auto
   extra_files:
     - glob: sdk/python/bin/dist/pulumi_checkly-*.tar.gz
     - glob: nuget/*.nupkg

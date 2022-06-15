@@ -1,8 +1,8 @@
-name: Release 🚀
+name: release 🚀
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*.*.*'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -12,9 +12,11 @@ env:
   PUBLISH_NUGET: true
   NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
   NUGET_FEED_URL: https://api.nuget.org/v3/index.json
+  PUBLISH_PYPI: true
+  PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
 
 jobs:
-  publish-binary:
+  publish_binary:
     name: Publish Binary
     runs-on: ubuntu-latest
 
@@ -25,24 +27,15 @@ jobs:
       - name: Unshallow to restore tags
         run: git fetch --prune --unshallow
 
-      - name: Set up Go
-        uses: actions/setup-go@v3
+      - name: Install Go
+        uses: actions/setup-go@v2
         with:
-          go-version: 1.16.x
-
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '3.1.x'
-
-      - name: Set up NodeJS
-        uses: actions/setup-node@v3
-        with:
-          registry-url: 'https://registry.npmjs.org'
-          always-auth: true
+          go-version: ${{matrix.goversion}}
 
       - name: Install pulumictl
-        run: curl -L https://github.com/pulumi/pulumictl/releases/download/v0.0.25/pulumictl-v0.0.25-linux-amd64.tar.gz | sudo tar zxv -C /usr/bin -f- pulumictl
+        uses: jaxxstorm/action-install-gh-release@v1.5.0
+        with:
+          repo: pulumi/pulumictl
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v3
@@ -50,10 +43,17 @@ jobs:
           version: latest
           args: release --rm-dist
 
-  publish-sdk:
+    strategy:
+      fail-fast: true
+      matrix:
+        goversion:
+          - 1.17.x
+
+  publish:
     name: Publish SDKs
     runs-on: ubuntu-latest
-    needs: publish-binary
+    needs: publish_binary
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -69,11 +69,21 @@ jobs:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v2.0.0
+
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.nodeversion }}
           registry-url: ${{ env.NPM_REGISTRY_URL }}
+      - name: Setup DotNet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnetverson }}
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.pythonversion }}
+
       - name: Build SDK
         run: make build_${{ matrix.language }}_sdk
       - name: Check worktree clean
@@ -85,17 +95,28 @@ jobs:
               git diff
               exit 1
           fi
+
       - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
         uses: JS-DevTools/npm-publish@v1
         with:
           access: "public"
           token: ${{ env.NPM_TOKEN }}
           package: ${{ github.workspace }}/sdk/nodejs/bin/package.json
+
       - if: ${{ matrix.language == 'dotnet' && env.PUBLISH_NUGET == 'true' }}
         name: publish nuget package
         run: |
           dotnet nuget push ${{github.workspace}}/sdk/dotnet/bin/Debug/*.nupkg -s ${{ env.NUGET_FEED_URL }} -k ${{ env.NUGET_PUBLISH_KEY }}
           echo "done publishing packages"
+
+      - if: ${{ matrix.language == 'python' && env.PUBLISH_PYPI == 'true' }}
+        name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ env.PYPI_TOKEN }}
+          packages_dir: ${{github.workspace}}/sdk/python/bin/dist
+
     strategy:
       fail-fast: true
       matrix:
@@ -105,8 +126,9 @@ jobs:
           - 1.17.x
         language:
           - nodejs
-          - go
+          - python
           - dotnet
+          - go
         nodeversion:
           - 14.x
         pythonversion:
