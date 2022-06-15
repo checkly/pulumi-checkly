@@ -37,7 +37,7 @@ prepare::
 		find ./ ! -path './.git/*' -type f -exec sed -i '' 's/[x]yz/${NAME}/g' {} \; &> /dev/null; \
 	fi
 
-.PHONY: development provider build_sdks build_nodejs_sdk build_dotnet build_go build_python cleanup
+.PHONY: development provider build_sdks build_nodejs_sdk build_dotnet_sdk build_go_sdk build_python_sdk cleanup
 
 development:: install_plugins provider lint_provider build_sdks install_sdks cleanup # Build the provider & SDKs for a development environment
 
@@ -53,7 +53,7 @@ tfgen:: install_plugins
 provider:: tfgen install_plugins # build the provider binary
 	(cd provider && go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/${PROVIDER})
 
-build_sdks:: install_plugins provider build_nodejs_sdk build_python build_go build_dotnet # build all the sdks
+build_sdks:: install_plugins provider build_nodejs_sdk build_python_sdk build_go_sdk build_dotnet_sdk
 
 build_nodejs_sdk:: VERSION := $(shell pulumictl get version --omit-commit-hash)
 build_nodejs_sdk:: install_plugins tfgen # build the node sdk
@@ -65,8 +65,8 @@ build_nodejs_sdk:: install_plugins tfgen # build the node sdk
 	cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
 	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json
 
-build_python:: PYPI_VERSION := $(shell pulumictl get version --language python --omit-commit-hash)
-build_python:: install_plugins tfgen # build the python sdk
+build_python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python --omit-commit-hash)
+build_python_sdk:: install_plugins tfgen # build the python sdk
 	$(WORKING_DIR)/bin/$(TFGEN) python --overlays provider/overlays/python --out sdk/python/
 	cd sdk/python/ && \
 	cp ../../README.md . && \
@@ -76,15 +76,15 @@ build_python:: install_plugins tfgen # build the python sdk
 	rm ./bin/setup.py.bak && \
 	cd ./bin && python3 setup.py build sdist
 
-build_dotnet:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet --omit-commit-hash)
-build_dotnet:: install_plugins tfgen # build the dotnet sdk
+build_dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet --omit-commit-hash)
+build_dotnet_sdk:: install_plugins tfgen # build the dotnet sdk
 	pulumictl get version --language dotnet --omit-commit-hash
 	$(WORKING_DIR)/bin/$(TFGEN) dotnet --overlays provider/overlays/dotnet --out sdk/dotnet/
 	cd sdk/dotnet/ && \
 	echo "${DOTNET_VERSION}" >version.txt && \
 	dotnet build /p:Version=${DOTNET_VERSION}
 
-build_go:: install_plugins tfgen # build the go sdk
+build_go_sdk:: install_plugins tfgen # build the go sdk
 	$(WORKING_DIR)/bin/$(TFGEN) go --overlays provider/overlays/go --out sdk/go/
 
 lint_provider:: provider # lint the provider code
