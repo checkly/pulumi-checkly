@@ -9,8 +9,8 @@ body:
       value: |
         **Before You Start...**
 
-        This form is only for submitting bug reports. If you have a usage question
-        or are unsure if this is really a bug, make sure to read our [docs](https://www.checklyhq.com/product/terraform-provider/) first.
+        This form is only for requesting a feature. If you have a usage question
+        or are unsure if this functionality already exists, make sure to read our [docs](https://www.checklyhq.com/docs/) first.
 
         Also try to search for your issue - it may have already been answered or even fixed in the main branch.
         However, if you find that an old, closed issue still persists in the latest version,
