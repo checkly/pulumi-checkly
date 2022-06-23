@@ -6,20 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-## [v1.2.0](https://github.com/checkly/jamstack-deploy/tree/v1.2.0) - 2022-06-20
+## [v1.1.0](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.0) - 2022-06-23
 
 ### Added
-- Move checks to Pulumi [#6](https://github.com/checkly/jamstack-deploy/issues/6)
-- New Provider: GitLab Pages [#23](https://github.com/checkly/jamstack-deploy/issues/23)
-- `.nvmrc` file (node 16) [#0c3d5c8](https://github.com/checkly/jamstack-deploy/commit/0c3d5c8a33ebe84fa7289c3ba6c928d443d19908)
-- Checkly Badges to Readme [#f559fc0](https://github.com/checkly/jamstack-deploy/commit/f559fc01982ec530e53ccab368365d5bcec60879)
+- Support for Private Locations [#24](https://github.com/checkly/pulumi-checkly/issues/24)
 
 ### Changed
-- Update default branch to `main` [#f52faaf](https://github.com/checkly/jamstack-deploy/commit/f52faaf6d3678d3c20f9b43f4f1f83f9a02bed6a)
-
-### Fixed
-- Minor docs fixed
-- Rotate Checkly credentials [#c081a62](https://github.com/checkly/jamstack-deploy/commit/c081a62d351a2fa5493540b855399ff6ae34c799)
+- Bump github.com/checkly/terraform-provider-checkly to `v1.6.0-rc1`
 
 ## [v1.0.1](https://github.com/checkly/pulumi-checkly/releases/tag/v1.0.1) - 2022-06-21
 
