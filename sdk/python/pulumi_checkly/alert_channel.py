@@ -379,7 +379,7 @@ class AlertChannel(pulumi.CustomResource):
         # A Slack alert channel
         slack_ac = checkly.AlertChannel("slackAc", slack=checkly.AlertChannelSlackArgs(
             channel="#checkly-notifications",
-            url="https://slack.com/webhook",
+            url="https://hooks.slack.com/services/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",
         ))
         # An Opsgenie alert channel
         opsgenie_ac = checkly.AlertChannel("opsgenieAc", opsgenie=checkly.AlertChannelOpsgenieArgs(
@@ -459,7 +459,7 @@ class AlertChannel(pulumi.CustomResource):
         # A Slack alert channel
         slack_ac = checkly.AlertChannel("slackAc", slack=checkly.AlertChannelSlackArgs(
             channel="#checkly-notifications",
-            url="https://slack.com/webhook",
+            url="https://hooks.slack.com/services/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",
         ))
         # An Opsgenie alert channel
         opsgenie_ac = checkly.AlertChannel("opsgenieAc", opsgenie=checkly.AlertChannelOpsgenieArgs(

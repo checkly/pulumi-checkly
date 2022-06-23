@@ -61,7 +61,7 @@ type Dashboard struct {
 	Paginate pulumi.BoolPtrOutput `pulumi:"paginate"`
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate pulumi.IntPtrOutput `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
 	RefreshRate pulumi.IntPtrOutput `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
@@ -116,7 +116,7 @@ type dashboardState struct {
 	Paginate *bool `pulumi:"paginate"`
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate *int `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
 	RefreshRate *int `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
@@ -139,7 +139,7 @@ type DashboardState struct {
 	Paginate pulumi.BoolPtrInput
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate pulumi.IntPtrInput
-	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
 	RefreshRate pulumi.IntPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput
@@ -166,7 +166,7 @@ type dashboardArgs struct {
 	Paginate *bool `pulumi:"paginate"`
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate *int `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
 	RefreshRate *int `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
@@ -190,7 +190,7 @@ type DashboardArgs struct {
 	Paginate pulumi.BoolPtrInput
 	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
 	PaginationRate pulumi.IntPtrInput
-	// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
 	RefreshRate pulumi.IntPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput

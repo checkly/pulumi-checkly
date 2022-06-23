@@ -163,6 +163,10 @@ export class CheckGroup extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * An array of one or more private locations slugs.
+     */
+    public readonly privateLocations!: pulumi.Output<string[]>;
+    /**
      * The id of the runtime to use for this group.
      */
     public readonly runtimeId!: pulumi.Output<string | undefined>;
@@ -208,6 +212,7 @@ export class CheckGroup extends pulumi.CustomResource {
             resourceInputs["locations"] = state ? state.locations : undefined;
             resourceInputs["muted"] = state ? state.muted : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["privateLocations"] = state ? state.privateLocations : undefined;
             resourceInputs["runtimeId"] = state ? state.runtimeId : undefined;
             resourceInputs["setupSnippetId"] = state ? state.setupSnippetId : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
@@ -224,6 +229,9 @@ export class CheckGroup extends pulumi.CustomResource {
             if ((!args || args.locations === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'locations'");
             }
+            if ((!args || args.privateLocations === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'privateLocations'");
+            }
             resourceInputs["activated"] = args ? args.activated : undefined;
             resourceInputs["alertChannelSubscriptions"] = args ? args.alertChannelSubscriptions : undefined;
             resourceInputs["alertSettings"] = args ? args.alertSettings : undefined;
@@ -236,6 +244,7 @@ export class CheckGroup extends pulumi.CustomResource {
             resourceInputs["locations"] = args ? args.locations : undefined;
             resourceInputs["muted"] = args ? args.muted : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["privateLocations"] = args ? args.privateLocations : undefined;
             resourceInputs["runtimeId"] = args ? args.runtimeId : undefined;
             resourceInputs["setupSnippetId"] = args ? args.setupSnippetId : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
@@ -292,6 +301,10 @@ export interface CheckGroupState {
      * The name of the check group.
      */
     name?: pulumi.Input<string>;
+    /**
+     * An array of one or more private locations slugs.
+     */
+    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The id of the runtime to use for this group.
      */
@@ -359,6 +372,10 @@ export interface CheckGroupArgs {
      * The name of the check group.
      */
     name?: pulumi.Input<string>;
+    /**
+     * An array of one or more private locations slugs.
+     */
+    privateLocations: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The id of the runtime to use for this group.
      */

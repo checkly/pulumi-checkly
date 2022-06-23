@@ -82,7 +82,7 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public readonly paginationRate!: pulumi.Output<number | undefined>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
      */
     public readonly refreshRate!: pulumi.Output<number | undefined>;
     /**
@@ -171,7 +171,7 @@ export interface DashboardState {
      */
     paginationRate?: pulumi.Input<number>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
      */
     refreshRate?: pulumi.Input<number>;
     /**
@@ -217,7 +217,7 @@ export interface DashboardArgs {
      */
     paginationRate?: pulumi.Input<number>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
      */
     refreshRate?: pulumi.Input<number>;
     /**

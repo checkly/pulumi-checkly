@@ -11,6 +11,7 @@ export * from "./checkGroup";
 export * from "./dashboard";
 export * from "./environmentVariable";
 export * from "./maintenanceWindow";
+export * from "./privateLocation";
 export * from "./provider";
 export * from "./snippet";
 export * from "./triggerCheck";
@@ -32,6 +33,7 @@ import { CheckGroup } from "./checkGroup";
 import { Dashboard } from "./dashboard";
 import { EnvironmentVariable } from "./environmentVariable";
 import { MaintenanceWindow } from "./maintenanceWindow";
+import { PrivateLocation } from "./privateLocation";
 import { Snippet } from "./snippet";
 import { TriggerCheck } from "./triggerCheck";
 import { TriggerCheckGroup } from "./triggerCheckGroup";
@@ -52,6 +54,8 @@ const _module = {
                 return new EnvironmentVariable(name, <any>undefined, { urn })
             case "checkly:index/maintenanceWindow:MaintenanceWindow":
                 return new MaintenanceWindow(name, <any>undefined, { urn })
+            case "checkly:index/privateLocation:PrivateLocation":
+                return new PrivateLocation(name, <any>undefined, { urn })
             case "checkly:index/snippet:Snippet":
                 return new Snippet(name, <any>undefined, { urn })
             case "checkly:index/triggerCheck:TriggerCheck":
@@ -69,6 +73,7 @@ pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/dashboard", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/environmentVariable", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)

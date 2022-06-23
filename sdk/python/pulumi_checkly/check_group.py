@@ -18,6 +18,7 @@ class CheckGroupArgs:
                  activated: pulumi.Input[bool],
                  concurrency: pulumi.Input[int],
                  locations: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 private_locations: pulumi.Input[Sequence[pulumi.Input[str]]],
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['CheckGroupAlertSettingsArgs']] = None,
                  api_check_defaults: Optional[pulumi.Input['CheckGroupApiCheckDefaultsArgs']] = None,
@@ -37,6 +38,7 @@ class CheckGroupArgs:
         :param pulumi.Input[bool] activated: Determines if the checks in the group are running or not.
         :param pulumi.Input[int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input[bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
                region before marking the check as failed.
         :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
@@ -54,6 +56,7 @@ class CheckGroupArgs:
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "concurrency", concurrency)
         pulumi.set(__self__, "locations", locations)
+        pulumi.set(__self__, "private_locations", private_locations)
         if alert_channel_subscriptions is not None:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
@@ -118,6 +121,18 @@ class CheckGroupArgs:
     @locations.setter
     def locations(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "locations", value)
+
+    @property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        """
+        An array of one or more private locations slugs.
+        """
+        return pulumi.get(self, "private_locations")
+
+    @private_locations.setter
+    def private_locations(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "private_locations", value)
 
     @property
     @pulumi.getter(name="alertChannelSubscriptions")
@@ -296,6 +311,7 @@ class _CheckGroupState:
                  locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  setup_snippet_id: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -314,6 +330,7 @@ class _CheckGroupState:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check in this group fails and/or recovers.
         :param pulumi.Input[str] name: The name of the check group.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input[str] runtime_id: The id of the runtime to use for this group.
         :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for organizing and filtering checks.
@@ -344,6 +361,8 @@ class _CheckGroupState:
             pulumi.set(__self__, "muted", muted)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if private_locations is not None:
+            pulumi.set(__self__, "private_locations", private_locations)
         if runtime_id is not None:
             pulumi.set(__self__, "runtime_id", runtime_id)
         if setup_snippet_id is not None:
@@ -493,6 +512,18 @@ class _CheckGroupState:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        An array of one or more private locations slugs.
+        """
+        return pulumi.get(self, "private_locations")
+
+    @private_locations.setter
+    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "private_locations", value)
+
+    @property
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -570,6 +601,7 @@ class CheckGroup(pulumi.CustomResource):
                  locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  setup_snippet_id: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -675,6 +707,7 @@ class CheckGroup(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check in this group fails and/or recovers.
         :param pulumi.Input[str] name: The name of the check group.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input[str] runtime_id: The id of the runtime to use for this group.
         :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for organizing and filtering checks.
@@ -800,6 +833,7 @@ class CheckGroup(pulumi.CustomResource):
                  locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  setup_snippet_id: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -837,6 +871,9 @@ class CheckGroup(pulumi.CustomResource):
             __props__.__dict__["locations"] = locations
             __props__.__dict__["muted"] = muted
             __props__.__dict__["name"] = name
+            if private_locations is None and not opts.urn:
+                raise TypeError("Missing required property 'private_locations'")
+            __props__.__dict__["private_locations"] = private_locations
             __props__.__dict__["runtime_id"] = runtime_id
             __props__.__dict__["setup_snippet_id"] = setup_snippet_id
             __props__.__dict__["tags"] = tags
@@ -864,6 +901,7 @@ class CheckGroup(pulumi.CustomResource):
             locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             muted: Optional[pulumi.Input[bool]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             runtime_id: Optional[pulumi.Input[str]] = None,
             setup_snippet_id: Optional[pulumi.Input[int]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -887,6 +925,7 @@ class CheckGroup(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the checks.
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check in this group fails and/or recovers.
         :param pulumi.Input[str] name: The name of the check group.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input[str] runtime_id: The id of the runtime to use for this group.
         :param pulumi.Input[int] setup_snippet_id: An ID reference to a snippet to use in the setup phase of an API check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: Tags for organizing and filtering checks.
@@ -909,6 +948,7 @@ class CheckGroup(pulumi.CustomResource):
         __props__.__dict__["locations"] = locations
         __props__.__dict__["muted"] = muted
         __props__.__dict__["name"] = name
+        __props__.__dict__["private_locations"] = private_locations
         __props__.__dict__["runtime_id"] = runtime_id
         __props__.__dict__["setup_snippet_id"] = setup_snippet_id
         __props__.__dict__["tags"] = tags
@@ -1004,6 +1044,14 @@ class CheckGroup(pulumi.CustomResource):
         The name of the check group.
         """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> pulumi.Output[Sequence[str]]:
+        """
+        An array of one or more private locations slugs.
+        """
+        return pulumi.get(self, "private_locations")
 
     @property
     @pulumi.getter(name="runtimeId")

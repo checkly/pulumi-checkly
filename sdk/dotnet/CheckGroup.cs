@@ -216,6 +216,12 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
+        /// An array of one or more private locations slugs.
+        /// </summary>
+        [Output("privateLocations")]
+        public Output<ImmutableArray<string>> PrivateLocations { get; private set; } = null!;
+
+        /// <summary>
         /// The id of the runtime to use for this group.
         /// </summary>
         [Output("runtimeId")]
@@ -374,6 +380,18 @@ namespace Pulumi.Checkly
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        [Input("privateLocations", required: true)]
+        private InputList<string>? _privateLocations;
+
+        /// <summary>
+        /// An array of one or more private locations slugs.
+        /// </summary>
+        public InputList<string> PrivateLocations
+        {
+            get => _privateLocations ?? (_privateLocations = new InputList<string>());
+            set => _privateLocations = value;
+        }
+
         /// <summary>
         /// The id of the runtime to use for this group.
         /// </summary>
@@ -498,6 +516,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        [Input("privateLocations")]
+        private InputList<string>? _privateLocations;
+
+        /// <summary>
+        /// An array of one or more private locations slugs.
+        /// </summary>
+        public InputList<string> PrivateLocations
+        {
+            get => _privateLocations ?? (_privateLocations = new InputList<string>());
+            set => _privateLocations = value;
+        }
 
         /// <summary>
         /// The id of the runtime to use for this group.

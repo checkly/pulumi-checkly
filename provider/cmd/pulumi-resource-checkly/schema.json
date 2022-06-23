@@ -896,7 +896,7 @@
     },
     "resources": {
         "checkly:index/alertChannel:AlertChannel": {
-            "description": "Allows you to define alerting channels for the checks and groups in your account\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi from \"@checkly/pulumi\";\n\n// An Email alert channel\nconst emailAc = new checkly.AlertChannel(\"emailAc\", {\n    email: {\n        address: \"john@example.com\",\n    },\n    sendRecovery: true,\n    sendFailure: false,\n    sendDegraded: true,\n    sslExpiry: true,\n    sslExpiryThreshold: 22,\n});\n// A SMS alert channel\nconst smsAc = new checkly.AlertChannel(\"smsAc\", {\n    sms: {\n        name: \"john\",\n        number: \"+5491100001111\",\n    },\n    sendRecovery: true,\n    sendFailure: true,\n});\n// A Slack alert channel\nconst slackAc = new checkly.AlertChannel(\"slackAc\", {slack: {\n    channel: \"#checkly-notifications\",\n    url: \"https://slack.com/webhook\",\n}});\n// An Opsgenie alert channel\nconst opsgenieAc = new checkly.AlertChannel(\"opsgenieAc\", {opsgenie: {\n    name: \"opsalerts\",\n    apiKey: \"fookey\",\n    region: \"fooregion\",\n    priority: \"foopriority\",\n}});\n// An Pagerduty alert channel\nconst pagerdutyAc = new checkly.AlertChannel(\"pagerdutyAc\", {pagerduty: {\n    account: \"checkly\",\n    serviceKey: \"key1\",\n    serviceName: \"pdalert\",\n}});\n// An Webhook alert channel\nconst webhookAc = new checkly.AlertChannel(\"webhookAc\", {webhook: {\n    name: \"foo\",\n    method: \"get\",\n    template: \"footemplate\",\n    url: \"https://example.com/foo\",\n    webhookSecret: \"foosecret\",\n}});\n// Connecting the alert channel to a check\nconst example_check = new checkly.Check(\"example-check\", {alertChannelSubscriptions: [\n    {\n        channelId: emailAc.id,\n        activated: true,\n    },\n    {\n        channelId: smsAc.id,\n        activated: true,\n    },\n]});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# An Email alert channel\nemail_ac = checkly.AlertChannel(\"emailAc\",\n    email=checkly.AlertChannelEmailArgs(\n        address=\"john@example.com\",\n    ),\n    send_recovery=True,\n    send_failure=False,\n    send_degraded=True,\n    ssl_expiry=True,\n    ssl_expiry_threshold=22)\n# A SMS alert channel\nsms_ac = checkly.AlertChannel(\"smsAc\",\n    sms=checkly.AlertChannelSmsArgs(\n        name=\"john\",\n        number=\"+5491100001111\",\n    ),\n    send_recovery=True,\n    send_failure=True)\n# A Slack alert channel\nslack_ac = checkly.AlertChannel(\"slackAc\", slack=checkly.AlertChannelSlackArgs(\n    channel=\"#checkly-notifications\",\n    url=\"https://slack.com/webhook\",\n))\n# An Opsgenie alert channel\nopsgenie_ac = checkly.AlertChannel(\"opsgenieAc\", opsgenie=checkly.AlertChannelOpsgenieArgs(\n    name=\"opsalerts\",\n    api_key=\"fookey\",\n    region=\"fooregion\",\n    priority=\"foopriority\",\n))\n# An Pagerduty alert channel\npagerduty_ac = checkly.AlertChannel(\"pagerdutyAc\", pagerduty=checkly.AlertChannelPagerdutyArgs(\n    account=\"checkly\",\n    service_key=\"key1\",\n    service_name=\"pdalert\",\n))\n# An Webhook alert channel\nwebhook_ac = checkly.AlertChannel(\"webhookAc\", webhook=checkly.AlertChannelWebhookArgs(\n    name=\"foo\",\n    method=\"get\",\n    template=\"footemplate\",\n    url=\"https://example.com/foo\",\n    webhook_secret=\"foosecret\",\n))\n# Connecting the alert channel to a check\nexample_check = checkly.Check(\"example-check\", alert_channel_subscriptions=[\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=email_ac.id,\n        activated=True,\n    ),\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=sms_ac.id,\n        activated=True,\n    ),\n])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // An Email alert channel\n        var emailAc = new Checkly.AlertChannel(\"emailAc\", new Checkly.AlertChannelArgs\n        {\n            Email = new Checkly.Inputs.AlertChannelEmailArgs\n            {\n                Address = \"john@example.com\",\n            },\n            SendRecovery = true,\n            SendFailure = false,\n            SendDegraded = true,\n            SslExpiry = true,\n            SslExpiryThreshold = 22,\n        });\n        // A SMS alert channel\n        var smsAc = new Checkly.AlertChannel(\"smsAc\", new Checkly.AlertChannelArgs\n        {\n            Sms = new Checkly.Inputs.AlertChannelSmsArgs\n            {\n                Name = \"john\",\n                Number = \"+5491100001111\",\n            },\n            SendRecovery = true,\n            SendFailure = true,\n        });\n        // A Slack alert channel\n        var slackAc = new Checkly.AlertChannel(\"slackAc\", new Checkly.AlertChannelArgs\n        {\n            Slack = new Checkly.Inputs.AlertChannelSlackArgs\n            {\n                Channel = \"#checkly-notifications\",\n                Url = \"https://slack.com/webhook\",\n            },\n        });\n        // An Opsgenie alert channel\n        var opsgenieAc = new Checkly.AlertChannel(\"opsgenieAc\", new Checkly.AlertChannelArgs\n        {\n            Opsgenie = new Checkly.Inputs.AlertChannelOpsgenieArgs\n            {\n                Name = \"opsalerts\",\n                ApiKey = \"fookey\",\n                Region = \"fooregion\",\n                Priority = \"foopriority\",\n            },\n        });\n        // An Pagerduty alert channel\n        var pagerdutyAc = new Checkly.AlertChannel(\"pagerdutyAc\", new Checkly.AlertChannelArgs\n        {\n            Pagerduty = new Checkly.Inputs.AlertChannelPagerdutyArgs\n            {\n                Account = \"checkly\",\n                ServiceKey = \"key1\",\n                ServiceName = \"pdalert\",\n            },\n        });\n        // An Webhook alert channel\n        var webhookAc = new Checkly.AlertChannel(\"webhookAc\", new Checkly.AlertChannelArgs\n        {\n            Webhook = new Checkly.Inputs.AlertChannelWebhookArgs\n            {\n                Name = \"foo\",\n                Method = \"get\",\n                Template = \"footemplate\",\n                Url = \"https://example.com/foo\",\n                WebhookSecret = \"foosecret\",\n            },\n        });\n        // Connecting the alert channel to a check\n        var example_check = new Checkly.Check(\"example-check\", new Checkly.CheckArgs\n        {\n            AlertChannelSubscriptions = \n            {\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = emailAc.Id,\n                    Activated = true,\n                },\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = smsAc.Id,\n                    Activated = true,\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\temailAc, err := checkly.NewAlertChannel(ctx, \"emailAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"john@example.com\"),\n\t\t\t},\n\t\t\tSendRecovery:       pulumi.Bool(true),\n\t\t\tSendFailure:        pulumi.Bool(false),\n\t\t\tSendDegraded:       pulumi.Bool(true),\n\t\t\tSslExpiry:          pulumi.Bool(true),\n\t\t\tSslExpiryThreshold: pulumi.Int(22),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tsmsAc, err := checkly.NewAlertChannel(ctx, \"smsAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSms: \u0026AlertChannelSmsArgs{\n\t\t\t\tName:   pulumi.String(\"john\"),\n\t\t\t\tNumber: pulumi.String(\"+5491100001111\"),\n\t\t\t},\n\t\t\tSendRecovery: pulumi.Bool(true),\n\t\t\tSendFailure:  pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"slackAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSlack: \u0026AlertChannelSlackArgs{\n\t\t\t\tChannel: pulumi.String(\"#checkly-notifications\"),\n\t\t\t\tUrl:     pulumi.String(\"https://slack.com/webhook\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"opsgenieAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tOpsgenie: \u0026AlertChannelOpsgenieArgs{\n\t\t\t\tName:     pulumi.String(\"opsalerts\"),\n\t\t\t\tApiKey:   pulumi.String(\"fookey\"),\n\t\t\t\tRegion:   pulumi.String(\"fooregion\"),\n\t\t\t\tPriority: pulumi.String(\"foopriority\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"pagerdutyAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tPagerduty: \u0026AlertChannelPagerdutyArgs{\n\t\t\t\tAccount:     pulumi.String(\"checkly\"),\n\t\t\t\tServiceKey:  pulumi.String(\"key1\"),\n\t\t\t\tServiceName: pulumi.String(\"pdalert\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"webhookAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tWebhook: \u0026AlertChannelWebhookArgs{\n\t\t\t\tName:          pulumi.String(\"foo\"),\n\t\t\t\tMethod:        pulumi.String(\"get\"),\n\t\t\t\tTemplate:      pulumi.String(\"footemplate\"),\n\t\t\t\tUrl:           pulumi.String(\"https://example.com/foo\"),\n\t\t\t\tWebhookSecret: pulumi.String(\"foosecret\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewCheck(ctx, \"example-check\", \u0026checkly.CheckArgs{\n\t\t\tAlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: emailAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: smsAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Allows you to define alerting channels for the checks and groups in your account\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi from \"@checkly/pulumi\";\n\n// An Email alert channel\nconst emailAc = new checkly.AlertChannel(\"emailAc\", {\n    email: {\n        address: \"john@example.com\",\n    },\n    sendRecovery: true,\n    sendFailure: false,\n    sendDegraded: true,\n    sslExpiry: true,\n    sslExpiryThreshold: 22,\n});\n// A SMS alert channel\nconst smsAc = new checkly.AlertChannel(\"smsAc\", {\n    sms: {\n        name: \"john\",\n        number: \"+5491100001111\",\n    },\n    sendRecovery: true,\n    sendFailure: true,\n});\n// A Slack alert channel\nconst slackAc = new checkly.AlertChannel(\"slackAc\", {slack: {\n    channel: \"#checkly-notifications\",\n    url: \"https://hooks.slack.com/services/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\",\n}});\n// An Opsgenie alert channel\nconst opsgenieAc = new checkly.AlertChannel(\"opsgenieAc\", {opsgenie: {\n    name: \"opsalerts\",\n    apiKey: \"fookey\",\n    region: \"fooregion\",\n    priority: \"foopriority\",\n}});\n// An Pagerduty alert channel\nconst pagerdutyAc = new checkly.AlertChannel(\"pagerdutyAc\", {pagerduty: {\n    account: \"checkly\",\n    serviceKey: \"key1\",\n    serviceName: \"pdalert\",\n}});\n// An Webhook alert channel\nconst webhookAc = new checkly.AlertChannel(\"webhookAc\", {webhook: {\n    name: \"foo\",\n    method: \"get\",\n    template: \"footemplate\",\n    url: \"https://example.com/foo\",\n    webhookSecret: \"foosecret\",\n}});\n// Connecting the alert channel to a check\nconst example_check = new checkly.Check(\"example-check\", {alertChannelSubscriptions: [\n    {\n        channelId: emailAc.id,\n        activated: true,\n    },\n    {\n        channelId: smsAc.id,\n        activated: true,\n    },\n]});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# An Email alert channel\nemail_ac = checkly.AlertChannel(\"emailAc\",\n    email=checkly.AlertChannelEmailArgs(\n        address=\"john@example.com\",\n    ),\n    send_recovery=True,\n    send_failure=False,\n    send_degraded=True,\n    ssl_expiry=True,\n    ssl_expiry_threshold=22)\n# A SMS alert channel\nsms_ac = checkly.AlertChannel(\"smsAc\",\n    sms=checkly.AlertChannelSmsArgs(\n        name=\"john\",\n        number=\"+5491100001111\",\n    ),\n    send_recovery=True,\n    send_failure=True)\n# A Slack alert channel\nslack_ac = checkly.AlertChannel(\"slackAc\", slack=checkly.AlertChannelSlackArgs(\n    channel=\"#checkly-notifications\",\n    url=\"https://hooks.slack.com/services/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\",\n))\n# An Opsgenie alert channel\nopsgenie_ac = checkly.AlertChannel(\"opsgenieAc\", opsgenie=checkly.AlertChannelOpsgenieArgs(\n    name=\"opsalerts\",\n    api_key=\"fookey\",\n    region=\"fooregion\",\n    priority=\"foopriority\",\n))\n# An Pagerduty alert channel\npagerduty_ac = checkly.AlertChannel(\"pagerdutyAc\", pagerduty=checkly.AlertChannelPagerdutyArgs(\n    account=\"checkly\",\n    service_key=\"key1\",\n    service_name=\"pdalert\",\n))\n# An Webhook alert channel\nwebhook_ac = checkly.AlertChannel(\"webhookAc\", webhook=checkly.AlertChannelWebhookArgs(\n    name=\"foo\",\n    method=\"get\",\n    template=\"footemplate\",\n    url=\"https://example.com/foo\",\n    webhook_secret=\"foosecret\",\n))\n# Connecting the alert channel to a check\nexample_check = checkly.Check(\"example-check\", alert_channel_subscriptions=[\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=email_ac.id,\n        activated=True,\n    ),\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=sms_ac.id,\n        activated=True,\n    ),\n])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // An Email alert channel\n        var emailAc = new Checkly.AlertChannel(\"emailAc\", new Checkly.AlertChannelArgs\n        {\n            Email = new Checkly.Inputs.AlertChannelEmailArgs\n            {\n                Address = \"john@example.com\",\n            },\n            SendRecovery = true,\n            SendFailure = false,\n            SendDegraded = true,\n            SslExpiry = true,\n            SslExpiryThreshold = 22,\n        });\n        // A SMS alert channel\n        var smsAc = new Checkly.AlertChannel(\"smsAc\", new Checkly.AlertChannelArgs\n        {\n            Sms = new Checkly.Inputs.AlertChannelSmsArgs\n            {\n                Name = \"john\",\n                Number = \"+5491100001111\",\n            },\n            SendRecovery = true,\n            SendFailure = true,\n        });\n        // A Slack alert channel\n        var slackAc = new Checkly.AlertChannel(\"slackAc\", new Checkly.AlertChannelArgs\n        {\n            Slack = new Checkly.Inputs.AlertChannelSlackArgs\n            {\n                Channel = \"#checkly-notifications\",\n                Url = \"https://hooks.slack.com/services/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\",\n            },\n        });\n        // An Opsgenie alert channel\n        var opsgenieAc = new Checkly.AlertChannel(\"opsgenieAc\", new Checkly.AlertChannelArgs\n        {\n            Opsgenie = new Checkly.Inputs.AlertChannelOpsgenieArgs\n            {\n                Name = \"opsalerts\",\n                ApiKey = \"fookey\",\n                Region = \"fooregion\",\n                Priority = \"foopriority\",\n            },\n        });\n        // An Pagerduty alert channel\n        var pagerdutyAc = new Checkly.AlertChannel(\"pagerdutyAc\", new Checkly.AlertChannelArgs\n        {\n            Pagerduty = new Checkly.Inputs.AlertChannelPagerdutyArgs\n            {\n                Account = \"checkly\",\n                ServiceKey = \"key1\",\n                ServiceName = \"pdalert\",\n            },\n        });\n        // An Webhook alert channel\n        var webhookAc = new Checkly.AlertChannel(\"webhookAc\", new Checkly.AlertChannelArgs\n        {\n            Webhook = new Checkly.Inputs.AlertChannelWebhookArgs\n            {\n                Name = \"foo\",\n                Method = \"get\",\n                Template = \"footemplate\",\n                Url = \"https://example.com/foo\",\n                WebhookSecret = \"foosecret\",\n            },\n        });\n        // Connecting the alert channel to a check\n        var example_check = new Checkly.Check(\"example-check\", new Checkly.CheckArgs\n        {\n            AlertChannelSubscriptions = \n            {\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = emailAc.Id,\n                    Activated = true,\n                },\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = smsAc.Id,\n                    Activated = true,\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\temailAc, err := checkly.NewAlertChannel(ctx, \"emailAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"john@example.com\"),\n\t\t\t},\n\t\t\tSendRecovery:       pulumi.Bool(true),\n\t\t\tSendFailure:        pulumi.Bool(false),\n\t\t\tSendDegraded:       pulumi.Bool(true),\n\t\t\tSslExpiry:          pulumi.Bool(true),\n\t\t\tSslExpiryThreshold: pulumi.Int(22),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tsmsAc, err := checkly.NewAlertChannel(ctx, \"smsAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSms: \u0026AlertChannelSmsArgs{\n\t\t\t\tName:   pulumi.String(\"john\"),\n\t\t\t\tNumber: pulumi.String(\"+5491100001111\"),\n\t\t\t},\n\t\t\tSendRecovery: pulumi.Bool(true),\n\t\t\tSendFailure:  pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"slackAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSlack: \u0026AlertChannelSlackArgs{\n\t\t\t\tChannel: pulumi.String(\"#checkly-notifications\"),\n\t\t\t\tUrl:     pulumi.String(\"https://hooks.slack.com/services/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\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"opsgenieAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tOpsgenie: \u0026AlertChannelOpsgenieArgs{\n\t\t\t\tName:     pulumi.String(\"opsalerts\"),\n\t\t\t\tApiKey:   pulumi.String(\"fookey\"),\n\t\t\t\tRegion:   pulumi.String(\"fooregion\"),\n\t\t\t\tPriority: pulumi.String(\"foopriority\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"pagerdutyAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tPagerduty: \u0026AlertChannelPagerdutyArgs{\n\t\t\t\tAccount:     pulumi.String(\"checkly\"),\n\t\t\t\tServiceKey:  pulumi.String(\"key1\"),\n\t\t\t\tServiceName: pulumi.String(\"pdalert\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"webhookAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tWebhook: \u0026AlertChannelWebhookArgs{\n\t\t\t\tName:          pulumi.String(\"foo\"),\n\t\t\t\tMethod:        pulumi.String(\"get\"),\n\t\t\t\tTemplate:      pulumi.String(\"footemplate\"),\n\t\t\t\tUrl:           pulumi.String(\"https://example.com/foo\"),\n\t\t\t\tWebhookSecret: pulumi.String(\"foosecret\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewCheck(ctx, \"example-check\", \u0026checkly.CheckArgs{\n\t\t\tAlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: emailAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: smsAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
                 "email": {
                     "$ref": "#/types/checkly:index/AlertChannelEmail:AlertChannelEmail"
@@ -1096,6 +1096,13 @@
                     "type": "string",
                     "description": "The name of the check.\n"
                 },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
                 "request": {
                     "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
                     "description": "An API check might have one request config.\n"
@@ -1219,6 +1226,13 @@
                 "name": {
                     "type": "string",
                     "description": "The name of the check.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
                 },
                 "request": {
                     "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
@@ -1344,6 +1358,13 @@
                         "type": "string",
                         "description": "The name of the check.\n"
                     },
+                    "privateLocations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more private locations slugs.\n"
+                    },
                     "request": {
                         "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
                         "description": "An API check might have one request config.\n"
@@ -1449,6 +1470,13 @@
                     "type": "string",
                     "description": "The name of the check group.\n"
                 },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
                 "runtimeId": {
                     "type": "string",
                     "description": "The id of the runtime to use for this group.\n"
@@ -1479,7 +1507,8 @@
                 "apiCheckDefaults",
                 "concurrency",
                 "locations",
-                "name"
+                "name",
+                "privateLocations"
             ],
             "inputProperties": {
                 "activated": {
@@ -1536,6 +1565,13 @@
                     "type": "string",
                     "description": "The name of the check group.\n"
                 },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
                 "runtimeId": {
                     "type": "string",
                     "description": "The id of the runtime to use for this group.\n"
@@ -1563,7 +1599,8 @@
             "requiredInputs": [
                 "activated",
                 "concurrency",
-                "locations"
+                "locations",
+                "privateLocations"
             ],
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering CheckGroup resources.\n",
@@ -1621,6 +1658,13 @@
                     "name": {
                         "type": "string",
                         "description": "The name of the check group.\n"
+                    },
+                    "privateLocations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more private locations slugs.\n"
                     },
                     "runtimeId": {
                         "type": "string",
@@ -1682,7 +1726,7 @@
                 },
                 "refreshRate": {
                     "type": "integer",
-                    "description": "How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.\n"
+                    "description": "How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.\n"
                 },
                 "tags": {
                     "type": "array",
@@ -1730,7 +1774,7 @@
                 },
                 "refreshRate": {
                     "type": "integer",
-                    "description": "How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.\n"
+                    "description": "How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.\n"
                 },
                 "tags": {
                     "type": "array",
@@ -1780,7 +1824,7 @@
                     },
                     "refreshRate": {
                         "type": "integer",
-                        "description": "How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.\n"
+                        "description": "How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.\n"
                     },
                     "tags": {
                         "type": "array",
@@ -1955,6 +1999,76 @@
                             "type": "string"
                         },
                         "description": "The names of the checks and groups maintenance window should apply to.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/privateLocation:PrivateLocation": {
+            "properties": {
+                "icon": {
+                    "type": "string",
+                    "description": "Icon assigned to the private location.\n"
+                },
+                "keys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Private location API keys.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The private location name.\n"
+                },
+                "slugName": {
+                    "type": "string",
+                    "description": "Valid slug name.\n"
+                }
+            },
+            "required": [
+                "keys",
+                "name",
+                "slugName"
+            ],
+            "inputProperties": {
+                "icon": {
+                    "type": "string",
+                    "description": "Icon assigned to the private location.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The private location name.\n"
+                },
+                "slugName": {
+                    "type": "string",
+                    "description": "Valid slug name.\n"
+                }
+            },
+            "requiredInputs": [
+                "slugName"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering PrivateLocation resources.\n",
+                "properties": {
+                    "icon": {
+                        "type": "string",
+                        "description": "Icon assigned to the private location.\n"
+                    },
+                    "keys": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Private location API keys.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The private location name.\n"
+                    },
+                    "slugName": {
+                        "type": "string",
+                        "description": "Valid slug name.\n"
                     }
                 },
                 "type": "object"

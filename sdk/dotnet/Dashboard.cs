@@ -87,7 +87,7 @@ namespace Pulumi.Checkly
         public Output<int?> PaginationRate { get; private set; } = null!;
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
         /// </summary>
         [Output("refreshRate")]
         public Output<int?> RefreshRate { get; private set; } = null!;
@@ -194,7 +194,7 @@ namespace Pulumi.Checkly
         public Input<int>? PaginationRate { get; set; }
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
         /// </summary>
         [Input("refreshRate")]
         public Input<int>? RefreshRate { get; set; }
@@ -267,7 +267,7 @@ namespace Pulumi.Checkly
         public Input<int>? PaginationRate { get; set; }
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `30`, `60` and `600`.
+        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
         /// </summary>
         [Input("refreshRate")]
         public Input<int>? RefreshRate { get; set; }

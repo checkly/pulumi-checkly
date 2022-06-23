@@ -11,6 +11,7 @@ from .check_group import *
 from .dashboard import *
 from .environment_variable import *
 from .maintenance_window import *
+from .private_location import *
 from .provider import *
 from .snippet import *
 from .trigger_check import *
@@ -74,6 +75,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/maintenanceWindow:MaintenanceWindow": "MaintenanceWindow"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/privateLocation",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/privateLocation:PrivateLocation": "PrivateLocation"
   }
  },
  {
