@@ -52,7 +52,7 @@ namespace Pulumi.Checkly
     ///             Slack = new Checkly.Inputs.AlertChannelSlackArgs
     ///             {
     ///                 Channel = "#checkly-notifications",
-    ///                 Url = "https://slack.com/webhook",
+    ///                 Url = "https://hooks.slack.com/services/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",
     ///             },
     ///         });
     ///         // An Opsgenie alert channel

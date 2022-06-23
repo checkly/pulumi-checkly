@@ -161,6 +161,8 @@ type CheckGroup struct {
 	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
 	// The name of the check group.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// An array of one or more private locations slugs.
+	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
 	// The id of the runtime to use for this group.
 	RuntimeId pulumi.StringPtrOutput `pulumi:"runtimeId"`
 	// An ID reference to a snippet to use in the setup phase of an API check.
@@ -188,6 +190,9 @@ func NewCheckGroup(ctx *pulumi.Context,
 	}
 	if args.Locations == nil {
 		return nil, errors.New("invalid value for required argument 'Locations'")
+	}
+	if args.PrivateLocations == nil {
+		return nil, errors.New("invalid value for required argument 'PrivateLocations'")
 	}
 	if args.ApiCheckDefaults != nil {
 		args.ApiCheckDefaults = args.ApiCheckDefaults.ToCheckGroupApiCheckDefaultsPtrOutput().ApplyT(func(v *CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaults { return v.Defaults() }).(CheckGroupApiCheckDefaultsPtrOutput)
@@ -238,6 +243,8 @@ type checkGroupState struct {
 	Muted *bool `pulumi:"muted"`
 	// The name of the check group.
 	Name *string `pulumi:"name"`
+	// An array of one or more private locations slugs.
+	PrivateLocations []string `pulumi:"privateLocations"`
 	// The id of the runtime to use for this group.
 	RuntimeId *string `pulumi:"runtimeId"`
 	// An ID reference to a snippet to use in the setup phase of an API check.
@@ -274,6 +281,8 @@ type CheckGroupState struct {
 	Muted pulumi.BoolPtrInput
 	// The name of the check group.
 	Name pulumi.StringPtrInput
+	// An array of one or more private locations slugs.
+	PrivateLocations pulumi.StringArrayInput
 	// The id of the runtime to use for this group.
 	RuntimeId pulumi.StringPtrInput
 	// An ID reference to a snippet to use in the setup phase of an API check.
@@ -314,6 +323,8 @@ type checkGroupArgs struct {
 	Muted *bool `pulumi:"muted"`
 	// The name of the check group.
 	Name *string `pulumi:"name"`
+	// An array of one or more private locations slugs.
+	PrivateLocations []string `pulumi:"privateLocations"`
 	// The id of the runtime to use for this group.
 	RuntimeId *string `pulumi:"runtimeId"`
 	// An ID reference to a snippet to use in the setup phase of an API check.
@@ -351,6 +362,8 @@ type CheckGroupArgs struct {
 	Muted pulumi.BoolPtrInput
 	// The name of the check group.
 	Name pulumi.StringPtrInput
+	// An array of one or more private locations slugs.
+	PrivateLocations pulumi.StringArrayInput
 	// The id of the runtime to use for this group.
 	RuntimeId pulumi.StringPtrInput
 	// An ID reference to a snippet to use in the setup phase of an API check.

@@ -112,6 +112,12 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
+        /// An array of one or more private locations slugs.
+        /// </summary>
+        [Output("privateLocations")]
+        public Output<ImmutableArray<string>> PrivateLocations { get; private set; } = null!;
+
+        /// <summary>
         /// An API check might have one request config.
         /// </summary>
         [Output("request")]
@@ -332,6 +338,18 @@ namespace Pulumi.Checkly
         [Input("name")]
         public Input<string>? Name { get; set; }
 
+        [Input("privateLocations")]
+        private InputList<string>? _privateLocations;
+
+        /// <summary>
+        /// An array of one or more private locations slugs.
+        /// </summary>
+        public InputList<string> PrivateLocations
+        {
+            get => _privateLocations ?? (_privateLocations = new InputList<string>());
+            set => _privateLocations = value;
+        }
+
         /// <summary>
         /// An API check might have one request config.
         /// </summary>
@@ -518,6 +536,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        [Input("privateLocations")]
+        private InputList<string>? _privateLocations;
+
+        /// <summary>
+        /// An array of one or more private locations slugs.
+        /// </summary>
+        public InputList<string> PrivateLocations
+        {
+            get => _privateLocations ?? (_privateLocations = new InputList<string>());
+            set => _privateLocations = value;
+        }
 
         /// <summary>
         /// An API check might have one request config.

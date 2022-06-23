@@ -52,7 +52,7 @@ import (
 // 		_, err = checkly.NewAlertChannel(ctx, "slackAc", &checkly.AlertChannelArgs{
 // 			Slack: &AlertChannelSlackArgs{
 // 				Channel: pulumi.String("#checkly-notifications"),
-// 				Url:     pulumi.String("https://slack.com/webhook"),
+// 				Url:     pulumi.String("https://hooks.slack.com/services/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"),
 // 			},
 // 		})
 // 		if err != nil {

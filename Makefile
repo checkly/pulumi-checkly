@@ -127,7 +127,7 @@ sync::
 	make provider
 	make build_sdks
 
-do::
+dev::
 	make sync
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
 	make install_nodejs_sdk

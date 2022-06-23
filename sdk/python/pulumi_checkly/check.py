@@ -32,6 +32,7 @@ class CheckArgs:
                  max_response_time: Optional[pulumi.Input[int]] = None,
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  request: Optional[pulumi.Input['CheckRequestArgs']] = None,
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  script: Optional[pulumi.Input[str]] = None,
@@ -64,6 +65,7 @@ class CheckArgs:
                0 and 30000. (Default `30000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input['CheckRequestArgs'] request: An API check might have one request config.
         :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
         :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
@@ -106,6 +108,8 @@ class CheckArgs:
             pulumi.set(__self__, "muted", muted)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if private_locations is not None:
+            pulumi.set(__self__, "private_locations", private_locations)
         if request is not None:
             pulumi.set(__self__, "request", request)
         if runtime_id is not None:
@@ -333,6 +337,18 @@ class CheckArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        An array of one or more private locations slugs.
+        """
+        return pulumi.get(self, "private_locations")
+
+    @private_locations.setter
+    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "private_locations", value)
+
+    @property
     @pulumi.getter
     def request(self) -> Optional[pulumi.Input['CheckRequestArgs']]:
         """
@@ -461,6 +477,7 @@ class _CheckState:
                  max_response_time: Optional[pulumi.Input[int]] = None,
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  request: Optional[pulumi.Input['CheckRequestArgs']] = None,
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  script: Optional[pulumi.Input[str]] = None,
@@ -493,6 +510,7 @@ class _CheckState:
                0 and 30000. (Default `30000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input['CheckRequestArgs'] request: An API check might have one request config.
         :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
         :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
@@ -537,6 +555,8 @@ class _CheckState:
             pulumi.set(__self__, "muted", muted)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if private_locations is not None:
+            pulumi.set(__self__, "private_locations", private_locations)
         if request is not None:
             pulumi.set(__self__, "request", request)
         if runtime_id is not None:
@@ -754,6 +774,18 @@ class _CheckState:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        An array of one or more private locations slugs.
+        """
+        return pulumi.get(self, "private_locations")
+
+    @private_locations.setter
+    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "private_locations", value)
+
+    @property
     @pulumi.getter
     def request(self) -> Optional[pulumi.Input['CheckRequestArgs']]:
         """
@@ -896,6 +928,7 @@ class Check(pulumi.CustomResource):
                  max_response_time: Optional[pulumi.Input[int]] = None,
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  request: Optional[pulumi.Input[pulumi.InputType['CheckRequestArgs']]] = None,
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  script: Optional[pulumi.Input[str]] = None,
@@ -932,6 +965,7 @@ class Check(pulumi.CustomResource):
                0 and 30000. (Default `30000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input[pulumi.InputType['CheckRequestArgs']] request: An API check might have one request config.
         :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
         :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
@@ -984,6 +1018,7 @@ class Check(pulumi.CustomResource):
                  max_response_time: Optional[pulumi.Input[int]] = None,
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  request: Optional[pulumi.Input[pulumi.InputType['CheckRequestArgs']]] = None,
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  script: Optional[pulumi.Input[str]] = None,
@@ -1028,6 +1063,7 @@ class Check(pulumi.CustomResource):
             __props__.__dict__["max_response_time"] = max_response_time
             __props__.__dict__["muted"] = muted
             __props__.__dict__["name"] = name
+            __props__.__dict__["private_locations"] = private_locations
             __props__.__dict__["request"] = request
             __props__.__dict__["runtime_id"] = runtime_id
             __props__.__dict__["script"] = script
@@ -1069,6 +1105,7 @@ class Check(pulumi.CustomResource):
             max_response_time: Optional[pulumi.Input[int]] = None,
             muted: Optional[pulumi.Input[bool]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             request: Optional[pulumi.Input[pulumi.InputType['CheckRequestArgs']]] = None,
             runtime_id: Optional[pulumi.Input[str]] = None,
             script: Optional[pulumi.Input[str]] = None,
@@ -1106,6 +1143,7 @@ class Check(pulumi.CustomResource):
                0 and 30000. (Default `30000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input[pulumi.InputType['CheckRequestArgs']] request: An API check might have one request config.
         :param pulumi.Input[str] runtime_id: The id of the runtime to use for this check.
         :param pulumi.Input[str] script: A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
@@ -1138,6 +1176,7 @@ class Check(pulumi.CustomResource):
         __props__.__dict__["max_response_time"] = max_response_time
         __props__.__dict__["muted"] = muted
         __props__.__dict__["name"] = name
+        __props__.__dict__["private_locations"] = private_locations
         __props__.__dict__["request"] = request
         __props__.__dict__["runtime_id"] = runtime_id
         __props__.__dict__["script"] = script
@@ -1277,6 +1316,14 @@ class Check(pulumi.CustomResource):
         The name of the check.
         """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> pulumi.Output[Optional[Sequence[str]]]:
+        """
+        An array of one or more private locations slugs.
+        """
+        return pulumi.get(self, "private_locations")
 
     @property
     @pulumi.getter

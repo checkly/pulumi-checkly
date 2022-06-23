@@ -37,7 +37,7 @@ import * as utilities from "./utilities";
  * // A Slack alert channel
  * const slackAc = new checkly.AlertChannel("slackAc", {slack: {
  *     channel: "#checkly-notifications",
- *     url: "https://slack.com/webhook",
+ *     url: "https://hooks.slack.com/services/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",
  * }});
  * // An Opsgenie alert channel
  * const opsgenieAc = new checkly.AlertChannel("opsgenieAc", {opsgenie: {

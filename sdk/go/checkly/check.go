@@ -51,6 +51,8 @@ type Check struct {
 	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
 	// The name of the check.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// An array of one or more private locations slugs.
+	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
 	// An API check might have one request config.
 	Request CheckRequestPtrOutput `pulumi:"request"`
 	// The id of the runtime to use for this check.
@@ -151,6 +153,8 @@ type checkState struct {
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
 	Name *string `pulumi:"name"`
+	// An array of one or more private locations slugs.
+	PrivateLocations []string `pulumi:"privateLocations"`
 	// An API check might have one request config.
 	Request *CheckRequest `pulumi:"request"`
 	// The id of the runtime to use for this check.
@@ -213,6 +217,8 @@ type CheckState struct {
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
 	Name pulumi.StringPtrInput
+	// An array of one or more private locations slugs.
+	PrivateLocations pulumi.StringArrayInput
 	// An API check might have one request config.
 	Request CheckRequestPtrInput
 	// The id of the runtime to use for this check.
@@ -279,6 +285,8 @@ type checkArgs struct {
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
 	Name *string `pulumi:"name"`
+	// An array of one or more private locations slugs.
+	PrivateLocations []string `pulumi:"privateLocations"`
 	// An API check might have one request config.
 	Request *CheckRequest `pulumi:"request"`
 	// The id of the runtime to use for this check.
@@ -342,6 +350,8 @@ type CheckArgs struct {
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
 	Name pulumi.StringPtrInput
+	// An array of one or more private locations slugs.
+	PrivateLocations pulumi.StringArrayInput
 	// An API check might have one request config.
 	Request CheckRequestPtrInput
 	// The id of the runtime to use for this check.

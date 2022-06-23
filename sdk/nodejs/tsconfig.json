@@ -22,6 +22,7 @@
         "environmentVariable.ts",
         "index.ts",
         "maintenanceWindow.ts",
+        "privateLocation.ts",
         "provider.ts",
         "snippet.ts",
         "triggerCheck.ts",

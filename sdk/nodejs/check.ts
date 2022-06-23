@@ -101,6 +101,10 @@ export class Check extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * An array of one or more private locations slugs.
+     */
+    public readonly privateLocations!: pulumi.Output<string[] | undefined>;
+    /**
      * An API check might have one request config.
      */
     public readonly request!: pulumi.Output<outputs.CheckRequest | undefined>;
@@ -173,6 +177,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["maxResponseTime"] = state ? state.maxResponseTime : undefined;
             resourceInputs["muted"] = state ? state.muted : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["privateLocations"] = state ? state.privateLocations : undefined;
             resourceInputs["request"] = state ? state.request : undefined;
             resourceInputs["runtimeId"] = state ? state.runtimeId : undefined;
             resourceInputs["script"] = state ? state.script : undefined;
@@ -210,6 +215,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["maxResponseTime"] = args ? args.maxResponseTime : undefined;
             resourceInputs["muted"] = args ? args.muted : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["privateLocations"] = args ? args.privateLocations : undefined;
             resourceInputs["request"] = args ? args.request : undefined;
             resourceInputs["runtimeId"] = args ? args.runtimeId : undefined;
             resourceInputs["script"] = args ? args.script : undefined;
@@ -294,6 +300,10 @@ export interface CheckState {
      * The name of the check.
      */
     name?: pulumi.Input<string>;
+    /**
+     * An array of one or more private locations slugs.
+     */
+    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * An API check might have one request config.
      */
@@ -407,6 +417,10 @@ export interface CheckArgs {
      * The name of the check.
      */
     name?: pulumi.Input<string>;
+    /**
+     * An array of one or more private locations slugs.
+     */
+    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * An API check might have one request config.
      */
