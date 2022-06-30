@@ -117,7 +117,9 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
     ```
 1. You are ready to go, run `$ pulumi up` to deploy your stack 🚀
 
-> Check the [examples directory](https://github.com/checkly/pulumi-checkly/tree/main/examples) for more detailed code samples.
+## Examples
+
+Find working JavaScript and TypeScript code samples in the [`./examples`](https://github.com/checkly/pulumi-checkly/tree/main/examples) directory.
 
 ## Learn More
 For documentation and example usage see:
