@@ -127,6 +127,13 @@ sync::
 	make provider
 	make build_sdks
 
+sync-examples: CURRENT_VERSION=$(shell git describe --tags --abbrev=0 | cut -c 2-)
+sync-examples:
+	jq --arg v "${CURRENT_VERSION}" '.dependencies."@checkly/pulumi" =$$v' examples/js/package.json > tmp.$$.json && mv tmp.$$.json examples/js/package.json
+	jq --arg v "${CURRENT_VERSION}" '.dependencies."@checkly/pulumi" =$$v' examples/ts/package.json > tmp.$$.json && mv tmp.$$.json examples/ts/package.json
+	cd examples/js && npm i && cd -
+	cd examples/ts && npm i && cd -
+
 dev::
 	make sync
 	cp bin/pulumi-resource-checkly ${GOPATH}/bin
