@@ -51,7 +51,7 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
 
 ## Getting Started
 
-1. Open your terminal and run `$ pulumi new` to create a new Pulumi project, chose the `javascript` template and the target stack.
+1. Open your terminal and run `$ pulumi new javascript` to create a new Pulumi project with the `javascript` template.
 1. Install the Checkly Pulumi provider using npm: `$ npm i @checkly/pulumi`.
 1. Look for `index.js` file in the root of your project and replace content with the following code:
 
@@ -117,13 +117,15 @@ Once you generated the `API Key` there are two ways to communicate your authoriz
     ```
 1. You are ready to go, run `$ pulumi up` to deploy your stack 🚀
 
-> Check the [examples directory](https://github.com/checkly/pulumi-checkly/tree/main/examples) for more detailed code samples.
+## Examples
+
+Find working JavaScript and TypeScript code samples in the [`./examples`](https://github.com/checkly/pulumi-checkly/tree/main/examples) directory.
 
 ## Learn More
 For documentation and example usage see:
 1. [Checkly's documentation](https://www.checklyhq.com/docs/integrations/pulumi/).
 2. [The official provider documentation](https://www.pulumi.com/registry/packages/checkly/api-docs/)
-3. [Working Examples](https://github.com/checkly/pulumi-checkly/examples).
+3. [Working Examples](https://github.com/checkly/pulumi-checkly/tree/main/examples).
 
 ## Questions
 For questions and support please open a new  [discussion](https://github.com/checkly/pulumi-checkly/discussions). The issue list of this repo is exclusively for bug reports and feature/docs requests.

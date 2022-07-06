@@ -188,12 +188,6 @@ func NewCheckGroup(ctx *pulumi.Context,
 	if args.Concurrency == nil {
 		return nil, errors.New("invalid value for required argument 'Concurrency'")
 	}
-	if args.Locations == nil {
-		return nil, errors.New("invalid value for required argument 'Locations'")
-	}
-	if args.PrivateLocations == nil {
-		return nil, errors.New("invalid value for required argument 'PrivateLocations'")
-	}
 	if args.ApiCheckDefaults != nil {
 		args.ApiCheckDefaults = args.ApiCheckDefaults.ToCheckGroupApiCheckDefaultsPtrOutput().ApplyT(func(v *CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaults { return v.Defaults() }).(CheckGroupApiCheckDefaultsPtrOutput)
 	}

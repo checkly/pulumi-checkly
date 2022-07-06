@@ -356,7 +356,7 @@ namespace Pulumi.Checkly
         [Input("localTeardownScript")]
         public Input<string>? LocalTeardownScript { get; set; }
 
-        [Input("locations", required: true)]
+        [Input("locations")]
         private InputList<string>? _locations;
 
         /// <summary>
@@ -380,7 +380,7 @@ namespace Pulumi.Checkly
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        [Input("privateLocations", required: true)]
+        [Input("privateLocations")]
         private InputList<string>? _privateLocations;
 
         /// <summary>

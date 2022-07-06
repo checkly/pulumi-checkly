@@ -153,7 +153,7 @@ export class CheckGroup extends pulumi.CustomResource {
     /**
      * An array of one or more data center locations where to run the checks.
      */
-    public readonly locations!: pulumi.Output<string[]>;
+    public readonly locations!: pulumi.Output<string[] | undefined>;
     /**
      * Determines if any notifications will be sent out when a check in this group fails and/or recovers.
      */
@@ -165,7 +165,7 @@ export class CheckGroup extends pulumi.CustomResource {
     /**
      * An array of one or more private locations slugs.
      */
-    public readonly privateLocations!: pulumi.Output<string[]>;
+    public readonly privateLocations!: pulumi.Output<string[] | undefined>;
     /**
      * The id of the runtime to use for this group.
      */
@@ -225,12 +225,6 @@ export class CheckGroup extends pulumi.CustomResource {
             }
             if ((!args || args.concurrency === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'concurrency'");
-            }
-            if ((!args || args.locations === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'locations'");
-            }
-            if ((!args || args.privateLocations === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'privateLocations'");
             }
             resourceInputs["activated"] = args ? args.activated : undefined;
             resourceInputs["alertChannelSubscriptions"] = args ? args.alertChannelSubscriptions : undefined;
@@ -363,7 +357,7 @@ export interface CheckGroupArgs {
     /**
      * An array of one or more data center locations where to run the checks.
      */
-    locations: pulumi.Input<pulumi.Input<string>[]>;
+    locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Determines if any notifications will be sent out when a check in this group fails and/or recovers.
      */
@@ -375,7 +369,7 @@ export interface CheckGroupArgs {
     /**
      * An array of one or more private locations slugs.
      */
-    privateLocations: pulumi.Input<pulumi.Input<string>[]>;
+    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The id of the runtime to use for this group.
      */

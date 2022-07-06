@@ -147,7 +147,18 @@ class PrivateLocation(pulumi.CustomResource):
                  slug_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a PrivateLocation resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        # Simple Private Location example
+        location = checkly.PrivateLocation("location",
+            icon="location",
+            slug_name="new-private-location")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] icon: Icon assigned to the private location.
@@ -161,7 +172,18 @@ class PrivateLocation(pulumi.CustomResource):
                  args: PrivateLocationArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a PrivateLocation resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_checkly as checkly
+
+        # Simple Private Location example
+        location = checkly.PrivateLocation("location",
+            icon="location",
+            slug_name="new-private-location")
+        ```
+
         :param str resource_name: The name of the resource.
         :param PrivateLocationArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

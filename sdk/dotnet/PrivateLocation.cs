@@ -9,6 +9,28 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         // Simple Private Location example
+    ///         var location = new Checkly.PrivateLocation("location", new Checkly.PrivateLocationArgs
+    ///         {
+    ///             Icon = "location",
+    ///             SlugName = "new-private-location",
+    ///         });
+    ///     }
+    /// 
+    /// }
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/privateLocation:PrivateLocation")]
     public partial class PrivateLocation : Pulumi.CustomResource
     {

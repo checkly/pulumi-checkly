@@ -4,6 +4,20 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@pulumi/checkly";
+ *
+ * // Simple Private Location example
+ * const location = new checkly.PrivateLocation("location", {
+ *     icon: "location",
+ *     slugName: "new-private-location",
+ * });
+ * ```
+ */
 export class PrivateLocation extends pulumi.CustomResource {
     /**
      * Get an existing PrivateLocation resource's state with the given name, ID, and optional extra
