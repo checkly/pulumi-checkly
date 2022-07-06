@@ -125,7 +125,7 @@ Find working JavaScript and TypeScript code samples in the [`./examples`](https:
 For documentation and example usage see:
 1. [Checkly's documentation](https://www.checklyhq.com/docs/integrations/pulumi/).
 2. [The official provider documentation](https://www.pulumi.com/registry/packages/checkly/api-docs/)
-3. [Working Examples](https://github.com/checkly/pulumi-checkly/examples).
+3. [Working Examples](https://github.com/checkly/pulumi-checkly/tree/main/examples).
 
 ## Questions
 For questions and support please open a new  [discussion](https://github.com/checkly/pulumi-checkly/discussions). The issue list of this repo is exclusively for bug reports and feature/docs requests.
