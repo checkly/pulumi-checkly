@@ -58,7 +58,8 @@ export class Check extends pulumi.CustomResource {
      */
     public readonly environmentVariables!: pulumi.Output<{[key: string]: any} | undefined>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+     * `360`, `720`, and `1440`.
      */
     public readonly frequency!: pulumi.Output<number>;
     /**
@@ -258,7 +259,8 @@ export interface CheckState {
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+     * `360`, `720`, and `1440`.
      */
     frequency?: pulumi.Input<number>;
     /**
@@ -375,7 +377,8 @@ export interface CheckArgs {
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+     * `360`, `720`, and `1440`.
      */
     frequency: pulumi.Input<number>;
     /**

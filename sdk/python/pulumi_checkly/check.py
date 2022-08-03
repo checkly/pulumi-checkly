@@ -45,7 +45,8 @@ class CheckArgs:
         """
         The set of arguments for constructing a Check resource.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+               `360`, `720`, and `1440`.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, and `BROWSER`.
         :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
                0 and 30000. (Default `15000`).
@@ -148,7 +149,8 @@ class CheckArgs:
     @pulumi.getter
     def frequency(self) -> pulumi.Input[int]:
         """
-        The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+        `360`, `720`, and `1440`.
         """
         return pulumi.get(self, "frequency")
 
@@ -497,7 +499,8 @@ class _CheckState:
                region before marking the check as failed.
         :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
                Use global environment variables whenever possible.
-        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+               `360`, `720`, and `1440`.
         :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
                be `0` and `frequency_offset` could be `10`, `20` or `30`.
         :param pulumi.Input[int] group_id: The id of the check group this check is part of.
@@ -654,7 +657,8 @@ class _CheckState:
     @pulumi.getter
     def frequency(self) -> Optional[pulumi.Input[int]]:
         """
-        The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+        `360`, `720`, and `1440`.
         """
         return pulumi.get(self, "frequency")
 
@@ -952,7 +956,8 @@ class Check(pulumi.CustomResource):
                region before marking the check as failed.
         :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
                Use global environment variables whenever possible.
-        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+               `360`, `720`, and `1440`.
         :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
                be `0` and `frequency_offset` could be `10`, `20` or `30`.
         :param pulumi.Input[int] group_id: The id of the check group this check is part of.
@@ -1130,7 +1135,8 @@ class Check(pulumi.CustomResource):
                region before marking the check as failed.
         :param pulumi.Input[Mapping[str, Any]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
                Use global environment variables whenever possible.
-        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+               `360`, `720`, and `1440`.
         :param pulumi.Input[int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
                be `0` and `frequency_offset` could be `10`, `20` or `30`.
         :param pulumi.Input[int] group_id: The id of the check group this check is part of.
@@ -1238,7 +1244,8 @@ class Check(pulumi.CustomResource):
     @pulumi.getter
     def frequency(self) -> pulumi.Output[int]:
         """
-        The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+        `360`, `720`, and `1440`.
         """
         return pulumi.get(self, "frequency")
 

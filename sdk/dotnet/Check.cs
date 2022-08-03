@@ -49,7 +49,8 @@ namespace Pulumi.Checkly
         public Output<ImmutableDictionary<string, object>?> EnvironmentVariables { get; private set; } = null!;
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+        /// `360`, `720`, and `1440`.
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
@@ -270,7 +271,8 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+        /// `360`, `720`, and `1440`.
         /// </summary>
         [Input("frequency", required: true)]
         public Input<int> Frequency { get; set; } = null!;
@@ -469,7 +471,8 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+        /// `360`, `720`, and `1440`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }

@@ -28,7 +28,8 @@ type Check struct {
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
 	EnvironmentVariables pulumi.MapOutput `pulumi:"environmentVariables"`
-	// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+	// `360`, `720`, and `1440`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
 	// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
 	// be `0` and `frequency_offset` could be `10`, `20` or `30`.
@@ -130,7 +131,8 @@ type checkState struct {
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
-	// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+	// `360`, `720`, and `1440`.
 	Frequency *int `pulumi:"frequency"`
 	// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
 	// be `0` and `frequency_offset` could be `10`, `20` or `30`.
@@ -194,7 +196,8 @@ type CheckState struct {
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
 	EnvironmentVariables pulumi.MapInput
-	// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+	// `360`, `720`, and `1440`.
 	Frequency pulumi.IntPtrInput
 	// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
 	// be `0` and `frequency_offset` could be `10`, `20` or `30`.
@@ -262,7 +265,8 @@ type checkArgs struct {
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
-	// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+	// `360`, `720`, and `1440`.
 	Frequency int `pulumi:"frequency"`
 	// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
 	// be `0` and `frequency_offset` could be `10`, `20` or `30`.
@@ -327,7 +331,8 @@ type CheckArgs struct {
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
 	EnvironmentVariables pulumi.MapInput
-	// The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.
+	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
+	// `360`, `720`, and `1440`.
 	Frequency pulumi.IntInput
 	// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
 	// be `0` and `frequency_offset` could be `10`, `20` or `30`.

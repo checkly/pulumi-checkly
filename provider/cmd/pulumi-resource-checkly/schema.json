@@ -1055,7 +1055,7 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.\n"
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,\n`360`, `720`, and `1440`.\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
@@ -1186,7 +1186,7 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.\n"
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,\n`360`, `720`, and `1440`.\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
@@ -1317,7 +1317,7 @@
                     },
                     "frequency": {
                         "type": "integer",
-                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `5`, `10`, `15`, `30`, `60`, `720`, and `1440`.\n"
+                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,\n`360`, `720`, and `1440`.\n"
                     },
                     "frequencyOffset": {
                         "type": "integer",
