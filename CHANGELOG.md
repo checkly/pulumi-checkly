@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
-## [v1.1.1](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.2) - 2022-07-06
+## [v1.1.2](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.2) - 2022-08-03
+
+### Changed
+- Bump github.com/checkly/terraform-provider-checkly to `v1.6.2` [#f04b929](https://github.com/checkly/pulumi-checkly/commit/f04b929)
+
+## [v1.1.1](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.1) - 2022-07-06
 
 ### Changed
 - Bump github.com/checkly/terraform-provider-checkly to `v1.6.1` [#c200aa1](https://github.com/checkly/pulumi-checkly/commit/c200aa1)
