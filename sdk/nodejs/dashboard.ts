@@ -11,7 +11,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as checkly from "@pulumi/checkly";
  *
- * const dashboard_1 = new checkly.Dashboard("dashboard-1", {
+ * const dashboard1 = new checkly.Dashboard("dashboard_1", {
  *     customDomain: "status.example.com",
  *     customUrl: "checkly",
  *     header: "Public dashboard",
@@ -54,6 +54,10 @@ export class Dashboard extends pulumi.CustomResource {
     }
 
     /**
+     * Determines how many checks to show per page.
+     */
+    public readonly checksPerPage!: pulumi.Output<number | undefined>;
+    /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
     public readonly customDomain!: pulumi.Output<string | undefined>;
@@ -61,6 +65,14 @@ export class Dashboard extends pulumi.CustomResource {
      * A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
      */
     public readonly customUrl!: pulumi.Output<string>;
+    /**
+     * HTML <meta> description for the dashboard.
+     */
+    public readonly description!: pulumi.Output<string | undefined>;
+    /**
+     * A URL pointing to an image file to use as browser favicon.
+     */
+    public readonly favicon!: pulumi.Output<string | undefined>;
     /**
      * A piece of text displayed at the top of your dashboard.
      */
@@ -70,7 +82,11 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public readonly hideTags!: pulumi.Output<boolean | undefined>;
     /**
-     * A URL pointing to an image file.
+     * A link to for the dashboard logo.
+     */
+    public readonly link!: pulumi.Output<string | undefined>;
+    /**
+     * A URL pointing to an image file to use for the dashboard logo.
      */
     public readonly logo!: pulumi.Output<string | undefined>;
     /**
@@ -90,6 +106,10 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public readonly tags!: pulumi.Output<string[] | undefined>;
     /**
+     * Set when to use AND operator for fetching dashboard tags.
+     */
+    public readonly useTagsAndOperator!: pulumi.Output<boolean | undefined>;
+    /**
      * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
      */
     public readonly width!: pulumi.Output<string | undefined>;
@@ -107,30 +127,40 @@ export class Dashboard extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as DashboardState | undefined;
+            resourceInputs["checksPerPage"] = state ? state.checksPerPage : undefined;
             resourceInputs["customDomain"] = state ? state.customDomain : undefined;
             resourceInputs["customUrl"] = state ? state.customUrl : undefined;
+            resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["favicon"] = state ? state.favicon : undefined;
             resourceInputs["header"] = state ? state.header : undefined;
             resourceInputs["hideTags"] = state ? state.hideTags : undefined;
+            resourceInputs["link"] = state ? state.link : undefined;
             resourceInputs["logo"] = state ? state.logo : undefined;
             resourceInputs["paginate"] = state ? state.paginate : undefined;
             resourceInputs["paginationRate"] = state ? state.paginationRate : undefined;
             resourceInputs["refreshRate"] = state ? state.refreshRate : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
+            resourceInputs["useTagsAndOperator"] = state ? state.useTagsAndOperator : undefined;
             resourceInputs["width"] = state ? state.width : undefined;
         } else {
             const args = argsOrState as DashboardArgs | undefined;
             if ((!args || args.customUrl === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'customUrl'");
             }
+            resourceInputs["checksPerPage"] = args ? args.checksPerPage : undefined;
             resourceInputs["customDomain"] = args ? args.customDomain : undefined;
             resourceInputs["customUrl"] = args ? args.customUrl : undefined;
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["favicon"] = args ? args.favicon : undefined;
             resourceInputs["header"] = args ? args.header : undefined;
             resourceInputs["hideTags"] = args ? args.hideTags : undefined;
+            resourceInputs["link"] = args ? args.link : undefined;
             resourceInputs["logo"] = args ? args.logo : undefined;
             resourceInputs["paginate"] = args ? args.paginate : undefined;
             resourceInputs["paginationRate"] = args ? args.paginationRate : undefined;
             resourceInputs["refreshRate"] = args ? args.refreshRate : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["useTagsAndOperator"] = args ? args.useTagsAndOperator : undefined;
             resourceInputs["width"] = args ? args.width : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -143,6 +173,10 @@ export class Dashboard extends pulumi.CustomResource {
  */
 export interface DashboardState {
     /**
+     * Determines how many checks to show per page.
+     */
+    checksPerPage?: pulumi.Input<number>;
+    /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
     customDomain?: pulumi.Input<string>;
@@ -150,6 +184,14 @@ export interface DashboardState {
      * A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
      */
     customUrl?: pulumi.Input<string>;
+    /**
+     * HTML <meta> description for the dashboard.
+     */
+    description?: pulumi.Input<string>;
+    /**
+     * A URL pointing to an image file to use as browser favicon.
+     */
+    favicon?: pulumi.Input<string>;
     /**
      * A piece of text displayed at the top of your dashboard.
      */
@@ -159,7 +201,11 @@ export interface DashboardState {
      */
     hideTags?: pulumi.Input<boolean>;
     /**
-     * A URL pointing to an image file.
+     * A link to for the dashboard logo.
+     */
+    link?: pulumi.Input<string>;
+    /**
+     * A URL pointing to an image file to use for the dashboard logo.
      */
     logo?: pulumi.Input<string>;
     /**
@@ -178,6 +224,10 @@ export interface DashboardState {
      * A list of one or more tags that filter which checks to display on the dashboard.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Set when to use AND operator for fetching dashboard tags.
+     */
+    useTagsAndOperator?: pulumi.Input<boolean>;
     /**
      * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
      */
@@ -189,6 +239,10 @@ export interface DashboardState {
  */
 export interface DashboardArgs {
     /**
+     * Determines how many checks to show per page.
+     */
+    checksPerPage?: pulumi.Input<number>;
+    /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
     customDomain?: pulumi.Input<string>;
@@ -196,6 +250,14 @@ export interface DashboardArgs {
      * A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
      */
     customUrl: pulumi.Input<string>;
+    /**
+     * HTML <meta> description for the dashboard.
+     */
+    description?: pulumi.Input<string>;
+    /**
+     * A URL pointing to an image file to use as browser favicon.
+     */
+    favicon?: pulumi.Input<string>;
     /**
      * A piece of text displayed at the top of your dashboard.
      */
@@ -205,7 +267,11 @@ export interface DashboardArgs {
      */
     hideTags?: pulumi.Input<boolean>;
     /**
-     * A URL pointing to an image file.
+     * A link to for the dashboard logo.
+     */
+    link?: pulumi.Input<string>;
+    /**
+     * A URL pointing to an image file to use for the dashboard logo.
      */
     logo?: pulumi.Input<string>;
     /**
@@ -224,6 +290,10 @@ export interface DashboardArgs {
      * A list of one or more tags that filter which checks to display on the dashboard.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Set when to use AND operator for fetching dashboard tags.
+     */
+    useTagsAndOperator?: pulumi.Input<boolean>;
     /**
      * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
      */

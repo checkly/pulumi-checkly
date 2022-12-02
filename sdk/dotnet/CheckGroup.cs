@@ -22,7 +22,7 @@ namespace Pulumi.Checkly
     /// {
     ///     public MyStack()
     ///     {
-    ///         var test_group1CheckGroup = new Checkly.CheckGroup("test-group1CheckGroup", new Checkly.CheckGroupArgs
+    ///         var testGroup1CheckGroup = new Checkly.CheckGroup("testGroup1CheckGroup", new Checkly.CheckGroupArgs
     ///         {
     ///             Activated = true,
     ///             Muted = false,
@@ -105,9 +105,9 @@ namespace Pulumi.Checkly
     ///             LocalTeardownScript = "teardown-test",
     ///         });
     ///         // Add a check to a group
-    ///         var test_check1 = new Checkly.Check("test-check1", new Checkly.CheckArgs
+    ///         var testCheck1 = new Checkly.Check("testCheck1", new Checkly.CheckArgs
     ///         {
-    ///             GroupId = test_group1CheckGroup.Id,
+    ///             GroupId = testGroup1CheckGroup.Id,
     ///             GroupOrder = 1,
     ///         });
     ///         // Using with alert channels
@@ -126,7 +126,7 @@ namespace Pulumi.Checkly
     ///             },
     ///         });
     ///         // Connect the check group to the alert channels
-    ///         var test_group1Index_checkGroupCheckGroup = new Checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", new Checkly.CheckGroupArgs
+    ///         var testGroup1Index_checkGroupCheckGroup = new Checkly.CheckGroup("testGroup1Index/checkGroupCheckGroup", new Checkly.CheckGroupArgs
     ///         {
     ///             AlertChannelSubscriptions = 
     ///             {
@@ -338,6 +338,7 @@ namespace Pulumi.Checkly
         /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
         /// Use global environment variables whenever possible.
         /// </summary>
+        [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
@@ -475,6 +476,7 @@ namespace Pulumi.Checkly
         /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
         /// Use global environment variables whenever possible.
         /// </summary>
+        [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());

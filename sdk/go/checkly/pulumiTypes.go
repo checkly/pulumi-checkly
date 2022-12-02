@@ -1107,7 +1107,7 @@ type CheckAlertSettings struct {
 	EscalationType      *string                                `pulumi:"escalationType"`
 	Reminders           []CheckAlertSettingsReminder           `pulumi:"reminders"`
 	RunBasedEscalations []CheckAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
-	// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+	// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 	SslCertificates      []CheckAlertSettingsSslCertificate      `pulumi:"sslCertificates"`
 	TimeBasedEscalations []CheckAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
 }
@@ -1127,7 +1127,7 @@ type CheckAlertSettingsArgs struct {
 	EscalationType      pulumi.StringPtrInput                          `pulumi:"escalationType"`
 	Reminders           CheckAlertSettingsReminderArrayInput           `pulumi:"reminders"`
 	RunBasedEscalations CheckAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
-	// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+	// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 	SslCertificates      CheckAlertSettingsSslCertificateArrayInput      `pulumi:"sslCertificates"`
 	TimeBasedEscalations CheckAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
 }
@@ -1221,7 +1221,7 @@ func (o CheckAlertSettingsOutput) RunBasedEscalations() CheckAlertSettingsRunBas
 	return o.ApplyT(func(v CheckAlertSettings) []CheckAlertSettingsRunBasedEscalation { return v.RunBasedEscalations }).(CheckAlertSettingsRunBasedEscalationArrayOutput)
 }
 
-// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 func (o CheckAlertSettingsOutput) SslCertificates() CheckAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v CheckAlertSettings) []CheckAlertSettingsSslCertificate { return v.SslCertificates }).(CheckAlertSettingsSslCertificateArrayOutput)
 }
@@ -1281,7 +1281,7 @@ func (o CheckAlertSettingsPtrOutput) RunBasedEscalations() CheckAlertSettingsRun
 	}).(CheckAlertSettingsRunBasedEscalationArrayOutput)
 }
 
-// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 func (o CheckAlertSettingsPtrOutput) SslCertificates() CheckAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v *CheckAlertSettings) []CheckAlertSettingsSslCertificate {
 		if v == nil {
@@ -1688,6 +1688,67 @@ func (o CheckAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInpu
 	}).(CheckAlertSettingsTimeBasedEscalationOutput)
 }
 
+type CheckEnvironmentVariable struct {
+	Key    string `pulumi:"key"`
+	Locked *bool  `pulumi:"locked"`
+	Value  string `pulumi:"value"`
+}
+
+// CheckEnvironmentVariableInput is an input type that accepts CheckEnvironmentVariableArgs and CheckEnvironmentVariableOutput values.
+// You can construct a concrete instance of `CheckEnvironmentVariableInput` via:
+//
+//          CheckEnvironmentVariableArgs{...}
+type CheckEnvironmentVariableInput interface {
+	pulumi.Input
+
+	ToCheckEnvironmentVariableOutput() CheckEnvironmentVariableOutput
+	ToCheckEnvironmentVariableOutputWithContext(context.Context) CheckEnvironmentVariableOutput
+}
+
+type CheckEnvironmentVariableArgs struct {
+	Key    pulumi.StringInput  `pulumi:"key"`
+	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	Value  pulumi.StringInput  `pulumi:"value"`
+}
+
+func (CheckEnvironmentVariableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckEnvironmentVariable)(nil)).Elem()
+}
+
+func (i CheckEnvironmentVariableArgs) ToCheckEnvironmentVariableOutput() CheckEnvironmentVariableOutput {
+	return i.ToCheckEnvironmentVariableOutputWithContext(context.Background())
+}
+
+func (i CheckEnvironmentVariableArgs) ToCheckEnvironmentVariableOutputWithContext(ctx context.Context) CheckEnvironmentVariableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckEnvironmentVariableOutput)
+}
+
+type CheckEnvironmentVariableOutput struct{ *pulumi.OutputState }
+
+func (CheckEnvironmentVariableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckEnvironmentVariable)(nil)).Elem()
+}
+
+func (o CheckEnvironmentVariableOutput) ToCheckEnvironmentVariableOutput() CheckEnvironmentVariableOutput {
+	return o
+}
+
+func (o CheckEnvironmentVariableOutput) ToCheckEnvironmentVariableOutputWithContext(ctx context.Context) CheckEnvironmentVariableOutput {
+	return o
+}
+
+func (o CheckEnvironmentVariableOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckEnvironmentVariable) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o CheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
+}
+
+func (o CheckEnvironmentVariableOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckEnvironmentVariable) string { return v.Value }).(pulumi.StringOutput)
+}
+
 type CheckGroupAlertChannelSubscription struct {
 	Activated bool `pulumi:"activated"`
 	ChannelId int  `pulumi:"channelId"`
@@ -1792,7 +1853,7 @@ type CheckGroupAlertSettings struct {
 	EscalationType      *string                                     `pulumi:"escalationType"`
 	Reminders           []CheckGroupAlertSettingsReminder           `pulumi:"reminders"`
 	RunBasedEscalations []CheckGroupAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
-	// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+	// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 	SslCertificates      []CheckGroupAlertSettingsSslCertificate      `pulumi:"sslCertificates"`
 	TimeBasedEscalations []CheckGroupAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
 }
@@ -1812,7 +1873,7 @@ type CheckGroupAlertSettingsArgs struct {
 	EscalationType      pulumi.StringPtrInput                               `pulumi:"escalationType"`
 	Reminders           CheckGroupAlertSettingsReminderArrayInput           `pulumi:"reminders"`
 	RunBasedEscalations CheckGroupAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
-	// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+	// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 	SslCertificates      CheckGroupAlertSettingsSslCertificateArrayInput      `pulumi:"sslCertificates"`
 	TimeBasedEscalations CheckGroupAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
 }
@@ -1908,7 +1969,7 @@ func (o CheckGroupAlertSettingsOutput) RunBasedEscalations() CheckGroupAlertSett
 	}).(CheckGroupAlertSettingsRunBasedEscalationArrayOutput)
 }
 
-// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 func (o CheckGroupAlertSettingsOutput) SslCertificates() CheckGroupAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v CheckGroupAlertSettings) []CheckGroupAlertSettingsSslCertificate { return v.SslCertificates }).(CheckGroupAlertSettingsSslCertificateArrayOutput)
 }
@@ -1970,7 +2031,7 @@ func (o CheckGroupAlertSettingsPtrOutput) RunBasedEscalations() CheckGroupAlertS
 	}).(CheckGroupAlertSettingsRunBasedEscalationArrayOutput)
 }
 
-// Deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
 func (o CheckGroupAlertSettingsPtrOutput) SslCertificates() CheckGroupAlertSettingsSslCertificateArrayOutput {
 	return o.ApplyT(func(v *CheckGroupAlertSettings) []CheckGroupAlertSettingsSslCertificate {
 		if v == nil {
@@ -2843,6 +2904,67 @@ func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) Username() pulumi.StringPt
 	}).(pulumi.StringPtrOutput)
 }
 
+type CheckGroupEnvironmentVariable struct {
+	Key    string `pulumi:"key"`
+	Locked *bool  `pulumi:"locked"`
+	Value  string `pulumi:"value"`
+}
+
+// CheckGroupEnvironmentVariableInput is an input type that accepts CheckGroupEnvironmentVariableArgs and CheckGroupEnvironmentVariableOutput values.
+// You can construct a concrete instance of `CheckGroupEnvironmentVariableInput` via:
+//
+//          CheckGroupEnvironmentVariableArgs{...}
+type CheckGroupEnvironmentVariableInput interface {
+	pulumi.Input
+
+	ToCheckGroupEnvironmentVariableOutput() CheckGroupEnvironmentVariableOutput
+	ToCheckGroupEnvironmentVariableOutputWithContext(context.Context) CheckGroupEnvironmentVariableOutput
+}
+
+type CheckGroupEnvironmentVariableArgs struct {
+	Key    pulumi.StringInput  `pulumi:"key"`
+	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	Value  pulumi.StringInput  `pulumi:"value"`
+}
+
+func (CheckGroupEnvironmentVariableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupEnvironmentVariable)(nil)).Elem()
+}
+
+func (i CheckGroupEnvironmentVariableArgs) ToCheckGroupEnvironmentVariableOutput() CheckGroupEnvironmentVariableOutput {
+	return i.ToCheckGroupEnvironmentVariableOutputWithContext(context.Background())
+}
+
+func (i CheckGroupEnvironmentVariableArgs) ToCheckGroupEnvironmentVariableOutputWithContext(ctx context.Context) CheckGroupEnvironmentVariableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupEnvironmentVariableOutput)
+}
+
+type CheckGroupEnvironmentVariableOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupEnvironmentVariableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupEnvironmentVariable)(nil)).Elem()
+}
+
+func (o CheckGroupEnvironmentVariableOutput) ToCheckGroupEnvironmentVariableOutput() CheckGroupEnvironmentVariableOutput {
+	return o
+}
+
+func (o CheckGroupEnvironmentVariableOutput) ToCheckGroupEnvironmentVariableOutputWithContext(ctx context.Context) CheckGroupEnvironmentVariableOutput {
+	return o
+}
+
+func (o CheckGroupEnvironmentVariableOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupEnvironmentVariable) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o CheckGroupEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
+}
+
+func (o CheckGroupEnvironmentVariableOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupEnvironmentVariable) string { return v.Value }).(pulumi.StringOutput)
+}
+
 type CheckRequest struct {
 	Assertions      []CheckRequestAssertion `pulumi:"assertions"`
 	BasicAuth       *CheckRequestBasicAuth  `pulumi:"basicAuth"`
@@ -3396,6 +3518,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertSettingsSslCertificateArrayInput)(nil)).Elem(), CheckAlertSettingsSslCertificateArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), CheckAlertSettingsTimeBasedEscalationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), CheckAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckEnvironmentVariableInput)(nil)).Elem(), CheckEnvironmentVariableArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertChannelSubscriptionInput)(nil)).Elem(), CheckGroupAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertChannelSubscriptionArrayInput)(nil)).Elem(), CheckGroupAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupAlertSettingsInput)(nil)).Elem(), CheckGroupAlertSettingsArgs{})
@@ -3414,6 +3537,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsAssertionArrayInput)(nil)).Elem(), CheckGroupApiCheckDefaultsAssertionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsBasicAuthInput)(nil)).Elem(), CheckGroupApiCheckDefaultsBasicAuthArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupApiCheckDefaultsBasicAuthPtrInput)(nil)).Elem(), CheckGroupApiCheckDefaultsBasicAuthArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupEnvironmentVariableInput)(nil)).Elem(), CheckGroupEnvironmentVariableArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestInput)(nil)).Elem(), CheckRequestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestPtrInput)(nil)).Elem(), CheckRequestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestAssertionInput)(nil)).Elem(), CheckRequestAssertionArgs{})
@@ -3444,6 +3568,7 @@ func init() {
 	pulumi.RegisterOutputType(CheckAlertSettingsSslCertificateArrayOutput{})
 	pulumi.RegisterOutputType(CheckAlertSettingsTimeBasedEscalationOutput{})
 	pulumi.RegisterOutputType(CheckAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(CheckEnvironmentVariableOutput{})
 	pulumi.RegisterOutputType(CheckGroupAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(CheckGroupAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(CheckGroupAlertSettingsOutput{})
@@ -3462,6 +3587,7 @@ func init() {
 	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsAssertionArrayOutput{})
 	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsBasicAuthOutput{})
 	pulumi.RegisterOutputType(CheckGroupApiCheckDefaultsBasicAuthPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupEnvironmentVariableOutput{})
 	pulumi.RegisterOutputType(CheckRequestOutput{})
 	pulumi.RegisterOutputType(CheckRequestPtrOutput{})
 	pulumi.RegisterOutputType(CheckRequestAssertionOutput{})

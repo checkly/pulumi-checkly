@@ -20,15 +20,15 @@ namespace Pulumi.Checkly
     /// {
     ///     public MyStack()
     ///     {
-    ///         var test_trigger_check = new Checkly.TriggerCheck("test-trigger-check", new Checkly.TriggerCheckArgs
+    ///         var testTriggerCheck = new Checkly.TriggerCheck("testTriggerCheck", new Checkly.TriggerCheckArgs
     ///         {
     ///             CheckId = "c1ff95c5-d7f6-4a90-9ce2-1e605f117592",
     ///         });
-    ///         this.Test_trigger_check_url = test_trigger_check.Url;
+    ///         this.TestTriggerCheckUrl = testTriggerCheck.Url;
     ///     }
     /// 
-    ///     [Output("test-trigger-check-url")]
-    ///     public Output&lt;string&gt; Test_trigger_check_url { get; set; }
+    ///     [Output("testTriggerCheckUrl")]
+    ///     public Output&lt;string&gt; TestTriggerCheckUrl { get; set; }
     /// }
     /// ```
     /// </summary>

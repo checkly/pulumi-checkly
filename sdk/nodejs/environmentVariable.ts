@@ -12,12 +12,12 @@ import * as utilities from "./utilities";
  * import * as checkly from "@pulumi/checkly";
  *
  * // Simple Enviroment Variable example
- * const variable_1 = new checkly.EnvironmentVariable("variable-1", {
+ * const variable1 = new checkly.EnvironmentVariable("variable_1", {
  *     key: "API_KEY",
  *     locked: true,
  *     value: "loZd9hOGHDUrGvmW",
  * });
- * const variable_2 = new checkly.EnvironmentVariable("variable-2", {
+ * const variable2 = new checkly.EnvironmentVariable("variable_2", {
  *     key: "API_URL",
  *     value: "http://localhost:3000",
  * });

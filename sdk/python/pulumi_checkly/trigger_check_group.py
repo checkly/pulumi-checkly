@@ -137,8 +137,8 @@ class TriggerCheckGroup(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
-        pulumi.export("test-trigger-group-url", test_trigger_group.url)
+        test_trigger_group = checkly.TriggerCheckGroup("testTriggerGroup", group_id=215)
+        pulumi.export("testTriggerGroupUrl", test_trigger_group.url)
         ```
 
         :param str resource_name: The name of the resource.
@@ -160,8 +160,8 @@ class TriggerCheckGroup(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        test_trigger_group = checkly.TriggerCheckGroup("test-trigger-group", group_id=215)
-        pulumi.export("test-trigger-group-url", test_trigger_group.url)
+        test_trigger_group = checkly.TriggerCheckGroup("testTriggerGroup", group_id=215)
+        pulumi.export("testTriggerGroupUrl", test_trigger_group.url)
         ```
 
         :param str resource_name: The name of the resource.

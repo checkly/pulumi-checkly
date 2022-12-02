@@ -27,6 +27,8 @@ type Check struct {
 	DoubleCheck pulumi.BoolPtrOutput `pulumi:"doubleCheck"`
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables pulumi.MapOutput `pulumi:"environmentVariables"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
 	// `360`, `720`, and `1440`.
@@ -130,6 +132,8 @@ type checkState struct {
 	DoubleCheck *bool `pulumi:"doubleCheck"`
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
 	// `360`, `720`, and `1440`.
@@ -195,6 +199,8 @@ type CheckState struct {
 	DoubleCheck pulumi.BoolPtrInput
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables pulumi.MapInput
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
 	// `360`, `720`, and `1440`.
@@ -264,6 +270,8 @@ type checkArgs struct {
 	DoubleCheck *bool `pulumi:"doubleCheck"`
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
 	// `360`, `720`, and `1440`.
@@ -330,6 +338,8 @@ type CheckArgs struct {
 	DoubleCheck pulumi.BoolPtrInput
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables pulumi.MapInput
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
 	// `360`, `720`, and `1440`.

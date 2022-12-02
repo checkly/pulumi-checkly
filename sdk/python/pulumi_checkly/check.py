@@ -90,6 +90,9 @@ class CheckArgs:
         if double_check is not None:
             pulumi.set(__self__, "double_check", double_check)
         if environment_variables is not None:
+            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+        if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if frequency_offset is not None:
             pulumi.set(__self__, "frequency_offset", frequency_offset)
@@ -536,6 +539,9 @@ class _CheckState:
             pulumi.set(__self__, "degraded_response_time", degraded_response_time)
         if double_check is not None:
             pulumi.set(__self__, "double_check", double_check)
+        if environment_variables is not None:
+            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if frequency is not None:
@@ -1055,6 +1061,9 @@ class Check(pulumi.CustomResource):
             __props__.__dict__["alert_settings"] = alert_settings
             __props__.__dict__["degraded_response_time"] = degraded_response_time
             __props__.__dict__["double_check"] = double_check
+            if environment_variables is not None and not opts.urn:
+                warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
+                pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
             __props__.__dict__["environment_variables"] = environment_variables
             if frequency is None and not opts.urn:
                 raise TypeError("Missing required property 'frequency'")

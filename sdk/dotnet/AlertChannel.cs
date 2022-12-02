@@ -89,7 +89,7 @@ namespace Pulumi.Checkly
     ///             },
     ///         });
     ///         // Connecting the alert channel to a check
-    ///         var example_check = new Checkly.Check("example-check", new Checkly.CheckArgs
+    ///         var exampleCheck = new Checkly.Check("exampleCheck", new Checkly.CheckArgs
     ///         {
     ///             AlertChannelSubscriptions = 
     ///             {

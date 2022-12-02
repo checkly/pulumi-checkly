@@ -137,8 +137,8 @@ class TriggerCheck(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
-        pulumi.export("test-trigger-check-url", test_trigger_check.url)
+        test_trigger_check = checkly.TriggerCheck("testTriggerCheck", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
+        pulumi.export("testTriggerCheckUrl", test_trigger_check.url)
         ```
 
         :param str resource_name: The name of the resource.
@@ -160,8 +160,8 @@ class TriggerCheck(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        test_trigger_check = checkly.TriggerCheck("test-trigger-check", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
-        pulumi.export("test-trigger-check-url", test_trigger_check.url)
+        test_trigger_check = checkly.TriggerCheck("testTriggerCheck", check_id="c1ff95c5-d7f6-4a90-9ce2-1e605f117592")
+        pulumi.export("testTriggerCheckUrl", test_trigger_check.url)
         ```
 
         :param str resource_name: The name of the resource.

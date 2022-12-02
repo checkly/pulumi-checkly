@@ -11,8 +11,8 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as pulumi from "@checkly/pulumi";
  *
- * const test_trigger_group = new checkly.TriggerCheckGroup("test-trigger-group", {groupId: "215"});
- * export const test_trigger_group_url = test_trigger_group.url;
+ * const testTriggerGroup = new checkly.TriggerCheckGroup("testTriggerGroup", {groupId: "215"});
+ * export const testTriggerGroupUrl = testTriggerGroup.url;
  * ```
  */
 export class TriggerCheckGroup extends pulumi.CustomResource {

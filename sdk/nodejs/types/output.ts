@@ -53,7 +53,7 @@ export interface CheckAlertSettings {
     reminders?: outputs.CheckAlertSettingsReminder[];
     runBasedEscalations?: outputs.CheckAlertSettingsRunBasedEscalation[];
     /**
-     * @deprecated The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
      */
     sslCertificates?: outputs.CheckAlertSettingsSslCertificate[];
     timeBasedEscalations?: outputs.CheckAlertSettingsTimeBasedEscalation[];
@@ -87,7 +87,7 @@ export interface CheckGroupAlertSettings {
     reminders?: outputs.CheckGroupAlertSettingsReminder[];
     runBasedEscalations?: outputs.CheckGroupAlertSettingsRunBasedEscalation[];
     /**
-     * @deprecated The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
      */
     sslCertificates?: outputs.CheckGroupAlertSettingsSslCertificate[];
     timeBasedEscalations?: outputs.CheckGroupAlertSettingsTimeBasedEscalation[];

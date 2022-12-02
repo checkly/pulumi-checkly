@@ -323,8 +323,8 @@ class CheckAlertSettingsArgs:
         if run_based_escalations is not None:
             pulumi.set(__self__, "run_based_escalations", run_based_escalations)
         if ssl_certificates is not None:
-            warnings.warn("""The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""", DeprecationWarning)
-            pulumi.log.warn("""ssl_certificates is deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+            warnings.warn("""This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""", DeprecationWarning)
+            pulumi.log.warn("""ssl_certificates is deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
         if ssl_certificates is not None:
             pulumi.set(__self__, "ssl_certificates", ssl_certificates)
         if time_based_escalations is not None:
@@ -510,8 +510,8 @@ class CheckGroupAlertSettingsArgs:
         if run_based_escalations is not None:
             pulumi.set(__self__, "run_based_escalations", run_based_escalations)
         if ssl_certificates is not None:
-            warnings.warn("""The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""", DeprecationWarning)
-            pulumi.log.warn("""ssl_certificates is deprecated: The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+            warnings.warn("""This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""", DeprecationWarning)
+            pulumi.log.warn("""ssl_certificates is deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
         if ssl_certificates is not None:
             pulumi.set(__self__, "ssl_certificates", ssl_certificates)
         if time_based_escalations is not None:

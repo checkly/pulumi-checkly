@@ -264,6 +264,7 @@ namespace Pulumi.Checkly
         /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
         /// Use global environment variables whenever possible.
         /// </summary>
+        [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
@@ -464,6 +465,7 @@ namespace Pulumi.Checkly
         /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
         /// Use global environment variables whenever possible.
         /// </summary>
+        [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
         public InputMap<object> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
