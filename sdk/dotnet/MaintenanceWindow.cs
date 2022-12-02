@@ -20,7 +20,7 @@ namespace Pulumi.Checkly
     /// {
     ///     public MyStack()
     ///     {
-    ///         var maintenance_1 = new Checkly.MaintenanceWindow("maintenance-1", new Checkly.MaintenanceWindowArgs
+    ///         var maintenance1 = new Checkly.MaintenanceWindow("maintenance1", new Checkly.MaintenanceWindowArgs
     ///         {
     ///             EndsAt = "2014-08-25T00:00:00.000Z",
     ///             RepeatEndsAt = "2014-08-24T00:00:00.000Z",

@@ -403,7 +403,7 @@ class AlertChannel(pulumi.CustomResource):
             webhook_secret="foosecret",
         ))
         # Connecting the alert channel to a check
-        example_check = checkly.Check("example-check", alert_channel_subscriptions=[
+        example_check = checkly.Check("exampleCheck", alert_channel_subscriptions=[
             checkly.CheckAlertChannelSubscriptionArgs(
                 channel_id=email_ac.id,
                 activated=True,
@@ -483,7 +483,7 @@ class AlertChannel(pulumi.CustomResource):
             webhook_secret="foosecret",
         ))
         # Connecting the alert channel to a check
-        example_check = checkly.Check("example-check", alert_channel_subscriptions=[
+        example_check = checkly.Check("exampleCheck", alert_channel_subscriptions=[
             checkly.CheckAlertChannelSubscriptionArgs(
                 channel_id=email_ac.id,
                 activated=True,

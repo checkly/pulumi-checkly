@@ -55,6 +55,8 @@ export class Check extends pulumi.CustomResource {
     /**
      * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
      * Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
      */
     public readonly environmentVariables!: pulumi.Output<{[key: string]: any} | undefined>;
     /**
@@ -256,6 +258,8 @@ export interface CheckState {
     /**
      * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
      * Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**
@@ -374,6 +378,8 @@ export interface CheckArgs {
     /**
      * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
      * Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**

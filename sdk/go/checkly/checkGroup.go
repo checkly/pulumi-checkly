@@ -26,7 +26,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewCheckGroup(ctx, "test-group1CheckGroup", &checkly.CheckGroupArgs{
+// 		testGroup1CheckGroup, err := checkly.NewCheckGroup(ctx, "testGroup1CheckGroup", &checkly.CheckGroupArgs{
 // 			Activated: pulumi.Bool(true),
 // 			Muted:     pulumi.Bool(false),
 // 			Tags: pulumi.StringArray{
@@ -93,8 +93,8 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = checkly.NewCheck(ctx, "test-check1", &checkly.CheckArgs{
-// 			GroupId:    test_group1CheckGroup.ID(),
+// 		_, err = checkly.NewCheck(ctx, "testCheck1", &checkly.CheckArgs{
+// 			GroupId:    testGroup1CheckGroup.ID(),
 // 			GroupOrder: pulumi.Int(1),
 // 		})
 // 		if err != nil {
@@ -116,7 +116,7 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = checkly.NewCheckGroup(ctx, "test-group1Index/checkGroupCheckGroup", &checkly.CheckGroupArgs{
+// 		_, err = checkly.NewCheckGroup(ctx, "testGroup1Index/checkGroupCheckGroup", &checkly.CheckGroupArgs{
 // 			AlertChannelSubscriptions: CheckGroupAlertChannelSubscriptionArray{
 // 				&CheckGroupAlertChannelSubscriptionArgs{
 // 					ChannelId: emailAc1.ID(),
@@ -150,6 +150,8 @@ type CheckGroup struct {
 	DoubleCheck pulumi.BoolPtrOutput `pulumi:"doubleCheck"`
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables pulumi.MapOutput `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrOutput `pulumi:"localSetupScript"`
@@ -226,6 +228,8 @@ type checkGroupState struct {
 	DoubleCheck *bool `pulumi:"doubleCheck"`
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -264,6 +268,8 @@ type CheckGroupState struct {
 	DoubleCheck pulumi.BoolPtrInput
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables pulumi.MapInput
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrInput
@@ -306,6 +312,8 @@ type checkGroupArgs struct {
 	DoubleCheck *bool `pulumi:"doubleCheck"`
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables map[string]interface{} `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -345,6 +353,8 @@ type CheckGroupArgs struct {
 	DoubleCheck pulumi.BoolPtrInput
 	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
 	// Use global environment variables whenever possible.
+	//
+	// Deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
 	EnvironmentVariables pulumi.MapInput
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrInput

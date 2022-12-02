@@ -113,11 +113,11 @@ class EnvironmentVariable(pulumi.CustomResource):
         import pulumi_checkly as checkly
 
         # Simple Enviroment Variable example
-        variable_1 = checkly.EnvironmentVariable("variable-1",
+        variable1 = checkly.EnvironmentVariable("variable1",
             key="API_KEY",
             locked=True,
             value="loZd9hOGHDUrGvmW")
-        variable_2 = checkly.EnvironmentVariable("variable-2",
+        variable2 = checkly.EnvironmentVariable("variable2",
             key="API_URL",
             value="http://localhost:3000")
         ```
@@ -139,11 +139,11 @@ class EnvironmentVariable(pulumi.CustomResource):
         import pulumi_checkly as checkly
 
         # Simple Enviroment Variable example
-        variable_1 = checkly.EnvironmentVariable("variable-1",
+        variable1 = checkly.EnvironmentVariable("variable1",
             key="API_KEY",
             locked=True,
             value="loZd9hOGHDUrGvmW")
-        variable_2 = checkly.EnvironmentVariable("variable-2",
+        variable2 = checkly.EnvironmentVariable("variable2",
             key="API_URL",
             value="http://localhost:3000")
         ```

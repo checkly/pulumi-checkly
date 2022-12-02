@@ -20,7 +20,7 @@ namespace Pulumi.Checkly
     /// {
     ///     public MyStack()
     ///     {
-    ///         var dashboard_1 = new Checkly.Dashboard("dashboard-1", new Checkly.DashboardArgs
+    ///         var dashboard1 = new Checkly.Dashboard("dashboard1", new Checkly.DashboardArgs
     ///         {
     ///             CustomDomain = "status.example.com",
     ///             CustomUrl = "checkly",
@@ -45,6 +45,12 @@ namespace Pulumi.Checkly
     public partial class Dashboard : Pulumi.CustomResource
     {
         /// <summary>
+        /// Determines how many checks to show per page.
+        /// </summary>
+        [Output("checksPerPage")]
+        public Output<int?> ChecksPerPage { get; private set; } = null!;
+
+        /// <summary>
         /// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         /// </summary>
         [Output("customDomain")]
@@ -55,6 +61,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Output("customUrl")]
         public Output<string> CustomUrl { get; private set; } = null!;
+
+        /// <summary>
+        /// HTML &lt;meta&gt; description for the dashboard.
+        /// </summary>
+        [Output("description")]
+        public Output<string?> Description { get; private set; } = null!;
+
+        /// <summary>
+        /// A URL pointing to an image file to use as browser favicon.
+        /// </summary>
+        [Output("favicon")]
+        public Output<string?> Favicon { get; private set; } = null!;
 
         /// <summary>
         /// A piece of text displayed at the top of your dashboard.
@@ -69,7 +87,13 @@ namespace Pulumi.Checkly
         public Output<bool?> HideTags { get; private set; } = null!;
 
         /// <summary>
-        /// A URL pointing to an image file.
+        /// A link to for the dashboard logo.
+        /// </summary>
+        [Output("link")]
+        public Output<string?> Link { get; private set; } = null!;
+
+        /// <summary>
+        /// A URL pointing to an image file to use for the dashboard logo.
         /// </summary>
         [Output("logo")]
         public Output<string?> Logo { get; private set; } = null!;
@@ -97,6 +121,12 @@ namespace Pulumi.Checkly
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
+
+        /// <summary>
+        /// Set when to use AND operator for fetching dashboard tags.
+        /// </summary>
+        [Output("useTagsAndOperator")]
+        public Output<bool?> UseTagsAndOperator { get; private set; } = null!;
 
         /// <summary>
         /// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
@@ -152,6 +182,12 @@ namespace Pulumi.Checkly
     public sealed class DashboardArgs : Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Determines how many checks to show per page.
+        /// </summary>
+        [Input("checksPerPage")]
+        public Input<int>? ChecksPerPage { get; set; }
+
+        /// <summary>
         /// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         /// </summary>
         [Input("customDomain")]
@@ -162,6 +198,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("customUrl", required: true)]
         public Input<string> CustomUrl { get; set; } = null!;
+
+        /// <summary>
+        /// HTML &lt;meta&gt; description for the dashboard.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
+        /// <summary>
+        /// A URL pointing to an image file to use as browser favicon.
+        /// </summary>
+        [Input("favicon")]
+        public Input<string>? Favicon { get; set; }
 
         /// <summary>
         /// A piece of text displayed at the top of your dashboard.
@@ -176,7 +224,13 @@ namespace Pulumi.Checkly
         public Input<bool>? HideTags { get; set; }
 
         /// <summary>
-        /// A URL pointing to an image file.
+        /// A link to for the dashboard logo.
+        /// </summary>
+        [Input("link")]
+        public Input<string>? Link { get; set; }
+
+        /// <summary>
+        /// A URL pointing to an image file to use for the dashboard logo.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
@@ -210,6 +264,12 @@ namespace Pulumi.Checkly
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
+
+        /// <summary>
+        /// Set when to use AND operator for fetching dashboard tags.
+        /// </summary>
+        [Input("useTagsAndOperator")]
+        public Input<bool>? UseTagsAndOperator { get; set; }
 
         /// <summary>
         /// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
@@ -225,6 +285,12 @@ namespace Pulumi.Checkly
     public sealed class DashboardState : Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Determines how many checks to show per page.
+        /// </summary>
+        [Input("checksPerPage")]
+        public Input<int>? ChecksPerPage { get; set; }
+
+        /// <summary>
         /// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         /// </summary>
         [Input("customDomain")]
@@ -235,6 +301,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("customUrl")]
         public Input<string>? CustomUrl { get; set; }
+
+        /// <summary>
+        /// HTML &lt;meta&gt; description for the dashboard.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
+        /// <summary>
+        /// A URL pointing to an image file to use as browser favicon.
+        /// </summary>
+        [Input("favicon")]
+        public Input<string>? Favicon { get; set; }
 
         /// <summary>
         /// A piece of text displayed at the top of your dashboard.
@@ -249,7 +327,13 @@ namespace Pulumi.Checkly
         public Input<bool>? HideTags { get; set; }
 
         /// <summary>
-        /// A URL pointing to an image file.
+        /// A link to for the dashboard logo.
+        /// </summary>
+        [Input("link")]
+        public Input<string>? Link { get; set; }
+
+        /// <summary>
+        /// A URL pointing to an image file to use for the dashboard logo.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
@@ -283,6 +367,12 @@ namespace Pulumi.Checkly
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
+
+        /// <summary>
+        /// Set when to use AND operator for fetching dashboard tags.
+        /// </summary>
+        [Input("useTagsAndOperator")]
+        public Input<bool>? UseTagsAndOperator { get; set; }
 
         /// <summary>
         /// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.

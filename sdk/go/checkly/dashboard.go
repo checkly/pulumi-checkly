@@ -23,7 +23,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewDashboard(ctx, "dashboard-1", &checkly.DashboardArgs{
+// 		_, err := checkly.NewDashboard(ctx, "dashboard1", &checkly.DashboardArgs{
 // 			CustomDomain:   pulumi.String("status.example.com"),
 // 			CustomUrl:      pulumi.String("checkly"),
 // 			Header:         pulumi.String("Public dashboard"),
@@ -47,15 +47,23 @@ import (
 type Dashboard struct {
 	pulumi.CustomResourceState
 
+	// Determines how many checks to show per page.
+	ChecksPerPage pulumi.IntPtrOutput `pulumi:"checksPerPage"`
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrOutput `pulumi:"customDomain"`
 	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
 	CustomUrl pulumi.StringOutput `pulumi:"customUrl"`
+	// HTML <meta> description for the dashboard.
+	Description pulumi.StringPtrOutput `pulumi:"description"`
+	// A URL pointing to an image file to use as browser favicon.
+	Favicon pulumi.StringPtrOutput `pulumi:"favicon"`
 	// A piece of text displayed at the top of your dashboard.
 	Header pulumi.StringPtrOutput `pulumi:"header"`
 	// Show or hide the tags on the dashboard.
 	HideTags pulumi.BoolPtrOutput `pulumi:"hideTags"`
-	// A URL pointing to an image file.
+	// A link to for the dashboard logo.
+	Link pulumi.StringPtrOutput `pulumi:"link"`
+	// A URL pointing to an image file to use for the dashboard logo.
 	Logo pulumi.StringPtrOutput `pulumi:"logo"`
 	// Determines if pagination is on or off.
 	Paginate pulumi.BoolPtrOutput `pulumi:"paginate"`
@@ -65,6 +73,8 @@ type Dashboard struct {
 	RefreshRate pulumi.IntPtrOutput `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
+	// Set when to use AND operator for fetching dashboard tags.
+	UseTagsAndOperator pulumi.BoolPtrOutput `pulumi:"useTagsAndOperator"`
 	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
 	Width pulumi.StringPtrOutput `pulumi:"width"`
 }
@@ -102,15 +112,23 @@ func GetDashboard(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Dashboard resources.
 type dashboardState struct {
+	// Determines how many checks to show per page.
+	ChecksPerPage *int `pulumi:"checksPerPage"`
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
 	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
 	CustomUrl *string `pulumi:"customUrl"`
+	// HTML <meta> description for the dashboard.
+	Description *string `pulumi:"description"`
+	// A URL pointing to an image file to use as browser favicon.
+	Favicon *string `pulumi:"favicon"`
 	// A piece of text displayed at the top of your dashboard.
 	Header *string `pulumi:"header"`
 	// Show or hide the tags on the dashboard.
 	HideTags *bool `pulumi:"hideTags"`
-	// A URL pointing to an image file.
+	// A link to for the dashboard logo.
+	Link *string `pulumi:"link"`
+	// A URL pointing to an image file to use for the dashboard logo.
 	Logo *string `pulumi:"logo"`
 	// Determines if pagination is on or off.
 	Paginate *bool `pulumi:"paginate"`
@@ -120,20 +138,30 @@ type dashboardState struct {
 	RefreshRate *int `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
+	// Set when to use AND operator for fetching dashboard tags.
+	UseTagsAndOperator *bool `pulumi:"useTagsAndOperator"`
 	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
 	Width *string `pulumi:"width"`
 }
 
 type DashboardState struct {
+	// Determines how many checks to show per page.
+	ChecksPerPage pulumi.IntPtrInput
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
 	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
 	CustomUrl pulumi.StringPtrInput
+	// HTML <meta> description for the dashboard.
+	Description pulumi.StringPtrInput
+	// A URL pointing to an image file to use as browser favicon.
+	Favicon pulumi.StringPtrInput
 	// A piece of text displayed at the top of your dashboard.
 	Header pulumi.StringPtrInput
 	// Show or hide the tags on the dashboard.
 	HideTags pulumi.BoolPtrInput
-	// A URL pointing to an image file.
+	// A link to for the dashboard logo.
+	Link pulumi.StringPtrInput
+	// A URL pointing to an image file to use for the dashboard logo.
 	Logo pulumi.StringPtrInput
 	// Determines if pagination is on or off.
 	Paginate pulumi.BoolPtrInput
@@ -143,6 +171,8 @@ type DashboardState struct {
 	RefreshRate pulumi.IntPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput
+	// Set when to use AND operator for fetching dashboard tags.
+	UseTagsAndOperator pulumi.BoolPtrInput
 	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
 	Width pulumi.StringPtrInput
 }
@@ -152,15 +182,23 @@ func (DashboardState) ElementType() reflect.Type {
 }
 
 type dashboardArgs struct {
+	// Determines how many checks to show per page.
+	ChecksPerPage *int `pulumi:"checksPerPage"`
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
 	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
 	CustomUrl string `pulumi:"customUrl"`
+	// HTML <meta> description for the dashboard.
+	Description *string `pulumi:"description"`
+	// A URL pointing to an image file to use as browser favicon.
+	Favicon *string `pulumi:"favicon"`
 	// A piece of text displayed at the top of your dashboard.
 	Header *string `pulumi:"header"`
 	// Show or hide the tags on the dashboard.
 	HideTags *bool `pulumi:"hideTags"`
-	// A URL pointing to an image file.
+	// A link to for the dashboard logo.
+	Link *string `pulumi:"link"`
+	// A URL pointing to an image file to use for the dashboard logo.
 	Logo *string `pulumi:"logo"`
 	// Determines if pagination is on or off.
 	Paginate *bool `pulumi:"paginate"`
@@ -170,21 +208,31 @@ type dashboardArgs struct {
 	RefreshRate *int `pulumi:"refreshRate"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
+	// Set when to use AND operator for fetching dashboard tags.
+	UseTagsAndOperator *bool `pulumi:"useTagsAndOperator"`
 	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
 	Width *string `pulumi:"width"`
 }
 
 // The set of arguments for constructing a Dashboard resource.
 type DashboardArgs struct {
+	// Determines how many checks to show per page.
+	ChecksPerPage pulumi.IntPtrInput
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
 	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
 	CustomUrl pulumi.StringInput
+	// HTML <meta> description for the dashboard.
+	Description pulumi.StringPtrInput
+	// A URL pointing to an image file to use as browser favicon.
+	Favicon pulumi.StringPtrInput
 	// A piece of text displayed at the top of your dashboard.
 	Header pulumi.StringPtrInput
 	// Show or hide the tags on the dashboard.
 	HideTags pulumi.BoolPtrInput
-	// A URL pointing to an image file.
+	// A link to for the dashboard logo.
+	Link pulumi.StringPtrInput
+	// A URL pointing to an image file to use for the dashboard logo.
 	Logo pulumi.StringPtrInput
 	// Determines if pagination is on or off.
 	Paginate pulumi.BoolPtrInput
@@ -194,6 +242,8 @@ type DashboardArgs struct {
 	RefreshRate pulumi.IntPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput
+	// Set when to use AND operator for fetching dashboard tags.
+	UseTagsAndOperator pulumi.BoolPtrInput
 	// Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
 	Width pulumi.StringPtrInput
 }

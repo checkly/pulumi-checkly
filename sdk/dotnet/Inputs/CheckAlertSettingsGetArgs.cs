@@ -33,7 +33,7 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("sslCertificates")]
         private InputList<Inputs.CheckAlertSettingsSslCertificateGetArgs>? _sslCertificates;
-        [Obsolete(@"The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.")]
+        [Obsolete(@"This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.")]
         public InputList<Inputs.CheckAlertSettingsSslCertificateGetArgs> SslCertificates
         {
             get => _sslCertificates ?? (_sslCertificates = new InputList<Inputs.CheckAlertSettingsSslCertificateGetArgs>());

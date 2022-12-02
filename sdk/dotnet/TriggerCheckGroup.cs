@@ -20,15 +20,15 @@ namespace Pulumi.Checkly
     /// {
     ///     public MyStack()
     ///     {
-    ///         var test_trigger_group = new Checkly.TriggerCheckGroup("test-trigger-group", new Checkly.TriggerCheckGroupArgs
+    ///         var testTriggerGroup = new Checkly.TriggerCheckGroup("testTriggerGroup", new Checkly.TriggerCheckGroupArgs
     ///         {
     ///             GroupId = 215,
     ///         });
-    ///         this.Test_trigger_group_url = test_trigger_group.Url;
+    ///         this.TestTriggerGroupUrl = testTriggerGroup.Url;
     ///     }
     /// 
-    ///     [Output("test-trigger-group-url")]
-    ///     public Output&lt;string&gt; Test_trigger_group_url { get; set; }
+    ///     [Output("testTriggerGroupUrl")]
+    ///     public Output&lt;string&gt; TestTriggerGroupUrl { get; set; }
     /// }
     /// ```
     /// </summary>

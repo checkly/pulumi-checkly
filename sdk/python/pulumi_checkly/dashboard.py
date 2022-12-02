@@ -14,35 +14,53 @@ __all__ = ['DashboardArgs', 'Dashboard']
 class DashboardArgs:
     def __init__(__self__, *,
                  custom_url: pulumi.Input[str],
+                 checks_per_page: Optional[pulumi.Input[int]] = None,
                  custom_domain: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 favicon: Optional[pulumi.Input[str]] = None,
                  header: Optional[pulumi.Input[str]] = None,
                  hide_tags: Optional[pulumi.Input[bool]] = None,
+                 link: Optional[pulumi.Input[str]] = None,
                  logo: Optional[pulumi.Input[str]] = None,
                  paginate: Optional[pulumi.Input[bool]] = None,
                  pagination_rate: Optional[pulumi.Input[int]] = None,
                  refresh_rate: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 use_tags_and_operator: Optional[pulumi.Input[bool]] = None,
                  width: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Dashboard resource.
         :param pulumi.Input[str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        :param pulumi.Input[int] checks_per_page: Determines how many checks to show per page.
         :param pulumi.Input[str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
+        :param pulumi.Input[str] description: HTML <meta> description for the dashboard.
+        :param pulumi.Input[str] favicon: A URL pointing to an image file to use as browser favicon.
         :param pulumi.Input[str] header: A piece of text displayed at the top of your dashboard.
         :param pulumi.Input[bool] hide_tags: Show or hide the tags on the dashboard.
-        :param pulumi.Input[str] logo: A URL pointing to an image file.
+        :param pulumi.Input[str] link: A link to for the dashboard logo.
+        :param pulumi.Input[str] logo: A URL pointing to an image file to use for the dashboard logo.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
         :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
+        :param pulumi.Input[bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
         pulumi.set(__self__, "custom_url", custom_url)
+        if checks_per_page is not None:
+            pulumi.set(__self__, "checks_per_page", checks_per_page)
         if custom_domain is not None:
             pulumi.set(__self__, "custom_domain", custom_domain)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if favicon is not None:
+            pulumi.set(__self__, "favicon", favicon)
         if header is not None:
             pulumi.set(__self__, "header", header)
         if hide_tags is not None:
             pulumi.set(__self__, "hide_tags", hide_tags)
+        if link is not None:
+            pulumi.set(__self__, "link", link)
         if logo is not None:
             pulumi.set(__self__, "logo", logo)
         if paginate is not None:
@@ -53,6 +71,8 @@ class DashboardArgs:
             pulumi.set(__self__, "refresh_rate", refresh_rate)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if use_tags_and_operator is not None:
+            pulumi.set(__self__, "use_tags_and_operator", use_tags_and_operator)
         if width is not None:
             pulumi.set(__self__, "width", width)
 
@@ -69,6 +89,18 @@ class DashboardArgs:
         pulumi.set(self, "custom_url", value)
 
     @property
+    @pulumi.getter(name="checksPerPage")
+    def checks_per_page(self) -> Optional[pulumi.Input[int]]:
+        """
+        Determines how many checks to show per page.
+        """
+        return pulumi.get(self, "checks_per_page")
+
+    @checks_per_page.setter
+    def checks_per_page(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "checks_per_page", value)
+
+    @property
     @pulumi.getter(name="customDomain")
     def custom_domain(self) -> Optional[pulumi.Input[str]]:
         """
@@ -79,6 +111,30 @@ class DashboardArgs:
     @custom_domain.setter
     def custom_domain(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "custom_domain", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        HTML <meta> description for the dashboard.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def favicon(self) -> Optional[pulumi.Input[str]]:
+        """
+        A URL pointing to an image file to use as browser favicon.
+        """
+        return pulumi.get(self, "favicon")
+
+    @favicon.setter
+    def favicon(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "favicon", value)
 
     @property
     @pulumi.getter
@@ -106,9 +162,21 @@ class DashboardArgs:
 
     @property
     @pulumi.getter
+    def link(self) -> Optional[pulumi.Input[str]]:
+        """
+        A link to for the dashboard logo.
+        """
+        return pulumi.get(self, "link")
+
+    @link.setter
+    def link(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "link", value)
+
+    @property
+    @pulumi.getter
     def logo(self) -> Optional[pulumi.Input[str]]:
         """
-        A URL pointing to an image file.
+        A URL pointing to an image file to use for the dashboard logo.
         """
         return pulumi.get(self, "logo")
 
@@ -165,6 +233,18 @@ class DashboardArgs:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="useTagsAndOperator")
+    def use_tags_and_operator(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Set when to use AND operator for fetching dashboard tags.
+        """
+        return pulumi.get(self, "use_tags_and_operator")
+
+    @use_tags_and_operator.setter
+    def use_tags_and_operator(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "use_tags_and_operator", value)
+
+    @property
     @pulumi.getter
     def width(self) -> Optional[pulumi.Input[str]]:
         """
@@ -180,37 +260,55 @@ class DashboardArgs:
 @pulumi.input_type
 class _DashboardState:
     def __init__(__self__, *,
+                 checks_per_page: Optional[pulumi.Input[int]] = None,
                  custom_domain: Optional[pulumi.Input[str]] = None,
                  custom_url: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 favicon: Optional[pulumi.Input[str]] = None,
                  header: Optional[pulumi.Input[str]] = None,
                  hide_tags: Optional[pulumi.Input[bool]] = None,
+                 link: Optional[pulumi.Input[str]] = None,
                  logo: Optional[pulumi.Input[str]] = None,
                  paginate: Optional[pulumi.Input[bool]] = None,
                  pagination_rate: Optional[pulumi.Input[int]] = None,
                  refresh_rate: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 use_tags_and_operator: Optional[pulumi.Input[bool]] = None,
                  width: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Dashboard resources.
+        :param pulumi.Input[int] checks_per_page: Determines how many checks to show per page.
         :param pulumi.Input[str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         :param pulumi.Input[str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        :param pulumi.Input[str] description: HTML <meta> description for the dashboard.
+        :param pulumi.Input[str] favicon: A URL pointing to an image file to use as browser favicon.
         :param pulumi.Input[str] header: A piece of text displayed at the top of your dashboard.
         :param pulumi.Input[bool] hide_tags: Show or hide the tags on the dashboard.
-        :param pulumi.Input[str] logo: A URL pointing to an image file.
+        :param pulumi.Input[str] link: A link to for the dashboard logo.
+        :param pulumi.Input[str] logo: A URL pointing to an image file to use for the dashboard logo.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
         :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
+        :param pulumi.Input[bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
+        if checks_per_page is not None:
+            pulumi.set(__self__, "checks_per_page", checks_per_page)
         if custom_domain is not None:
             pulumi.set(__self__, "custom_domain", custom_domain)
         if custom_url is not None:
             pulumi.set(__self__, "custom_url", custom_url)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if favicon is not None:
+            pulumi.set(__self__, "favicon", favicon)
         if header is not None:
             pulumi.set(__self__, "header", header)
         if hide_tags is not None:
             pulumi.set(__self__, "hide_tags", hide_tags)
+        if link is not None:
+            pulumi.set(__self__, "link", link)
         if logo is not None:
             pulumi.set(__self__, "logo", logo)
         if paginate is not None:
@@ -221,8 +319,22 @@ class _DashboardState:
             pulumi.set(__self__, "refresh_rate", refresh_rate)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if use_tags_and_operator is not None:
+            pulumi.set(__self__, "use_tags_and_operator", use_tags_and_operator)
         if width is not None:
             pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter(name="checksPerPage")
+    def checks_per_page(self) -> Optional[pulumi.Input[int]]:
+        """
+        Determines how many checks to show per page.
+        """
+        return pulumi.get(self, "checks_per_page")
+
+    @checks_per_page.setter
+    def checks_per_page(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "checks_per_page", value)
 
     @property
     @pulumi.getter(name="customDomain")
@@ -250,6 +362,30 @@ class _DashboardState:
 
     @property
     @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        """
+        HTML <meta> description for the dashboard.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def favicon(self) -> Optional[pulumi.Input[str]]:
+        """
+        A URL pointing to an image file to use as browser favicon.
+        """
+        return pulumi.get(self, "favicon")
+
+    @favicon.setter
+    def favicon(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "favicon", value)
+
+    @property
+    @pulumi.getter
     def header(self) -> Optional[pulumi.Input[str]]:
         """
         A piece of text displayed at the top of your dashboard.
@@ -274,9 +410,21 @@ class _DashboardState:
 
     @property
     @pulumi.getter
+    def link(self) -> Optional[pulumi.Input[str]]:
+        """
+        A link to for the dashboard logo.
+        """
+        return pulumi.get(self, "link")
+
+    @link.setter
+    def link(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "link", value)
+
+    @property
+    @pulumi.getter
     def logo(self) -> Optional[pulumi.Input[str]]:
         """
-        A URL pointing to an image file.
+        A URL pointing to an image file to use for the dashboard logo.
         """
         return pulumi.get(self, "logo")
 
@@ -333,6 +481,18 @@ class _DashboardState:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="useTagsAndOperator")
+    def use_tags_and_operator(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Set when to use AND operator for fetching dashboard tags.
+        """
+        return pulumi.get(self, "use_tags_and_operator")
+
+    @use_tags_and_operator.setter
+    def use_tags_and_operator(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "use_tags_and_operator", value)
+
+    @property
     @pulumi.getter
     def width(self) -> Optional[pulumi.Input[str]]:
         """
@@ -350,15 +510,20 @@ class Dashboard(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 checks_per_page: Optional[pulumi.Input[int]] = None,
                  custom_domain: Optional[pulumi.Input[str]] = None,
                  custom_url: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 favicon: Optional[pulumi.Input[str]] = None,
                  header: Optional[pulumi.Input[str]] = None,
                  hide_tags: Optional[pulumi.Input[bool]] = None,
+                 link: Optional[pulumi.Input[str]] = None,
                  logo: Optional[pulumi.Input[str]] = None,
                  paginate: Optional[pulumi.Input[bool]] = None,
                  pagination_rate: Optional[pulumi.Input[int]] = None,
                  refresh_rate: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 use_tags_and_operator: Optional[pulumi.Input[bool]] = None,
                  width: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -368,7 +533,7 @@ class Dashboard(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        dashboard_1 = checkly.Dashboard("dashboard-1",
+        dashboard1 = checkly.Dashboard("dashboard1",
             custom_domain="status.example.com",
             custom_url="checkly",
             header="Public dashboard",
@@ -383,15 +548,20 @@ class Dashboard(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] checks_per_page: Determines how many checks to show per page.
         :param pulumi.Input[str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         :param pulumi.Input[str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        :param pulumi.Input[str] description: HTML <meta> description for the dashboard.
+        :param pulumi.Input[str] favicon: A URL pointing to an image file to use as browser favicon.
         :param pulumi.Input[str] header: A piece of text displayed at the top of your dashboard.
         :param pulumi.Input[bool] hide_tags: Show or hide the tags on the dashboard.
-        :param pulumi.Input[str] logo: A URL pointing to an image file.
+        :param pulumi.Input[str] link: A link to for the dashboard logo.
+        :param pulumi.Input[str] logo: A URL pointing to an image file to use for the dashboard logo.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
         :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
+        :param pulumi.Input[bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
         ...
@@ -407,7 +577,7 @@ class Dashboard(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        dashboard_1 = checkly.Dashboard("dashboard-1",
+        dashboard1 = checkly.Dashboard("dashboard1",
             custom_domain="status.example.com",
             custom_url="checkly",
             header="Public dashboard",
@@ -435,15 +605,20 @@ class Dashboard(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 checks_per_page: Optional[pulumi.Input[int]] = None,
                  custom_domain: Optional[pulumi.Input[str]] = None,
                  custom_url: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 favicon: Optional[pulumi.Input[str]] = None,
                  header: Optional[pulumi.Input[str]] = None,
                  hide_tags: Optional[pulumi.Input[bool]] = None,
+                 link: Optional[pulumi.Input[str]] = None,
                  logo: Optional[pulumi.Input[str]] = None,
                  paginate: Optional[pulumi.Input[bool]] = None,
                  pagination_rate: Optional[pulumi.Input[int]] = None,
                  refresh_rate: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 use_tags_and_operator: Optional[pulumi.Input[bool]] = None,
                  width: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         if opts is None:
@@ -459,17 +634,22 @@ class Dashboard(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = DashboardArgs.__new__(DashboardArgs)
 
+            __props__.__dict__["checks_per_page"] = checks_per_page
             __props__.__dict__["custom_domain"] = custom_domain
             if custom_url is None and not opts.urn:
                 raise TypeError("Missing required property 'custom_url'")
             __props__.__dict__["custom_url"] = custom_url
+            __props__.__dict__["description"] = description
+            __props__.__dict__["favicon"] = favicon
             __props__.__dict__["header"] = header
             __props__.__dict__["hide_tags"] = hide_tags
+            __props__.__dict__["link"] = link
             __props__.__dict__["logo"] = logo
             __props__.__dict__["paginate"] = paginate
             __props__.__dict__["pagination_rate"] = pagination_rate
             __props__.__dict__["refresh_rate"] = refresh_rate
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["use_tags_and_operator"] = use_tags_and_operator
             __props__.__dict__["width"] = width
         super(Dashboard, __self__).__init__(
             'checkly:index/dashboard:Dashboard',
@@ -481,15 +661,20 @@ class Dashboard(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            checks_per_page: Optional[pulumi.Input[int]] = None,
             custom_domain: Optional[pulumi.Input[str]] = None,
             custom_url: Optional[pulumi.Input[str]] = None,
+            description: Optional[pulumi.Input[str]] = None,
+            favicon: Optional[pulumi.Input[str]] = None,
             header: Optional[pulumi.Input[str]] = None,
             hide_tags: Optional[pulumi.Input[bool]] = None,
+            link: Optional[pulumi.Input[str]] = None,
             logo: Optional[pulumi.Input[str]] = None,
             paginate: Optional[pulumi.Input[bool]] = None,
             pagination_rate: Optional[pulumi.Input[int]] = None,
             refresh_rate: Optional[pulumi.Input[int]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            use_tags_and_operator: Optional[pulumi.Input[bool]] = None,
             width: Optional[pulumi.Input[str]] = None) -> 'Dashboard':
         """
         Get an existing Dashboard resource's state with the given name, id, and optional extra
@@ -498,32 +683,50 @@ class Dashboard(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] checks_per_page: Determines how many checks to show per page.
         :param pulumi.Input[str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         :param pulumi.Input[str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        :param pulumi.Input[str] description: HTML <meta> description for the dashboard.
+        :param pulumi.Input[str] favicon: A URL pointing to an image file to use as browser favicon.
         :param pulumi.Input[str] header: A piece of text displayed at the top of your dashboard.
         :param pulumi.Input[bool] hide_tags: Show or hide the tags on the dashboard.
-        :param pulumi.Input[str] logo: A URL pointing to an image file.
+        :param pulumi.Input[str] link: A link to for the dashboard logo.
+        :param pulumi.Input[str] logo: A URL pointing to an image file to use for the dashboard logo.
         :param pulumi.Input[bool] paginate: Determines if pagination is on or off.
         :param pulumi.Input[int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
         :param pulumi.Input[int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
+        :param pulumi.Input[bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags.
         :param pulumi.Input[str] width: Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _DashboardState.__new__(_DashboardState)
 
+        __props__.__dict__["checks_per_page"] = checks_per_page
         __props__.__dict__["custom_domain"] = custom_domain
         __props__.__dict__["custom_url"] = custom_url
+        __props__.__dict__["description"] = description
+        __props__.__dict__["favicon"] = favicon
         __props__.__dict__["header"] = header
         __props__.__dict__["hide_tags"] = hide_tags
+        __props__.__dict__["link"] = link
         __props__.__dict__["logo"] = logo
         __props__.__dict__["paginate"] = paginate
         __props__.__dict__["pagination_rate"] = pagination_rate
         __props__.__dict__["refresh_rate"] = refresh_rate
         __props__.__dict__["tags"] = tags
+        __props__.__dict__["use_tags_and_operator"] = use_tags_and_operator
         __props__.__dict__["width"] = width
         return Dashboard(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="checksPerPage")
+    def checks_per_page(self) -> pulumi.Output[Optional[int]]:
+        """
+        Determines how many checks to show per page.
+        """
+        return pulumi.get(self, "checks_per_page")
 
     @property
     @pulumi.getter(name="customDomain")
@@ -543,6 +746,22 @@ class Dashboard(pulumi.CustomResource):
 
     @property
     @pulumi.getter
+    def description(self) -> pulumi.Output[Optional[str]]:
+        """
+        HTML <meta> description for the dashboard.
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def favicon(self) -> pulumi.Output[Optional[str]]:
+        """
+        A URL pointing to an image file to use as browser favicon.
+        """
+        return pulumi.get(self, "favicon")
+
+    @property
+    @pulumi.getter
     def header(self) -> pulumi.Output[Optional[str]]:
         """
         A piece of text displayed at the top of your dashboard.
@@ -559,9 +778,17 @@ class Dashboard(pulumi.CustomResource):
 
     @property
     @pulumi.getter
+    def link(self) -> pulumi.Output[Optional[str]]:
+        """
+        A link to for the dashboard logo.
+        """
+        return pulumi.get(self, "link")
+
+    @property
+    @pulumi.getter
     def logo(self) -> pulumi.Output[Optional[str]]:
         """
-        A URL pointing to an image file.
+        A URL pointing to an image file to use for the dashboard logo.
         """
         return pulumi.get(self, "logo")
 
@@ -596,6 +823,14 @@ class Dashboard(pulumi.CustomResource):
         A list of one or more tags that filter which checks to display on the dashboard.
         """
         return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="useTagsAndOperator")
+    def use_tags_and_operator(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Set when to use AND operator for fetching dashboard tags.
+        """
+        return pulumi.get(self, "use_tags_and_operator")
 
     @property
     @pulumi.getter

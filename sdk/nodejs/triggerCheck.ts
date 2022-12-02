@@ -11,8 +11,8 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as pulumi from "@checkly/pulumi";
  *
- * const test_trigger_check = new checkly.TriggerCheck("test-trigger-check", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
- * export const test_trigger_check_url = test_trigger_check.url;
+ * const testTriggerCheck = new checkly.TriggerCheck("testTriggerCheck", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
+ * export const testTriggerCheckUrl = testTriggerCheck.url;
  * ```
  */
 export class TriggerCheck extends pulumi.CustomResource {

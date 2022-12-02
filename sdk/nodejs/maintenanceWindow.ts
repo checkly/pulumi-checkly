@@ -11,7 +11,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as checkly from "@pulumi/checkly";
  *
- * const maintenance_1 = new checkly.MaintenanceWindow("maintenance-1", {
+ * const maintenance1 = new checkly.MaintenanceWindow("maintenance_1", {
  *     endsAt: "2014-08-25T00:00:00.000Z",
  *     repeatEndsAt: "2014-08-24T00:00:00.000Z",
  *     repeatInterval: 1,

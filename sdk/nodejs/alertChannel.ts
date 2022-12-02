@@ -61,7 +61,7 @@ import * as utilities from "./utilities";
  *     webhookSecret: "foosecret",
  * }});
  * // Connecting the alert channel to a check
- * const example_check = new checkly.Check("example-check", {alertChannelSubscriptions: [
+ * const exampleCheck = new checkly.Check("exampleCheck", {alertChannelSubscriptions: [
  *     {
  *         channelId: emailAc.id,
  *         activated: true,

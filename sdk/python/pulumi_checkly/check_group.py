@@ -64,6 +64,9 @@ class CheckGroupArgs:
         if double_check is not None:
             pulumi.set(__self__, "double_check", double_check)
         if environment_variables is not None:
+            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+        if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if local_setup_script is not None:
             pulumi.set(__self__, "local_setup_script", local_setup_script)
@@ -352,6 +355,9 @@ class _CheckGroupState:
         if double_check is not None:
             pulumi.set(__self__, "double_check", double_check)
         if environment_variables is not None:
+            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+        if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if local_setup_script is not None:
             pulumi.set(__self__, "local_setup_script", local_setup_script)
@@ -619,7 +625,7 @@ class CheckGroup(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        test_group1_check_group = checkly.CheckGroup("test-group1CheckGroup",
+        test_group1_check_group = checkly.CheckGroup("testGroup1CheckGroup",
             activated=True,
             muted=False,
             tags=["auto"],
@@ -673,7 +679,7 @@ class CheckGroup(pulumi.CustomResource):
             local_setup_script="setup-test",
             local_teardown_script="teardown-test")
         # Add a check to a group
-        test_check1 = checkly.Check("test-check1",
+        test_check1 = checkly.Check("testCheck1",
             group_id=test_group1_check_group.id,
             group_order=1)
         # Using with alert channels
@@ -684,7 +690,7 @@ class CheckGroup(pulumi.CustomResource):
             address="info2@example.com",
         ))
         # Connect the check group to the alert channels
-        test_group1_index_check_group_check_group = checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", alert_channel_subscriptions=[
+        test_group1_index_check_group_check_group = checkly.CheckGroup("testGroup1Index/checkGroupCheckGroup", alert_channel_subscriptions=[
             checkly.CheckGroupAlertChannelSubscriptionArgs(
                 channel_id=email_ac1.id,
                 activated=True,
@@ -731,7 +737,7 @@ class CheckGroup(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        test_group1_check_group = checkly.CheckGroup("test-group1CheckGroup",
+        test_group1_check_group = checkly.CheckGroup("testGroup1CheckGroup",
             activated=True,
             muted=False,
             tags=["auto"],
@@ -785,7 +791,7 @@ class CheckGroup(pulumi.CustomResource):
             local_setup_script="setup-test",
             local_teardown_script="teardown-test")
         # Add a check to a group
-        test_check1 = checkly.Check("test-check1",
+        test_check1 = checkly.Check("testCheck1",
             group_id=test_group1_check_group.id,
             group_order=1)
         # Using with alert channels
@@ -796,7 +802,7 @@ class CheckGroup(pulumi.CustomResource):
             address="info2@example.com",
         ))
         # Connect the check group to the alert channels
-        test_group1_index_check_group_check_group = checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", alert_channel_subscriptions=[
+        test_group1_index_check_group_check_group = checkly.CheckGroup("testGroup1Index/checkGroupCheckGroup", alert_channel_subscriptions=[
             checkly.CheckGroupAlertChannelSubscriptionArgs(
                 channel_id=email_ac1.id,
                 activated=True,
@@ -865,6 +871,9 @@ class CheckGroup(pulumi.CustomResource):
                 raise TypeError("Missing required property 'concurrency'")
             __props__.__dict__["concurrency"] = concurrency
             __props__.__dict__["double_check"] = double_check
+            if environment_variables is not None and not opts.urn:
+                warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
+                pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
             __props__.__dict__["environment_variables"] = environment_variables
             __props__.__dict__["local_setup_script"] = local_setup_script
             __props__.__dict__["local_teardown_script"] = local_teardown_script

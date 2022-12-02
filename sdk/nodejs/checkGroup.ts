@@ -14,7 +14,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as pulumi from "@checkly/pulumi";
  *
- * const test_group1CheckGroup = new checkly.CheckGroup("test-group1CheckGroup", {
+ * const testGroup1CheckGroup = new checkly.CheckGroup("testGroup1CheckGroup", {
  *     activated: true,
  *     muted: false,
  *     tags: ["auto"],
@@ -69,8 +69,8 @@ import * as utilities from "./utilities";
  *     localTeardownScript: "teardown-test",
  * });
  * // Add a check to a group
- * const test_check1 = new checkly.Check("test-check1", {
- *     groupId: test_group1CheckGroup.id,
+ * const testCheck1 = new checkly.Check("testCheck1", {
+ *     groupId: testGroup1CheckGroup.id,
  *     groupOrder: 1,
  * });
  * // Using with alert channels
@@ -81,7 +81,7 @@ import * as utilities from "./utilities";
  *     address: "info2@example.com",
  * }});
  * // Connect the check group to the alert channels
- * const test_group1Index_checkGroupCheckGroup = new checkly.CheckGroup("test-group1Index/checkGroupCheckGroup", {alertChannelSubscriptions: [
+ * const testGroup1Index_checkGroupCheckGroup = new checkly.CheckGroup("testGroup1Index/checkGroupCheckGroup", {alertChannelSubscriptions: [
  *     {
  *         channelId: emailAc1.id,
  *         activated: true,
@@ -140,6 +140,8 @@ export class CheckGroup extends pulumi.CustomResource {
     /**
      * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
      * Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
      */
     public readonly environmentVariables!: pulumi.Output<{[key: string]: any} | undefined>;
     /**
@@ -273,6 +275,8 @@ export interface CheckGroupState {
     /**
      * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
      * Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**
@@ -344,6 +348,8 @@ export interface CheckGroupArgs {
     /**
      * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
      * Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
      */
     environmentVariables?: pulumi.Input<{[key: string]: any}>;
     /**

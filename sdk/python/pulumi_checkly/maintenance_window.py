@@ -268,7 +268,7 @@ class MaintenanceWindow(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
+        maintenance1 = checkly.MaintenanceWindow("maintenance1",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_ends_at="2014-08-24T00:00:00.000Z",
             repeat_interval=1,
@@ -300,7 +300,7 @@ class MaintenanceWindow(pulumi.CustomResource):
         import pulumi
         import pulumi_checkly as checkly
 
-        maintenance_1 = checkly.MaintenanceWindow("maintenance-1",
+        maintenance1 = checkly.MaintenanceWindow("maintenance1",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_ends_at="2014-08-24T00:00:00.000Z",
             repeat_interval=1,

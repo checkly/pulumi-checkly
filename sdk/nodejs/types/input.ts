@@ -53,7 +53,7 @@ export interface CheckAlertSettings {
     reminders?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsReminder>[]>;
     runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsRunBasedEscalation>[]>;
     /**
-     * @deprecated The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
      */
     sslCertificates?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsSslCertificate>[]>;
     timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsTimeBasedEscalation>[]>;
@@ -87,7 +87,7 @@ export interface CheckGroupAlertSettings {
     reminders?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsReminder>[]>;
     runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsRunBasedEscalation>[]>;
     /**
-     * @deprecated The property `ssl_certificates` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
      */
     sslCertificates?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsSslCertificate>[]>;
     timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsTimeBasedEscalation>[]>;

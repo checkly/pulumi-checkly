@@ -91,7 +91,7 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = checkly.NewCheck(ctx, "example-check", &checkly.CheckArgs{
+// 		_, err = checkly.NewCheck(ctx, "exampleCheck", &checkly.CheckArgs{
 // 			AlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{
 // 				&CheckAlertChannelSubscriptionArgs{
 // 					ChannelId: emailAc.ID(),

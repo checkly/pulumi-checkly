@@ -21,13 +21,13 @@ namespace Pulumi.Checkly
     ///     public MyStack()
     ///     {
     ///         // Simple Enviroment Variable example
-    ///         var variable_1 = new Checkly.EnvironmentVariable("variable-1", new Checkly.EnvironmentVariableArgs
+    ///         var variable1 = new Checkly.EnvironmentVariable("variable1", new Checkly.EnvironmentVariableArgs
     ///         {
     ///             Key = "API_KEY",
     ///             Locked = true,
     ///             Value = "loZd9hOGHDUrGvmW",
     ///         });
-    ///         var variable_2 = new Checkly.EnvironmentVariable("variable-2", new Checkly.EnvironmentVariableArgs
+    ///         var variable2 = new Checkly.EnvironmentVariable("variable2", new Checkly.EnvironmentVariableArgs
     ///         {
     ///             Key = "API_URL",
     ///             Value = "http://localhost:3000",

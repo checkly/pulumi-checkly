@@ -23,13 +23,13 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewTriggerCheckGroup(ctx, "test-trigger-group", &checkly.TriggerCheckGroupArgs{
+// 		testTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, "testTriggerGroup", &checkly.TriggerCheckGroupArgs{
 // 			GroupId: pulumi.Int(215),
 // 		})
 // 		if err != nil {
 // 			return err
 // 		}
-// 		ctx.Export("test-trigger-group-url", test_trigger_group.Url)
+// 		ctx.Export("testTriggerGroupUrl", testTriggerGroup.Url)
 // 		return nil
 // 	})
 // }
