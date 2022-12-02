@@ -8,7 +8,7 @@ replace (
 )
 
 require (
-	github.com/checkly/terraform-provider-checkly v1.6.2
+	github.com/checkly/terraform-provider-checkly v1.6.3
 	github.com/hashicorp/terraform-plugin-sdk v1.9.1 // indirect
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.19.3
 	github.com/pulumi/pulumi/sdk/v3 v3.25.0
