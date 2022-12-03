@@ -53,6 +53,7 @@ func Provider() tfbridge.ProviderInfo {
 	prov := tfbridge.ProviderInfo{
 		P:                    p,
 		Name:                 "checkly",
+		DisplayName:          "Checkly",
 		Publisher:            "checkly",
 		LogoURL:              "https://raw.githubusercontent.com/checkly/pulumi-checkly/main/assets/checkly.svg",
 		Description:          "A Pulumi package for creating and managing Checkly monitoring resources.",
