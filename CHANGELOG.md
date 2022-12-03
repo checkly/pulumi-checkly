@@ -6,15 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <br>
 
+## [v1.1.3](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.3) - 2022-12-02
+
+### Added
+- Add missing display name to json schem [#35](https://github.com/checkly/pulumi-checkly/pull/35)
+
+### Changed
+- Bump github.com/checkly/terraform-provider-checkly to [`v1.6.3`](https://github.com/checkly/terraform-provider-checkly/blob/main/CHANGELOG.md#v163---2022-10-26) [#36](https://github.com/checkly/pulumi-checkly/pull/36)
+
 ## [v1.1.2](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.2) - 2022-08-03
 
 ### Changed
-- Bump github.com/checkly/terraform-provider-checkly to `v1.6.2` [#f04b929](https://github.com/checkly/pulumi-checkly/commit/f04b929)
+- Bump github.com/checkly/terraform-provider-checkly to [`v1.6.2`](https://github.com/checkly/terraform-provider-checkly/blob/main/CHANGELOG.md#v162---2022-08-02) [#f04b929](https://github.com/checkly/pulumi-checkly/commit/f04b929)
 
 ## [v1.1.1](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.1) - 2022-07-06
 
 ### Changed
-- Bump github.com/checkly/terraform-provider-checkly to `v1.6.1` [#c200aa1](https://github.com/checkly/pulumi-checkly/commit/c200aa1)
+- Bump github.com/checkly/terraform-provider-checkly to [`v1.6.1`](https://github.com/checkly/terraform-provider-checkly/blob/main/CHANGELOG.md#v161---2022-07-06) [#c200aa1](https://github.com/checkly/pulumi-checkly/commit/c200aa1)
 
 ## [v1.1.0](https://github.com/checkly/pulumi-checkly/releases/tag/v1.1.0) - 2022-06-23
 
@@ -22,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for Private Locations [#24](https://github.com/checkly/pulumi-checkly/issues/24)
 
 ### Changed
-- Bump github.com/checkly/terraform-provider-checkly to `v1.6.0-rc1`
+- Bump github.com/checkly/terraform-provider-checkly to [`v1.6.0`](https://github.com/checkly/terraform-provider-checkly/blob/main/CHANGELOG.md#v160---2022-06-21)
 
 ## [v1.0.1](https://github.com/checkly/pulumi-checkly/releases/tag/v1.0.1) - 2022-06-21
 
