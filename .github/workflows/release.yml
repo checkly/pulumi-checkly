@@ -5,7 +5,7 @@ on:
       - 'v*.*.*'
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PUBLISH_NPM: true
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NPM_REGISTRY_URL: https://registry.npmjs.org
