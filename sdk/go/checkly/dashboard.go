@@ -17,32 +17,35 @@ import (
 // package main
 //
 // import (
-// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewDashboard(ctx, "dashboard1", &checkly.DashboardArgs{
-// 			CustomDomain:   pulumi.String("status.example.com"),
-// 			CustomUrl:      pulumi.String("checkly"),
-// 			Header:         pulumi.String("Public dashboard"),
-// 			HideTags:       pulumi.Bool(false),
-// 			Logo:           pulumi.String("https://www.checklyhq.com/logo.png"),
-// 			Paginate:       pulumi.Bool(false),
-// 			PaginationRate: pulumi.Int(30),
-// 			RefreshRate:    pulumi.Int(60),
-// 			Tags: pulumi.StringArray{
-// 				pulumi.String("production"),
-// 			},
-// 			Width: pulumi.String("FULL"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := checkly.NewDashboard(ctx, "dashboard1", &checkly.DashboardArgs{
+//				CustomDomain:   pulumi.String("status.example.com"),
+//				CustomUrl:      pulumi.String("checkly"),
+//				Header:         pulumi.String("Public dashboard"),
+//				HideTags:       pulumi.Bool(false),
+//				Logo:           pulumi.String("https://www.checklyhq.com/logo.png"),
+//				Paginate:       pulumi.Bool(false),
+//				PaginationRate: pulumi.Int(30),
+//				RefreshRate:    pulumi.Int(60),
+//				Tags: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//				Width: pulumi.String("FULL"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type Dashboard struct {
 	pulumi.CustomResourceState
@@ -274,7 +277,7 @@ func (i *Dashboard) ToDashboardOutputWithContext(ctx context.Context) DashboardO
 // DashboardArrayInput is an input type that accepts DashboardArray and DashboardArrayOutput values.
 // You can construct a concrete instance of `DashboardArrayInput` via:
 //
-//          DashboardArray{ DashboardArgs{...} }
+//	DashboardArray{ DashboardArgs{...} }
 type DashboardArrayInput interface {
 	pulumi.Input
 
@@ -299,7 +302,7 @@ func (i DashboardArray) ToDashboardArrayOutputWithContext(ctx context.Context) D
 // DashboardMapInput is an input type that accepts DashboardMap and DashboardMapOutput values.
 // You can construct a concrete instance of `DashboardMapInput` via:
 //
-//          DashboardMap{ "key": DashboardArgs{...} }
+//	DashboardMap{ "key": DashboardArgs{...} }
 type DashboardMapInput interface {
 	pulumi.Input
 

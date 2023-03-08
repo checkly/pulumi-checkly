@@ -12,7 +12,7 @@
     "attribution": "This Pulumi package is based on the [`checkly` Terraform Provider](https://github.com/checkly/terraform-provider-checkly).",
     "repository": "https://github.com/checkly/pulumi-checkly",
     "logoUrl": "https://raw.githubusercontent.com/checkly/pulumi-checkly/main/assets/checkly.svg",
-    "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/download/v${VERSION}",
+    "pluginDownloadURL": "github://api.github.com/checkly",
     "publisher": "checkly",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"

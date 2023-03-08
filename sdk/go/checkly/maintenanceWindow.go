@@ -17,28 +17,31 @@ import (
 // package main
 //
 // import (
-// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewMaintenanceWindow(ctx, "maintenance1", &checkly.MaintenanceWindowArgs{
-// 			EndsAt:         pulumi.String("2014-08-25T00:00:00.000Z"),
-// 			RepeatEndsAt:   pulumi.String("2014-08-24T00:00:00.000Z"),
-// 			RepeatInterval: pulumi.Int(1),
-// 			RepeatUnit:     pulumi.String("MONTH"),
-// 			StartsAt:       pulumi.String("2014-08-24T00:00:00.000Z"),
-// 			Tags: pulumi.StringArray{
-// 				pulumi.String("production"),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := checkly.NewMaintenanceWindow(ctx, "maintenance1", &checkly.MaintenanceWindowArgs{
+//				EndsAt:         pulumi.String("2014-08-25T00:00:00.000Z"),
+//				RepeatEndsAt:   pulumi.String("2014-08-24T00:00:00.000Z"),
+//				RepeatInterval: pulumi.Int(1),
+//				RepeatUnit:     pulumi.String("MONTH"),
+//				StartsAt:       pulumi.String("2014-08-24T00:00:00.000Z"),
+//				Tags: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type MaintenanceWindow struct {
 	pulumi.CustomResourceState
@@ -193,7 +196,7 @@ func (i *MaintenanceWindow) ToMaintenanceWindowOutputWithContext(ctx context.Con
 // MaintenanceWindowArrayInput is an input type that accepts MaintenanceWindowArray and MaintenanceWindowArrayOutput values.
 // You can construct a concrete instance of `MaintenanceWindowArrayInput` via:
 //
-//          MaintenanceWindowArray{ MaintenanceWindowArgs{...} }
+//	MaintenanceWindowArray{ MaintenanceWindowArgs{...} }
 type MaintenanceWindowArrayInput interface {
 	pulumi.Input
 
@@ -218,7 +221,7 @@ func (i MaintenanceWindowArray) ToMaintenanceWindowArrayOutputWithContext(ctx co
 // MaintenanceWindowMapInput is an input type that accepts MaintenanceWindowMap and MaintenanceWindowMapOutput values.
 // You can construct a concrete instance of `MaintenanceWindowMapInput` via:
 //
-//          MaintenanceWindowMap{ "key": MaintenanceWindowArgs{...} }
+//	MaintenanceWindowMap{ "key": MaintenanceWindowArgs{...} }
 type MaintenanceWindowMapInput interface {
 	pulumi.Input
 

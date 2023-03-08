@@ -24,6 +24,6 @@
     },
     "pulumi": {
         "resource": true,
-        "pluginDownloadURL": "https://github.com/checkly/pulumi-checkly/releases/download/v${VERSION}"
+        "pluginDownloadURL": "github://api.github.com/checkly"
     }
 }

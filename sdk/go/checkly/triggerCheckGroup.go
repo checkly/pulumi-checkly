@@ -17,22 +17,25 @@ import (
 // package main
 //
 // import (
-// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		testTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, "testTriggerGroup", &checkly.TriggerCheckGroupArgs{
-// 			GroupId: pulumi.Int(215),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("testTriggerGroupUrl", testTriggerGroup.Url)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			testTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, "testTriggerGroup", &checkly.TriggerCheckGroupArgs{
+//				GroupId: pulumi.Int(215),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("testTriggerGroupUrl", testTriggerGroup.Url)
+//			return nil
+//		})
+//	}
+//
 // ```
 type TriggerCheckGroup struct {
 	pulumi.CustomResourceState
@@ -144,7 +147,7 @@ func (i *TriggerCheckGroup) ToTriggerCheckGroupOutputWithContext(ctx context.Con
 // TriggerCheckGroupArrayInput is an input type that accepts TriggerCheckGroupArray and TriggerCheckGroupArrayOutput values.
 // You can construct a concrete instance of `TriggerCheckGroupArrayInput` via:
 //
-//          TriggerCheckGroupArray{ TriggerCheckGroupArgs{...} }
+//	TriggerCheckGroupArray{ TriggerCheckGroupArgs{...} }
 type TriggerCheckGroupArrayInput interface {
 	pulumi.Input
 
@@ -169,7 +172,7 @@ func (i TriggerCheckGroupArray) ToTriggerCheckGroupArrayOutputWithContext(ctx co
 // TriggerCheckGroupMapInput is an input type that accepts TriggerCheckGroupMap and TriggerCheckGroupMapOutput values.
 // You can construct a concrete instance of `TriggerCheckGroupMapInput` via:
 //
-//          TriggerCheckGroupMap{ "key": TriggerCheckGroupArgs{...} }
+//	TriggerCheckGroupMap{ "key": TriggerCheckGroupArgs{...} }
 type TriggerCheckGroupMapInput interface {
 	pulumi.Input
 

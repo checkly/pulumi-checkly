@@ -17,22 +17,25 @@ import (
 // package main
 //
 // import (
-// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewPrivateLocation(ctx, "location", &checkly.PrivateLocationArgs{
-// 			Icon:     pulumi.String("location"),
-// 			SlugName: pulumi.String("new-private-location"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := checkly.NewPrivateLocation(ctx, "location", &checkly.PrivateLocationArgs{
+//				Icon:     pulumi.String("location"),
+//				SlugName: pulumi.String("new-private-location"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type PrivateLocation struct {
 	pulumi.CustomResourceState
@@ -150,7 +153,7 @@ func (i *PrivateLocation) ToPrivateLocationOutputWithContext(ctx context.Context
 // PrivateLocationArrayInput is an input type that accepts PrivateLocationArray and PrivateLocationArrayOutput values.
 // You can construct a concrete instance of `PrivateLocationArrayInput` via:
 //
-//          PrivateLocationArray{ PrivateLocationArgs{...} }
+//	PrivateLocationArray{ PrivateLocationArgs{...} }
 type PrivateLocationArrayInput interface {
 	pulumi.Input
 
@@ -175,7 +178,7 @@ func (i PrivateLocationArray) ToPrivateLocationArrayOutputWithContext(ctx contex
 // PrivateLocationMapInput is an input type that accepts PrivateLocationMap and PrivateLocationMapOutput values.
 // You can construct a concrete instance of `PrivateLocationMapInput` via:
 //
-//          PrivateLocationMap{ "key": PrivateLocationArgs{...} }
+//	PrivateLocationMap{ "key": PrivateLocationArgs{...} }
 type PrivateLocationMapInput interface {
 	pulumi.Input
 

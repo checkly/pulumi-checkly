@@ -17,7 +17,7 @@ type AlertChannelEmail struct {
 // AlertChannelEmailInput is an input type that accepts AlertChannelEmailArgs and AlertChannelEmailOutput values.
 // You can construct a concrete instance of `AlertChannelEmailInput` via:
 //
-//          AlertChannelEmailArgs{...}
+//	AlertChannelEmailArgs{...}
 type AlertChannelEmailInput interface {
 	pulumi.Input
 
@@ -52,11 +52,11 @@ func (i AlertChannelEmailArgs) ToAlertChannelEmailPtrOutputWithContext(ctx conte
 // AlertChannelEmailPtrInput is an input type that accepts AlertChannelEmailArgs, AlertChannelEmailPtr and AlertChannelEmailPtrOutput values.
 // You can construct a concrete instance of `AlertChannelEmailPtrInput` via:
 //
-//          AlertChannelEmailArgs{...}
+//	        AlertChannelEmailArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AlertChannelEmailPtrInput interface {
 	pulumi.Input
 
@@ -153,7 +153,7 @@ type AlertChannelOpsgenie struct {
 // AlertChannelOpsgenieInput is an input type that accepts AlertChannelOpsgenieArgs and AlertChannelOpsgenieOutput values.
 // You can construct a concrete instance of `AlertChannelOpsgenieInput` via:
 //
-//          AlertChannelOpsgenieArgs{...}
+//	AlertChannelOpsgenieArgs{...}
 type AlertChannelOpsgenieInput interface {
 	pulumi.Input
 
@@ -191,11 +191,11 @@ func (i AlertChannelOpsgenieArgs) ToAlertChannelOpsgeniePtrOutputWithContext(ctx
 // AlertChannelOpsgeniePtrInput is an input type that accepts AlertChannelOpsgenieArgs, AlertChannelOpsgeniePtr and AlertChannelOpsgeniePtrOutput values.
 // You can construct a concrete instance of `AlertChannelOpsgeniePtrInput` via:
 //
-//          AlertChannelOpsgenieArgs{...}
+//	        AlertChannelOpsgenieArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AlertChannelOpsgeniePtrInput interface {
 	pulumi.Input
 
@@ -330,7 +330,7 @@ type AlertChannelPagerduty struct {
 // AlertChannelPagerdutyInput is an input type that accepts AlertChannelPagerdutyArgs and AlertChannelPagerdutyOutput values.
 // You can construct a concrete instance of `AlertChannelPagerdutyInput` via:
 //
-//          AlertChannelPagerdutyArgs{...}
+//	AlertChannelPagerdutyArgs{...}
 type AlertChannelPagerdutyInput interface {
 	pulumi.Input
 
@@ -367,11 +367,11 @@ func (i AlertChannelPagerdutyArgs) ToAlertChannelPagerdutyPtrOutputWithContext(c
 // AlertChannelPagerdutyPtrInput is an input type that accepts AlertChannelPagerdutyArgs, AlertChannelPagerdutyPtr and AlertChannelPagerdutyPtrOutput values.
 // You can construct a concrete instance of `AlertChannelPagerdutyPtrInput` via:
 //
-//          AlertChannelPagerdutyArgs{...}
+//	        AlertChannelPagerdutyArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AlertChannelPagerdutyPtrInput interface {
 	pulumi.Input
 
@@ -492,7 +492,7 @@ type AlertChannelSlack struct {
 // AlertChannelSlackInput is an input type that accepts AlertChannelSlackArgs and AlertChannelSlackOutput values.
 // You can construct a concrete instance of `AlertChannelSlackInput` via:
 //
-//          AlertChannelSlackArgs{...}
+//	AlertChannelSlackArgs{...}
 type AlertChannelSlackInput interface {
 	pulumi.Input
 
@@ -528,11 +528,11 @@ func (i AlertChannelSlackArgs) ToAlertChannelSlackPtrOutputWithContext(ctx conte
 // AlertChannelSlackPtrInput is an input type that accepts AlertChannelSlackArgs, AlertChannelSlackPtr and AlertChannelSlackPtrOutput values.
 // You can construct a concrete instance of `AlertChannelSlackPtrInput` via:
 //
-//          AlertChannelSlackArgs{...}
+//	        AlertChannelSlackArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AlertChannelSlackPtrInput interface {
 	pulumi.Input
 
@@ -640,7 +640,7 @@ type AlertChannelSms struct {
 // AlertChannelSmsInput is an input type that accepts AlertChannelSmsArgs and AlertChannelSmsOutput values.
 // You can construct a concrete instance of `AlertChannelSmsInput` via:
 //
-//          AlertChannelSmsArgs{...}
+//	AlertChannelSmsArgs{...}
 type AlertChannelSmsInput interface {
 	pulumi.Input
 
@@ -676,11 +676,11 @@ func (i AlertChannelSmsArgs) ToAlertChannelSmsPtrOutputWithContext(ctx context.C
 // AlertChannelSmsPtrInput is an input type that accepts AlertChannelSmsArgs, AlertChannelSmsPtr and AlertChannelSmsPtrOutput values.
 // You can construct a concrete instance of `AlertChannelSmsPtrInput` via:
 //
-//          AlertChannelSmsArgs{...}
+//	        AlertChannelSmsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AlertChannelSmsPtrInput interface {
 	pulumi.Input
 
@@ -793,7 +793,7 @@ type AlertChannelWebhook struct {
 // AlertChannelWebhookInput is an input type that accepts AlertChannelWebhookArgs and AlertChannelWebhookOutput values.
 // You can construct a concrete instance of `AlertChannelWebhookInput` via:
 //
-//          AlertChannelWebhookArgs{...}
+//	AlertChannelWebhookArgs{...}
 type AlertChannelWebhookInput interface {
 	pulumi.Input
 
@@ -834,11 +834,11 @@ func (i AlertChannelWebhookArgs) ToAlertChannelWebhookPtrOutputWithContext(ctx c
 // AlertChannelWebhookPtrInput is an input type that accepts AlertChannelWebhookArgs, AlertChannelWebhookPtr and AlertChannelWebhookPtrOutput values.
 // You can construct a concrete instance of `AlertChannelWebhookPtrInput` via:
 //
-//          AlertChannelWebhookArgs{...}
+//	        AlertChannelWebhookArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AlertChannelWebhookPtrInput interface {
 	pulumi.Input
 
@@ -1011,7 +1011,7 @@ type CheckAlertChannelSubscription struct {
 // CheckAlertChannelSubscriptionInput is an input type that accepts CheckAlertChannelSubscriptionArgs and CheckAlertChannelSubscriptionOutput values.
 // You can construct a concrete instance of `CheckAlertChannelSubscriptionInput` via:
 //
-//          CheckAlertChannelSubscriptionArgs{...}
+//	CheckAlertChannelSubscriptionArgs{...}
 type CheckAlertChannelSubscriptionInput interface {
 	pulumi.Input
 
@@ -1039,7 +1039,7 @@ func (i CheckAlertChannelSubscriptionArgs) ToCheckAlertChannelSubscriptionOutput
 // CheckAlertChannelSubscriptionArrayInput is an input type that accepts CheckAlertChannelSubscriptionArray and CheckAlertChannelSubscriptionArrayOutput values.
 // You can construct a concrete instance of `CheckAlertChannelSubscriptionArrayInput` via:
 //
-//          CheckAlertChannelSubscriptionArray{ CheckAlertChannelSubscriptionArgs{...} }
+//	CheckAlertChannelSubscriptionArray{ CheckAlertChannelSubscriptionArgs{...} }
 type CheckAlertChannelSubscriptionArrayInput interface {
 	pulumi.Input
 
@@ -1115,7 +1115,7 @@ type CheckAlertSettings struct {
 // CheckAlertSettingsInput is an input type that accepts CheckAlertSettingsArgs and CheckAlertSettingsOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsInput` via:
 //
-//          CheckAlertSettingsArgs{...}
+//	CheckAlertSettingsArgs{...}
 type CheckAlertSettingsInput interface {
 	pulumi.Input
 
@@ -1155,11 +1155,11 @@ func (i CheckAlertSettingsArgs) ToCheckAlertSettingsPtrOutputWithContext(ctx con
 // CheckAlertSettingsPtrInput is an input type that accepts CheckAlertSettingsArgs, CheckAlertSettingsPtr and CheckAlertSettingsPtrOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsPtrInput` via:
 //
-//          CheckAlertSettingsArgs{...}
+//	        CheckAlertSettingsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CheckAlertSettingsPtrInput interface {
 	pulumi.Input
 
@@ -1308,7 +1308,7 @@ type CheckAlertSettingsReminder struct {
 // CheckAlertSettingsReminderInput is an input type that accepts CheckAlertSettingsReminderArgs and CheckAlertSettingsReminderOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsReminderInput` via:
 //
-//          CheckAlertSettingsReminderArgs{...}
+//	CheckAlertSettingsReminderArgs{...}
 type CheckAlertSettingsReminderInput interface {
 	pulumi.Input
 
@@ -1336,7 +1336,7 @@ func (i CheckAlertSettingsReminderArgs) ToCheckAlertSettingsReminderOutputWithCo
 // CheckAlertSettingsReminderArrayInput is an input type that accepts CheckAlertSettingsReminderArray and CheckAlertSettingsReminderArrayOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsReminderArrayInput` via:
 //
-//          CheckAlertSettingsReminderArray{ CheckAlertSettingsReminderArgs{...} }
+//	CheckAlertSettingsReminderArray{ CheckAlertSettingsReminderArgs{...} }
 type CheckAlertSettingsReminderArrayInput interface {
 	pulumi.Input
 
@@ -1407,7 +1407,7 @@ type CheckAlertSettingsRunBasedEscalation struct {
 // CheckAlertSettingsRunBasedEscalationInput is an input type that accepts CheckAlertSettingsRunBasedEscalationArgs and CheckAlertSettingsRunBasedEscalationOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsRunBasedEscalationInput` via:
 //
-//          CheckAlertSettingsRunBasedEscalationArgs{...}
+//	CheckAlertSettingsRunBasedEscalationArgs{...}
 type CheckAlertSettingsRunBasedEscalationInput interface {
 	pulumi.Input
 
@@ -1434,7 +1434,7 @@ func (i CheckAlertSettingsRunBasedEscalationArgs) ToCheckAlertSettingsRunBasedEs
 // CheckAlertSettingsRunBasedEscalationArrayInput is an input type that accepts CheckAlertSettingsRunBasedEscalationArray and CheckAlertSettingsRunBasedEscalationArrayOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsRunBasedEscalationArrayInput` via:
 //
-//          CheckAlertSettingsRunBasedEscalationArray{ CheckAlertSettingsRunBasedEscalationArgs{...} }
+//	CheckAlertSettingsRunBasedEscalationArray{ CheckAlertSettingsRunBasedEscalationArgs{...} }
 type CheckAlertSettingsRunBasedEscalationArrayInput interface {
 	pulumi.Input
 
@@ -1502,7 +1502,7 @@ type CheckAlertSettingsSslCertificate struct {
 // CheckAlertSettingsSslCertificateInput is an input type that accepts CheckAlertSettingsSslCertificateArgs and CheckAlertSettingsSslCertificateOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsSslCertificateInput` via:
 //
-//          CheckAlertSettingsSslCertificateArgs{...}
+//	CheckAlertSettingsSslCertificateArgs{...}
 type CheckAlertSettingsSslCertificateInput interface {
 	pulumi.Input
 
@@ -1530,7 +1530,7 @@ func (i CheckAlertSettingsSslCertificateArgs) ToCheckAlertSettingsSslCertificate
 // CheckAlertSettingsSslCertificateArrayInput is an input type that accepts CheckAlertSettingsSslCertificateArray and CheckAlertSettingsSslCertificateArrayOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsSslCertificateArrayInput` via:
 //
-//          CheckAlertSettingsSslCertificateArray{ CheckAlertSettingsSslCertificateArgs{...} }
+//	CheckAlertSettingsSslCertificateArray{ CheckAlertSettingsSslCertificateArgs{...} }
 type CheckAlertSettingsSslCertificateArrayInput interface {
 	pulumi.Input
 
@@ -1601,7 +1601,7 @@ type CheckAlertSettingsTimeBasedEscalation struct {
 // CheckAlertSettingsTimeBasedEscalationInput is an input type that accepts CheckAlertSettingsTimeBasedEscalationArgs and CheckAlertSettingsTimeBasedEscalationOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsTimeBasedEscalationInput` via:
 //
-//          CheckAlertSettingsTimeBasedEscalationArgs{...}
+//	CheckAlertSettingsTimeBasedEscalationArgs{...}
 type CheckAlertSettingsTimeBasedEscalationInput interface {
 	pulumi.Input
 
@@ -1628,7 +1628,7 @@ func (i CheckAlertSettingsTimeBasedEscalationArgs) ToCheckAlertSettingsTimeBased
 // CheckAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts CheckAlertSettingsTimeBasedEscalationArray and CheckAlertSettingsTimeBasedEscalationArrayOutput values.
 // You can construct a concrete instance of `CheckAlertSettingsTimeBasedEscalationArrayInput` via:
 //
-//          CheckAlertSettingsTimeBasedEscalationArray{ CheckAlertSettingsTimeBasedEscalationArgs{...} }
+//	CheckAlertSettingsTimeBasedEscalationArray{ CheckAlertSettingsTimeBasedEscalationArgs{...} }
 type CheckAlertSettingsTimeBasedEscalationArrayInput interface {
 	pulumi.Input
 
@@ -1697,7 +1697,7 @@ type CheckEnvironmentVariable struct {
 // CheckEnvironmentVariableInput is an input type that accepts CheckEnvironmentVariableArgs and CheckEnvironmentVariableOutput values.
 // You can construct a concrete instance of `CheckEnvironmentVariableInput` via:
 //
-//          CheckEnvironmentVariableArgs{...}
+//	CheckEnvironmentVariableArgs{...}
 type CheckEnvironmentVariableInput interface {
 	pulumi.Input
 
@@ -1757,7 +1757,7 @@ type CheckGroupAlertChannelSubscription struct {
 // CheckGroupAlertChannelSubscriptionInput is an input type that accepts CheckGroupAlertChannelSubscriptionArgs and CheckGroupAlertChannelSubscriptionOutput values.
 // You can construct a concrete instance of `CheckGroupAlertChannelSubscriptionInput` via:
 //
-//          CheckGroupAlertChannelSubscriptionArgs{...}
+//	CheckGroupAlertChannelSubscriptionArgs{...}
 type CheckGroupAlertChannelSubscriptionInput interface {
 	pulumi.Input
 
@@ -1785,7 +1785,7 @@ func (i CheckGroupAlertChannelSubscriptionArgs) ToCheckGroupAlertChannelSubscrip
 // CheckGroupAlertChannelSubscriptionArrayInput is an input type that accepts CheckGroupAlertChannelSubscriptionArray and CheckGroupAlertChannelSubscriptionArrayOutput values.
 // You can construct a concrete instance of `CheckGroupAlertChannelSubscriptionArrayInput` via:
 //
-//          CheckGroupAlertChannelSubscriptionArray{ CheckGroupAlertChannelSubscriptionArgs{...} }
+//	CheckGroupAlertChannelSubscriptionArray{ CheckGroupAlertChannelSubscriptionArgs{...} }
 type CheckGroupAlertChannelSubscriptionArrayInput interface {
 	pulumi.Input
 
@@ -1861,7 +1861,7 @@ type CheckGroupAlertSettings struct {
 // CheckGroupAlertSettingsInput is an input type that accepts CheckGroupAlertSettingsArgs and CheckGroupAlertSettingsOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsInput` via:
 //
-//          CheckGroupAlertSettingsArgs{...}
+//	CheckGroupAlertSettingsArgs{...}
 type CheckGroupAlertSettingsInput interface {
 	pulumi.Input
 
@@ -1901,11 +1901,11 @@ func (i CheckGroupAlertSettingsArgs) ToCheckGroupAlertSettingsPtrOutputWithConte
 // CheckGroupAlertSettingsPtrInput is an input type that accepts CheckGroupAlertSettingsArgs, CheckGroupAlertSettingsPtr and CheckGroupAlertSettingsPtrOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsPtrInput` via:
 //
-//          CheckGroupAlertSettingsArgs{...}
+//	        CheckGroupAlertSettingsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CheckGroupAlertSettingsPtrInput interface {
 	pulumi.Input
 
@@ -2058,7 +2058,7 @@ type CheckGroupAlertSettingsReminder struct {
 // CheckGroupAlertSettingsReminderInput is an input type that accepts CheckGroupAlertSettingsReminderArgs and CheckGroupAlertSettingsReminderOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsReminderInput` via:
 //
-//          CheckGroupAlertSettingsReminderArgs{...}
+//	CheckGroupAlertSettingsReminderArgs{...}
 type CheckGroupAlertSettingsReminderInput interface {
 	pulumi.Input
 
@@ -2086,7 +2086,7 @@ func (i CheckGroupAlertSettingsReminderArgs) ToCheckGroupAlertSettingsReminderOu
 // CheckGroupAlertSettingsReminderArrayInput is an input type that accepts CheckGroupAlertSettingsReminderArray and CheckGroupAlertSettingsReminderArrayOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsReminderArrayInput` via:
 //
-//          CheckGroupAlertSettingsReminderArray{ CheckGroupAlertSettingsReminderArgs{...} }
+//	CheckGroupAlertSettingsReminderArray{ CheckGroupAlertSettingsReminderArgs{...} }
 type CheckGroupAlertSettingsReminderArrayInput interface {
 	pulumi.Input
 
@@ -2157,7 +2157,7 @@ type CheckGroupAlertSettingsRunBasedEscalation struct {
 // CheckGroupAlertSettingsRunBasedEscalationInput is an input type that accepts CheckGroupAlertSettingsRunBasedEscalationArgs and CheckGroupAlertSettingsRunBasedEscalationOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsRunBasedEscalationInput` via:
 //
-//          CheckGroupAlertSettingsRunBasedEscalationArgs{...}
+//	CheckGroupAlertSettingsRunBasedEscalationArgs{...}
 type CheckGroupAlertSettingsRunBasedEscalationInput interface {
 	pulumi.Input
 
@@ -2184,7 +2184,7 @@ func (i CheckGroupAlertSettingsRunBasedEscalationArgs) ToCheckGroupAlertSettings
 // CheckGroupAlertSettingsRunBasedEscalationArrayInput is an input type that accepts CheckGroupAlertSettingsRunBasedEscalationArray and CheckGroupAlertSettingsRunBasedEscalationArrayOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsRunBasedEscalationArrayInput` via:
 //
-//          CheckGroupAlertSettingsRunBasedEscalationArray{ CheckGroupAlertSettingsRunBasedEscalationArgs{...} }
+//	CheckGroupAlertSettingsRunBasedEscalationArray{ CheckGroupAlertSettingsRunBasedEscalationArgs{...} }
 type CheckGroupAlertSettingsRunBasedEscalationArrayInput interface {
 	pulumi.Input
 
@@ -2252,7 +2252,7 @@ type CheckGroupAlertSettingsSslCertificate struct {
 // CheckGroupAlertSettingsSslCertificateInput is an input type that accepts CheckGroupAlertSettingsSslCertificateArgs and CheckGroupAlertSettingsSslCertificateOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsSslCertificateInput` via:
 //
-//          CheckGroupAlertSettingsSslCertificateArgs{...}
+//	CheckGroupAlertSettingsSslCertificateArgs{...}
 type CheckGroupAlertSettingsSslCertificateInput interface {
 	pulumi.Input
 
@@ -2280,7 +2280,7 @@ func (i CheckGroupAlertSettingsSslCertificateArgs) ToCheckGroupAlertSettingsSslC
 // CheckGroupAlertSettingsSslCertificateArrayInput is an input type that accepts CheckGroupAlertSettingsSslCertificateArray and CheckGroupAlertSettingsSslCertificateArrayOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsSslCertificateArrayInput` via:
 //
-//          CheckGroupAlertSettingsSslCertificateArray{ CheckGroupAlertSettingsSslCertificateArgs{...} }
+//	CheckGroupAlertSettingsSslCertificateArray{ CheckGroupAlertSettingsSslCertificateArgs{...} }
 type CheckGroupAlertSettingsSslCertificateArrayInput interface {
 	pulumi.Input
 
@@ -2351,7 +2351,7 @@ type CheckGroupAlertSettingsTimeBasedEscalation struct {
 // CheckGroupAlertSettingsTimeBasedEscalationInput is an input type that accepts CheckGroupAlertSettingsTimeBasedEscalationArgs and CheckGroupAlertSettingsTimeBasedEscalationOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsTimeBasedEscalationInput` via:
 //
-//          CheckGroupAlertSettingsTimeBasedEscalationArgs{...}
+//	CheckGroupAlertSettingsTimeBasedEscalationArgs{...}
 type CheckGroupAlertSettingsTimeBasedEscalationInput interface {
 	pulumi.Input
 
@@ -2378,7 +2378,7 @@ func (i CheckGroupAlertSettingsTimeBasedEscalationArgs) ToCheckGroupAlertSetting
 // CheckGroupAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts CheckGroupAlertSettingsTimeBasedEscalationArray and CheckGroupAlertSettingsTimeBasedEscalationArrayOutput values.
 // You can construct a concrete instance of `CheckGroupAlertSettingsTimeBasedEscalationArrayInput` via:
 //
-//          CheckGroupAlertSettingsTimeBasedEscalationArray{ CheckGroupAlertSettingsTimeBasedEscalationArgs{...} }
+//	CheckGroupAlertSettingsTimeBasedEscalationArray{ CheckGroupAlertSettingsTimeBasedEscalationArgs{...} }
 type CheckGroupAlertSettingsTimeBasedEscalationArrayInput interface {
 	pulumi.Input
 
@@ -2462,7 +2462,7 @@ func (val *CheckGroupApiCheckDefaults) Defaults() *CheckGroupApiCheckDefaults {
 // CheckGroupApiCheckDefaultsInput is an input type that accepts CheckGroupApiCheckDefaultsArgs and CheckGroupApiCheckDefaultsOutput values.
 // You can construct a concrete instance of `CheckGroupApiCheckDefaultsInput` via:
 //
-//          CheckGroupApiCheckDefaultsArgs{...}
+//	CheckGroupApiCheckDefaultsArgs{...}
 type CheckGroupApiCheckDefaultsInput interface {
 	pulumi.Input
 
@@ -2501,11 +2501,11 @@ func (i CheckGroupApiCheckDefaultsArgs) ToCheckGroupApiCheckDefaultsPtrOutputWit
 // CheckGroupApiCheckDefaultsPtrInput is an input type that accepts CheckGroupApiCheckDefaultsArgs, CheckGroupApiCheckDefaultsPtr and CheckGroupApiCheckDefaultsPtrOutput values.
 // You can construct a concrete instance of `CheckGroupApiCheckDefaultsPtrInput` via:
 //
-//          CheckGroupApiCheckDefaultsArgs{...}
+//	        CheckGroupApiCheckDefaultsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CheckGroupApiCheckDefaultsPtrInput interface {
 	pulumi.Input
 
@@ -2654,7 +2654,7 @@ type CheckGroupApiCheckDefaultsAssertion struct {
 // CheckGroupApiCheckDefaultsAssertionInput is an input type that accepts CheckGroupApiCheckDefaultsAssertionArgs and CheckGroupApiCheckDefaultsAssertionOutput values.
 // You can construct a concrete instance of `CheckGroupApiCheckDefaultsAssertionInput` via:
 //
-//          CheckGroupApiCheckDefaultsAssertionArgs{...}
+//	CheckGroupApiCheckDefaultsAssertionArgs{...}
 type CheckGroupApiCheckDefaultsAssertionInput interface {
 	pulumi.Input
 
@@ -2684,7 +2684,7 @@ func (i CheckGroupApiCheckDefaultsAssertionArgs) ToCheckGroupApiCheckDefaultsAss
 // CheckGroupApiCheckDefaultsAssertionArrayInput is an input type that accepts CheckGroupApiCheckDefaultsAssertionArray and CheckGroupApiCheckDefaultsAssertionArrayOutput values.
 // You can construct a concrete instance of `CheckGroupApiCheckDefaultsAssertionArrayInput` via:
 //
-//          CheckGroupApiCheckDefaultsAssertionArray{ CheckGroupApiCheckDefaultsAssertionArgs{...} }
+//	CheckGroupApiCheckDefaultsAssertionArray{ CheckGroupApiCheckDefaultsAssertionArgs{...} }
 type CheckGroupApiCheckDefaultsAssertionArrayInput interface {
 	pulumi.Input
 
@@ -2764,7 +2764,7 @@ type CheckGroupApiCheckDefaultsBasicAuth struct {
 // CheckGroupApiCheckDefaultsBasicAuthInput is an input type that accepts CheckGroupApiCheckDefaultsBasicAuthArgs and CheckGroupApiCheckDefaultsBasicAuthOutput values.
 // You can construct a concrete instance of `CheckGroupApiCheckDefaultsBasicAuthInput` via:
 //
-//          CheckGroupApiCheckDefaultsBasicAuthArgs{...}
+//	CheckGroupApiCheckDefaultsBasicAuthArgs{...}
 type CheckGroupApiCheckDefaultsBasicAuthInput interface {
 	pulumi.Input
 
@@ -2800,11 +2800,11 @@ func (i CheckGroupApiCheckDefaultsBasicAuthArgs) ToCheckGroupApiCheckDefaultsBas
 // CheckGroupApiCheckDefaultsBasicAuthPtrInput is an input type that accepts CheckGroupApiCheckDefaultsBasicAuthArgs, CheckGroupApiCheckDefaultsBasicAuthPtr and CheckGroupApiCheckDefaultsBasicAuthPtrOutput values.
 // You can construct a concrete instance of `CheckGroupApiCheckDefaultsBasicAuthPtrInput` via:
 //
-//          CheckGroupApiCheckDefaultsBasicAuthArgs{...}
+//	        CheckGroupApiCheckDefaultsBasicAuthArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CheckGroupApiCheckDefaultsBasicAuthPtrInput interface {
 	pulumi.Input
 
@@ -2913,7 +2913,7 @@ type CheckGroupEnvironmentVariable struct {
 // CheckGroupEnvironmentVariableInput is an input type that accepts CheckGroupEnvironmentVariableArgs and CheckGroupEnvironmentVariableOutput values.
 // You can construct a concrete instance of `CheckGroupEnvironmentVariableInput` via:
 //
-//          CheckGroupEnvironmentVariableArgs{...}
+//	CheckGroupEnvironmentVariableArgs{...}
 type CheckGroupEnvironmentVariableInput interface {
 	pulumi.Input
 
@@ -2981,7 +2981,7 @@ type CheckRequest struct {
 // CheckRequestInput is an input type that accepts CheckRequestArgs and CheckRequestOutput values.
 // You can construct a concrete instance of `CheckRequestInput` via:
 //
-//          CheckRequestArgs{...}
+//	CheckRequestArgs{...}
 type CheckRequestInput interface {
 	pulumi.Input
 
@@ -3025,11 +3025,11 @@ func (i CheckRequestArgs) ToCheckRequestPtrOutputWithContext(ctx context.Context
 // CheckRequestPtrInput is an input type that accepts CheckRequestArgs, CheckRequestPtr and CheckRequestPtrOutput values.
 // You can construct a concrete instance of `CheckRequestPtrInput` via:
 //
-//          CheckRequestArgs{...}
+//	        CheckRequestArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CheckRequestPtrInput interface {
 	pulumi.Input
 
@@ -3243,7 +3243,7 @@ type CheckRequestAssertion struct {
 // CheckRequestAssertionInput is an input type that accepts CheckRequestAssertionArgs and CheckRequestAssertionOutput values.
 // You can construct a concrete instance of `CheckRequestAssertionInput` via:
 //
-//          CheckRequestAssertionArgs{...}
+//	CheckRequestAssertionArgs{...}
 type CheckRequestAssertionInput interface {
 	pulumi.Input
 
@@ -3273,7 +3273,7 @@ func (i CheckRequestAssertionArgs) ToCheckRequestAssertionOutputWithContext(ctx 
 // CheckRequestAssertionArrayInput is an input type that accepts CheckRequestAssertionArray and CheckRequestAssertionArrayOutput values.
 // You can construct a concrete instance of `CheckRequestAssertionArrayInput` via:
 //
-//          CheckRequestAssertionArray{ CheckRequestAssertionArgs{...} }
+//	CheckRequestAssertionArray{ CheckRequestAssertionArgs{...} }
 type CheckRequestAssertionArrayInput interface {
 	pulumi.Input
 
@@ -3353,7 +3353,7 @@ type CheckRequestBasicAuth struct {
 // CheckRequestBasicAuthInput is an input type that accepts CheckRequestBasicAuthArgs and CheckRequestBasicAuthOutput values.
 // You can construct a concrete instance of `CheckRequestBasicAuthInput` via:
 //
-//          CheckRequestBasicAuthArgs{...}
+//	CheckRequestBasicAuthArgs{...}
 type CheckRequestBasicAuthInput interface {
 	pulumi.Input
 
@@ -3389,11 +3389,11 @@ func (i CheckRequestBasicAuthArgs) ToCheckRequestBasicAuthPtrOutputWithContext(c
 // CheckRequestBasicAuthPtrInput is an input type that accepts CheckRequestBasicAuthArgs, CheckRequestBasicAuthPtr and CheckRequestBasicAuthPtrOutput values.
 // You can construct a concrete instance of `CheckRequestBasicAuthPtrInput` via:
 //
-//          CheckRequestBasicAuthArgs{...}
+//	        CheckRequestBasicAuthArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CheckRequestBasicAuthPtrInput interface {
 	pulumi.Input
 

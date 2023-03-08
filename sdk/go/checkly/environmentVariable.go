@@ -17,30 +17,33 @@ import (
 // package main
 //
 // import (
-// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := checkly.NewEnvironmentVariable(ctx, "variable1", &checkly.EnvironmentVariableArgs{
-// 			Key:    pulumi.String("API_KEY"),
-// 			Locked: pulumi.Bool(true),
-// 			Value:  pulumi.String("loZd9hOGHDUrGvmW"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		_, err = checkly.NewEnvironmentVariable(ctx, "variable2", &checkly.EnvironmentVariableArgs{
-// 			Key:   pulumi.String("API_URL"),
-// 			Value: pulumi.String("http://localhost:3000"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := checkly.NewEnvironmentVariable(ctx, "variable1", &checkly.EnvironmentVariableArgs{
+//				Key:    pulumi.String("API_KEY"),
+//				Locked: pulumi.Bool(true),
+//				Value:  pulumi.String("loZd9hOGHDUrGvmW"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = checkly.NewEnvironmentVariable(ctx, "variable2", &checkly.EnvironmentVariableArgs{
+//				Key:   pulumi.String("API_URL"),
+//				Value: pulumi.String("http://localhost:3000"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type EnvironmentVariable struct {
 	pulumi.CustomResourceState
@@ -140,7 +143,7 @@ func (i *EnvironmentVariable) ToEnvironmentVariableOutputWithContext(ctx context
 // EnvironmentVariableArrayInput is an input type that accepts EnvironmentVariableArray and EnvironmentVariableArrayOutput values.
 // You can construct a concrete instance of `EnvironmentVariableArrayInput` via:
 //
-//          EnvironmentVariableArray{ EnvironmentVariableArgs{...} }
+//	EnvironmentVariableArray{ EnvironmentVariableArgs{...} }
 type EnvironmentVariableArrayInput interface {
 	pulumi.Input
 
@@ -165,7 +168,7 @@ func (i EnvironmentVariableArray) ToEnvironmentVariableArrayOutputWithContext(ct
 // EnvironmentVariableMapInput is an input type that accepts EnvironmentVariableMap and EnvironmentVariableMapOutput values.
 // You can construct a concrete instance of `EnvironmentVariableMapInput` via:
 //
-//          EnvironmentVariableMap{ "key": EnvironmentVariableArgs{...} }
+//	EnvironmentVariableMap{ "key": EnvironmentVariableArgs{...} }
 type EnvironmentVariableMapInput interface {
 	pulumi.Input
 
