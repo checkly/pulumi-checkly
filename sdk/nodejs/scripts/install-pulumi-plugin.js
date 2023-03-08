@@ -7,7 +7,7 @@ if (args.indexOf("${VERSION}") !== -1) {
 	process.exit(0);
 }
 
-var res = childProcess.spawnSync("pulumi", ["plugin", "install", "--server", "https://github.com/checkly/pulumi-checkly/releases/download/v${VERSION}"].concat(args), {
+var res = childProcess.spawnSync("pulumi", ["plugin", "install", "--server", "github://api.github.com/checkly"].concat(args), {
     stdio: ["ignore", "inherit", "inherit"]
 });
 

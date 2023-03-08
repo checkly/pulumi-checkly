@@ -57,7 +57,7 @@ func Provider() tfbridge.ProviderInfo {
 		Publisher:            "checkly",
 		LogoURL:              "https://raw.githubusercontent.com/checkly/pulumi-checkly/main/assets/checkly.svg",
 		Description:          "A Pulumi package for creating and managing Checkly monitoring resources.",
-		PluginDownloadURL:    "https://github.com/checkly/pulumi-checkly/releases/download/v${VERSION}",
+		PluginDownloadURL:    "github://api.github.com/checkly",
 		Keywords:             []string{"pulumi", "checkly", "category/monitoring"},
 		License:              "MIT",
 		Homepage:             "https://www.pulumi.com/registry/packages/checkly",

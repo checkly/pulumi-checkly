@@ -17,22 +17,25 @@ import (
 // package main
 //
 // import (
-// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		testTriggerCheck, err := checkly.NewTriggerCheck(ctx, "testTriggerCheck", &checkly.TriggerCheckArgs{
-// 			CheckId: pulumi.String("c1ff95c5-d7f6-4a90-9ce2-1e605f117592"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		ctx.Export("testTriggerCheckUrl", testTriggerCheck.Url)
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			testTriggerCheck, err := checkly.NewTriggerCheck(ctx, "testTriggerCheck", &checkly.TriggerCheckArgs{
+//				CheckId: pulumi.String("c1ff95c5-d7f6-4a90-9ce2-1e605f117592"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			ctx.Export("testTriggerCheckUrl", testTriggerCheck.Url)
+//			return nil
+//		})
+//	}
+//
 // ```
 type TriggerCheck struct {
 	pulumi.CustomResourceState
@@ -144,7 +147,7 @@ func (i *TriggerCheck) ToTriggerCheckOutputWithContext(ctx context.Context) Trig
 // TriggerCheckArrayInput is an input type that accepts TriggerCheckArray and TriggerCheckArrayOutput values.
 // You can construct a concrete instance of `TriggerCheckArrayInput` via:
 //
-//          TriggerCheckArray{ TriggerCheckArgs{...} }
+//	TriggerCheckArray{ TriggerCheckArgs{...} }
 type TriggerCheckArrayInput interface {
 	pulumi.Input
 
@@ -169,7 +172,7 @@ func (i TriggerCheckArray) ToTriggerCheckArrayOutputWithContext(ctx context.Cont
 // TriggerCheckMapInput is an input type that accepts TriggerCheckMap and TriggerCheckMapOutput values.
 // You can construct a concrete instance of `TriggerCheckMapInput` via:
 //
-//          TriggerCheckMap{ "key": TriggerCheckArgs{...} }
+//	TriggerCheckMap{ "key": TriggerCheckArgs{...} }
 type TriggerCheckMapInput interface {
 	pulumi.Input
 
