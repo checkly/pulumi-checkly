@@ -111,7 +111,7 @@ func (i *Snippet) ToSnippetOutputWithContext(ctx context.Context) SnippetOutput 
 // SnippetArrayInput is an input type that accepts SnippetArray and SnippetArrayOutput values.
 // You can construct a concrete instance of `SnippetArrayInput` via:
 //
-//	SnippetArray{ SnippetArgs{...} }
+//          SnippetArray{ SnippetArgs{...} }
 type SnippetArrayInput interface {
 	pulumi.Input
 
@@ -136,7 +136,7 @@ func (i SnippetArray) ToSnippetArrayOutputWithContext(ctx context.Context) Snipp
 // SnippetMapInput is an input type that accepts SnippetMap and SnippetMapOutput values.
 // You can construct a concrete instance of `SnippetMapInput` via:
 //
-//	SnippetMap{ "key": SnippetArgs{...} }
+//          SnippetMap{ "key": SnippetArgs{...} }
 type SnippetMapInput interface {
 	pulumi.Input
 

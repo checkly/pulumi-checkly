@@ -418,7 +418,7 @@ func (i *Check) ToCheckOutputWithContext(ctx context.Context) CheckOutput {
 // CheckArrayInput is an input type that accepts CheckArray and CheckArrayOutput values.
 // You can construct a concrete instance of `CheckArrayInput` via:
 //
-//	CheckArray{ CheckArgs{...} }
+//          CheckArray{ CheckArgs{...} }
 type CheckArrayInput interface {
 	pulumi.Input
 
@@ -443,7 +443,7 @@ func (i CheckArray) ToCheckArrayOutputWithContext(ctx context.Context) CheckArra
 // CheckMapInput is an input type that accepts CheckMap and CheckMapOutput values.
 // You can construct a concrete instance of `CheckMapInput` via:
 //
-//	CheckMap{ "key": CheckArgs{...} }
+//          CheckMap{ "key": CheckArgs{...} }
 type CheckMapInput interface {
 	pulumi.Input
 

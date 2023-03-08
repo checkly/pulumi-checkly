@@ -19,124 +19,121 @@ import (
 // package main
 //
 // import (
-//
-//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-//	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			testGroup1CheckGroup, err := checkly.NewCheckGroup(ctx, "testGroup1CheckGroup", &checkly.CheckGroupArgs{
-//				Activated: pulumi.Bool(true),
-//				Muted:     pulumi.Bool(false),
-//				Tags: pulumi.StringArray{
-//					pulumi.String("auto"),
-//				},
-//				Locations: pulumi.StringArray{
-//					pulumi.String("eu-west-1"),
-//				},
-//				Concurrency: pulumi.Int(3),
-//				ApiCheckDefaults: &CheckGroupApiCheckDefaultsArgs{
-//					Url: pulumi.String("http://example.com/"),
-//					Headers: pulumi.AnyMap{
-//						"X-Test": pulumi.Any("foo"),
-//					},
-//					QueryParameters: pulumi.AnyMap{
-//						"query": pulumi.Any("foo"),
-//					},
-//					Assertions: CheckGroupApiCheckDefaultsAssertionArray{
-//						&CheckGroupApiCheckDefaultsAssertionArgs{
-//							Source:     pulumi.String("STATUS_CODE"),
-//							Property:   pulumi.String(""),
-//							Comparison: pulumi.String("EQUALS"),
-//							Target:     pulumi.String("200"),
-//						},
-//						&CheckGroupApiCheckDefaultsAssertionArgs{
-//							Source:     pulumi.String("TEXT_BODY"),
-//							Property:   pulumi.String(""),
-//							Comparison: pulumi.String("CONTAINS"),
-//							Target:     pulumi.String("welcome"),
-//						},
-//					},
-//					BasicAuth: &CheckGroupApiCheckDefaultsBasicAuthArgs{
-//						Username: pulumi.String("user"),
-//						Password: pulumi.String("pass"),
-//					},
-//				},
-//				EnvironmentVariables: pulumi.AnyMap{
-//					"ENVTEST": pulumi.Any("Hello world"),
-//				},
-//				DoubleCheck:            pulumi.Bool(true),
-//				UseGlobalAlertSettings: pulumi.Bool(false),
-//				AlertSettings: &CheckGroupAlertSettingsArgs{
-//					EscalationType: pulumi.String("RUN_BASED"),
-//					RunBasedEscalations: CheckGroupAlertSettingsRunBasedEscalationArray{
-//						&CheckGroupAlertSettingsRunBasedEscalationArgs{
-//							FailedRunThreshold: pulumi.Int(1),
-//						},
-//					},
-//					TimeBasedEscalations: CheckGroupAlertSettingsTimeBasedEscalationArray{
-//						&CheckGroupAlertSettingsTimeBasedEscalationArgs{
-//							MinutesFailingThreshold: pulumi.Int(5),
-//						},
-//					},
-//					Reminders: CheckGroupAlertSettingsReminderArray{
-//						&CheckGroupAlertSettingsReminderArgs{
-//							Amount:   pulumi.Int(2),
-//							Interval: pulumi.Int(5),
-//						},
-//					},
-//				},
-//				LocalSetupScript:    pulumi.String("setup-test"),
-//				LocalTeardownScript: pulumi.String("teardown-test"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = checkly.NewCheck(ctx, "testCheck1", &checkly.CheckArgs{
-//				GroupId:    testGroup1CheckGroup.ID(),
-//				GroupOrder: pulumi.Int(1),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			emailAc1, err := checkly.NewAlertChannel(ctx, "emailAc1", &checkly.AlertChannelArgs{
-//				Email: &AlertChannelEmailArgs{
-//					Address: pulumi.String("info@example.com"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			emailAc2, err := checkly.NewAlertChannel(ctx, "emailAc2", &checkly.AlertChannelArgs{
-//				Email: &AlertChannelEmailArgs{
-//					Address: pulumi.String("info2@example.com"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = checkly.NewCheckGroup(ctx, "testGroup1Index/checkGroupCheckGroup", &checkly.CheckGroupArgs{
-//				AlertChannelSubscriptions: CheckGroupAlertChannelSubscriptionArray{
-//					&CheckGroupAlertChannelSubscriptionArgs{
-//						ChannelId: emailAc1.ID(),
-//						Activated: pulumi.Bool(true),
-//					},
-//					&CheckGroupAlertChannelSubscriptionArgs{
-//						ChannelId: emailAc2.ID(),
-//						Activated: pulumi.Bool(true),
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		testGroup1CheckGroup, err := checkly.NewCheckGroup(ctx, "testGroup1CheckGroup", &checkly.CheckGroupArgs{
+// 			Activated: pulumi.Bool(true),
+// 			Muted:     pulumi.Bool(false),
+// 			Tags: pulumi.StringArray{
+// 				pulumi.String("auto"),
+// 			},
+// 			Locations: pulumi.StringArray{
+// 				pulumi.String("eu-west-1"),
+// 			},
+// 			Concurrency: pulumi.Int(3),
+// 			ApiCheckDefaults: &CheckGroupApiCheckDefaultsArgs{
+// 				Url: pulumi.String("http://example.com/"),
+// 				Headers: pulumi.AnyMap{
+// 					"X-Test": pulumi.Any("foo"),
+// 				},
+// 				QueryParameters: pulumi.AnyMap{
+// 					"query": pulumi.Any("foo"),
+// 				},
+// 				Assertions: CheckGroupApiCheckDefaultsAssertionArray{
+// 					&CheckGroupApiCheckDefaultsAssertionArgs{
+// 						Source:     pulumi.String("STATUS_CODE"),
+// 						Property:   pulumi.String(""),
+// 						Comparison: pulumi.String("EQUALS"),
+// 						Target:     pulumi.String("200"),
+// 					},
+// 					&CheckGroupApiCheckDefaultsAssertionArgs{
+// 						Source:     pulumi.String("TEXT_BODY"),
+// 						Property:   pulumi.String(""),
+// 						Comparison: pulumi.String("CONTAINS"),
+// 						Target:     pulumi.String("welcome"),
+// 					},
+// 				},
+// 				BasicAuth: &CheckGroupApiCheckDefaultsBasicAuthArgs{
+// 					Username: pulumi.String("user"),
+// 					Password: pulumi.String("pass"),
+// 				},
+// 			},
+// 			EnvironmentVariables: pulumi.AnyMap{
+// 				"ENVTEST": pulumi.Any("Hello world"),
+// 			},
+// 			DoubleCheck:            pulumi.Bool(true),
+// 			UseGlobalAlertSettings: pulumi.Bool(false),
+// 			AlertSettings: &CheckGroupAlertSettingsArgs{
+// 				EscalationType: pulumi.String("RUN_BASED"),
+// 				RunBasedEscalations: CheckGroupAlertSettingsRunBasedEscalationArray{
+// 					&CheckGroupAlertSettingsRunBasedEscalationArgs{
+// 						FailedRunThreshold: pulumi.Int(1),
+// 					},
+// 				},
+// 				TimeBasedEscalations: CheckGroupAlertSettingsTimeBasedEscalationArray{
+// 					&CheckGroupAlertSettingsTimeBasedEscalationArgs{
+// 						MinutesFailingThreshold: pulumi.Int(5),
+// 					},
+// 				},
+// 				Reminders: CheckGroupAlertSettingsReminderArray{
+// 					&CheckGroupAlertSettingsReminderArgs{
+// 						Amount:   pulumi.Int(2),
+// 						Interval: pulumi.Int(5),
+// 					},
+// 				},
+// 			},
+// 			LocalSetupScript:    pulumi.String("setup-test"),
+// 			LocalTeardownScript: pulumi.String("teardown-test"),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = checkly.NewCheck(ctx, "testCheck1", &checkly.CheckArgs{
+// 			GroupId:    testGroup1CheckGroup.ID(),
+// 			GroupOrder: pulumi.Int(1),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		emailAc1, err := checkly.NewAlertChannel(ctx, "emailAc1", &checkly.AlertChannelArgs{
+// 			Email: &AlertChannelEmailArgs{
+// 				Address: pulumi.String("info@example.com"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		emailAc2, err := checkly.NewAlertChannel(ctx, "emailAc2", &checkly.AlertChannelArgs{
+// 			Email: &AlertChannelEmailArgs{
+// 				Address: pulumi.String("info2@example.com"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = checkly.NewCheckGroup(ctx, "testGroup1Index/checkGroupCheckGroup", &checkly.CheckGroupArgs{
+// 			AlertChannelSubscriptions: CheckGroupAlertChannelSubscriptionArray{
+// 				&CheckGroupAlertChannelSubscriptionArgs{
+// 					ChannelId: emailAc1.ID(),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 				&CheckGroupAlertChannelSubscriptionArgs{
+// 					ChannelId: emailAc2.ID(),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
 // ```
 type CheckGroup struct {
 	pulumi.CustomResourceState
@@ -409,7 +406,7 @@ func (i *CheckGroup) ToCheckGroupOutputWithContext(ctx context.Context) CheckGro
 // CheckGroupArrayInput is an input type that accepts CheckGroupArray and CheckGroupArrayOutput values.
 // You can construct a concrete instance of `CheckGroupArrayInput` via:
 //
-//	CheckGroupArray{ CheckGroupArgs{...} }
+//          CheckGroupArray{ CheckGroupArgs{...} }
 type CheckGroupArrayInput interface {
 	pulumi.Input
 
@@ -434,7 +431,7 @@ func (i CheckGroupArray) ToCheckGroupArrayOutputWithContext(ctx context.Context)
 // CheckGroupMapInput is an input type that accepts CheckGroupMap and CheckGroupMapOutput values.
 // You can construct a concrete instance of `CheckGroupMapInput` via:
 //
-//	CheckGroupMap{ "key": CheckGroupArgs{...} }
+//          CheckGroupMap{ "key": CheckGroupArgs{...} }
 type CheckGroupMapInput interface {
 	pulumi.Input
 

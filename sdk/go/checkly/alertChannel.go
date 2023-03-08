@@ -18,100 +18,97 @@ import (
 // package main
 //
 // import (
-//
-//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
-//	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
+// 	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi-checkly/sdk/go/checkly"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			emailAc, err := checkly.NewAlertChannel(ctx, "emailAc", &checkly.AlertChannelArgs{
-//				Email: &AlertChannelEmailArgs{
-//					Address: pulumi.String("john@example.com"),
-//				},
-//				SendRecovery:       pulumi.Bool(true),
-//				SendFailure:        pulumi.Bool(false),
-//				SendDegraded:       pulumi.Bool(true),
-//				SslExpiry:          pulumi.Bool(true),
-//				SslExpiryThreshold: pulumi.Int(22),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			smsAc, err := checkly.NewAlertChannel(ctx, "smsAc", &checkly.AlertChannelArgs{
-//				Sms: &AlertChannelSmsArgs{
-//					Name:   pulumi.String("john"),
-//					Number: pulumi.String("+5491100001111"),
-//				},
-//				SendRecovery: pulumi.Bool(true),
-//				SendFailure:  pulumi.Bool(true),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = checkly.NewAlertChannel(ctx, "slackAc", &checkly.AlertChannelArgs{
-//				Slack: &AlertChannelSlackArgs{
-//					Channel: pulumi.String("#checkly-notifications"),
-//					Url:     pulumi.String("https://hooks.slack.com/services/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"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = checkly.NewAlertChannel(ctx, "opsgenieAc", &checkly.AlertChannelArgs{
-//				Opsgenie: &AlertChannelOpsgenieArgs{
-//					Name:     pulumi.String("opsalerts"),
-//					ApiKey:   pulumi.String("fookey"),
-//					Region:   pulumi.String("fooregion"),
-//					Priority: pulumi.String("foopriority"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = checkly.NewAlertChannel(ctx, "pagerdutyAc", &checkly.AlertChannelArgs{
-//				Pagerduty: &AlertChannelPagerdutyArgs{
-//					Account:     pulumi.String("checkly"),
-//					ServiceKey:  pulumi.String("key1"),
-//					ServiceName: pulumi.String("pdalert"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = checkly.NewAlertChannel(ctx, "webhookAc", &checkly.AlertChannelArgs{
-//				Webhook: &AlertChannelWebhookArgs{
-//					Name:          pulumi.String("foo"),
-//					Method:        pulumi.String("get"),
-//					Template:      pulumi.String("footemplate"),
-//					Url:           pulumi.String("https://example.com/foo"),
-//					WebhookSecret: pulumi.String("foosecret"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = checkly.NewCheck(ctx, "exampleCheck", &checkly.CheckArgs{
-//				AlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{
-//					&CheckAlertChannelSubscriptionArgs{
-//						ChannelId: emailAc.ID(),
-//						Activated: pulumi.Bool(true),
-//					},
-//					&CheckAlertChannelSubscriptionArgs{
-//						ChannelId: smsAc.ID(),
-//						Activated: pulumi.Bool(true),
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		emailAc, err := checkly.NewAlertChannel(ctx, "emailAc", &checkly.AlertChannelArgs{
+// 			Email: &AlertChannelEmailArgs{
+// 				Address: pulumi.String("john@example.com"),
+// 			},
+// 			SendRecovery:       pulumi.Bool(true),
+// 			SendFailure:        pulumi.Bool(false),
+// 			SendDegraded:       pulumi.Bool(true),
+// 			SslExpiry:          pulumi.Bool(true),
+// 			SslExpiryThreshold: pulumi.Int(22),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		smsAc, err := checkly.NewAlertChannel(ctx, "smsAc", &checkly.AlertChannelArgs{
+// 			Sms: &AlertChannelSmsArgs{
+// 				Name:   pulumi.String("john"),
+// 				Number: pulumi.String("+5491100001111"),
+// 			},
+// 			SendRecovery: pulumi.Bool(true),
+// 			SendFailure:  pulumi.Bool(true),
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = checkly.NewAlertChannel(ctx, "slackAc", &checkly.AlertChannelArgs{
+// 			Slack: &AlertChannelSlackArgs{
+// 				Channel: pulumi.String("#checkly-notifications"),
+// 				Url:     pulumi.String("https://hooks.slack.com/services/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"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = checkly.NewAlertChannel(ctx, "opsgenieAc", &checkly.AlertChannelArgs{
+// 			Opsgenie: &AlertChannelOpsgenieArgs{
+// 				Name:     pulumi.String("opsalerts"),
+// 				ApiKey:   pulumi.String("fookey"),
+// 				Region:   pulumi.String("fooregion"),
+// 				Priority: pulumi.String("foopriority"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = checkly.NewAlertChannel(ctx, "pagerdutyAc", &checkly.AlertChannelArgs{
+// 			Pagerduty: &AlertChannelPagerdutyArgs{
+// 				Account:     pulumi.String("checkly"),
+// 				ServiceKey:  pulumi.String("key1"),
+// 				ServiceName: pulumi.String("pdalert"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = checkly.NewAlertChannel(ctx, "webhookAc", &checkly.AlertChannelArgs{
+// 			Webhook: &AlertChannelWebhookArgs{
+// 				Name:          pulumi.String("foo"),
+// 				Method:        pulumi.String("get"),
+// 				Template:      pulumi.String("footemplate"),
+// 				Url:           pulumi.String("https://example.com/foo"),
+// 				WebhookSecret: pulumi.String("foosecret"),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = checkly.NewCheck(ctx, "exampleCheck", &checkly.CheckArgs{
+// 			AlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{
+// 				&CheckAlertChannelSubscriptionArgs{
+// 					ChannelId: emailAc.ID(),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 				&CheckAlertChannelSubscriptionArgs{
+// 					ChannelId: smsAc.ID(),
+// 					Activated: pulumi.Bool(true),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
 // ```
 type AlertChannel struct {
 	pulumi.CustomResourceState
@@ -270,7 +267,7 @@ func (i *AlertChannel) ToAlertChannelOutputWithContext(ctx context.Context) Aler
 // AlertChannelArrayInput is an input type that accepts AlertChannelArray and AlertChannelArrayOutput values.
 // You can construct a concrete instance of `AlertChannelArrayInput` via:
 //
-//	AlertChannelArray{ AlertChannelArgs{...} }
+//          AlertChannelArray{ AlertChannelArgs{...} }
 type AlertChannelArrayInput interface {
 	pulumi.Input
 
@@ -295,7 +292,7 @@ func (i AlertChannelArray) ToAlertChannelArrayOutputWithContext(ctx context.Cont
 // AlertChannelMapInput is an input type that accepts AlertChannelMap and AlertChannelMapOutput values.
 // You can construct a concrete instance of `AlertChannelMapInput` via:
 //
-//	AlertChannelMap{ "key": AlertChannelArgs{...} }
+//          AlertChannelMap{ "key": AlertChannelArgs{...} }
 type AlertChannelMapInput interface {
 	pulumi.Input
 
