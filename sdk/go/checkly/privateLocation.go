@@ -24,7 +24,6 @@ import (
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
 // 		_, err := checkly.NewPrivateLocation(ctx, "location", &checkly.PrivateLocationArgs{
-// 			Icon:     pulumi.String("location"),
 // 			SlugName: pulumi.String("new-private-location"),
 // 		})
 // 		if err != nil {

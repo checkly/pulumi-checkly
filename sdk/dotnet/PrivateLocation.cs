@@ -23,7 +23,6 @@ namespace Pulumi.Checkly
     ///         // Simple Private Location example
     ///         var location = new Checkly.PrivateLocation("location", new Checkly.PrivateLocationArgs
     ///         {
-    ///             Icon = "location",
     ///             SlugName = "new-private-location",
     ///         });
     ///     }

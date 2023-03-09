@@ -154,9 +154,7 @@ class PrivateLocation(pulumi.CustomResource):
         import pulumi_checkly as checkly
 
         # Simple Private Location example
-        location = checkly.PrivateLocation("location",
-            icon="location",
-            slug_name="new-private-location")
+        location = checkly.PrivateLocation("location", slug_name="new-private-location")
         ```
 
         :param str resource_name: The name of the resource.
@@ -179,9 +177,7 @@ class PrivateLocation(pulumi.CustomResource):
         import pulumi_checkly as checkly
 
         # Simple Private Location example
-        location = checkly.PrivateLocation("location",
-            icon="location",
-            slug_name="new-private-location")
+        location = checkly.PrivateLocation("location", slug_name="new-private-location")
         ```
 
         :param str resource_name: The name of the resource.

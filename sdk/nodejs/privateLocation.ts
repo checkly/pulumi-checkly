@@ -13,7 +13,6 @@ import * as utilities from "./utilities";
  *
  * // Simple Private Location example
  * const location = new checkly.PrivateLocation("location", {
- *     icon: "location",
  *     slugName: "new-private-location",
  * });
  * ```
