@@ -97,7 +97,7 @@ jobs:
           fi
 
       - if: ${{ matrix.language == 'nodejs' && env.PUBLISH_NPM == 'true' }}
-        uses: JS-DevTools/npm-publish@v1
+        uses: JS-DevTools/npm-publish@v2
         with:
           access: "public"
           token: ${{ env.NPM_TOKEN }}
