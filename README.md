@@ -1,7 +1,4 @@
-<p>
-  <img height="128" src="https://cdn.checklyhq.com/logos/racoon_logo.svg" align="right" />
-  <h1>Checkly Pulumi Provider</h1>
-</p>
+# Checkly Pulumi Provider
 
 ![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/checkly/pulumi-checkly?label=Version)
@@ -137,16 +134,4 @@ Please make sure to respect issue requirements and choose the proper [issue temp
 Please make sure to read the [Contributing Guide](https://github.com/checkly/pulumi-checkly/blob/main/CONTRIBUTING.md) before making a pull request.
 
 ## License
-
 [MIT](https://github.com/checkly/pulumi-checkly/blob/main/LICENSE)
-
-<br>
-<p align="center">
-  <a href="https://cdn.checklyhq.com/logos/checkly_racoon_logo_horizontal.svg" target="_blank">
-  <img width="100px" src="https://www.checklyhq.com/images/text_racoon_logo.svg" alt="Checkly" />
-  </a>
-  <br />
-  <i><sub>Code, test, and deploy synthetic monitoring at scale</sub></i>
-  <br>
-  <b><sub>From Checkly with ♥️</sub></b>
-<p>
