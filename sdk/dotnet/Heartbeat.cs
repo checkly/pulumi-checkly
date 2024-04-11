@@ -28,7 +28,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.HeartbeatAlertSettings> AlertSettings { get; private set; } = null!;
 
         [Output("heartbeat")]
-        public Output<Outputs.HeartbeatHeartbeat> Heartbeat { get; private set; } = null!;
+        public Output<Outputs.HeartbeatHeartbeat> HeartbeatObject { get; private set; } = null!;
 
         /// <summary>
         /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
@@ -119,7 +119,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.HeartbeatAlertSettingsArgs>? AlertSettings { get; set; }
 
         [Input("heartbeat", required: true)]
-        public Input<Inputs.HeartbeatHeartbeatArgs> Heartbeat { get; set; } = null!;
+        public Input<Inputs.HeartbeatHeartbeatArgs> HeartbeatObject { get; set; } = null!;
 
         /// <summary>
         /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
@@ -177,7 +177,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.HeartbeatAlertSettingsGetArgs>? AlertSettings { get; set; }
 
         [Input("heartbeat")]
-        public Input<Inputs.HeartbeatHeartbeatGetArgs>? Heartbeat { get; set; }
+        public Input<Inputs.HeartbeatHeartbeatGetArgs>? HeartbeatObject { get; set; }
 
         /// <summary>
         /// Determines if any notifications will be sent out when a check fails/degrades/recovers.

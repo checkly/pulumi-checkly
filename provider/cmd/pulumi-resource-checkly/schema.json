@@ -2124,7 +2124,12 @@
                     "$ref": "#/types/checkly:index/HeartbeatAlertSettings:HeartbeatAlertSettings"
                 },
                 "heartbeat": {
-                    "$ref": "#/types/checkly:index/HeartbeatHeartbeat:HeartbeatHeartbeat"
+                    "$ref": "#/types/checkly:index/HeartbeatHeartbeat:HeartbeatHeartbeat",
+                    "language": {
+                        "csharp": {
+                            "name": "HeartbeatObject"
+                        }
+                    }
                 },
                 "muted": {
                     "type": "boolean",
@@ -2167,7 +2172,12 @@
                     "$ref": "#/types/checkly:index/HeartbeatAlertSettings:HeartbeatAlertSettings"
                 },
                 "heartbeat": {
-                    "$ref": "#/types/checkly:index/HeartbeatHeartbeat:HeartbeatHeartbeat"
+                    "$ref": "#/types/checkly:index/HeartbeatHeartbeat:HeartbeatHeartbeat",
+                    "language": {
+                        "csharp": {
+                            "name": "HeartbeatObject"
+                        }
+                    }
                 },
                 "muted": {
                     "type": "boolean",
@@ -2210,7 +2220,12 @@
                         "$ref": "#/types/checkly:index/HeartbeatAlertSettings:HeartbeatAlertSettings"
                     },
                     "heartbeat": {
-                        "$ref": "#/types/checkly:index/HeartbeatHeartbeat:HeartbeatHeartbeat"
+                        "$ref": "#/types/checkly:index/HeartbeatHeartbeat:HeartbeatHeartbeat",
+                        "language": {
+                            "csharp": {
+                                "name": "HeartbeatObject"
+                            }
+                        }
                     },
                     "muted": {
                         "type": "boolean",

@@ -110,6 +110,11 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_heartbeat": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Heartbeat"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"heartbeat": {
+						CSharpName: "HeartbeatObject",
+					},
+				},
 			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
