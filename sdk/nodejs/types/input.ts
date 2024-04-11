@@ -2,11 +2,26 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "../types";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 
 import * as utilities from "../utilities";
 
+export interface AlertChannelCall {
+    /**
+     * The name of this alert channel
+     */
+    name: pulumi.Input<string>;
+    /**
+     * The mobile number to receive the alerts
+     */
+    number: pulumi.Input<string>;
+}
+
 export interface AlertChannelEmail {
+    /**
+     * The email address of this email alert channel.
+     */
     address: pulumi.Input<string>;
 }
 
@@ -24,23 +39,42 @@ export interface AlertChannelPagerduty {
 }
 
 export interface AlertChannelSlack {
+    /**
+     * The name of the alert's Slack channel
+     */
     channel: pulumi.Input<string>;
+    /**
+     * The Slack webhook URL
+     */
     url: pulumi.Input<string>;
 }
 
 export interface AlertChannelSms {
+    /**
+     * The name of this alert channel
+     */
     name: pulumi.Input<string>;
+    /**
+     * The mobile number to receive the alerts
+     */
     number: pulumi.Input<string>;
 }
 
 export interface AlertChannelWebhook {
     headers?: pulumi.Input<{[key: string]: any}>;
+    /**
+     * (Default `POST`)
+     */
     method?: pulumi.Input<string>;
     name: pulumi.Input<string>;
     queryParameters?: pulumi.Input<{[key: string]: any}>;
     template?: pulumi.Input<string>;
     url: pulumi.Input<string>;
     webhookSecret?: pulumi.Input<string>;
+    /**
+     * Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+     */
+    webhookType?: pulumi.Input<string>;
 }
 
 export interface CheckAlertChannelSubscription {
@@ -49,7 +83,11 @@ export interface CheckAlertChannelSubscription {
 }
 
 export interface CheckAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
     escalationType?: pulumi.Input<string>;
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsParallelRunFailureThreshold>[]>;
     reminders?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsReminder>[]>;
     runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsRunBasedEscalation>[]>;
     /**
@@ -59,22 +97,57 @@ export interface CheckAlertSettings {
     timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckAlertSettingsTimeBasedEscalation>[]>;
 }
 
+export interface CheckAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
 export interface CheckAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
     amount?: pulumi.Input<number>;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
     interval?: pulumi.Input<number>;
 }
 
 export interface CheckAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
     failedRunThreshold?: pulumi.Input<number>;
 }
 
 export interface CheckAlertSettingsSslCertificate {
+    /**
+     * How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     */
     alertThreshold?: pulumi.Input<number>;
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
     enabled?: pulumi.Input<boolean>;
 }
 
 export interface CheckAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
     minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface CheckEnvironmentVariable {
+    key: pulumi.Input<string>;
+    locked?: pulumi.Input<boolean>;
+    value: pulumi.Input<string>;
 }
 
 export interface CheckGroupAlertChannelSubscription {
@@ -83,7 +156,11 @@ export interface CheckGroupAlertChannelSubscription {
 }
 
 export interface CheckGroupAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
     escalationType?: pulumi.Input<string>;
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsParallelRunFailureThreshold>[]>;
     reminders?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsReminder>[]>;
     runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsRunBasedEscalation>[]>;
     /**
@@ -93,21 +170,50 @@ export interface CheckGroupAlertSettings {
     timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertSettingsTimeBasedEscalation>[]>;
 }
 
+export interface CheckGroupAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
 export interface CheckGroupAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
     amount?: pulumi.Input<number>;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
     interval?: pulumi.Input<number>;
 }
 
 export interface CheckGroupAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
     failedRunThreshold?: pulumi.Input<number>;
 }
 
 export interface CheckGroupAlertSettingsSslCertificate {
+    /**
+     * At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     */
     alertThreshold?: pulumi.Input<number>;
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
     enabled?: pulumi.Input<boolean>;
 }
 
 export interface CheckGroupAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
     minutesFailingThreshold?: pulumi.Input<number>;
 }
 
@@ -116,6 +222,9 @@ export interface CheckGroupApiCheckDefaults {
     basicAuth?: pulumi.Input<inputs.CheckGroupApiCheckDefaultsBasicAuth>;
     headers?: pulumi.Input<{[key: string]: any}>;
     queryParameters?: pulumi.Input<{[key: string]: any}>;
+    /**
+     * The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+     */
     url?: pulumi.Input<string>;
 }
 /**
@@ -129,8 +238,14 @@ export function checkGroupApiCheckDefaultsProvideDefaults(val: CheckGroupApiChec
 }
 
 export interface CheckGroupApiCheckDefaultsAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+     */
     comparison: pulumi.Input<string>;
     property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+     */
     source: pulumi.Input<string>;
     target: pulumi.Input<string>;
 }
@@ -140,13 +255,57 @@ export interface CheckGroupApiCheckDefaultsBasicAuth {
     username: pulumi.Input<string>;
 }
 
+export interface CheckGroupEnvironmentVariable {
+    key: pulumi.Input<string>;
+    locked?: pulumi.Input<boolean>;
+    value: pulumi.Input<string>;
+}
+
+export interface CheckGroupRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt.
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the check (maximum 600 seconds).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the check. Value must be between 1 and 10.
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Whether retries should be run in the same region as the initial check run.
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+     */
+    type: pulumi.Input<string>;
+}
+
 export interface CheckRequest {
+    /**
+     * A request can have multiple assertions.
+     */
     assertions?: pulumi.Input<pulumi.Input<inputs.CheckRequestAssertion>[]>;
+    /**
+     * Set up HTTP basic authentication (username & password).
+     */
     basicAuth?: pulumi.Input<inputs.CheckRequestBasicAuth>;
+    /**
+     * The body of the request.
+     */
     body?: pulumi.Input<string>;
+    /**
+     * The `Content-Type` header of the request. Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+     */
     bodyType?: pulumi.Input<string>;
     followRedirects?: pulumi.Input<boolean>;
     headers?: pulumi.Input<{[key: string]: any}>;
+    /**
+     * The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. (Default `GET`).
+     */
     method?: pulumi.Input<string>;
     queryParameters?: pulumi.Input<{[key: string]: any}>;
     skipSsl?: pulumi.Input<boolean>;
@@ -154,8 +313,14 @@ export interface CheckRequest {
 }
 
 export interface CheckRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+     */
     comparison: pulumi.Input<string>;
     property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+     */
     source: pulumi.Input<string>;
     target?: pulumi.Input<string>;
 }
@@ -163,4 +328,117 @@ export interface CheckRequestAssertion {
 export interface CheckRequestBasicAuth {
     password: pulumi.Input<string>;
     username: pulumi.Input<string>;
+}
+
+export interface CheckRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt.
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the check (maximum 600 seconds).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the check. Value must be between 1 and 10.
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Whether retries should be run in the same region as the initial check run.
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface HeartbeatAlertChannelSubscription {
+    activated: pulumi.Input<boolean>;
+    channelId: pulumi.Input<number>;
+}
+
+export interface HeartbeatAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
+    escalationType?: pulumi.Input<string>;
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.HeartbeatAlertSettingsParallelRunFailureThreshold>[]>;
+    reminders?: pulumi.Input<pulumi.Input<inputs.HeartbeatAlertSettingsReminder>[]>;
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.HeartbeatAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     */
+    sslCertificates?: pulumi.Input<pulumi.Input<inputs.HeartbeatAlertSettingsSslCertificate>[]>;
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.HeartbeatAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface HeartbeatAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface HeartbeatAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface HeartbeatAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface HeartbeatAlertSettingsSslCertificate {
+    /**
+     * How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     */
+    alertThreshold?: pulumi.Input<number>;
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface HeartbeatAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface HeartbeatHeartbeat {
+    /**
+     * How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+     */
+    grace: pulumi.Input<number>;
+    /**
+     * Possible values `seconds`, `minutes`, `hours` and `days`.
+     */
+    graceUnit: pulumi.Input<string>;
+    /**
+     * How often you expect a ping to the ping URL.
+     */
+    period: pulumi.Input<number>;
+    /**
+     * Possible values `seconds`, `minutes`, `hours` and `days`.
+     */
+    periodUnit: pulumi.Input<string>;
+    /**
+     * Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+     */
+    pingToken?: pulumi.Input<string>;
 }

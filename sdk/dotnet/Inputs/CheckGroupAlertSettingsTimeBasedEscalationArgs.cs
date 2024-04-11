@@ -10,13 +10,17 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckGroupAlertSettingsTimeBasedEscalationArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupAlertSettingsTimeBasedEscalationArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        /// </summary>
         [Input("minutesFailingThreshold")]
         public Input<int>? MinutesFailingThreshold { get; set; }
 
         public CheckGroupAlertSettingsTimeBasedEscalationArgs()
         {
         }
+        public static new CheckGroupAlertSettingsTimeBasedEscalationArgs Empty => new CheckGroupAlertSettingsTimeBasedEscalationArgs();
     }
 }

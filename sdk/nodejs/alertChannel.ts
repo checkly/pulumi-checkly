@@ -2,76 +2,12 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "./types";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
  * Allows you to define alerting channels for the checks and groups in your account
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi from "@checkly/pulumi";
- *
- * // An Email alert channel
- * const emailAc = new checkly.AlertChannel("emailAc", {
- *     email: {
- *         address: "john@example.com",
- *     },
- *     sendRecovery: true,
- *     sendFailure: false,
- *     sendDegraded: true,
- *     sslExpiry: true,
- *     sslExpiryThreshold: 22,
- * });
- * // A SMS alert channel
- * const smsAc = new checkly.AlertChannel("smsAc", {
- *     sms: {
- *         name: "john",
- *         number: "+5491100001111",
- *     },
- *     sendRecovery: true,
- *     sendFailure: true,
- * });
- * // A Slack alert channel
- * const slackAc = new checkly.AlertChannel("slackAc", {slack: {
- *     channel: "#checkly-notifications",
- *     url: "https://hooks.slack.com/services/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",
- * }});
- * // An Opsgenie alert channel
- * const opsgenieAc = new checkly.AlertChannel("opsgenieAc", {opsgenie: {
- *     name: "opsalerts",
- *     apiKey: "fookey",
- *     region: "fooregion",
- *     priority: "foopriority",
- * }});
- * // An Pagerduty alert channel
- * const pagerdutyAc = new checkly.AlertChannel("pagerdutyAc", {pagerduty: {
- *     account: "checkly",
- *     serviceKey: "key1",
- *     serviceName: "pdalert",
- * }});
- * // An Webhook alert channel
- * const webhookAc = new checkly.AlertChannel("webhookAc", {webhook: {
- *     name: "foo",
- *     method: "get",
- *     template: "footemplate",
- *     url: "https://example.com/foo",
- *     webhookSecret: "foosecret",
- * }});
- * // Connecting the alert channel to a check
- * const exampleCheck = new checkly.Check("exampleCheck", {alertChannelSubscriptions: [
- *     {
- *         channelId: emailAc.id,
- *         activated: true,
- *     },
- *     {
- *         channelId: smsAc.id,
- *         activated: true,
- *     },
- * ]});
- * ```
  */
 export class AlertChannel extends pulumi.CustomResource {
     /**
@@ -101,6 +37,7 @@ export class AlertChannel extends pulumi.CustomResource {
         return obj['__pulumiType'] === AlertChannel.__pulumiType;
     }
 
+    public readonly call!: pulumi.Output<outputs.AlertChannelCall | undefined>;
     public readonly email!: pulumi.Output<outputs.AlertChannelEmail | undefined>;
     public readonly opsgenie!: pulumi.Output<outputs.AlertChannelOpsgenie | undefined>;
     public readonly pagerduty!: pulumi.Output<outputs.AlertChannelPagerduty | undefined>;
@@ -141,6 +78,7 @@ export class AlertChannel extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as AlertChannelState | undefined;
+            resourceInputs["call"] = state ? state.call : undefined;
             resourceInputs["email"] = state ? state.email : undefined;
             resourceInputs["opsgenie"] = state ? state.opsgenie : undefined;
             resourceInputs["pagerduty"] = state ? state.pagerduty : undefined;
@@ -154,6 +92,7 @@ export class AlertChannel extends pulumi.CustomResource {
             resourceInputs["webhook"] = state ? state.webhook : undefined;
         } else {
             const args = argsOrState as AlertChannelArgs | undefined;
+            resourceInputs["call"] = args ? args.call : undefined;
             resourceInputs["email"] = args ? args.email : undefined;
             resourceInputs["opsgenie"] = args ? args.opsgenie : undefined;
             resourceInputs["pagerduty"] = args ? args.pagerduty : undefined;
@@ -175,6 +114,7 @@ export class AlertChannel extends pulumi.CustomResource {
  * Input properties used for looking up and filtering AlertChannel resources.
  */
 export interface AlertChannelState {
+    call?: pulumi.Input<inputs.AlertChannelCall>;
     email?: pulumi.Input<inputs.AlertChannelEmail>;
     opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
     pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;
@@ -207,6 +147,7 @@ export interface AlertChannelState {
  * The set of arguments for constructing a AlertChannel resource.
  */
 export interface AlertChannelArgs {
+    call?: pulumi.Input<inputs.AlertChannelCall>;
     email?: pulumi.Input<inputs.AlertChannelEmail>;
     opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
     pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;

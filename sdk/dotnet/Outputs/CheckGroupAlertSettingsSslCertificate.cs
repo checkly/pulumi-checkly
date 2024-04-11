@@ -13,7 +13,13 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupAlertSettingsSslCertificate
     {
+        /// <summary>
+        /// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        /// </summary>
         public readonly int? AlertThreshold;
+        /// <summary>
+        /// Applicable only for checks scheduled in parallel in multiple locations.
+        /// </summary>
         public readonly bool? Enabled;
 
         [OutputConstructor]

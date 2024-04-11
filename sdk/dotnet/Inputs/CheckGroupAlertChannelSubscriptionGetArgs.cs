@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckGroupAlertChannelSubscriptionGetArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupAlertChannelSubscriptionGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("activated", required: true)]
         public Input<bool> Activated { get; set; } = null!;
@@ -21,5 +21,6 @@ namespace Pulumi.Checkly.Inputs
         public CheckGroupAlertChannelSubscriptionGetArgs()
         {
         }
+        public static new CheckGroupAlertChannelSubscriptionGetArgs Empty => new CheckGroupAlertChannelSubscriptionGetArgs();
     }
 }

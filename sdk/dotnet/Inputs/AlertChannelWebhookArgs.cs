@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class AlertChannelWebhookArgs : Pulumi.ResourceArgs
+    public sealed class AlertChannelWebhookArgs : global::Pulumi.ResourceArgs
     {
         [Input("headers")]
         private InputMap<object>? _headers;
@@ -20,6 +20,9 @@ namespace Pulumi.Checkly.Inputs
             set => _headers = value;
         }
 
+        /// <summary>
+        /// (Default `POST`)
+        /// </summary>
         [Input("method")]
         public Input<string>? Method { get; set; }
 
@@ -43,8 +46,15 @@ namespace Pulumi.Checkly.Inputs
         [Input("webhookSecret")]
         public Input<string>? WebhookSecret { get; set; }
 
+        /// <summary>
+        /// Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+        /// </summary>
+        [Input("webhookType")]
+        public Input<string>? WebhookType { get; set; }
+
         public AlertChannelWebhookArgs()
         {
         }
+        public static new AlertChannelWebhookArgs Empty => new AlertChannelWebhookArgs();
     }
 }

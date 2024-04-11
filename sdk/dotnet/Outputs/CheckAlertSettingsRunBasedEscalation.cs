@@ -13,6 +13,9 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckAlertSettingsRunBasedEscalation
     {
+        /// <summary>
+        /// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        /// </summary>
         public readonly int? FailedRunThreshold;
 
         [OutputConstructor]

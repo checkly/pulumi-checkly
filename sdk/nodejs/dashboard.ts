@@ -9,9 +9,9 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
+ * import * as checkly from "@checkly/pulumi";
  *
- * const dashboard1 = new checkly.Dashboard("dashboard_1", {
+ * const dashboard1 = new checkly.Dashboard("dashboard1", {
  *     customDomain: "status.example.com",
  *     customUrl: "checkly",
  *     header: "Public dashboard",
@@ -66,7 +66,7 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public readonly customUrl!: pulumi.Output<string>;
     /**
-     * HTML <meta> description for the dashboard.
+     * HTML \n\n description for the dashboard.
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
@@ -81,6 +81,14 @@ export class Dashboard extends pulumi.CustomResource {
      * Show or hide the tags on the dashboard.
      */
     public readonly hideTags!: pulumi.Output<boolean | undefined>;
+    /**
+     * Set your dashboard as private and generate key.
+     */
+    public readonly isPrivate!: pulumi.Output<boolean | undefined>;
+    /**
+     * The access key when the dashboard is private.
+     */
+    public /*out*/ readonly key!: pulumi.Output<string>;
     /**
      * A link to for the dashboard logo.
      */
@@ -134,6 +142,8 @@ export class Dashboard extends pulumi.CustomResource {
             resourceInputs["favicon"] = state ? state.favicon : undefined;
             resourceInputs["header"] = state ? state.header : undefined;
             resourceInputs["hideTags"] = state ? state.hideTags : undefined;
+            resourceInputs["isPrivate"] = state ? state.isPrivate : undefined;
+            resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["link"] = state ? state.link : undefined;
             resourceInputs["logo"] = state ? state.logo : undefined;
             resourceInputs["paginate"] = state ? state.paginate : undefined;
@@ -154,6 +164,7 @@ export class Dashboard extends pulumi.CustomResource {
             resourceInputs["favicon"] = args ? args.favicon : undefined;
             resourceInputs["header"] = args ? args.header : undefined;
             resourceInputs["hideTags"] = args ? args.hideTags : undefined;
+            resourceInputs["isPrivate"] = args ? args.isPrivate : undefined;
             resourceInputs["link"] = args ? args.link : undefined;
             resourceInputs["logo"] = args ? args.logo : undefined;
             resourceInputs["paginate"] = args ? args.paginate : undefined;
@@ -162,8 +173,11 @@ export class Dashboard extends pulumi.CustomResource {
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["useTagsAndOperator"] = args ? args.useTagsAndOperator : undefined;
             resourceInputs["width"] = args ? args.width : undefined;
+            resourceInputs["key"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["key"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Dashboard.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -185,7 +199,7 @@ export interface DashboardState {
      */
     customUrl?: pulumi.Input<string>;
     /**
-     * HTML <meta> description for the dashboard.
+     * HTML \n\n description for the dashboard.
      */
     description?: pulumi.Input<string>;
     /**
@@ -200,6 +214,14 @@ export interface DashboardState {
      * Show or hide the tags on the dashboard.
      */
     hideTags?: pulumi.Input<boolean>;
+    /**
+     * Set your dashboard as private and generate key.
+     */
+    isPrivate?: pulumi.Input<boolean>;
+    /**
+     * The access key when the dashboard is private.
+     */
+    key?: pulumi.Input<string>;
     /**
      * A link to for the dashboard logo.
      */
@@ -251,7 +273,7 @@ export interface DashboardArgs {
      */
     customUrl: pulumi.Input<string>;
     /**
-     * HTML <meta> description for the dashboard.
+     * HTML \n\n description for the dashboard.
      */
     description?: pulumi.Input<string>;
     /**
@@ -266,6 +288,10 @@ export interface DashboardArgs {
      * Show or hide the tags on the dashboard.
      */
     hideTags?: pulumi.Input<boolean>;
+    /**
+     * Set your dashboard as private and generate key.
+     */
+    isPrivate?: pulumi.Input<boolean>;
     /**
      * A link to for the dashboard logo.
      */

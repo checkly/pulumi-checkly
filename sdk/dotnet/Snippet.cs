@@ -9,8 +9,36 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Checkly
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var example1 = new Checkly.Snippet("example1", new()
+    ///     {
+    ///         Script = "console.log('test');",
+    ///     });
+    /// 
+    ///     // An alternative way to use multi-line script.
+    ///     var example2 = new Checkly.Snippet("example2", new()
+    ///     {
+    ///         Script = @"    console.log('test1');
+    ///     console.log('test2');
+    /// 
+    /// ",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// </summary>
     [ChecklyResourceType("checkly:index/snippet:Snippet")]
-    public partial class Snippet : Pulumi.CustomResource
+    public partial class Snippet : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The name of the snippet
@@ -69,7 +97,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class SnippetArgs : Pulumi.ResourceArgs
+    public sealed class SnippetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the snippet
@@ -86,9 +114,10 @@ namespace Pulumi.Checkly
         public SnippetArgs()
         {
         }
+        public static new SnippetArgs Empty => new SnippetArgs();
     }
 
-    public sealed class SnippetState : Pulumi.ResourceArgs
+    public sealed class SnippetState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the snippet
@@ -105,5 +134,6 @@ namespace Pulumi.Checkly
         public SnippetState()
         {
         }
+        public static new SnippetState Empty => new SnippetState();
     }
 }

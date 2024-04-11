@@ -10,22 +10,35 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckRequestGetArgs : Pulumi.ResourceArgs
+    public sealed class CheckRequestGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("assertions")]
         private InputList<Inputs.CheckRequestAssertionGetArgs>? _assertions;
+
+        /// <summary>
+        /// A request can have multiple assertions.
+        /// </summary>
         public InputList<Inputs.CheckRequestAssertionGetArgs> Assertions
         {
             get => _assertions ?? (_assertions = new InputList<Inputs.CheckRequestAssertionGetArgs>());
             set => _assertions = value;
         }
 
+        /// <summary>
+        /// Set up HTTP basic authentication (username &amp; password).
+        /// </summary>
         [Input("basicAuth")]
         public Input<Inputs.CheckRequestBasicAuthGetArgs>? BasicAuth { get; set; }
 
+        /// <summary>
+        /// The body of the request.
+        /// </summary>
         [Input("body")]
         public Input<string>? Body { get; set; }
 
+        /// <summary>
+        /// The `Content-Type` header of the request. Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+        /// </summary>
         [Input("bodyType")]
         public Input<string>? BodyType { get; set; }
 
@@ -40,6 +53,9 @@ namespace Pulumi.Checkly.Inputs
             set => _headers = value;
         }
 
+        /// <summary>
+        /// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. (Default `GET`).
+        /// </summary>
         [Input("method")]
         public Input<string>? Method { get; set; }
 
@@ -60,5 +76,6 @@ namespace Pulumi.Checkly.Inputs
         public CheckRequestGetArgs()
         {
         }
+        public static new CheckRequestGetArgs Empty => new CheckRequestGetArgs();
     }
 }

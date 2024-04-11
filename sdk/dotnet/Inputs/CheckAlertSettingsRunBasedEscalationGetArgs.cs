@@ -10,13 +10,17 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckAlertSettingsRunBasedEscalationGetArgs : Pulumi.ResourceArgs
+    public sealed class CheckAlertSettingsRunBasedEscalationGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        /// </summary>
         [Input("failedRunThreshold")]
         public Input<int>? FailedRunThreshold { get; set; }
 
         public CheckAlertSettingsRunBasedEscalationGetArgs()
         {
         }
+        public static new CheckAlertSettingsRunBasedEscalationGetArgs Empty => new CheckAlertSettingsRunBasedEscalationGetArgs();
     }
 }

@@ -9,9 +9,9 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi from "@checkly/pulumi";
+ * import * as checkly from "@checkly/pulumi";
  *
- * const testTriggerGroup = new checkly.TriggerCheckGroup("testTriggerGroup", {groupId: "215"});
+ * const testTriggerGroup = new checkly.TriggerCheckGroup("testTriggerGroup", {groupId: 215});
  * export const testTriggerGroupUrl = testTriggerGroup.url;
  * ```
  */

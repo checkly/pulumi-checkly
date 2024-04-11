@@ -108,6 +108,9 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_private_location": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLocation"),
 			},
+			"checkly_heartbeat": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Heartbeat"),
+			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@checkly/pulumi",

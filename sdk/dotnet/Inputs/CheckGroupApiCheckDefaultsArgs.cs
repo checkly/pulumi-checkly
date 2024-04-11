@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckGroupApiCheckDefaultsArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupApiCheckDefaultsArgs : global::Pulumi.ResourceArgs
     {
         [Input("assertions")]
         private InputList<Inputs.CheckGroupApiCheckDefaultsAssertionArgs>? _assertions;
@@ -39,6 +39,9 @@ namespace Pulumi.Checkly.Inputs
             set => _queryParameters = value;
         }
 
+        /// <summary>
+        /// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+        /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }
 
@@ -46,5 +49,6 @@ namespace Pulumi.Checkly.Inputs
         {
             Url = "";
         }
+        public static new CheckGroupApiCheckDefaultsArgs Empty => new CheckGroupApiCheckDefaultsArgs();
     }
 }

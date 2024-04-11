@@ -13,27 +13,27 @@ namespace Pulumi.Checkly
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Checkly = Pulumi.Checkly;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var testTriggerCheck = new Checkly.TriggerCheck("testTriggerCheck", new()
     ///     {
-    ///         var testTriggerCheck = new Checkly.TriggerCheck("testTriggerCheck", new Checkly.TriggerCheckArgs
-    ///         {
-    ///             CheckId = "c1ff95c5-d7f6-4a90-9ce2-1e605f117592",
-    ///         });
-    ///         this.TestTriggerCheckUrl = testTriggerCheck.Url;
-    ///     }
+    ///         CheckId = "c1ff95c5-d7f6-4a90-9ce2-1e605f117592",
+    ///     });
     /// 
-    ///     [Output("testTriggerCheckUrl")]
-    ///     public Output&lt;string&gt; TestTriggerCheckUrl { get; set; }
-    /// }
+    ///     return new Dictionary&lt;string, object?&gt;
+    ///     {
+    ///         ["testTriggerCheckUrl"] = testTriggerCheck.Url,
+    ///     };
+    /// });
     /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/triggerCheck:TriggerCheck")]
-    public partial class TriggerCheck : Pulumi.CustomResource
+    public partial class TriggerCheck : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The id of the check that you want to attach the trigger to.
@@ -98,7 +98,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class TriggerCheckArgs : Pulumi.ResourceArgs
+    public sealed class TriggerCheckArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The id of the check that you want to attach the trigger to.
@@ -121,9 +121,10 @@ namespace Pulumi.Checkly
         public TriggerCheckArgs()
         {
         }
+        public static new TriggerCheckArgs Empty => new TriggerCheckArgs();
     }
 
-    public sealed class TriggerCheckState : Pulumi.ResourceArgs
+    public sealed class TriggerCheckState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The id of the check that you want to attach the trigger to.
@@ -146,5 +147,6 @@ namespace Pulumi.Checkly
         public TriggerCheckState()
         {
         }
+        public static new TriggerCheckState Empty => new TriggerCheckState();
     }
 }

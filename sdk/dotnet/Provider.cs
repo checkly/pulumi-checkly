@@ -16,7 +16,7 @@ namespace Pulumi.Checkly
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
     [ChecklyResourceType("pulumi:providers:checkly")]
-    public partial class Provider : Pulumi.ProviderResource
+    public partial class Provider : global::Pulumi.ProviderResource
     {
         [Output("accountId")]
         public Output<string?> AccountId { get; private set; } = null!;
@@ -54,7 +54,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class ProviderArgs : Pulumi.ResourceArgs
+    public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
@@ -68,5 +68,6 @@ namespace Pulumi.Checkly
         public ProviderArgs()
         {
         }
+        public static new ProviderArgs Empty => new ProviderArgs();
     }
 }

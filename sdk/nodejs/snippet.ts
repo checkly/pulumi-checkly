@@ -4,6 +4,21 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@checkly/pulumi";
+ *
+ * const example1 = new checkly.Snippet("example1", {script: "console.log('test');"});
+ * // An alternative way to use multi-line script.
+ * const example2 = new checkly.Snippet("example2", {script: `    console.log('test1');
+ *     console.log('test2');
+ *
+ * `});
+ * ```
+ */
 export class Snippet extends pulumi.CustomResource {
     /**
      * Get an existing Snippet resource's state with the given name, ID, and optional extra

@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class AlertChannelOpsgenieGetArgs : Pulumi.ResourceArgs
+    public sealed class AlertChannelOpsgenieGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("apiKey", required: true)]
         public Input<string> ApiKey { get; set; } = null!;
@@ -27,5 +27,6 @@ namespace Pulumi.Checkly.Inputs
         public AlertChannelOpsgenieGetArgs()
         {
         }
+        public static new AlertChannelOpsgenieGetArgs Empty => new AlertChannelOpsgenieGetArgs();
     }
 }

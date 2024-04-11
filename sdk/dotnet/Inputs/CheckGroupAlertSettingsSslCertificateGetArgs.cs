@@ -10,16 +10,23 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckGroupAlertSettingsSslCertificateGetArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupAlertSettingsSslCertificateGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        /// </summary>
         [Input("alertThreshold")]
         public Input<int>? AlertThreshold { get; set; }
 
+        /// <summary>
+        /// Applicable only for checks scheduled in parallel in multiple locations.
+        /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         public CheckGroupAlertSettingsSslCertificateGetArgs()
         {
         }
+        public static new CheckGroupAlertSettingsSslCertificateGetArgs Empty => new CheckGroupAlertSettingsSslCertificateGetArgs();
     }
 }

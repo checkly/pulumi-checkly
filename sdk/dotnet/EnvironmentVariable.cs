@@ -13,32 +13,32 @@ namespace Pulumi.Checkly
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Checkly = Pulumi.Checkly;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     // Simple Enviroment Variable example
+    ///     var variable1 = new Checkly.EnvironmentVariable("variable1", new()
     ///     {
-    ///         // Simple Enviroment Variable example
-    ///         var variable1 = new Checkly.EnvironmentVariable("variable1", new Checkly.EnvironmentVariableArgs
-    ///         {
-    ///             Key = "API_KEY",
-    ///             Locked = true,
-    ///             Value = "loZd9hOGHDUrGvmW",
-    ///         });
-    ///         var variable2 = new Checkly.EnvironmentVariable("variable2", new Checkly.EnvironmentVariableArgs
-    ///         {
-    ///             Key = "API_URL",
-    ///             Value = "http://localhost:3000",
-    ///         });
-    ///     }
+    ///         Key = "API_KEY",
+    ///         Locked = true,
+    ///         Value = "loZd9hOGHDUrGvmW",
+    ///     });
     /// 
-    /// }
+    ///     var variable2 = new Checkly.EnvironmentVariable("variable2", new()
+    ///     {
+    ///         Key = "API_URL",
+    ///         Value = "http://localhost:3000",
+    ///     });
+    /// 
+    /// });
     /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/environmentVariable:EnvironmentVariable")]
-    public partial class EnvironmentVariable : Pulumi.CustomResource
+    public partial class EnvironmentVariable : global::Pulumi.CustomResource
     {
         [Output("key")]
         public Output<string> Key { get; private set; } = null!;
@@ -94,7 +94,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class EnvironmentVariableArgs : Pulumi.ResourceArgs
+    public sealed class EnvironmentVariableArgs : global::Pulumi.ResourceArgs
     {
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
@@ -108,9 +108,10 @@ namespace Pulumi.Checkly
         public EnvironmentVariableArgs()
         {
         }
+        public static new EnvironmentVariableArgs Empty => new EnvironmentVariableArgs();
     }
 
-    public sealed class EnvironmentVariableState : Pulumi.ResourceArgs
+    public sealed class EnvironmentVariableState : global::Pulumi.ResourceArgs
     {
         [Input("key")]
         public Input<string>? Key { get; set; }
@@ -124,5 +125,6 @@ namespace Pulumi.Checkly
         public EnvironmentVariableState()
         {
         }
+        public static new EnvironmentVariableState Empty => new EnvironmentVariableState();
     }
 }

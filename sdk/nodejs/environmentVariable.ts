@@ -9,15 +9,15 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
+ * import * as checkly from "@checkly/pulumi";
  *
  * // Simple Enviroment Variable example
- * const variable1 = new checkly.EnvironmentVariable("variable_1", {
+ * const variable1 = new checkly.EnvironmentVariable("variable1", {
  *     key: "API_KEY",
  *     locked: true,
  *     value: "loZd9hOGHDUrGvmW",
  * });
- * const variable2 = new checkly.EnvironmentVariable("variable_2", {
+ * const variable2 = new checkly.EnvironmentVariable("variable2", {
  *     key: "API_URL",
  *     value: "http://localhost:3000",
  * });

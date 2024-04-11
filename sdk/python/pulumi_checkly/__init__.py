@@ -10,6 +10,7 @@ from .check import *
 from .check_group import *
 from .dashboard import *
 from .environment_variable import *
+from .heartbeat import *
 from .maintenance_window import *
 from .private_location import *
 from .provider import *
@@ -67,6 +68,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/environmentVariable:EnvironmentVariable": "EnvironmentVariable"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/heartbeat",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/heartbeat:Heartbeat": "Heartbeat"
   }
  },
  {

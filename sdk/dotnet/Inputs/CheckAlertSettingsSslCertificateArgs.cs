@@ -10,16 +10,23 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckAlertSettingsSslCertificateArgs : Pulumi.ResourceArgs
+    public sealed class CheckAlertSettingsSslCertificateArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        /// </summary>
         [Input("alertThreshold")]
         public Input<int>? AlertThreshold { get; set; }
 
+        /// <summary>
+        /// Applicable only for checks scheduled in parallel in multiple locations.
+        /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         public CheckAlertSettingsSslCertificateArgs()
         {
         }
+        public static new CheckAlertSettingsSslCertificateArgs Empty => new CheckAlertSettingsSslCertificateArgs();
     }
 }

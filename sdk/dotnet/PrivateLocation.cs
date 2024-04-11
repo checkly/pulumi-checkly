@@ -13,25 +13,23 @@ namespace Pulumi.Checkly
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Checkly = Pulumi.Checkly;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var location = new Checkly.PrivateLocation("location", new()
     ///     {
-    ///         // Simple Private Location example
-    ///         var location = new Checkly.PrivateLocation("location", new Checkly.PrivateLocationArgs
-    ///         {
-    ///             SlugName = "new-private-location",
-    ///         });
-    ///     }
+    ///         SlugName = "new-private-location",
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/privateLocation:PrivateLocation")]
-    public partial class PrivateLocation : Pulumi.CustomResource
+    public partial class PrivateLocation : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Icon assigned to the private location.
@@ -81,6 +79,10 @@ namespace Pulumi.Checkly
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/checkly",
+                AdditionalSecretOutputs =
+                {
+                    "keys",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -102,7 +104,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class PrivateLocationArgs : Pulumi.ResourceArgs
+    public sealed class PrivateLocationArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Icon assigned to the private location.
@@ -125,9 +127,10 @@ namespace Pulumi.Checkly
         public PrivateLocationArgs()
         {
         }
+        public static new PrivateLocationArgs Empty => new PrivateLocationArgs();
     }
 
-    public sealed class PrivateLocationState : Pulumi.ResourceArgs
+    public sealed class PrivateLocationState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Icon assigned to the private location.
@@ -144,7 +147,11 @@ namespace Pulumi.Checkly
         public InputList<string> Keys
         {
             get => _keys ?? (_keys = new InputList<string>());
-            set => _keys = value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(ImmutableArray.Create<string>());
+                _keys = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         /// <summary>
@@ -162,5 +169,6 @@ namespace Pulumi.Checkly
         public PrivateLocationState()
         {
         }
+        public static new PrivateLocationState Empty => new PrivateLocationState();
     }
 }

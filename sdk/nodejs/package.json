@@ -11,8 +11,7 @@
     "repository": "https://github.com/checkly/pulumi-checkly",
     "license": "MIT",
     "scripts": {
-        "build": "tsc",
-        "install": "node scripts/install-pulumi-plugin.js resource checkly ${VERSION}"
+        "build": "tsc"
     },
     "dependencies": {
         "@pulumi/pulumi": "^3.0.0"
@@ -24,6 +23,7 @@
     },
     "pulumi": {
         "resource": true,
-        "pluginDownloadURL": "github://api.github.com/checkly"
+        "name": "checkly",
+        "server": "github://api.github.com/checkly"
     }
 }

@@ -13,7 +13,13 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupAlertSettingsReminder
     {
+        /// <summary>
+        /// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        /// </summary>
         public readonly int? Amount;
+        /// <summary>
+        /// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        /// </summary>
         public readonly int? Interval;
 
         [OutputConstructor]

@@ -13,6 +13,9 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckAlertSettingsTimeBasedEscalation
     {
+        /// <summary>
+        /// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        /// </summary>
         public readonly int? MinutesFailingThreshold;
 
         [OutputConstructor]
