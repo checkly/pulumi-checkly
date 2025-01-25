@@ -10,16 +10,23 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class AlertChannelSmsArgs : Pulumi.ResourceArgs
+    public sealed class AlertChannelSmsArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of this alert channel
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// The mobile number to receive the alerts
+        /// </summary>
         [Input("number", required: true)]
         public Input<string> Number { get; set; } = null!;
 
         public AlertChannelSmsArgs()
         {
         }
+        public static new AlertChannelSmsArgs Empty => new AlertChannelSmsArgs();
     }
 }

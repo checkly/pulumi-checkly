@@ -13,7 +13,7 @@ namespace Pulumi.Checkly
     /// Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
     /// </summary>
     [ChecklyResourceType("checkly:index/check:Check")]
-    public partial class Check : Pulumi.CustomResource
+    public partial class Check : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Determines if the check is running or not. Possible values `true`, and `false`.
@@ -21,6 +21,9 @@ namespace Pulumi.Checkly
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.CheckAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
@@ -28,36 +31,37 @@ namespace Pulumi.Checkly
         public Output<Outputs.CheckAlertSettings> AlertSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
-        /// 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         /// </summary>
         [Output("degradedResponseTime")]
         public Output<int?> DegradedResponseTime { get; private set; } = null!;
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-        /// region before marking the check as failed.
+        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
         /// </summary>
         [Output("doubleCheck")]
         public Output<bool?> DoubleCheck { get; private set; } = null!;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-        /// Use global environment variables whenever possible.
+        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
-        [Output("environmentVariables")]
-        public Output<ImmutableDictionary<string, object>?> EnvironmentVariables { get; private set; } = null!;
+        [Output("environmentVariable")]
+        public Output<ImmutableArray<Outputs.CheckEnvironmentVariable>> EnvironmentVariable { get; private set; } = null!;
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
-        /// `360`, `720`, and `1440`.
+        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// </summary>
+        [Output("environmentVariables")]
+        public Output<ImmutableDictionary<string, string>?> EnvironmentVariables { get; private set; } = null!;
+
+        /// <summary>
+        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
         /// <summary>
-        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
-        /// be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
         /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
@@ -69,8 +73,7 @@ namespace Pulumi.Checkly
         public Output<int?> GroupId { get; private set; } = null!;
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from
-        /// the API or from CI/CD.
+        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         /// </summary>
         [Output("groupOrder")]
         public Output<int?> GroupOrder { get; private set; } = null!;
@@ -94,8 +97,7 @@ namespace Pulumi.Checkly
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between
-        /// 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
         /// </summary>
         [Output("maxResponseTime")]
         public Output<int?> MaxResponseTime { get; private set; } = null!;
@@ -125,14 +127,25 @@ namespace Pulumi.Checkly
         public Output<Outputs.CheckRequest?> Request { get; private set; } = null!;
 
         /// <summary>
+        /// A strategy for retrying failed check runs.
+        /// </summary>
+        [Output("retryStrategy")]
+        public Output<Outputs.CheckRetryStrategy> RetryStrategy { get; private set; } = null!;
+
+        /// <summary>
+        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// </summary>
+        [Output("runParallel")]
+        public Output<bool?> RunParallel { get; private set; } = null!;
+
+        /// <summary>
         /// The id of the runtime to use for this check.
         /// </summary>
         [Output("runtimeId")]
         public Output<string?> RuntimeId { get; private set; } = null!;
 
         /// <summary>
-        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
-        /// reference to an external JavaScript file.
+        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
         /// </summary>
         [Output("script")]
         public Output<string?> Script { get; private set; } = null!;
@@ -156,6 +169,12 @@ namespace Pulumi.Checkly
         public Output<bool?> SslCheck { get; private set; } = null!;
 
         /// <summary>
+        /// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+        /// </summary>
+        [Output("sslCheckDomain")]
+        public Output<string?> SslCheckDomain { get; private set; } = null!;
+
+        /// <summary>
         /// A list of tags for organizing and filtering checks.
         /// </summary>
         [Output("tags")]
@@ -168,7 +187,7 @@ namespace Pulumi.Checkly
         public Output<int?> TeardownSnippetId { get; private set; } = null!;
 
         /// <summary>
-        /// The type of the check. Possible values are `API`, and `BROWSER`.
+        /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -224,7 +243,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class CheckArgs : Pulumi.ResourceArgs
+    public sealed class CheckArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Determines if the check is running or not. Possible values `true`, and `false`.
@@ -234,6 +253,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.CheckAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        /// </summary>
         public InputList<Inputs.CheckAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.CheckAlertChannelSubscriptionArgs>());
@@ -244,43 +267,50 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckAlertSettingsArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
-        /// 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-        /// region before marking the check as failed.
+        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
         /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariables")]
-        private InputMap<object>? _environmentVariables;
+        [Input("environmentVariable")]
+        private InputList<Inputs.CheckEnvironmentVariableArgs>? _environmentVariable;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-        /// Use global environment variables whenever possible.
+        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// </summary>
+        public InputList<Inputs.CheckEnvironmentVariableArgs> EnvironmentVariable
+        {
+            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckEnvironmentVariableArgs>());
+            set => _environmentVariable = value;
+        }
+
+        [Input("environmentVariables")]
+        private InputMap<string>? _environmentVariables;
+
+        /// <summary>
+        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
-        public InputMap<object> EnvironmentVariables
+        public InputMap<string> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
+            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
             set => _environmentVariables = value;
         }
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
-        /// `360`, `720`, and `1440`.
+        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         /// </summary>
         [Input("frequency", required: true)]
         public Input<int> Frequency { get; set; } = null!;
 
         /// <summary>
-        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
-        /// be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
@@ -292,8 +322,7 @@ namespace Pulumi.Checkly
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from
-        /// the API or from CI/CD.
+        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
@@ -323,8 +352,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between
-        /// 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
@@ -360,14 +388,25 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckRequestArgs>? Request { get; set; }
 
         /// <summary>
+        /// A strategy for retrying failed check runs.
+        /// </summary>
+        [Input("retryStrategy")]
+        public Input<Inputs.CheckRetryStrategyArgs>? RetryStrategy { get; set; }
+
+        /// <summary>
+        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// </summary>
+        [Input("runParallel")]
+        public Input<bool>? RunParallel { get; set; }
+
+        /// <summary>
         /// The id of the runtime to use for this check.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
-        /// reference to an external JavaScript file.
+        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
         /// </summary>
         [Input("script")]
         public Input<string>? Script { get; set; }
@@ -390,6 +429,12 @@ namespace Pulumi.Checkly
         [Input("sslCheck")]
         public Input<bool>? SslCheck { get; set; }
 
+        /// <summary>
+        /// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+        /// </summary>
+        [Input("sslCheckDomain")]
+        public Input<string>? SslCheckDomain { get; set; }
+
         [Input("tags")]
         private InputList<string>? _tags;
 
@@ -409,7 +454,7 @@ namespace Pulumi.Checkly
         public Input<int>? TeardownSnippetId { get; set; }
 
         /// <summary>
-        /// The type of the check. Possible values are `API`, and `BROWSER`.
+        /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
@@ -423,9 +468,10 @@ namespace Pulumi.Checkly
         public CheckArgs()
         {
         }
+        public static new CheckArgs Empty => new CheckArgs();
     }
 
-    public sealed class CheckState : Pulumi.ResourceArgs
+    public sealed class CheckState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Determines if the check is running or not. Possible values `true`, and `false`.
@@ -435,6 +481,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.CheckAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        /// </summary>
         public InputList<Inputs.CheckAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.CheckAlertChannelSubscriptionGetArgs>());
@@ -445,43 +495,50 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckAlertSettingsGetArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
-        /// 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-        /// region before marking the check as failed.
+        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
         /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariables")]
-        private InputMap<object>? _environmentVariables;
+        [Input("environmentVariable")]
+        private InputList<Inputs.CheckEnvironmentVariableGetArgs>? _environmentVariable;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-        /// Use global environment variables whenever possible.
+        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// </summary>
+        public InputList<Inputs.CheckEnvironmentVariableGetArgs> EnvironmentVariable
+        {
+            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckEnvironmentVariableGetArgs>());
+            set => _environmentVariable = value;
+        }
+
+        [Input("environmentVariables")]
+        private InputMap<string>? _environmentVariables;
+
+        /// <summary>
+        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
-        public InputMap<object> EnvironmentVariables
+        public InputMap<string> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
+            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
             set => _environmentVariables = value;
         }
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
-        /// `360`, `720`, and `1440`.
+        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
-        /// be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        /// This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
@@ -493,8 +550,7 @@ namespace Pulumi.Checkly
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from
-        /// the API or from CI/CD.
+        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
@@ -524,8 +580,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between
-        /// 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
@@ -561,14 +616,25 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckRequestGetArgs>? Request { get; set; }
 
         /// <summary>
+        /// A strategy for retrying failed check runs.
+        /// </summary>
+        [Input("retryStrategy")]
+        public Input<Inputs.CheckRetryStrategyGetArgs>? RetryStrategy { get; set; }
+
+        /// <summary>
+        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// </summary>
+        [Input("runParallel")]
+        public Input<bool>? RunParallel { get; set; }
+
+        /// <summary>
         /// The id of the runtime to use for this check.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
-        /// reference to an external JavaScript file.
+        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
         /// </summary>
         [Input("script")]
         public Input<string>? Script { get; set; }
@@ -591,6 +657,12 @@ namespace Pulumi.Checkly
         [Input("sslCheck")]
         public Input<bool>? SslCheck { get; set; }
 
+        /// <summary>
+        /// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+        /// </summary>
+        [Input("sslCheckDomain")]
+        public Input<string>? SslCheckDomain { get; set; }
+
         [Input("tags")]
         private InputList<string>? _tags;
 
@@ -610,7 +682,7 @@ namespace Pulumi.Checkly
         public Input<int>? TeardownSnippetId { get; set; }
 
         /// <summary>
-        /// The type of the check. Possible values are `API`, and `BROWSER`.
+        /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
@@ -624,5 +696,6 @@ namespace Pulumi.Checkly
         public CheckState()
         {
         }
+        public static new CheckState Empty => new CheckState();
     }
 }

@@ -13,7 +13,11 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupAlertSettings
     {
+        /// <summary>
+        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// </summary>
         public readonly string? EscalationType;
+        public readonly ImmutableArray<Outputs.CheckGroupAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
         public readonly ImmutableArray<Outputs.CheckGroupAlertSettingsReminder> Reminders;
         public readonly ImmutableArray<Outputs.CheckGroupAlertSettingsRunBasedEscalation> RunBasedEscalations;
         public readonly ImmutableArray<Outputs.CheckGroupAlertSettingsSslCertificate> SslCertificates;
@@ -22,6 +26,8 @@ namespace Pulumi.Checkly.Outputs
         [OutputConstructor]
         private CheckGroupAlertSettings(
             string? escalationType,
+
+            ImmutableArray<Outputs.CheckGroupAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
 
             ImmutableArray<Outputs.CheckGroupAlertSettingsReminder> reminders,
 
@@ -32,6 +38,7 @@ namespace Pulumi.Checkly.Outputs
             ImmutableArray<Outputs.CheckGroupAlertSettingsTimeBasedEscalation> timeBasedEscalations)
         {
             EscalationType = escalationType;
+            ParallelRunFailureThresholds = parallelRunFailureThresholds;
             Reminders = reminders;
             RunBasedEscalations = runBasedEscalations;
             SslCertificates = sslCertificates;

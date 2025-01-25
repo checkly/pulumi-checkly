@@ -2,7 +2,6 @@
   "name": "checkly-pulumi-demo-js",
   "main": "index.js",
   "dependencies": {
-    "@checkly/pulumi": "1.1.0",
     "@pulumi/pulumi": "^3.0.0"
   }
 }

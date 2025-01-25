@@ -2,96 +2,12 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "./types";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
  * Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi from "@checkly/pulumi";
- *
- * const testGroup1CheckGroup = new checkly.CheckGroup("testGroup1CheckGroup", {
- *     activated: true,
- *     muted: false,
- *     tags: ["auto"],
- *     locations: ["eu-west-1"],
- *     concurrency: 3,
- *     apiCheckDefaults: {
- *         url: "http://example.com/",
- *         headers: {
- *             "X-Test": "foo",
- *         },
- *         queryParameters: {
- *             query: "foo",
- *         },
- *         assertions: [
- *             {
- *                 source: "STATUS_CODE",
- *                 property: "",
- *                 comparison: "EQUALS",
- *                 target: "200",
- *             },
- *             {
- *                 source: "TEXT_BODY",
- *                 property: "",
- *                 comparison: "CONTAINS",
- *                 target: "welcome",
- *             },
- *         ],
- *         basicAuth: {
- *             username: "user",
- *             password: "pass",
- *         },
- *     },
- *     environmentVariables: {
- *         ENVTEST: "Hello world",
- *     },
- *     doubleCheck: true,
- *     useGlobalAlertSettings: false,
- *     alertSettings: {
- *         escalationType: "RUN_BASED",
- *         runBasedEscalations: [{
- *             failedRunThreshold: 1,
- *         }],
- *         timeBasedEscalations: [{
- *             minutesFailingThreshold: 5,
- *         }],
- *         reminders: [{
- *             amount: 2,
- *             interval: 5,
- *         }],
- *     },
- *     localSetupScript: "setup-test",
- *     localTeardownScript: "teardown-test",
- * });
- * // Add a check to a group
- * const testCheck1 = new checkly.Check("testCheck1", {
- *     groupId: testGroup1CheckGroup.id,
- *     groupOrder: 1,
- * });
- * // Using with alert channels
- * const emailAc1 = new checkly.AlertChannel("emailAc1", {email: {
- *     address: "info@example.com",
- * }});
- * const emailAc2 = new checkly.AlertChannel("emailAc2", {email: {
- *     address: "info2@example.com",
- * }});
- * // Connect the check group to the alert channels
- * const testGroup1Index_checkGroupCheckGroup = new checkly.CheckGroup("testGroup1Index/checkGroupCheckGroup", {alertChannelSubscriptions: [
- *     {
- *         channelId: emailAc1.id,
- *         activated: true,
- *     },
- *     {
- *         channelId: emailAc2.id,
- *         activated: true,
- *     },
- * ]});
- * ```
  */
 export class CheckGroup extends pulumi.CustomResource {
     /**
@@ -133,17 +49,21 @@ export class CheckGroup extends pulumi.CustomResource {
      */
     public readonly concurrency!: pulumi.Output<number>;
     /**
-     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-     * region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     *
+     * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
     public readonly doubleCheck!: pulumi.Output<boolean | undefined>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-     * Use global environment variables whenever possible.
-     *
-     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
+     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
      */
-    public readonly environmentVariables!: pulumi.Output<{[key: string]: any} | undefined>;
+    public readonly environmentVariable!: pulumi.Output<outputs.CheckGroupEnvironmentVariable[] | undefined>;
+    /**
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     */
+    public readonly environmentVariables!: pulumi.Output<{[key: string]: string} | undefined>;
     /**
      * A valid piece of Node.js code to run in the setup phase of an API check in this group.
      */
@@ -168,6 +88,14 @@ export class CheckGroup extends pulumi.CustomResource {
      * An array of one or more private locations slugs.
      */
     public readonly privateLocations!: pulumi.Output<string[] | undefined>;
+    /**
+     * A strategy for retrying failed check runs.
+     */
+    public readonly retryStrategy!: pulumi.Output<outputs.CheckGroupRetryStrategy>;
+    /**
+     * Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+     */
+    public readonly runParallel!: pulumi.Output<boolean | undefined>;
     /**
      * The id of the runtime to use for this group.
      */
@@ -208,6 +136,7 @@ export class CheckGroup extends pulumi.CustomResource {
             resourceInputs["apiCheckDefaults"] = state ? state.apiCheckDefaults : undefined;
             resourceInputs["concurrency"] = state ? state.concurrency : undefined;
             resourceInputs["doubleCheck"] = state ? state.doubleCheck : undefined;
+            resourceInputs["environmentVariable"] = state ? state.environmentVariable : undefined;
             resourceInputs["environmentVariables"] = state ? state.environmentVariables : undefined;
             resourceInputs["localSetupScript"] = state ? state.localSetupScript : undefined;
             resourceInputs["localTeardownScript"] = state ? state.localTeardownScript : undefined;
@@ -215,6 +144,8 @@ export class CheckGroup extends pulumi.CustomResource {
             resourceInputs["muted"] = state ? state.muted : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["privateLocations"] = state ? state.privateLocations : undefined;
+            resourceInputs["retryStrategy"] = state ? state.retryStrategy : undefined;
+            resourceInputs["runParallel"] = state ? state.runParallel : undefined;
             resourceInputs["runtimeId"] = state ? state.runtimeId : undefined;
             resourceInputs["setupSnippetId"] = state ? state.setupSnippetId : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
@@ -234,6 +165,7 @@ export class CheckGroup extends pulumi.CustomResource {
             resourceInputs["apiCheckDefaults"] = args ? (args.apiCheckDefaults ? pulumi.output(args.apiCheckDefaults).apply(inputs.checkGroupApiCheckDefaultsProvideDefaults) : undefined) : undefined;
             resourceInputs["concurrency"] = args ? args.concurrency : undefined;
             resourceInputs["doubleCheck"] = args ? args.doubleCheck : undefined;
+            resourceInputs["environmentVariable"] = args ? args.environmentVariable : undefined;
             resourceInputs["environmentVariables"] = args ? args.environmentVariables : undefined;
             resourceInputs["localSetupScript"] = args ? args.localSetupScript : undefined;
             resourceInputs["localTeardownScript"] = args ? args.localTeardownScript : undefined;
@@ -241,6 +173,8 @@ export class CheckGroup extends pulumi.CustomResource {
             resourceInputs["muted"] = args ? args.muted : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["privateLocations"] = args ? args.privateLocations : undefined;
+            resourceInputs["retryStrategy"] = args ? args.retryStrategy : undefined;
+            resourceInputs["runParallel"] = args ? args.runParallel : undefined;
             resourceInputs["runtimeId"] = args ? args.runtimeId : undefined;
             resourceInputs["setupSnippetId"] = args ? args.setupSnippetId : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
@@ -268,17 +202,21 @@ export interface CheckGroupState {
      */
     concurrency?: pulumi.Input<number>;
     /**
-     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-     * region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     *
+     * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-     * Use global environment variables whenever possible.
-     *
-     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
+     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
      */
-    environmentVariables?: pulumi.Input<{[key: string]: any}>;
+    environmentVariable?: pulumi.Input<pulumi.Input<inputs.CheckGroupEnvironmentVariable>[]>;
+    /**
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     */
+    environmentVariables?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
      * A valid piece of Node.js code to run in the setup phase of an API check in this group.
      */
@@ -303,6 +241,14 @@ export interface CheckGroupState {
      * An array of one or more private locations slugs.
      */
     privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * A strategy for retrying failed check runs.
+     */
+    retryStrategy?: pulumi.Input<inputs.CheckGroupRetryStrategy>;
+    /**
+     * Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+     */
+    runParallel?: pulumi.Input<boolean>;
     /**
      * The id of the runtime to use for this group.
      */
@@ -341,17 +287,21 @@ export interface CheckGroupArgs {
      */
     concurrency: pulumi.Input<number>;
     /**
-     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-     * region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     *
+     * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-     * Use global environment variables whenever possible.
-     *
-     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
+     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
      */
-    environmentVariables?: pulumi.Input<{[key: string]: any}>;
+    environmentVariable?: pulumi.Input<pulumi.Input<inputs.CheckGroupEnvironmentVariable>[]>;
+    /**
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     */
+    environmentVariables?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
      * A valid piece of Node.js code to run in the setup phase of an API check in this group.
      */
@@ -376,6 +326,14 @@ export interface CheckGroupArgs {
      * An array of one or more private locations slugs.
      */
     privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * A strategy for retrying failed check runs.
+     */
+    retryStrategy?: pulumi.Input<inputs.CheckGroupRetryStrategy>;
+    /**
+     * Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+     */
+    runParallel?: pulumi.Input<boolean>;
     /**
      * The id of the runtime to use for this group.
      */

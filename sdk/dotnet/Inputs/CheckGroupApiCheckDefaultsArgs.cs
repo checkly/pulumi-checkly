@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckGroupApiCheckDefaultsArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupApiCheckDefaultsArgs : global::Pulumi.ResourceArgs
     {
         [Input("assertions")]
         private InputList<Inputs.CheckGroupApiCheckDefaultsAssertionArgs>? _assertions;
@@ -24,21 +24,24 @@ namespace Pulumi.Checkly.Inputs
         public Input<Inputs.CheckGroupApiCheckDefaultsBasicAuthArgs>? BasicAuth { get; set; }
 
         [Input("headers")]
-        private InputMap<object>? _headers;
-        public InputMap<object> Headers
+        private InputMap<string>? _headers;
+        public InputMap<string> Headers
         {
-            get => _headers ?? (_headers = new InputMap<object>());
+            get => _headers ?? (_headers = new InputMap<string>());
             set => _headers = value;
         }
 
         [Input("queryParameters")]
-        private InputMap<object>? _queryParameters;
-        public InputMap<object> QueryParameters
+        private InputMap<string>? _queryParameters;
+        public InputMap<string> QueryParameters
         {
-            get => _queryParameters ?? (_queryParameters = new InputMap<object>());
+            get => _queryParameters ?? (_queryParameters = new InputMap<string>());
             set => _queryParameters = value;
         }
 
+        /// <summary>
+        /// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+        /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }
 
@@ -46,5 +49,6 @@ namespace Pulumi.Checkly.Inputs
         {
             Url = "";
         }
+        public static new CheckGroupApiCheckDefaultsArgs Empty => new CheckGroupApiCheckDefaultsArgs();
     }
 }

@@ -13,32 +13,32 @@ namespace Pulumi.Checkly
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Checkly = Pulumi.Checkly;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var maintenance_1 = new Checkly.MaintenanceWindow("maintenance-1", new()
     ///     {
-    ///         var maintenance1 = new Checkly.MaintenanceWindow("maintenance1", new Checkly.MaintenanceWindowArgs
+    ///         Name = "Maintenance Windows",
+    ///         StartsAt = "2014-08-24T00:00:00.000Z",
+    ///         EndsAt = "2014-08-25T00:00:00.000Z",
+    ///         RepeatUnit = "MONTH",
+    ///         RepeatEndsAt = "2014-08-24T00:00:00.000Z",
+    ///         RepeatInterval = 1,
+    ///         Tags = new[]
     ///         {
-    ///             EndsAt = "2014-08-25T00:00:00.000Z",
-    ///             RepeatEndsAt = "2014-08-24T00:00:00.000Z",
-    ///             RepeatInterval = 1,
-    ///             RepeatUnit = "MONTH",
-    ///             StartsAt = "2014-08-24T00:00:00.000Z",
-    ///             Tags = 
-    ///             {
-    ///                 "production",
-    ///             },
-    ///         });
-    ///     }
+    ///             "production",
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/maintenanceWindow:MaintenanceWindow")]
-    public partial class MaintenanceWindow : Pulumi.CustomResource
+    public partial class MaintenanceWindow : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The end date of the maintenance window.
@@ -127,7 +127,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class MaintenanceWindowArgs : Pulumi.ResourceArgs
+    public sealed class MaintenanceWindowArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The end date of the maintenance window.
@@ -180,9 +180,10 @@ namespace Pulumi.Checkly
         public MaintenanceWindowArgs()
         {
         }
+        public static new MaintenanceWindowArgs Empty => new MaintenanceWindowArgs();
     }
 
-    public sealed class MaintenanceWindowState : Pulumi.ResourceArgs
+    public sealed class MaintenanceWindowState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The end date of the maintenance window.
@@ -235,5 +236,6 @@ namespace Pulumi.Checkly
         public MaintenanceWindowState()
         {
         }
+        public static new MaintenanceWindowState Empty => new MaintenanceWindowState();
     }
 }

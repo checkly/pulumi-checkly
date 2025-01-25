@@ -13,7 +13,13 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class AlertChannelSlack
     {
+        /// <summary>
+        /// The name of the alert's Slack channel
+        /// </summary>
         public readonly string Channel;
+        /// <summary>
+        /// The Slack webhook URL
+        /// </summary>
         public readonly string Url;
 
         [OutputConstructor]

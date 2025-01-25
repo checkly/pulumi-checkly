@@ -13,29 +13,38 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class AlertChannelWebhook
     {
-        public readonly ImmutableDictionary<string, object>? Headers;
+        public readonly ImmutableDictionary<string, string>? Headers;
+        /// <summary>
+        /// (Default `POST`)
+        /// </summary>
         public readonly string? Method;
         public readonly string Name;
-        public readonly ImmutableDictionary<string, object>? QueryParameters;
+        public readonly ImmutableDictionary<string, string>? QueryParameters;
         public readonly string? Template;
         public readonly string Url;
         public readonly string? WebhookSecret;
+        /// <summary>
+        /// Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+        /// </summary>
+        public readonly string? WebhookType;
 
         [OutputConstructor]
         private AlertChannelWebhook(
-            ImmutableDictionary<string, object>? headers,
+            ImmutableDictionary<string, string>? headers,
 
             string? method,
 
             string name,
 
-            ImmutableDictionary<string, object>? queryParameters,
+            ImmutableDictionary<string, string>? queryParameters,
 
             string? template,
 
             string url,
 
-            string? webhookSecret)
+            string? webhookSecret,
+
+            string? webhookType)
         {
             Headers = headers;
             Method = method;
@@ -44,6 +53,7 @@ namespace Pulumi.Checkly.Outputs
             Template = template;
             Url = url;
             WebhookSecret = webhookSecret;
+            WebhookType = webhookType;
         }
     }
 }

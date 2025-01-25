@@ -10,16 +10,19 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class AlertChannelWebhookGetArgs : Pulumi.ResourceArgs
+    public sealed class AlertChannelWebhookGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("headers")]
-        private InputMap<object>? _headers;
-        public InputMap<object> Headers
+        private InputMap<string>? _headers;
+        public InputMap<string> Headers
         {
-            get => _headers ?? (_headers = new InputMap<object>());
+            get => _headers ?? (_headers = new InputMap<string>());
             set => _headers = value;
         }
 
+        /// <summary>
+        /// (Default `POST`)
+        /// </summary>
         [Input("method")]
         public Input<string>? Method { get; set; }
 
@@ -27,10 +30,10 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> Name { get; set; } = null!;
 
         [Input("queryParameters")]
-        private InputMap<object>? _queryParameters;
-        public InputMap<object> QueryParameters
+        private InputMap<string>? _queryParameters;
+        public InputMap<string> QueryParameters
         {
-            get => _queryParameters ?? (_queryParameters = new InputMap<object>());
+            get => _queryParameters ?? (_queryParameters = new InputMap<string>());
             set => _queryParameters = value;
         }
 
@@ -43,8 +46,15 @@ namespace Pulumi.Checkly.Inputs
         [Input("webhookSecret")]
         public Input<string>? WebhookSecret { get; set; }
 
+        /// <summary>
+        /// Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+        /// </summary>
+        [Input("webhookType")]
+        public Input<string>? WebhookType { get; set; }
+
         public AlertChannelWebhookGetArgs()
         {
         }
+        public static new AlertChannelWebhookGetArgs Empty => new AlertChannelWebhookGetArgs();
     }
 }

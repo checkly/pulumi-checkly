@@ -2,7 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "./types";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
@@ -40,33 +41,37 @@ export class Check extends pulumi.CustomResource {
      * Determines if the check is running or not. Possible values `true`, and `false`.
      */
     public readonly activated!: pulumi.Output<boolean>;
+    /**
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     */
     public readonly alertChannelSubscriptions!: pulumi.Output<outputs.CheckAlertChannelSubscription[] | undefined>;
     public readonly alertSettings!: pulumi.Output<outputs.CheckAlertSettings>;
     /**
-     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
-     * 0 and 30000. (Default `15000`).
+     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
      */
     public readonly degradedResponseTime!: pulumi.Output<number | undefined>;
     /**
-     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-     * region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     *
+     * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
     public readonly doubleCheck!: pulumi.Output<boolean | undefined>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-     * Use global environment variables whenever possible.
-     *
-     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
+     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
      */
-    public readonly environmentVariables!: pulumi.Output<{[key: string]: any} | undefined>;
+    public readonly environmentVariable!: pulumi.Output<outputs.CheckEnvironmentVariable[] | undefined>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
-     * `360`, `720`, and `1440`.
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     */
+    public readonly environmentVariables!: pulumi.Output<{[key: string]: string} | undefined>;
+    /**
+     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
      */
     public readonly frequency!: pulumi.Output<number>;
     /**
-     * This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
-     * be `0` and `frequency_offset` could be `10`, `20` or `30`.
+     * This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequencyOffset` could be `10`, `20` or `30`.
      */
     public readonly frequencyOffset!: pulumi.Output<number | undefined>;
     /**
@@ -74,8 +79,7 @@ export class Check extends pulumi.CustomResource {
      */
     public readonly groupId!: pulumi.Output<number | undefined>;
     /**
-     * The position of this check in a check group. It determines in what order checks are run when a group is triggered from
-     * the API or from CI/CD.
+     * The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
      */
     public readonly groupOrder!: pulumi.Output<number | undefined>;
     /**
@@ -91,8 +95,7 @@ export class Check extends pulumi.CustomResource {
      */
     public readonly locations!: pulumi.Output<string[] | undefined>;
     /**
-     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between
-     * 0 and 30000. (Default `30000`).
+     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
      */
     public readonly maxResponseTime!: pulumi.Output<number | undefined>;
     /**
@@ -112,12 +115,19 @@ export class Check extends pulumi.CustomResource {
      */
     public readonly request!: pulumi.Output<outputs.CheckRequest | undefined>;
     /**
+     * A strategy for retrying failed check runs.
+     */
+    public readonly retryStrategy!: pulumi.Output<outputs.CheckRetryStrategy>;
+    /**
+     * Determines if the check should run in all selected locations in parallel or round-robin.
+     */
+    public readonly runParallel!: pulumi.Output<boolean | undefined>;
+    /**
      * The id of the runtime to use for this check.
      */
     public readonly runtimeId!: pulumi.Output<string | undefined>;
     /**
-     * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
-     * reference to an external JavaScript file.
+     * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
      */
     public readonly script!: pulumi.Output<string | undefined>;
     /**
@@ -131,9 +141,13 @@ export class Check extends pulumi.CustomResource {
     /**
      * Determines if the SSL certificate should be validated for expiry.
      *
-     * @deprecated The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
      */
     public readonly sslCheck!: pulumi.Output<boolean | undefined>;
+    /**
+     * A valid fully qualified domain name (FQDN) to check its SSL certificate.
+     */
+    public readonly sslCheckDomain!: pulumi.Output<string | undefined>;
     /**
      * A list of tags for organizing and filtering checks.
      */
@@ -143,7 +157,7 @@ export class Check extends pulumi.CustomResource {
      */
     public readonly teardownSnippetId!: pulumi.Output<number | undefined>;
     /**
-     * The type of the check. Possible values are `API`, and `BROWSER`.
+     * The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
      */
     public readonly type!: pulumi.Output<string>;
     /**
@@ -169,6 +183,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["alertSettings"] = state ? state.alertSettings : undefined;
             resourceInputs["degradedResponseTime"] = state ? state.degradedResponseTime : undefined;
             resourceInputs["doubleCheck"] = state ? state.doubleCheck : undefined;
+            resourceInputs["environmentVariable"] = state ? state.environmentVariable : undefined;
             resourceInputs["environmentVariables"] = state ? state.environmentVariables : undefined;
             resourceInputs["frequency"] = state ? state.frequency : undefined;
             resourceInputs["frequencyOffset"] = state ? state.frequencyOffset : undefined;
@@ -182,11 +197,14 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["privateLocations"] = state ? state.privateLocations : undefined;
             resourceInputs["request"] = state ? state.request : undefined;
+            resourceInputs["retryStrategy"] = state ? state.retryStrategy : undefined;
+            resourceInputs["runParallel"] = state ? state.runParallel : undefined;
             resourceInputs["runtimeId"] = state ? state.runtimeId : undefined;
             resourceInputs["script"] = state ? state.script : undefined;
             resourceInputs["setupSnippetId"] = state ? state.setupSnippetId : undefined;
             resourceInputs["shouldFail"] = state ? state.shouldFail : undefined;
             resourceInputs["sslCheck"] = state ? state.sslCheck : undefined;
+            resourceInputs["sslCheckDomain"] = state ? state.sslCheckDomain : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["teardownSnippetId"] = state ? state.teardownSnippetId : undefined;
             resourceInputs["type"] = state ? state.type : undefined;
@@ -207,6 +225,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["alertSettings"] = args ? args.alertSettings : undefined;
             resourceInputs["degradedResponseTime"] = args ? args.degradedResponseTime : undefined;
             resourceInputs["doubleCheck"] = args ? args.doubleCheck : undefined;
+            resourceInputs["environmentVariable"] = args ? args.environmentVariable : undefined;
             resourceInputs["environmentVariables"] = args ? args.environmentVariables : undefined;
             resourceInputs["frequency"] = args ? args.frequency : undefined;
             resourceInputs["frequencyOffset"] = args ? args.frequencyOffset : undefined;
@@ -220,11 +239,14 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["privateLocations"] = args ? args.privateLocations : undefined;
             resourceInputs["request"] = args ? args.request : undefined;
+            resourceInputs["retryStrategy"] = args ? args.retryStrategy : undefined;
+            resourceInputs["runParallel"] = args ? args.runParallel : undefined;
             resourceInputs["runtimeId"] = args ? args.runtimeId : undefined;
             resourceInputs["script"] = args ? args.script : undefined;
             resourceInputs["setupSnippetId"] = args ? args.setupSnippetId : undefined;
             resourceInputs["shouldFail"] = args ? args.shouldFail : undefined;
             resourceInputs["sslCheck"] = args ? args.sslCheck : undefined;
+            resourceInputs["sslCheckDomain"] = args ? args.sslCheckDomain : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["teardownSnippetId"] = args ? args.teardownSnippetId : undefined;
             resourceInputs["type"] = args ? args.type : undefined;
@@ -243,33 +265,37 @@ export interface CheckState {
      * Determines if the check is running or not. Possible values `true`, and `false`.
      */
     activated?: pulumi.Input<boolean>;
+    /**
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
     alertSettings?: pulumi.Input<inputs.CheckAlertSettings>;
     /**
-     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
-     * 0 and 30000. (Default `15000`).
+     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
-     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-     * region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     *
+     * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-     * Use global environment variables whenever possible.
-     *
-     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
+     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
      */
-    environmentVariables?: pulumi.Input<{[key: string]: any}>;
+    environmentVariable?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[]>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
-     * `360`, `720`, and `1440`.
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     */
+    environmentVariables?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
      */
     frequency?: pulumi.Input<number>;
     /**
-     * This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
-     * be `0` and `frequency_offset` could be `10`, `20` or `30`.
+     * This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequencyOffset` could be `10`, `20` or `30`.
      */
     frequencyOffset?: pulumi.Input<number>;
     /**
@@ -277,8 +303,7 @@ export interface CheckState {
      */
     groupId?: pulumi.Input<number>;
     /**
-     * The position of this check in a check group. It determines in what order checks are run when a group is triggered from
-     * the API or from CI/CD.
+     * The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
      */
     groupOrder?: pulumi.Input<number>;
     /**
@@ -294,8 +319,7 @@ export interface CheckState {
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between
-     * 0 and 30000. (Default `30000`).
+     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
      */
     maxResponseTime?: pulumi.Input<number>;
     /**
@@ -315,12 +339,19 @@ export interface CheckState {
      */
     request?: pulumi.Input<inputs.CheckRequest>;
     /**
+     * A strategy for retrying failed check runs.
+     */
+    retryStrategy?: pulumi.Input<inputs.CheckRetryStrategy>;
+    /**
+     * Determines if the check should run in all selected locations in parallel or round-robin.
+     */
+    runParallel?: pulumi.Input<boolean>;
+    /**
      * The id of the runtime to use for this check.
      */
     runtimeId?: pulumi.Input<string>;
     /**
-     * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
-     * reference to an external JavaScript file.
+     * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
      */
     script?: pulumi.Input<string>;
     /**
@@ -334,9 +365,13 @@ export interface CheckState {
     /**
      * Determines if the SSL certificate should be validated for expiry.
      *
-     * @deprecated The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
      */
     sslCheck?: pulumi.Input<boolean>;
+    /**
+     * A valid fully qualified domain name (FQDN) to check its SSL certificate.
+     */
+    sslCheckDomain?: pulumi.Input<string>;
     /**
      * A list of tags for organizing and filtering checks.
      */
@@ -346,7 +381,7 @@ export interface CheckState {
      */
     teardownSnippetId?: pulumi.Input<number>;
     /**
-     * The type of the check. Possible values are `API`, and `BROWSER`.
+     * The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
      */
     type?: pulumi.Input<string>;
     /**
@@ -363,33 +398,37 @@ export interface CheckArgs {
      * Determines if the check is running or not. Possible values `true`, and `false`.
      */
     activated: pulumi.Input<boolean>;
+    /**
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
     alertSettings?: pulumi.Input<inputs.CheckAlertSettings>;
     /**
-     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between
-     * 0 and 30000. (Default `15000`).
+     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
-     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-     * region before marking the check as failed.
+     * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
+     *
+     * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-     * Use global environment variables whenever possible.
-     *
-     * @deprecated The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.
+     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
      */
-    environmentVariables?: pulumi.Input<{[key: string]: any}>;
+    environmentVariable?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[]>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,
-     * `360`, `720`, and `1440`.
+     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     *
+     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     */
+    environmentVariables?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    /**
+     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
      */
     frequency: pulumi.Input<number>;
     /**
-     * This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must
-     * be `0` and `frequency_offset` could be `10`, `20` or `30`.
+     * This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequencyOffset` could be `10`, `20` or `30`.
      */
     frequencyOffset?: pulumi.Input<number>;
     /**
@@ -397,8 +436,7 @@ export interface CheckArgs {
      */
     groupId?: pulumi.Input<number>;
     /**
-     * The position of this check in a check group. It determines in what order checks are run when a group is triggered from
-     * the API or from CI/CD.
+     * The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
      */
     groupOrder?: pulumi.Input<number>;
     /**
@@ -414,8 +452,7 @@ export interface CheckArgs {
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between
-     * 0 and 30000. (Default `30000`).
+     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
      */
     maxResponseTime?: pulumi.Input<number>;
     /**
@@ -435,12 +472,19 @@ export interface CheckArgs {
      */
     request?: pulumi.Input<inputs.CheckRequest>;
     /**
+     * A strategy for retrying failed check runs.
+     */
+    retryStrategy?: pulumi.Input<inputs.CheckRetryStrategy>;
+    /**
+     * Determines if the check should run in all selected locations in parallel or round-robin.
+     */
+    runParallel?: pulumi.Input<boolean>;
+    /**
      * The id of the runtime to use for this check.
      */
     runtimeId?: pulumi.Input<string>;
     /**
-     * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a
-     * reference to an external JavaScript file.
+     * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
      */
     script?: pulumi.Input<string>;
     /**
@@ -454,9 +498,13 @@ export interface CheckArgs {
     /**
      * Determines if the SSL certificate should be validated for expiry.
      *
-     * @deprecated The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
      */
     sslCheck?: pulumi.Input<boolean>;
+    /**
+     * A valid fully qualified domain name (FQDN) to check its SSL certificate.
+     */
+    sslCheckDomain?: pulumi.Input<string>;
     /**
      * A list of tags for organizing and filtering checks.
      */
@@ -466,7 +514,7 @@ export interface CheckArgs {
      */
     teardownSnippetId?: pulumi.Input<number>;
     /**
-     * The type of the check. Possible values are `API`, and `BROWSER`.
+     * The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
      */
     type: pulumi.Input<string>;
     /**

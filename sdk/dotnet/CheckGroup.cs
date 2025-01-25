@@ -11,144 +11,9 @@ namespace Pulumi.Checkly
 {
     /// <summary>
     /// Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var testGroup1CheckGroup = new Checkly.CheckGroup("testGroup1CheckGroup", new Checkly.CheckGroupArgs
-    ///         {
-    ///             Activated = true,
-    ///             Muted = false,
-    ///             Tags = 
-    ///             {
-    ///                 "auto",
-    ///             },
-    ///             Locations = 
-    ///             {
-    ///                 "eu-west-1",
-    ///             },
-    ///             Concurrency = 3,
-    ///             ApiCheckDefaults = new Checkly.Inputs.CheckGroupApiCheckDefaultsArgs
-    ///             {
-    ///                 Url = "http://example.com/",
-    ///                 Headers = 
-    ///                 {
-    ///                     { "X-Test", "foo" },
-    ///                 },
-    ///                 QueryParameters = 
-    ///                 {
-    ///                     { "query", "foo" },
-    ///                 },
-    ///                 Assertions = 
-    ///                 {
-    ///                     new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs
-    ///                     {
-    ///                         Source = "STATUS_CODE",
-    ///                         Property = "",
-    ///                         Comparison = "EQUALS",
-    ///                         Target = "200",
-    ///                     },
-    ///                     new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs
-    ///                     {
-    ///                         Source = "TEXT_BODY",
-    ///                         Property = "",
-    ///                         Comparison = "CONTAINS",
-    ///                         Target = "welcome",
-    ///                     },
-    ///                 },
-    ///                 BasicAuth = new Checkly.Inputs.CheckGroupApiCheckDefaultsBasicAuthArgs
-    ///                 {
-    ///                     Username = "user",
-    ///                     Password = "pass",
-    ///                 },
-    ///             },
-    ///             EnvironmentVariables = 
-    ///             {
-    ///                 { "ENVTEST", "Hello world" },
-    ///             },
-    ///             DoubleCheck = true,
-    ///             UseGlobalAlertSettings = false,
-    ///             AlertSettings = new Checkly.Inputs.CheckGroupAlertSettingsArgs
-    ///             {
-    ///                 EscalationType = "RUN_BASED",
-    ///                 RunBasedEscalations = 
-    ///                 {
-    ///                     new Checkly.Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs
-    ///                     {
-    ///                         FailedRunThreshold = 1,
-    ///                     },
-    ///                 },
-    ///                 TimeBasedEscalations = 
-    ///                 {
-    ///                     new Checkly.Inputs.CheckGroupAlertSettingsTimeBasedEscalationArgs
-    ///                     {
-    ///                         MinutesFailingThreshold = 5,
-    ///                     },
-    ///                 },
-    ///                 Reminders = 
-    ///                 {
-    ///                     new Checkly.Inputs.CheckGroupAlertSettingsReminderArgs
-    ///                     {
-    ///                         Amount = 2,
-    ///                         Interval = 5,
-    ///                     },
-    ///                 },
-    ///             },
-    ///             LocalSetupScript = "setup-test",
-    ///             LocalTeardownScript = "teardown-test",
-    ///         });
-    ///         // Add a check to a group
-    ///         var testCheck1 = new Checkly.Check("testCheck1", new Checkly.CheckArgs
-    ///         {
-    ///             GroupId = testGroup1CheckGroup.Id,
-    ///             GroupOrder = 1,
-    ///         });
-    ///         // Using with alert channels
-    ///         var emailAc1 = new Checkly.AlertChannel("emailAc1", new Checkly.AlertChannelArgs
-    ///         {
-    ///             Email = new Checkly.Inputs.AlertChannelEmailArgs
-    ///             {
-    ///                 Address = "info@example.com",
-    ///             },
-    ///         });
-    ///         var emailAc2 = new Checkly.AlertChannel("emailAc2", new Checkly.AlertChannelArgs
-    ///         {
-    ///             Email = new Checkly.Inputs.AlertChannelEmailArgs
-    ///             {
-    ///                 Address = "info2@example.com",
-    ///             },
-    ///         });
-    ///         // Connect the check group to the alert channels
-    ///         var testGroup1Index_checkGroupCheckGroup = new Checkly.CheckGroup("testGroup1Index/checkGroupCheckGroup", new Checkly.CheckGroupArgs
-    ///         {
-    ///             AlertChannelSubscriptions = 
-    ///             {
-    ///                 new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
-    ///                 {
-    ///                     ChannelId = emailAc1.Id,
-    ///                     Activated = true,
-    ///                 },
-    ///                 new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
-    ///                 {
-    ///                     ChannelId = emailAc2.Id,
-    ///                     Activated = true,
-    ///                 },
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/checkGroup:CheckGroup")]
-    public partial class CheckGroup : Pulumi.CustomResource
+    public partial class CheckGroup : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Determines if the checks in the group are running or not.
@@ -172,18 +37,22 @@ namespace Pulumi.Checkly
         public Output<int> Concurrency { get; private set; } = null!;
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-        /// region before marking the check as failed.
+        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
         /// </summary>
         [Output("doubleCheck")]
         public Output<bool?> DoubleCheck { get; private set; } = null!;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-        /// Use global environment variables whenever possible.
+        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// </summary>
+        [Output("environmentVariable")]
+        public Output<ImmutableArray<Outputs.CheckGroupEnvironmentVariable>> EnvironmentVariable { get; private set; } = null!;
+
+        /// <summary>
+        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         [Output("environmentVariables")]
-        public Output<ImmutableDictionary<string, object>?> EnvironmentVariables { get; private set; } = null!;
+        public Output<ImmutableDictionary<string, string>?> EnvironmentVariables { get; private set; } = null!;
 
         /// <summary>
         /// A valid piece of Node.js code to run in the setup phase of an API check in this group.
@@ -220,6 +89,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Output("privateLocations")]
         public Output<ImmutableArray<string>> PrivateLocations { get; private set; } = null!;
+
+        /// <summary>
+        /// A strategy for retrying failed check runs.
+        /// </summary>
+        [Output("retryStrategy")]
+        public Output<Outputs.CheckGroupRetryStrategy> RetryStrategy { get; private set; } = null!;
+
+        /// <summary>
+        /// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        /// </summary>
+        [Output("runParallel")]
+        public Output<bool?> RunParallel { get; private set; } = null!;
 
         /// <summary>
         /// The id of the runtime to use for this group.
@@ -296,7 +177,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class CheckGroupArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Determines if the checks in the group are running or not.
@@ -325,23 +206,33 @@ namespace Pulumi.Checkly
         public Input<int> Concurrency { get; set; } = null!;
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-        /// region before marking the check as failed.
+        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
         /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariables")]
-        private InputMap<object>? _environmentVariables;
+        [Input("environmentVariable")]
+        private InputList<Inputs.CheckGroupEnvironmentVariableArgs>? _environmentVariable;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-        /// Use global environment variables whenever possible.
+        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// </summary>
+        public InputList<Inputs.CheckGroupEnvironmentVariableArgs> EnvironmentVariable
+        {
+            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckGroupEnvironmentVariableArgs>());
+            set => _environmentVariable = value;
+        }
+
+        [Input("environmentVariables")]
+        private InputMap<string>? _environmentVariables;
+
+        /// <summary>
+        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
-        public InputMap<object> EnvironmentVariables
+        public InputMap<string> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
+            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
             set => _environmentVariables = value;
         }
 
@@ -392,6 +283,18 @@ namespace Pulumi.Checkly
             get => _privateLocations ?? (_privateLocations = new InputList<string>());
             set => _privateLocations = value;
         }
+
+        /// <summary>
+        /// A strategy for retrying failed check runs.
+        /// </summary>
+        [Input("retryStrategy")]
+        public Input<Inputs.CheckGroupRetryStrategyArgs>? RetryStrategy { get; set; }
+
+        /// <summary>
+        /// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        /// </summary>
+        [Input("runParallel")]
+        public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
         /// The id of the runtime to use for this group.
@@ -432,9 +335,10 @@ namespace Pulumi.Checkly
         public CheckGroupArgs()
         {
         }
+        public static new CheckGroupArgs Empty => new CheckGroupArgs();
     }
 
-    public sealed class CheckGroupState : Pulumi.ResourceArgs
+    public sealed class CheckGroupState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Determines if the checks in the group are running or not.
@@ -463,23 +367,33 @@ namespace Pulumi.Checkly
         public Input<int>? Concurrency { get; set; }
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected
-        /// region before marking the check as failed.
+        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.
         /// </summary>
         [Input("doubleCheck")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariables")]
-        private InputMap<object>? _environmentVariables;
+        [Input("environmentVariable")]
+        private InputList<Inputs.CheckGroupEnvironmentVariableGetArgs>? _environmentVariable;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.
-        /// Use global environment variables whenever possible.
+        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// </summary>
+        public InputList<Inputs.CheckGroupEnvironmentVariableGetArgs> EnvironmentVariable
+        {
+            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckGroupEnvironmentVariableGetArgs>());
+            set => _environmentVariable = value;
+        }
+
+        [Input("environmentVariables")]
+        private InputMap<string>? _environmentVariables;
+
+        /// <summary>
+        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
-        public InputMap<object> EnvironmentVariables
+        public InputMap<string> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<object>());
+            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
             set => _environmentVariables = value;
         }
 
@@ -532,6 +446,18 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
+        /// A strategy for retrying failed check runs.
+        /// </summary>
+        [Input("retryStrategy")]
+        public Input<Inputs.CheckGroupRetryStrategyGetArgs>? RetryStrategy { get; set; }
+
+        /// <summary>
+        /// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        /// </summary>
+        [Input("runParallel")]
+        public Input<bool>? RunParallel { get; set; }
+
+        /// <summary>
         /// The id of the runtime to use for this group.
         /// </summary>
         [Input("runtimeId")]
@@ -570,5 +496,6 @@ namespace Pulumi.Checkly
         public CheckGroupState()
         {
         }
+        public static new CheckGroupState Empty => new CheckGroupState();
     }
 }

@@ -8,7 +8,7 @@ namespace Pulumi.Checkly
 {
     public static class Config
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "IDE1006", Justification = 
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "IDE1006", Justification = 
         "Double underscore prefix used to avoid conflicts with variable names.")]
         private sealed class __Value<T>
         {
@@ -30,7 +30,7 @@ namespace Pulumi.Checkly
             }
         }
 
-        private static readonly Pulumi.Config __config = new Pulumi.Config("checkly");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("checkly");
 
         private static readonly __Value<string?> _accountId = new __Value<string?>(() => __config.Get("accountId"));
         public static string? AccountId

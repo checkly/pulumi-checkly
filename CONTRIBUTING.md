@@ -4,13 +4,12 @@
 
 Hi! We are really excited that you are interested in contributing to Checkly Pulumi Provider, and we really appreciate your commitment. Before submitting your contribution, please make sure to take a moment and read through the following guidelines:
 
-- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Code of Conduct](./CODE-OF-CONDUCT.md)
 - [Issue Reporting Guidelines](#issue-reporting-guidelines)
 - [Pull Request Guidelines](#pull-request-guidelines)
-- [Development Setup](#development-setup)
-- [Scripts](#scripts)
-- [Project Structure](#project-structure)
-- [Release Process](#releases-process)
+- [Setting up your development environment](#setting-up-your-development-environment)
+- [Committing Generated Code](#committing-generated-code)
+- [Running Integration Tests](#running-integration-tests)
 
 ## Issue Reporting Guidelines
 
@@ -26,7 +25,7 @@ Hi! We are really excited that you are interested in contributing to Checkly Pul
 - Add/update demo files to showcase your changes.
 - Use existing resources as templates and ensure that each property has a corresponding `description` field.
 - Each PR should be linked with an issue, use [GitHub keywords](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/using-keywords-in-issues-and-pull-requests) for that.
-- Be sure to follow up project code styles (`$ make fmt`)
+- Be sure to follow up project code styles
 
 - If adding a new feature:
   - Provide a convincing reason to add this feature. Ideally, you should open a "feature request" issue first and have it approved before working on it (it should has the label "state: confirmed")
@@ -41,57 +40,23 @@ Hi! We are really excited that you are interested in contributing to Checkly Pul
 
 - Commit messages must follow the [semantic commit messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716) so that changelogs can be automatically generated.
 
-## Development Setup
+## Setting up your development environment
 
-The development branch is `main`. This is the branch that all pull requests should be made against.
+### Pulumi prerequisites
 
-> ⚠️ Before you start, is recommended to have a good understanding on how the provider works, the resources it has and its different configurations. Here are the ["getting started"](https://github.com/checkly/pulumi-checkly#getting-started) guides.
+Please refer to the [Pulumi repo](https://github.com/pulumi/pulumi/)'s [CONTRIBUTING.md file](
+https://github.com/pulumi/pulumi/blob/master/CONTRIBUTING.md#developing) for details on how to get set up with Pulumi for development.
 
-### Pre-requirements
-- [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) >= v1.2.2
-- [Pulumi](https://www.pulumi.com/docs/get-started/install/) >= v3.0.0
-- [Go](https://go.dev/doc/install) >= v1.17.0
-- [Node.js]() >=v 14.0.0
-- pulumictl
-- yarn
-- TypeScript
-- Python
-- .Net
+## Committing Generated Code
 
-After you have installed Pulumi and Go, you can clone the repository and start working on the `main` branch.
+You must generate and check in the SDKs on each pull request containing a code change, e.g. adding a new resource to `resources.go`.
 
-1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
+1. Run `make build_sdks` from the root of this repository
+1. Open a pull request containing all changes
+1. *Note:* If a large number of seemingly-unrelated diffs are produced by `make build_sdks` (for example, lots of changes to comments unrelated to the change you are making), ensure that the latest dependencies for the provider are installed by running `go mod tidy` in the `provider/` directory of this repository.
 
-  > If you don't need the whole git history, you can clone with depth 1 to reduce the download size:
+## Running Integration Tests
 
-  ```sh
-  $ git clone --depth=1 git@github.com:checkly/pulumi-checkly.git
-  ```
-
-2. Navigate into the project and create a new branch:
-  ```sh
-  cd pulumi-checkly && git checkout -b MY_BRANCH_NAME
-  ```
-
-3. Download go packages
-  ```sh
-  $ go mod tidy
-  ```
-
-You are ready to go, take a look at the [`dev` script](###`make-dev`) so you can start testing your local changes.
-
-## Scripts
-
-In order to facilitate the development process, we have a `Makefile` with a few scripts that are used to build, test and run working examples.
-
-> TBA
-
-## Project Structure
-
-> TBA
-
-## Release Process
-The release process is automatically handled with [goreleaser](https://goreleaser.com/) and GitHub `release` action.
-To trigger a new release you need to create a new git tag, using [SemVer](https://semver.org) pattenr and then push it to the `main` branch.
-
-Remember to create releases candidates releases and spend some time testing in production before publishin a final version. You can also tag the release as "Pre-Release" on GitHub until you consider it mature enough.
+The examples and integration tests in this repository will create and destroy real
+cloud resources while running. Before running these tests, make sure that you have
+configured access to Checkly with Pulumi.

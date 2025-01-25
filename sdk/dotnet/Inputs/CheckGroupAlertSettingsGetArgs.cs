@@ -10,10 +10,21 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckGroupAlertSettingsGetArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupAlertSettingsGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
+
+        [Input("parallelRunFailureThresholds")]
+        private InputList<Inputs.CheckGroupAlertSettingsParallelRunFailureThresholdGetArgs>? _parallelRunFailureThresholds;
+        public InputList<Inputs.CheckGroupAlertSettingsParallelRunFailureThresholdGetArgs> ParallelRunFailureThresholds
+        {
+            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.CheckGroupAlertSettingsParallelRunFailureThresholdGetArgs>());
+            set => _parallelRunFailureThresholds = value;
+        }
 
         [Input("reminders")]
         private InputList<Inputs.CheckGroupAlertSettingsReminderGetArgs>? _reminders;
@@ -51,5 +62,6 @@ namespace Pulumi.Checkly.Inputs
         public CheckGroupAlertSettingsGetArgs()
         {
         }
+        public static new CheckGroupAlertSettingsGetArgs Empty => new CheckGroupAlertSettingsGetArgs();
     }
 }

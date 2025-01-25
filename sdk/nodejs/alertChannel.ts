@@ -2,7 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import { input as inputs, output as outputs } from "./types";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
@@ -12,10 +13,10 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi from "@checkly/pulumi";
+ * import * as checkly from "@checkly/pulumi";
  *
  * // An Email alert channel
- * const emailAc = new checkly.AlertChannel("emailAc", {
+ * const emailAc = new checkly.AlertChannel("email_ac", {
  *     email: {
  *         address: "john@example.com",
  *     },
@@ -26,7 +27,7 @@ import * as utilities from "./utilities";
  *     sslExpiryThreshold: 22,
  * });
  * // A SMS alert channel
- * const smsAc = new checkly.AlertChannel("smsAc", {
+ * const smsAc = new checkly.AlertChannel("sms_ac", {
  *     sms: {
  *         name: "john",
  *         number: "+5491100001111",
@@ -35,42 +36,62 @@ import * as utilities from "./utilities";
  *     sendFailure: true,
  * });
  * // A Slack alert channel
- * const slackAc = new checkly.AlertChannel("slackAc", {slack: {
+ * const slackAc = new checkly.AlertChannel("slack_ac", {slack: {
  *     channel: "#checkly-notifications",
  *     url: "https://hooks.slack.com/services/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",
  * }});
  * // An Opsgenie alert channel
- * const opsgenieAc = new checkly.AlertChannel("opsgenieAc", {opsgenie: {
+ * const opsgenieAc = new checkly.AlertChannel("opsgenie_ac", {opsgenie: {
  *     name: "opsalerts",
  *     apiKey: "fookey",
  *     region: "fooregion",
  *     priority: "foopriority",
  * }});
- * // An Pagerduty alert channel
- * const pagerdutyAc = new checkly.AlertChannel("pagerdutyAc", {pagerduty: {
+ * // A Pagerduty alert channel
+ * const pagerdutyAc = new checkly.AlertChannel("pagerduty_ac", {pagerduty: {
  *     account: "checkly",
  *     serviceKey: "key1",
  *     serviceName: "pdalert",
  * }});
- * // An Webhook alert channel
- * const webhookAc = new checkly.AlertChannel("webhookAc", {webhook: {
+ * // A Webhook alert channel
+ * const webhookAc = new checkly.AlertChannel("webhook_ac", {webhook: {
  *     name: "foo",
  *     method: "get",
  *     template: "footemplate",
  *     url: "https://example.com/foo",
  *     webhookSecret: "foosecret",
  * }});
+ * // A Firehydran alert channel integration
+ * const firehydrantAc = new checkly.AlertChannel("firehydrant_ac", {webhook: {
+ *     name: "firehydrant",
+ *     method: "post",
+ *     template: `{
+ *   "event": "{{ALERT_TITLE}}",
+ *   "link": "{{RESULT_LINK}}",
+ *   "check_id": "{{CHECK_ID}}",
+ *   "check_type": "{{CHECK_TYPE}}",
+ *   "alert_type": "{{ALERT_TYPE}}",
+ *   "started_at": "{{STARTED_AT}}",
+ *   "check_result_id": "{{CHECK_RESULT_ID}}"
+ * },
+ * `,
+ *     url: "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
+ *     webhookType: "WEBHOOK_FIREHYDRANT",
+ * }});
  * // Connecting the alert channel to a check
- * const exampleCheck = new checkly.Check("exampleCheck", {alertChannelSubscriptions: [
- *     {
- *         channelId: emailAc.id,
- *         activated: true,
- *     },
- *     {
- *         channelId: smsAc.id,
- *         activated: true,
- *     },
- * ]});
+ * const exampleCheck = new checkly.Check("example_check", {
+ *     name: "Example check",
+ *     alertChannelSubscriptions: [
+ *         {
+ *             channelId: emailAc.id,
+ *             activated: true,
+ *         },
+ *         {
+ *             channelId: smsAc.id,
+ *             activated: true,
+ *         },
+ *     ],
+ * });
  * ```
  */
 export class AlertChannel extends pulumi.CustomResource {
@@ -101,6 +122,7 @@ export class AlertChannel extends pulumi.CustomResource {
         return obj['__pulumiType'] === AlertChannel.__pulumiType;
     }
 
+    public readonly call!: pulumi.Output<outputs.AlertChannelCall | undefined>;
     public readonly email!: pulumi.Output<outputs.AlertChannelEmail | undefined>;
     public readonly opsgenie!: pulumi.Output<outputs.AlertChannelOpsgenie | undefined>;
     public readonly pagerduty!: pulumi.Output<outputs.AlertChannelPagerduty | undefined>;
@@ -141,6 +163,7 @@ export class AlertChannel extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as AlertChannelState | undefined;
+            resourceInputs["call"] = state ? state.call : undefined;
             resourceInputs["email"] = state ? state.email : undefined;
             resourceInputs["opsgenie"] = state ? state.opsgenie : undefined;
             resourceInputs["pagerduty"] = state ? state.pagerduty : undefined;
@@ -154,6 +177,7 @@ export class AlertChannel extends pulumi.CustomResource {
             resourceInputs["webhook"] = state ? state.webhook : undefined;
         } else {
             const args = argsOrState as AlertChannelArgs | undefined;
+            resourceInputs["call"] = args ? args.call : undefined;
             resourceInputs["email"] = args ? args.email : undefined;
             resourceInputs["opsgenie"] = args ? args.opsgenie : undefined;
             resourceInputs["pagerduty"] = args ? args.pagerduty : undefined;
@@ -175,6 +199,7 @@ export class AlertChannel extends pulumi.CustomResource {
  * Input properties used for looking up and filtering AlertChannel resources.
  */
 export interface AlertChannelState {
+    call?: pulumi.Input<inputs.AlertChannelCall>;
     email?: pulumi.Input<inputs.AlertChannelEmail>;
     opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
     pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;
@@ -207,6 +232,7 @@ export interface AlertChannelState {
  * The set of arguments for constructing a AlertChannel resource.
  */
 export interface AlertChannelArgs {
+    call?: pulumi.Input<inputs.AlertChannelCall>;
     email?: pulumi.Input<inputs.AlertChannelEmail>;
     opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
     pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;

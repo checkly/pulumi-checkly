@@ -10,16 +10,23 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class AlertChannelSlackGetArgs : Pulumi.ResourceArgs
+    public sealed class AlertChannelSlackGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of the alert's Slack channel
+        /// </summary>
         [Input("channel", required: true)]
         public Input<string> Channel { get; set; } = null!;
 
+        /// <summary>
+        /// The Slack webhook URL
+        /// </summary>
         [Input("url", required: true)]
         public Input<string> Url { get; set; } = null!;
 
         public AlertChannelSlackGetArgs()
         {
         }
+        public static new AlertChannelSlackGetArgs Empty => new AlertChannelSlackGetArgs();
     }
 }
