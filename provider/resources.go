@@ -21,6 +21,7 @@ import (
 	_ "embed"
 
 	checkly "github.com/checkly/terraform-provider-checkly/checkly" // Import the upstream provider
+
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/info"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
