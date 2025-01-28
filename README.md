@@ -1,69 +1,53 @@
-# Checkly Pulumi Provider
+# Checkly Provider for Pulumi
 
 ![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)
 ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/checkly/pulumi-checkly?label=Version)
 
-The Checkly Pulumi Provider lets you manage [Checkly](https://www.checklyhq.com) resources.
+The Checkly provider for Pulumi can be used to provision any of the monitoring resources available in [Checkly](https://www.checklyhq.com/).
 
-## Installing
+## Installation
 
-This package is available for several languages/platforms:
+The Checkly provider is available as a package in most Pulumi languages:
 
-### Node.js (JavaScript/TypeScript)
+* JavaScript/TypeScript: [`@checkly/pulumi`](https://www.npmjs.com/package/@checkly/pulumi)
+* Python: [`pulumi-checkly`](https://pypi.org/project/pulumi-checkly/)
+* Go: [`github.com/checkly/pulumi-checkly/sdk/go/checkly`](https://github.com/checkly/pulumi-checkly)
+* .NET: [`Pulumi.Checkly`](https://www.nuget.org/packages/Pulumi.Checkly)
 
-To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
-```bash
-npm install @checkly/pulumi
+## Authentication
+
+The Checkly provider must be configured with an `API Key` and an `Account ID` in order to deploy Checkly resources. Sign up for a [Checkly](https://www.checklyhq.com) account and follow our [integration guide](https://www.checklyhq.com/docs/integrations/pulumi/) to create and configure your credentials.
+
+### Example configuration
+
+First, configure your Checkly Account ID:
+
+```
+pulumi config set checkly:accountId YOUR_CHECKLY_ACCOUNT_ID
 ```
 
-or `yarn`:
+Then, configure you Checkly API key (with `--secret`):
 
-```bash
-yarn add @checkly/pulumi
+```
+pulumi config set checkly:apiKey YOUR_CHECKLY_API_KEY --secret
 ```
 
-### Python
+You should now be able to deploy Checkly resources.
 
-To use from Python, install using `pip`:
+## Example usage
 
-```bash
-pip install pulumi_checkly
-```
+You can find working JavaScript and TypeScript code samples in the [`./examples`](https://github.com/checkly/pulumi-checkly/tree/main/examples) directory.
 
-### Go
+## Configuration options
 
-To use from Go, use `go get` to grab the latest version of the library:
-
-```bash
-go get github.com/checkly/pulumi-checkly/sdk/go/...
-```
-
-### .NET
-
-To use from .NET, install using `dotnet add package`:
-
-```bash
-dotnet add package Pulumi.Checkly
-```
-
-## Getting Started
-
-Please see our [integration guide](https://www.checklyhq.com/docs/integrations/pulumi/) for a complete setup flow.
-
-## Configuration
-
-The following configuration points are available for the `checkly` provider:
+The following configuration points are available for the Checkly provider:
 
 - `checkly:accountId` (environment: `CHECKLY_ACCOUNT_ID`) - your Checkly Account ID
 - `checkly:apiKey` (environment: `CHECKLY_API_KEY`) - your Checkly API Key
     * If you don't have an API Key, you can create one [here](https://app.checklyhq.com/settings/user/api-keys).
     * Make sure to use the `--secret` flag with `pulumi config set`.
 - `checkly:apiUrl` (environment: `CHECKLY_API_URL`) - for internal development purposes only
-
-## Examples
-
-Find working JavaScript and TypeScript code samples in the [`./examples`](./examples) directory.
 
 ## Reference
 

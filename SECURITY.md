@@ -2,7 +2,7 @@
 
 To report a vulnerability, please email security@checklyhq.com
 
-If you believe you have found a security vulnerability in Checkly Pulumi Provider, we encourage you to let us know right away.
+If you believe you have found a security vulnerability in the Checkly provider for Pulumi, we encourage you to let us know right away.
 
 We will investigate all legitimate reports and do our best to quickly fix the problem.
 
