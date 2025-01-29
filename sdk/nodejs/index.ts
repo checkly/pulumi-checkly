@@ -5,17 +5,71 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export * from "./alertChannel";
-export * from "./check";
-export * from "./checkGroup";
-export * from "./dashboard";
-export * from "./environmentVariable";
-export * from "./maintenanceWindow";
-export * from "./privateLocation";
-export * from "./provider";
-export * from "./snippet";
-export * from "./triggerCheck";
-export * from "./triggerCheckGroup";
+export { AlertChannelArgs, AlertChannelState } from "./alertChannel";
+export type AlertChannel = import("./alertChannel").AlertChannel;
+export const AlertChannel: typeof import("./alertChannel").AlertChannel = null as any;
+utilities.lazyLoad(exports, ["AlertChannel"], () => require("./alertChannel"));
+
+export { CheckArgs, CheckState } from "./check";
+export type Check = import("./check").Check;
+export const Check: typeof import("./check").Check = null as any;
+utilities.lazyLoad(exports, ["Check"], () => require("./check"));
+
+export { CheckGroupArgs, CheckGroupState } from "./checkGroup";
+export type CheckGroup = import("./checkGroup").CheckGroup;
+export const CheckGroup: typeof import("./checkGroup").CheckGroup = null as any;
+utilities.lazyLoad(exports, ["CheckGroup"], () => require("./checkGroup"));
+
+export { DashboardArgs, DashboardState } from "./dashboard";
+export type Dashboard = import("./dashboard").Dashboard;
+export const Dashboard: typeof import("./dashboard").Dashboard = null as any;
+utilities.lazyLoad(exports, ["Dashboard"], () => require("./dashboard"));
+
+export { EnvironmentVariableArgs, EnvironmentVariableState } from "./environmentVariable";
+export type EnvironmentVariable = import("./environmentVariable").EnvironmentVariable;
+export const EnvironmentVariable: typeof import("./environmentVariable").EnvironmentVariable = null as any;
+utilities.lazyLoad(exports, ["EnvironmentVariable"], () => require("./environmentVariable"));
+
+export { GetStaticIpsArgs, GetStaticIpsResult, GetStaticIpsOutputArgs } from "./getStaticIps";
+export const getStaticIps: typeof import("./getStaticIps").getStaticIps = null as any;
+export const getStaticIpsOutput: typeof import("./getStaticIps").getStaticIpsOutput = null as any;
+utilities.lazyLoad(exports, ["getStaticIps","getStaticIpsOutput"], () => require("./getStaticIps"));
+
+export { HeartbeatCheckArgs, HeartbeatCheckState } from "./heartbeatCheck";
+export type HeartbeatCheck = import("./heartbeatCheck").HeartbeatCheck;
+export const HeartbeatCheck: typeof import("./heartbeatCheck").HeartbeatCheck = null as any;
+utilities.lazyLoad(exports, ["HeartbeatCheck"], () => require("./heartbeatCheck"));
+
+export { MaintenanceWindowArgs, MaintenanceWindowState } from "./maintenanceWindow";
+export type MaintenanceWindow = import("./maintenanceWindow").MaintenanceWindow;
+export const MaintenanceWindow: typeof import("./maintenanceWindow").MaintenanceWindow = null as any;
+utilities.lazyLoad(exports, ["MaintenanceWindow"], () => require("./maintenanceWindow"));
+
+export { PrivateLocationArgs, PrivateLocationState } from "./privateLocation";
+export type PrivateLocation = import("./privateLocation").PrivateLocation;
+export const PrivateLocation: typeof import("./privateLocation").PrivateLocation = null as any;
+utilities.lazyLoad(exports, ["PrivateLocation"], () => require("./privateLocation"));
+
+export { ProviderArgs } from "./provider";
+export type Provider = import("./provider").Provider;
+export const Provider: typeof import("./provider").Provider = null as any;
+utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+
+export { SnippetArgs, SnippetState } from "./snippet";
+export type Snippet = import("./snippet").Snippet;
+export const Snippet: typeof import("./snippet").Snippet = null as any;
+utilities.lazyLoad(exports, ["Snippet"], () => require("./snippet"));
+
+export { TriggerCheckArgs, TriggerCheckState } from "./triggerCheck";
+export type TriggerCheck = import("./triggerCheck").TriggerCheck;
+export const TriggerCheck: typeof import("./triggerCheck").TriggerCheck = null as any;
+utilities.lazyLoad(exports, ["TriggerCheck"], () => require("./triggerCheck"));
+
+export { TriggerCheckGroupArgs, TriggerCheckGroupState } from "./triggerCheckGroup";
+export type TriggerCheckGroup = import("./triggerCheckGroup").TriggerCheckGroup;
+export const TriggerCheckGroup: typeof import("./triggerCheckGroup").TriggerCheckGroup = null as any;
+utilities.lazyLoad(exports, ["TriggerCheckGroup"], () => require("./triggerCheckGroup"));
+
 
 // Export sub-modules:
 import * as config from "./config";
@@ -25,18 +79,6 @@ export {
     config,
     types,
 };
-
-// Import resources to register:
-import { AlertChannel } from "./alertChannel";
-import { Check } from "./check";
-import { CheckGroup } from "./checkGroup";
-import { Dashboard } from "./dashboard";
-import { EnvironmentVariable } from "./environmentVariable";
-import { MaintenanceWindow } from "./maintenanceWindow";
-import { PrivateLocation } from "./privateLocation";
-import { Snippet } from "./snippet";
-import { TriggerCheck } from "./triggerCheck";
-import { TriggerCheckGroup } from "./triggerCheckGroup";
 
 const _module = {
     version: utilities.getVersion(),
@@ -52,6 +94,8 @@ const _module = {
                 return new Dashboard(name, <any>undefined, { urn })
             case "checkly:index/environmentVariable:EnvironmentVariable":
                 return new EnvironmentVariable(name, <any>undefined, { urn })
+            case "checkly:index/heartbeatCheck:HeartbeatCheck":
+                return new HeartbeatCheck(name, <any>undefined, { urn })
             case "checkly:index/maintenanceWindow:MaintenanceWindow":
                 return new MaintenanceWindow(name, <any>undefined, { urn })
             case "checkly:index/privateLocation:PrivateLocation":
@@ -72,14 +116,12 @@ pulumi.runtime.registerResourceModule("checkly", "index/check", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/dashboard", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/environmentVariable", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)
-
-import { Provider } from "./provider";
-
 pulumi.runtime.registerResourcePackage("checkly", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {

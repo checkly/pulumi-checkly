@@ -2,17 +2,17 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>checkly</Authors>
-    <Company>checkly</Company>
+    <Authors>Checkly</Authors>
+    <Company>Checkly</Company>
     <Description>A Pulumi package for creating and managing Checkly monitoring resources.</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.pulumi.com/registry/packages/checkly</PackageProjectUrl>
     <RepositoryUrl>https://github.com/checkly/pulumi-checkly</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
+    <Version>1.0.0-alpha.0+dev</Version>
 
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseSharedCompilation>false</UseSharedCompilation>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -39,7 +39,7 @@
     <None Include="version.txt" Pack="True" PackagePath="content" />
   </ItemGroup>
 
-   <ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="pulumi-plugin.json" />
     <None Include="pulumi-plugin.json" Pack="True" PackagePath="content" />
   </ItemGroup>

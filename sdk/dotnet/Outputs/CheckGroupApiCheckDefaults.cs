@@ -15,8 +15,11 @@ namespace Pulumi.Checkly.Outputs
     {
         public readonly ImmutableArray<Outputs.CheckGroupApiCheckDefaultsAssertion> Assertions;
         public readonly Outputs.CheckGroupApiCheckDefaultsBasicAuth? BasicAuth;
-        public readonly ImmutableDictionary<string, object>? Headers;
-        public readonly ImmutableDictionary<string, object>? QueryParameters;
+        public readonly ImmutableDictionary<string, string>? Headers;
+        public readonly ImmutableDictionary<string, string>? QueryParameters;
+        /// <summary>
+        /// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+        /// </summary>
         public readonly string? Url;
 
         [OutputConstructor]
@@ -25,9 +28,9 @@ namespace Pulumi.Checkly.Outputs
 
             Outputs.CheckGroupApiCheckDefaultsBasicAuth? basicAuth,
 
-            ImmutableDictionary<string, object>? headers,
+            ImmutableDictionary<string, string>? headers,
 
-            ImmutableDictionary<string, object>? queryParameters,
+            ImmutableDictionary<string, string>? queryParameters,
 
             string? url)
         {

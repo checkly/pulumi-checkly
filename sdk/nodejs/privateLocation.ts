@@ -9,10 +9,10 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
+ * import * as checkly from "@checkly/pulumi";
  *
- * // Simple Private Location example
  * const location = new checkly.PrivateLocation("location", {
+ *     name: "New Private Location",
  *     slugName: "new-private-location",
  * });
  * ```
@@ -90,6 +90,8 @@ export class PrivateLocation extends pulumi.CustomResource {
             resourceInputs["keys"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["keys"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(PrivateLocation.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -9,13 +9,13 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@pulumi/checkly";
+ * import * as checkly from "@checkly/pulumi";
  *
  * // Simple Enviroment Variable example
  * const variable1 = new checkly.EnvironmentVariable("variable_1", {
  *     key: "API_KEY",
- *     locked: true,
  *     value: "loZd9hOGHDUrGvmW",
+ *     locked: true,
  * });
  * const variable2 = new checkly.EnvironmentVariable("variable_2", {
  *     key: "API_URL",
@@ -53,6 +53,7 @@ export class EnvironmentVariable extends pulumi.CustomResource {
 
     public readonly key!: pulumi.Output<string>;
     public readonly locked!: pulumi.Output<boolean | undefined>;
+    public readonly secret!: pulumi.Output<boolean | undefined>;
     public readonly value!: pulumi.Output<string>;
 
     /**
@@ -70,6 +71,7 @@ export class EnvironmentVariable extends pulumi.CustomResource {
             const state = argsOrState as EnvironmentVariableState | undefined;
             resourceInputs["key"] = state ? state.key : undefined;
             resourceInputs["locked"] = state ? state.locked : undefined;
+            resourceInputs["secret"] = state ? state.secret : undefined;
             resourceInputs["value"] = state ? state.value : undefined;
         } else {
             const args = argsOrState as EnvironmentVariableArgs | undefined;
@@ -81,6 +83,7 @@ export class EnvironmentVariable extends pulumi.CustomResource {
             }
             resourceInputs["key"] = args ? args.key : undefined;
             resourceInputs["locked"] = args ? args.locked : undefined;
+            resourceInputs["secret"] = args ? args.secret : undefined;
             resourceInputs["value"] = args ? args.value : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -94,6 +97,7 @@ export class EnvironmentVariable extends pulumi.CustomResource {
 export interface EnvironmentVariableState {
     key?: pulumi.Input<string>;
     locked?: pulumi.Input<boolean>;
+    secret?: pulumi.Input<boolean>;
     value?: pulumi.Input<string>;
 }
 
@@ -103,5 +107,6 @@ export interface EnvironmentVariableState {
 export interface EnvironmentVariableArgs {
     key: pulumi.Input<string>;
     locked?: pulumi.Input<boolean>;
+    secret?: pulumi.Input<boolean>;
     value: pulumi.Input<string>;
 }

@@ -9,9 +9,9 @@ import * as utilities from "./utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as pulumi from "@checkly/pulumi";
+ * import * as checkly from "@checkly/pulumi";
  *
- * const testTriggerCheck = new checkly.TriggerCheck("testTriggerCheck", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
+ * const testTriggerCheck = new checkly.TriggerCheck("test_trigger_check", {checkId: "c1ff95c5-d7f6-4a90-9ce2-1e605f117592"});
  * export const testTriggerCheckUrl = testTriggerCheck.url;
  * ```
  */

@@ -20,6 +20,8 @@
         "config/vars.ts",
         "dashboard.ts",
         "environmentVariable.ts",
+        "getStaticIps.ts",
+        "heartbeatCheck.ts",
         "index.ts",
         "maintenanceWindow.ts",
         "privateLocation.ts",

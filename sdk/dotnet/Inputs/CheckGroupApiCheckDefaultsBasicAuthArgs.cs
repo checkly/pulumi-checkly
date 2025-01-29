@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckGroupApiCheckDefaultsBasicAuthArgs : Pulumi.ResourceArgs
+    public sealed class CheckGroupApiCheckDefaultsBasicAuthArgs : global::Pulumi.ResourceArgs
     {
         [Input("password", required: true)]
         public Input<string> Password { get; set; } = null!;
@@ -21,5 +21,6 @@ namespace Pulumi.Checkly.Inputs
         public CheckGroupApiCheckDefaultsBasicAuthArgs()
         {
         }
+        public static new CheckGroupApiCheckDefaultsBasicAuthArgs Empty => new CheckGroupApiCheckDefaultsBasicAuthArgs();
     }
 }

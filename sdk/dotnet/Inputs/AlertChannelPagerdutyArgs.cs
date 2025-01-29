@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class AlertChannelPagerdutyArgs : Pulumi.ResourceArgs
+    public sealed class AlertChannelPagerdutyArgs : global::Pulumi.ResourceArgs
     {
         [Input("account")]
         public Input<string>? Account { get; set; }
@@ -24,5 +24,6 @@ namespace Pulumi.Checkly.Inputs
         public AlertChannelPagerdutyArgs()
         {
         }
+        public static new AlertChannelPagerdutyArgs Empty => new AlertChannelPagerdutyArgs();
     }
 }

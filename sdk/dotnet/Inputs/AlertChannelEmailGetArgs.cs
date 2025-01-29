@@ -10,13 +10,17 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class AlertChannelEmailGetArgs : Pulumi.ResourceArgs
+    public sealed class AlertChannelEmailGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The email address of this email alert channel.
+        /// </summary>
         [Input("address", required: true)]
         public Input<string> Address { get; set; } = null!;
 
         public AlertChannelEmailGetArgs()
         {
         }
+        public static new AlertChannelEmailGetArgs Empty => new AlertChannelEmailGetArgs();
     }
 }

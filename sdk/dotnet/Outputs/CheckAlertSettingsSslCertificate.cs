@@ -13,7 +13,13 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckAlertSettingsSslCertificate
     {
+        /// <summary>
+        /// How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        /// </summary>
         public readonly int? AlertThreshold;
+        /// <summary>
+        /// Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        /// </summary>
         public readonly bool? Enabled;
 
         [OutputConstructor]

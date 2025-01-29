@@ -18,7 +18,8 @@ const emailChannel = new checkly.AlertChannel("my-email-channel", {
 
 const slackChannel = new checkly.AlertChannel("my-slack-channel", {
   slack: {
-    url: 'https://hooks.slack.com/services/<REPLACE_WITH_ACTUAL_SLACK_HOOK>',
+    // Replace with your actual Slack webhook URL.
+    url: 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX',
     channel: '#alerts',
   }
 })

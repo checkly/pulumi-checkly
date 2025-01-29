@@ -8,14 +8,51 @@
         "category/monitoring"
     ],
     "homepage": "https://www.pulumi.com/registry/packages/checkly",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`checkly` Terraform Provider](https://github.com/checkly/terraform-provider-checkly).",
     "repository": "https://github.com/checkly/pulumi-checkly",
     "logoUrl": "https://raw.githubusercontent.com/checkly/pulumi-checkly/main/assets/checkly.svg",
     "pluginDownloadURL": "github://api.github.com/checkly",
-    "publisher": "checkly",
+    "publisher": "Checkly",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "compatibility": "tfbridge20",
+            "respectSchemaVersion": true
+        },
+        "go": {
+            "importBasePath": "github.com/checkly/pulumi-checkly/sdk/go/checkly",
+            "generateResourceContainerTypes": true,
+            "generateExtraInputTypes": true,
+            "respectSchemaVersion": true
+        },
+        "nodejs": {
+            "packageName": "@checkly/pulumi",
+            "packageDescription": "A Pulumi package for creating and managing Checkly monitoring resources.",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/checkly/terraform-provider-checkly)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-checkly` repo](https://github.com/checkly/pulumi-checkly/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-checkly` repo](https://github.com/checkly/terraform-provider-checkly/issues).",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true,
+            "respectSchemaVersion": true
+        },
+        "python": {
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/checkly/terraform-provider-checkly)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-checkly` repo](https://github.com/checkly/pulumi-checkly/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-checkly` repo](https://github.com/checkly/terraform-provider-checkly/issues).",
+            "compatibility": "tfbridge20",
+            "respectSchemaVersion": true,
+            "pyproject": {
+                "enabled": true
+            }
+        }
     },
     "config": {
         "variables": {
@@ -34,15 +71,28 @@
         ]
     },
     "types": {
+        "checkly:index/AlertChannelCall:AlertChannelCall": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of this alert channel\n"
+                },
+                "number": {
+                    "type": "string",
+                    "description": "The mobile number to receive the alerts\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "number"
+            ]
+        },
         "checkly:index/AlertChannelEmail:AlertChannelEmail": {
             "properties": {
                 "address": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The email address of this email alert channel.\n"
                 }
             },
             "type": "object",
@@ -53,36 +103,16 @@
         "checkly:index/AlertChannelOpsgenie:AlertChannelOpsgenie": {
             "properties": {
                 "apiKey": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "name": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "priority": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "region": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -96,28 +126,13 @@
         "checkly:index/AlertChannelPagerduty:AlertChannelPagerduty": {
             "properties": {
                 "account": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "serviceKey": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "serviceName": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -129,19 +144,11 @@
             "properties": {
                 "channel": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The name of the alert's Slack channel\n"
                 },
                 "url": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The Slack webhook URL\n"
                 }
             },
             "type": "object",
@@ -154,19 +161,11 @@
             "properties": {
                 "name": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The name of this alert channel\n"
                 },
                 "number": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The mobile number to receive the alerts\n"
                 }
             },
             "type": "object",
@@ -180,64 +179,34 @@
                 "headers": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                        "type": "string"
                     }
                 },
                 "method": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "(Default `POST`)\n"
                 },
                 "name": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "queryParameters": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                        "type": "string"
                     }
                 },
                 "template": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "url": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "webhookSecret": {
+                    "type": "string"
+                },
+                "webhookType": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.\n"
                 }
             },
             "type": "object",
@@ -259,20 +228,10 @@
         "checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "boolean"
                 },
                 "channelId": {
-                    "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "integer"
                 }
             },
             "type": "object",
@@ -285,32 +244,24 @@
             "properties": {
                 "escalationType": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                    "description": "Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckAlertSettingsParallelRunFailureThreshold:CheckAlertSettingsParallelRunFailureThreshold"
                     }
                 },
                 "reminders": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertSettingsReminder:CheckAlertSettingsReminder"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
                     }
                 },
                 "runBasedEscalations": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertSettingsRunBasedEscalation:CheckAlertSettingsRunBasedEscalation"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
                     }
                 },
                 "sslCertificates": {
@@ -318,23 +269,36 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertSettingsSslCertificate:CheckAlertSettingsSslCertificate"
                     },
-                    "deprecationMessage": "This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "deprecationMessage": "This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version."
                 },
                 "timeBasedEscalations": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertSettingsTimeBasedEscalation:CheckAlertSettingsTimeBasedEscalation"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
                     }
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/CheckAlertSettingsParallelRunFailureThreshold:CheckAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Applicable only for checks scheduled in parallel in multiple locations.\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).\n"
                 }
             },
             "type": "object"
@@ -343,19 +307,11 @@
             "properties": {
                 "amount": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`\n"
                 },
                 "interval": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
                 }
             },
             "type": "object"
@@ -364,11 +320,7 @@
             "properties": {
                 "failedRunThreshold": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).\n"
                 }
             },
             "type": "object"
@@ -377,19 +329,11 @@
             "properties": {
                 "alertThreshold": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).\n"
                 },
                 "enabled": {
                     "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).\n"
                 }
             },
             "type": "object"
@@ -398,11 +342,7 @@
             "properties": {
                 "minutesFailingThreshold": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
                 }
             },
             "type": "object"
@@ -410,28 +350,16 @@
         "checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable": {
             "properties": {
                 "key": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "locked": {
-                    "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "boolean"
+                },
+                "secret": {
+                    "type": "boolean"
                 },
                 "value": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -443,20 +371,10 @@
         "checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "boolean"
                 },
                 "channelId": {
-                    "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "integer"
                 }
             },
             "type": "object",
@@ -469,32 +387,24 @@
             "properties": {
                 "escalationType": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                    "description": "Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupAlertSettingsParallelRunFailureThreshold:CheckGroupAlertSettingsParallelRunFailureThreshold"
                     }
                 },
                 "reminders": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupAlertSettingsReminder:CheckGroupAlertSettingsReminder"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
                     }
                 },
                 "runBasedEscalations": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupAlertSettingsRunBasedEscalation:CheckGroupAlertSettingsRunBasedEscalation"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
                     }
                 },
                 "sslCertificates": {
@@ -502,23 +412,36 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupAlertSettingsSslCertificate:CheckGroupAlertSettingsSslCertificate"
                     },
-                    "deprecationMessage": "This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "deprecationMessage": "This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version."
                 },
                 "timeBasedEscalations": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupAlertSettingsTimeBasedEscalation:CheckGroupAlertSettingsTimeBasedEscalation"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
                     }
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/CheckGroupAlertSettingsParallelRunFailureThreshold:CheckGroupAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Applicable only for checks scheduled in parallel in multiple locations.\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).\n"
                 }
             },
             "type": "object"
@@ -527,19 +450,11 @@
             "properties": {
                 "amount": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`\n"
                 },
                 "interval": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
                 }
             },
             "type": "object"
@@ -548,11 +463,7 @@
             "properties": {
                 "failedRunThreshold": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).\n"
                 }
             },
             "type": "object"
@@ -561,19 +472,11 @@
             "properties": {
                 "alertThreshold": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).\n"
                 },
                 "enabled": {
                     "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "Determines if alert notifications should be sent for expiring SSL certificates.\n"
                 }
             },
             "type": "object"
@@ -582,11 +485,7 @@
             "properties": {
                 "minutesFailingThreshold": {
                     "type": "integer",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
                 }
             },
             "type": "object"
@@ -597,51 +496,27 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaultsAssertion:CheckGroupApiCheckDefaultsAssertion"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
                     }
                 },
                 "basicAuth": {
-                    "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaultsBasicAuth:CheckGroupApiCheckDefaultsBasicAuth",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "$ref": "#/types/checkly:index/CheckGroupApiCheckDefaultsBasicAuth:CheckGroupApiCheckDefaultsBasicAuth"
                 },
                 "headers": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                        "type": "string"
                     }
                 },
                 "queryParameters": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                        "type": "string"
                     }
                 },
                 "url": {
                     "type": "string",
-                    "default": "",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.\n",
+                    "default": ""
                 }
             },
             "type": "object",
@@ -660,35 +535,17 @@
             "properties": {
                 "comparison": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.\n"
                 },
                 "property": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "source": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.\n"
                 },
                 "target": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -701,20 +558,10 @@
         "checkly:index/CheckGroupApiCheckDefaultsBasicAuth:CheckGroupApiCheckDefaultsBasicAuth": {
             "properties": {
                 "password": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "username": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -726,34 +573,50 @@
         "checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable": {
             "properties": {
                 "key": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "locked": {
-                    "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "boolean"
+                },
+                "secret": {
+                    "type": "boolean"
                 },
                 "value": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
             "required": [
                 "key",
                 "value"
+            ]
+        },
+        "checkly:index/CheckGroupRetryStrategy:CheckGroupRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt.\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check (maximum 600 seconds).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check. Value must be between 1 and 10.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check run.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
             ]
         },
         "checkly:index/CheckRequest:CheckRequest": {
@@ -763,89 +626,48 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckRequestAssertion:CheckRequestAssertion"
                     },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "A request can have multiple assertions.\n"
                 },
                 "basicAuth": {
                     "$ref": "#/types/checkly:index/CheckRequestBasicAuth:CheckRequestBasicAuth",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "Set up HTTP basic authentication (username \u0026 password).\n"
                 },
                 "body": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The body of the request.\n"
                 },
                 "bodyType": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The `Content-Type` header of the request. Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.\n"
                 },
                 "followRedirects": {
-                    "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "boolean"
                 },
                 "headers": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                        "type": "string"
                     }
+                },
+                "ipFamily": {
+                    "type": "string",
+                    "description": "IP Family to be used when executing the api check. The value can be either IPv4 or IPv6.\n"
                 },
                 "method": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. (Default `GET`).\n"
                 },
                 "queryParameters": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
-                    },
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
+                        "type": "string"
                     }
                 },
                 "skipSsl": {
-                    "type": "boolean",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "boolean"
                 },
                 "url": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -867,35 +689,17 @@
             "properties": {
                 "comparison": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.\n"
                 },
                 "property": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "source": {
                     "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "description": "The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.\n"
                 },
                 "target": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -907,20 +711,10 @@
         "checkly:index/CheckRequestBasicAuth:CheckRequestBasicAuth": {
             "properties": {
                 "password": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 },
                 "username": {
-                    "type": "string",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
+                    "type": "string"
                 }
             },
             "type": "object",
@@ -928,6 +722,198 @@
                 "password",
                 "username"
             ]
+        },
+        "checkly:index/CheckRetryStrategy:CheckRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt.\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check (maximum 600 seconds).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check. Value must be between 1 and 10.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check run.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
+        },
+        "checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean"
+                },
+                "channelId": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettingsParallelRunFailureThreshold:HeartbeatCheckAlertSettingsParallelRunFailureThreshold"
+                    }
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettingsReminder:HeartbeatCheckAlertSettingsReminder"
+                    }
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettingsRunBasedEscalation:HeartbeatCheckAlertSettingsRunBasedEscalation"
+                    }
+                },
+                "sslCertificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettingsSslCertificate:HeartbeatCheckAlertSettingsSslCertificate"
+                    },
+                    "deprecationMessage": "This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version."
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettingsTimeBasedEscalation:HeartbeatCheckAlertSettingsTimeBasedEscalation"
+                    }
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/HeartbeatCheckAlertSettingsParallelRunFailureThreshold:HeartbeatCheckAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Applicable only for checks scheduled in parallel in multiple locations.\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/HeartbeatCheckAlertSettingsReminder:HeartbeatCheckAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/HeartbeatCheckAlertSettingsRunBasedEscalation:HeartbeatCheckAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/HeartbeatCheckAlertSettingsSslCertificate:HeartbeatCheckAlertSettingsSslCertificate": {
+            "properties": {
+                "alertThreshold": {
+                    "type": "integer",
+                    "description": "How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/HeartbeatCheckAlertSettingsTimeBasedEscalation:HeartbeatCheckAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/HeartbeatCheckHeartbeat:HeartbeatCheckHeartbeat": {
+            "properties": {
+                "grace": {
+                    "type": "integer",
+                    "description": "How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.\n"
+                },
+                "graceUnit": {
+                    "type": "string",
+                    "description": "Possible values `seconds`, `minutes`, `hours` and `days`.\n"
+                },
+                "period": {
+                    "type": "integer",
+                    "description": "How often you expect a ping to the ping URL.\n"
+                },
+                "periodUnit": {
+                    "type": "string",
+                    "description": "Possible values `seconds`, `minutes`, `hours` and `days`.\n"
+                },
+                "pingToken": {
+                    "type": "string",
+                    "description": "Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "grace",
+                "graceUnit",
+                "period",
+                "periodUnit"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "grace",
+                        "graceUnit",
+                        "period",
+                        "periodUnit",
+                        "pingToken"
+                    ]
+                }
+            }
         }
     },
     "provider": {
@@ -963,8 +949,11 @@
     },
     "resources": {
         "checkly:index/alertChannel:AlertChannel": {
-            "description": "Allows you to define alerting channels for the checks and groups in your account\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi from \"@checkly/pulumi\";\n\n// An Email alert channel\nconst emailAc = new checkly.AlertChannel(\"emailAc\", {\n    email: {\n        address: \"john@example.com\",\n    },\n    sendRecovery: true,\n    sendFailure: false,\n    sendDegraded: true,\n    sslExpiry: true,\n    sslExpiryThreshold: 22,\n});\n// A SMS alert channel\nconst smsAc = new checkly.AlertChannel(\"smsAc\", {\n    sms: {\n        name: \"john\",\n        number: \"+5491100001111\",\n    },\n    sendRecovery: true,\n    sendFailure: true,\n});\n// A Slack alert channel\nconst slackAc = new checkly.AlertChannel(\"slackAc\", {slack: {\n    channel: \"#checkly-notifications\",\n    url: \"https://hooks.slack.com/services/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\",\n}});\n// An Opsgenie alert channel\nconst opsgenieAc = new checkly.AlertChannel(\"opsgenieAc\", {opsgenie: {\n    name: \"opsalerts\",\n    apiKey: \"fookey\",\n    region: \"fooregion\",\n    priority: \"foopriority\",\n}});\n// An Pagerduty alert channel\nconst pagerdutyAc = new checkly.AlertChannel(\"pagerdutyAc\", {pagerduty: {\n    account: \"checkly\",\n    serviceKey: \"key1\",\n    serviceName: \"pdalert\",\n}});\n// An Webhook alert channel\nconst webhookAc = new checkly.AlertChannel(\"webhookAc\", {webhook: {\n    name: \"foo\",\n    method: \"get\",\n    template: \"footemplate\",\n    url: \"https://example.com/foo\",\n    webhookSecret: \"foosecret\",\n}});\n// Connecting the alert channel to a check\nconst exampleCheck = new checkly.Check(\"exampleCheck\", {alertChannelSubscriptions: [\n    {\n        channelId: emailAc.id,\n        activated: true,\n    },\n    {\n        channelId: smsAc.id,\n        activated: true,\n    },\n]});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# An Email alert channel\nemail_ac = checkly.AlertChannel(\"emailAc\",\n    email=checkly.AlertChannelEmailArgs(\n        address=\"john@example.com\",\n    ),\n    send_recovery=True,\n    send_failure=False,\n    send_degraded=True,\n    ssl_expiry=True,\n    ssl_expiry_threshold=22)\n# A SMS alert channel\nsms_ac = checkly.AlertChannel(\"smsAc\",\n    sms=checkly.AlertChannelSmsArgs(\n        name=\"john\",\n        number=\"+5491100001111\",\n    ),\n    send_recovery=True,\n    send_failure=True)\n# A Slack alert channel\nslack_ac = checkly.AlertChannel(\"slackAc\", slack=checkly.AlertChannelSlackArgs(\n    channel=\"#checkly-notifications\",\n    url=\"https://hooks.slack.com/services/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\",\n))\n# An Opsgenie alert channel\nopsgenie_ac = checkly.AlertChannel(\"opsgenieAc\", opsgenie=checkly.AlertChannelOpsgenieArgs(\n    name=\"opsalerts\",\n    api_key=\"fookey\",\n    region=\"fooregion\",\n    priority=\"foopriority\",\n))\n# An Pagerduty alert channel\npagerduty_ac = checkly.AlertChannel(\"pagerdutyAc\", pagerduty=checkly.AlertChannelPagerdutyArgs(\n    account=\"checkly\",\n    service_key=\"key1\",\n    service_name=\"pdalert\",\n))\n# An Webhook alert channel\nwebhook_ac = checkly.AlertChannel(\"webhookAc\", webhook=checkly.AlertChannelWebhookArgs(\n    name=\"foo\",\n    method=\"get\",\n    template=\"footemplate\",\n    url=\"https://example.com/foo\",\n    webhook_secret=\"foosecret\",\n))\n# Connecting the alert channel to a check\nexample_check = checkly.Check(\"exampleCheck\", alert_channel_subscriptions=[\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=email_ac.id,\n        activated=True,\n    ),\n    checkly.CheckAlertChannelSubscriptionArgs(\n        channel_id=sms_ac.id,\n        activated=True,\n    ),\n])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // An Email alert channel\n        var emailAc = new Checkly.AlertChannel(\"emailAc\", new Checkly.AlertChannelArgs\n        {\n            Email = new Checkly.Inputs.AlertChannelEmailArgs\n            {\n                Address = \"john@example.com\",\n            },\n            SendRecovery = true,\n            SendFailure = false,\n            SendDegraded = true,\n            SslExpiry = true,\n            SslExpiryThreshold = 22,\n        });\n        // A SMS alert channel\n        var smsAc = new Checkly.AlertChannel(\"smsAc\", new Checkly.AlertChannelArgs\n        {\n            Sms = new Checkly.Inputs.AlertChannelSmsArgs\n            {\n                Name = \"john\",\n                Number = \"+5491100001111\",\n            },\n            SendRecovery = true,\n            SendFailure = true,\n        });\n        // A Slack alert channel\n        var slackAc = new Checkly.AlertChannel(\"slackAc\", new Checkly.AlertChannelArgs\n        {\n            Slack = new Checkly.Inputs.AlertChannelSlackArgs\n            {\n                Channel = \"#checkly-notifications\",\n                Url = \"https://hooks.slack.com/services/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\",\n            },\n        });\n        // An Opsgenie alert channel\n        var opsgenieAc = new Checkly.AlertChannel(\"opsgenieAc\", new Checkly.AlertChannelArgs\n        {\n            Opsgenie = new Checkly.Inputs.AlertChannelOpsgenieArgs\n            {\n                Name = \"opsalerts\",\n                ApiKey = \"fookey\",\n                Region = \"fooregion\",\n                Priority = \"foopriority\",\n            },\n        });\n        // An Pagerduty alert channel\n        var pagerdutyAc = new Checkly.AlertChannel(\"pagerdutyAc\", new Checkly.AlertChannelArgs\n        {\n            Pagerduty = new Checkly.Inputs.AlertChannelPagerdutyArgs\n            {\n                Account = \"checkly\",\n                ServiceKey = \"key1\",\n                ServiceName = \"pdalert\",\n            },\n        });\n        // An Webhook alert channel\n        var webhookAc = new Checkly.AlertChannel(\"webhookAc\", new Checkly.AlertChannelArgs\n        {\n            Webhook = new Checkly.Inputs.AlertChannelWebhookArgs\n            {\n                Name = \"foo\",\n                Method = \"get\",\n                Template = \"footemplate\",\n                Url = \"https://example.com/foo\",\n                WebhookSecret = \"foosecret\",\n            },\n        });\n        // Connecting the alert channel to a check\n        var exampleCheck = new Checkly.Check(\"exampleCheck\", new Checkly.CheckArgs\n        {\n            AlertChannelSubscriptions = \n            {\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = emailAc.Id,\n                    Activated = true,\n                },\n                new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n                {\n                    ChannelId = smsAc.Id,\n                    Activated = true,\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\temailAc, err := checkly.NewAlertChannel(ctx, \"emailAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"john@example.com\"),\n\t\t\t},\n\t\t\tSendRecovery:       pulumi.Bool(true),\n\t\t\tSendFailure:        pulumi.Bool(false),\n\t\t\tSendDegraded:       pulumi.Bool(true),\n\t\t\tSslExpiry:          pulumi.Bool(true),\n\t\t\tSslExpiryThreshold: pulumi.Int(22),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tsmsAc, err := checkly.NewAlertChannel(ctx, \"smsAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSms: \u0026AlertChannelSmsArgs{\n\t\t\t\tName:   pulumi.String(\"john\"),\n\t\t\t\tNumber: pulumi.String(\"+5491100001111\"),\n\t\t\t},\n\t\t\tSendRecovery: pulumi.Bool(true),\n\t\t\tSendFailure:  pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"slackAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tSlack: \u0026AlertChannelSlackArgs{\n\t\t\t\tChannel: pulumi.String(\"#checkly-notifications\"),\n\t\t\t\tUrl:     pulumi.String(\"https://hooks.slack.com/services/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\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"opsgenieAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tOpsgenie: \u0026AlertChannelOpsgenieArgs{\n\t\t\t\tName:     pulumi.String(\"opsalerts\"),\n\t\t\t\tApiKey:   pulumi.String(\"fookey\"),\n\t\t\t\tRegion:   pulumi.String(\"fooregion\"),\n\t\t\t\tPriority: pulumi.String(\"foopriority\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"pagerdutyAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tPagerduty: \u0026AlertChannelPagerdutyArgs{\n\t\t\t\tAccount:     pulumi.String(\"checkly\"),\n\t\t\t\tServiceKey:  pulumi.String(\"key1\"),\n\t\t\t\tServiceName: pulumi.String(\"pdalert\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewAlertChannel(ctx, \"webhookAc\", \u0026checkly.AlertChannelArgs{\n\t\t\tWebhook: \u0026AlertChannelWebhookArgs{\n\t\t\t\tName:          pulumi.String(\"foo\"),\n\t\t\t\tMethod:        pulumi.String(\"get\"),\n\t\t\t\tTemplate:      pulumi.String(\"footemplate\"),\n\t\t\t\tUrl:           pulumi.String(\"https://example.com/foo\"),\n\t\t\t\tWebhookSecret: pulumi.String(\"foosecret\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewCheck(ctx, \"exampleCheck\", \u0026checkly.CheckArgs{\n\t\t\tAlertChannelSubscriptions: CheckAlertChannelSubscriptionArray{\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: emailAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: smsAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Allows you to define alerting channels for the checks and groups in your account\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// An Email alert channel\nconst emailAc = new checkly.AlertChannel(\"email_ac\", {\n    email: {\n        address: \"john@example.com\",\n    },\n    sendRecovery: true,\n    sendFailure: false,\n    sendDegraded: true,\n    sslExpiry: true,\n    sslExpiryThreshold: 22,\n});\n// A SMS alert channel\nconst smsAc = new checkly.AlertChannel(\"sms_ac\", {\n    sms: {\n        name: \"john\",\n        number: \"+5491100001111\",\n    },\n    sendRecovery: true,\n    sendFailure: true,\n});\n// A Slack alert channel\nconst slackAc = new checkly.AlertChannel(\"slack_ac\", {slack: {\n    channel: \"#checkly-notifications\",\n    url: \"https://hooks.slack.com/services/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\",\n}});\n// An Opsgenie alert channel\nconst opsgenieAc = new checkly.AlertChannel(\"opsgenie_ac\", {opsgenie: {\n    name: \"opsalerts\",\n    apiKey: \"fookey\",\n    region: \"fooregion\",\n    priority: \"foopriority\",\n}});\n// A Pagerduty alert channel\nconst pagerdutyAc = new checkly.AlertChannel(\"pagerduty_ac\", {pagerduty: {\n    account: \"checkly\",\n    serviceKey: \"key1\",\n    serviceName: \"pdalert\",\n}});\n// A Webhook alert channel\nconst webhookAc = new checkly.AlertChannel(\"webhook_ac\", {webhook: {\n    name: \"foo\",\n    method: \"get\",\n    template: \"footemplate\",\n    url: \"https://example.com/foo\",\n    webhookSecret: \"foosecret\",\n}});\n// A Firehydran alert channel integration\nconst firehydrantAc = new checkly.AlertChannel(\"firehydrant_ac\", {webhook: {\n    name: \"firehydrant\",\n    method: \"post\",\n    template: `{\n  \"event\": \"{{ALERT_TITLE}}\",\n  \"link\": \"{{RESULT_LINK}}\",\n  \"check_id\": \"{{CHECK_ID}}\",\n  \"check_type\": \"{{CHECK_TYPE}}\",\n  \"alert_type\": \"{{ALERT_TYPE}}\",\n  \"started_at\": \"{{STARTED_AT}}\",\n  \"check_result_id\": \"{{CHECK_RESULT_ID}}\"\n},\n`,\n    url: \"https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly\",\n    webhookType: \"WEBHOOK_FIREHYDRANT\",\n}});\n// Connecting the alert channel to a check\nconst exampleCheck = new checkly.Check(\"example_check\", {\n    name: \"Example check\",\n    alertChannelSubscriptions: [\n        {\n            channelId: emailAc.id,\n            activated: true,\n        },\n        {\n            channelId: smsAc.id,\n            activated: true,\n        },\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# An Email alert channel\nemail_ac = checkly.AlertChannel(\"email_ac\",\n    email={\n        \"address\": \"john@example.com\",\n    },\n    send_recovery=True,\n    send_failure=False,\n    send_degraded=True,\n    ssl_expiry=True,\n    ssl_expiry_threshold=22)\n# A SMS alert channel\nsms_ac = checkly.AlertChannel(\"sms_ac\",\n    sms={\n        \"name\": \"john\",\n        \"number\": \"+5491100001111\",\n    },\n    send_recovery=True,\n    send_failure=True)\n# A Slack alert channel\nslack_ac = checkly.AlertChannel(\"slack_ac\", slack={\n    \"channel\": \"#checkly-notifications\",\n    \"url\": \"https://hooks.slack.com/services/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\",\n})\n# An Opsgenie alert channel\nopsgenie_ac = checkly.AlertChannel(\"opsgenie_ac\", opsgenie={\n    \"name\": \"opsalerts\",\n    \"api_key\": \"fookey\",\n    \"region\": \"fooregion\",\n    \"priority\": \"foopriority\",\n})\n# A Pagerduty alert channel\npagerduty_ac = checkly.AlertChannel(\"pagerduty_ac\", pagerduty={\n    \"account\": \"checkly\",\n    \"service_key\": \"key1\",\n    \"service_name\": \"pdalert\",\n})\n# A Webhook alert channel\nwebhook_ac = checkly.AlertChannel(\"webhook_ac\", webhook={\n    \"name\": \"foo\",\n    \"method\": \"get\",\n    \"template\": \"footemplate\",\n    \"url\": \"https://example.com/foo\",\n    \"webhook_secret\": \"foosecret\",\n})\n# A Firehydran alert channel integration\nfirehydrant_ac = checkly.AlertChannel(\"firehydrant_ac\", webhook={\n    \"name\": \"firehydrant\",\n    \"method\": \"post\",\n    \"template\": \"\"\"{\n  \"event\": \"{{ALERT_TITLE}}\",\n  \"link\": \"{{RESULT_LINK}}\",\n  \"check_id\": \"{{CHECK_ID}}\",\n  \"check_type\": \"{{CHECK_TYPE}}\",\n  \"alert_type\": \"{{ALERT_TYPE}}\",\n  \"started_at\": \"{{STARTED_AT}}\",\n  \"check_result_id\": \"{{CHECK_RESULT_ID}}\"\n},\n\"\"\",\n    \"url\": \"https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly\",\n    \"webhook_type\": \"WEBHOOK_FIREHYDRANT\",\n})\n# Connecting the alert channel to a check\nexample_check = checkly.Check(\"example_check\",\n    name=\"Example check\",\n    alert_channel_subscriptions=[\n        {\n            \"channel_id\": email_ac.id,\n            \"activated\": True,\n        },\n        {\n            \"channel_id\": sms_ac.id,\n            \"activated\": True,\n        },\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // An Email alert channel\n    var emailAc = new Checkly.AlertChannel(\"email_ac\", new()\n    {\n        Email = new Checkly.Inputs.AlertChannelEmailArgs\n        {\n            Address = \"john@example.com\",\n        },\n        SendRecovery = true,\n        SendFailure = false,\n        SendDegraded = true,\n        SslExpiry = true,\n        SslExpiryThreshold = 22,\n    });\n\n    // A SMS alert channel\n    var smsAc = new Checkly.AlertChannel(\"sms_ac\", new()\n    {\n        Sms = new Checkly.Inputs.AlertChannelSmsArgs\n        {\n            Name = \"john\",\n            Number = \"+5491100001111\",\n        },\n        SendRecovery = true,\n        SendFailure = true,\n    });\n\n    // A Slack alert channel\n    var slackAc = new Checkly.AlertChannel(\"slack_ac\", new()\n    {\n        Slack = new Checkly.Inputs.AlertChannelSlackArgs\n        {\n            Channel = \"#checkly-notifications\",\n            Url = \"https://hooks.slack.com/services/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\",\n        },\n    });\n\n    // An Opsgenie alert channel\n    var opsgenieAc = new Checkly.AlertChannel(\"opsgenie_ac\", new()\n    {\n        Opsgenie = new Checkly.Inputs.AlertChannelOpsgenieArgs\n        {\n            Name = \"opsalerts\",\n            ApiKey = \"fookey\",\n            Region = \"fooregion\",\n            Priority = \"foopriority\",\n        },\n    });\n\n    // A Pagerduty alert channel\n    var pagerdutyAc = new Checkly.AlertChannel(\"pagerduty_ac\", new()\n    {\n        Pagerduty = new Checkly.Inputs.AlertChannelPagerdutyArgs\n        {\n            Account = \"checkly\",\n            ServiceKey = \"key1\",\n            ServiceName = \"pdalert\",\n        },\n    });\n\n    // A Webhook alert channel\n    var webhookAc = new Checkly.AlertChannel(\"webhook_ac\", new()\n    {\n        Webhook = new Checkly.Inputs.AlertChannelWebhookArgs\n        {\n            Name = \"foo\",\n            Method = \"get\",\n            Template = \"footemplate\",\n            Url = \"https://example.com/foo\",\n            WebhookSecret = \"foosecret\",\n        },\n    });\n\n    // A Firehydran alert channel integration\n    var firehydrantAc = new Checkly.AlertChannel(\"firehydrant_ac\", new()\n    {\n        Webhook = new Checkly.Inputs.AlertChannelWebhookArgs\n        {\n            Name = \"firehydrant\",\n            Method = \"post\",\n            Template = @\"{\n  \"\"event\"\": \"\"{{ALERT_TITLE}}\"\",\n  \"\"link\"\": \"\"{{RESULT_LINK}}\"\",\n  \"\"check_id\"\": \"\"{{CHECK_ID}}\"\",\n  \"\"check_type\"\": \"\"{{CHECK_TYPE}}\"\",\n  \"\"alert_type\"\": \"\"{{ALERT_TYPE}}\"\",\n  \"\"started_at\"\": \"\"{{STARTED_AT}}\"\",\n  \"\"check_result_id\"\": \"\"{{CHECK_RESULT_ID}}\"\"\n},\n\",\n            Url = \"https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly\",\n            WebhookType = \"WEBHOOK_FIREHYDRANT\",\n        },\n    });\n\n    // Connecting the alert channel to a check\n    var exampleCheck = new Checkly.Check(\"example_check\", new()\n    {\n        Name = \"Example check\",\n        AlertChannelSubscriptions = new[]\n        {\n            new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n            {\n                ChannelId = emailAc.Id,\n                Activated = true,\n            },\n            new Checkly.Inputs.CheckAlertChannelSubscriptionArgs\n            {\n                ChannelId = smsAc.Id,\n                Activated = true,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// An Email alert channel\n\t\temailAc, err := checkly.NewAlertChannel(ctx, \"email_ac\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026checkly.AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"john@example.com\"),\n\t\t\t},\n\t\t\tSendRecovery:       pulumi.Bool(true),\n\t\t\tSendFailure:        pulumi.Bool(false),\n\t\t\tSendDegraded:       pulumi.Bool(true),\n\t\t\tSslExpiry:          pulumi.Bool(true),\n\t\t\tSslExpiryThreshold: pulumi.Int(22),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A SMS alert channel\n\t\tsmsAc, err := checkly.NewAlertChannel(ctx, \"sms_ac\", \u0026checkly.AlertChannelArgs{\n\t\t\tSms: \u0026checkly.AlertChannelSmsArgs{\n\t\t\t\tName:   pulumi.String(\"john\"),\n\t\t\t\tNumber: pulumi.String(\"+5491100001111\"),\n\t\t\t},\n\t\t\tSendRecovery: pulumi.Bool(true),\n\t\t\tSendFailure:  pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A Slack alert channel\n\t\t_, err = checkly.NewAlertChannel(ctx, \"slack_ac\", \u0026checkly.AlertChannelArgs{\n\t\t\tSlack: \u0026checkly.AlertChannelSlackArgs{\n\t\t\t\tChannel: pulumi.String(\"#checkly-notifications\"),\n\t\t\t\tUrl:     pulumi.String(\"https://hooks.slack.com/services/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\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// An Opsgenie alert channel\n\t\t_, err = checkly.NewAlertChannel(ctx, \"opsgenie_ac\", \u0026checkly.AlertChannelArgs{\n\t\t\tOpsgenie: \u0026checkly.AlertChannelOpsgenieArgs{\n\t\t\t\tName:     pulumi.String(\"opsalerts\"),\n\t\t\t\tApiKey:   pulumi.String(\"fookey\"),\n\t\t\t\tRegion:   pulumi.String(\"fooregion\"),\n\t\t\t\tPriority: pulumi.String(\"foopriority\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A Pagerduty alert channel\n\t\t_, err = checkly.NewAlertChannel(ctx, \"pagerduty_ac\", \u0026checkly.AlertChannelArgs{\n\t\t\tPagerduty: \u0026checkly.AlertChannelPagerdutyArgs{\n\t\t\t\tAccount:     pulumi.String(\"checkly\"),\n\t\t\t\tServiceKey:  pulumi.String(\"key1\"),\n\t\t\t\tServiceName: pulumi.String(\"pdalert\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A Webhook alert channel\n\t\t_, err = checkly.NewAlertChannel(ctx, \"webhook_ac\", \u0026checkly.AlertChannelArgs{\n\t\t\tWebhook: \u0026checkly.AlertChannelWebhookArgs{\n\t\t\t\tName:          pulumi.String(\"foo\"),\n\t\t\t\tMethod:        pulumi.String(\"get\"),\n\t\t\t\tTemplate:      pulumi.String(\"footemplate\"),\n\t\t\t\tUrl:           pulumi.String(\"https://example.com/foo\"),\n\t\t\t\tWebhookSecret: pulumi.String(\"foosecret\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A Firehydran alert channel integration\n\t\t_, err = checkly.NewAlertChannel(ctx, \"firehydrant_ac\", \u0026checkly.AlertChannelArgs{\n\t\t\tWebhook: \u0026checkly.AlertChannelWebhookArgs{\n\t\t\t\tName:   pulumi.String(\"firehydrant\"),\n\t\t\t\tMethod: pulumi.String(\"post\"),\n\t\t\t\tTemplate: pulumi.String(`{\n  \"event\": \"{{ALERT_TITLE}}\",\n  \"link\": \"{{RESULT_LINK}}\",\n  \"check_id\": \"{{CHECK_ID}}\",\n  \"check_type\": \"{{CHECK_TYPE}}\",\n  \"alert_type\": \"{{ALERT_TYPE}}\",\n  \"started_at\": \"{{STARTED_AT}}\",\n  \"check_result_id\": \"{{CHECK_RESULT_ID}}\"\n},\n`),\n\t\t\t\tUrl:         pulumi.String(\"https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly\"),\n\t\t\t\tWebhookType: pulumi.String(\"WEBHOOK_FIREHYDRANT\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Connecting the alert channel to a check\n\t\t_, err = checkly.NewCheck(ctx, \"example_check\", \u0026checkly.CheckArgs{\n\t\t\tName: pulumi.String(\"Example check\"),\n\t\t\tAlertChannelSubscriptions: checkly.CheckAlertChannelSubscriptionArray{\n\t\t\t\t\u0026checkly.CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: emailAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026checkly.CheckAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: smsAc.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.AlertChannel;\nimport com.pulumi.checkly.AlertChannelArgs;\nimport com.pulumi.checkly.inputs.AlertChannelEmailArgs;\nimport com.pulumi.checkly.inputs.AlertChannelSmsArgs;\nimport com.pulumi.checkly.inputs.AlertChannelSlackArgs;\nimport com.pulumi.checkly.inputs.AlertChannelOpsgenieArgs;\nimport com.pulumi.checkly.inputs.AlertChannelPagerdutyArgs;\nimport com.pulumi.checkly.inputs.AlertChannelWebhookArgs;\nimport com.pulumi.checkly.Check;\nimport com.pulumi.checkly.CheckArgs;\nimport com.pulumi.checkly.inputs.CheckAlertChannelSubscriptionArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // An Email alert channel\n        var emailAc = new AlertChannel(\"emailAc\", AlertChannelArgs.builder()\n            .email(AlertChannelEmailArgs.builder()\n                .address(\"john@example.com\")\n                .build())\n            .sendRecovery(true)\n            .sendFailure(false)\n            .sendDegraded(true)\n            .sslExpiry(true)\n            .sslExpiryThreshold(22)\n            .build());\n\n        // A SMS alert channel\n        var smsAc = new AlertChannel(\"smsAc\", AlertChannelArgs.builder()\n            .sms(AlertChannelSmsArgs.builder()\n                .name(\"john\")\n                .number(\"+5491100001111\")\n                .build())\n            .sendRecovery(true)\n            .sendFailure(true)\n            .build());\n\n        // A Slack alert channel\n        var slackAc = new AlertChannel(\"slackAc\", AlertChannelArgs.builder()\n            .slack(AlertChannelSlackArgs.builder()\n                .channel(\"#checkly-notifications\")\n                .url(\"https://hooks.slack.com/services/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\")\n                .build())\n            .build());\n\n        // An Opsgenie alert channel\n        var opsgenieAc = new AlertChannel(\"opsgenieAc\", AlertChannelArgs.builder()\n            .opsgenie(AlertChannelOpsgenieArgs.builder()\n                .name(\"opsalerts\")\n                .apiKey(\"fookey\")\n                .region(\"fooregion\")\n                .priority(\"foopriority\")\n                .build())\n            .build());\n\n        // A Pagerduty alert channel\n        var pagerdutyAc = new AlertChannel(\"pagerdutyAc\", AlertChannelArgs.builder()\n            .pagerduty(AlertChannelPagerdutyArgs.builder()\n                .account(\"checkly\")\n                .serviceKey(\"key1\")\n                .serviceName(\"pdalert\")\n                .build())\n            .build());\n\n        // A Webhook alert channel\n        var webhookAc = new AlertChannel(\"webhookAc\", AlertChannelArgs.builder()\n            .webhook(AlertChannelWebhookArgs.builder()\n                .name(\"foo\")\n                .method(\"get\")\n                .template(\"footemplate\")\n                .url(\"https://example.com/foo\")\n                .webhookSecret(\"foosecret\")\n                .build())\n            .build());\n\n        // A Firehydran alert channel integration\n        var firehydrantAc = new AlertChannel(\"firehydrantAc\", AlertChannelArgs.builder()\n            .webhook(AlertChannelWebhookArgs.builder()\n                .name(\"firehydrant\")\n                .method(\"post\")\n                .template(\"\"\"\n{\n  \"event\": \"{{ALERT_TITLE}}\",\n  \"link\": \"{{RESULT_LINK}}\",\n  \"check_id\": \"{{CHECK_ID}}\",\n  \"check_type\": \"{{CHECK_TYPE}}\",\n  \"alert_type\": \"{{ALERT_TYPE}}\",\n  \"started_at\": \"{{STARTED_AT}}\",\n  \"check_result_id\": \"{{CHECK_RESULT_ID}}\"\n},\n                \"\"\")\n                .url(\"https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly\")\n                .webhookType(\"WEBHOOK_FIREHYDRANT\")\n                .build())\n            .build());\n\n        // Connecting the alert channel to a check\n        var exampleCheck = new Check(\"exampleCheck\", CheckArgs.builder()\n            .name(\"Example check\")\n            .alertChannelSubscriptions(            \n                CheckAlertChannelSubscriptionArgs.builder()\n                    .channelId(emailAc.id())\n                    .activated(true)\n                    .build(),\n                CheckAlertChannelSubscriptionArgs.builder()\n                    .channelId(smsAc.id())\n                    .activated(true)\n                    .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # An Email alert channel\n  emailAc:\n    type: checkly:AlertChannel\n    name: email_ac\n    properties:\n      email:\n        address: john@example.com\n      sendRecovery: true\n      sendFailure: false\n      sendDegraded: true\n      sslExpiry: true\n      sslExpiryThreshold: 22\n  # A SMS alert channel\n  smsAc:\n    type: checkly:AlertChannel\n    name: sms_ac\n    properties:\n      sms:\n        name: john\n        number: '+5491100001111'\n      sendRecovery: true\n      sendFailure: true\n  # A Slack alert channel\n  slackAc:\n    type: checkly:AlertChannel\n    name: slack_ac\n    properties:\n      slack:\n        channel: '#checkly-notifications'\n        url: https://hooks.slack.com/services/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\n  # An Opsgenie alert channel\n  opsgenieAc:\n    type: checkly:AlertChannel\n    name: opsgenie_ac\n    properties:\n      opsgenie:\n        name: opsalerts\n        apiKey: fookey\n        region: fooregion\n        priority: foopriority\n  # A Pagerduty alert channel\n  pagerdutyAc:\n    type: checkly:AlertChannel\n    name: pagerduty_ac\n    properties:\n      pagerduty:\n        account: checkly\n        serviceKey: key1\n        serviceName: pdalert\n  # A Webhook alert channel\n  webhookAc:\n    type: checkly:AlertChannel\n    name: webhook_ac\n    properties:\n      webhook:\n        name: foo\n        method: get\n        template: footemplate\n        url: https://example.com/foo\n        webhookSecret: foosecret\n  # A Firehydran alert channel integration\n  firehydrantAc:\n    type: checkly:AlertChannel\n    name: firehydrant_ac\n    properties:\n      webhook:\n        name: firehydrant\n        method: post\n        template: |\n          {\n            \"event\": \"{{ALERT_TITLE}}\",\n            \"link\": \"{{RESULT_LINK}}\",\n            \"check_id\": \"{{CHECK_ID}}\",\n            \"check_type\": \"{{CHECK_TYPE}}\",\n            \"alert_type\": \"{{ALERT_TYPE}}\",\n            \"started_at\": \"{{STARTED_AT}}\",\n            \"check_result_id\": \"{{CHECK_RESULT_ID}}\"\n          },\n        url: https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly\n        webhookType: WEBHOOK_FIREHYDRANT\n  # Connecting the alert channel to a check\n  exampleCheck:\n    type: checkly:Check\n    name: example_check\n    properties:\n      name: Example check\n      alertChannelSubscriptions:\n        - channelId: ${emailAc.id}\n          activated: true\n        - channelId: ${smsAc.id}\n          activated: true\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
+                "call": {
+                    "$ref": "#/types/checkly:index/AlertChannelCall:AlertChannelCall"
+                },
                 "email": {
                     "$ref": "#/types/checkly:index/AlertChannelEmail:AlertChannelEmail"
                 },
@@ -1005,6 +994,9 @@
                 }
             },
             "inputProperties": {
+                "call": {
+                    "$ref": "#/types/checkly:index/AlertChannelCall:AlertChannelCall"
+                },
                 "email": {
                     "$ref": "#/types/checkly:index/AlertChannelEmail:AlertChannelEmail"
                 },
@@ -1047,6 +1039,9 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering AlertChannel resources.\n",
                 "properties": {
+                    "call": {
+                        "$ref": "#/types/checkly:index/AlertChannelCall:AlertChannelCall"
+                    },
                     "email": {
                         "$ref": "#/types/checkly:index/AlertChannelEmail:AlertChannelEmail"
                     },
@@ -1090,7 +1085,7 @@
             }
         },
         "checkly:index/check:Check": {
-            "description": "Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.\n",
+            "description": "Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.\n\n",
             "properties": {
                 "activated": {
                     "type": "boolean",
@@ -1100,34 +1095,43 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings"
                 },
                 "degradedResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between\n0 and 30000. (Default `15000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected\nregion before marking the check as failed.\n"
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
+                },
+                "environmentVariable": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
+                        "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.\nUse global environment variables whenever possible.\n",
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
                     "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,\n`360`, `720`, and `1440`.\n"
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must\nbe `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -1135,7 +1139,7 @@
                 },
                 "groupOrder": {
                     "type": "integer",
-                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from\nthe API or from CI/CD.\n"
+                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
                 },
                 "localSetupScript": {
                     "type": "string",
@@ -1154,7 +1158,7 @@
                 },
                 "maxResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between\n0 and 30000. (Default `30000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
                 },
                 "muted": {
                     "type": "boolean",
@@ -1175,13 +1179,21 @@
                     "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
                     "description": "An API check might have one request config.\n"
                 },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/CheckRetryStrategy:CheckRetryStrategy",
+                    "description": "A strategy for retrying failed check runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the check should run in all selected locations in parallel or round-robin.\n"
+                },
                 "runtimeId": {
                     "type": "string",
                     "description": "The id of the runtime to use for this check.\n"
                 },
                 "script": {
                     "type": "string",
-                    "description": "A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a\nreference to an external JavaScript file.\n"
+                    "description": "A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.\n"
                 },
                 "setupSnippetId": {
                     "type": "integer",
@@ -1196,6 +1208,10 @@
                     "description": "Determines if the SSL certificate should be validated for expiry.\n",
                     "deprecationMessage": "The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version."
                 },
+                "sslCheckDomain": {
+                    "type": "string",
+                    "description": "A valid fully qualified domain name (FQDN) to check its SSL certificate.\n"
+                },
                 "tags": {
                     "type": "array",
                     "items": {
@@ -1209,7 +1225,7 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "The type of the check. Possible values are `API`, and `BROWSER`.\n"
+                    "description": "The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.\n"
                 },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
@@ -1221,6 +1237,7 @@
                 "alertSettings",
                 "frequency",
                 "name",
+                "retryStrategy",
                 "type"
             ],
             "inputProperties": {
@@ -1232,34 +1249,43 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings"
                 },
                 "degradedResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between\n0 and 30000. (Default `15000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected\nregion before marking the check as failed.\n"
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
+                },
+                "environmentVariable": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
+                        "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.\nUse global environment variables whenever possible.\n",
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
                     "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,\n`360`, `720`, and `1440`.\n"
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must\nbe `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -1267,7 +1293,7 @@
                 },
                 "groupOrder": {
                     "type": "integer",
-                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from\nthe API or from CI/CD.\n"
+                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
                 },
                 "localSetupScript": {
                     "type": "string",
@@ -1286,7 +1312,7 @@
                 },
                 "maxResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between\n0 and 30000. (Default `30000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
                 },
                 "muted": {
                     "type": "boolean",
@@ -1307,13 +1333,21 @@
                     "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
                     "description": "An API check might have one request config.\n"
                 },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/CheckRetryStrategy:CheckRetryStrategy",
+                    "description": "A strategy for retrying failed check runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the check should run in all selected locations in parallel or round-robin.\n"
+                },
                 "runtimeId": {
                     "type": "string",
                     "description": "The id of the runtime to use for this check.\n"
                 },
                 "script": {
                     "type": "string",
-                    "description": "A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a\nreference to an external JavaScript file.\n"
+                    "description": "A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.\n"
                 },
                 "setupSnippetId": {
                     "type": "integer",
@@ -1328,6 +1362,10 @@
                     "description": "Determines if the SSL certificate should be validated for expiry.\n",
                     "deprecationMessage": "The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version."
                 },
+                "sslCheckDomain": {
+                    "type": "string",
+                    "description": "A valid fully qualified domain name (FQDN) to check its SSL certificate.\n"
+                },
                 "tags": {
                     "type": "array",
                     "items": {
@@ -1341,7 +1379,7 @@
                 },
                 "type": {
                     "type": "string",
-                    "description": "The type of the check. Possible values are `API`, and `BROWSER`.\n"
+                    "description": "The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.\n"
                 },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
@@ -1364,34 +1402,43 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
-                        }
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings"
                     },
                     "degradedResponseTime": {
                         "type": "integer",
-                        "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between\n0 and 30000. (Default `15000`).\n"
+                        "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
                     },
                     "doubleCheck": {
                         "type": "boolean",
-                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected\nregion before marking the check as failed.\n"
+                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                        "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
+                    },
+                    "environmentVariable": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable"
+                        },
+                        "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
                     },
                     "environmentVariables": {
                         "type": "object",
                         "additionalProperties": {
-                            "$ref": "pulumi.json#/Any"
+                            "type": "string"
                         },
-                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.\nUse global environment variables whenever possible.\n",
+                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
                         "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
                     },
                     "frequency": {
                         "type": "integer",
-                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`,\n`360`, `720`, and `1440`.\n"
+                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
                     },
                     "frequencyOffset": {
                         "type": "integer",
-                        "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must\nbe `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                        "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
                     },
                     "groupId": {
                         "type": "integer",
@@ -1399,7 +1446,7 @@
                     },
                     "groupOrder": {
                         "type": "integer",
-                        "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from\nthe API or from CI/CD.\n"
+                        "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
                     },
                     "localSetupScript": {
                         "type": "string",
@@ -1418,7 +1465,7 @@
                     },
                     "maxResponseTime": {
                         "type": "integer",
-                        "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between\n0 and 30000. (Default `30000`).\n"
+                        "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
                     },
                     "muted": {
                         "type": "boolean",
@@ -1439,13 +1486,21 @@
                         "$ref": "#/types/checkly:index/CheckRequest:CheckRequest",
                         "description": "An API check might have one request config.\n"
                     },
+                    "retryStrategy": {
+                        "$ref": "#/types/checkly:index/CheckRetryStrategy:CheckRetryStrategy",
+                        "description": "A strategy for retrying failed check runs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines if the check should run in all selected locations in parallel or round-robin.\n"
+                    },
                     "runtimeId": {
                         "type": "string",
                         "description": "The id of the runtime to use for this check.\n"
                     },
                     "script": {
                         "type": "string",
-                        "description": "A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a\nreference to an external JavaScript file.\n"
+                        "description": "A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.\n"
                     },
                     "setupSnippetId": {
                         "type": "integer",
@@ -1460,6 +1515,10 @@
                         "description": "Determines if the SSL certificate should be validated for expiry.\n",
                         "deprecationMessage": "The property `ssl_check` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version."
                     },
+                    "sslCheckDomain": {
+                        "type": "string",
+                        "description": "A valid fully qualified domain name (FQDN) to check its SSL certificate.\n"
+                    },
                     "tags": {
                         "type": "array",
                         "items": {
@@ -1473,7 +1532,7 @@
                     },
                     "type": {
                         "type": "string",
-                        "description": "The type of the check. Possible values are `API`, and `BROWSER`.\n"
+                        "description": "The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.\n"
                     },
                     "useGlobalAlertSettings": {
                         "type": "boolean",
@@ -1484,7 +1543,7 @@
             }
         },
         "checkly:index/checkGroup:CheckGroup": {
-            "description": "Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi from \"@checkly/pulumi\";\n\nconst testGroup1CheckGroup = new checkly.CheckGroup(\"testGroup1CheckGroup\", {\n    activated: true,\n    muted: false,\n    tags: [\"auto\"],\n    locations: [\"eu-west-1\"],\n    concurrency: 3,\n    apiCheckDefaults: {\n        url: \"http://example.com/\",\n        headers: {\n            \"X-Test\": \"foo\",\n        },\n        queryParameters: {\n            query: \"foo\",\n        },\n        assertions: [\n            {\n                source: \"STATUS_CODE\",\n                property: \"\",\n                comparison: \"EQUALS\",\n                target: \"200\",\n            },\n            {\n                source: \"TEXT_BODY\",\n                property: \"\",\n                comparison: \"CONTAINS\",\n                target: \"welcome\",\n            },\n        ],\n        basicAuth: {\n            username: \"user\",\n            password: \"pass\",\n        },\n    },\n    environmentVariables: {\n        ENVTEST: \"Hello world\",\n    },\n    doubleCheck: true,\n    useGlobalAlertSettings: false,\n    alertSettings: {\n        escalationType: \"RUN_BASED\",\n        runBasedEscalations: [{\n            failedRunThreshold: 1,\n        }],\n        timeBasedEscalations: [{\n            minutesFailingThreshold: 5,\n        }],\n        reminders: [{\n            amount: 2,\n            interval: 5,\n        }],\n    },\n    localSetupScript: \"setup-test\",\n    localTeardownScript: \"teardown-test\",\n});\n// Add a check to a group\nconst testCheck1 = new checkly.Check(\"testCheck1\", {\n    groupId: testGroup1CheckGroup.id,\n    groupOrder: 1,\n});\n// Using with alert channels\nconst emailAc1 = new checkly.AlertChannel(\"emailAc1\", {email: {\n    address: \"info@example.com\",\n}});\nconst emailAc2 = new checkly.AlertChannel(\"emailAc2\", {email: {\n    address: \"info2@example.com\",\n}});\n// Connect the check group to the alert channels\nconst testGroup1Index_checkGroupCheckGroup = new checkly.CheckGroup(\"testGroup1Index/checkGroupCheckGroup\", {alertChannelSubscriptions: [\n    {\n        channelId: emailAc1.id,\n        activated: true,\n    },\n    {\n        channelId: emailAc2.id,\n        activated: true,\n    },\n]});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_group1_check_group = checkly.CheckGroup(\"testGroup1CheckGroup\",\n    activated=True,\n    muted=False,\n    tags=[\"auto\"],\n    locations=[\"eu-west-1\"],\n    concurrency=3,\n    api_check_defaults=checkly.CheckGroupApiCheckDefaultsArgs(\n        url=\"http://example.com/\",\n        headers={\n            \"X-Test\": \"foo\",\n        },\n        query_parameters={\n            \"query\": \"foo\",\n        },\n        assertions=[\n            checkly.CheckGroupApiCheckDefaultsAssertionArgs(\n                source=\"STATUS_CODE\",\n                property=\"\",\n                comparison=\"EQUALS\",\n                target=\"200\",\n            ),\n            checkly.CheckGroupApiCheckDefaultsAssertionArgs(\n                source=\"TEXT_BODY\",\n                property=\"\",\n                comparison=\"CONTAINS\",\n                target=\"welcome\",\n            ),\n        ],\n        basic_auth=checkly.CheckGroupApiCheckDefaultsBasicAuthArgs(\n            username=\"user\",\n            password=\"pass\",\n        ),\n    ),\n    environment_variables={\n        \"ENVTEST\": \"Hello world\",\n    },\n    double_check=True,\n    use_global_alert_settings=False,\n    alert_settings=checkly.CheckGroupAlertSettingsArgs(\n        escalation_type=\"RUN_BASED\",\n        run_based_escalations=[checkly.CheckGroupAlertSettingsRunBasedEscalationArgs(\n            failed_run_threshold=1,\n        )],\n        time_based_escalations=[checkly.CheckGroupAlertSettingsTimeBasedEscalationArgs(\n            minutes_failing_threshold=5,\n        )],\n        reminders=[checkly.CheckGroupAlertSettingsReminderArgs(\n            amount=2,\n            interval=5,\n        )],\n    ),\n    local_setup_script=\"setup-test\",\n    local_teardown_script=\"teardown-test\")\n# Add a check to a group\ntest_check1 = checkly.Check(\"testCheck1\",\n    group_id=test_group1_check_group.id,\n    group_order=1)\n# Using with alert channels\nemail_ac1 = checkly.AlertChannel(\"emailAc1\", email=checkly.AlertChannelEmailArgs(\n    address=\"info@example.com\",\n))\nemail_ac2 = checkly.AlertChannel(\"emailAc2\", email=checkly.AlertChannelEmailArgs(\n    address=\"info2@example.com\",\n))\n# Connect the check group to the alert channels\ntest_group1_index_check_group_check_group = checkly.CheckGroup(\"testGroup1Index/checkGroupCheckGroup\", alert_channel_subscriptions=[\n    checkly.CheckGroupAlertChannelSubscriptionArgs(\n        channel_id=email_ac1.id,\n        activated=True,\n    ),\n    checkly.CheckGroupAlertChannelSubscriptionArgs(\n        channel_id=email_ac2.id,\n        activated=True,\n    ),\n])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var testGroup1CheckGroup = new Checkly.CheckGroup(\"testGroup1CheckGroup\", new Checkly.CheckGroupArgs\n        {\n            Activated = true,\n            Muted = false,\n            Tags = \n            {\n                \"auto\",\n            },\n            Locations = \n            {\n                \"eu-west-1\",\n            },\n            Concurrency = 3,\n            ApiCheckDefaults = new Checkly.Inputs.CheckGroupApiCheckDefaultsArgs\n            {\n                Url = \"http://example.com/\",\n                Headers = \n                {\n                    { \"X-Test\", \"foo\" },\n                },\n                QueryParameters = \n                {\n                    { \"query\", \"foo\" },\n                },\n                Assertions = \n                {\n                    new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs\n                    {\n                        Source = \"STATUS_CODE\",\n                        Property = \"\",\n                        Comparison = \"EQUALS\",\n                        Target = \"200\",\n                    },\n                    new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs\n                    {\n                        Source = \"TEXT_BODY\",\n                        Property = \"\",\n                        Comparison = \"CONTAINS\",\n                        Target = \"welcome\",\n                    },\n                },\n                BasicAuth = new Checkly.Inputs.CheckGroupApiCheckDefaultsBasicAuthArgs\n                {\n                    Username = \"user\",\n                    Password = \"pass\",\n                },\n            },\n            EnvironmentVariables = \n            {\n                { \"ENVTEST\", \"Hello world\" },\n            },\n            DoubleCheck = true,\n            UseGlobalAlertSettings = false,\n            AlertSettings = new Checkly.Inputs.CheckGroupAlertSettingsArgs\n            {\n                EscalationType = \"RUN_BASED\",\n                RunBasedEscalations = \n                {\n                    new Checkly.Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs\n                    {\n                        FailedRunThreshold = 1,\n                    },\n                },\n                TimeBasedEscalations = \n                {\n                    new Checkly.Inputs.CheckGroupAlertSettingsTimeBasedEscalationArgs\n                    {\n                        MinutesFailingThreshold = 5,\n                    },\n                },\n                Reminders = \n                {\n                    new Checkly.Inputs.CheckGroupAlertSettingsReminderArgs\n                    {\n                        Amount = 2,\n                        Interval = 5,\n                    },\n                },\n            },\n            LocalSetupScript = \"setup-test\",\n            LocalTeardownScript = \"teardown-test\",\n        });\n        // Add a check to a group\n        var testCheck1 = new Checkly.Check(\"testCheck1\", new Checkly.CheckArgs\n        {\n            GroupId = testGroup1CheckGroup.Id,\n            GroupOrder = 1,\n        });\n        // Using with alert channels\n        var emailAc1 = new Checkly.AlertChannel(\"emailAc1\", new Checkly.AlertChannelArgs\n        {\n            Email = new Checkly.Inputs.AlertChannelEmailArgs\n            {\n                Address = \"info@example.com\",\n            },\n        });\n        var emailAc2 = new Checkly.AlertChannel(\"emailAc2\", new Checkly.AlertChannelArgs\n        {\n            Email = new Checkly.Inputs.AlertChannelEmailArgs\n            {\n                Address = \"info2@example.com\",\n            },\n        });\n        // Connect the check group to the alert channels\n        var testGroup1Index_checkGroupCheckGroup = new Checkly.CheckGroup(\"testGroup1Index/checkGroupCheckGroup\", new Checkly.CheckGroupArgs\n        {\n            AlertChannelSubscriptions = \n            {\n                new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs\n                {\n                    ChannelId = emailAc1.Id,\n                    Activated = true,\n                },\n                new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs\n                {\n                    ChannelId = emailAc2.Id,\n                    Activated = true,\n                },\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestGroup1CheckGroup, err := checkly.NewCheckGroup(ctx, \"testGroup1CheckGroup\", \u0026checkly.CheckGroupArgs{\n\t\t\tActivated: pulumi.Bool(true),\n\t\t\tMuted:     pulumi.Bool(false),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"auto\"),\n\t\t\t},\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"eu-west-1\"),\n\t\t\t},\n\t\t\tConcurrency: pulumi.Int(3),\n\t\t\tApiCheckDefaults: \u0026CheckGroupApiCheckDefaultsArgs{\n\t\t\t\tUrl: pulumi.String(\"http://example.com/\"),\n\t\t\t\tHeaders: pulumi.AnyMap{\n\t\t\t\t\t\"X-Test\": pulumi.Any(\"foo\"),\n\t\t\t\t},\n\t\t\t\tQueryParameters: pulumi.AnyMap{\n\t\t\t\t\t\"query\": pulumi.Any(\"foo\"),\n\t\t\t\t},\n\t\t\t\tAssertions: CheckGroupApiCheckDefaultsAssertionArray{\n\t\t\t\t\t\u0026CheckGroupApiCheckDefaultsAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"STATUS_CODE\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"EQUALS\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"200\"),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026CheckGroupApiCheckDefaultsAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"TEXT_BODY\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"CONTAINS\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"welcome\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tBasicAuth: \u0026CheckGroupApiCheckDefaultsBasicAuthArgs{\n\t\t\t\t\tUsername: pulumi.String(\"user\"),\n\t\t\t\t\tPassword: pulumi.String(\"pass\"),\n\t\t\t\t},\n\t\t\t},\n\t\t\tEnvironmentVariables: pulumi.AnyMap{\n\t\t\t\t\"ENVTEST\": pulumi.Any(\"Hello world\"),\n\t\t\t},\n\t\t\tDoubleCheck:            pulumi.Bool(true),\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(false),\n\t\t\tAlertSettings: \u0026CheckGroupAlertSettingsArgs{\n\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\tRunBasedEscalations: CheckGroupAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\u0026CheckGroupAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tTimeBasedEscalations: CheckGroupAlertSettingsTimeBasedEscalationArray{\n\t\t\t\t\t\u0026CheckGroupAlertSettingsTimeBasedEscalationArgs{\n\t\t\t\t\t\tMinutesFailingThreshold: pulumi.Int(5),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tReminders: CheckGroupAlertSettingsReminderArray{\n\t\t\t\t\t\u0026CheckGroupAlertSettingsReminderArgs{\n\t\t\t\t\t\tAmount:   pulumi.Int(2),\n\t\t\t\t\t\tInterval: pulumi.Int(5),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tLocalSetupScript:    pulumi.String(\"setup-test\"),\n\t\t\tLocalTeardownScript: pulumi.String(\"teardown-test\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewCheck(ctx, \"testCheck1\", \u0026checkly.CheckArgs{\n\t\t\tGroupId:    testGroup1CheckGroup.ID(),\n\t\t\tGroupOrder: pulumi.Int(1),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\temailAc1, err := checkly.NewAlertChannel(ctx, \"emailAc1\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"info@example.com\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\temailAc2, err := checkly.NewAlertChannel(ctx, \"emailAc2\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"info2@example.com\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewCheckGroup(ctx, \"testGroup1Index/checkGroupCheckGroup\", \u0026checkly.CheckGroupArgs{\n\t\t\tAlertChannelSubscriptions: CheckGroupAlertChannelSubscriptionArray{\n\t\t\t\t\u0026CheckGroupAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: emailAc1.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t\t\u0026CheckGroupAlertChannelSubscriptionArgs{\n\t\t\t\t\tChannelId: emailAc2.ID(),\n\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.\n\n",
             "properties": {
                 "activated": {
                     "type": "boolean",
@@ -1508,14 +1567,22 @@
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected\nregion before marking the check as failed.\n"
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
+                },
+                "environmentVariable": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
+                        "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.\nUse global environment variables whenever possible.\n",
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
                     "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
                 },
                 "localSetupScript": {
@@ -1547,6 +1614,14 @@
                         "type": "string"
                     },
                     "description": "An array of one or more private locations slugs.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/CheckGroupRetryStrategy:CheckGroupRetryStrategy",
+                    "description": "A strategy for retrying failed check runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the checks in the group should run in all selected locations in parallel or round-robin.\n"
                 },
                 "runtimeId": {
                     "type": "string",
@@ -1577,7 +1652,8 @@
                 "alertSettings",
                 "apiCheckDefaults",
                 "concurrency",
-                "name"
+                "name",
+                "retryStrategy"
             ],
             "inputProperties": {
                 "activated": {
@@ -1602,14 +1678,22 @@
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected\nregion before marking the check as failed.\n"
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
+                },
+                "environmentVariable": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable"
+                    },
+                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
+                        "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.\nUse global environment variables whenever possible.\n",
+                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
                     "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
                 },
                 "localSetupScript": {
@@ -1641,6 +1725,14 @@
                         "type": "string"
                     },
                     "description": "An array of one or more private locations slugs.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/CheckGroupRetryStrategy:CheckGroupRetryStrategy",
+                    "description": "A strategy for retrying failed check runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the checks in the group should run in all selected locations in parallel or round-robin.\n"
                 },
                 "runtimeId": {
                     "type": "string",
@@ -1695,14 +1787,22 @@
                     },
                     "doubleCheck": {
                         "type": "boolean",
-                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected\nregion before marking the check as failed.\n"
+                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                        "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
+                    },
+                    "environmentVariable": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable"
+                        },
+                        "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
                     },
                     "environmentVariables": {
                         "type": "object",
                         "additionalProperties": {
-                            "$ref": "pulumi.json#/Any"
+                            "type": "string"
                         },
-                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks.\nUse global environment variables whenever possible.\n",
+                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
                         "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
                     },
                     "localSetupScript": {
@@ -1735,6 +1835,14 @@
                         },
                         "description": "An array of one or more private locations slugs.\n"
                     },
+                    "retryStrategy": {
+                        "$ref": "#/types/checkly:index/CheckGroupRetryStrategy:CheckGroupRetryStrategy",
+                        "description": "A strategy for retrying failed check runs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines if the checks in the group should run in all selected locations in parallel or round-robin.\n"
+                    },
                     "runtimeId": {
                         "type": "string",
                         "description": "The id of the runtime to use for this group.\n"
@@ -1763,7 +1871,7 @@
             }
         },
         "checkly:index/dashboard:Dashboard": {
-            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst dashboard1 = new checkly.Dashboard(\"dashboard_1\", {\n    customDomain: \"status.example.com\",\n    customUrl: \"checkly\",\n    header: \"Public dashboard\",\n    hideTags: false,\n    logo: \"https://www.checklyhq.com/logo.png\",\n    paginate: false,\n    paginationRate: 30,\n    refreshRate: 60,\n    tags: [\"production\"],\n    width: \"FULL\",\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ndashboard1 = checkly.Dashboard(\"dashboard1\",\n    custom_domain=\"status.example.com\",\n    custom_url=\"checkly\",\n    header=\"Public dashboard\",\n    hide_tags=False,\n    logo=\"https://www.checklyhq.com/logo.png\",\n    paginate=False,\n    pagination_rate=30,\n    refresh_rate=60,\n    tags=[\"production\"],\n    width=\"FULL\")\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var dashboard1 = new Checkly.Dashboard(\"dashboard1\", new Checkly.DashboardArgs\n        {\n            CustomDomain = \"status.example.com\",\n            CustomUrl = \"checkly\",\n            Header = \"Public dashboard\",\n            HideTags = false,\n            Logo = \"https://www.checklyhq.com/logo.png\",\n            Paginate = false,\n            PaginationRate = 30,\n            RefreshRate = 60,\n            Tags = \n            {\n                \"production\",\n            },\n            Width = \"FULL\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewDashboard(ctx, \"dashboard1\", \u0026checkly.DashboardArgs{\n\t\t\tCustomDomain:   pulumi.String(\"status.example.com\"),\n\t\t\tCustomUrl:      pulumi.String(\"checkly\"),\n\t\t\tHeader:         pulumi.String(\"Public dashboard\"),\n\t\t\tHideTags:       pulumi.Bool(false),\n\t\t\tLogo:           pulumi.String(\"https://www.checklyhq.com/logo.png\"),\n\t\t\tPaginate:       pulumi.Bool(false),\n\t\t\tPaginationRate: pulumi.Int(30),\n\t\t\tRefreshRate:    pulumi.Int(60),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tWidth: pulumi.String(\"FULL\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst dashboard1 = new checkly.Dashboard(\"dashboard_1\", {\n    customUrl: \"checkly\",\n    customDomain: \"status.example.com\",\n    logo: \"https://www.checklyhq.com/logo.png\",\n    header: \"Public dashboard\",\n    refreshRate: 60,\n    paginate: false,\n    paginationRate: 30,\n    hideTags: false,\n    width: \"FULL\",\n    tags: [\"production\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ndashboard1 = checkly.Dashboard(\"dashboard_1\",\n    custom_url=\"checkly\",\n    custom_domain=\"status.example.com\",\n    logo=\"https://www.checklyhq.com/logo.png\",\n    header=\"Public dashboard\",\n    refresh_rate=60,\n    paginate=False,\n    pagination_rate=30,\n    hide_tags=False,\n    width=\"FULL\",\n    tags=[\"production\"])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var dashboard1 = new Checkly.Dashboard(\"dashboard_1\", new()\n    {\n        CustomUrl = \"checkly\",\n        CustomDomain = \"status.example.com\",\n        Logo = \"https://www.checklyhq.com/logo.png\",\n        Header = \"Public dashboard\",\n        RefreshRate = 60,\n        Paginate = false,\n        PaginationRate = 30,\n        HideTags = false,\n        Width = \"FULL\",\n        Tags = new[]\n        {\n            \"production\",\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewDashboard(ctx, \"dashboard_1\", \u0026checkly.DashboardArgs{\n\t\t\tCustomUrl:      pulumi.String(\"checkly\"),\n\t\t\tCustomDomain:   pulumi.String(\"status.example.com\"),\n\t\t\tLogo:           pulumi.String(\"https://www.checklyhq.com/logo.png\"),\n\t\t\tHeader:         pulumi.String(\"Public dashboard\"),\n\t\t\tRefreshRate:    pulumi.Int(60),\n\t\t\tPaginate:       pulumi.Bool(false),\n\t\t\tPaginationRate: pulumi.Int(30),\n\t\t\tHideTags:       pulumi.Bool(false),\n\t\t\tWidth:          pulumi.String(\"FULL\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.Dashboard;\nimport com.pulumi.checkly.DashboardArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var dashboard1 = new Dashboard(\"dashboard1\", DashboardArgs.builder()\n            .customUrl(\"checkly\")\n            .customDomain(\"status.example.com\")\n            .logo(\"https://www.checklyhq.com/logo.png\")\n            .header(\"Public dashboard\")\n            .refreshRate(60)\n            .paginate(false)\n            .paginationRate(30)\n            .hideTags(false)\n            .width(\"FULL\")\n            .tags(\"production\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  dashboard1:\n    type: checkly:Dashboard\n    name: dashboard_1\n    properties:\n      customUrl: checkly\n      customDomain: status.example.com\n      logo: https://www.checklyhq.com/logo.png\n      header: Public dashboard\n      refreshRate: 60\n      paginate: false\n      paginationRate: 30\n      hideTags: false\n      width: FULL\n      tags:\n        - production\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "checksPerPage": {
                     "type": "integer",
@@ -1779,7 +1887,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "HTML \u003cmeta\u003e description for the dashboard.\n"
+                    "description": "HTML \\n\\n description for the dashboard.\n"
                 },
                 "favicon": {
                     "type": "string",
@@ -1792,6 +1900,15 @@
                 "hideTags": {
                     "type": "boolean",
                     "description": "Show or hide the tags on the dashboard.\n"
+                },
+                "isPrivate": {
+                    "type": "boolean",
+                    "description": "Set your dashboard as private and generate key.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The access key when the dashboard is private.\n",
+                    "secret": true
                 },
                 "link": {
                     "type": "string",
@@ -1830,7 +1947,8 @@
                 }
             },
             "required": [
-                "customUrl"
+                "customUrl",
+                "key"
             ],
             "inputProperties": {
                 "checksPerPage": {
@@ -1847,7 +1965,7 @@
                 },
                 "description": {
                     "type": "string",
-                    "description": "HTML \u003cmeta\u003e description for the dashboard.\n"
+                    "description": "HTML \\n\\n description for the dashboard.\n"
                 },
                 "favicon": {
                     "type": "string",
@@ -1860,6 +1978,10 @@
                 "hideTags": {
                     "type": "boolean",
                     "description": "Show or hide the tags on the dashboard.\n"
+                },
+                "isPrivate": {
+                    "type": "boolean",
+                    "description": "Set your dashboard as private and generate key.\n"
                 },
                 "link": {
                     "type": "string",
@@ -1917,7 +2039,7 @@
                     },
                     "description": {
                         "type": "string",
-                        "description": "HTML \u003cmeta\u003e description for the dashboard.\n"
+                        "description": "HTML \\n\\n description for the dashboard.\n"
                     },
                     "favicon": {
                         "type": "string",
@@ -1930,6 +2052,15 @@
                     "hideTags": {
                         "type": "boolean",
                         "description": "Show or hide the tags on the dashboard.\n"
+                    },
+                    "isPrivate": {
+                        "type": "boolean",
+                        "description": "Set your dashboard as private and generate key.\n"
+                    },
+                    "key": {
+                        "type": "string",
+                        "description": "The access key when the dashboard is private.\n",
+                        "secret": true
                     },
                     "link": {
                         "type": "string",
@@ -1971,12 +2102,15 @@
             }
         },
         "checkly:index/environmentVariable:EnvironmentVariable": {
-            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\n// Simple Enviroment Variable example\nconst variable1 = new checkly.EnvironmentVariable(\"variable_1\", {\n    key: \"API_KEY\",\n    locked: true,\n    value: \"loZd9hOGHDUrGvmW\",\n});\nconst variable2 = new checkly.EnvironmentVariable(\"variable_2\", {\n    key: \"API_URL\",\n    value: \"http://localhost:3000\",\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# Simple Enviroment Variable example\nvariable1 = checkly.EnvironmentVariable(\"variable1\",\n    key=\"API_KEY\",\n    locked=True,\n    value=\"loZd9hOGHDUrGvmW\")\nvariable2 = checkly.EnvironmentVariable(\"variable2\",\n    key=\"API_URL\",\n    value=\"http://localhost:3000\")\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // Simple Enviroment Variable example\n        var variable1 = new Checkly.EnvironmentVariable(\"variable1\", new Checkly.EnvironmentVariableArgs\n        {\n            Key = \"API_KEY\",\n            Locked = true,\n            Value = \"loZd9hOGHDUrGvmW\",\n        });\n        var variable2 = new Checkly.EnvironmentVariable(\"variable2\", new Checkly.EnvironmentVariableArgs\n        {\n            Key = \"API_URL\",\n            Value = \"http://localhost:3000\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewEnvironmentVariable(ctx, \"variable1\", \u0026checkly.EnvironmentVariableArgs{\n\t\t\tKey:    pulumi.String(\"API_KEY\"),\n\t\t\tLocked: pulumi.Bool(true),\n\t\t\tValue:  pulumi.String(\"loZd9hOGHDUrGvmW\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewEnvironmentVariable(ctx, \"variable2\", \u0026checkly.EnvironmentVariableArgs{\n\t\t\tKey:   pulumi.String(\"API_URL\"),\n\t\t\tValue: pulumi.String(\"http://localhost:3000\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// Simple Enviroment Variable example\nconst variable1 = new checkly.EnvironmentVariable(\"variable_1\", {\n    key: \"API_KEY\",\n    value: \"loZd9hOGHDUrGvmW\",\n    locked: true,\n});\nconst variable2 = new checkly.EnvironmentVariable(\"variable_2\", {\n    key: \"API_URL\",\n    value: \"http://localhost:3000\",\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# Simple Enviroment Variable example\nvariable1 = checkly.EnvironmentVariable(\"variable_1\",\n    key=\"API_KEY\",\n    value=\"loZd9hOGHDUrGvmW\",\n    locked=True)\nvariable2 = checkly.EnvironmentVariable(\"variable_2\",\n    key=\"API_URL\",\n    value=\"http://localhost:3000\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // Simple Enviroment Variable example\n    var variable1 = new Checkly.EnvironmentVariable(\"variable_1\", new()\n    {\n        Key = \"API_KEY\",\n        Value = \"loZd9hOGHDUrGvmW\",\n        Locked = true,\n    });\n\n    var variable2 = new Checkly.EnvironmentVariable(\"variable_2\", new()\n    {\n        Key = \"API_URL\",\n        Value = \"http://localhost:3000\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// Simple Enviroment Variable example\n\t\t_, err := checkly.NewEnvironmentVariable(ctx, \"variable_1\", \u0026checkly.EnvironmentVariableArgs{\n\t\t\tKey:    pulumi.String(\"API_KEY\"),\n\t\t\tValue:  pulumi.String(\"loZd9hOGHDUrGvmW\"),\n\t\t\tLocked: pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewEnvironmentVariable(ctx, \"variable_2\", \u0026checkly.EnvironmentVariableArgs{\n\t\t\tKey:   pulumi.String(\"API_URL\"),\n\t\t\tValue: pulumi.String(\"http://localhost:3000\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.EnvironmentVariable;\nimport com.pulumi.checkly.EnvironmentVariableArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // Simple Enviroment Variable example\n        var variable1 = new EnvironmentVariable(\"variable1\", EnvironmentVariableArgs.builder()\n            .key(\"API_KEY\")\n            .value(\"loZd9hOGHDUrGvmW\")\n            .locked(true)\n            .build());\n\n        var variable2 = new EnvironmentVariable(\"variable2\", EnvironmentVariableArgs.builder()\n            .key(\"API_URL\")\n            .value(\"http://localhost:3000\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # Simple Enviroment Variable example\n  variable1:\n    type: checkly:EnvironmentVariable\n    name: variable_1\n    properties:\n      key: API_KEY\n      value: loZd9hOGHDUrGvmW\n      locked: true\n  variable2:\n    type: checkly:EnvironmentVariable\n    name: variable_2\n    properties:\n      key: API_URL\n      value: http://localhost:3000\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "key": {
                     "type": "string"
                 },
                 "locked": {
+                    "type": "boolean"
+                },
+                "secret": {
                     "type": "boolean"
                 },
                 "value": {
@@ -1992,6 +2126,9 @@
                     "type": "string"
                 },
                 "locked": {
+                    "type": "boolean"
+                },
+                "secret": {
                     "type": "boolean"
                 },
                 "value": {
@@ -2011,6 +2148,9 @@
                     "locked": {
                         "type": "boolean"
                     },
+                    "secret": {
+                        "type": "boolean"
+                    },
                     "value": {
                         "type": "string"
                     }
@@ -2018,8 +2158,141 @@
                 "type": "object"
             }
         },
+        "checkly:index/heartbeatCheck:HeartbeatCheck": {
+            "description": "Heartbeats allows you to monitor your cron jobs and set up alerting, so you get a notification when things break or slow down.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst example_heartbeat = new checkly.HeartbeatCheck(\"example-heartbeat\", {\n    name: \"Example heartbeat\",\n    activated: true,\n    heartbeat: {\n        period: 7,\n        periodUnit: \"days\",\n        grace: 1,\n        graceUnit: \"days\",\n    },\n    useGlobalAlertSettings: true,\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nexample_heartbeat = checkly.HeartbeatCheck(\"example-heartbeat\",\n    name=\"Example heartbeat\",\n    activated=True,\n    heartbeat={\n        \"period\": 7,\n        \"period_unit\": \"days\",\n        \"grace\": 1,\n        \"grace_unit\": \"days\",\n    },\n    use_global_alert_settings=True)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example_heartbeat = new Checkly.HeartbeatCheck(\"example-heartbeat\", new()\n    {\n        Name = \"Example heartbeat\",\n        Activated = true,\n        Heartbeat = new Checkly.Inputs.HeartbeatCheckHeartbeatArgs\n        {\n            Period = 7,\n            PeriodUnit = \"days\",\n            Grace = 1,\n            GraceUnit = \"days\",\n        },\n        UseGlobalAlertSettings = true,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewHeartbeatCheck(ctx, \"example-heartbeat\", \u0026checkly.HeartbeatCheckArgs{\n\t\t\tName:      pulumi.String(\"Example heartbeat\"),\n\t\t\tActivated: pulumi.Bool(true),\n\t\t\tHeartbeat: \u0026checkly.HeartbeatCheckHeartbeatArgs{\n\t\t\t\tPeriod:     pulumi.Int(7),\n\t\t\t\tPeriodUnit: pulumi.String(\"days\"),\n\t\t\t\tGrace:      pulumi.Int(1),\n\t\t\t\tGraceUnit:  pulumi.String(\"days\"),\n\t\t\t},\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.HeartbeatCheck;\nimport com.pulumi.checkly.HeartbeatCheckArgs;\nimport com.pulumi.checkly.inputs.HeartbeatCheckHeartbeatArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example_heartbeat = new HeartbeatCheck(\"example-heartbeat\", HeartbeatCheckArgs.builder()\n            .name(\"Example heartbeat\")\n            .activated(true)\n            .heartbeat(HeartbeatCheckHeartbeatArgs.builder()\n                .period(7)\n                .periodUnit(\"days\")\n                .grace(1)\n                .graceUnit(\"days\")\n                .build())\n            .useGlobalAlertSettings(true)\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example-heartbeat:\n    type: checkly:HeartbeatCheck\n    properties:\n      name: Example heartbeat\n      activated: true\n      heartbeat:\n        period: 7\n        periodUnit: days\n        grace: 1\n        graceUnit: days\n      useGlobalAlertSettings: true\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription"
+                    }
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings"
+                },
+                "heartbeat": {
+                    "$ref": "#/types/checkly:index/HeartbeatCheckHeartbeat:HeartbeatCheckHeartbeat"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "heartbeat",
+                "name"
+            ],
+            "language": {
+                "csharp": {
+                    "name": "HeartbeatCheck"
+                }
+            },
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription"
+                    }
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings"
+                },
+                "heartbeat": {
+                    "$ref": "#/types/checkly:index/HeartbeatCheckHeartbeat:HeartbeatCheckHeartbeat"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "heartbeat"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering HeartbeatCheck resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription"
+                        }
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings"
+                    },
+                    "heartbeat": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckHeartbeat:HeartbeatCheckHeartbeat"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when a check fails/degrades/recovers.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the check.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of tags for organizing and filtering checks.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "checkly:index/maintenanceWindow:MaintenanceWindow": {
-            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\nconst maintenance1 = new checkly.MaintenanceWindow(\"maintenance_1\", {\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatEndsAt: \"2014-08-24T00:00:00.000Z\",\n    repeatInterval: 1,\n    repeatUnit: \"MONTH\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    tags: [\"production\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance1 = checkly.MaintenanceWindow(\"maintenance1\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_ends_at=\"2014-08-24T00:00:00.000Z\",\n    repeat_interval=1,\n    repeat_unit=\"MONTH\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    tags=[\"production\"])\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var maintenance1 = new Checkly.MaintenanceWindow(\"maintenance1\", new Checkly.MaintenanceWindowArgs\n        {\n            EndsAt = \"2014-08-25T00:00:00.000Z\",\n            RepeatEndsAt = \"2014-08-24T00:00:00.000Z\",\n            RepeatInterval = 1,\n            RepeatUnit = \"MONTH\",\n            StartsAt = \"2014-08-24T00:00:00.000Z\",\n            Tags = \n            {\n                \"production\",\n            },\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindow(ctx, \"maintenance1\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tEndsAt:         pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatEndsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tRepeatInterval: pulumi.Int(1),\n\t\t\tRepeatUnit:     pulumi.String(\"MONTH\"),\n\t\t\tStartsAt:       pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst maintenance_1 = new checkly.MaintenanceWindow(\"maintenance-1\", {\n    name: \"Maintenance Windows\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatUnit: \"MONTH\",\n    repeatEndsAt: \"2014-08-24T00:00:00.000Z\",\n    repeatInterval: 1,\n    tags: [\"production\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindow(\"maintenance-1\",\n    name=\"Maintenance Windows\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_unit=\"MONTH\",\n    repeat_ends_at=\"2014-08-24T00:00:00.000Z\",\n    repeat_interval=1,\n    tags=[\"production\"])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var maintenance_1 = new Checkly.MaintenanceWindow(\"maintenance-1\", new()\n    {\n        Name = \"Maintenance Windows\",\n        StartsAt = \"2014-08-24T00:00:00.000Z\",\n        EndsAt = \"2014-08-25T00:00:00.000Z\",\n        RepeatUnit = \"MONTH\",\n        RepeatEndsAt = \"2014-08-24T00:00:00.000Z\",\n        RepeatInterval = 1,\n        Tags = new[]\n        {\n            \"production\",\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindow(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tName:           pulumi.String(\"Maintenance Windows\"),\n\t\t\tStartsAt:       pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tEndsAt:         pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatUnit:     pulumi.String(\"MONTH\"),\n\t\t\tRepeatEndsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tRepeatInterval: pulumi.Int(1),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.MaintenanceWindow;\nimport com.pulumi.checkly.MaintenanceWindowArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var maintenance_1 = new MaintenanceWindow(\"maintenance-1\", MaintenanceWindowArgs.builder()\n            .name(\"Maintenance Windows\")\n            .startsAt(\"2014-08-24T00:00:00.000Z\")\n            .endsAt(\"2014-08-25T00:00:00.000Z\")\n            .repeatUnit(\"MONTH\")\n            .repeatEndsAt(\"2014-08-24T00:00:00.000Z\")\n            .repeatInterval(1)\n            .tags(\"production\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  maintenance-1:\n    type: checkly:MaintenanceWindow\n    properties:\n      name: Maintenance Windows\n      startsAt: 2014-08-24T00:00:00.000Z\n      endsAt: 2014-08-25T00:00:00.000Z\n      repeatUnit: MONTH\n      repeatEndsAt: 2014-08-24T00:00:00.000Z\n      repeatInterval: 1\n      tags:\n        - production\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "endsAt": {
                     "type": "string",
@@ -2134,7 +2407,7 @@
             }
         },
         "checkly:index/privateLocation:PrivateLocation": {
-            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@pulumi/checkly\";\n\n// Simple Private Location example\nconst location = new checkly.PrivateLocation(\"location\", {\n    slugName: \"new-private-location\",\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# Simple Private Location example\nlocation = checkly.PrivateLocation(\"location\", slug_name=\"new-private-location\")\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        // Simple Private Location example\n        var location = new Checkly.PrivateLocation(\"location\", new Checkly.PrivateLocationArgs\n        {\n            SlugName = \"new-private-location\",\n        });\n    }\n\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewPrivateLocation(ctx, \"location\", \u0026checkly.PrivateLocationArgs{\n\t\t\tSlugName: pulumi.String(\"new-private-location\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst location = new checkly.PrivateLocation(\"location\", {\n    name: \"New Private Location\",\n    slugName: \"new-private-location\",\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nlocation = checkly.PrivateLocation(\"location\",\n    name=\"New Private Location\",\n    slug_name=\"new-private-location\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var location = new Checkly.PrivateLocation(\"location\", new()\n    {\n        Name = \"New Private Location\",\n        SlugName = \"new-private-location\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewPrivateLocation(ctx, \"location\", \u0026checkly.PrivateLocationArgs{\n\t\t\tName:     pulumi.String(\"New Private Location\"),\n\t\t\tSlugName: pulumi.String(\"new-private-location\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.PrivateLocation;\nimport com.pulumi.checkly.PrivateLocationArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var location = new PrivateLocation(\"location\", PrivateLocationArgs.builder()\n            .name(\"New Private Location\")\n            .slugName(\"new-private-location\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  location:\n    type: checkly:PrivateLocation\n    properties:\n      name: New Private Location\n      slugName: new-private-location\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "icon": {
                     "type": "string",
@@ -2145,7 +2418,8 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Private location API keys.\n"
+                    "description": "Private location API keys.\n",
+                    "secret": true
                 },
                 "name": {
                     "type": "string",
@@ -2190,7 +2464,8 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "Private location API keys.\n"
+                        "description": "Private location API keys.\n",
+                        "secret": true
                     },
                     "name": {
                         "type": "string",
@@ -2205,6 +2480,7 @@
             }
         },
         "checkly:index/snippet:Snippet": {
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst example1 = new checkly.Snippet(\"example_1\", {\n    name: \"Example 1\",\n    script: \"console.log('test');\",\n});\n// An alternative way to use multi-line script.\nconst example2 = new checkly.Snippet(\"example_2\", {\n    name: \"Example 2\",\n    script: `    console.log('test1');\n    console.log('test2');\n`,\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nexample1 = checkly.Snippet(\"example_1\",\n    name=\"Example 1\",\n    script=\"console.log('test');\")\n# An alternative way to use multi-line script.\nexample2 = checkly.Snippet(\"example_2\",\n    name=\"Example 2\",\n    script=\"\"\"    console.log('test1');\n    console.log('test2');\n\"\"\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example1 = new Checkly.Snippet(\"example_1\", new()\n    {\n        Name = \"Example 1\",\n        Script = \"console.log('test');\",\n    });\n\n    // An alternative way to use multi-line script.\n    var example2 = new Checkly.Snippet(\"example_2\", new()\n    {\n        Name = \"Example 2\",\n        Script = @\"    console.log('test1');\n    console.log('test2');\n\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewSnippet(ctx, \"example_1\", \u0026checkly.SnippetArgs{\n\t\t\tName:   pulumi.String(\"Example 1\"),\n\t\t\tScript: pulumi.String(\"console.log('test');\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// An alternative way to use multi-line script.\n\t\t_, err = checkly.NewSnippet(ctx, \"example_2\", \u0026checkly.SnippetArgs{\n\t\t\tName:   pulumi.String(\"Example 2\"),\n\t\t\tScript: pulumi.String(\"    console.log('test1');\\n    console.log('test2');\\n\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.Snippet;\nimport com.pulumi.checkly.SnippetArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example1 = new Snippet(\"example1\", SnippetArgs.builder()\n            .name(\"Example 1\")\n            .script(\"console.log('test');\")\n            .build());\n\n        // An alternative way to use multi-line script.\n        var example2 = new Snippet(\"example2\", SnippetArgs.builder()\n            .name(\"Example 2\")\n            .script(\"\"\"\n    console.log('test1');\n    console.log('test2');\n            \"\"\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example1:\n    type: checkly:Snippet\n    name: example_1\n    properties:\n      name: Example 1\n      script: console.log('test');\n  # An alternative way to use multi-line script.\n  example2:\n    type: checkly:Snippet\n    name: example_2\n    properties:\n      name: Example 2\n      script: |2\n            console.log('test1');\n            console.log('test2');\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "name": {
                     "type": "string",
@@ -2248,7 +2524,7 @@
             }
         },
         "checkly:index/triggerCheck:TriggerCheck": {
-            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi from \"@checkly/pulumi\";\n\nconst testTriggerCheck = new checkly.TriggerCheck(\"testTriggerCheck\", {checkId: \"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\"});\nexport const testTriggerCheckUrl = testTriggerCheck.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_check = checkly.TriggerCheck(\"testTriggerCheck\", check_id=\"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\")\npulumi.export(\"testTriggerCheckUrl\", test_trigger_check.url)\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var testTriggerCheck = new Checkly.TriggerCheck(\"testTriggerCheck\", new Checkly.TriggerCheckArgs\n        {\n            CheckId = \"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\",\n        });\n        this.TestTriggerCheckUrl = testTriggerCheck.Url;\n    }\n\n    [Output(\"testTriggerCheckUrl\")]\n    public Output\u003cstring\u003e TestTriggerCheckUrl { get; set; }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerCheck, err := checkly.NewTriggerCheck(ctx, \"testTriggerCheck\", \u0026checkly.TriggerCheckArgs{\n\t\t\tCheckId: pulumi.String(\"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerCheckUrl\", testTriggerCheck.Url)\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst testTriggerCheck = new checkly.TriggerCheck(\"test_trigger_check\", {checkId: \"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\"});\nexport const testTriggerCheckUrl = testTriggerCheck.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_check = checkly.TriggerCheck(\"test_trigger_check\", check_id=\"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\")\npulumi.export(\"testTriggerCheckUrl\", test_trigger_check.url)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testTriggerCheck = new Checkly.TriggerCheck(\"test_trigger_check\", new()\n    {\n        CheckId = \"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\",\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"testTriggerCheckUrl\"] = testTriggerCheck.Url,\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerCheck, err := checkly.NewTriggerCheck(ctx, \"test_trigger_check\", \u0026checkly.TriggerCheckArgs{\n\t\t\tCheckId: pulumi.String(\"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerCheckUrl\", testTriggerCheck.Url)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TriggerCheck;\nimport com.pulumi.checkly.TriggerCheckArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testTriggerCheck = new TriggerCheck(\"testTriggerCheck\", TriggerCheckArgs.builder()\n            .checkId(\"c1ff95c5-d7f6-4a90-9ce2-1e605f117592\")\n            .build());\n\n        ctx.export(\"testTriggerCheckUrl\", testTriggerCheck.url());\n    }\n}\n```\n```yaml\nresources:\n  testTriggerCheck:\n    type: checkly:TriggerCheck\n    name: test_trigger_check\n    properties:\n      checkId: c1ff95c5-d7f6-4a90-9ce2-1e605f117592\noutputs:\n  testTriggerCheckUrl: ${testTriggerCheck.url}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "checkId": {
                     "type": "string",
@@ -2305,7 +2581,7 @@
             }
         },
         "checkly:index/triggerCheckGroup:TriggerCheckGroup": {
-            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as pulumi from \"@checkly/pulumi\";\n\nconst testTriggerGroup = new checkly.TriggerCheckGroup(\"testTriggerGroup\", {groupId: \"215\"});\nexport const testTriggerGroupUrl = testTriggerGroup.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_group = checkly.TriggerCheckGroup(\"testTriggerGroup\", group_id=215)\npulumi.export(\"testTriggerGroupUrl\", test_trigger_group.url)\n```\n```csharp\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nclass MyStack : Stack\n{\n    public MyStack()\n    {\n        var testTriggerGroup = new Checkly.TriggerCheckGroup(\"testTriggerGroup\", new Checkly.TriggerCheckGroupArgs\n        {\n            GroupId = 215,\n        });\n        this.TestTriggerGroupUrl = testTriggerGroup.Url;\n    }\n\n    [Output(\"testTriggerGroupUrl\")]\n    public Output\u003cstring\u003e TestTriggerGroupUrl { get; set; }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, \"testTriggerGroup\", \u0026checkly.TriggerCheckGroupArgs{\n\t\t\tGroupId: pulumi.Int(215),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerGroupUrl\", testTriggerGroup.Url)\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst testTriggerGroup = new checkly.TriggerCheckGroup(\"test_trigger_group\", {groupId: 215});\nexport const testTriggerGroupUrl = testTriggerGroup.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_group = checkly.TriggerCheckGroup(\"test_trigger_group\", group_id=215)\npulumi.export(\"testTriggerGroupUrl\", test_trigger_group.url)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testTriggerGroup = new Checkly.TriggerCheckGroup(\"test_trigger_group\", new()\n    {\n        GroupId = 215,\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"testTriggerGroupUrl\"] = testTriggerGroup.Url,\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, \"test_trigger_group\", \u0026checkly.TriggerCheckGroupArgs{\n\t\t\tGroupId: pulumi.Int(215),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerGroupUrl\", testTriggerGroup.Url)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TriggerCheckGroup;\nimport com.pulumi.checkly.TriggerCheckGroupArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testTriggerGroup = new TriggerCheckGroup(\"testTriggerGroup\", TriggerCheckGroupArgs.builder()\n            .groupId(\"215\")\n            .build());\n\n        ctx.export(\"testTriggerGroupUrl\", testTriggerGroup.url());\n    }\n}\n```\n```yaml\nresources:\n  testTriggerGroup:\n    type: checkly:TriggerCheckGroup\n    name: test_trigger_group\n    properties:\n      groupId: '215'\noutputs:\n  testTriggerGroupUrl: ${testTriggerGroup.url}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "groupId": {
                     "type": "integer",
@@ -2362,39 +2638,56 @@
             }
         }
     },
-    "language": {
-        "csharp": {
-            "compatibility": "tfbridge20",
-            "namespaces": null,
-            "packageReferences": {
-                "Pulumi": "3.*"
-            }
-        },
-        "go": {
-            "generateExtraInputTypes": true,
-            "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/checkly/pulumi-checkly/sdk/go/checkly"
-        },
-        "nodejs": {
-            "compatibility": "tfbridge20",
-            "dependencies": {
-                "@pulumi/pulumi": "^3.0.0"
+    "functions": {
+        "checkly:index/getStaticIps:getStaticIps": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getStaticIps.\n",
+                "properties": {
+                    "ipFamily": {
+                        "type": "string",
+                        "description": "Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Specify the locations you want to get static IPs for.\n"
+                    }
+                },
+                "type": "object"
             },
-            "devDependencies": {
-                "@types/mime": "^2.0.0",
-                "@types/node": "^10.0.0"
-            },
-            "disableUnionOutputTypes": true,
-            "packageDescription": "A Pulumi package for creating and managing Checkly monitoring resources.",
-            "packageName": "@checkly/pulumi",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/checkly/terraform-provider-checkly)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-checkly` repo](https://github.com/pulumi/pulumi-checkly/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`checkly/terraform-provider-checkly` repo](https://github.com/checkly/terraform-provider-checkly/issues).",
-            "typescriptVersion": ""
-        },
-        "python": {
-            "compatibility": "tfbridge20",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/checkly/terraform-provider-checkly)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi/pulumi-checkly` repo](https://github.com/pulumi/pulumi-checkly/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`checkly/terraform-provider-checkly` repo](https://github.com/checkly/terraform-provider-checkly/issues).",
-            "requires": {
-                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            "outputs": {
+                "description": "A collection of values returned by getStaticIps.\n",
+                "properties": {
+                    "addresses": {
+                        "description": "Static IP addresses for Checkly's runner infrastructure.\n",
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "id": {
+                        "description": "ID of the static IPs data source.\n",
+                        "type": "string"
+                    },
+                    "ipFamily": {
+                        "description": "Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.\n",
+                        "type": "string"
+                    },
+                    "locations": {
+                        "description": "Specify the locations you want to get static IPs for.\n",
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "addresses",
+                    "id"
+                ],
+                "type": "object"
             }
         }
     }

@@ -13,36 +13,35 @@ namespace Pulumi.Checkly
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Checkly = Pulumi.Checkly;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var dashboard1 = new Checkly.Dashboard("dashboard_1", new()
     ///     {
-    ///         var dashboard1 = new Checkly.Dashboard("dashboard1", new Checkly.DashboardArgs
+    ///         CustomUrl = "checkly",
+    ///         CustomDomain = "status.example.com",
+    ///         Logo = "https://www.checklyhq.com/logo.png",
+    ///         Header = "Public dashboard",
+    ///         RefreshRate = 60,
+    ///         Paginate = false,
+    ///         PaginationRate = 30,
+    ///         HideTags = false,
+    ///         Width = "FULL",
+    ///         Tags = new[]
     ///         {
-    ///             CustomDomain = "status.example.com",
-    ///             CustomUrl = "checkly",
-    ///             Header = "Public dashboard",
-    ///             HideTags = false,
-    ///             Logo = "https://www.checklyhq.com/logo.png",
-    ///             Paginate = false,
-    ///             PaginationRate = 30,
-    ///             RefreshRate = 60,
-    ///             Tags = 
-    ///             {
-    ///                 "production",
-    ///             },
-    ///             Width = "FULL",
-    ///         });
-    ///     }
+    ///             "production",
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
     /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/dashboard:Dashboard")]
-    public partial class Dashboard : Pulumi.CustomResource
+    public partial class Dashboard : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Determines how many checks to show per page.
@@ -63,7 +62,7 @@ namespace Pulumi.Checkly
         public Output<string> CustomUrl { get; private set; } = null!;
 
         /// <summary>
-        /// HTML &lt;meta&gt; description for the dashboard.
+        /// HTML \n\n description for the dashboard.
         /// </summary>
         [Output("description")]
         public Output<string?> Description { get; private set; } = null!;
@@ -85,6 +84,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Output("hideTags")]
         public Output<bool?> HideTags { get; private set; } = null!;
+
+        /// <summary>
+        /// Set your dashboard as private and generate key.
+        /// </summary>
+        [Output("isPrivate")]
+        public Output<bool?> IsPrivate { get; private set; } = null!;
+
+        /// <summary>
+        /// The access key when the dashboard is private.
+        /// </summary>
+        [Output("key")]
+        public Output<string> Key { get; private set; } = null!;
 
         /// <summary>
         /// A link to for the dashboard logo.
@@ -158,6 +169,10 @@ namespace Pulumi.Checkly
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/checkly",
+                AdditionalSecretOutputs =
+                {
+                    "key",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -179,7 +194,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class DashboardArgs : Pulumi.ResourceArgs
+    public sealed class DashboardArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Determines how many checks to show per page.
@@ -200,7 +215,7 @@ namespace Pulumi.Checkly
         public Input<string> CustomUrl { get; set; } = null!;
 
         /// <summary>
-        /// HTML &lt;meta&gt; description for the dashboard.
+        /// HTML \n\n description for the dashboard.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -222,6 +237,12 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("hideTags")]
         public Input<bool>? HideTags { get; set; }
+
+        /// <summary>
+        /// Set your dashboard as private and generate key.
+        /// </summary>
+        [Input("isPrivate")]
+        public Input<bool>? IsPrivate { get; set; }
 
         /// <summary>
         /// A link to for the dashboard logo.
@@ -280,9 +301,10 @@ namespace Pulumi.Checkly
         public DashboardArgs()
         {
         }
+        public static new DashboardArgs Empty => new DashboardArgs();
     }
 
-    public sealed class DashboardState : Pulumi.ResourceArgs
+    public sealed class DashboardState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Determines how many checks to show per page.
@@ -303,7 +325,7 @@ namespace Pulumi.Checkly
         public Input<string>? CustomUrl { get; set; }
 
         /// <summary>
-        /// HTML &lt;meta&gt; description for the dashboard.
+        /// HTML \n\n description for the dashboard.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -325,6 +347,28 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("hideTags")]
         public Input<bool>? HideTags { get; set; }
+
+        /// <summary>
+        /// Set your dashboard as private and generate key.
+        /// </summary>
+        [Input("isPrivate")]
+        public Input<bool>? IsPrivate { get; set; }
+
+        [Input("key")]
+        private Input<string>? _key;
+
+        /// <summary>
+        /// The access key when the dashboard is private.
+        /// </summary>
+        public Input<string>? Key
+        {
+            get => _key;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _key = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// A link to for the dashboard logo.
@@ -383,5 +427,6 @@ namespace Pulumi.Checkly
         public DashboardState()
         {
         }
+        public static new DashboardState Empty => new DashboardState();
     }
 }

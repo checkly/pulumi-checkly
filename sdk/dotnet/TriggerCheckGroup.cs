@@ -13,27 +13,27 @@ namespace Pulumi.Checkly
     /// ## Example Usage
     /// 
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Checkly = Pulumi.Checkly;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var testTriggerGroup = new Checkly.TriggerCheckGroup("test_trigger_group", new()
     ///     {
-    ///         var testTriggerGroup = new Checkly.TriggerCheckGroup("testTriggerGroup", new Checkly.TriggerCheckGroupArgs
-    ///         {
-    ///             GroupId = 215,
-    ///         });
-    ///         this.TestTriggerGroupUrl = testTriggerGroup.Url;
-    ///     }
+    ///         GroupId = 215,
+    ///     });
     /// 
-    ///     [Output("testTriggerGroupUrl")]
-    ///     public Output&lt;string&gt; TestTriggerGroupUrl { get; set; }
-    /// }
+    ///     return new Dictionary&lt;string, object?&gt;
+    ///     {
+    ///         ["testTriggerGroupUrl"] = testTriggerGroup.Url,
+    ///     };
+    /// });
     /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/triggerCheckGroup:TriggerCheckGroup")]
-    public partial class TriggerCheckGroup : Pulumi.CustomResource
+    public partial class TriggerCheckGroup : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The id of the group that you want to attach the trigger to.
@@ -98,7 +98,7 @@ namespace Pulumi.Checkly
         }
     }
 
-    public sealed class TriggerCheckGroupArgs : Pulumi.ResourceArgs
+    public sealed class TriggerCheckGroupArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The id of the group that you want to attach the trigger to.
@@ -121,9 +121,10 @@ namespace Pulumi.Checkly
         public TriggerCheckGroupArgs()
         {
         }
+        public static new TriggerCheckGroupArgs Empty => new TriggerCheckGroupArgs();
     }
 
-    public sealed class TriggerCheckGroupState : Pulumi.ResourceArgs
+    public sealed class TriggerCheckGroupState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The id of the group that you want to attach the trigger to.
@@ -146,5 +147,6 @@ namespace Pulumi.Checkly
         public TriggerCheckGroupState()
         {
         }
+        public static new TriggerCheckGroupState Empty => new TriggerCheckGroupState();
     }
 }
