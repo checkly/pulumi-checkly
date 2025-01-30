@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/checkly/pulumi-checkly/sdk/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -20,7 +20,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )

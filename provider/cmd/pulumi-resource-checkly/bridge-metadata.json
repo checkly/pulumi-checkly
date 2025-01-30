@@ -3,7 +3,7 @@
         "resources": {
             "checkly_alert_channel": {
                 "current": "checkly:index/alertChannel:AlertChannel",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "call": {
                         "maxItemsOne": true
@@ -30,7 +30,7 @@
             },
             "checkly_check": {
                 "current": "checkly:index/check:Check",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "alert_channel_subscription": {
                         "maxItemsOne": false
@@ -89,7 +89,7 @@
             },
             "checkly_check_group": {
                 "current": "checkly:index/checkGroup:CheckGroup",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "alert_channel_subscription": {
                         "maxItemsOne": false
@@ -148,7 +148,7 @@
             },
             "checkly_dashboard": {
                 "current": "checkly:index/dashboard:Dashboard",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "tags": {
                         "maxItemsOne": false
@@ -157,11 +157,11 @@
             },
             "checkly_environment_variable": {
                 "current": "checkly:index/environmentVariable:EnvironmentVariable",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "checkly_heartbeat": {
                 "current": "checkly:index/heartbeatCheck:HeartbeatCheck",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "alert_channel_subscription": {
                         "maxItemsOne": false
@@ -198,7 +198,7 @@
             },
             "checkly_maintenance_windows": {
                 "current": "checkly:index/maintenanceWindow:MaintenanceWindow",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "tags": {
                         "maxItemsOne": false
@@ -207,7 +207,7 @@
             },
             "checkly_private_location": {
                 "current": "checkly:index/privateLocation:PrivateLocation",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "keys": {
                         "maxItemsOne": false
@@ -216,21 +216,21 @@
             },
             "checkly_snippet": {
                 "current": "checkly:index/snippet:Snippet",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "checkly_trigger_check": {
                 "current": "checkly:index/triggerCheck:TriggerCheck",
-                "majorVersion": 1
+                "majorVersion": 2
             },
             "checkly_trigger_group": {
                 "current": "checkly:index/triggerCheckGroup:TriggerCheckGroup",
-                "majorVersion": 1
+                "majorVersion": 2
             }
         },
         "datasources": {
             "checkly_static_ips": {
                 "current": "checkly:index/getStaticIps:getStaticIps",
-                "majorVersion": 1,
+                "majorVersion": 2,
                 "fields": {
                     "addresses": {
                         "maxItemsOne": false
