@@ -1,4 +1,4 @@
-module github.com/checkly/pulumi-checkly/sdk
+module github.com/checkly/pulumi-checkly/sdk/v2
 
 go 1.22
 
