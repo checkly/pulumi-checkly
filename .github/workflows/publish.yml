@@ -112,17 +112,17 @@ jobs:
       uses: ./.github/actions/setup-tools
       with:
         tools: pulumictl, pulumicli, dotnet, go, nodejs, python
-    - name: Publish SDKs
+    - name: Publish SDKs (except Java, .NET)
       if: inputs.skipJavaSdk == false
       uses: pulumi/pulumi-package-publisher@696a0fe98f86d86ada2a842d1859f3e8c40d6cd7 # v0.0.21
       with:
-        sdk: all,!java
+        sdk: all,!java,!dotnet
         version: ${{ inputs.version }}
-    - name: Publish SDKs (except Java)
+    - name: Publish SDKs (except Java, .NET)
       if: inputs.skipJavaSdk == true
       uses: pulumi/pulumi-package-publisher@696a0fe98f86d86ada2a842d1859f3e8c40d6cd7 # v0.0.21
       with:
-        sdk: all,!java,!java
+        sdk: all,!java,!dotnet,!java
         version: ${{ inputs.version }}
     - name: Download Go SDK
       uses: ./.github/actions/download-sdk
