@@ -11,7 +11,7 @@ The Checkly provider is available as a package in most Pulumi languages:
 
 * JavaScript/TypeScript: [`@checkly/pulumi`](https://www.npmjs.com/package/@checkly/pulumi)
 * Python: [`pulumi-checkly`](https://pypi.org/project/pulumi-checkly/)
-* Go: [`github.com/checkly/pulumi-checkly/sdk/go/checkly`](https://github.com/checkly/pulumi-checkly)
+* Go: [`github.com/checkly/pulumi-checkly/sdk/v2/go/checkly`](https://github.com/checkly/pulumi-checkly)
 * .NET: [`Pulumi.Checkly`](https://www.nuget.org/packages/Pulumi.Checkly)
 
 
