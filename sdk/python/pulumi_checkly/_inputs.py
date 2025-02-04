@@ -93,6 +93,24 @@ __all__ = [
     'HeartbeatCheckAlertSettingsTimeBasedEscalationArgsDict',
     'HeartbeatCheckHeartbeatArgs',
     'HeartbeatCheckHeartbeatArgsDict',
+    'TcpCheckAlertChannelSubscriptionArgs',
+    'TcpCheckAlertChannelSubscriptionArgsDict',
+    'TcpCheckAlertSettingsArgs',
+    'TcpCheckAlertSettingsArgsDict',
+    'TcpCheckAlertSettingsParallelRunFailureThresholdArgs',
+    'TcpCheckAlertSettingsParallelRunFailureThresholdArgsDict',
+    'TcpCheckAlertSettingsReminderArgs',
+    'TcpCheckAlertSettingsReminderArgsDict',
+    'TcpCheckAlertSettingsRunBasedEscalationArgs',
+    'TcpCheckAlertSettingsRunBasedEscalationArgsDict',
+    'TcpCheckAlertSettingsTimeBasedEscalationArgs',
+    'TcpCheckAlertSettingsTimeBasedEscalationArgsDict',
+    'TcpCheckRequestArgs',
+    'TcpCheckRequestArgsDict',
+    'TcpCheckRequestAssertionArgs',
+    'TcpCheckRequestAssertionArgsDict',
+    'TcpCheckRetryStrategyArgs',
+    'TcpCheckRetryStrategyArgsDict',
 ]
 
 MYPY = False
@@ -2526,5 +2544,588 @@ class HeartbeatCheckHeartbeatArgs:
     @ping_token.setter
     def ping_token(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ping_token", value)
+
+
+if not MYPY:
+    class TcpCheckAlertChannelSubscriptionArgsDict(TypedDict):
+        activated: pulumi.Input[bool]
+        channel_id: pulumi.Input[int]
+elif False:
+    TcpCheckAlertChannelSubscriptionArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckAlertChannelSubscriptionArgs:
+    def __init__(__self__, *,
+                 activated: pulumi.Input[bool],
+                 channel_id: pulumi.Input[int]):
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @property
+    @pulumi.getter
+    def activated(self) -> pulumi.Input[bool]:
+        return pulumi.get(self, "activated")
+
+    @activated.setter
+    def activated(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "activated", value)
+
+    @property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "channel_id")
+
+    @channel_id.setter
+    def channel_id(self, value: pulumi.Input[int]):
+        pulumi.set(self, "channel_id", value)
+
+
+if not MYPY:
+    class TcpCheckAlertSettingsArgsDict(TypedDict):
+        escalation_type: NotRequired[pulumi.Input[str]]
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        parallel_run_failure_thresholds: NotRequired[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsParallelRunFailureThresholdArgsDict']]]]
+        reminders: NotRequired[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsReminderArgsDict']]]]
+        run_based_escalations: NotRequired[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsRunBasedEscalationArgsDict']]]]
+        time_based_escalations: NotRequired[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsTimeBasedEscalationArgsDict']]]]
+elif False:
+    TcpCheckAlertSettingsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckAlertSettingsArgs:
+    def __init__(__self__, *,
+                 escalation_type: Optional[pulumi.Input[str]] = None,
+                 parallel_run_failure_thresholds: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsParallelRunFailureThresholdArgs']]]] = None,
+                 reminders: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsReminderArgs']]]] = None,
+                 run_based_escalations: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsRunBasedEscalationArgs']]]] = None,
+                 time_based_escalations: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsTimeBasedEscalationArgs']]]] = None):
+        """
+        :param pulumi.Input[str] escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @escalation_type.setter
+    def escalation_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "escalation_type", value)
+
+    @property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsParallelRunFailureThresholdArgs']]]]:
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @parallel_run_failure_thresholds.setter
+    def parallel_run_failure_thresholds(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsParallelRunFailureThresholdArgs']]]]):
+        pulumi.set(self, "parallel_run_failure_thresholds", value)
+
+    @property
+    @pulumi.getter
+    def reminders(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsReminderArgs']]]]:
+        return pulumi.get(self, "reminders")
+
+    @reminders.setter
+    def reminders(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsReminderArgs']]]]):
+        pulumi.set(self, "reminders", value)
+
+    @property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsRunBasedEscalationArgs']]]]:
+        return pulumi.get(self, "run_based_escalations")
+
+    @run_based_escalations.setter
+    def run_based_escalations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsRunBasedEscalationArgs']]]]):
+        pulumi.set(self, "run_based_escalations", value)
+
+    @property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsTimeBasedEscalationArgs']]]]:
+        return pulumi.get(self, "time_based_escalations")
+
+    @time_based_escalations.setter
+    def time_based_escalations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertSettingsTimeBasedEscalationArgs']]]]):
+        pulumi.set(self, "time_based_escalations", value)
+
+
+if not MYPY:
+    class TcpCheckAlertSettingsParallelRunFailureThresholdArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[bool]]
+        """
+        Applicable only for checks scheduled in parallel in multiple locations.
+        """
+        percentage: NotRequired[pulumi.Input[int]]
+        """
+        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        """
+elif False:
+    TcpCheckAlertSettingsParallelRunFailureThresholdArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckAlertSettingsParallelRunFailureThresholdArgs:
+    def __init__(__self__, *,
+                 enabled: Optional[pulumi.Input[bool]] = None,
+                 percentage: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[bool] enabled: Applicable only for checks scheduled in parallel in multiple locations.
+        :param pulumi.Input[int] percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Applicable only for checks scheduled in parallel in multiple locations.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @property
+    @pulumi.getter
+    def percentage(self) -> Optional[pulumi.Input[int]]:
+        """
+        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+    @percentage.setter
+    def percentage(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "percentage", value)
+
+
+if not MYPY:
+    class TcpCheckAlertSettingsReminderArgsDict(TypedDict):
+        amount: NotRequired[pulumi.Input[int]]
+        """
+        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        """
+        interval: NotRequired[pulumi.Input[int]]
+        """
+        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+elif False:
+    TcpCheckAlertSettingsReminderArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckAlertSettingsReminderArgs:
+    def __init__(__self__, *,
+                 amount: Optional[pulumi.Input[int]] = None,
+                 interval: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[int] amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        :param pulumi.Input[int] interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @property
+    @pulumi.getter
+    def amount(self) -> Optional[pulumi.Input[int]]:
+        """
+        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        """
+        return pulumi.get(self, "amount")
+
+    @amount.setter
+    def amount(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "amount", value)
+
+    @property
+    @pulumi.getter
+    def interval(self) -> Optional[pulumi.Input[int]]:
+        """
+        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+    @interval.setter
+    def interval(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "interval", value)
+
+
+if not MYPY:
+    class TcpCheckAlertSettingsRunBasedEscalationArgsDict(TypedDict):
+        failed_run_threshold: NotRequired[pulumi.Input[int]]
+        """
+        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        """
+elif False:
+    TcpCheckAlertSettingsRunBasedEscalationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckAlertSettingsRunBasedEscalationArgs:
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[int] failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[pulumi.Input[int]]:
+        """
+        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+    @failed_run_threshold.setter
+    def failed_run_threshold(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "failed_run_threshold", value)
+
+
+if not MYPY:
+    class TcpCheckAlertSettingsTimeBasedEscalationArgsDict(TypedDict):
+        minutes_failing_threshold: NotRequired[pulumi.Input[int]]
+        """
+        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+elif False:
+    TcpCheckAlertSettingsTimeBasedEscalationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckAlertSettingsTimeBasedEscalationArgs:
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[int] minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[pulumi.Input[int]]:
+        """
+        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+    @minutes_failing_threshold.setter
+    def minutes_failing_threshold(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "minutes_failing_threshold", value)
+
+
+if not MYPY:
+    class TcpCheckRequestArgsDict(TypedDict):
+        hostname: pulumi.Input[str]
+        """
+        The hostname or IP to connect to. Do not include a scheme or a port in this value.
+        """
+        port: pulumi.Input[int]
+        """
+        The port number to connect to.
+        """
+        assertions: NotRequired[pulumi.Input[Sequence[pulumi.Input['TcpCheckRequestAssertionArgsDict']]]]
+        """
+        A request can have multiple assertions.
+        """
+        data: NotRequired[pulumi.Input[str]]
+        """
+        The data to send to the target host.
+        """
+        ip_family: NotRequired[pulumi.Input[str]]
+        """
+        The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+        """
+elif False:
+    TcpCheckRequestArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckRequestArgs:
+    def __init__(__self__, *,
+                 hostname: pulumi.Input[str],
+                 port: pulumi.Input[int],
+                 assertions: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckRequestAssertionArgs']]]] = None,
+                 data: Optional[pulumi.Input[str]] = None,
+                 ip_family: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] hostname: The hostname or IP to connect to. Do not include a scheme or a port in this value.
+        :param pulumi.Input[int] port: The port number to connect to.
+        :param pulumi.Input[Sequence[pulumi.Input['TcpCheckRequestAssertionArgs']]] assertions: A request can have multiple assertions.
+        :param pulumi.Input[str] data: The data to send to the target host.
+        :param pulumi.Input[str] ip_family: The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+        """
+        pulumi.set(__self__, "hostname", hostname)
+        pulumi.set(__self__, "port", port)
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if ip_family is not None:
+            pulumi.set(__self__, "ip_family", ip_family)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> pulumi.Input[str]:
+        """
+        The hostname or IP to connect to. Do not include a scheme or a port in this value.
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: pulumi.Input[str]):
+        pulumi.set(self, "hostname", value)
+
+    @property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[int]:
+        """
+        The port number to connect to.
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[int]):
+        pulumi.set(self, "port", value)
+
+    @property
+    @pulumi.getter
+    def assertions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckRequestAssertionArgs']]]]:
+        """
+        A request can have multiple assertions.
+        """
+        return pulumi.get(self, "assertions")
+
+    @assertions.setter
+    def assertions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TcpCheckRequestAssertionArgs']]]]):
+        pulumi.set(self, "assertions", value)
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[pulumi.Input[str]]:
+        """
+        The data to send to the target host.
+        """
+        return pulumi.get(self, "data")
+
+    @data.setter
+    def data(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "data", value)
+
+    @property
+    @pulumi.getter(name="ipFamily")
+    def ip_family(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+        """
+        return pulumi.get(self, "ip_family")
+
+    @ip_family.setter
+    def ip_family(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ip_family", value)
+
+
+if not MYPY:
+    class TcpCheckRequestAssertionArgsDict(TypedDict):
+        comparison: pulumi.Input[str]
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        """
+        source: pulumi.Input[str]
+        """
+        The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+        """
+        property: NotRequired[pulumi.Input[str]]
+        target: NotRequired[pulumi.Input[str]]
+elif False:
+    TcpCheckRequestAssertionArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckRequestAssertionArgs:
+    def __init__(__self__, *,
+                 comparison: pulumi.Input[str],
+                 source: pulumi.Input[str],
+                 property: Optional[pulumi.Input[str]] = None,
+                 target: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] comparison: The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        :param pulumi.Input[str] source: The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+        if target is not None:
+            pulumi.set(__self__, "target", target)
+
+    @property
+    @pulumi.getter
+    def comparison(self) -> pulumi.Input[str]:
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @comparison.setter
+    def comparison(self, value: pulumi.Input[str]):
+        pulumi.set(self, "comparison", value)
+
+    @property
+    @pulumi.getter
+    def source(self) -> pulumi.Input[str]:
+        """
+        The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+        """
+        return pulumi.get(self, "source")
+
+    @source.setter
+    def source(self, value: pulumi.Input[str]):
+        pulumi.set(self, "source", value)
+
+    @property
+    @pulumi.getter
+    def target(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "target")
+
+    @target.setter
+    def target(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "target", value)
+
+    @property
+    @pulumi.getter
+    def property(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "property")
+
+    @property.setter
+    def property(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "property", value)
+
+
+if not MYPY:
+    class TcpCheckRetryStrategyArgsDict(TypedDict):
+        type: pulumi.Input[str]
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+        """
+        base_backoff_seconds: NotRequired[pulumi.Input[int]]
+        """
+        The number of seconds to wait before the first retry attempt.
+        """
+        max_duration_seconds: NotRequired[pulumi.Input[int]]
+        """
+        The total amount of time to continue retrying the check (maximum 600 seconds).
+        """
+        max_retries: NotRequired[pulumi.Input[int]]
+        """
+        The maximum number of times to retry the check. Value must be between 1 and 10.
+        """
+        same_region: NotRequired[pulumi.Input[bool]]
+        """
+        Whether retries should be run in the same region as the initial check run.
+        """
+elif False:
+    TcpCheckRetryStrategyArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckRetryStrategyArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[str],
+                 base_backoff_seconds: Optional[pulumi.Input[int]] = None,
+                 max_duration_seconds: Optional[pulumi.Input[int]] = None,
+                 max_retries: Optional[pulumi.Input[int]] = None,
+                 same_region: Optional[pulumi.Input[bool]] = None):
+        """
+        :param pulumi.Input[str] type: Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+        :param pulumi.Input[int] base_backoff_seconds: The number of seconds to wait before the first retry attempt.
+        :param pulumi.Input[int] max_duration_seconds: The total amount of time to continue retrying the check (maximum 600 seconds).
+        :param pulumi.Input[int] max_retries: The maximum number of times to retry the check. Value must be between 1 and 10.
+        :param pulumi.Input[bool] same_region: Whether retries should be run in the same region as the initial check run.
+        """
+        pulumi.set(__self__, "type", type)
+        if base_backoff_seconds is not None:
+            pulumi.set(__self__, "base_backoff_seconds", base_backoff_seconds)
+        if max_duration_seconds is not None:
+            pulumi.set(__self__, "max_duration_seconds", max_duration_seconds)
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if same_region is not None:
+            pulumi.set(__self__, "same_region", same_region)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter(name="baseBackoffSeconds")
+    def base_backoff_seconds(self) -> Optional[pulumi.Input[int]]:
+        """
+        The number of seconds to wait before the first retry attempt.
+        """
+        return pulumi.get(self, "base_backoff_seconds")
+
+    @base_backoff_seconds.setter
+    def base_backoff_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "base_backoff_seconds", value)
+
+    @property
+    @pulumi.getter(name="maxDurationSeconds")
+    def max_duration_seconds(self) -> Optional[pulumi.Input[int]]:
+        """
+        The total amount of time to continue retrying the check (maximum 600 seconds).
+        """
+        return pulumi.get(self, "max_duration_seconds")
+
+    @max_duration_seconds.setter
+    def max_duration_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_duration_seconds", value)
+
+    @property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> Optional[pulumi.Input[int]]:
+        """
+        The maximum number of times to retry the check. Value must be between 1 and 10.
+        """
+        return pulumi.get(self, "max_retries")
+
+    @max_retries.setter
+    def max_retries(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_retries", value)
+
+    @property
+    @pulumi.getter(name="sameRegion")
+    def same_region(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether retries should be run in the same region as the initial check run.
+        """
+        return pulumi.get(self, "same_region")
+
+    @same_region.setter
+    def same_region(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "same_region", value)
 
 

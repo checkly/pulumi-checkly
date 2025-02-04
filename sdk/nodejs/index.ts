@@ -60,6 +60,11 @@ export type Snippet = import("./snippet").Snippet;
 export const Snippet: typeof import("./snippet").Snippet = null as any;
 utilities.lazyLoad(exports, ["Snippet"], () => require("./snippet"));
 
+export { TcpCheckArgs, TcpCheckState } from "./tcpCheck";
+export type TcpCheck = import("./tcpCheck").TcpCheck;
+export const TcpCheck: typeof import("./tcpCheck").TcpCheck = null as any;
+utilities.lazyLoad(exports, ["TcpCheck"], () => require("./tcpCheck"));
+
 export { TriggerCheckArgs, TriggerCheckState } from "./triggerCheck";
 export type TriggerCheck = import("./triggerCheck").TriggerCheck;
 export const TriggerCheck: typeof import("./triggerCheck").TriggerCheck = null as any;
@@ -102,6 +107,8 @@ const _module = {
                 return new PrivateLocation(name, <any>undefined, { urn })
             case "checkly:index/snippet:Snippet":
                 return new Snippet(name, <any>undefined, { urn })
+            case "checkly:index/tcpCheck:TcpCheck":
+                return new TcpCheck(name, <any>undefined, { urn })
             case "checkly:index/triggerCheck:TriggerCheck":
                 return new TriggerCheck(name, <any>undefined, { urn })
             case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
@@ -120,6 +127,7 @@ pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/tcpCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)
 pulumi.runtime.registerResourcePackage("checkly", {

@@ -5628,6 +5628,1257 @@ func (o HeartbeatCheckHeartbeatPtrOutput) PingToken() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TcpCheckAlertChannelSubscription struct {
+	Activated bool `pulumi:"activated"`
+	ChannelId int  `pulumi:"channelId"`
+}
+
+// TcpCheckAlertChannelSubscriptionInput is an input type that accepts TcpCheckAlertChannelSubscriptionArgs and TcpCheckAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `TcpCheckAlertChannelSubscriptionInput` via:
+//
+//	TcpCheckAlertChannelSubscriptionArgs{...}
+type TcpCheckAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertChannelSubscriptionOutput() TcpCheckAlertChannelSubscriptionOutput
+	ToTcpCheckAlertChannelSubscriptionOutputWithContext(context.Context) TcpCheckAlertChannelSubscriptionOutput
+}
+
+type TcpCheckAlertChannelSubscriptionArgs struct {
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+}
+
+func (TcpCheckAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i TcpCheckAlertChannelSubscriptionArgs) ToTcpCheckAlertChannelSubscriptionOutput() TcpCheckAlertChannelSubscriptionOutput {
+	return i.ToTcpCheckAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertChannelSubscriptionArgs) ToTcpCheckAlertChannelSubscriptionOutputWithContext(ctx context.Context) TcpCheckAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertChannelSubscriptionOutput)
+}
+
+// TcpCheckAlertChannelSubscriptionArrayInput is an input type that accepts TcpCheckAlertChannelSubscriptionArray and TcpCheckAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `TcpCheckAlertChannelSubscriptionArrayInput` via:
+//
+//	TcpCheckAlertChannelSubscriptionArray{ TcpCheckAlertChannelSubscriptionArgs{...} }
+type TcpCheckAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertChannelSubscriptionArrayOutput() TcpCheckAlertChannelSubscriptionArrayOutput
+	ToTcpCheckAlertChannelSubscriptionArrayOutputWithContext(context.Context) TcpCheckAlertChannelSubscriptionArrayOutput
+}
+
+type TcpCheckAlertChannelSubscriptionArray []TcpCheckAlertChannelSubscriptionInput
+
+func (TcpCheckAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i TcpCheckAlertChannelSubscriptionArray) ToTcpCheckAlertChannelSubscriptionArrayOutput() TcpCheckAlertChannelSubscriptionArrayOutput {
+	return i.ToTcpCheckAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertChannelSubscriptionArray) ToTcpCheckAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) TcpCheckAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertChannelSubscriptionArrayOutput)
+}
+
+type TcpCheckAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o TcpCheckAlertChannelSubscriptionOutput) ToTcpCheckAlertChannelSubscriptionOutput() TcpCheckAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o TcpCheckAlertChannelSubscriptionOutput) ToTcpCheckAlertChannelSubscriptionOutputWithContext(ctx context.Context) TcpCheckAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o TcpCheckAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v TcpCheckAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+func (o TcpCheckAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v TcpCheckAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type TcpCheckAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o TcpCheckAlertChannelSubscriptionArrayOutput) ToTcpCheckAlertChannelSubscriptionArrayOutput() TcpCheckAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertChannelSubscriptionArrayOutput) ToTcpCheckAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) TcpCheckAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) TcpCheckAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpCheckAlertChannelSubscription {
+		return vs[0].([]TcpCheckAlertChannelSubscription)[vs[1].(int)]
+	}).(TcpCheckAlertChannelSubscriptionOutput)
+}
+
+type TcpCheckAlertSettings struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType               *string                                            `pulumi:"escalationType"`
+	ParallelRunFailureThresholds []TcpCheckAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	Reminders                    []TcpCheckAlertSettingsReminder                    `pulumi:"reminders"`
+	RunBasedEscalations          []TcpCheckAlertSettingsRunBasedEscalation          `pulumi:"runBasedEscalations"`
+	TimeBasedEscalations         []TcpCheckAlertSettingsTimeBasedEscalation         `pulumi:"timeBasedEscalations"`
+}
+
+// TcpCheckAlertSettingsInput is an input type that accepts TcpCheckAlertSettingsArgs and TcpCheckAlertSettingsOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsInput` via:
+//
+//	TcpCheckAlertSettingsArgs{...}
+type TcpCheckAlertSettingsInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsOutput() TcpCheckAlertSettingsOutput
+	ToTcpCheckAlertSettingsOutputWithContext(context.Context) TcpCheckAlertSettingsOutput
+}
+
+type TcpCheckAlertSettingsArgs struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType               pulumi.StringPtrInput                                      `pulumi:"escalationType"`
+	ParallelRunFailureThresholds TcpCheckAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	Reminders                    TcpCheckAlertSettingsReminderArrayInput                    `pulumi:"reminders"`
+	RunBasedEscalations          TcpCheckAlertSettingsRunBasedEscalationArrayInput          `pulumi:"runBasedEscalations"`
+	TimeBasedEscalations         TcpCheckAlertSettingsTimeBasedEscalationArrayInput         `pulumi:"timeBasedEscalations"`
+}
+
+func (TcpCheckAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettings)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsArgs) ToTcpCheckAlertSettingsOutput() TcpCheckAlertSettingsOutput {
+	return i.ToTcpCheckAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsArgs) ToTcpCheckAlertSettingsOutputWithContext(ctx context.Context) TcpCheckAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsOutput)
+}
+
+func (i TcpCheckAlertSettingsArgs) ToTcpCheckAlertSettingsPtrOutput() TcpCheckAlertSettingsPtrOutput {
+	return i.ToTcpCheckAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsArgs) ToTcpCheckAlertSettingsPtrOutputWithContext(ctx context.Context) TcpCheckAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsOutput).ToTcpCheckAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// TcpCheckAlertSettingsPtrInput is an input type that accepts TcpCheckAlertSettingsArgs, TcpCheckAlertSettingsPtr and TcpCheckAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsPtrInput` via:
+//
+//	        TcpCheckAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpCheckAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsPtrOutput() TcpCheckAlertSettingsPtrOutput
+	ToTcpCheckAlertSettingsPtrOutputWithContext(context.Context) TcpCheckAlertSettingsPtrOutput
+}
+
+type tcpCheckAlertSettingsPtrType TcpCheckAlertSettingsArgs
+
+func TcpCheckAlertSettingsPtr(v *TcpCheckAlertSettingsArgs) TcpCheckAlertSettingsPtrInput {
+	return (*tcpCheckAlertSettingsPtrType)(v)
+}
+
+func (*tcpCheckAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckAlertSettings)(nil)).Elem()
+}
+
+func (i *tcpCheckAlertSettingsPtrType) ToTcpCheckAlertSettingsPtrOutput() TcpCheckAlertSettingsPtrOutput {
+	return i.ToTcpCheckAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpCheckAlertSettingsPtrType) ToTcpCheckAlertSettingsPtrOutputWithContext(ctx context.Context) TcpCheckAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsPtrOutput)
+}
+
+type TcpCheckAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettings)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsOutput) ToTcpCheckAlertSettingsOutput() TcpCheckAlertSettingsOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsOutput) ToTcpCheckAlertSettingsOutputWithContext(ctx context.Context) TcpCheckAlertSettingsOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsOutput) ToTcpCheckAlertSettingsPtrOutput() TcpCheckAlertSettingsPtrOutput {
+	return o.ToTcpCheckAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o TcpCheckAlertSettingsOutput) ToTcpCheckAlertSettingsPtrOutputWithContext(ctx context.Context) TcpCheckAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpCheckAlertSettings) *TcpCheckAlertSettings {
+		return &v
+	}).(TcpCheckAlertSettingsPtrOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o TcpCheckAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+func (o TcpCheckAlertSettingsOutput) ParallelRunFailureThresholds() TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettings) []TcpCheckAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+func (o TcpCheckAlertSettingsOutput) Reminders() TcpCheckAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettings) []TcpCheckAlertSettingsReminder { return v.Reminders }).(TcpCheckAlertSettingsReminderArrayOutput)
+}
+
+func (o TcpCheckAlertSettingsOutput) RunBasedEscalations() TcpCheckAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettings) []TcpCheckAlertSettingsRunBasedEscalation { return v.RunBasedEscalations }).(TcpCheckAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+func (o TcpCheckAlertSettingsOutput) TimeBasedEscalations() TcpCheckAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettings) []TcpCheckAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(TcpCheckAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TcpCheckAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckAlertSettings)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsPtrOutput) ToTcpCheckAlertSettingsPtrOutput() TcpCheckAlertSettingsPtrOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsPtrOutput) ToTcpCheckAlertSettingsPtrOutputWithContext(ctx context.Context) TcpCheckAlertSettingsPtrOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsPtrOutput) Elem() TcpCheckAlertSettingsOutput {
+	return o.ApplyT(func(v *TcpCheckAlertSettings) TcpCheckAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret TcpCheckAlertSettings
+		return ret
+	}).(TcpCheckAlertSettingsOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o TcpCheckAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TcpCheckAlertSettingsPtrOutput) ParallelRunFailureThresholds() TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *TcpCheckAlertSettings) []TcpCheckAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+func (o TcpCheckAlertSettingsPtrOutput) Reminders() TcpCheckAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *TcpCheckAlertSettings) []TcpCheckAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(TcpCheckAlertSettingsReminderArrayOutput)
+}
+
+func (o TcpCheckAlertSettingsPtrOutput) RunBasedEscalations() TcpCheckAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *TcpCheckAlertSettings) []TcpCheckAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(TcpCheckAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+func (o TcpCheckAlertSettingsPtrOutput) TimeBasedEscalations() TcpCheckAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *TcpCheckAlertSettings) []TcpCheckAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(TcpCheckAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TcpCheckAlertSettingsParallelRunFailureThreshold struct {
+	// Applicable only for checks scheduled in parallel in multiple locations.
+	Enabled *bool `pulumi:"enabled"`
+	// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// TcpCheckAlertSettingsParallelRunFailureThresholdInput is an input type that accepts TcpCheckAlertSettingsParallelRunFailureThresholdArgs and TcpCheckAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	TcpCheckAlertSettingsParallelRunFailureThresholdArgs{...}
+type TcpCheckAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsParallelRunFailureThresholdOutput() TcpCheckAlertSettingsParallelRunFailureThresholdOutput
+	ToTcpCheckAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) TcpCheckAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type TcpCheckAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Applicable only for checks scheduled in parallel in multiple locations.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (TcpCheckAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsParallelRunFailureThresholdArgs) ToTcpCheckAlertSettingsParallelRunFailureThresholdOutput() TcpCheckAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToTcpCheckAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsParallelRunFailureThresholdArgs) ToTcpCheckAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) TcpCheckAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// TcpCheckAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts TcpCheckAlertSettingsParallelRunFailureThresholdArray and TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	TcpCheckAlertSettingsParallelRunFailureThresholdArray{ TcpCheckAlertSettingsParallelRunFailureThresholdArgs{...} }
+type TcpCheckAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput() TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToTcpCheckAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type TcpCheckAlertSettingsParallelRunFailureThresholdArray []TcpCheckAlertSettingsParallelRunFailureThresholdInput
+
+func (TcpCheckAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsParallelRunFailureThresholdArray) ToTcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput() TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToTcpCheckAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsParallelRunFailureThresholdArray) ToTcpCheckAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type TcpCheckAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsParallelRunFailureThresholdOutput) ToTcpCheckAlertSettingsParallelRunFailureThresholdOutput() TcpCheckAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsParallelRunFailureThresholdOutput) ToTcpCheckAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) TcpCheckAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Applicable only for checks scheduled in parallel in multiple locations.
+func (o TcpCheckAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+func (o TcpCheckAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput) ToTcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput() TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput) ToTcpCheckAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) TcpCheckAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpCheckAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]TcpCheckAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(TcpCheckAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type TcpCheckAlertSettingsReminder struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount *int `pulumi:"amount"`
+	// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// TcpCheckAlertSettingsReminderInput is an input type that accepts TcpCheckAlertSettingsReminderArgs and TcpCheckAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsReminderInput` via:
+//
+//	TcpCheckAlertSettingsReminderArgs{...}
+type TcpCheckAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsReminderOutput() TcpCheckAlertSettingsReminderOutput
+	ToTcpCheckAlertSettingsReminderOutputWithContext(context.Context) TcpCheckAlertSettingsReminderOutput
+}
+
+type TcpCheckAlertSettingsReminderArgs struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (TcpCheckAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsReminderArgs) ToTcpCheckAlertSettingsReminderOutput() TcpCheckAlertSettingsReminderOutput {
+	return i.ToTcpCheckAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsReminderArgs) ToTcpCheckAlertSettingsReminderOutputWithContext(ctx context.Context) TcpCheckAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsReminderOutput)
+}
+
+// TcpCheckAlertSettingsReminderArrayInput is an input type that accepts TcpCheckAlertSettingsReminderArray and TcpCheckAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsReminderArrayInput` via:
+//
+//	TcpCheckAlertSettingsReminderArray{ TcpCheckAlertSettingsReminderArgs{...} }
+type TcpCheckAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsReminderArrayOutput() TcpCheckAlertSettingsReminderArrayOutput
+	ToTcpCheckAlertSettingsReminderArrayOutputWithContext(context.Context) TcpCheckAlertSettingsReminderArrayOutput
+}
+
+type TcpCheckAlertSettingsReminderArray []TcpCheckAlertSettingsReminderInput
+
+func (TcpCheckAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsReminderArray) ToTcpCheckAlertSettingsReminderArrayOutput() TcpCheckAlertSettingsReminderArrayOutput {
+	return i.ToTcpCheckAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsReminderArray) ToTcpCheckAlertSettingsReminderArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsReminderArrayOutput)
+}
+
+type TcpCheckAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsReminderOutput) ToTcpCheckAlertSettingsReminderOutput() TcpCheckAlertSettingsReminderOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsReminderOutput) ToTcpCheckAlertSettingsReminderOutputWithContext(ctx context.Context) TcpCheckAlertSettingsReminderOutput {
+	return o
+}
+
+// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+func (o TcpCheckAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o TcpCheckAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type TcpCheckAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsReminderArrayOutput) ToTcpCheckAlertSettingsReminderArrayOutput() TcpCheckAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsReminderArrayOutput) ToTcpCheckAlertSettingsReminderArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) TcpCheckAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpCheckAlertSettingsReminder {
+		return vs[0].([]TcpCheckAlertSettingsReminder)[vs[1].(int)]
+	}).(TcpCheckAlertSettingsReminderOutput)
+}
+
+type TcpCheckAlertSettingsRunBasedEscalation struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// TcpCheckAlertSettingsRunBasedEscalationInput is an input type that accepts TcpCheckAlertSettingsRunBasedEscalationArgs and TcpCheckAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsRunBasedEscalationInput` via:
+//
+//	TcpCheckAlertSettingsRunBasedEscalationArgs{...}
+type TcpCheckAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsRunBasedEscalationOutput() TcpCheckAlertSettingsRunBasedEscalationOutput
+	ToTcpCheckAlertSettingsRunBasedEscalationOutputWithContext(context.Context) TcpCheckAlertSettingsRunBasedEscalationOutput
+}
+
+type TcpCheckAlertSettingsRunBasedEscalationArgs struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (TcpCheckAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsRunBasedEscalationArgs) ToTcpCheckAlertSettingsRunBasedEscalationOutput() TcpCheckAlertSettingsRunBasedEscalationOutput {
+	return i.ToTcpCheckAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsRunBasedEscalationArgs) ToTcpCheckAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) TcpCheckAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsRunBasedEscalationOutput)
+}
+
+// TcpCheckAlertSettingsRunBasedEscalationArrayInput is an input type that accepts TcpCheckAlertSettingsRunBasedEscalationArray and TcpCheckAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	TcpCheckAlertSettingsRunBasedEscalationArray{ TcpCheckAlertSettingsRunBasedEscalationArgs{...} }
+type TcpCheckAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsRunBasedEscalationArrayOutput() TcpCheckAlertSettingsRunBasedEscalationArrayOutput
+	ToTcpCheckAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) TcpCheckAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type TcpCheckAlertSettingsRunBasedEscalationArray []TcpCheckAlertSettingsRunBasedEscalationInput
+
+func (TcpCheckAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsRunBasedEscalationArray) ToTcpCheckAlertSettingsRunBasedEscalationArrayOutput() TcpCheckAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToTcpCheckAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsRunBasedEscalationArray) ToTcpCheckAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type TcpCheckAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsRunBasedEscalationOutput) ToTcpCheckAlertSettingsRunBasedEscalationOutput() TcpCheckAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsRunBasedEscalationOutput) ToTcpCheckAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) TcpCheckAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+func (o TcpCheckAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type TcpCheckAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsRunBasedEscalationArrayOutput) ToTcpCheckAlertSettingsRunBasedEscalationArrayOutput() TcpCheckAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsRunBasedEscalationArrayOutput) ToTcpCheckAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) TcpCheckAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpCheckAlertSettingsRunBasedEscalation {
+		return vs[0].([]TcpCheckAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(TcpCheckAlertSettingsRunBasedEscalationOutput)
+}
+
+type TcpCheckAlertSettingsTimeBasedEscalation struct {
+	// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// TcpCheckAlertSettingsTimeBasedEscalationInput is an input type that accepts TcpCheckAlertSettingsTimeBasedEscalationArgs and TcpCheckAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsTimeBasedEscalationInput` via:
+//
+//	TcpCheckAlertSettingsTimeBasedEscalationArgs{...}
+type TcpCheckAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsTimeBasedEscalationOutput() TcpCheckAlertSettingsTimeBasedEscalationOutput
+	ToTcpCheckAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) TcpCheckAlertSettingsTimeBasedEscalationOutput
+}
+
+type TcpCheckAlertSettingsTimeBasedEscalationArgs struct {
+	// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (TcpCheckAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsTimeBasedEscalationArgs) ToTcpCheckAlertSettingsTimeBasedEscalationOutput() TcpCheckAlertSettingsTimeBasedEscalationOutput {
+	return i.ToTcpCheckAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsTimeBasedEscalationArgs) ToTcpCheckAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) TcpCheckAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsTimeBasedEscalationOutput)
+}
+
+// TcpCheckAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts TcpCheckAlertSettingsTimeBasedEscalationArray and TcpCheckAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `TcpCheckAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	TcpCheckAlertSettingsTimeBasedEscalationArray{ TcpCheckAlertSettingsTimeBasedEscalationArgs{...} }
+type TcpCheckAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToTcpCheckAlertSettingsTimeBasedEscalationArrayOutput() TcpCheckAlertSettingsTimeBasedEscalationArrayOutput
+	ToTcpCheckAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) TcpCheckAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type TcpCheckAlertSettingsTimeBasedEscalationArray []TcpCheckAlertSettingsTimeBasedEscalationInput
+
+func (TcpCheckAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpCheckAlertSettingsTimeBasedEscalationArray) ToTcpCheckAlertSettingsTimeBasedEscalationArrayOutput() TcpCheckAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToTcpCheckAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i TcpCheckAlertSettingsTimeBasedEscalationArray) ToTcpCheckAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TcpCheckAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsTimeBasedEscalationOutput) ToTcpCheckAlertSettingsTimeBasedEscalationOutput() TcpCheckAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsTimeBasedEscalationOutput) ToTcpCheckAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) TcpCheckAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o TcpCheckAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type TcpCheckAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpCheckAlertSettingsTimeBasedEscalationArrayOutput) ToTcpCheckAlertSettingsTimeBasedEscalationArrayOutput() TcpCheckAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsTimeBasedEscalationArrayOutput) ToTcpCheckAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) TcpCheckAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpCheckAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) TcpCheckAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpCheckAlertSettingsTimeBasedEscalation {
+		return vs[0].([]TcpCheckAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(TcpCheckAlertSettingsTimeBasedEscalationOutput)
+}
+
+type TcpCheckRequest struct {
+	// A request can have multiple assertions.
+	Assertions []TcpCheckRequestAssertion `pulumi:"assertions"`
+	// The data to send to the target host.
+	Data *string `pulumi:"data"`
+	// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+	Hostname string `pulumi:"hostname"`
+	// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+	IpFamily *string `pulumi:"ipFamily"`
+	// The port number to connect to.
+	Port int `pulumi:"port"`
+}
+
+// TcpCheckRequestInput is an input type that accepts TcpCheckRequestArgs and TcpCheckRequestOutput values.
+// You can construct a concrete instance of `TcpCheckRequestInput` via:
+//
+//	TcpCheckRequestArgs{...}
+type TcpCheckRequestInput interface {
+	pulumi.Input
+
+	ToTcpCheckRequestOutput() TcpCheckRequestOutput
+	ToTcpCheckRequestOutputWithContext(context.Context) TcpCheckRequestOutput
+}
+
+type TcpCheckRequestArgs struct {
+	// A request can have multiple assertions.
+	Assertions TcpCheckRequestAssertionArrayInput `pulumi:"assertions"`
+	// The data to send to the target host.
+	Data pulumi.StringPtrInput `pulumi:"data"`
+	// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+	Hostname pulumi.StringInput `pulumi:"hostname"`
+	// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// The port number to connect to.
+	Port pulumi.IntInput `pulumi:"port"`
+}
+
+func (TcpCheckRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckRequest)(nil)).Elem()
+}
+
+func (i TcpCheckRequestArgs) ToTcpCheckRequestOutput() TcpCheckRequestOutput {
+	return i.ToTcpCheckRequestOutputWithContext(context.Background())
+}
+
+func (i TcpCheckRequestArgs) ToTcpCheckRequestOutputWithContext(ctx context.Context) TcpCheckRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRequestOutput)
+}
+
+func (i TcpCheckRequestArgs) ToTcpCheckRequestPtrOutput() TcpCheckRequestPtrOutput {
+	return i.ToTcpCheckRequestPtrOutputWithContext(context.Background())
+}
+
+func (i TcpCheckRequestArgs) ToTcpCheckRequestPtrOutputWithContext(ctx context.Context) TcpCheckRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRequestOutput).ToTcpCheckRequestPtrOutputWithContext(ctx)
+}
+
+// TcpCheckRequestPtrInput is an input type that accepts TcpCheckRequestArgs, TcpCheckRequestPtr and TcpCheckRequestPtrOutput values.
+// You can construct a concrete instance of `TcpCheckRequestPtrInput` via:
+//
+//	        TcpCheckRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpCheckRequestPtrInput interface {
+	pulumi.Input
+
+	ToTcpCheckRequestPtrOutput() TcpCheckRequestPtrOutput
+	ToTcpCheckRequestPtrOutputWithContext(context.Context) TcpCheckRequestPtrOutput
+}
+
+type tcpCheckRequestPtrType TcpCheckRequestArgs
+
+func TcpCheckRequestPtr(v *TcpCheckRequestArgs) TcpCheckRequestPtrInput {
+	return (*tcpCheckRequestPtrType)(v)
+}
+
+func (*tcpCheckRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckRequest)(nil)).Elem()
+}
+
+func (i *tcpCheckRequestPtrType) ToTcpCheckRequestPtrOutput() TcpCheckRequestPtrOutput {
+	return i.ToTcpCheckRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpCheckRequestPtrType) ToTcpCheckRequestPtrOutputWithContext(ctx context.Context) TcpCheckRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRequestPtrOutput)
+}
+
+type TcpCheckRequestOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckRequest)(nil)).Elem()
+}
+
+func (o TcpCheckRequestOutput) ToTcpCheckRequestOutput() TcpCheckRequestOutput {
+	return o
+}
+
+func (o TcpCheckRequestOutput) ToTcpCheckRequestOutputWithContext(ctx context.Context) TcpCheckRequestOutput {
+	return o
+}
+
+func (o TcpCheckRequestOutput) ToTcpCheckRequestPtrOutput() TcpCheckRequestPtrOutput {
+	return o.ToTcpCheckRequestPtrOutputWithContext(context.Background())
+}
+
+func (o TcpCheckRequestOutput) ToTcpCheckRequestPtrOutputWithContext(ctx context.Context) TcpCheckRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpCheckRequest) *TcpCheckRequest {
+		return &v
+	}).(TcpCheckRequestPtrOutput)
+}
+
+// A request can have multiple assertions.
+func (o TcpCheckRequestOutput) Assertions() TcpCheckRequestAssertionArrayOutput {
+	return o.ApplyT(func(v TcpCheckRequest) []TcpCheckRequestAssertion { return v.Assertions }).(TcpCheckRequestAssertionArrayOutput)
+}
+
+// The data to send to the target host.
+func (o TcpCheckRequestOutput) Data() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpCheckRequest) *string { return v.Data }).(pulumi.StringPtrOutput)
+}
+
+// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+func (o TcpCheckRequestOutput) Hostname() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckRequest) string { return v.Hostname }).(pulumi.StringOutput)
+}
+
+// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+func (o TcpCheckRequestOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpCheckRequest) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to.
+func (o TcpCheckRequestOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v TcpCheckRequest) int { return v.Port }).(pulumi.IntOutput)
+}
+
+type TcpCheckRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckRequest)(nil)).Elem()
+}
+
+func (o TcpCheckRequestPtrOutput) ToTcpCheckRequestPtrOutput() TcpCheckRequestPtrOutput {
+	return o
+}
+
+func (o TcpCheckRequestPtrOutput) ToTcpCheckRequestPtrOutputWithContext(ctx context.Context) TcpCheckRequestPtrOutput {
+	return o
+}
+
+func (o TcpCheckRequestPtrOutput) Elem() TcpCheckRequestOutput {
+	return o.ApplyT(func(v *TcpCheckRequest) TcpCheckRequest {
+		if v != nil {
+			return *v
+		}
+		var ret TcpCheckRequest
+		return ret
+	}).(TcpCheckRequestOutput)
+}
+
+// A request can have multiple assertions.
+func (o TcpCheckRequestPtrOutput) Assertions() TcpCheckRequestAssertionArrayOutput {
+	return o.ApplyT(func(v *TcpCheckRequest) []TcpCheckRequestAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(TcpCheckRequestAssertionArrayOutput)
+}
+
+// The data to send to the target host.
+func (o TcpCheckRequestPtrOutput) Data() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Data
+	}).(pulumi.StringPtrOutput)
+}
+
+// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+func (o TcpCheckRequestPtrOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Hostname
+	}).(pulumi.StringPtrOutput)
+}
+
+// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+func (o TcpCheckRequestPtrOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to.
+func (o TcpCheckRequestPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+type TcpCheckRequestAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison string  `pulumi:"comparison"`
+	Property   *string `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+	Source string  `pulumi:"source"`
+	Target *string `pulumi:"target"`
+}
+
+// TcpCheckRequestAssertionInput is an input type that accepts TcpCheckRequestAssertionArgs and TcpCheckRequestAssertionOutput values.
+// You can construct a concrete instance of `TcpCheckRequestAssertionInput` via:
+//
+//	TcpCheckRequestAssertionArgs{...}
+type TcpCheckRequestAssertionInput interface {
+	pulumi.Input
+
+	ToTcpCheckRequestAssertionOutput() TcpCheckRequestAssertionOutput
+	ToTcpCheckRequestAssertionOutputWithContext(context.Context) TcpCheckRequestAssertionOutput
+}
+
+type TcpCheckRequestAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison pulumi.StringInput    `pulumi:"comparison"`
+	Property   pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+	Source pulumi.StringInput    `pulumi:"source"`
+	Target pulumi.StringPtrInput `pulumi:"target"`
+}
+
+func (TcpCheckRequestAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckRequestAssertion)(nil)).Elem()
+}
+
+func (i TcpCheckRequestAssertionArgs) ToTcpCheckRequestAssertionOutput() TcpCheckRequestAssertionOutput {
+	return i.ToTcpCheckRequestAssertionOutputWithContext(context.Background())
+}
+
+func (i TcpCheckRequestAssertionArgs) ToTcpCheckRequestAssertionOutputWithContext(ctx context.Context) TcpCheckRequestAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRequestAssertionOutput)
+}
+
+// TcpCheckRequestAssertionArrayInput is an input type that accepts TcpCheckRequestAssertionArray and TcpCheckRequestAssertionArrayOutput values.
+// You can construct a concrete instance of `TcpCheckRequestAssertionArrayInput` via:
+//
+//	TcpCheckRequestAssertionArray{ TcpCheckRequestAssertionArgs{...} }
+type TcpCheckRequestAssertionArrayInput interface {
+	pulumi.Input
+
+	ToTcpCheckRequestAssertionArrayOutput() TcpCheckRequestAssertionArrayOutput
+	ToTcpCheckRequestAssertionArrayOutputWithContext(context.Context) TcpCheckRequestAssertionArrayOutput
+}
+
+type TcpCheckRequestAssertionArray []TcpCheckRequestAssertionInput
+
+func (TcpCheckRequestAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckRequestAssertion)(nil)).Elem()
+}
+
+func (i TcpCheckRequestAssertionArray) ToTcpCheckRequestAssertionArrayOutput() TcpCheckRequestAssertionArrayOutput {
+	return i.ToTcpCheckRequestAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i TcpCheckRequestAssertionArray) ToTcpCheckRequestAssertionArrayOutputWithContext(ctx context.Context) TcpCheckRequestAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRequestAssertionArrayOutput)
+}
+
+type TcpCheckRequestAssertionOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckRequestAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckRequestAssertion)(nil)).Elem()
+}
+
+func (o TcpCheckRequestAssertionOutput) ToTcpCheckRequestAssertionOutput() TcpCheckRequestAssertionOutput {
+	return o
+}
+
+func (o TcpCheckRequestAssertionOutput) ToTcpCheckRequestAssertionOutputWithContext(ctx context.Context) TcpCheckRequestAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+func (o TcpCheckRequestAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+func (o TcpCheckRequestAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpCheckRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+func (o TcpCheckRequestAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+func (o TcpCheckRequestAssertionOutput) Target() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpCheckRequestAssertion) *string { return v.Target }).(pulumi.StringPtrOutput)
+}
+
+type TcpCheckRequestAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckRequestAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpCheckRequestAssertion)(nil)).Elem()
+}
+
+func (o TcpCheckRequestAssertionArrayOutput) ToTcpCheckRequestAssertionArrayOutput() TcpCheckRequestAssertionArrayOutput {
+	return o
+}
+
+func (o TcpCheckRequestAssertionArrayOutput) ToTcpCheckRequestAssertionArrayOutputWithContext(ctx context.Context) TcpCheckRequestAssertionArrayOutput {
+	return o
+}
+
+func (o TcpCheckRequestAssertionArrayOutput) Index(i pulumi.IntInput) TcpCheckRequestAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpCheckRequestAssertion {
+		return vs[0].([]TcpCheckRequestAssertion)[vs[1].(int)]
+	}).(TcpCheckRequestAssertionOutput)
+}
+
+type TcpCheckRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt.
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check (maximum 600 seconds).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check. Value must be between 1 and 10.
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Whether retries should be run in the same region as the initial check run.
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+	Type string `pulumi:"type"`
+}
+
+// TcpCheckRetryStrategyInput is an input type that accepts TcpCheckRetryStrategyArgs and TcpCheckRetryStrategyOutput values.
+// You can construct a concrete instance of `TcpCheckRetryStrategyInput` via:
+//
+//	TcpCheckRetryStrategyArgs{...}
+type TcpCheckRetryStrategyInput interface {
+	pulumi.Input
+
+	ToTcpCheckRetryStrategyOutput() TcpCheckRetryStrategyOutput
+	ToTcpCheckRetryStrategyOutputWithContext(context.Context) TcpCheckRetryStrategyOutput
+}
+
+type TcpCheckRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt.
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check (maximum 600 seconds).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check. Value must be between 1 and 10.
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Whether retries should be run in the same region as the initial check run.
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (TcpCheckRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckRetryStrategy)(nil)).Elem()
+}
+
+func (i TcpCheckRetryStrategyArgs) ToTcpCheckRetryStrategyOutput() TcpCheckRetryStrategyOutput {
+	return i.ToTcpCheckRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i TcpCheckRetryStrategyArgs) ToTcpCheckRetryStrategyOutputWithContext(ctx context.Context) TcpCheckRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRetryStrategyOutput)
+}
+
+func (i TcpCheckRetryStrategyArgs) ToTcpCheckRetryStrategyPtrOutput() TcpCheckRetryStrategyPtrOutput {
+	return i.ToTcpCheckRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i TcpCheckRetryStrategyArgs) ToTcpCheckRetryStrategyPtrOutputWithContext(ctx context.Context) TcpCheckRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRetryStrategyOutput).ToTcpCheckRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// TcpCheckRetryStrategyPtrInput is an input type that accepts TcpCheckRetryStrategyArgs, TcpCheckRetryStrategyPtr and TcpCheckRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `TcpCheckRetryStrategyPtrInput` via:
+//
+//	        TcpCheckRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpCheckRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToTcpCheckRetryStrategyPtrOutput() TcpCheckRetryStrategyPtrOutput
+	ToTcpCheckRetryStrategyPtrOutputWithContext(context.Context) TcpCheckRetryStrategyPtrOutput
+}
+
+type tcpCheckRetryStrategyPtrType TcpCheckRetryStrategyArgs
+
+func TcpCheckRetryStrategyPtr(v *TcpCheckRetryStrategyArgs) TcpCheckRetryStrategyPtrInput {
+	return (*tcpCheckRetryStrategyPtrType)(v)
+}
+
+func (*tcpCheckRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckRetryStrategy)(nil)).Elem()
+}
+
+func (i *tcpCheckRetryStrategyPtrType) ToTcpCheckRetryStrategyPtrOutput() TcpCheckRetryStrategyPtrOutput {
+	return i.ToTcpCheckRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpCheckRetryStrategyPtrType) ToTcpCheckRetryStrategyPtrOutputWithContext(ctx context.Context) TcpCheckRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckRetryStrategyPtrOutput)
+}
+
+type TcpCheckRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckRetryStrategy)(nil)).Elem()
+}
+
+func (o TcpCheckRetryStrategyOutput) ToTcpCheckRetryStrategyOutput() TcpCheckRetryStrategyOutput {
+	return o
+}
+
+func (o TcpCheckRetryStrategyOutput) ToTcpCheckRetryStrategyOutputWithContext(ctx context.Context) TcpCheckRetryStrategyOutput {
+	return o
+}
+
+func (o TcpCheckRetryStrategyOutput) ToTcpCheckRetryStrategyPtrOutput() TcpCheckRetryStrategyPtrOutput {
+	return o.ToTcpCheckRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o TcpCheckRetryStrategyOutput) ToTcpCheckRetryStrategyPtrOutputWithContext(ctx context.Context) TcpCheckRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpCheckRetryStrategy) *TcpCheckRetryStrategy {
+		return &v
+	}).(TcpCheckRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt.
+func (o TcpCheckRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check (maximum 600 seconds).
+func (o TcpCheckRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check. Value must be between 1 and 10.
+func (o TcpCheckRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpCheckRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check run.
+func (o TcpCheckRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TcpCheckRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+func (o TcpCheckRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type TcpCheckRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckRetryStrategy)(nil)).Elem()
+}
+
+func (o TcpCheckRetryStrategyPtrOutput) ToTcpCheckRetryStrategyPtrOutput() TcpCheckRetryStrategyPtrOutput {
+	return o
+}
+
+func (o TcpCheckRetryStrategyPtrOutput) ToTcpCheckRetryStrategyPtrOutputWithContext(ctx context.Context) TcpCheckRetryStrategyPtrOutput {
+	return o
+}
+
+func (o TcpCheckRetryStrategyPtrOutput) Elem() TcpCheckRetryStrategyOutput {
+	return o.ApplyT(func(v *TcpCheckRetryStrategy) TcpCheckRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret TcpCheckRetryStrategy
+		return ret
+	}).(TcpCheckRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt.
+func (o TcpCheckRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check (maximum 600 seconds).
+func (o TcpCheckRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check. Value must be between 1 and 10.
+func (o TcpCheckRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check run.
+func (o TcpCheckRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+func (o TcpCheckRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelCallInput)(nil)).Elem(), AlertChannelCallArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelCallPtrInput)(nil)).Elem(), AlertChannelCallArgs{})
@@ -5707,6 +6958,24 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), HeartbeatCheckAlertSettingsTimeBasedEscalationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatPtrInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertChannelSubscriptionInput)(nil)).Elem(), TcpCheckAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertChannelSubscriptionArrayInput)(nil)).Elem(), TcpCheckAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsInput)(nil)).Elem(), TcpCheckAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsPtrInput)(nil)).Elem(), TcpCheckAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), TcpCheckAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), TcpCheckAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsReminderInput)(nil)).Elem(), TcpCheckAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsReminderArrayInput)(nil)).Elem(), TcpCheckAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsRunBasedEscalationInput)(nil)).Elem(), TcpCheckAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), TcpCheckAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), TcpCheckAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), TcpCheckAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRequestInput)(nil)).Elem(), TcpCheckRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRequestPtrInput)(nil)).Elem(), TcpCheckRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRequestAssertionInput)(nil)).Elem(), TcpCheckRequestAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRequestAssertionArrayInput)(nil)).Elem(), TcpCheckRequestAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRetryStrategyInput)(nil)).Elem(), TcpCheckRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRetryStrategyPtrInput)(nil)).Elem(), TcpCheckRetryStrategyArgs{})
 	pulumi.RegisterOutputType(AlertChannelCallOutput{})
 	pulumi.RegisterOutputType(AlertChannelCallPtrOutput{})
 	pulumi.RegisterOutputType(AlertChannelEmailOutput{})
@@ -5785,4 +7054,22 @@ func init() {
 	pulumi.RegisterOutputType(HeartbeatCheckAlertSettingsTimeBasedEscalationArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatPtrOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(TcpCheckAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(TcpCheckRequestOutput{})
+	pulumi.RegisterOutputType(TcpCheckRequestPtrOutput{})
+	pulumi.RegisterOutputType(TcpCheckRequestAssertionOutput{})
+	pulumi.RegisterOutputType(TcpCheckRequestAssertionArrayOutput{})
+	pulumi.RegisterOutputType(TcpCheckRetryStrategyOutput{})
+	pulumi.RegisterOutputType(TcpCheckRetryStrategyPtrOutput{})
 }

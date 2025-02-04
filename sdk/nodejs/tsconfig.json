@@ -27,6 +27,7 @@
         "privateLocation.ts",
         "provider.ts",
         "snippet.ts",
+        "tcpCheck.ts",
         "triggerCheck.ts",
         "triggerCheckGroup.ts",
         "types/index.ts",
