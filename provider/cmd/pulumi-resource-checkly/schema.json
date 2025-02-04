@@ -914,6 +914,191 @@
                     ]
                 }
             }
+        },
+        "checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean"
+                },
+                "channelId": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/TcpCheckAlertSettings:TcpCheckAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TcpCheckAlertSettingsParallelRunFailureThreshold:TcpCheckAlertSettingsParallelRunFailureThreshold"
+                    }
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TcpCheckAlertSettingsReminder:TcpCheckAlertSettingsReminder"
+                    }
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TcpCheckAlertSettingsRunBasedEscalation:TcpCheckAlertSettingsRunBasedEscalation"
+                    }
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TcpCheckAlertSettingsTimeBasedEscalation:TcpCheckAlertSettingsTimeBasedEscalation"
+                    }
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/TcpCheckAlertSettingsParallelRunFailureThreshold:TcpCheckAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Applicable only for checks scheduled in parallel in multiple locations.\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TcpCheckAlertSettingsReminder:TcpCheckAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TcpCheckAlertSettingsRunBasedEscalation:TcpCheckAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TcpCheckAlertSettingsTimeBasedEscalation:TcpCheckAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TcpCheckRequest:TcpCheckRequest": {
+            "properties": {
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TcpCheckRequestAssertion:TcpCheckRequestAssertion"
+                    },
+                    "description": "A request can have multiple assertions.\n"
+                },
+                "data": {
+                    "type": "string",
+                    "description": "The data to send to the target host.\n"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "The hostname or IP to connect to. Do not include a scheme or a port in this value.\n"
+                },
+                "ipFamily": {
+                    "type": "string",
+                    "description": "The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.\n"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port number to connect to.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "hostname",
+                "port"
+            ]
+        },
+        "checkly:index/TcpCheckRequestAssertion:TcpCheckRequestAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.\n"
+                },
+                "property": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.\n"
+                },
+                "target": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source"
+            ]
+        },
+        "checkly:index/TcpCheckRetryStrategy:TcpCheckRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt.\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check (maximum 600 seconds).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check. Value must be between 1 and 10.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check run.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
         }
     },
     "provider": {
@@ -2518,6 +2703,305 @@
                     "script": {
                         "type": "string",
                         "description": "Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/tcpCheck:TcpCheck": {
+            "description": "TCP checks allow you to monitor remote endpoints at a lower level.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// Basic TCP Check\nconst example_tcp_check = new checkly.TcpCheck(\"example-tcp-check\", {\n    name: \"Example TCP check\",\n    activated: true,\n    shouldFail: false,\n    frequency: 1,\n    useGlobalAlertSettings: true,\n    locations: [\"us-west-1\"],\n    request: {\n        hostname: \"api.checklyhq.com\",\n        port: 80,\n    },\n});\n// A more complex example using assertions and setting alerts\nconst example_tcp_check_2 = new checkly.TcpCheck(\"example-tcp-check-2\", {\n    name: \"Example TCP check 2\",\n    activated: true,\n    shouldFail: true,\n    frequency: 1,\n    degradedResponseTime: 5000,\n    maxResponseTime: 10000,\n    locations: [\n        \"us-west-1\",\n        \"ap-northeast-1\",\n        \"ap-south-1\",\n    ],\n    alertSettings: {\n        escalationType: \"RUN_BASED\",\n        runBasedEscalations: [{\n            failedRunThreshold: 1,\n        }],\n        reminders: [{\n            amount: 1,\n        }],\n    },\n    retryStrategy: {\n        type: \"FIXED\",\n        baseBackoffSeconds: 60,\n        maxDurationSeconds: 600,\n        maxRetries: 3,\n        sameRegion: false,\n    },\n    request: {\n        hostname: \"api.checklyhq.com\",\n        port: 80,\n        data: \"hello\",\n        assertions: [\n            {\n                source: \"RESPONSE_DATA\",\n                property: \"\",\n                comparison: \"CONTAINS\",\n                target: \"welcome\",\n            },\n            {\n                source: \"RESPONSE_TIME\",\n                property: \"\",\n                comparison: \"LESS_THAN\",\n                target: \"2000\",\n            },\n        ],\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# Basic TCP Check\nexample_tcp_check = checkly.TcpCheck(\"example-tcp-check\",\n    name=\"Example TCP check\",\n    activated=True,\n    should_fail=False,\n    frequency=1,\n    use_global_alert_settings=True,\n    locations=[\"us-west-1\"],\n    request={\n        \"hostname\": \"api.checklyhq.com\",\n        \"port\": 80,\n    })\n# A more complex example using assertions and setting alerts\nexample_tcp_check_2 = checkly.TcpCheck(\"example-tcp-check-2\",\n    name=\"Example TCP check 2\",\n    activated=True,\n    should_fail=True,\n    frequency=1,\n    degraded_response_time=5000,\n    max_response_time=10000,\n    locations=[\n        \"us-west-1\",\n        \"ap-northeast-1\",\n        \"ap-south-1\",\n    ],\n    alert_settings={\n        \"escalation_type\": \"RUN_BASED\",\n        \"run_based_escalations\": [{\n            \"failed_run_threshold\": 1,\n        }],\n        \"reminders\": [{\n            \"amount\": 1,\n        }],\n    },\n    retry_strategy={\n        \"type\": \"FIXED\",\n        \"base_backoff_seconds\": 60,\n        \"max_duration_seconds\": 600,\n        \"max_retries\": 3,\n        \"same_region\": False,\n    },\n    request={\n        \"hostname\": \"api.checklyhq.com\",\n        \"port\": 80,\n        \"data\": \"hello\",\n        \"assertions\": [\n            {\n                \"source\": \"RESPONSE_DATA\",\n                \"property\": \"\",\n                \"comparison\": \"CONTAINS\",\n                \"target\": \"welcome\",\n            },\n            {\n                \"source\": \"RESPONSE_TIME\",\n                \"property\": \"\",\n                \"comparison\": \"LESS_THAN\",\n                \"target\": \"2000\",\n            },\n        ],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // Basic TCP Check\n    var example_tcp_check = new Checkly.TcpCheck(\"example-tcp-check\", new()\n    {\n        Name = \"Example TCP check\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 1,\n        UseGlobalAlertSettings = true,\n        Locations = new[]\n        {\n            \"us-west-1\",\n        },\n        Request = new Checkly.Inputs.TcpCheckRequestArgs\n        {\n            Hostname = \"api.checklyhq.com\",\n            Port = 80,\n        },\n    });\n\n    // A more complex example using assertions and setting alerts\n    var example_tcp_check_2 = new Checkly.TcpCheck(\"example-tcp-check-2\", new()\n    {\n        Name = \"Example TCP check 2\",\n        Activated = true,\n        ShouldFail = true,\n        Frequency = 1,\n        DegradedResponseTime = 5000,\n        MaxResponseTime = 10000,\n        Locations = new[]\n        {\n            \"us-west-1\",\n            \"ap-northeast-1\",\n            \"ap-south-1\",\n        },\n        AlertSettings = new Checkly.Inputs.TcpCheckAlertSettingsArgs\n        {\n            EscalationType = \"RUN_BASED\",\n            RunBasedEscalations = new[]\n            {\n                new Checkly.Inputs.TcpCheckAlertSettingsRunBasedEscalationArgs\n                {\n                    FailedRunThreshold = 1,\n                },\n            },\n            Reminders = new[]\n            {\n                new Checkly.Inputs.TcpCheckAlertSettingsReminderArgs\n                {\n                    Amount = 1,\n                },\n            },\n        },\n        RetryStrategy = new Checkly.Inputs.TcpCheckRetryStrategyArgs\n        {\n            Type = \"FIXED\",\n            BaseBackoffSeconds = 60,\n            MaxDurationSeconds = 600,\n            MaxRetries = 3,\n            SameRegion = false,\n        },\n        Request = new Checkly.Inputs.TcpCheckRequestArgs\n        {\n            Hostname = \"api.checklyhq.com\",\n            Port = 80,\n            Data = \"hello\",\n            Assertions = new[]\n            {\n                new Checkly.Inputs.TcpCheckRequestAssertionArgs\n                {\n                    Source = \"RESPONSE_DATA\",\n                    Property = \"\",\n                    Comparison = \"CONTAINS\",\n                    Target = \"welcome\",\n                },\n                new Checkly.Inputs.TcpCheckRequestAssertionArgs\n                {\n                    Source = \"RESPONSE_TIME\",\n                    Property = \"\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"2000\",\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// Basic TCP Check\n\t\t_, err := checkly.NewTcpCheck(ctx, \"example-tcp-check\", \u0026checkly.TcpCheckArgs{\n\t\t\tName:                   pulumi.String(\"Example TCP check\"),\n\t\t\tActivated:              pulumi.Bool(true),\n\t\t\tShouldFail:             pulumi.Bool(false),\n\t\t\tFrequency:              pulumi.Int(1),\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.TcpCheckRequestArgs{\n\t\t\t\tHostname: pulumi.String(\"api.checklyhq.com\"),\n\t\t\t\tPort:     pulumi.Int(80),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A more complex example using assertions and setting alerts\n\t\t_, err = checkly.NewTcpCheck(ctx, \"example-tcp-check-2\", \u0026checkly.TcpCheckArgs{\n\t\t\tName:                 pulumi.String(\"Example TCP check 2\"),\n\t\t\tActivated:            pulumi.Bool(true),\n\t\t\tShouldFail:           pulumi.Bool(true),\n\t\t\tFrequency:            pulumi.Int(1),\n\t\t\tDegradedResponseTime: pulumi.Int(5000),\n\t\t\tMaxResponseTime:      pulumi.Int(10000),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t\tpulumi.String(\"ap-northeast-1\"),\n\t\t\t\tpulumi.String(\"ap-south-1\"),\n\t\t\t},\n\t\t\tAlertSettings: \u0026checkly.TcpCheckAlertSettingsArgs{\n\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\tRunBasedEscalations: checkly.TcpCheckAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\u0026checkly.TcpCheckAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tReminders: checkly.TcpCheckAlertSettingsReminderArray{\n\t\t\t\t\t\u0026checkly.TcpCheckAlertSettingsReminderArgs{\n\t\t\t\t\t\tAmount: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tRetryStrategy: \u0026checkly.TcpCheckRetryStrategyArgs{\n\t\t\t\tType:               pulumi.String(\"FIXED\"),\n\t\t\t\tBaseBackoffSeconds: pulumi.Int(60),\n\t\t\t\tMaxDurationSeconds: pulumi.Int(600),\n\t\t\t\tMaxRetries:         pulumi.Int(3),\n\t\t\t\tSameRegion:         pulumi.Bool(false),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.TcpCheckRequestArgs{\n\t\t\t\tHostname: pulumi.String(\"api.checklyhq.com\"),\n\t\t\t\tPort:     pulumi.Int(80),\n\t\t\t\tData:     pulumi.String(\"hello\"),\n\t\t\t\tAssertions: checkly.TcpCheckRequestAssertionArray{\n\t\t\t\t\t\u0026checkly.TcpCheckRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"RESPONSE_DATA\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"CONTAINS\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"welcome\"),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026checkly.TcpCheckRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"RESPONSE_TIME\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"2000\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TcpCheck;\nimport com.pulumi.checkly.TcpCheckArgs;\nimport com.pulumi.checkly.inputs.TcpCheckRequestArgs;\nimport com.pulumi.checkly.inputs.TcpCheckAlertSettingsArgs;\nimport com.pulumi.checkly.inputs.TcpCheckRetryStrategyArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // Basic TCP Check\n        var example_tcp_check = new TcpCheck(\"example-tcp-check\", TcpCheckArgs.builder()\n            .name(\"Example TCP check\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(1)\n            .useGlobalAlertSettings(true)\n            .locations(\"us-west-1\")\n            .request(TcpCheckRequestArgs.builder()\n                .hostname(\"api.checklyhq.com\")\n                .port(80)\n                .build())\n            .build());\n\n        // A more complex example using assertions and setting alerts\n        var example_tcp_check_2 = new TcpCheck(\"example-tcp-check-2\", TcpCheckArgs.builder()\n            .name(\"Example TCP check 2\")\n            .activated(true)\n            .shouldFail(true)\n            .frequency(1)\n            .degradedResponseTime(5000)\n            .maxResponseTime(10000)\n            .locations(            \n                \"us-west-1\",\n                \"ap-northeast-1\",\n                \"ap-south-1\")\n            .alertSettings(TcpCheckAlertSettingsArgs.builder()\n                .escalationType(\"RUN_BASED\")\n                .runBasedEscalations(TcpCheckAlertSettingsRunBasedEscalationArgs.builder()\n                    .failedRunThreshold(1)\n                    .build())\n                .reminders(TcpCheckAlertSettingsReminderArgs.builder()\n                    .amount(1)\n                    .build())\n                .build())\n            .retryStrategy(TcpCheckRetryStrategyArgs.builder()\n                .type(\"FIXED\")\n                .baseBackoffSeconds(60)\n                .maxDurationSeconds(600)\n                .maxRetries(3)\n                .sameRegion(false)\n                .build())\n            .request(TcpCheckRequestArgs.builder()\n                .hostname(\"api.checklyhq.com\")\n                .port(80)\n                .data(\"hello\")\n                .assertions(                \n                    TcpCheckRequestAssertionArgs.builder()\n                        .source(\"RESPONSE_DATA\")\n                        .property(\"\")\n                        .comparison(\"CONTAINS\")\n                        .target(\"welcome\")\n                        .build(),\n                    TcpCheckRequestAssertionArgs.builder()\n                        .source(\"RESPONSE_TIME\")\n                        .property(\"\")\n                        .comparison(\"LESS_THAN\")\n                        .target(\"2000\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # Basic TCP Check\n  example-tcp-check:\n    type: checkly:TcpCheck\n    properties:\n      name: Example TCP check\n      activated: true\n      shouldFail: false\n      frequency: 1\n      useGlobalAlertSettings: true\n      locations:\n        - us-west-1\n      request:\n        hostname: api.checklyhq.com\n        port: 80\n  # A more complex example using assertions and setting alerts\n  example-tcp-check-2:\n    type: checkly:TcpCheck\n    properties:\n      name: Example TCP check 2\n      activated: true\n      shouldFail: true\n      frequency: 1\n      degradedResponseTime: 5000\n      maxResponseTime: 10000\n      locations:\n        - us-west-1\n        - ap-northeast-1\n        - ap-south-1\n      alertSettings:\n        escalationType: RUN_BASED\n        runBasedEscalations:\n          - failedRunThreshold: 1\n        reminders:\n          - amount: 1\n      retryStrategy:\n        type: FIXED\n        baseBackoffSeconds: 60\n        maxDurationSeconds: 600\n        maxRetries: 3\n        sameRegion: false\n      request:\n        hostname: api.checklyhq.com\n        port: 80\n        data: hello\n        assertions:\n          - source: RESPONSE_DATA\n            property: \"\"\n            comparison: CONTAINS\n            target: welcome\n          - source: RESPONSE_TIME\n            property: \"\"\n            comparison: LESS_THAN\n            target: '2000'\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/TcpCheckAlertSettings:TcpCheckAlertSettings"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this check is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the this check. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/TcpCheckRequest:TcpCheckRequest",
+                    "description": "The parameters for the TCP connection.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/TcpCheckRetryStrategy:TcpCheckRetryStrategy",
+                    "description": "A strategy for retrying failed check runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the check should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this check.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a check is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "frequency",
+                "name",
+                "request",
+                "retryStrategy"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/TcpCheckAlertSettings:TcpCheckAlertSettings"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this check is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the this check. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/TcpCheckRequest:TcpCheckRequest",
+                    "description": "The parameters for the TCP connection.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/TcpCheckRetryStrategy:TcpCheckRetryStrategy",
+                    "description": "A strategy for retrying failed check runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the check should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this check.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a check is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "frequency",
+                "request"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering TcpCheck resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines if the check is running or not. Possible values `true`, and `false`.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription"
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/TcpCheckAlertSettings:TcpCheckAlertSettings"
+                    },
+                    "degradedResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    },
+                    "frequencyOffset": {
+                        "type": "integer",
+                        "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "description": "The id of the check group this check is part of.\n"
+                    },
+                    "groupOrder": {
+                        "type": "integer",
+                        "description": "The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run the this check. (Default [\"us-east-1\"])\n"
+                    },
+                    "maxResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when a check fails/degrades/recovers.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the check.\n"
+                    },
+                    "privateLocations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more private locations slugs.\n"
+                    },
+                    "request": {
+                        "$ref": "#/types/checkly:index/TcpCheckRequest:TcpCheckRequest",
+                        "description": "The parameters for the TCP connection.\n"
+                    },
+                    "retryStrategy": {
+                        "$ref": "#/types/checkly:index/TcpCheckRetryStrategy:TcpCheckRetryStrategy",
+                        "description": "A strategy for retrying failed check runs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines if the check should run in all selected locations in parallel or round-robin.\n"
+                    },
+                    "runtimeId": {
+                        "type": "string",
+                        "description": "The ID of the runtime to use for this check.\n"
+                    },
+                    "shouldFail": {
+                        "type": "boolean",
+                        "description": "Allows to invert the behaviour of when a check is considered to fail.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of tags for organizing and filtering checks.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
                     }
                 },
                 "type": "object"

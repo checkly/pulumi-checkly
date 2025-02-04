@@ -449,3 +449,114 @@ export interface HeartbeatCheckHeartbeat {
     pingToken: string;
 }
 
+export interface TcpCheckAlertChannelSubscription {
+    activated: boolean;
+    channelId: number;
+}
+
+export interface TcpCheckAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
+    escalationType?: string;
+    parallelRunFailureThresholds: outputs.TcpCheckAlertSettingsParallelRunFailureThreshold[];
+    reminders: outputs.TcpCheckAlertSettingsReminder[];
+    runBasedEscalations: outputs.TcpCheckAlertSettingsRunBasedEscalation[];
+    timeBasedEscalations: outputs.TcpCheckAlertSettingsTimeBasedEscalation[];
+}
+
+export interface TcpCheckAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: boolean;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: number;
+}
+
+export interface TcpCheckAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
+    amount?: number;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: number;
+}
+
+export interface TcpCheckAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
+    failedRunThreshold?: number;
+}
+
+export interface TcpCheckAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: number;
+}
+
+export interface TcpCheckRequest {
+    /**
+     * A request can have multiple assertions.
+     */
+    assertions?: outputs.TcpCheckRequestAssertion[];
+    /**
+     * The data to send to the target host.
+     */
+    data?: string;
+    /**
+     * The hostname or IP to connect to. Do not include a scheme or a port in this value.
+     */
+    hostname: string;
+    /**
+     * The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+     */
+    ipFamily?: string;
+    /**
+     * The port number to connect to.
+     */
+    port: number;
+}
+
+export interface TcpCheckRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+     */
+    comparison: string;
+    property?: string;
+    /**
+     * The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+     */
+    source: string;
+    target?: string;
+}
+
+export interface TcpCheckRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt.
+     */
+    baseBackoffSeconds?: number;
+    /**
+     * The total amount of time to continue retrying the check (maximum 600 seconds).
+     */
+    maxDurationSeconds?: number;
+    /**
+     * The maximum number of times to retry the check. Value must be between 1 and 10.
+     */
+    maxRetries?: number;
+    /**
+     * Whether retries should be run in the same region as the initial check run.
+     */
+    sameRegion?: boolean;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+     */
+    type: string;
+}
+

@@ -16,6 +16,7 @@ from .maintenance_window import *
 from .private_location import *
 from .provider import *
 from .snippet import *
+from .tcp_check import *
 from .trigger_check import *
 from .trigger_check_group import *
 from ._inputs import *
@@ -101,6 +102,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/snippet:Snippet": "Snippet"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/tcpCheck",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/tcpCheck:TcpCheck": "TcpCheck"
   }
  },
  {
