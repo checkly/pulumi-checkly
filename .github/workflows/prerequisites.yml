@@ -97,14 +97,14 @@ jobs:
           Maintainer note: consult the [runbook](https://github.com/pulumi/platform-providers-team/blob/main/playbooks/tf-provider-updating.md) for dealing with any breaking changes.
 
     - name: Upload codegen binary for checkly
-      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+      uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
       with:
         name: pulumi-tfgen-checkly
         path: ${{ github.workspace }}/bin/pulumi-tfgen-checkly
         retention-days: 30
 
     - name: Upload schema-embed.json
-      uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+      uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
       with:
         name: schema-embed.json
         path: provider/cmd/pulumi-resource-checkly/schema-embed.json
