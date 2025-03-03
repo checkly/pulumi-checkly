@@ -117,7 +117,7 @@ export class TcpCheck extends pulumi.CustomResource {
     public readonly alertChannelSubscriptions!: pulumi.Output<outputs.TcpCheckAlertChannelSubscription[] | undefined>;
     public readonly alertSettings!: pulumi.Output<outputs.TcpCheckAlertSettings>;
     /**
-     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
      */
     public readonly degradedResponseTime!: pulumi.Output<number | undefined>;
     /**
@@ -141,7 +141,7 @@ export class TcpCheck extends pulumi.CustomResource {
      */
     public readonly locations!: pulumi.Output<string[] | undefined>;
     /**
-     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
      */
     public readonly maxResponseTime!: pulumi.Output<number | undefined>;
     /**
@@ -269,7 +269,7 @@ export interface TcpCheckState {
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.TcpCheckAlertChannelSubscription>[]>;
     alertSettings?: pulumi.Input<inputs.TcpCheckAlertSettings>;
     /**
-     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
@@ -293,7 +293,7 @@ export interface TcpCheckState {
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
      */
     maxResponseTime?: pulumi.Input<number>;
     /**
@@ -352,7 +352,7 @@ export interface TcpCheckArgs {
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.TcpCheckAlertChannelSubscription>[]>;
     alertSettings?: pulumi.Input<inputs.TcpCheckAlertSettings>;
     /**
-     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+     * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
@@ -376,7 +376,7 @@ export interface TcpCheckArgs {
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+     * The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
      */
     maxResponseTime?: pulumi.Input<number>;
     /**

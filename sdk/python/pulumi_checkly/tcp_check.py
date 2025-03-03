@@ -47,12 +47,12 @@ class TcpCheckArgs:
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input['TcpCheckRequestArgs'] request: The parameters for the TCP connection.
         :param pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
         :param pulumi.Input[int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
@@ -162,7 +162,7 @@ class TcpCheckArgs:
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -222,7 +222,7 @@ class TcpCheckArgs:
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         """
         return pulumi.get(self, "max_response_time")
 
@@ -366,13 +366,13 @@ class _TcpCheckState:
         Input properties used for looking up and filtering TcpCheck resources.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input[int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
         :param pulumi.Input[int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
@@ -462,7 +462,7 @@ class _TcpCheckState:
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -534,7 +534,7 @@ class _TcpCheckState:
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> Optional[pulumi.Input[int]]:
         """
-        The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         """
         return pulumi.get(self, "max_response_time")
 
@@ -764,13 +764,13 @@ class TcpCheck(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TcpCheckAlertChannelSubscriptionArgs', 'TcpCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input[int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
         :param pulumi.Input[int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
@@ -968,13 +968,13 @@ class TcpCheck(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TcpCheckAlertChannelSubscriptionArgs', 'TcpCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
-        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input[int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
         :param pulumi.Input[int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] locations: An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
-        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        :param pulumi.Input[int] max_response_time: The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] private_locations: An array of one or more private locations slugs.
@@ -1037,7 +1037,7 @@ class TcpCheck(pulumi.CustomResource):
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> pulumi.Output[Optional[int]]:
         """
-        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -1085,7 +1085,7 @@ class TcpCheck(pulumi.CustomResource):
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> pulumi.Output[Optional[int]]:
         """
-        The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         """
         return pulumi.get(self, "max_response_time")
 

@@ -129,7 +129,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.TcpCheckAlertSettings> AlertSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         /// </summary>
         [Output("degradedResponseTime")]
         public Output<int?> DegradedResponseTime { get; private set; } = null!;
@@ -165,7 +165,7 @@ namespace Pulumi.Checkly
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         /// </summary>
         [Output("maxResponseTime")]
         public Output<int?> MaxResponseTime { get; private set; } = null!;
@@ -299,7 +299,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckAlertSettingsArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -341,7 +341,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
@@ -448,7 +448,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckAlertSettingsGetArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -490,7 +490,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
