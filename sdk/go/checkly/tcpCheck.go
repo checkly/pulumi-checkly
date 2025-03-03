@@ -115,7 +115,7 @@ type TcpCheck struct {
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	AlertSettings             TcpCheckAlertSettingsOutput                 `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
@@ -127,7 +127,7 @@ type TcpCheck struct {
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
 	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
 	MaxResponseTime pulumi.IntPtrOutput `pulumi:"maxResponseTime"`
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
@@ -195,7 +195,7 @@ type tcpCheckState struct {
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions []TcpCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	AlertSettings             *TcpCheckAlertSettings             `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
 	Frequency *int `pulumi:"frequency"`
@@ -207,7 +207,7 @@ type tcpCheckState struct {
 	GroupOrder *int `pulumi:"groupOrder"`
 	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted *bool `pulumi:"muted"`
@@ -237,7 +237,7 @@ type TcpCheckState struct {
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayInput
 	AlertSettings             TcpCheckAlertSettingsPtrInput
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrInput
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
 	Frequency pulumi.IntPtrInput
@@ -249,7 +249,7 @@ type TcpCheckState struct {
 	GroupOrder pulumi.IntPtrInput
 	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
 	MaxResponseTime pulumi.IntPtrInput
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted pulumi.BoolPtrInput
@@ -283,7 +283,7 @@ type tcpCheckArgs struct {
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions []TcpCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	AlertSettings             *TcpCheckAlertSettings             `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
 	Frequency int `pulumi:"frequency"`
@@ -295,7 +295,7 @@ type tcpCheckArgs struct {
 	GroupOrder *int `pulumi:"groupOrder"`
 	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted *bool `pulumi:"muted"`
@@ -326,7 +326,7 @@ type TcpCheckArgs struct {
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayInput
 	AlertSettings             TcpCheckAlertSettingsPtrInput
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrInput
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
 	Frequency pulumi.IntInput
@@ -338,7 +338,7 @@ type TcpCheckArgs struct {
 	GroupOrder pulumi.IntPtrInput
 	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
 	MaxResponseTime pulumi.IntPtrInput
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted pulumi.BoolPtrInput
@@ -463,7 +463,7 @@ func (o TcpCheckOutput) AlertSettings() TcpCheckAlertSettingsOutput {
 	return o.ApplyT(func(v *TcpCheck) TcpCheckAlertSettingsOutput { return v.AlertSettings }).(TcpCheckAlertSettingsOutput)
 }
 
-// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 func (o TcpCheckOutput) DegradedResponseTime() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *TcpCheck) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
 }
@@ -493,7 +493,7 @@ func (o TcpCheckOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *TcpCheck) pulumi.StringArrayOutput { return v.Locations }).(pulumi.StringArrayOutput)
 }
 
-// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
 func (o TcpCheckOutput) MaxResponseTime() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *TcpCheck) pulumi.IntPtrOutput { return v.MaxResponseTime }).(pulumi.IntPtrOutput)
 }

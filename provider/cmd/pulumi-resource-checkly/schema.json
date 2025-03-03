@@ -2727,7 +2727,7 @@
                 },
                 "degradedResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
                 },
                 "frequency": {
                     "type": "integer",
@@ -2754,7 +2754,7 @@
                 },
                 "maxResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).\n"
                 },
                 "muted": {
                     "type": "boolean",
@@ -2828,7 +2828,7 @@
                 },
                 "degradedResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
                 },
                 "frequency": {
                     "type": "integer",
@@ -2855,7 +2855,7 @@
                 },
                 "maxResponseTime": {
                     "type": "integer",
-                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
+                    "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).\n"
                 },
                 "muted": {
                     "type": "boolean",
@@ -2928,7 +2928,7 @@
                     },
                     "degradedResponseTime": {
                         "type": "integer",
-                        "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
+                        "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
                     },
                     "frequency": {
                         "type": "integer",
@@ -2955,7 +2955,7 @@
                     },
                     "maxResponseTime": {
                         "type": "integer",
-                        "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).\n"
+                        "description": "The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).\n"
                     },
                     "muted": {
                         "type": "boolean",
