@@ -27,6 +27,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Check{}
 	case "checkly:index/checkGroup:CheckGroup":
 		r = &CheckGroup{}
+	case "checkly:index/clientCertificate:ClientCertificate":
+		r = &ClientCertificate{}
 	case "checkly:index/dashboard:Dashboard":
 		r = &Dashboard{}
 	case "checkly:index/environmentVariable:EnvironmentVariable":
@@ -89,6 +91,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/checkGroup",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/clientCertificate",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
