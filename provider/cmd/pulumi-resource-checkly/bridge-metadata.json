@@ -146,6 +146,10 @@
                     }
                 }
             },
+            "checkly_client_certificate": {
+                "current": "checkly:index/clientCertificate:ClientCertificate",
+                "majorVersion": 2
+            },
             "checkly_dashboard": {
                 "current": "checkly:index/dashboard:Dashboard",
                 "majorVersion": 2,

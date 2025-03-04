@@ -8,6 +8,7 @@ import typing
 from .alert_channel import *
 from .check import *
 from .check_group import *
+from .client_certificate import *
 from .dashboard import *
 from .environment_variable import *
 from .get_static_ips import *
@@ -54,6 +55,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/checkGroup:CheckGroup": "CheckGroup"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/clientCertificate",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/clientCertificate:ClientCertificate": "ClientCertificate"
   }
  },
  {

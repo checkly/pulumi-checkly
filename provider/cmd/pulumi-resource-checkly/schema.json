@@ -2055,6 +2055,102 @@
                 "type": "object"
             }
         },
+        "checkly:index/clientCertificate:ClientCertificate": {
+            "description": "Use client certificates to authenticate your API checks to APIs that require mutual TLS (mTLS) authentication, or any other authentication scheme where the requester needs to provide a certificate.\n\nEach client certificate is specific to a domain name, e.g. `acme.com` and will be used automatically by any API checks targeting that domain.\n\nChanging the value of any attribute forces a new resource to be created.\n\n",
+            "properties": {
+                "certificate": {
+                    "type": "string",
+                    "description": "The client certificate in PEM format.\n"
+                },
+                "host": {
+                    "type": "string",
+                    "description": "The host domain that the certificate should be used for.\n"
+                },
+                "passphrase": {
+                    "type": "string",
+                    "description": "Passphrase for the private key.\n",
+                    "secret": true
+                },
+                "privateKey": {
+                    "type": "string",
+                    "description": "The private key for the certificate in PEM format.\n"
+                },
+                "trustedCa": {
+                    "type": "string",
+                    "description": "PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.\n"
+                }
+            },
+            "required": [
+                "certificate",
+                "host",
+                "privateKey"
+            ],
+            "inputProperties": {
+                "certificate": {
+                    "type": "string",
+                    "description": "The client certificate in PEM format.\n",
+                    "willReplaceOnChanges": true
+                },
+                "host": {
+                    "type": "string",
+                    "description": "The host domain that the certificate should be used for.\n",
+                    "willReplaceOnChanges": true
+                },
+                "passphrase": {
+                    "type": "string",
+                    "description": "Passphrase for the private key.\n",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "privateKey": {
+                    "type": "string",
+                    "description": "The private key for the certificate in PEM format.\n",
+                    "willReplaceOnChanges": true
+                },
+                "trustedCa": {
+                    "type": "string",
+                    "description": "PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "certificate",
+                "host",
+                "privateKey"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ClientCertificate resources.\n",
+                "properties": {
+                    "certificate": {
+                        "type": "string",
+                        "description": "The client certificate in PEM format.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "host": {
+                        "type": "string",
+                        "description": "The host domain that the certificate should be used for.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "passphrase": {
+                        "type": "string",
+                        "description": "Passphrase for the private key.\n",
+                        "secret": true,
+                        "willReplaceOnChanges": true
+                    },
+                    "privateKey": {
+                        "type": "string",
+                        "description": "The private key for the certificate in PEM format.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "trustedCa": {
+                        "type": "string",
+                        "description": "PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
         "checkly:index/dashboard:Dashboard": {
             "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst dashboard1 = new checkly.Dashboard(\"dashboard_1\", {\n    customUrl: \"checkly\",\n    customDomain: \"status.example.com\",\n    logo: \"https://www.checklyhq.com/logo.png\",\n    header: \"Public dashboard\",\n    refreshRate: 60,\n    paginate: false,\n    paginationRate: 30,\n    hideTags: false,\n    width: \"FULL\",\n    tags: [\"production\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ndashboard1 = checkly.Dashboard(\"dashboard_1\",\n    custom_url=\"checkly\",\n    custom_domain=\"status.example.com\",\n    logo=\"https://www.checklyhq.com/logo.png\",\n    header=\"Public dashboard\",\n    refresh_rate=60,\n    paginate=False,\n    pagination_rate=30,\n    hide_tags=False,\n    width=\"FULL\",\n    tags=[\"production\"])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var dashboard1 = new Checkly.Dashboard(\"dashboard_1\", new()\n    {\n        CustomUrl = \"checkly\",\n        CustomDomain = \"status.example.com\",\n        Logo = \"https://www.checklyhq.com/logo.png\",\n        Header = \"Public dashboard\",\n        RefreshRate = 60,\n        Paginate = false,\n        PaginationRate = 30,\n        HideTags = false,\n        Width = \"FULL\",\n        Tags = new[]\n        {\n            \"production\",\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewDashboard(ctx, \"dashboard_1\", \u0026checkly.DashboardArgs{\n\t\t\tCustomUrl:      pulumi.String(\"checkly\"),\n\t\t\tCustomDomain:   pulumi.String(\"status.example.com\"),\n\t\t\tLogo:           pulumi.String(\"https://www.checklyhq.com/logo.png\"),\n\t\t\tHeader:         pulumi.String(\"Public dashboard\"),\n\t\t\tRefreshRate:    pulumi.Int(60),\n\t\t\tPaginate:       pulumi.Bool(false),\n\t\t\tPaginationRate: pulumi.Int(30),\n\t\t\tHideTags:       pulumi.Bool(false),\n\t\t\tWidth:          pulumi.String(\"FULL\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.Dashboard;\nimport com.pulumi.checkly.DashboardArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var dashboard1 = new Dashboard(\"dashboard1\", DashboardArgs.builder()\n            .customUrl(\"checkly\")\n            .customDomain(\"status.example.com\")\n            .logo(\"https://www.checklyhq.com/logo.png\")\n            .header(\"Public dashboard\")\n            .refreshRate(60)\n            .paginate(false)\n            .paginationRate(30)\n            .hideTags(false)\n            .width(\"FULL\")\n            .tags(\"production\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  dashboard1:\n    type: checkly:Dashboard\n    name: dashboard_1\n    properties:\n      customUrl: checkly\n      customDomain: status.example.com\n      logo: https://www.checklyhq.com/logo.png\n      header: Public dashboard\n      refreshRate: 60\n      paginate: false\n      paginationRate: 30\n      hideTags: false\n      width: FULL\n      tags:\n        - production\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
