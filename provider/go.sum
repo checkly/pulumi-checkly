@@ -1474,8 +1474,8 @@ github.com/charmbracelet/lipgloss v0.7.1 h1:17WMwi7N1b1rVWOjMT+rCh7sQkvDU75B2hbZ
 github.com/charmbracelet/lipgloss v0.7.1/go.mod h1:yG0k3giv8Qj8edTCbbg6AlQ5e8KNWpFujkNawKNhE2c=
 github.com/checkly/checkly-go-sdk v1.10.0 h1:8TtVf0nwKzDRKHhZmb+8bFYLcgzE1K4vxgVy/XOgOyg=
 github.com/checkly/checkly-go-sdk v1.10.0/go.mod h1:Pd6tBOggAe41NnCU5KwqA8JvD6J20/IctszT2E0AvHo=
-github.com/checkly/terraform-provider-checkly v1.10.0 h1:J2FKSNPdQgRfWnPsD3NtPtqK4VF9vLzP95khcMP91Kw=
-github.com/checkly/terraform-provider-checkly v1.10.0/go.mod h1:o568AWPAPg1WIbAzMk0taBL11Ft7fP3QbSGnWDFKmQU=
+github.com/checkly/terraform-provider-checkly v1.10.1 h1:QLXolQ2zd6xb4pr6vOF3wXg7hlp67PGGaabGI91svz8=
+github.com/checkly/terraform-provider-checkly v1.10.1/go.mod h1:o568AWPAPg1WIbAzMk0taBL11Ft7fP3QbSGnWDFKmQU=
 github.com/cheggaaa/pb v1.0.27/go.mod h1:pQciLPpbU0oxA0h+VJYYLxO+XeDQb5pZijXscXHm81s=
 github.com/cheggaaa/pb v1.0.29 h1:FckUN5ngEk2LpvuG0fw1GEFx6LtyY2pWI/Z2QgCnEYo=
 github.com/cheggaaa/pb v1.0.29/go.mod h1:W40334L7FMC5JKWldsTWbdGjLo0RxUKK73K+TuPxX30=
