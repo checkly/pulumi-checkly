@@ -11,7 +11,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`checkly` Terraform Provider](https://github.com/checkly/terraform-provider-checkly).",
     "repository": "https://github.com/checkly/pulumi-checkly",
-    "logoUrl": "https://raw.githubusercontent.com/checkly/pulumi-checkly/main/assets/checkly.svg",
+    "logoUrl": "https://raw.githubusercontent.com/checkly/pulumi-checkly/main/assets/checkly.png",
     "pluginDownloadURL": "github://api.github.com/checkly",
     "publisher": "Checkly",
     "meta": {
