@@ -55,6 +55,8 @@ __all__ = [
     'HeartbeatCheckAlertSettingsSslCertificate',
     'HeartbeatCheckAlertSettingsTimeBasedEscalation',
     'HeartbeatCheckHeartbeat',
+    'StatusPageCard',
+    'StatusPageCardServiceAttachment',
     'TcpCheckAlertChannelSubscription',
     'TcpCheckAlertSettings',
     'TcpCheckAlertSettingsParallelRunFailureThreshold',
@@ -1949,6 +1951,87 @@ class HeartbeatCheckHeartbeat(dict):
         Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
         """
         return pulumi.get(self, "ping_token")
+
+
+@pulumi.output_type
+class StatusPageCard(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "serviceAttachments":
+            suggest = "service_attachments"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatusPageCard. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatusPageCard.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatusPageCard.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: str,
+                 service_attachments: Sequence['outputs.StatusPageCardServiceAttachment']):
+        """
+        :param str name: The name of the card.
+        :param Sequence['StatusPageCardServiceAttachmentArgs'] service_attachments: A list of services to attach to the card.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "service_attachments", service_attachments)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the card.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="serviceAttachments")
+    def service_attachments(self) -> Sequence['outputs.StatusPageCardServiceAttachment']:
+        """
+        A list of services to attach to the card.
+        """
+        return pulumi.get(self, "service_attachments")
+
+
+@pulumi.output_type
+class StatusPageCardServiceAttachment(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatusPageCardServiceAttachment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatusPageCardServiceAttachment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatusPageCardServiceAttachment.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 service_id: str):
+        """
+        :param str service_id: The ID of the service.
+        """
+        pulumi.set(__self__, "service_id", service_id)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> str:
+        """
+        The ID of the service.
+        """
+        return pulumi.get(self, "service_id")
 
 
 @pulumi.output_type

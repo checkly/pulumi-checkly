@@ -17,6 +17,8 @@ from .maintenance_window import *
 from .private_location import *
 from .provider import *
 from .snippet import *
+from .status_page import *
+from .status_page_service import *
 from .tcp_check import *
 from .trigger_check import *
 from .trigger_check_group import *
@@ -111,6 +113,22 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/snippet:Snippet": "Snippet"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/statusPage",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/statusPage:StatusPage": "StatusPage"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/statusPageService",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/statusPageService:StatusPageService": "StatusPageService"
   }
  },
  {

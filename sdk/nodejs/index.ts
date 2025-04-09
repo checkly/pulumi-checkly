@@ -65,6 +65,16 @@ export type Snippet = import("./snippet").Snippet;
 export const Snippet: typeof import("./snippet").Snippet = null as any;
 utilities.lazyLoad(exports, ["Snippet"], () => require("./snippet"));
 
+export { StatusPageArgs, StatusPageState } from "./statusPage";
+export type StatusPage = import("./statusPage").StatusPage;
+export const StatusPage: typeof import("./statusPage").StatusPage = null as any;
+utilities.lazyLoad(exports, ["StatusPage"], () => require("./statusPage"));
+
+export { StatusPageServiceArgs, StatusPageServiceState } from "./statusPageService";
+export type StatusPageService = import("./statusPageService").StatusPageService;
+export const StatusPageService: typeof import("./statusPageService").StatusPageService = null as any;
+utilities.lazyLoad(exports, ["StatusPageService"], () => require("./statusPageService"));
+
 export { TcpCheckArgs, TcpCheckState } from "./tcpCheck";
 export type TcpCheck = import("./tcpCheck").TcpCheck;
 export const TcpCheck: typeof import("./tcpCheck").TcpCheck = null as any;
@@ -114,6 +124,10 @@ const _module = {
                 return new PrivateLocation(name, <any>undefined, { urn })
             case "checkly:index/snippet:Snippet":
                 return new Snippet(name, <any>undefined, { urn })
+            case "checkly:index/statusPage:StatusPage":
+                return new StatusPage(name, <any>undefined, { urn })
+            case "checkly:index/statusPageService:StatusPageService":
+                return new StatusPageService(name, <any>undefined, { urn })
             case "checkly:index/tcpCheck:TcpCheck":
                 return new TcpCheck(name, <any>undefined, { urn })
             case "checkly:index/triggerCheck:TriggerCheck":
@@ -135,6 +149,8 @@ pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/statusPage", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/statusPageService", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tcpCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)

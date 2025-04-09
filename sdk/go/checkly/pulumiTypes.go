@@ -5628,6 +5628,209 @@ func (o HeartbeatCheckHeartbeatPtrOutput) PingToken() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type StatusPageCard struct {
+	// The name of the card.
+	Name string `pulumi:"name"`
+	// A list of services to attach to the card.
+	ServiceAttachments []StatusPageCardServiceAttachment `pulumi:"serviceAttachments"`
+}
+
+// StatusPageCardInput is an input type that accepts StatusPageCardArgs and StatusPageCardOutput values.
+// You can construct a concrete instance of `StatusPageCardInput` via:
+//
+//	StatusPageCardArgs{...}
+type StatusPageCardInput interface {
+	pulumi.Input
+
+	ToStatusPageCardOutput() StatusPageCardOutput
+	ToStatusPageCardOutputWithContext(context.Context) StatusPageCardOutput
+}
+
+type StatusPageCardArgs struct {
+	// The name of the card.
+	Name pulumi.StringInput `pulumi:"name"`
+	// A list of services to attach to the card.
+	ServiceAttachments StatusPageCardServiceAttachmentArrayInput `pulumi:"serviceAttachments"`
+}
+
+func (StatusPageCardArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageCard)(nil)).Elem()
+}
+
+func (i StatusPageCardArgs) ToStatusPageCardOutput() StatusPageCardOutput {
+	return i.ToStatusPageCardOutputWithContext(context.Background())
+}
+
+func (i StatusPageCardArgs) ToStatusPageCardOutputWithContext(ctx context.Context) StatusPageCardOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageCardOutput)
+}
+
+// StatusPageCardArrayInput is an input type that accepts StatusPageCardArray and StatusPageCardArrayOutput values.
+// You can construct a concrete instance of `StatusPageCardArrayInput` via:
+//
+//	StatusPageCardArray{ StatusPageCardArgs{...} }
+type StatusPageCardArrayInput interface {
+	pulumi.Input
+
+	ToStatusPageCardArrayOutput() StatusPageCardArrayOutput
+	ToStatusPageCardArrayOutputWithContext(context.Context) StatusPageCardArrayOutput
+}
+
+type StatusPageCardArray []StatusPageCardInput
+
+func (StatusPageCardArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StatusPageCard)(nil)).Elem()
+}
+
+func (i StatusPageCardArray) ToStatusPageCardArrayOutput() StatusPageCardArrayOutput {
+	return i.ToStatusPageCardArrayOutputWithContext(context.Background())
+}
+
+func (i StatusPageCardArray) ToStatusPageCardArrayOutputWithContext(ctx context.Context) StatusPageCardArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageCardArrayOutput)
+}
+
+type StatusPageCardOutput struct{ *pulumi.OutputState }
+
+func (StatusPageCardOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageCard)(nil)).Elem()
+}
+
+func (o StatusPageCardOutput) ToStatusPageCardOutput() StatusPageCardOutput {
+	return o
+}
+
+func (o StatusPageCardOutput) ToStatusPageCardOutputWithContext(ctx context.Context) StatusPageCardOutput {
+	return o
+}
+
+// The name of the card.
+func (o StatusPageCardOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageCard) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// A list of services to attach to the card.
+func (o StatusPageCardOutput) ServiceAttachments() StatusPageCardServiceAttachmentArrayOutput {
+	return o.ApplyT(func(v StatusPageCard) []StatusPageCardServiceAttachment { return v.ServiceAttachments }).(StatusPageCardServiceAttachmentArrayOutput)
+}
+
+type StatusPageCardArrayOutput struct{ *pulumi.OutputState }
+
+func (StatusPageCardArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StatusPageCard)(nil)).Elem()
+}
+
+func (o StatusPageCardArrayOutput) ToStatusPageCardArrayOutput() StatusPageCardArrayOutput {
+	return o
+}
+
+func (o StatusPageCardArrayOutput) ToStatusPageCardArrayOutputWithContext(ctx context.Context) StatusPageCardArrayOutput {
+	return o
+}
+
+func (o StatusPageCardArrayOutput) Index(i pulumi.IntInput) StatusPageCardOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StatusPageCard {
+		return vs[0].([]StatusPageCard)[vs[1].(int)]
+	}).(StatusPageCardOutput)
+}
+
+type StatusPageCardServiceAttachment struct {
+	// The ID of the service.
+	ServiceId string `pulumi:"serviceId"`
+}
+
+// StatusPageCardServiceAttachmentInput is an input type that accepts StatusPageCardServiceAttachmentArgs and StatusPageCardServiceAttachmentOutput values.
+// You can construct a concrete instance of `StatusPageCardServiceAttachmentInput` via:
+//
+//	StatusPageCardServiceAttachmentArgs{...}
+type StatusPageCardServiceAttachmentInput interface {
+	pulumi.Input
+
+	ToStatusPageCardServiceAttachmentOutput() StatusPageCardServiceAttachmentOutput
+	ToStatusPageCardServiceAttachmentOutputWithContext(context.Context) StatusPageCardServiceAttachmentOutput
+}
+
+type StatusPageCardServiceAttachmentArgs struct {
+	// The ID of the service.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+}
+
+func (StatusPageCardServiceAttachmentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageCardServiceAttachment)(nil)).Elem()
+}
+
+func (i StatusPageCardServiceAttachmentArgs) ToStatusPageCardServiceAttachmentOutput() StatusPageCardServiceAttachmentOutput {
+	return i.ToStatusPageCardServiceAttachmentOutputWithContext(context.Background())
+}
+
+func (i StatusPageCardServiceAttachmentArgs) ToStatusPageCardServiceAttachmentOutputWithContext(ctx context.Context) StatusPageCardServiceAttachmentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageCardServiceAttachmentOutput)
+}
+
+// StatusPageCardServiceAttachmentArrayInput is an input type that accepts StatusPageCardServiceAttachmentArray and StatusPageCardServiceAttachmentArrayOutput values.
+// You can construct a concrete instance of `StatusPageCardServiceAttachmentArrayInput` via:
+//
+//	StatusPageCardServiceAttachmentArray{ StatusPageCardServiceAttachmentArgs{...} }
+type StatusPageCardServiceAttachmentArrayInput interface {
+	pulumi.Input
+
+	ToStatusPageCardServiceAttachmentArrayOutput() StatusPageCardServiceAttachmentArrayOutput
+	ToStatusPageCardServiceAttachmentArrayOutputWithContext(context.Context) StatusPageCardServiceAttachmentArrayOutput
+}
+
+type StatusPageCardServiceAttachmentArray []StatusPageCardServiceAttachmentInput
+
+func (StatusPageCardServiceAttachmentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StatusPageCardServiceAttachment)(nil)).Elem()
+}
+
+func (i StatusPageCardServiceAttachmentArray) ToStatusPageCardServiceAttachmentArrayOutput() StatusPageCardServiceAttachmentArrayOutput {
+	return i.ToStatusPageCardServiceAttachmentArrayOutputWithContext(context.Background())
+}
+
+func (i StatusPageCardServiceAttachmentArray) ToStatusPageCardServiceAttachmentArrayOutputWithContext(ctx context.Context) StatusPageCardServiceAttachmentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageCardServiceAttachmentArrayOutput)
+}
+
+type StatusPageCardServiceAttachmentOutput struct{ *pulumi.OutputState }
+
+func (StatusPageCardServiceAttachmentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageCardServiceAttachment)(nil)).Elem()
+}
+
+func (o StatusPageCardServiceAttachmentOutput) ToStatusPageCardServiceAttachmentOutput() StatusPageCardServiceAttachmentOutput {
+	return o
+}
+
+func (o StatusPageCardServiceAttachmentOutput) ToStatusPageCardServiceAttachmentOutputWithContext(ctx context.Context) StatusPageCardServiceAttachmentOutput {
+	return o
+}
+
+// The ID of the service.
+func (o StatusPageCardServiceAttachmentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageCardServiceAttachment) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+type StatusPageCardServiceAttachmentArrayOutput struct{ *pulumi.OutputState }
+
+func (StatusPageCardServiceAttachmentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StatusPageCardServiceAttachment)(nil)).Elem()
+}
+
+func (o StatusPageCardServiceAttachmentArrayOutput) ToStatusPageCardServiceAttachmentArrayOutput() StatusPageCardServiceAttachmentArrayOutput {
+	return o
+}
+
+func (o StatusPageCardServiceAttachmentArrayOutput) ToStatusPageCardServiceAttachmentArrayOutputWithContext(ctx context.Context) StatusPageCardServiceAttachmentArrayOutput {
+	return o
+}
+
+func (o StatusPageCardServiceAttachmentArrayOutput) Index(i pulumi.IntInput) StatusPageCardServiceAttachmentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StatusPageCardServiceAttachment {
+		return vs[0].([]StatusPageCardServiceAttachment)[vs[1].(int)]
+	}).(StatusPageCardServiceAttachmentOutput)
+}
+
 type TcpCheckAlertChannelSubscription struct {
 	Activated bool `pulumi:"activated"`
 	ChannelId int  `pulumi:"channelId"`
@@ -6958,6 +7161,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), HeartbeatCheckAlertSettingsTimeBasedEscalationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatPtrInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardInput)(nil)).Elem(), StatusPageCardArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardArrayInput)(nil)).Elem(), StatusPageCardArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentInput)(nil)).Elem(), StatusPageCardServiceAttachmentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentArrayInput)(nil)).Elem(), StatusPageCardServiceAttachmentArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertChannelSubscriptionInput)(nil)).Elem(), TcpCheckAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertChannelSubscriptionArrayInput)(nil)).Elem(), TcpCheckAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsInput)(nil)).Elem(), TcpCheckAlertSettingsArgs{})
@@ -7054,6 +7261,10 @@ func init() {
 	pulumi.RegisterOutputType(HeartbeatCheckAlertSettingsTimeBasedEscalationArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatPtrOutput{})
+	pulumi.RegisterOutputType(StatusPageCardOutput{})
+	pulumi.RegisterOutputType(StatusPageCardArrayOutput{})
+	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentOutput{})
+	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentArrayOutput{})
 	pulumi.RegisterOutputType(TcpCheckAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(TcpCheckAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(TcpCheckAlertSettingsOutput{})

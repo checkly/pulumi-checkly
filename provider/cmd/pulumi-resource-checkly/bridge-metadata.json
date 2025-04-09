@@ -222,6 +222,26 @@
                 "current": "checkly:index/snippet:Snippet",
                 "majorVersion": 2
             },
+            "checkly_status_page": {
+                "current": "checkly:index/statusPage:StatusPage",
+                "majorVersion": 2,
+                "fields": {
+                    "card": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "service_attachment": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "checkly_status_page_service": {
+                "current": "checkly:index/statusPageService:StatusPageService",
+                "majorVersion": 2
+            },
             "checkly_tcp_check": {
                 "current": "checkly:index/tcpCheck:TcpCheck",
                 "majorVersion": 2,

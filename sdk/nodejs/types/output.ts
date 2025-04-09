@@ -449,6 +449,24 @@ export interface HeartbeatCheckHeartbeat {
     pingToken: string;
 }
 
+export interface StatusPageCard {
+    /**
+     * The name of the card.
+     */
+    name: string;
+    /**
+     * A list of services to attach to the card.
+     */
+    serviceAttachments: outputs.StatusPageCardServiceAttachment[];
+}
+
+export interface StatusPageCardServiceAttachment {
+    /**
+     * The ID of the service.
+     */
+    serviceId: string;
+}
+
 export interface TcpCheckAlertChannelSubscription {
     activated: boolean;
     channelId: number;
