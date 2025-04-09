@@ -41,6 +41,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PrivateLocation{}
 	case "checkly:index/snippet:Snippet":
 		r = &Snippet{}
+	case "checkly:index/statusPage:StatusPage":
+		r = &StatusPage{}
+	case "checkly:index/statusPageService:StatusPageService":
+		r = &StatusPageService{}
 	case "checkly:index/tcpCheck:TcpCheck":
 		r = &TcpCheck{}
 	case "checkly:index/triggerCheck:TriggerCheck":
@@ -126,6 +130,16 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/snippet",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/statusPage",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/statusPageService",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

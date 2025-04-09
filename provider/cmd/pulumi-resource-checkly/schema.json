@@ -915,6 +915,38 @@
                 }
             }
         },
+        "checkly:index/StatusPageCard:StatusPageCard": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the card.\n"
+                },
+                "serviceAttachments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/StatusPageCardServiceAttachment:StatusPageCardServiceAttachment"
+                    },
+                    "description": "A list of services to attach to the card.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "serviceAttachments"
+            ]
+        },
+        "checkly:index/StatusPageCardServiceAttachment:StatusPageCardServiceAttachment": {
+            "properties": {
+                "serviceId": {
+                    "type": "string",
+                    "description": "The ID of the service.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "serviceId"
+            ]
+        },
         "checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
@@ -2799,6 +2831,161 @@
                     "script": {
                         "type": "string",
                         "description": "Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/statusPage:StatusPage": {
+            "description": "Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst api = new checkly.StatusPageService(\"api\", {name: \"API\"});\nconst database = new checkly.StatusPageService(\"database\", {name: \"Database\"});\nconst example = new checkly.StatusPage(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n    defaultTheme: \"DARK\",\n    cards: [{\n        name: \"Services\",\n        serviceAttachments: [\n            {\n                serviceId: api.id,\n            },\n            {\n                serviceId: database.id,\n            },\n        ],\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\napi = checkly.StatusPageService(\"api\", name=\"API\")\ndatabase = checkly.StatusPageService(\"database\", name=\"Database\")\nexample = checkly.StatusPage(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\",\n    default_theme=\"DARK\",\n    cards=[{\n        \"name\": \"Services\",\n        \"service_attachments\": [\n            {\n                \"service_id\": api.id,\n            },\n            {\n                \"service_id\": database.id,\n            },\n        ],\n    }])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var api = new Checkly.StatusPageService(\"api\", new()\n    {\n        Name = \"API\",\n    });\n\n    var database = new Checkly.StatusPageService(\"database\", new()\n    {\n        Name = \"Database\",\n    });\n\n    var example = new Checkly.StatusPage(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n        DefaultTheme = \"DARK\",\n        Cards = new[]\n        {\n            new Checkly.Inputs.StatusPageCardArgs\n            {\n                Name = \"Services\",\n                ServiceAttachments = new[]\n                {\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = api.Id,\n                    },\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = database.Id,\n                    },\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tapi, err := checkly.NewStatusPageService(ctx, \"api\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"API\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tdatabase, err := checkly.NewStatusPageService(ctx, \"database\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Database\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPage(ctx, \"example\", \u0026checkly.StatusPageArgs{\n\t\t\tName:         pulumi.String(\"Example Application\"),\n\t\t\tUrl:          pulumi.String(\"my-example-status-page\"),\n\t\t\tDefaultTheme: pulumi.String(\"DARK\"),\n\t\t\tCards: checkly.StatusPageCardArray{\n\t\t\t\t\u0026checkly.StatusPageCardArgs{\n\t\t\t\t\tName: pulumi.String(\"Services\"),\n\t\t\t\t\tServiceAttachments: checkly.StatusPageCardServiceAttachmentArray{\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: api.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: database.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport com.pulumi.checkly.StatusPage;\nimport com.pulumi.checkly.StatusPageArgs;\nimport com.pulumi.checkly.inputs.StatusPageCardArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var api = new StatusPageService(\"api\", StatusPageServiceArgs.builder()\n            .name(\"API\")\n            .build());\n\n        var database = new StatusPageService(\"database\", StatusPageServiceArgs.builder()\n            .name(\"Database\")\n            .build());\n\n        var example = new StatusPage(\"example\", StatusPageArgs.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .defaultTheme(\"DARK\")\n            .cards(StatusPageCardArgs.builder()\n                .name(\"Services\")\n                .serviceAttachments(                \n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(api.id())\n                        .build(),\n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(database.id())\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  api:\n    type: checkly:StatusPageService\n    properties:\n      name: API\n  database:\n    type: checkly:StatusPageService\n    properties:\n      name: Database\n  example:\n    type: checkly:StatusPage\n    properties:\n      name: Example Application\n      url: my-example-status-page\n      defaultTheme: DARK\n      cards:\n        - name: Services\n          serviceAttachments:\n            - serviceId: ${api.id}\n            - serviceId: ${database.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "cards": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/StatusPageCard:StatusPageCard"
+                    },
+                    "description": "A list of cards to include on the status page.\n"
+                },
+                "customDomain": {
+                    "type": "string",
+                    "description": "A custom user domain, e.g. \"status.example.com\". See the docs on updating your DNS and SSL usage.\n"
+                },
+                "defaultTheme": {
+                    "type": "string",
+                    "description": "Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).\n"
+                },
+                "favicon": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the favicon of the status page.\n"
+                },
+                "logo": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the logo for the status page.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the status page.\n"
+                },
+                "redirectTo": {
+                    "type": "string",
+                    "description": "The URL the user should be redirected to when clicking the logo.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The URL of the status page.\n"
+                }
+            },
+            "required": [
+                "cards",
+                "name",
+                "url"
+            ],
+            "inputProperties": {
+                "cards": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/StatusPageCard:StatusPageCard"
+                    },
+                    "description": "A list of cards to include on the status page.\n"
+                },
+                "customDomain": {
+                    "type": "string",
+                    "description": "A custom user domain, e.g. \"status.example.com\". See the docs on updating your DNS and SSL usage.\n"
+                },
+                "defaultTheme": {
+                    "type": "string",
+                    "description": "Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).\n"
+                },
+                "favicon": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the favicon of the status page.\n"
+                },
+                "logo": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the logo for the status page.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the status page.\n"
+                },
+                "redirectTo": {
+                    "type": "string",
+                    "description": "The URL the user should be redirected to when clicking the logo.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The URL of the status page.\n"
+                }
+            },
+            "requiredInputs": [
+                "cards",
+                "url"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering StatusPage resources.\n",
+                "properties": {
+                    "cards": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/StatusPageCard:StatusPageCard"
+                        },
+                        "description": "A list of cards to include on the status page.\n"
+                    },
+                    "customDomain": {
+                        "type": "string",
+                        "description": "A custom user domain, e.g. \"status.example.com\". See the docs on updating your DNS and SSL usage.\n"
+                    },
+                    "defaultTheme": {
+                        "type": "string",
+                        "description": "Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).\n"
+                    },
+                    "favicon": {
+                        "type": "string",
+                        "description": "A URL to an image file to use as the favicon of the status page.\n"
+                    },
+                    "logo": {
+                        "type": "string",
+                        "description": "A URL to an image file to use as the logo for the status page.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the status page.\n"
+                    },
+                    "redirectTo": {
+                        "type": "string",
+                        "description": "The URL the user should be redirected to when clicking the logo.\n"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The URL of the status page.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/statusPageService:StatusPageService": {
+            "description": "Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst backend = new checkly.StatusPageService(\"backend\", {name: \"Backend\"});\nconst frontend = new checkly.StatusPageService(\"frontend\", {name: \"Frontend\"});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nbackend = checkly.StatusPageService(\"backend\", name=\"Backend\")\nfrontend = checkly.StatusPageService(\"frontend\", name=\"Frontend\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var backend = new Checkly.StatusPageService(\"backend\", new()\n    {\n        Name = \"Backend\",\n    });\n\n    var frontend = new Checkly.StatusPageService(\"frontend\", new()\n    {\n        Name = \"Frontend\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewStatusPageService(ctx, \"backend\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Backend\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPageService(ctx, \"frontend\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Frontend\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var backend = new StatusPageService(\"backend\", StatusPageServiceArgs.builder()\n            .name(\"Backend\")\n            .build());\n\n        var frontend = new StatusPageService(\"frontend\", StatusPageServiceArgs.builder()\n            .name(\"Frontend\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  backend:\n    type: checkly:StatusPageService\n    properties:\n      name: Backend\n  frontend:\n    type: checkly:StatusPageService\n    properties:\n      name: Frontend\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the service.\n"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the service.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering StatusPageService resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the service.\n"
                     }
                 },
                 "type": "object"

@@ -449,6 +449,24 @@ export interface HeartbeatCheckHeartbeat {
     pingToken?: pulumi.Input<string>;
 }
 
+export interface StatusPageCard {
+    /**
+     * The name of the card.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * A list of services to attach to the card.
+     */
+    serviceAttachments: pulumi.Input<pulumi.Input<inputs.StatusPageCardServiceAttachment>[]>;
+}
+
+export interface StatusPageCardServiceAttachment {
+    /**
+     * The ID of the service.
+     */
+    serviceId: pulumi.Input<string>;
+}
+
 export interface TcpCheckAlertChannelSubscription {
     activated: pulumi.Input<boolean>;
     channelId: pulumi.Input<number>;

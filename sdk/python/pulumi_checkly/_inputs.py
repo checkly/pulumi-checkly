@@ -93,6 +93,10 @@ __all__ = [
     'HeartbeatCheckAlertSettingsTimeBasedEscalationArgsDict',
     'HeartbeatCheckHeartbeatArgs',
     'HeartbeatCheckHeartbeatArgsDict',
+    'StatusPageCardArgs',
+    'StatusPageCardArgsDict',
+    'StatusPageCardServiceAttachmentArgs',
+    'StatusPageCardServiceAttachmentArgsDict',
     'TcpCheckAlertChannelSubscriptionArgs',
     'TcpCheckAlertChannelSubscriptionArgsDict',
     'TcpCheckAlertSettingsArgs',
@@ -2544,6 +2548,87 @@ class HeartbeatCheckHeartbeatArgs:
     @ping_token.setter
     def ping_token(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ping_token", value)
+
+
+if not MYPY:
+    class StatusPageCardArgsDict(TypedDict):
+        name: pulumi.Input[str]
+        """
+        The name of the card.
+        """
+        service_attachments: pulumi.Input[Sequence[pulumi.Input['StatusPageCardServiceAttachmentArgsDict']]]
+        """
+        A list of services to attach to the card.
+        """
+elif False:
+    StatusPageCardArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class StatusPageCardArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 service_attachments: pulumi.Input[Sequence[pulumi.Input['StatusPageCardServiceAttachmentArgs']]]):
+        """
+        :param pulumi.Input[str] name: The name of the card.
+        :param pulumi.Input[Sequence[pulumi.Input['StatusPageCardServiceAttachmentArgs']]] service_attachments: A list of services to attach to the card.
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "service_attachments", service_attachments)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the card.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="serviceAttachments")
+    def service_attachments(self) -> pulumi.Input[Sequence[pulumi.Input['StatusPageCardServiceAttachmentArgs']]]:
+        """
+        A list of services to attach to the card.
+        """
+        return pulumi.get(self, "service_attachments")
+
+    @service_attachments.setter
+    def service_attachments(self, value: pulumi.Input[Sequence[pulumi.Input['StatusPageCardServiceAttachmentArgs']]]):
+        pulumi.set(self, "service_attachments", value)
+
+
+if not MYPY:
+    class StatusPageCardServiceAttachmentArgsDict(TypedDict):
+        service_id: pulumi.Input[str]
+        """
+        The ID of the service.
+        """
+elif False:
+    StatusPageCardServiceAttachmentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class StatusPageCardServiceAttachmentArgs:
+    def __init__(__self__, *,
+                 service_id: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] service_id: The ID of the service.
+        """
+        pulumi.set(__self__, "service_id", service_id)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[str]:
+        """
+        The ID of the service.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_id", value)
 
 
 if not MYPY:

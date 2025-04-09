@@ -28,6 +28,8 @@
         "privateLocation.ts",
         "provider.ts",
         "snippet.ts",
+        "statusPage.ts",
+        "statusPageService.ts",
         "tcpCheck.ts",
         "triggerCheck.ts",
         "triggerCheckGroup.ts",
