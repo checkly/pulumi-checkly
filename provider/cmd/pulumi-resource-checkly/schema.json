@@ -1146,9 +1146,6 @@
                 "type": "string"
             }
         },
-        "required": [
-            "apiKey"
-        ],
         "inputProperties": {
             "accountId": {
                 "type": "string"
@@ -1160,9 +1157,9 @@
                 "type": "string"
             }
         },
-        "requiredInputs": [
-            "apiKey"
-        ]
+        "methods": {
+            "terraformConfig": "pulumi:providers:checkly/terraformConfig"
+        }
     },
     "resources": {
         "checkly:index/alertChannel:AlertChannel": {
@@ -3348,7 +3345,7 @@
             }
         },
         "checkly:index/triggerCheckGroup:TriggerCheckGroup": {
-            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst testTriggerGroup = new checkly.TriggerCheckGroup(\"test_trigger_group\", {groupId: 215});\nexport const testTriggerGroupUrl = testTriggerGroup.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_group = checkly.TriggerCheckGroup(\"test_trigger_group\", group_id=215)\npulumi.export(\"testTriggerGroupUrl\", test_trigger_group.url)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testTriggerGroup = new Checkly.TriggerCheckGroup(\"test_trigger_group\", new()\n    {\n        GroupId = 215,\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"testTriggerGroupUrl\"] = testTriggerGroup.Url,\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, \"test_trigger_group\", \u0026checkly.TriggerCheckGroupArgs{\n\t\t\tGroupId: pulumi.Int(215),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerGroupUrl\", testTriggerGroup.Url)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TriggerCheckGroup;\nimport com.pulumi.checkly.TriggerCheckGroupArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testTriggerGroup = new TriggerCheckGroup(\"testTriggerGroup\", TriggerCheckGroupArgs.builder()\n            .groupId(\"215\")\n            .build());\n\n        ctx.export(\"testTriggerGroupUrl\", testTriggerGroup.url());\n    }\n}\n```\n```yaml\nresources:\n  testTriggerGroup:\n    type: checkly:TriggerCheckGroup\n    name: test_trigger_group\n    properties:\n      groupId: '215'\noutputs:\n  testTriggerGroupUrl: ${testTriggerGroup.url}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst testTriggerGroup = new checkly.TriggerCheckGroup(\"test_trigger_group\", {groupId: 215});\nexport const testTriggerGroupUrl = testTriggerGroup.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_group = checkly.TriggerCheckGroup(\"test_trigger_group\", group_id=215)\npulumi.export(\"testTriggerGroupUrl\", test_trigger_group.url)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testTriggerGroup = new Checkly.TriggerCheckGroup(\"test_trigger_group\", new()\n    {\n        GroupId = 215,\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"testTriggerGroupUrl\"] = testTriggerGroup.Url,\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, \"test_trigger_group\", \u0026checkly.TriggerCheckGroupArgs{\n\t\t\tGroupId: pulumi.Int(215),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerGroupUrl\", testTriggerGroup.Url)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TriggerCheckGroup;\nimport com.pulumi.checkly.TriggerCheckGroupArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testTriggerGroup = new TriggerCheckGroup(\"testTriggerGroup\", TriggerCheckGroupArgs.builder()\n            .groupId(215)\n            .build());\n\n        ctx.export(\"testTriggerGroupUrl\", testTriggerGroup.url());\n    }\n}\n```\n```yaml\nresources:\n  testTriggerGroup:\n    type: checkly:TriggerCheckGroup\n    name: test_trigger_group\n    properties:\n      groupId: '215'\noutputs:\n  testTriggerGroupUrl: ${testTriggerGroup.url}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "groupId": {
                     "type": "integer",
@@ -3453,6 +3450,35 @@
                 "required": [
                     "addresses",
                     "id"
+                ],
+                "type": "object"
+            }
+        },
+        "pulumi:providers:checkly/terraformConfig": {
+            "description": "This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.",
+            "inputs": {
+                "properties": {
+                    "__self__": {
+                        "type": "ref",
+                        "$ref": "#/resources/pulumi:providers:checkly"
+                    }
+                },
+                "type": "pulumi:providers:checkly/terraformConfig",
+                "required": [
+                    "__self__"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "result": {
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        },
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "result"
                 ],
                 "type": "object"
             }
