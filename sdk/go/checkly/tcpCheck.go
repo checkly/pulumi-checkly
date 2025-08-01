@@ -12,8 +12,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// TCP checks allow you to monitor remote endpoints at a lower level.
-//
 // ## Example Usage
 //
 // ```go

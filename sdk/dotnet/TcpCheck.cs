@@ -10,8 +10,6 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// TCP checks allow you to monitor remote endpoints at a lower level.
-    /// 
     /// ## Example Usage
     /// 
     /// ```csharp

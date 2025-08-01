@@ -55,6 +55,14 @@ __all__ = [
     'HeartbeatCheckAlertSettingsSslCertificate',
     'HeartbeatCheckAlertSettingsTimeBasedEscalation',
     'HeartbeatCheckHeartbeat',
+    'HeartbeatMonitorAlertChannelSubscription',
+    'HeartbeatMonitorAlertSettings',
+    'HeartbeatMonitorAlertSettingsParallelRunFailureThreshold',
+    'HeartbeatMonitorAlertSettingsReminder',
+    'HeartbeatMonitorAlertSettingsRunBasedEscalation',
+    'HeartbeatMonitorAlertSettingsSslCertificate',
+    'HeartbeatMonitorAlertSettingsTimeBasedEscalation',
+    'HeartbeatMonitorHeartbeat',
     'StatusPageCard',
     'StatusPageCardServiceAttachment',
     'TcpCheckAlertChannelSubscription',
@@ -66,6 +74,24 @@ __all__ = [
     'TcpCheckRequest',
     'TcpCheckRequestAssertion',
     'TcpCheckRetryStrategy',
+    'TcpMonitorAlertChannelSubscription',
+    'TcpMonitorAlertSettings',
+    'TcpMonitorAlertSettingsParallelRunFailureThreshold',
+    'TcpMonitorAlertSettingsReminder',
+    'TcpMonitorAlertSettingsRunBasedEscalation',
+    'TcpMonitorAlertSettingsTimeBasedEscalation',
+    'TcpMonitorRequest',
+    'TcpMonitorRequestAssertion',
+    'TcpMonitorRetryStrategy',
+    'UrlMonitorAlertChannelSubscription',
+    'UrlMonitorAlertSettings',
+    'UrlMonitorAlertSettingsParallelRunFailureThreshold',
+    'UrlMonitorAlertSettingsReminder',
+    'UrlMonitorAlertSettingsRunBasedEscalation',
+    'UrlMonitorAlertSettingsTimeBasedEscalation',
+    'UrlMonitorRequest',
+    'UrlMonitorRequestAssertion',
+    'UrlMonitorRetryStrategy',
 ]
 
 @pulumi.output_type
@@ -1954,6 +1980,393 @@ class HeartbeatCheckHeartbeat(dict):
 
 
 @pulumi.output_type
+class HeartbeatMonitorAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatMonitorAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatMonitorAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatMonitorAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: bool,
+                 channel_id: int):
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @property
+    @pulumi.getter
+    def activated(self) -> bool:
+        return pulumi.get(self, "activated")
+
+    @property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> int:
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class HeartbeatMonitorAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "parallelRunFailureThresholds":
+            suggest = "parallel_run_failure_thresholds"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "sslCertificates":
+            suggest = "ssl_certificates"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatMonitorAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatMonitorAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatMonitorAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: Optional[str] = None,
+                 parallel_run_failure_thresholds: Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold']] = None,
+                 reminders: Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation']] = None,
+                 ssl_certificates: Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsSslCertificate']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if ssl_certificates is not None:
+            pulumi.set(__self__, "ssl_certificates", ssl_certificates)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[str]:
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold']]:
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsReminder']]:
+        return pulumi.get(self, "reminders")
+
+    @property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation']]:
+        return pulumi.get(self, "run_based_escalations")
+
+    @property
+    @pulumi.getter(name="sslCertificates")
+    @_utilities.deprecated("""This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+    def ssl_certificates(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsSslCertificate']]:
+        return pulumi.get(self, "ssl_certificates")
+
+    @property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation']]:
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class HeartbeatMonitorAlertSettingsParallelRunFailureThreshold(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[bool] = None,
+                 percentage: Optional[int] = None):
+        """
+        :param bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
+        :param int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        """
+        Applicable only for checks scheduled in parallel in multiple locations.
+        """
+        return pulumi.get(self, "enabled")
+
+    @property
+    @pulumi.getter
+    def percentage(self) -> Optional[int]:
+        """
+        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class HeartbeatMonitorAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[int] = None,
+                 interval: Optional[int] = None):
+        """
+        :param int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        :param int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @property
+    @pulumi.getter
+    def amount(self) -> Optional[int]:
+        """
+        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        """
+        return pulumi.get(self, "amount")
+
+    @property
+    @pulumi.getter
+    def interval(self) -> Optional[int]:
+        """
+        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class HeartbeatMonitorAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatMonitorAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[int] = None):
+        """
+        :param int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[int]:
+        """
+        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class HeartbeatMonitorAlertSettingsSslCertificate(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "alertThreshold":
+            suggest = "alert_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatMonitorAlertSettingsSslCertificate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatMonitorAlertSettingsSslCertificate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatMonitorAlertSettingsSslCertificate.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 alert_threshold: Optional[int] = None,
+                 enabled: Optional[bool] = None):
+        """
+        :param int alert_threshold: How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        :param bool enabled: Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        """
+        if alert_threshold is not None:
+            pulumi.set(__self__, "alert_threshold", alert_threshold)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter(name="alertThreshold")
+    def alert_threshold(self) -> Optional[int]:
+        """
+        How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        """
+        return pulumi.get(self, "alert_threshold")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        """
+        Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class HeartbeatMonitorAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatMonitorAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[int] = None):
+        """
+        :param int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[int]:
+        """
+        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class HeartbeatMonitorHeartbeat(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "graceUnit":
+            suggest = "grace_unit"
+        elif key == "periodUnit":
+            suggest = "period_unit"
+        elif key == "pingToken":
+            suggest = "ping_token"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatMonitorHeartbeat. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatMonitorHeartbeat.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatMonitorHeartbeat.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 grace: int,
+                 grace_unit: str,
+                 period: int,
+                 period_unit: str,
+                 ping_token: Optional[str] = None):
+        """
+        :param int grace: How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+        :param str grace_unit: Possible values `seconds`, `minutes`, `hours` and `days`.
+        :param int period: How often you expect a ping to the ping URL.
+        :param str period_unit: Possible values `seconds`, `minutes`, `hours` and `days`.
+        :param str ping_token: Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+        """
+        pulumi.set(__self__, "grace", grace)
+        pulumi.set(__self__, "grace_unit", grace_unit)
+        pulumi.set(__self__, "period", period)
+        pulumi.set(__self__, "period_unit", period_unit)
+        if ping_token is not None:
+            pulumi.set(__self__, "ping_token", ping_token)
+
+    @property
+    @pulumi.getter
+    def grace(self) -> int:
+        """
+        How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+        """
+        return pulumi.get(self, "grace")
+
+    @property
+    @pulumi.getter(name="graceUnit")
+    def grace_unit(self) -> str:
+        """
+        Possible values `seconds`, `minutes`, `hours` and `days`.
+        """
+        return pulumi.get(self, "grace_unit")
+
+    @property
+    @pulumi.getter
+    def period(self) -> int:
+        """
+        How often you expect a ping to the ping URL.
+        """
+        return pulumi.get(self, "period")
+
+    @property
+    @pulumi.getter(name="periodUnit")
+    def period_unit(self) -> str:
+        """
+        Possible values `seconds`, `minutes`, `hours` and `days`.
+        """
+        return pulumi.get(self, "period_unit")
+
+    @property
+    @pulumi.getter(name="pingToken")
+    def ping_token(self) -> Optional[str]:
+        """
+        Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+        """
+        return pulumi.get(self, "ping_token")
+
+
+@pulumi.output_type
 class StatusPageCard(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -2490,6 +2903,959 @@ class TcpCheckRetryStrategy(dict):
     def same_region(self) -> Optional[bool]:
         """
         Whether retries should be run in the same region as the initial check run.
+        """
+        return pulumi.get(self, "same_region")
+
+
+@pulumi.output_type
+class TcpMonitorAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpMonitorAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpMonitorAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: bool,
+                 channel_id: int):
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @property
+    @pulumi.getter
+    def activated(self) -> bool:
+        return pulumi.get(self, "activated")
+
+    @property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> int:
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class TcpMonitorAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "parallelRunFailureThresholds":
+            suggest = "parallel_run_failure_thresholds"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpMonitorAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpMonitorAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: Optional[str] = None,
+                 parallel_run_failure_thresholds: Optional[Sequence['outputs.TcpMonitorAlertSettingsParallelRunFailureThreshold']] = None,
+                 reminders: Optional[Sequence['outputs.TcpMonitorAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.TcpMonitorAlertSettingsRunBasedEscalation']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.TcpMonitorAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[str]:
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsParallelRunFailureThreshold']]:
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsReminder']]:
+        return pulumi.get(self, "reminders")
+
+    @property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsRunBasedEscalation']]:
+        return pulumi.get(self, "run_based_escalations")
+
+    @property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsTimeBasedEscalation']]:
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class TcpMonitorAlertSettingsParallelRunFailureThreshold(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[bool] = None,
+                 percentage: Optional[int] = None):
+        """
+        :param bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
+        :param int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        """
+        Applicable only for checks scheduled in parallel in multiple locations.
+        """
+        return pulumi.get(self, "enabled")
+
+    @property
+    @pulumi.getter
+    def percentage(self) -> Optional[int]:
+        """
+        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class TcpMonitorAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[int] = None,
+                 interval: Optional[int] = None):
+        """
+        :param int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        :param int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @property
+    @pulumi.getter
+    def amount(self) -> Optional[int]:
+        """
+        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        """
+        return pulumi.get(self, "amount")
+
+    @property
+    @pulumi.getter
+    def interval(self) -> Optional[int]:
+        """
+        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class TcpMonitorAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[int] = None):
+        """
+        :param int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[int]:
+        """
+        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class TcpMonitorAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[int] = None):
+        """
+        :param int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[int]:
+        """
+        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class TcpMonitorRequest(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ipFamily":
+            suggest = "ip_family"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpMonitorRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpMonitorRequest.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hostname: str,
+                 port: int,
+                 assertions: Optional[Sequence['outputs.TcpMonitorRequestAssertion']] = None,
+                 data: Optional[str] = None,
+                 ip_family: Optional[str] = None):
+        """
+        :param str hostname: The hostname or IP to connect to. Do not include a scheme or a port in this value.
+        :param int port: The port number to connect to.
+        :param Sequence['TcpMonitorRequestAssertionArgs'] assertions: A request can have multiple assertions.
+        :param str data: The data to send to the target host.
+        :param str ip_family: The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+        """
+        pulumi.set(__self__, "hostname", hostname)
+        pulumi.set(__self__, "port", port)
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if ip_family is not None:
+            pulumi.set(__self__, "ip_family", ip_family)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> str:
+        """
+        The hostname or IP to connect to. Do not include a scheme or a port in this value.
+        """
+        return pulumi.get(self, "hostname")
+
+    @property
+    @pulumi.getter
+    def port(self) -> int:
+        """
+        The port number to connect to.
+        """
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def assertions(self) -> Optional[Sequence['outputs.TcpMonitorRequestAssertion']]:
+        """
+        A request can have multiple assertions.
+        """
+        return pulumi.get(self, "assertions")
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[str]:
+        """
+        The data to send to the target host.
+        """
+        return pulumi.get(self, "data")
+
+    @property
+    @pulumi.getter(name="ipFamily")
+    def ip_family(self) -> Optional[str]:
+        """
+        The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+        """
+        return pulumi.get(self, "ip_family")
+
+
+@pulumi.output_type
+class TcpMonitorRequestAssertion(dict):
+    def __init__(__self__, *,
+                 comparison: str,
+                 source: str,
+                 property: Optional[str] = None,
+                 target: Optional[str] = None):
+        """
+        :param str comparison: The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        :param str source: The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+        if target is not None:
+            pulumi.set(__self__, "target", target)
+
+    @property
+    @pulumi.getter
+    def comparison(self) -> str:
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @property
+    @pulumi.getter
+    def source(self) -> str:
+        """
+        The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+        """
+        return pulumi.get(self, "source")
+
+    @property
+    @pulumi.getter
+    def target(self) -> Optional[str]:
+        return pulumi.get(self, "target")
+
+    @property
+    @pulumi.getter
+    def property(self) -> Optional[str]:
+        return pulumi.get(self, "property")
+
+
+@pulumi.output_type
+class TcpMonitorRetryStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "baseBackoffSeconds":
+            suggest = "base_backoff_seconds"
+        elif key == "maxDurationSeconds":
+            suggest = "max_duration_seconds"
+        elif key == "maxRetries":
+            suggest = "max_retries"
+        elif key == "sameRegion":
+            suggest = "same_region"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorRetryStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpMonitorRetryStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpMonitorRetryStrategy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: str,
+                 base_backoff_seconds: Optional[int] = None,
+                 max_duration_seconds: Optional[int] = None,
+                 max_retries: Optional[int] = None,
+                 same_region: Optional[bool] = None):
+        """
+        :param str type: Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+        :param int base_backoff_seconds: The number of seconds to wait before the first retry attempt.
+        :param int max_duration_seconds: The total amount of time to continue retrying the check (maximum 600 seconds).
+        :param int max_retries: The maximum number of times to retry the check. Value must be between 1 and 10.
+        :param bool same_region: Whether retries should be run in the same region as the initial check run.
+        """
+        pulumi.set(__self__, "type", type)
+        if base_backoff_seconds is not None:
+            pulumi.set(__self__, "base_backoff_seconds", base_backoff_seconds)
+        if max_duration_seconds is not None:
+            pulumi.set(__self__, "max_duration_seconds", max_duration_seconds)
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if same_region is not None:
+            pulumi.set(__self__, "same_region", same_region)
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+        """
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="baseBackoffSeconds")
+    def base_backoff_seconds(self) -> Optional[int]:
+        """
+        The number of seconds to wait before the first retry attempt.
+        """
+        return pulumi.get(self, "base_backoff_seconds")
+
+    @property
+    @pulumi.getter(name="maxDurationSeconds")
+    def max_duration_seconds(self) -> Optional[int]:
+        """
+        The total amount of time to continue retrying the check (maximum 600 seconds).
+        """
+        return pulumi.get(self, "max_duration_seconds")
+
+    @property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> Optional[int]:
+        """
+        The maximum number of times to retry the check. Value must be between 1 and 10.
+        """
+        return pulumi.get(self, "max_retries")
+
+    @property
+    @pulumi.getter(name="sameRegion")
+    def same_region(self) -> Optional[bool]:
+        """
+        Whether retries should be run in the same region as the initial check run.
+        """
+        return pulumi.get(self, "same_region")
+
+
+@pulumi.output_type
+class UrlMonitorAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in UrlMonitorAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        UrlMonitorAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        UrlMonitorAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: bool,
+                 channel_id: int):
+        """
+        :param bool activated: Whether an alert should be sent to this channel.
+        :param int channel_id: The ID of the alert channel.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @property
+    @pulumi.getter
+    def activated(self) -> bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
+        return pulumi.get(self, "activated")
+
+    @property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> int:
+        """
+        The ID of the alert channel.
+        """
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class UrlMonitorAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "parallelRunFailureThresholds":
+            suggest = "parallel_run_failure_thresholds"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in UrlMonitorAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        UrlMonitorAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        UrlMonitorAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: str,
+                 parallel_run_failure_thresholds: Optional[Sequence['outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold']] = None,
+                 reminders: Optional[Sequence['outputs.UrlMonitorAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.UrlMonitorAlertSettingsRunBasedEscalation']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.UrlMonitorAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+        :param Sequence['UrlMonitorAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['UrlMonitorAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['UrlMonitorAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['UrlMonitorAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
+        """
+        pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> str:
+        """
+        Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.UrlMonitorAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        return pulumi.get(self, "reminders")
+
+    @property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.UrlMonitorAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.UrlMonitorAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class UrlMonitorAlertSettingsParallelRunFailureThreshold(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[bool] = None,
+                 percentage: Optional[int] = None):
+        """
+        :param bool enabled: Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+        :param int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        """
+        Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @property
+    @pulumi.getter
+    def percentage(self) -> Optional[int]:
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class UrlMonitorAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[int] = None,
+                 interval: Optional[int] = None):
+        """
+        :param int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @property
+    @pulumi.getter
+    def amount(self) -> Optional[int]:
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        return pulumi.get(self, "amount")
+
+    @property
+    @pulumi.getter
+    def interval(self) -> Optional[int]:
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class UrlMonitorAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in UrlMonitorAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        UrlMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        UrlMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[int] = None):
+        """
+        :param int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[int]:
+        """
+        After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class UrlMonitorAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in UrlMonitorAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        UrlMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        UrlMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[int] = None):
+        """
+        :param int minutes_failing_threshold: After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[int]:
+        """
+        After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class UrlMonitorRequest(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "followRedirects":
+            suggest = "follow_redirects"
+        elif key == "ipFamily":
+            suggest = "ip_family"
+        elif key == "skipSsl":
+            suggest = "skip_ssl"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in UrlMonitorRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        UrlMonitorRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        UrlMonitorRequest.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 url: str,
+                 assertions: Optional[Sequence['outputs.UrlMonitorRequestAssertion']] = None,
+                 follow_redirects: Optional[bool] = None,
+                 ip_family: Optional[str] = None,
+                 skip_ssl: Optional[bool] = None):
+        """
+        :param str url: The URL to monitor. Must be a valid HTTP or HTTPS URL.
+        :param Sequence['UrlMonitorRequestAssertionArgs'] assertions: Assertions to validate the HTTP response. URL monitors only support status code assertions.
+        :param bool follow_redirects: Whether to follow HTTP redirects automatically. (Default `true`).
+        :param str ip_family: IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+        :param bool skip_ssl: Whether to skip SSL certificate verification. (Default `false`).
+        """
+        pulumi.set(__self__, "url", url)
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if follow_redirects is not None:
+            pulumi.set(__self__, "follow_redirects", follow_redirects)
+        if ip_family is not None:
+            pulumi.set(__self__, "ip_family", ip_family)
+        if skip_ssl is not None:
+            pulumi.set(__self__, "skip_ssl", skip_ssl)
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        """
+        The URL to monitor. Must be a valid HTTP or HTTPS URL.
+        """
+        return pulumi.get(self, "url")
+
+    @property
+    @pulumi.getter
+    def assertions(self) -> Optional[Sequence['outputs.UrlMonitorRequestAssertion']]:
+        """
+        Assertions to validate the HTTP response. URL monitors only support status code assertions.
+        """
+        return pulumi.get(self, "assertions")
+
+    @property
+    @pulumi.getter(name="followRedirects")
+    def follow_redirects(self) -> Optional[bool]:
+        """
+        Whether to follow HTTP redirects automatically. (Default `true`).
+        """
+        return pulumi.get(self, "follow_redirects")
+
+    @property
+    @pulumi.getter(name="ipFamily")
+    def ip_family(self) -> Optional[str]:
+        """
+        IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+        """
+        return pulumi.get(self, "ip_family")
+
+    @property
+    @pulumi.getter(name="skipSsl")
+    def skip_ssl(self) -> Optional[bool]:
+        """
+        Whether to skip SSL certificate verification. (Default `false`).
+        """
+        return pulumi.get(self, "skip_ssl")
+
+
+@pulumi.output_type
+class UrlMonitorRequestAssertion(dict):
+    def __init__(__self__, *,
+                 comparison: str,
+                 source: str,
+                 target: str,
+                 property: Optional[str] = None):
+        """
+        :param str comparison: The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        :param str source: The source of the asserted value. The only allowed value is `STATUS_CODE`.
+        :param str target: The target value. Typically `200` when the source is `STATUS_CODE`.
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "target", target)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+
+    @property
+    @pulumi.getter
+    def comparison(self) -> str:
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @property
+    @pulumi.getter
+    def source(self) -> str:
+        """
+        The source of the asserted value. The only allowed value is `STATUS_CODE`.
+        """
+        return pulumi.get(self, "source")
+
+    @property
+    @pulumi.getter
+    def target(self) -> str:
+        """
+        The target value. Typically `200` when the source is `STATUS_CODE`.
+        """
+        return pulumi.get(self, "target")
+
+    @property
+    @pulumi.getter
+    def property(self) -> Optional[str]:
+        return pulumi.get(self, "property")
+
+
+@pulumi.output_type
+class UrlMonitorRetryStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "baseBackoffSeconds":
+            suggest = "base_backoff_seconds"
+        elif key == "maxDurationSeconds":
+            suggest = "max_duration_seconds"
+        elif key == "maxRetries":
+            suggest = "max_retries"
+        elif key == "sameRegion":
+            suggest = "same_region"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in UrlMonitorRetryStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        UrlMonitorRetryStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        UrlMonitorRetryStrategy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: str,
+                 base_backoff_seconds: Optional[int] = None,
+                 max_duration_seconds: Optional[int] = None,
+                 max_retries: Optional[int] = None,
+                 same_region: Optional[bool] = None):
+        """
+        :param str type: Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
+        :param int base_backoff_seconds: The number of seconds to wait before the first retry attempt. (Default `60`).
+        :param int max_duration_seconds: The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+        :param int max_retries: The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+        :param bool same_region: Whether retries should be run in the same region as the initial monitor run. (Default `true`).
+        """
+        pulumi.set(__self__, "type", type)
+        if base_backoff_seconds is not None:
+            pulumi.set(__self__, "base_backoff_seconds", base_backoff_seconds)
+        if max_duration_seconds is not None:
+            pulumi.set(__self__, "max_duration_seconds", max_duration_seconds)
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if same_region is not None:
+            pulumi.set(__self__, "same_region", same_region)
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
+        """
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="baseBackoffSeconds")
+    def base_backoff_seconds(self) -> Optional[int]:
+        """
+        The number of seconds to wait before the first retry attempt. (Default `60`).
+        """
+        return pulumi.get(self, "base_backoff_seconds")
+
+    @property
+    @pulumi.getter(name="maxDurationSeconds")
+    def max_duration_seconds(self) -> Optional[int]:
+        """
+        The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+        """
+        return pulumi.get(self, "max_duration_seconds")
+
+    @property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> Optional[int]:
+        """
+        The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+        """
+        return pulumi.get(self, "max_retries")
+
+    @property
+    @pulumi.getter(name="sameRegion")
+    def same_region(self) -> Optional[bool]:
+        """
+        Whether retries should be run in the same region as the initial monitor run. (Default `true`).
         """
         return pulumi.get(self, "same_region")
 

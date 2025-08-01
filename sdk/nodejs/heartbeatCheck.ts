@@ -7,8 +7,6 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * Heartbeats allows you to monitor your cron jobs and set up alerting, so you get a notification when things break or slow down.
- *
  * ## Example Usage
  *
  * ```typescript

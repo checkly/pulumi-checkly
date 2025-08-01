@@ -449,6 +449,96 @@ export interface HeartbeatCheckHeartbeat {
     pingToken: string;
 }
 
+export interface HeartbeatMonitorAlertChannelSubscription {
+    activated: boolean;
+    channelId: number;
+}
+
+export interface HeartbeatMonitorAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
+    escalationType?: string;
+    parallelRunFailureThresholds: outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold[];
+    reminders: outputs.HeartbeatMonitorAlertSettingsReminder[];
+    runBasedEscalations: outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation[];
+    /**
+     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     */
+    sslCertificates?: outputs.HeartbeatMonitorAlertSettingsSslCertificate[];
+    timeBasedEscalations: outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation[];
+}
+
+export interface HeartbeatMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: boolean;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: number;
+}
+
+export interface HeartbeatMonitorAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
+    amount?: number;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: number;
+}
+
+export interface HeartbeatMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
+    failedRunThreshold?: number;
+}
+
+export interface HeartbeatMonitorAlertSettingsSslCertificate {
+    /**
+     * How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     */
+    alertThreshold?: number;
+    /**
+     * Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+     */
+    enabled?: boolean;
+}
+
+export interface HeartbeatMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: number;
+}
+
+export interface HeartbeatMonitorHeartbeat {
+    /**
+     * How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+     */
+    grace: number;
+    /**
+     * Possible values `seconds`, `minutes`, `hours` and `days`.
+     */
+    graceUnit: string;
+    /**
+     * How often you expect a ping to the ping URL.
+     */
+    period: number;
+    /**
+     * Possible values `seconds`, `minutes`, `hours` and `days`.
+     */
+    periodUnit: string;
+    /**
+     * Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+     */
+    pingToken: string;
+}
+
 export interface StatusPageCard {
     /**
      * The name of the card.
@@ -574,6 +664,249 @@ export interface TcpCheckRetryStrategy {
     sameRegion?: boolean;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+     */
+    type: string;
+}
+
+export interface TcpMonitorAlertChannelSubscription {
+    activated: boolean;
+    channelId: number;
+}
+
+export interface TcpMonitorAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
+    escalationType?: string;
+    parallelRunFailureThresholds: outputs.TcpMonitorAlertSettingsParallelRunFailureThreshold[];
+    reminders: outputs.TcpMonitorAlertSettingsReminder[];
+    runBasedEscalations: outputs.TcpMonitorAlertSettingsRunBasedEscalation[];
+    timeBasedEscalations: outputs.TcpMonitorAlertSettingsTimeBasedEscalation[];
+}
+
+export interface TcpMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: boolean;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: number;
+}
+
+export interface TcpMonitorAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
+    amount?: number;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: number;
+}
+
+export interface TcpMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
+    failedRunThreshold?: number;
+}
+
+export interface TcpMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: number;
+}
+
+export interface TcpMonitorRequest {
+    /**
+     * A request can have multiple assertions.
+     */
+    assertions?: outputs.TcpMonitorRequestAssertion[];
+    /**
+     * The data to send to the target host.
+     */
+    data?: string;
+    /**
+     * The hostname or IP to connect to. Do not include a scheme or a port in this value.
+     */
+    hostname: string;
+    /**
+     * The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+     */
+    ipFamily?: string;
+    /**
+     * The port number to connect to.
+     */
+    port: number;
+}
+
+export interface TcpMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+     */
+    comparison: string;
+    property?: string;
+    /**
+     * The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+     */
+    source: string;
+    target?: string;
+}
+
+export interface TcpMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt.
+     */
+    baseBackoffSeconds?: number;
+    /**
+     * The total amount of time to continue retrying the check (maximum 600 seconds).
+     */
+    maxDurationSeconds?: number;
+    /**
+     * The maximum number of times to retry the check. Value must be between 1 and 10.
+     */
+    maxRetries?: number;
+    /**
+     * Whether retries should be run in the same region as the initial check run.
+     */
+    sameRegion?: boolean;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+     */
+    type: string;
+}
+
+export interface UrlMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: number;
+}
+
+export interface UrlMonitorAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+     */
+    escalationType: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds: outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders: outputs.UrlMonitorAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations: outputs.UrlMonitorAlertSettingsRunBasedEscalation[];
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations: outputs.UrlMonitorAlertSettingsTimeBasedEscalation[];
+}
+
+export interface UrlMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+     */
+    enabled?: boolean;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: number;
+}
+
+export interface UrlMonitorAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: number;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: number;
+}
+
+export interface UrlMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: number;
+}
+
+export interface UrlMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: number;
+}
+
+export interface UrlMonitorRequest {
+    /**
+     * Assertions to validate the HTTP response. URL monitors only support status code assertions.
+     */
+    assertions?: outputs.UrlMonitorRequestAssertion[];
+    /**
+     * Whether to follow HTTP redirects automatically. (Default `true`).
+     */
+    followRedirects?: boolean;
+    /**
+     * IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+     */
+    ipFamily?: string;
+    /**
+     * Whether to skip SSL certificate verification. (Default `false`).
+     */
+    skipSsl?: boolean;
+    /**
+     * The URL to monitor. Must be a valid HTTP or HTTPS URL.
+     */
+    url: string;
+}
+
+export interface UrlMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+     */
+    comparison: string;
+    property?: string;
+    /**
+     * The source of the asserted value. The only allowed value is `STATUS_CODE`.
+     */
+    source: string;
+    /**
+     * The target value. Typically `200` when the source is `STATUS_CODE`.
+     */
+    target: string;
+}
+
+export interface UrlMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: number;
+    /**
+     * The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+     */
+    maxDurationSeconds?: number;
+    /**
+     * The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+     */
+    maxRetries?: number;
+    /**
+     * Whether retries should be run in the same region as the initial monitor run. (Default `true`).
+     */
+    sameRegion?: boolean;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
      */
     type: string;
 }

@@ -449,6 +449,96 @@ export interface HeartbeatCheckHeartbeat {
     pingToken?: pulumi.Input<string>;
 }
 
+export interface HeartbeatMonitorAlertChannelSubscription {
+    activated: pulumi.Input<boolean>;
+    channelId: pulumi.Input<number>;
+}
+
+export interface HeartbeatMonitorAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
+    escalationType?: pulumi.Input<string>;
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold>[]>;
+    reminders?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertSettingsReminder>[]>;
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     */
+    sslCertificates?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertSettingsSslCertificate>[]>;
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface HeartbeatMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface HeartbeatMonitorAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface HeartbeatMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface HeartbeatMonitorAlertSettingsSslCertificate {
+    /**
+     * How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     */
+    alertThreshold?: pulumi.Input<number>;
+    /**
+     * Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+}
+
+export interface HeartbeatMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface HeartbeatMonitorHeartbeat {
+    /**
+     * How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+     */
+    grace: pulumi.Input<number>;
+    /**
+     * Possible values `seconds`, `minutes`, `hours` and `days`.
+     */
+    graceUnit: pulumi.Input<string>;
+    /**
+     * How often you expect a ping to the ping URL.
+     */
+    period: pulumi.Input<number>;
+    /**
+     * Possible values `seconds`, `minutes`, `hours` and `days`.
+     */
+    periodUnit: pulumi.Input<string>;
+    /**
+     * Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+     */
+    pingToken?: pulumi.Input<string>;
+}
+
 export interface StatusPageCard {
     /**
      * The name of the card.
@@ -574,6 +664,249 @@ export interface TcpCheckRetryStrategy {
     sameRegion?: pulumi.Input<boolean>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface TcpMonitorAlertChannelSubscription {
+    activated: pulumi.Input<boolean>;
+    channelId: pulumi.Input<number>;
+}
+
+export interface TcpMonitorAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     */
+    escalationType?: pulumi.Input<string>;
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertSettingsParallelRunFailureThreshold>[]>;
+    reminders?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertSettingsReminder>[]>;
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertSettingsRunBasedEscalation>[]>;
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface TcpMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Applicable only for checks scheduled in parallel in multiple locations.
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface TcpMonitorAlertSettingsReminder {
+    /**
+     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface TcpMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface TcpMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface TcpMonitorRequest {
+    /**
+     * A request can have multiple assertions.
+     */
+    assertions?: pulumi.Input<pulumi.Input<inputs.TcpMonitorRequestAssertion>[]>;
+    /**
+     * The data to send to the target host.
+     */
+    data?: pulumi.Input<string>;
+    /**
+     * The hostname or IP to connect to. Do not include a scheme or a port in this value.
+     */
+    hostname: pulumi.Input<string>;
+    /**
+     * The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+     */
+    ipFamily?: pulumi.Input<string>;
+    /**
+     * The port number to connect to.
+     */
+    port: pulumi.Input<number>;
+}
+
+export interface TcpMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+     */
+    comparison: pulumi.Input<string>;
+    property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+     */
+    source: pulumi.Input<string>;
+    target?: pulumi.Input<string>;
+}
+
+export interface TcpMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt.
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the check (maximum 600 seconds).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the check. Value must be between 1 and 10.
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Whether retries should be run in the same region as the initial check run.
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface UrlMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: pulumi.Input<boolean>;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: pulumi.Input<number>;
+}
+
+export interface UrlMonitorAlertSettings {
+    /**
+     * Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+     */
+    escalationType: pulumi.Input<string>;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertSettingsParallelRunFailureThreshold>[]>;
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertSettingsReminder>[]>;
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface UrlMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface UrlMonitorAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface UrlMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface UrlMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface UrlMonitorRequest {
+    /**
+     * Assertions to validate the HTTP response. URL monitors only support status code assertions.
+     */
+    assertions?: pulumi.Input<pulumi.Input<inputs.UrlMonitorRequestAssertion>[]>;
+    /**
+     * Whether to follow HTTP redirects automatically. (Default `true`).
+     */
+    followRedirects?: pulumi.Input<boolean>;
+    /**
+     * IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+     */
+    ipFamily?: pulumi.Input<string>;
+    /**
+     * Whether to skip SSL certificate verification. (Default `false`).
+     */
+    skipSsl?: pulumi.Input<boolean>;
+    /**
+     * The URL to monitor. Must be a valid HTTP or HTTPS URL.
+     */
+    url: pulumi.Input<string>;
+}
+
+export interface UrlMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+     */
+    comparison: pulumi.Input<string>;
+    property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. The only allowed value is `STATUS_CODE`.
+     */
+    source: pulumi.Input<string>;
+    /**
+     * The target value. Typically `200` when the source is `STATUS_CODE`.
+     */
+    target: pulumi.Input<string>;
+}
+
+export interface UrlMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Whether retries should be run in the same region as the initial monitor run. (Default `true`).
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
      */
     type: pulumi.Input<string>;
 }

@@ -45,6 +45,11 @@ export type HeartbeatCheck = import("./heartbeatCheck").HeartbeatCheck;
 export const HeartbeatCheck: typeof import("./heartbeatCheck").HeartbeatCheck = null as any;
 utilities.lazyLoad(exports, ["HeartbeatCheck"], () => require("./heartbeatCheck"));
 
+export { HeartbeatMonitorArgs, HeartbeatMonitorState } from "./heartbeatMonitor";
+export type HeartbeatMonitor = import("./heartbeatMonitor").HeartbeatMonitor;
+export const HeartbeatMonitor: typeof import("./heartbeatMonitor").HeartbeatMonitor = null as any;
+utilities.lazyLoad(exports, ["HeartbeatMonitor"], () => require("./heartbeatMonitor"));
+
 export { MaintenanceWindowArgs, MaintenanceWindowState } from "./maintenanceWindow";
 export type MaintenanceWindow = import("./maintenanceWindow").MaintenanceWindow;
 export const MaintenanceWindow: typeof import("./maintenanceWindow").MaintenanceWindow = null as any;
@@ -80,6 +85,11 @@ export type TcpCheck = import("./tcpCheck").TcpCheck;
 export const TcpCheck: typeof import("./tcpCheck").TcpCheck = null as any;
 utilities.lazyLoad(exports, ["TcpCheck"], () => require("./tcpCheck"));
 
+export { TcpMonitorArgs, TcpMonitorState } from "./tcpMonitor";
+export type TcpMonitor = import("./tcpMonitor").TcpMonitor;
+export const TcpMonitor: typeof import("./tcpMonitor").TcpMonitor = null as any;
+utilities.lazyLoad(exports, ["TcpMonitor"], () => require("./tcpMonitor"));
+
 export { TriggerCheckArgs, TriggerCheckState } from "./triggerCheck";
 export type TriggerCheck = import("./triggerCheck").TriggerCheck;
 export const TriggerCheck: typeof import("./triggerCheck").TriggerCheck = null as any;
@@ -89,6 +99,11 @@ export { TriggerCheckGroupArgs, TriggerCheckGroupState } from "./triggerCheckGro
 export type TriggerCheckGroup = import("./triggerCheckGroup").TriggerCheckGroup;
 export const TriggerCheckGroup: typeof import("./triggerCheckGroup").TriggerCheckGroup = null as any;
 utilities.lazyLoad(exports, ["TriggerCheckGroup"], () => require("./triggerCheckGroup"));
+
+export { UrlMonitorArgs, UrlMonitorState } from "./urlMonitor";
+export type UrlMonitor = import("./urlMonitor").UrlMonitor;
+export const UrlMonitor: typeof import("./urlMonitor").UrlMonitor = null as any;
+utilities.lazyLoad(exports, ["UrlMonitor"], () => require("./urlMonitor"));
 
 
 // Export sub-modules:
@@ -118,6 +133,8 @@ const _module = {
                 return new EnvironmentVariable(name, <any>undefined, { urn })
             case "checkly:index/heartbeatCheck:HeartbeatCheck":
                 return new HeartbeatCheck(name, <any>undefined, { urn })
+            case "checkly:index/heartbeatMonitor:HeartbeatMonitor":
+                return new HeartbeatMonitor(name, <any>undefined, { urn })
             case "checkly:index/maintenanceWindow:MaintenanceWindow":
                 return new MaintenanceWindow(name, <any>undefined, { urn })
             case "checkly:index/privateLocation:PrivateLocation":
@@ -130,10 +147,14 @@ const _module = {
                 return new StatusPageService(name, <any>undefined, { urn })
             case "checkly:index/tcpCheck:TcpCheck":
                 return new TcpCheck(name, <any>undefined, { urn })
+            case "checkly:index/tcpMonitor:TcpMonitor":
+                return new TcpMonitor(name, <any>undefined, { urn })
             case "checkly:index/triggerCheck:TriggerCheck":
                 return new TriggerCheck(name, <any>undefined, { urn })
             case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
                 return new TriggerCheckGroup(name, <any>undefined, { urn })
+            case "checkly:index/urlMonitor:UrlMonitor":
+                return new UrlMonitor(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -146,14 +167,17 @@ pulumi.runtime.registerResourceModule("checkly", "index/clientCertificate", _mod
 pulumi.runtime.registerResourceModule("checkly", "index/dashboard", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/environmentVariable", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/heartbeatMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/statusPage", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/statusPageService", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tcpCheck", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/tcpMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/urlMonitor", _module)
 pulumi.runtime.registerResourcePackage("checkly", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {

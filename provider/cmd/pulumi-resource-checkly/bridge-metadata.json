@@ -200,6 +200,43 @@
                     }
                 }
             },
+            "checkly_heartbeat_monitor": {
+                "current": "checkly:index/heartbeatMonitor:HeartbeatMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "ssl_certificates": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "heartbeat": {
+                        "maxItemsOne": true
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "checkly_maintenance_windows": {
                 "current": "checkly:index/maintenanceWindow:MaintenanceWindow",
                 "majorVersion": 2,
@@ -292,6 +329,56 @@
                     }
                 }
             },
+            "checkly_tcp_monitor": {
+                "current": "checkly:index/tcpMonitor:TcpMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "locations": {
+                        "maxItemsOne": false
+                    },
+                    "private_locations": {
+                        "maxItemsOne": false
+                    },
+                    "request": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "assertion": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "retry_strategy": {
+                        "maxItemsOne": true
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "checkly_trigger_check": {
                 "current": "checkly:index/triggerCheck:TriggerCheck",
                 "majorVersion": 2
@@ -299,6 +386,56 @@
             "checkly_trigger_group": {
                 "current": "checkly:index/triggerCheckGroup:TriggerCheckGroup",
                 "majorVersion": 2
+            },
+            "checkly_url_monitor": {
+                "current": "checkly:index/urlMonitor:UrlMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "locations": {
+                        "maxItemsOne": false
+                    },
+                    "private_locations": {
+                        "maxItemsOne": false
+                    },
+                    "request": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "assertion": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "retry_strategy": {
+                        "maxItemsOne": true
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    }
+                }
             }
         },
         "datasources": {

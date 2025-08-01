@@ -7,8 +7,6 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * TCP checks allow you to monitor remote endpoints at a lower level.
- *
  * ## Example Usage
  *
  * ```typescript

@@ -209,6 +209,9 @@ func Provider() tfbridge.ProviderInfo {
 				Tok:        tfbridge.MakeResource(mainPkg, mainMod, "HeartbeatCheck"),
 				CSharpName: "HeartbeatCheck",
 			},
+			"checkly_heartbeat_monitor": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "HeartbeatMonitor"),
+			},
 			"checkly_maintenance_windows": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MaintenanceWindow"),
 			},
@@ -224,11 +227,20 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_status_page_service": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageService"),
 			},
+			"checkly_tcp_check": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TcpCheck"),
+			},
+			"checkly_tcp_monitor": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TcpMonitor"),
+			},
 			"checkly_trigger_check": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TriggerCheck"),
 			},
 			"checkly_trigger_group": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TriggerCheckGroup"),
+			},
+			"checkly_url_monitor": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "UrlMonitor"),
 			},
 		},
 		// If extra types are needed for configuration, they can be added here.

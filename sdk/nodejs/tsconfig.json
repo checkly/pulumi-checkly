@@ -23,6 +23,7 @@
         "environmentVariable.ts",
         "getStaticIps.ts",
         "heartbeatCheck.ts",
+        "heartbeatMonitor.ts",
         "index.ts",
         "maintenanceWindow.ts",
         "privateLocation.ts",
@@ -31,11 +32,13 @@
         "statusPage.ts",
         "statusPageService.ts",
         "tcpCheck.ts",
+        "tcpMonitor.ts",
         "triggerCheck.ts",
         "triggerCheckGroup.ts",
         "types/index.ts",
         "types/input.ts",
         "types/output.ts",
+        "urlMonitor.ts",
         "utilities.ts"
     ]
 }

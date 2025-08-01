@@ -13,6 +13,7 @@ from .dashboard import *
 from .environment_variable import *
 from .get_static_ips import *
 from .heartbeat_check import *
+from .heartbeat_monitor import *
 from .maintenance_window import *
 from .private_location import *
 from .provider import *
@@ -20,8 +21,10 @@ from .snippet import *
 from .status_page import *
 from .status_page_service import *
 from .tcp_check import *
+from .tcp_monitor import *
 from .trigger_check import *
 from .trigger_check_group import *
+from .url_monitor import *
 from ._inputs import *
 from . import outputs
 
@@ -93,6 +96,14 @@ _utilities.register(
  },
  {
   "pkg": "checkly",
+  "mod": "index/heartbeatMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/heartbeatMonitor:HeartbeatMonitor": "HeartbeatMonitor"
+  }
+ },
+ {
+  "pkg": "checkly",
   "mod": "index/maintenanceWindow",
   "fqn": "pulumi_checkly",
   "classes": {
@@ -141,6 +152,14 @@ _utilities.register(
  },
  {
   "pkg": "checkly",
+  "mod": "index/tcpMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/tcpMonitor:TcpMonitor": "TcpMonitor"
+  }
+ },
+ {
+  "pkg": "checkly",
   "mod": "index/triggerCheck",
   "fqn": "pulumi_checkly",
   "classes": {
@@ -153,6 +172,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/triggerCheckGroup:TriggerCheckGroup": "TriggerCheckGroup"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/urlMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/urlMonitor:UrlMonitor": "UrlMonitor"
   }
  }
 ]

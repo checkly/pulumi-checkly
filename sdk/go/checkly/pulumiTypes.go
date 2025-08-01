@@ -5628,6 +5628,1055 @@ func (o HeartbeatCheckHeartbeatPtrOutput) PingToken() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type HeartbeatMonitorAlertChannelSubscription struct {
+	Activated bool `pulumi:"activated"`
+	ChannelId int  `pulumi:"channelId"`
+}
+
+// HeartbeatMonitorAlertChannelSubscriptionInput is an input type that accepts HeartbeatMonitorAlertChannelSubscriptionArgs and HeartbeatMonitorAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertChannelSubscriptionInput` via:
+//
+//	HeartbeatMonitorAlertChannelSubscriptionArgs{...}
+type HeartbeatMonitorAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertChannelSubscriptionOutput() HeartbeatMonitorAlertChannelSubscriptionOutput
+	ToHeartbeatMonitorAlertChannelSubscriptionOutputWithContext(context.Context) HeartbeatMonitorAlertChannelSubscriptionOutput
+}
+
+type HeartbeatMonitorAlertChannelSubscriptionArgs struct {
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+}
+
+func (HeartbeatMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertChannelSubscriptionArgs) ToHeartbeatMonitorAlertChannelSubscriptionOutput() HeartbeatMonitorAlertChannelSubscriptionOutput {
+	return i.ToHeartbeatMonitorAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertChannelSubscriptionArgs) ToHeartbeatMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) HeartbeatMonitorAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertChannelSubscriptionOutput)
+}
+
+// HeartbeatMonitorAlertChannelSubscriptionArrayInput is an input type that accepts HeartbeatMonitorAlertChannelSubscriptionArray and HeartbeatMonitorAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertChannelSubscriptionArrayInput` via:
+//
+//	HeartbeatMonitorAlertChannelSubscriptionArray{ HeartbeatMonitorAlertChannelSubscriptionArgs{...} }
+type HeartbeatMonitorAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertChannelSubscriptionArrayOutput() HeartbeatMonitorAlertChannelSubscriptionArrayOutput
+	ToHeartbeatMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Context) HeartbeatMonitorAlertChannelSubscriptionArrayOutput
+}
+
+type HeartbeatMonitorAlertChannelSubscriptionArray []HeartbeatMonitorAlertChannelSubscriptionInput
+
+func (HeartbeatMonitorAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertChannelSubscriptionArray) ToHeartbeatMonitorAlertChannelSubscriptionArrayOutput() HeartbeatMonitorAlertChannelSubscriptionArrayOutput {
+	return i.ToHeartbeatMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertChannelSubscriptionArray) ToHeartbeatMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertChannelSubscriptionArrayOutput)
+}
+
+type HeartbeatMonitorAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertChannelSubscriptionOutput) ToHeartbeatMonitorAlertChannelSubscriptionOutput() HeartbeatMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertChannelSubscriptionOutput) ToHeartbeatMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) HeartbeatMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+func (o HeartbeatMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type HeartbeatMonitorAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertChannelSubscriptionArrayOutput) ToHeartbeatMonitorAlertChannelSubscriptionArrayOutput() HeartbeatMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertChannelSubscriptionArrayOutput) ToHeartbeatMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) HeartbeatMonitorAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HeartbeatMonitorAlertChannelSubscription {
+		return vs[0].([]HeartbeatMonitorAlertChannelSubscription)[vs[1].(int)]
+	}).(HeartbeatMonitorAlertChannelSubscriptionOutput)
+}
+
+type HeartbeatMonitorAlertSettings struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType               *string                                                    `pulumi:"escalationType"`
+	ParallelRunFailureThresholds []HeartbeatMonitorAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	Reminders                    []HeartbeatMonitorAlertSettingsReminder                    `pulumi:"reminders"`
+	RunBasedEscalations          []HeartbeatMonitorAlertSettingsRunBasedEscalation          `pulumi:"runBasedEscalations"`
+	// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+	SslCertificates      []HeartbeatMonitorAlertSettingsSslCertificate      `pulumi:"sslCertificates"`
+	TimeBasedEscalations []HeartbeatMonitorAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// HeartbeatMonitorAlertSettingsInput is an input type that accepts HeartbeatMonitorAlertSettingsArgs and HeartbeatMonitorAlertSettingsOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsInput` via:
+//
+//	HeartbeatMonitorAlertSettingsArgs{...}
+type HeartbeatMonitorAlertSettingsInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsOutput() HeartbeatMonitorAlertSettingsOutput
+	ToHeartbeatMonitorAlertSettingsOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsOutput
+}
+
+type HeartbeatMonitorAlertSettingsArgs struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType               pulumi.StringPtrInput                                              `pulumi:"escalationType"`
+	ParallelRunFailureThresholds HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	Reminders                    HeartbeatMonitorAlertSettingsReminderArrayInput                    `pulumi:"reminders"`
+	RunBasedEscalations          HeartbeatMonitorAlertSettingsRunBasedEscalationArrayInput          `pulumi:"runBasedEscalations"`
+	// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+	SslCertificates      HeartbeatMonitorAlertSettingsSslCertificateArrayInput      `pulumi:"sslCertificates"`
+	TimeBasedEscalations HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (HeartbeatMonitorAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsArgs) ToHeartbeatMonitorAlertSettingsOutput() HeartbeatMonitorAlertSettingsOutput {
+	return i.ToHeartbeatMonitorAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsArgs) ToHeartbeatMonitorAlertSettingsOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsOutput)
+}
+
+func (i HeartbeatMonitorAlertSettingsArgs) ToHeartbeatMonitorAlertSettingsPtrOutput() HeartbeatMonitorAlertSettingsPtrOutput {
+	return i.ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsArgs) ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsOutput).ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// HeartbeatMonitorAlertSettingsPtrInput is an input type that accepts HeartbeatMonitorAlertSettingsArgs, HeartbeatMonitorAlertSettingsPtr and HeartbeatMonitorAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsPtrInput` via:
+//
+//	        HeartbeatMonitorAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type HeartbeatMonitorAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsPtrOutput() HeartbeatMonitorAlertSettingsPtrOutput
+	ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsPtrOutput
+}
+
+type heartbeatMonitorAlertSettingsPtrType HeartbeatMonitorAlertSettingsArgs
+
+func HeartbeatMonitorAlertSettingsPtr(v *HeartbeatMonitorAlertSettingsArgs) HeartbeatMonitorAlertSettingsPtrInput {
+	return (*heartbeatMonitorAlertSettingsPtrType)(v)
+}
+
+func (*heartbeatMonitorAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i *heartbeatMonitorAlertSettingsPtrType) ToHeartbeatMonitorAlertSettingsPtrOutput() HeartbeatMonitorAlertSettingsPtrOutput {
+	return i.ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *heartbeatMonitorAlertSettingsPtrType) ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsPtrOutput)
+}
+
+type HeartbeatMonitorAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) ToHeartbeatMonitorAlertSettingsOutput() HeartbeatMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) ToHeartbeatMonitorAlertSettingsOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) ToHeartbeatMonitorAlertSettingsPtrOutput() HeartbeatMonitorAlertSettingsPtrOutput {
+	return o.ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HeartbeatMonitorAlertSettings) *HeartbeatMonitorAlertSettings {
+		return &v
+	}).(HeartbeatMonitorAlertSettingsPtrOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o HeartbeatMonitorAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) ParallelRunFailureThresholds() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) Reminders() HeartbeatMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsReminder { return v.Reminders }).(HeartbeatMonitorAlertSettingsReminderArrayOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) RunBasedEscalations() HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+func (o HeartbeatMonitorAlertSettingsOutput) SslCertificates() HeartbeatMonitorAlertSettingsSslCertificateArrayOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsSslCertificate {
+		return v.SslCertificates
+	}).(HeartbeatMonitorAlertSettingsSslCertificateArrayOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsOutput) TimeBasedEscalations() HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type HeartbeatMonitorAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsPtrOutput) ToHeartbeatMonitorAlertSettingsPtrOutput() HeartbeatMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsPtrOutput) ToHeartbeatMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsPtrOutput) Elem() HeartbeatMonitorAlertSettingsOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorAlertSettings) HeartbeatMonitorAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret HeartbeatMonitorAlertSettings
+		return ret
+	}).(HeartbeatMonitorAlertSettingsOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o HeartbeatMonitorAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsPtrOutput) ParallelRunFailureThresholds() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsPtrOutput) Reminders() HeartbeatMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(HeartbeatMonitorAlertSettingsReminderArrayOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsPtrOutput) RunBasedEscalations() HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Deprecated: This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+func (o HeartbeatMonitorAlertSettingsPtrOutput) SslCertificates() HeartbeatMonitorAlertSettingsSslCertificateArrayOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsSslCertificate {
+		if v == nil {
+			return nil
+		}
+		return v.SslCertificates
+	}).(HeartbeatMonitorAlertSettingsSslCertificateArrayOutput)
+}
+
+func (o HeartbeatMonitorAlertSettingsPtrOutput) TimeBasedEscalations() HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorAlertSettings) []HeartbeatMonitorAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type HeartbeatMonitorAlertSettingsParallelRunFailureThreshold struct {
+	// Applicable only for checks scheduled in parallel in multiple locations.
+	Enabled *bool `pulumi:"enabled"`
+	// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// HeartbeatMonitorAlertSettingsParallelRunFailureThresholdInput is an input type that accepts HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs and HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs{...}
+type HeartbeatMonitorAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput
+	ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Applicable only for checks scheduled in parallel in multiple locations.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArray and HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArray{ HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs{...} }
+type HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArray []HeartbeatMonitorAlertSettingsParallelRunFailureThresholdInput
+
+func (HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArray) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArray) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Applicable only for checks scheduled in parallel in multiple locations.
+func (o HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+func (o HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToHeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HeartbeatMonitorAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]HeartbeatMonitorAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type HeartbeatMonitorAlertSettingsReminder struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount *int `pulumi:"amount"`
+	// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// HeartbeatMonitorAlertSettingsReminderInput is an input type that accepts HeartbeatMonitorAlertSettingsReminderArgs and HeartbeatMonitorAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsReminderInput` via:
+//
+//	HeartbeatMonitorAlertSettingsReminderArgs{...}
+type HeartbeatMonitorAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsReminderOutput() HeartbeatMonitorAlertSettingsReminderOutput
+	ToHeartbeatMonitorAlertSettingsReminderOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsReminderOutput
+}
+
+type HeartbeatMonitorAlertSettingsReminderArgs struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (HeartbeatMonitorAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsReminderArgs) ToHeartbeatMonitorAlertSettingsReminderOutput() HeartbeatMonitorAlertSettingsReminderOutput {
+	return i.ToHeartbeatMonitorAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsReminderArgs) ToHeartbeatMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsReminderOutput)
+}
+
+// HeartbeatMonitorAlertSettingsReminderArrayInput is an input type that accepts HeartbeatMonitorAlertSettingsReminderArray and HeartbeatMonitorAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsReminderArrayInput` via:
+//
+//	HeartbeatMonitorAlertSettingsReminderArray{ HeartbeatMonitorAlertSettingsReminderArgs{...} }
+type HeartbeatMonitorAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsReminderArrayOutput() HeartbeatMonitorAlertSettingsReminderArrayOutput
+	ToHeartbeatMonitorAlertSettingsReminderArrayOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsReminderArrayOutput
+}
+
+type HeartbeatMonitorAlertSettingsReminderArray []HeartbeatMonitorAlertSettingsReminderInput
+
+func (HeartbeatMonitorAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsReminderArray) ToHeartbeatMonitorAlertSettingsReminderArrayOutput() HeartbeatMonitorAlertSettingsReminderArrayOutput {
+	return i.ToHeartbeatMonitorAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsReminderArray) ToHeartbeatMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsReminderArrayOutput)
+}
+
+type HeartbeatMonitorAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsReminderOutput) ToHeartbeatMonitorAlertSettingsReminderOutput() HeartbeatMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsReminderOutput) ToHeartbeatMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+func (o HeartbeatMonitorAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o HeartbeatMonitorAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type HeartbeatMonitorAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsReminderArrayOutput) ToHeartbeatMonitorAlertSettingsReminderArrayOutput() HeartbeatMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsReminderArrayOutput) ToHeartbeatMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) HeartbeatMonitorAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HeartbeatMonitorAlertSettingsReminder {
+		return vs[0].([]HeartbeatMonitorAlertSettingsReminder)[vs[1].(int)]
+	}).(HeartbeatMonitorAlertSettingsReminderOutput)
+}
+
+type HeartbeatMonitorAlertSettingsRunBasedEscalation struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// HeartbeatMonitorAlertSettingsRunBasedEscalationInput is an input type that accepts HeartbeatMonitorAlertSettingsRunBasedEscalationArgs and HeartbeatMonitorAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsRunBasedEscalationInput` via:
+//
+//	HeartbeatMonitorAlertSettingsRunBasedEscalationArgs{...}
+type HeartbeatMonitorAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsRunBasedEscalationOutput() HeartbeatMonitorAlertSettingsRunBasedEscalationOutput
+	ToHeartbeatMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsRunBasedEscalationOutput
+}
+
+type HeartbeatMonitorAlertSettingsRunBasedEscalationArgs struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (HeartbeatMonitorAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsRunBasedEscalationArgs) ToHeartbeatMonitorAlertSettingsRunBasedEscalationOutput() HeartbeatMonitorAlertSettingsRunBasedEscalationOutput {
+	return i.ToHeartbeatMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsRunBasedEscalationArgs) ToHeartbeatMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+// HeartbeatMonitorAlertSettingsRunBasedEscalationArrayInput is an input type that accepts HeartbeatMonitorAlertSettingsRunBasedEscalationArray and HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	HeartbeatMonitorAlertSettingsRunBasedEscalationArray{ HeartbeatMonitorAlertSettingsRunBasedEscalationArgs{...} }
+type HeartbeatMonitorAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput() HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput
+	ToHeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type HeartbeatMonitorAlertSettingsRunBasedEscalationArray []HeartbeatMonitorAlertSettingsRunBasedEscalationInput
+
+func (HeartbeatMonitorAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsRunBasedEscalationArray) ToHeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput() HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToHeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsRunBasedEscalationArray) ToHeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type HeartbeatMonitorAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsRunBasedEscalationOutput) ToHeartbeatMonitorAlertSettingsRunBasedEscalationOutput() HeartbeatMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsRunBasedEscalationOutput) ToHeartbeatMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+func (o HeartbeatMonitorAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput) ToHeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput() HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput) ToHeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) HeartbeatMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HeartbeatMonitorAlertSettingsRunBasedEscalation {
+		return vs[0].([]HeartbeatMonitorAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(HeartbeatMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+type HeartbeatMonitorAlertSettingsSslCertificate struct {
+	// How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+	AlertThreshold *int `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// HeartbeatMonitorAlertSettingsSslCertificateInput is an input type that accepts HeartbeatMonitorAlertSettingsSslCertificateArgs and HeartbeatMonitorAlertSettingsSslCertificateOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsSslCertificateInput` via:
+//
+//	HeartbeatMonitorAlertSettingsSslCertificateArgs{...}
+type HeartbeatMonitorAlertSettingsSslCertificateInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsSslCertificateOutput() HeartbeatMonitorAlertSettingsSslCertificateOutput
+	ToHeartbeatMonitorAlertSettingsSslCertificateOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsSslCertificateOutput
+}
+
+type HeartbeatMonitorAlertSettingsSslCertificateArgs struct {
+	// How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+	AlertThreshold pulumi.IntPtrInput `pulumi:"alertThreshold"`
+	// Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (HeartbeatMonitorAlertSettingsSslCertificateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsSslCertificateArgs) ToHeartbeatMonitorAlertSettingsSslCertificateOutput() HeartbeatMonitorAlertSettingsSslCertificateOutput {
+	return i.ToHeartbeatMonitorAlertSettingsSslCertificateOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsSslCertificateArgs) ToHeartbeatMonitorAlertSettingsSslCertificateOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsSslCertificateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsSslCertificateOutput)
+}
+
+// HeartbeatMonitorAlertSettingsSslCertificateArrayInput is an input type that accepts HeartbeatMonitorAlertSettingsSslCertificateArray and HeartbeatMonitorAlertSettingsSslCertificateArrayOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsSslCertificateArrayInput` via:
+//
+//	HeartbeatMonitorAlertSettingsSslCertificateArray{ HeartbeatMonitorAlertSettingsSslCertificateArgs{...} }
+type HeartbeatMonitorAlertSettingsSslCertificateArrayInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsSslCertificateArrayOutput() HeartbeatMonitorAlertSettingsSslCertificateArrayOutput
+	ToHeartbeatMonitorAlertSettingsSslCertificateArrayOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsSslCertificateArrayOutput
+}
+
+type HeartbeatMonitorAlertSettingsSslCertificateArray []HeartbeatMonitorAlertSettingsSslCertificateInput
+
+func (HeartbeatMonitorAlertSettingsSslCertificateArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsSslCertificateArray) ToHeartbeatMonitorAlertSettingsSslCertificateArrayOutput() HeartbeatMonitorAlertSettingsSslCertificateArrayOutput {
+	return i.ToHeartbeatMonitorAlertSettingsSslCertificateArrayOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsSslCertificateArray) ToHeartbeatMonitorAlertSettingsSslCertificateArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsSslCertificateArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsSslCertificateArrayOutput)
+}
+
+type HeartbeatMonitorAlertSettingsSslCertificateOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsSslCertificateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsSslCertificateOutput) ToHeartbeatMonitorAlertSettingsSslCertificateOutput() HeartbeatMonitorAlertSettingsSslCertificateOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsSslCertificateOutput) ToHeartbeatMonitorAlertSettingsSslCertificateOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsSslCertificateOutput {
+	return o
+}
+
+// How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+func (o HeartbeatMonitorAlertSettingsSslCertificateOutput) AlertThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsSslCertificate) *int { return v.AlertThreshold }).(pulumi.IntPtrOutput)
+}
+
+// Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+func (o HeartbeatMonitorAlertSettingsSslCertificateOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsSslCertificate) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type HeartbeatMonitorAlertSettingsSslCertificateArrayOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsSslCertificateArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsSslCertificateArrayOutput) ToHeartbeatMonitorAlertSettingsSslCertificateArrayOutput() HeartbeatMonitorAlertSettingsSslCertificateArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsSslCertificateArrayOutput) ToHeartbeatMonitorAlertSettingsSslCertificateArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsSslCertificateArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsSslCertificateArrayOutput) Index(i pulumi.IntInput) HeartbeatMonitorAlertSettingsSslCertificateOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HeartbeatMonitorAlertSettingsSslCertificate {
+		return vs[0].([]HeartbeatMonitorAlertSettingsSslCertificate)[vs[1].(int)]
+	}).(HeartbeatMonitorAlertSettingsSslCertificateOutput)
+}
+
+type HeartbeatMonitorAlertSettingsTimeBasedEscalation struct {
+	// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// HeartbeatMonitorAlertSettingsTimeBasedEscalationInput is an input type that accepts HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs and HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsTimeBasedEscalationInput` via:
+//
+//	HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs{...}
+type HeartbeatMonitorAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsTimeBasedEscalationOutput() HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput
+	ToHeartbeatMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput
+}
+
+type HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs struct {
+	// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationOutput() HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput {
+	return i.ToHeartbeatMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+// HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts HeartbeatMonitorAlertSettingsTimeBasedEscalationArray and HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	HeartbeatMonitorAlertSettingsTimeBasedEscalationArray{ HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs{...} }
+type HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput() HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput
+	ToHeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type HeartbeatMonitorAlertSettingsTimeBasedEscalationArray []HeartbeatMonitorAlertSettingsTimeBasedEscalationInput
+
+func (HeartbeatMonitorAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorAlertSettingsTimeBasedEscalationArray) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput() HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToHeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorAlertSettingsTimeBasedEscalationArray) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationOutput() HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HeartbeatMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput() HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToHeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HeartbeatMonitorAlertSettingsTimeBasedEscalation {
+		return vs[0].([]HeartbeatMonitorAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+type HeartbeatMonitorHeartbeat struct {
+	// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+	Grace int `pulumi:"grace"`
+	// Possible values `seconds`, `minutes`, `hours` and `days`.
+	GraceUnit string `pulumi:"graceUnit"`
+	// How often you expect a ping to the ping URL.
+	Period int `pulumi:"period"`
+	// Possible values `seconds`, `minutes`, `hours` and `days`.
+	PeriodUnit string `pulumi:"periodUnit"`
+	// Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+	PingToken *string `pulumi:"pingToken"`
+}
+
+// HeartbeatMonitorHeartbeatInput is an input type that accepts HeartbeatMonitorHeartbeatArgs and HeartbeatMonitorHeartbeatOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorHeartbeatInput` via:
+//
+//	HeartbeatMonitorHeartbeatArgs{...}
+type HeartbeatMonitorHeartbeatInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorHeartbeatOutput() HeartbeatMonitorHeartbeatOutput
+	ToHeartbeatMonitorHeartbeatOutputWithContext(context.Context) HeartbeatMonitorHeartbeatOutput
+}
+
+type HeartbeatMonitorHeartbeatArgs struct {
+	// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+	Grace pulumi.IntInput `pulumi:"grace"`
+	// Possible values `seconds`, `minutes`, `hours` and `days`.
+	GraceUnit pulumi.StringInput `pulumi:"graceUnit"`
+	// How often you expect a ping to the ping URL.
+	Period pulumi.IntInput `pulumi:"period"`
+	// Possible values `seconds`, `minutes`, `hours` and `days`.
+	PeriodUnit pulumi.StringInput `pulumi:"periodUnit"`
+	// Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+	PingToken pulumi.StringPtrInput `pulumi:"pingToken"`
+}
+
+func (HeartbeatMonitorHeartbeatArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorHeartbeat)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorHeartbeatArgs) ToHeartbeatMonitorHeartbeatOutput() HeartbeatMonitorHeartbeatOutput {
+	return i.ToHeartbeatMonitorHeartbeatOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorHeartbeatArgs) ToHeartbeatMonitorHeartbeatOutputWithContext(ctx context.Context) HeartbeatMonitorHeartbeatOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorHeartbeatOutput)
+}
+
+func (i HeartbeatMonitorHeartbeatArgs) ToHeartbeatMonitorHeartbeatPtrOutput() HeartbeatMonitorHeartbeatPtrOutput {
+	return i.ToHeartbeatMonitorHeartbeatPtrOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorHeartbeatArgs) ToHeartbeatMonitorHeartbeatPtrOutputWithContext(ctx context.Context) HeartbeatMonitorHeartbeatPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorHeartbeatOutput).ToHeartbeatMonitorHeartbeatPtrOutputWithContext(ctx)
+}
+
+// HeartbeatMonitorHeartbeatPtrInput is an input type that accepts HeartbeatMonitorHeartbeatArgs, HeartbeatMonitorHeartbeatPtr and HeartbeatMonitorHeartbeatPtrOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorHeartbeatPtrInput` via:
+//
+//	        HeartbeatMonitorHeartbeatArgs{...}
+//
+//	or:
+//
+//	        nil
+type HeartbeatMonitorHeartbeatPtrInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorHeartbeatPtrOutput() HeartbeatMonitorHeartbeatPtrOutput
+	ToHeartbeatMonitorHeartbeatPtrOutputWithContext(context.Context) HeartbeatMonitorHeartbeatPtrOutput
+}
+
+type heartbeatMonitorHeartbeatPtrType HeartbeatMonitorHeartbeatArgs
+
+func HeartbeatMonitorHeartbeatPtr(v *HeartbeatMonitorHeartbeatArgs) HeartbeatMonitorHeartbeatPtrInput {
+	return (*heartbeatMonitorHeartbeatPtrType)(v)
+}
+
+func (*heartbeatMonitorHeartbeatPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatMonitorHeartbeat)(nil)).Elem()
+}
+
+func (i *heartbeatMonitorHeartbeatPtrType) ToHeartbeatMonitorHeartbeatPtrOutput() HeartbeatMonitorHeartbeatPtrOutput {
+	return i.ToHeartbeatMonitorHeartbeatPtrOutputWithContext(context.Background())
+}
+
+func (i *heartbeatMonitorHeartbeatPtrType) ToHeartbeatMonitorHeartbeatPtrOutputWithContext(ctx context.Context) HeartbeatMonitorHeartbeatPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorHeartbeatPtrOutput)
+}
+
+type HeartbeatMonitorHeartbeatOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorHeartbeatOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorHeartbeat)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorHeartbeatOutput) ToHeartbeatMonitorHeartbeatOutput() HeartbeatMonitorHeartbeatOutput {
+	return o
+}
+
+func (o HeartbeatMonitorHeartbeatOutput) ToHeartbeatMonitorHeartbeatOutputWithContext(ctx context.Context) HeartbeatMonitorHeartbeatOutput {
+	return o
+}
+
+func (o HeartbeatMonitorHeartbeatOutput) ToHeartbeatMonitorHeartbeatPtrOutput() HeartbeatMonitorHeartbeatPtrOutput {
+	return o.ToHeartbeatMonitorHeartbeatPtrOutputWithContext(context.Background())
+}
+
+func (o HeartbeatMonitorHeartbeatOutput) ToHeartbeatMonitorHeartbeatPtrOutputWithContext(ctx context.Context) HeartbeatMonitorHeartbeatPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HeartbeatMonitorHeartbeat) *HeartbeatMonitorHeartbeat {
+		return &v
+	}).(HeartbeatMonitorHeartbeatPtrOutput)
+}
+
+// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+func (o HeartbeatMonitorHeartbeatOutput) Grace() pulumi.IntOutput {
+	return o.ApplyT(func(v HeartbeatMonitorHeartbeat) int { return v.Grace }).(pulumi.IntOutput)
+}
+
+// Possible values `seconds`, `minutes`, `hours` and `days`.
+func (o HeartbeatMonitorHeartbeatOutput) GraceUnit() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatMonitorHeartbeat) string { return v.GraceUnit }).(pulumi.StringOutput)
+}
+
+// How often you expect a ping to the ping URL.
+func (o HeartbeatMonitorHeartbeatOutput) Period() pulumi.IntOutput {
+	return o.ApplyT(func(v HeartbeatMonitorHeartbeat) int { return v.Period }).(pulumi.IntOutput)
+}
+
+// Possible values `seconds`, `minutes`, `hours` and `days`.
+func (o HeartbeatMonitorHeartbeatOutput) PeriodUnit() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatMonitorHeartbeat) string { return v.PeriodUnit }).(pulumi.StringOutput)
+}
+
+// Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+func (o HeartbeatMonitorHeartbeatOutput) PingToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HeartbeatMonitorHeartbeat) *string { return v.PingToken }).(pulumi.StringPtrOutput)
+}
+
+type HeartbeatMonitorHeartbeatPtrOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorHeartbeatPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatMonitorHeartbeat)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorHeartbeatPtrOutput) ToHeartbeatMonitorHeartbeatPtrOutput() HeartbeatMonitorHeartbeatPtrOutput {
+	return o
+}
+
+func (o HeartbeatMonitorHeartbeatPtrOutput) ToHeartbeatMonitorHeartbeatPtrOutputWithContext(ctx context.Context) HeartbeatMonitorHeartbeatPtrOutput {
+	return o
+}
+
+func (o HeartbeatMonitorHeartbeatPtrOutput) Elem() HeartbeatMonitorHeartbeatOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorHeartbeat) HeartbeatMonitorHeartbeat {
+		if v != nil {
+			return *v
+		}
+		var ret HeartbeatMonitorHeartbeat
+		return ret
+	}).(HeartbeatMonitorHeartbeatOutput)
+}
+
+// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+func (o HeartbeatMonitorHeartbeatPtrOutput) Grace() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorHeartbeat) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Grace
+	}).(pulumi.IntPtrOutput)
+}
+
+// Possible values `seconds`, `minutes`, `hours` and `days`.
+func (o HeartbeatMonitorHeartbeatPtrOutput) GraceUnit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorHeartbeat) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.GraceUnit
+	}).(pulumi.StringPtrOutput)
+}
+
+// How often you expect a ping to the ping URL.
+func (o HeartbeatMonitorHeartbeatPtrOutput) Period() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorHeartbeat) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Period
+	}).(pulumi.IntPtrOutput)
+}
+
+// Possible values `seconds`, `minutes`, `hours` and `days`.
+func (o HeartbeatMonitorHeartbeatPtrOutput) PeriodUnit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorHeartbeat) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.PeriodUnit
+	}).(pulumi.StringPtrOutput)
+}
+
+// Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+func (o HeartbeatMonitorHeartbeatPtrOutput) PingToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorHeartbeat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PingToken
+	}).(pulumi.StringPtrOutput)
+}
+
 type StatusPageCard struct {
 	// The name of the card.
 	Name string `pulumi:"name"`
@@ -7082,6 +8131,2537 @@ func (o TcpCheckRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TcpMonitorAlertChannelSubscription struct {
+	Activated bool `pulumi:"activated"`
+	ChannelId int  `pulumi:"channelId"`
+}
+
+// TcpMonitorAlertChannelSubscriptionInput is an input type that accepts TcpMonitorAlertChannelSubscriptionArgs and TcpMonitorAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertChannelSubscriptionInput` via:
+//
+//	TcpMonitorAlertChannelSubscriptionArgs{...}
+type TcpMonitorAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertChannelSubscriptionOutput() TcpMonitorAlertChannelSubscriptionOutput
+	ToTcpMonitorAlertChannelSubscriptionOutputWithContext(context.Context) TcpMonitorAlertChannelSubscriptionOutput
+}
+
+type TcpMonitorAlertChannelSubscriptionArgs struct {
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+}
+
+func (TcpMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertChannelSubscriptionArgs) ToTcpMonitorAlertChannelSubscriptionOutput() TcpMonitorAlertChannelSubscriptionOutput {
+	return i.ToTcpMonitorAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertChannelSubscriptionArgs) ToTcpMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) TcpMonitorAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertChannelSubscriptionOutput)
+}
+
+// TcpMonitorAlertChannelSubscriptionArrayInput is an input type that accepts TcpMonitorAlertChannelSubscriptionArray and TcpMonitorAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertChannelSubscriptionArrayInput` via:
+//
+//	TcpMonitorAlertChannelSubscriptionArray{ TcpMonitorAlertChannelSubscriptionArgs{...} }
+type TcpMonitorAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertChannelSubscriptionArrayOutput() TcpMonitorAlertChannelSubscriptionArrayOutput
+	ToTcpMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Context) TcpMonitorAlertChannelSubscriptionArrayOutput
+}
+
+type TcpMonitorAlertChannelSubscriptionArray []TcpMonitorAlertChannelSubscriptionInput
+
+func (TcpMonitorAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertChannelSubscriptionArray) ToTcpMonitorAlertChannelSubscriptionArrayOutput() TcpMonitorAlertChannelSubscriptionArrayOutput {
+	return i.ToTcpMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertChannelSubscriptionArray) ToTcpMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) TcpMonitorAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertChannelSubscriptionArrayOutput)
+}
+
+type TcpMonitorAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertChannelSubscriptionOutput) ToTcpMonitorAlertChannelSubscriptionOutput() TcpMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o TcpMonitorAlertChannelSubscriptionOutput) ToTcpMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) TcpMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o TcpMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v TcpMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+func (o TcpMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v TcpMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type TcpMonitorAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertChannelSubscriptionArrayOutput) ToTcpMonitorAlertChannelSubscriptionArrayOutput() TcpMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertChannelSubscriptionArrayOutput) ToTcpMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) TcpMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) TcpMonitorAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpMonitorAlertChannelSubscription {
+		return vs[0].([]TcpMonitorAlertChannelSubscription)[vs[1].(int)]
+	}).(TcpMonitorAlertChannelSubscriptionOutput)
+}
+
+type TcpMonitorAlertSettings struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType               *string                                              `pulumi:"escalationType"`
+	ParallelRunFailureThresholds []TcpMonitorAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	Reminders                    []TcpMonitorAlertSettingsReminder                    `pulumi:"reminders"`
+	RunBasedEscalations          []TcpMonitorAlertSettingsRunBasedEscalation          `pulumi:"runBasedEscalations"`
+	TimeBasedEscalations         []TcpMonitorAlertSettingsTimeBasedEscalation         `pulumi:"timeBasedEscalations"`
+}
+
+// TcpMonitorAlertSettingsInput is an input type that accepts TcpMonitorAlertSettingsArgs and TcpMonitorAlertSettingsOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsInput` via:
+//
+//	TcpMonitorAlertSettingsArgs{...}
+type TcpMonitorAlertSettingsInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsOutput() TcpMonitorAlertSettingsOutput
+	ToTcpMonitorAlertSettingsOutputWithContext(context.Context) TcpMonitorAlertSettingsOutput
+}
+
+type TcpMonitorAlertSettingsArgs struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+	EscalationType               pulumi.StringPtrInput                                        `pulumi:"escalationType"`
+	ParallelRunFailureThresholds TcpMonitorAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	Reminders                    TcpMonitorAlertSettingsReminderArrayInput                    `pulumi:"reminders"`
+	RunBasedEscalations          TcpMonitorAlertSettingsRunBasedEscalationArrayInput          `pulumi:"runBasedEscalations"`
+	TimeBasedEscalations         TcpMonitorAlertSettingsTimeBasedEscalationArrayInput         `pulumi:"timeBasedEscalations"`
+}
+
+func (TcpMonitorAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsArgs) ToTcpMonitorAlertSettingsOutput() TcpMonitorAlertSettingsOutput {
+	return i.ToTcpMonitorAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsArgs) ToTcpMonitorAlertSettingsOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsOutput)
+}
+
+func (i TcpMonitorAlertSettingsArgs) ToTcpMonitorAlertSettingsPtrOutput() TcpMonitorAlertSettingsPtrOutput {
+	return i.ToTcpMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsArgs) ToTcpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsOutput).ToTcpMonitorAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// TcpMonitorAlertSettingsPtrInput is an input type that accepts TcpMonitorAlertSettingsArgs, TcpMonitorAlertSettingsPtr and TcpMonitorAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsPtrInput` via:
+//
+//	        TcpMonitorAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpMonitorAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsPtrOutput() TcpMonitorAlertSettingsPtrOutput
+	ToTcpMonitorAlertSettingsPtrOutputWithContext(context.Context) TcpMonitorAlertSettingsPtrOutput
+}
+
+type tcpMonitorAlertSettingsPtrType TcpMonitorAlertSettingsArgs
+
+func TcpMonitorAlertSettingsPtr(v *TcpMonitorAlertSettingsArgs) TcpMonitorAlertSettingsPtrInput {
+	return (*tcpMonitorAlertSettingsPtrType)(v)
+}
+
+func (*tcpMonitorAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i *tcpMonitorAlertSettingsPtrType) ToTcpMonitorAlertSettingsPtrOutput() TcpMonitorAlertSettingsPtrOutput {
+	return i.ToTcpMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpMonitorAlertSettingsPtrType) ToTcpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsPtrOutput)
+}
+
+type TcpMonitorAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsOutput) ToTcpMonitorAlertSettingsOutput() TcpMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsOutput) ToTcpMonitorAlertSettingsOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsOutput) ToTcpMonitorAlertSettingsPtrOutput() TcpMonitorAlertSettingsPtrOutput {
+	return o.ToTcpMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o TcpMonitorAlertSettingsOutput) ToTcpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpMonitorAlertSettings) *TcpMonitorAlertSettings {
+		return &v
+	}).(TcpMonitorAlertSettingsPtrOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o TcpMonitorAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+func (o TcpMonitorAlertSettingsOutput) ParallelRunFailureThresholds() TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettings) []TcpMonitorAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+func (o TcpMonitorAlertSettingsOutput) Reminders() TcpMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettings) []TcpMonitorAlertSettingsReminder { return v.Reminders }).(TcpMonitorAlertSettingsReminderArrayOutput)
+}
+
+func (o TcpMonitorAlertSettingsOutput) RunBasedEscalations() TcpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettings) []TcpMonitorAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(TcpMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+func (o TcpMonitorAlertSettingsOutput) TimeBasedEscalations() TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettings) []TcpMonitorAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TcpMonitorAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsPtrOutput) ToTcpMonitorAlertSettingsPtrOutput() TcpMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsPtrOutput) ToTcpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsPtrOutput) Elem() TcpMonitorAlertSettingsOutput {
+	return o.ApplyT(func(v *TcpMonitorAlertSettings) TcpMonitorAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret TcpMonitorAlertSettings
+		return ret
+	}).(TcpMonitorAlertSettingsOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+func (o TcpMonitorAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TcpMonitorAlertSettingsPtrOutput) ParallelRunFailureThresholds() TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *TcpMonitorAlertSettings) []TcpMonitorAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+func (o TcpMonitorAlertSettingsPtrOutput) Reminders() TcpMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *TcpMonitorAlertSettings) []TcpMonitorAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(TcpMonitorAlertSettingsReminderArrayOutput)
+}
+
+func (o TcpMonitorAlertSettingsPtrOutput) RunBasedEscalations() TcpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *TcpMonitorAlertSettings) []TcpMonitorAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(TcpMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+func (o TcpMonitorAlertSettingsPtrOutput) TimeBasedEscalations() TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *TcpMonitorAlertSettings) []TcpMonitorAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TcpMonitorAlertSettingsParallelRunFailureThreshold struct {
+	// Applicable only for checks scheduled in parallel in multiple locations.
+	Enabled *bool `pulumi:"enabled"`
+	// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// TcpMonitorAlertSettingsParallelRunFailureThresholdInput is an input type that accepts TcpMonitorAlertSettingsParallelRunFailureThresholdArgs and TcpMonitorAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	TcpMonitorAlertSettingsParallelRunFailureThresholdArgs{...}
+type TcpMonitorAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsParallelRunFailureThresholdOutput() TcpMonitorAlertSettingsParallelRunFailureThresholdOutput
+	ToTcpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) TcpMonitorAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type TcpMonitorAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Applicable only for checks scheduled in parallel in multiple locations.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (TcpMonitorAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsParallelRunFailureThresholdArgs) ToTcpMonitorAlertSettingsParallelRunFailureThresholdOutput() TcpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToTcpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsParallelRunFailureThresholdArgs) ToTcpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// TcpMonitorAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts TcpMonitorAlertSettingsParallelRunFailureThresholdArray and TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	TcpMonitorAlertSettingsParallelRunFailureThresholdArray{ TcpMonitorAlertSettingsParallelRunFailureThresholdArgs{...} }
+type TcpMonitorAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToTcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type TcpMonitorAlertSettingsParallelRunFailureThresholdArray []TcpMonitorAlertSettingsParallelRunFailureThresholdInput
+
+func (TcpMonitorAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsParallelRunFailureThresholdArray) ToTcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToTcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsParallelRunFailureThresholdArray) ToTcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type TcpMonitorAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsParallelRunFailureThresholdOutput) ToTcpMonitorAlertSettingsParallelRunFailureThresholdOutput() TcpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsParallelRunFailureThresholdOutput) ToTcpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Applicable only for checks scheduled in parallel in multiple locations.
+func (o TcpMonitorAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+func (o TcpMonitorAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToTcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToTcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) TcpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpMonitorAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]TcpMonitorAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(TcpMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type TcpMonitorAlertSettingsReminder struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount *int `pulumi:"amount"`
+	// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// TcpMonitorAlertSettingsReminderInput is an input type that accepts TcpMonitorAlertSettingsReminderArgs and TcpMonitorAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsReminderInput` via:
+//
+//	TcpMonitorAlertSettingsReminderArgs{...}
+type TcpMonitorAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsReminderOutput() TcpMonitorAlertSettingsReminderOutput
+	ToTcpMonitorAlertSettingsReminderOutputWithContext(context.Context) TcpMonitorAlertSettingsReminderOutput
+}
+
+type TcpMonitorAlertSettingsReminderArgs struct {
+	// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (TcpMonitorAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsReminderArgs) ToTcpMonitorAlertSettingsReminderOutput() TcpMonitorAlertSettingsReminderOutput {
+	return i.ToTcpMonitorAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsReminderArgs) ToTcpMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsReminderOutput)
+}
+
+// TcpMonitorAlertSettingsReminderArrayInput is an input type that accepts TcpMonitorAlertSettingsReminderArray and TcpMonitorAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsReminderArrayInput` via:
+//
+//	TcpMonitorAlertSettingsReminderArray{ TcpMonitorAlertSettingsReminderArgs{...} }
+type TcpMonitorAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsReminderArrayOutput() TcpMonitorAlertSettingsReminderArrayOutput
+	ToTcpMonitorAlertSettingsReminderArrayOutputWithContext(context.Context) TcpMonitorAlertSettingsReminderArrayOutput
+}
+
+type TcpMonitorAlertSettingsReminderArray []TcpMonitorAlertSettingsReminderInput
+
+func (TcpMonitorAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsReminderArray) ToTcpMonitorAlertSettingsReminderArrayOutput() TcpMonitorAlertSettingsReminderArrayOutput {
+	return i.ToTcpMonitorAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsReminderArray) ToTcpMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsReminderArrayOutput)
+}
+
+type TcpMonitorAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsReminderOutput) ToTcpMonitorAlertSettingsReminderOutput() TcpMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsReminderOutput) ToTcpMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+func (o TcpMonitorAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o TcpMonitorAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type TcpMonitorAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsReminderArrayOutput) ToTcpMonitorAlertSettingsReminderArrayOutput() TcpMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsReminderArrayOutput) ToTcpMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) TcpMonitorAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpMonitorAlertSettingsReminder {
+		return vs[0].([]TcpMonitorAlertSettingsReminder)[vs[1].(int)]
+	}).(TcpMonitorAlertSettingsReminderOutput)
+}
+
+type TcpMonitorAlertSettingsRunBasedEscalation struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// TcpMonitorAlertSettingsRunBasedEscalationInput is an input type that accepts TcpMonitorAlertSettingsRunBasedEscalationArgs and TcpMonitorAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsRunBasedEscalationInput` via:
+//
+//	TcpMonitorAlertSettingsRunBasedEscalationArgs{...}
+type TcpMonitorAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsRunBasedEscalationOutput() TcpMonitorAlertSettingsRunBasedEscalationOutput
+	ToTcpMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Context) TcpMonitorAlertSettingsRunBasedEscalationOutput
+}
+
+type TcpMonitorAlertSettingsRunBasedEscalationArgs struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (TcpMonitorAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsRunBasedEscalationArgs) ToTcpMonitorAlertSettingsRunBasedEscalationOutput() TcpMonitorAlertSettingsRunBasedEscalationOutput {
+	return i.ToTcpMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsRunBasedEscalationArgs) ToTcpMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+// TcpMonitorAlertSettingsRunBasedEscalationArrayInput is an input type that accepts TcpMonitorAlertSettingsRunBasedEscalationArray and TcpMonitorAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	TcpMonitorAlertSettingsRunBasedEscalationArray{ TcpMonitorAlertSettingsRunBasedEscalationArgs{...} }
+type TcpMonitorAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsRunBasedEscalationArrayOutput() TcpMonitorAlertSettingsRunBasedEscalationArrayOutput
+	ToTcpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) TcpMonitorAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type TcpMonitorAlertSettingsRunBasedEscalationArray []TcpMonitorAlertSettingsRunBasedEscalationInput
+
+func (TcpMonitorAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsRunBasedEscalationArray) ToTcpMonitorAlertSettingsRunBasedEscalationArrayOutput() TcpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToTcpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsRunBasedEscalationArray) ToTcpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type TcpMonitorAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsRunBasedEscalationOutput) ToTcpMonitorAlertSettingsRunBasedEscalationOutput() TcpMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsRunBasedEscalationOutput) ToTcpMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+func (o TcpMonitorAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type TcpMonitorAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsRunBasedEscalationArrayOutput) ToTcpMonitorAlertSettingsRunBasedEscalationArrayOutput() TcpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsRunBasedEscalationArrayOutput) ToTcpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) TcpMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpMonitorAlertSettingsRunBasedEscalation {
+		return vs[0].([]TcpMonitorAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(TcpMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+type TcpMonitorAlertSettingsTimeBasedEscalation struct {
+	// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// TcpMonitorAlertSettingsTimeBasedEscalationInput is an input type that accepts TcpMonitorAlertSettingsTimeBasedEscalationArgs and TcpMonitorAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsTimeBasedEscalationInput` via:
+//
+//	TcpMonitorAlertSettingsTimeBasedEscalationArgs{...}
+type TcpMonitorAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsTimeBasedEscalationOutput() TcpMonitorAlertSettingsTimeBasedEscalationOutput
+	ToTcpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) TcpMonitorAlertSettingsTimeBasedEscalationOutput
+}
+
+type TcpMonitorAlertSettingsTimeBasedEscalationArgs struct {
+	// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (TcpMonitorAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsTimeBasedEscalationArgs) ToTcpMonitorAlertSettingsTimeBasedEscalationOutput() TcpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return i.ToTcpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsTimeBasedEscalationArgs) ToTcpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+// TcpMonitorAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts TcpMonitorAlertSettingsTimeBasedEscalationArray and TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `TcpMonitorAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	TcpMonitorAlertSettingsTimeBasedEscalationArray{ TcpMonitorAlertSettingsTimeBasedEscalationArgs{...} }
+type TcpMonitorAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToTcpMonitorAlertSettingsTimeBasedEscalationArrayOutput() TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput
+	ToTcpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type TcpMonitorAlertSettingsTimeBasedEscalationArray []TcpMonitorAlertSettingsTimeBasedEscalationInput
+
+func (TcpMonitorAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i TcpMonitorAlertSettingsTimeBasedEscalationArray) ToTcpMonitorAlertSettingsTimeBasedEscalationArrayOutput() TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToTcpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorAlertSettingsTimeBasedEscalationArray) ToTcpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TcpMonitorAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsTimeBasedEscalationOutput) ToTcpMonitorAlertSettingsTimeBasedEscalationOutput() TcpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsTimeBasedEscalationOutput) ToTcpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o TcpMonitorAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToTcpMonitorAlertSettingsTimeBasedEscalationArrayOutput() TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToTcpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) TcpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpMonitorAlertSettingsTimeBasedEscalation {
+		return vs[0].([]TcpMonitorAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(TcpMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+type TcpMonitorRequest struct {
+	// A request can have multiple assertions.
+	Assertions []TcpMonitorRequestAssertion `pulumi:"assertions"`
+	// The data to send to the target host.
+	Data *string `pulumi:"data"`
+	// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+	Hostname string `pulumi:"hostname"`
+	// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+	IpFamily *string `pulumi:"ipFamily"`
+	// The port number to connect to.
+	Port int `pulumi:"port"`
+}
+
+// TcpMonitorRequestInput is an input type that accepts TcpMonitorRequestArgs and TcpMonitorRequestOutput values.
+// You can construct a concrete instance of `TcpMonitorRequestInput` via:
+//
+//	TcpMonitorRequestArgs{...}
+type TcpMonitorRequestInput interface {
+	pulumi.Input
+
+	ToTcpMonitorRequestOutput() TcpMonitorRequestOutput
+	ToTcpMonitorRequestOutputWithContext(context.Context) TcpMonitorRequestOutput
+}
+
+type TcpMonitorRequestArgs struct {
+	// A request can have multiple assertions.
+	Assertions TcpMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	// The data to send to the target host.
+	Data pulumi.StringPtrInput `pulumi:"data"`
+	// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+	Hostname pulumi.StringInput `pulumi:"hostname"`
+	// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// The port number to connect to.
+	Port pulumi.IntInput `pulumi:"port"`
+}
+
+func (TcpMonitorRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorRequest)(nil)).Elem()
+}
+
+func (i TcpMonitorRequestArgs) ToTcpMonitorRequestOutput() TcpMonitorRequestOutput {
+	return i.ToTcpMonitorRequestOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorRequestArgs) ToTcpMonitorRequestOutputWithContext(ctx context.Context) TcpMonitorRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRequestOutput)
+}
+
+func (i TcpMonitorRequestArgs) ToTcpMonitorRequestPtrOutput() TcpMonitorRequestPtrOutput {
+	return i.ToTcpMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorRequestArgs) ToTcpMonitorRequestPtrOutputWithContext(ctx context.Context) TcpMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRequestOutput).ToTcpMonitorRequestPtrOutputWithContext(ctx)
+}
+
+// TcpMonitorRequestPtrInput is an input type that accepts TcpMonitorRequestArgs, TcpMonitorRequestPtr and TcpMonitorRequestPtrOutput values.
+// You can construct a concrete instance of `TcpMonitorRequestPtrInput` via:
+//
+//	        TcpMonitorRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpMonitorRequestPtrInput interface {
+	pulumi.Input
+
+	ToTcpMonitorRequestPtrOutput() TcpMonitorRequestPtrOutput
+	ToTcpMonitorRequestPtrOutputWithContext(context.Context) TcpMonitorRequestPtrOutput
+}
+
+type tcpMonitorRequestPtrType TcpMonitorRequestArgs
+
+func TcpMonitorRequestPtr(v *TcpMonitorRequestArgs) TcpMonitorRequestPtrInput {
+	return (*tcpMonitorRequestPtrType)(v)
+}
+
+func (*tcpMonitorRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorRequest)(nil)).Elem()
+}
+
+func (i *tcpMonitorRequestPtrType) ToTcpMonitorRequestPtrOutput() TcpMonitorRequestPtrOutput {
+	return i.ToTcpMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpMonitorRequestPtrType) ToTcpMonitorRequestPtrOutputWithContext(ctx context.Context) TcpMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRequestPtrOutput)
+}
+
+type TcpMonitorRequestOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorRequest)(nil)).Elem()
+}
+
+func (o TcpMonitorRequestOutput) ToTcpMonitorRequestOutput() TcpMonitorRequestOutput {
+	return o
+}
+
+func (o TcpMonitorRequestOutput) ToTcpMonitorRequestOutputWithContext(ctx context.Context) TcpMonitorRequestOutput {
+	return o
+}
+
+func (o TcpMonitorRequestOutput) ToTcpMonitorRequestPtrOutput() TcpMonitorRequestPtrOutput {
+	return o.ToTcpMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (o TcpMonitorRequestOutput) ToTcpMonitorRequestPtrOutputWithContext(ctx context.Context) TcpMonitorRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpMonitorRequest) *TcpMonitorRequest {
+		return &v
+	}).(TcpMonitorRequestPtrOutput)
+}
+
+// A request can have multiple assertions.
+func (o TcpMonitorRequestOutput) Assertions() TcpMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v TcpMonitorRequest) []TcpMonitorRequestAssertion { return v.Assertions }).(TcpMonitorRequestAssertionArrayOutput)
+}
+
+// The data to send to the target host.
+func (o TcpMonitorRequestOutput) Data() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRequest) *string { return v.Data }).(pulumi.StringPtrOutput)
+}
+
+// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+func (o TcpMonitorRequestOutput) Hostname() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorRequest) string { return v.Hostname }).(pulumi.StringOutput)
+}
+
+// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+func (o TcpMonitorRequestOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRequest) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to.
+func (o TcpMonitorRequestOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v TcpMonitorRequest) int { return v.Port }).(pulumi.IntOutput)
+}
+
+type TcpMonitorRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorRequest)(nil)).Elem()
+}
+
+func (o TcpMonitorRequestPtrOutput) ToTcpMonitorRequestPtrOutput() TcpMonitorRequestPtrOutput {
+	return o
+}
+
+func (o TcpMonitorRequestPtrOutput) ToTcpMonitorRequestPtrOutputWithContext(ctx context.Context) TcpMonitorRequestPtrOutput {
+	return o
+}
+
+func (o TcpMonitorRequestPtrOutput) Elem() TcpMonitorRequestOutput {
+	return o.ApplyT(func(v *TcpMonitorRequest) TcpMonitorRequest {
+		if v != nil {
+			return *v
+		}
+		var ret TcpMonitorRequest
+		return ret
+	}).(TcpMonitorRequestOutput)
+}
+
+// A request can have multiple assertions.
+func (o TcpMonitorRequestPtrOutput) Assertions() TcpMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v *TcpMonitorRequest) []TcpMonitorRequestAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(TcpMonitorRequestAssertionArrayOutput)
+}
+
+// The data to send to the target host.
+func (o TcpMonitorRequestPtrOutput) Data() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Data
+	}).(pulumi.StringPtrOutput)
+}
+
+// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+func (o TcpMonitorRequestPtrOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Hostname
+	}).(pulumi.StringPtrOutput)
+}
+
+// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+func (o TcpMonitorRequestPtrOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to.
+func (o TcpMonitorRequestPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+type TcpMonitorRequestAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison string  `pulumi:"comparison"`
+	Property   *string `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+	Source string  `pulumi:"source"`
+	Target *string `pulumi:"target"`
+}
+
+// TcpMonitorRequestAssertionInput is an input type that accepts TcpMonitorRequestAssertionArgs and TcpMonitorRequestAssertionOutput values.
+// You can construct a concrete instance of `TcpMonitorRequestAssertionInput` via:
+//
+//	TcpMonitorRequestAssertionArgs{...}
+type TcpMonitorRequestAssertionInput interface {
+	pulumi.Input
+
+	ToTcpMonitorRequestAssertionOutput() TcpMonitorRequestAssertionOutput
+	ToTcpMonitorRequestAssertionOutputWithContext(context.Context) TcpMonitorRequestAssertionOutput
+}
+
+type TcpMonitorRequestAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison pulumi.StringInput    `pulumi:"comparison"`
+	Property   pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+	Source pulumi.StringInput    `pulumi:"source"`
+	Target pulumi.StringPtrInput `pulumi:"target"`
+}
+
+func (TcpMonitorRequestAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i TcpMonitorRequestAssertionArgs) ToTcpMonitorRequestAssertionOutput() TcpMonitorRequestAssertionOutput {
+	return i.ToTcpMonitorRequestAssertionOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorRequestAssertionArgs) ToTcpMonitorRequestAssertionOutputWithContext(ctx context.Context) TcpMonitorRequestAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRequestAssertionOutput)
+}
+
+// TcpMonitorRequestAssertionArrayInput is an input type that accepts TcpMonitorRequestAssertionArray and TcpMonitorRequestAssertionArrayOutput values.
+// You can construct a concrete instance of `TcpMonitorRequestAssertionArrayInput` via:
+//
+//	TcpMonitorRequestAssertionArray{ TcpMonitorRequestAssertionArgs{...} }
+type TcpMonitorRequestAssertionArrayInput interface {
+	pulumi.Input
+
+	ToTcpMonitorRequestAssertionArrayOutput() TcpMonitorRequestAssertionArrayOutput
+	ToTcpMonitorRequestAssertionArrayOutputWithContext(context.Context) TcpMonitorRequestAssertionArrayOutput
+}
+
+type TcpMonitorRequestAssertionArray []TcpMonitorRequestAssertionInput
+
+func (TcpMonitorRequestAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i TcpMonitorRequestAssertionArray) ToTcpMonitorRequestAssertionArrayOutput() TcpMonitorRequestAssertionArrayOutput {
+	return i.ToTcpMonitorRequestAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorRequestAssertionArray) ToTcpMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) TcpMonitorRequestAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRequestAssertionArrayOutput)
+}
+
+type TcpMonitorRequestAssertionOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorRequestAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o TcpMonitorRequestAssertionOutput) ToTcpMonitorRequestAssertionOutput() TcpMonitorRequestAssertionOutput {
+	return o
+}
+
+func (o TcpMonitorRequestAssertionOutput) ToTcpMonitorRequestAssertionOutputWithContext(ctx context.Context) TcpMonitorRequestAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+func (o TcpMonitorRequestAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+func (o TcpMonitorRequestAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
+func (o TcpMonitorRequestAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+func (o TcpMonitorRequestAssertionOutput) Target() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRequestAssertion) *string { return v.Target }).(pulumi.StringPtrOutput)
+}
+
+type TcpMonitorRequestAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorRequestAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TcpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o TcpMonitorRequestAssertionArrayOutput) ToTcpMonitorRequestAssertionArrayOutput() TcpMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o TcpMonitorRequestAssertionArrayOutput) ToTcpMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) TcpMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o TcpMonitorRequestAssertionArrayOutput) Index(i pulumi.IntInput) TcpMonitorRequestAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TcpMonitorRequestAssertion {
+		return vs[0].([]TcpMonitorRequestAssertion)[vs[1].(int)]
+	}).(TcpMonitorRequestAssertionOutput)
+}
+
+type TcpMonitorRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt.
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check (maximum 600 seconds).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check. Value must be between 1 and 10.
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Whether retries should be run in the same region as the initial check run.
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+	Type string `pulumi:"type"`
+}
+
+// TcpMonitorRetryStrategyInput is an input type that accepts TcpMonitorRetryStrategyArgs and TcpMonitorRetryStrategyOutput values.
+// You can construct a concrete instance of `TcpMonitorRetryStrategyInput` via:
+//
+//	TcpMonitorRetryStrategyArgs{...}
+type TcpMonitorRetryStrategyInput interface {
+	pulumi.Input
+
+	ToTcpMonitorRetryStrategyOutput() TcpMonitorRetryStrategyOutput
+	ToTcpMonitorRetryStrategyOutputWithContext(context.Context) TcpMonitorRetryStrategyOutput
+}
+
+type TcpMonitorRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt.
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check (maximum 600 seconds).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check. Value must be between 1 and 10.
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Whether retries should be run in the same region as the initial check run.
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (TcpMonitorRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i TcpMonitorRetryStrategyArgs) ToTcpMonitorRetryStrategyOutput() TcpMonitorRetryStrategyOutput {
+	return i.ToTcpMonitorRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorRetryStrategyArgs) ToTcpMonitorRetryStrategyOutputWithContext(ctx context.Context) TcpMonitorRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRetryStrategyOutput)
+}
+
+func (i TcpMonitorRetryStrategyArgs) ToTcpMonitorRetryStrategyPtrOutput() TcpMonitorRetryStrategyPtrOutput {
+	return i.ToTcpMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorRetryStrategyArgs) ToTcpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TcpMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRetryStrategyOutput).ToTcpMonitorRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// TcpMonitorRetryStrategyPtrInput is an input type that accepts TcpMonitorRetryStrategyArgs, TcpMonitorRetryStrategyPtr and TcpMonitorRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `TcpMonitorRetryStrategyPtrInput` via:
+//
+//	        TcpMonitorRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpMonitorRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToTcpMonitorRetryStrategyPtrOutput() TcpMonitorRetryStrategyPtrOutput
+	ToTcpMonitorRetryStrategyPtrOutputWithContext(context.Context) TcpMonitorRetryStrategyPtrOutput
+}
+
+type tcpMonitorRetryStrategyPtrType TcpMonitorRetryStrategyArgs
+
+func TcpMonitorRetryStrategyPtr(v *TcpMonitorRetryStrategyArgs) TcpMonitorRetryStrategyPtrInput {
+	return (*tcpMonitorRetryStrategyPtrType)(v)
+}
+
+func (*tcpMonitorRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i *tcpMonitorRetryStrategyPtrType) ToTcpMonitorRetryStrategyPtrOutput() TcpMonitorRetryStrategyPtrOutput {
+	return i.ToTcpMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpMonitorRetryStrategyPtrType) ToTcpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TcpMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorRetryStrategyPtrOutput)
+}
+
+type TcpMonitorRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o TcpMonitorRetryStrategyOutput) ToTcpMonitorRetryStrategyOutput() TcpMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o TcpMonitorRetryStrategyOutput) ToTcpMonitorRetryStrategyOutputWithContext(ctx context.Context) TcpMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o TcpMonitorRetryStrategyOutput) ToTcpMonitorRetryStrategyPtrOutput() TcpMonitorRetryStrategyPtrOutput {
+	return o.ToTcpMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o TcpMonitorRetryStrategyOutput) ToTcpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TcpMonitorRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpMonitorRetryStrategy) *TcpMonitorRetryStrategy {
+		return &v
+	}).(TcpMonitorRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt.
+func (o TcpMonitorRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check (maximum 600 seconds).
+func (o TcpMonitorRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check. Value must be between 1 and 10.
+func (o TcpMonitorRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check run.
+func (o TcpMonitorRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TcpMonitorRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+func (o TcpMonitorRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type TcpMonitorRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o TcpMonitorRetryStrategyPtrOutput) ToTcpMonitorRetryStrategyPtrOutput() TcpMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o TcpMonitorRetryStrategyPtrOutput) ToTcpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TcpMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o TcpMonitorRetryStrategyPtrOutput) Elem() TcpMonitorRetryStrategyOutput {
+	return o.ApplyT(func(v *TcpMonitorRetryStrategy) TcpMonitorRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret TcpMonitorRetryStrategy
+		return ret
+	}).(TcpMonitorRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt.
+func (o TcpMonitorRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check (maximum 600 seconds).
+func (o TcpMonitorRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check. Value must be between 1 and 10.
+func (o TcpMonitorRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check run.
+func (o TcpMonitorRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
+func (o TcpMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type UrlMonitorAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
+	Activated bool `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
+}
+
+// UrlMonitorAlertChannelSubscriptionInput is an input type that accepts UrlMonitorAlertChannelSubscriptionArgs and UrlMonitorAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertChannelSubscriptionInput` via:
+//
+//	UrlMonitorAlertChannelSubscriptionArgs{...}
+type UrlMonitorAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertChannelSubscriptionOutput() UrlMonitorAlertChannelSubscriptionOutput
+	ToUrlMonitorAlertChannelSubscriptionOutputWithContext(context.Context) UrlMonitorAlertChannelSubscriptionOutput
+}
+
+type UrlMonitorAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
+}
+
+func (UrlMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertChannelSubscriptionArgs) ToUrlMonitorAlertChannelSubscriptionOutput() UrlMonitorAlertChannelSubscriptionOutput {
+	return i.ToUrlMonitorAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertChannelSubscriptionArgs) ToUrlMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) UrlMonitorAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertChannelSubscriptionOutput)
+}
+
+// UrlMonitorAlertChannelSubscriptionArrayInput is an input type that accepts UrlMonitorAlertChannelSubscriptionArray and UrlMonitorAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertChannelSubscriptionArrayInput` via:
+//
+//	UrlMonitorAlertChannelSubscriptionArray{ UrlMonitorAlertChannelSubscriptionArgs{...} }
+type UrlMonitorAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertChannelSubscriptionArrayOutput() UrlMonitorAlertChannelSubscriptionArrayOutput
+	ToUrlMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Context) UrlMonitorAlertChannelSubscriptionArrayOutput
+}
+
+type UrlMonitorAlertChannelSubscriptionArray []UrlMonitorAlertChannelSubscriptionInput
+
+func (UrlMonitorAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertChannelSubscriptionArray) ToUrlMonitorAlertChannelSubscriptionArrayOutput() UrlMonitorAlertChannelSubscriptionArrayOutput {
+	return i.ToUrlMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertChannelSubscriptionArray) ToUrlMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) UrlMonitorAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertChannelSubscriptionArrayOutput)
+}
+
+type UrlMonitorAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertChannelSubscriptionOutput) ToUrlMonitorAlertChannelSubscriptionOutput() UrlMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o UrlMonitorAlertChannelSubscriptionOutput) ToUrlMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) UrlMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Whether an alert should be sent to this channel.
+func (o UrlMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v UrlMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+// The ID of the alert channel.
+func (o UrlMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v UrlMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type UrlMonitorAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertChannelSubscriptionArrayOutput) ToUrlMonitorAlertChannelSubscriptionArrayOutput() UrlMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertChannelSubscriptionArrayOutput) ToUrlMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) UrlMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) UrlMonitorAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UrlMonitorAlertChannelSubscription {
+		return vs[0].([]UrlMonitorAlertChannelSubscription)[vs[1].(int)]
+	}).(UrlMonitorAlertChannelSubscriptionOutput)
+}
+
+type UrlMonitorAlertSettings struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+	EscalationType string `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds []UrlMonitorAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders []UrlMonitorAlertSettingsReminder `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations []UrlMonitorAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations []UrlMonitorAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// UrlMonitorAlertSettingsInput is an input type that accepts UrlMonitorAlertSettingsArgs and UrlMonitorAlertSettingsOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsInput` via:
+//
+//	UrlMonitorAlertSettingsArgs{...}
+type UrlMonitorAlertSettingsInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsOutput() UrlMonitorAlertSettingsOutput
+	ToUrlMonitorAlertSettingsOutputWithContext(context.Context) UrlMonitorAlertSettingsOutput
+}
+
+type UrlMonitorAlertSettingsArgs struct {
+	// Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+	EscalationType pulumi.StringInput `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds UrlMonitorAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders UrlMonitorAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations UrlMonitorAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations UrlMonitorAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (UrlMonitorAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsArgs) ToUrlMonitorAlertSettingsOutput() UrlMonitorAlertSettingsOutput {
+	return i.ToUrlMonitorAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsArgs) ToUrlMonitorAlertSettingsOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsOutput)
+}
+
+func (i UrlMonitorAlertSettingsArgs) ToUrlMonitorAlertSettingsPtrOutput() UrlMonitorAlertSettingsPtrOutput {
+	return i.ToUrlMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsArgs) ToUrlMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsOutput).ToUrlMonitorAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// UrlMonitorAlertSettingsPtrInput is an input type that accepts UrlMonitorAlertSettingsArgs, UrlMonitorAlertSettingsPtr and UrlMonitorAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsPtrInput` via:
+//
+//	        UrlMonitorAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type UrlMonitorAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsPtrOutput() UrlMonitorAlertSettingsPtrOutput
+	ToUrlMonitorAlertSettingsPtrOutputWithContext(context.Context) UrlMonitorAlertSettingsPtrOutput
+}
+
+type urlMonitorAlertSettingsPtrType UrlMonitorAlertSettingsArgs
+
+func UrlMonitorAlertSettingsPtr(v *UrlMonitorAlertSettingsArgs) UrlMonitorAlertSettingsPtrInput {
+	return (*urlMonitorAlertSettingsPtrType)(v)
+}
+
+func (*urlMonitorAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i *urlMonitorAlertSettingsPtrType) ToUrlMonitorAlertSettingsPtrOutput() UrlMonitorAlertSettingsPtrOutput {
+	return i.ToUrlMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *urlMonitorAlertSettingsPtrType) ToUrlMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsPtrOutput)
+}
+
+type UrlMonitorAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsOutput) ToUrlMonitorAlertSettingsOutput() UrlMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsOutput) ToUrlMonitorAlertSettingsOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsOutput) ToUrlMonitorAlertSettingsPtrOutput() UrlMonitorAlertSettingsPtrOutput {
+	return o.ToUrlMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o UrlMonitorAlertSettingsOutput) ToUrlMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UrlMonitorAlertSettings) *UrlMonitorAlertSettings {
+		return &v
+	}).(UrlMonitorAlertSettingsPtrOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+func (o UrlMonitorAlertSettingsOutput) EscalationType() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettings) string { return v.EscalationType }).(pulumi.StringOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o UrlMonitorAlertSettingsOutput) ParallelRunFailureThresholds() UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettings) []UrlMonitorAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o UrlMonitorAlertSettingsOutput) Reminders() UrlMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettings) []UrlMonitorAlertSettingsReminder { return v.Reminders }).(UrlMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o UrlMonitorAlertSettingsOutput) RunBasedEscalations() UrlMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettings) []UrlMonitorAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(UrlMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o UrlMonitorAlertSettingsOutput) TimeBasedEscalations() UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettings) []UrlMonitorAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type UrlMonitorAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsPtrOutput) ToUrlMonitorAlertSettingsPtrOutput() UrlMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsPtrOutput) ToUrlMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsPtrOutput) Elem() UrlMonitorAlertSettingsOutput {
+	return o.ApplyT(func(v *UrlMonitorAlertSettings) UrlMonitorAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret UrlMonitorAlertSettings
+		return ret
+	}).(UrlMonitorAlertSettingsOutput)
+}
+
+// Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+func (o UrlMonitorAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o UrlMonitorAlertSettingsPtrOutput) ParallelRunFailureThresholds() UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *UrlMonitorAlertSettings) []UrlMonitorAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o UrlMonitorAlertSettingsPtrOutput) Reminders() UrlMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *UrlMonitorAlertSettings) []UrlMonitorAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(UrlMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o UrlMonitorAlertSettingsPtrOutput) RunBasedEscalations() UrlMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *UrlMonitorAlertSettings) []UrlMonitorAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(UrlMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o UrlMonitorAlertSettingsPtrOutput) TimeBasedEscalations() UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *UrlMonitorAlertSettings) []UrlMonitorAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type UrlMonitorAlertSettingsParallelRunFailureThreshold struct {
+	// Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// UrlMonitorAlertSettingsParallelRunFailureThresholdInput is an input type that accepts UrlMonitorAlertSettingsParallelRunFailureThresholdArgs and UrlMonitorAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	UrlMonitorAlertSettingsParallelRunFailureThresholdArgs{...}
+type UrlMonitorAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsParallelRunFailureThresholdOutput() UrlMonitorAlertSettingsParallelRunFailureThresholdOutput
+	ToUrlMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) UrlMonitorAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type UrlMonitorAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (UrlMonitorAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsParallelRunFailureThresholdArgs) ToUrlMonitorAlertSettingsParallelRunFailureThresholdOutput() UrlMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToUrlMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsParallelRunFailureThresholdArgs) ToUrlMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// UrlMonitorAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts UrlMonitorAlertSettingsParallelRunFailureThresholdArray and UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	UrlMonitorAlertSettingsParallelRunFailureThresholdArray{ UrlMonitorAlertSettingsParallelRunFailureThresholdArgs{...} }
+type UrlMonitorAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToUrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type UrlMonitorAlertSettingsParallelRunFailureThresholdArray []UrlMonitorAlertSettingsParallelRunFailureThresholdInput
+
+func (UrlMonitorAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsParallelRunFailureThresholdArray) ToUrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToUrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsParallelRunFailureThresholdArray) ToUrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type UrlMonitorAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsParallelRunFailureThresholdOutput) ToUrlMonitorAlertSettingsParallelRunFailureThresholdOutput() UrlMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsParallelRunFailureThresholdOutput) ToUrlMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+func (o UrlMonitorAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+func (o UrlMonitorAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToUrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToUrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) UrlMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UrlMonitorAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]UrlMonitorAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(UrlMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type UrlMonitorAlertSettingsReminder struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount *int `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// UrlMonitorAlertSettingsReminderInput is an input type that accepts UrlMonitorAlertSettingsReminderArgs and UrlMonitorAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsReminderInput` via:
+//
+//	UrlMonitorAlertSettingsReminderArgs{...}
+type UrlMonitorAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsReminderOutput() UrlMonitorAlertSettingsReminderOutput
+	ToUrlMonitorAlertSettingsReminderOutputWithContext(context.Context) UrlMonitorAlertSettingsReminderOutput
+}
+
+type UrlMonitorAlertSettingsReminderArgs struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (UrlMonitorAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsReminderArgs) ToUrlMonitorAlertSettingsReminderOutput() UrlMonitorAlertSettingsReminderOutput {
+	return i.ToUrlMonitorAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsReminderArgs) ToUrlMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsReminderOutput)
+}
+
+// UrlMonitorAlertSettingsReminderArrayInput is an input type that accepts UrlMonitorAlertSettingsReminderArray and UrlMonitorAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsReminderArrayInput` via:
+//
+//	UrlMonitorAlertSettingsReminderArray{ UrlMonitorAlertSettingsReminderArgs{...} }
+type UrlMonitorAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsReminderArrayOutput() UrlMonitorAlertSettingsReminderArrayOutput
+	ToUrlMonitorAlertSettingsReminderArrayOutputWithContext(context.Context) UrlMonitorAlertSettingsReminderArrayOutput
+}
+
+type UrlMonitorAlertSettingsReminderArray []UrlMonitorAlertSettingsReminderInput
+
+func (UrlMonitorAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsReminderArray) ToUrlMonitorAlertSettingsReminderArrayOutput() UrlMonitorAlertSettingsReminderArrayOutput {
+	return i.ToUrlMonitorAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsReminderArray) ToUrlMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsReminderArrayOutput)
+}
+
+type UrlMonitorAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsReminderOutput) ToUrlMonitorAlertSettingsReminderOutput() UrlMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsReminderOutput) ToUrlMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+func (o UrlMonitorAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o UrlMonitorAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type UrlMonitorAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsReminderArrayOutput) ToUrlMonitorAlertSettingsReminderArrayOutput() UrlMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsReminderArrayOutput) ToUrlMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) UrlMonitorAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UrlMonitorAlertSettingsReminder {
+		return vs[0].([]UrlMonitorAlertSettingsReminder)[vs[1].(int)]
+	}).(UrlMonitorAlertSettingsReminderOutput)
+}
+
+type UrlMonitorAlertSettingsRunBasedEscalation struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// UrlMonitorAlertSettingsRunBasedEscalationInput is an input type that accepts UrlMonitorAlertSettingsRunBasedEscalationArgs and UrlMonitorAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsRunBasedEscalationInput` via:
+//
+//	UrlMonitorAlertSettingsRunBasedEscalationArgs{...}
+type UrlMonitorAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsRunBasedEscalationOutput() UrlMonitorAlertSettingsRunBasedEscalationOutput
+	ToUrlMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Context) UrlMonitorAlertSettingsRunBasedEscalationOutput
+}
+
+type UrlMonitorAlertSettingsRunBasedEscalationArgs struct {
+	// After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (UrlMonitorAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsRunBasedEscalationArgs) ToUrlMonitorAlertSettingsRunBasedEscalationOutput() UrlMonitorAlertSettingsRunBasedEscalationOutput {
+	return i.ToUrlMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsRunBasedEscalationArgs) ToUrlMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+// UrlMonitorAlertSettingsRunBasedEscalationArrayInput is an input type that accepts UrlMonitorAlertSettingsRunBasedEscalationArray and UrlMonitorAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	UrlMonitorAlertSettingsRunBasedEscalationArray{ UrlMonitorAlertSettingsRunBasedEscalationArgs{...} }
+type UrlMonitorAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsRunBasedEscalationArrayOutput() UrlMonitorAlertSettingsRunBasedEscalationArrayOutput
+	ToUrlMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) UrlMonitorAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type UrlMonitorAlertSettingsRunBasedEscalationArray []UrlMonitorAlertSettingsRunBasedEscalationInput
+
+func (UrlMonitorAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsRunBasedEscalationArray) ToUrlMonitorAlertSettingsRunBasedEscalationArrayOutput() UrlMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToUrlMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsRunBasedEscalationArray) ToUrlMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type UrlMonitorAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsRunBasedEscalationOutput) ToUrlMonitorAlertSettingsRunBasedEscalationOutput() UrlMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsRunBasedEscalationOutput) ToUrlMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+func (o UrlMonitorAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type UrlMonitorAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsRunBasedEscalationArrayOutput) ToUrlMonitorAlertSettingsRunBasedEscalationArrayOutput() UrlMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsRunBasedEscalationArrayOutput) ToUrlMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) UrlMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UrlMonitorAlertSettingsRunBasedEscalation {
+		return vs[0].([]UrlMonitorAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(UrlMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+type UrlMonitorAlertSettingsTimeBasedEscalation struct {
+	// After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// UrlMonitorAlertSettingsTimeBasedEscalationInput is an input type that accepts UrlMonitorAlertSettingsTimeBasedEscalationArgs and UrlMonitorAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsTimeBasedEscalationInput` via:
+//
+//	UrlMonitorAlertSettingsTimeBasedEscalationArgs{...}
+type UrlMonitorAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsTimeBasedEscalationOutput() UrlMonitorAlertSettingsTimeBasedEscalationOutput
+	ToUrlMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) UrlMonitorAlertSettingsTimeBasedEscalationOutput
+}
+
+type UrlMonitorAlertSettingsTimeBasedEscalationArgs struct {
+	// After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (UrlMonitorAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsTimeBasedEscalationArgs) ToUrlMonitorAlertSettingsTimeBasedEscalationOutput() UrlMonitorAlertSettingsTimeBasedEscalationOutput {
+	return i.ToUrlMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsTimeBasedEscalationArgs) ToUrlMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+// UrlMonitorAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts UrlMonitorAlertSettingsTimeBasedEscalationArray and UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `UrlMonitorAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	UrlMonitorAlertSettingsTimeBasedEscalationArray{ UrlMonitorAlertSettingsTimeBasedEscalationArgs{...} }
+type UrlMonitorAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToUrlMonitorAlertSettingsTimeBasedEscalationArrayOutput() UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput
+	ToUrlMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type UrlMonitorAlertSettingsTimeBasedEscalationArray []UrlMonitorAlertSettingsTimeBasedEscalationInput
+
+func (UrlMonitorAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i UrlMonitorAlertSettingsTimeBasedEscalationArray) ToUrlMonitorAlertSettingsTimeBasedEscalationArrayOutput() UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToUrlMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorAlertSettingsTimeBasedEscalationArray) ToUrlMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type UrlMonitorAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsTimeBasedEscalationOutput) ToUrlMonitorAlertSettingsTimeBasedEscalationOutput() UrlMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsTimeBasedEscalationOutput) ToUrlMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o UrlMonitorAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToUrlMonitorAlertSettingsTimeBasedEscalationArrayOutput() UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToUrlMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) UrlMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UrlMonitorAlertSettingsTimeBasedEscalation {
+		return vs[0].([]UrlMonitorAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(UrlMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+type UrlMonitorRequest struct {
+	// Assertions to validate the HTTP response. URL monitors only support status code assertions.
+	Assertions []UrlMonitorRequestAssertion `pulumi:"assertions"`
+	// Whether to follow HTTP redirects automatically. (Default `true`).
+	FollowRedirects *bool `pulumi:"followRedirects"`
+	// IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily *string `pulumi:"ipFamily"`
+	// Whether to skip SSL certificate verification. (Default `false`).
+	SkipSsl *bool `pulumi:"skipSsl"`
+	// The URL to monitor. Must be a valid HTTP or HTTPS URL.
+	Url string `pulumi:"url"`
+}
+
+// UrlMonitorRequestInput is an input type that accepts UrlMonitorRequestArgs and UrlMonitorRequestOutput values.
+// You can construct a concrete instance of `UrlMonitorRequestInput` via:
+//
+//	UrlMonitorRequestArgs{...}
+type UrlMonitorRequestInput interface {
+	pulumi.Input
+
+	ToUrlMonitorRequestOutput() UrlMonitorRequestOutput
+	ToUrlMonitorRequestOutputWithContext(context.Context) UrlMonitorRequestOutput
+}
+
+type UrlMonitorRequestArgs struct {
+	// Assertions to validate the HTTP response. URL monitors only support status code assertions.
+	Assertions UrlMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	// Whether to follow HTTP redirects automatically. (Default `true`).
+	FollowRedirects pulumi.BoolPtrInput `pulumi:"followRedirects"`
+	// IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// Whether to skip SSL certificate verification. (Default `false`).
+	SkipSsl pulumi.BoolPtrInput `pulumi:"skipSsl"`
+	// The URL to monitor. Must be a valid HTTP or HTTPS URL.
+	Url pulumi.StringInput `pulumi:"url"`
+}
+
+func (UrlMonitorRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorRequest)(nil)).Elem()
+}
+
+func (i UrlMonitorRequestArgs) ToUrlMonitorRequestOutput() UrlMonitorRequestOutput {
+	return i.ToUrlMonitorRequestOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorRequestArgs) ToUrlMonitorRequestOutputWithContext(ctx context.Context) UrlMonitorRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRequestOutput)
+}
+
+func (i UrlMonitorRequestArgs) ToUrlMonitorRequestPtrOutput() UrlMonitorRequestPtrOutput {
+	return i.ToUrlMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorRequestArgs) ToUrlMonitorRequestPtrOutputWithContext(ctx context.Context) UrlMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRequestOutput).ToUrlMonitorRequestPtrOutputWithContext(ctx)
+}
+
+// UrlMonitorRequestPtrInput is an input type that accepts UrlMonitorRequestArgs, UrlMonitorRequestPtr and UrlMonitorRequestPtrOutput values.
+// You can construct a concrete instance of `UrlMonitorRequestPtrInput` via:
+//
+//	        UrlMonitorRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type UrlMonitorRequestPtrInput interface {
+	pulumi.Input
+
+	ToUrlMonitorRequestPtrOutput() UrlMonitorRequestPtrOutput
+	ToUrlMonitorRequestPtrOutputWithContext(context.Context) UrlMonitorRequestPtrOutput
+}
+
+type urlMonitorRequestPtrType UrlMonitorRequestArgs
+
+func UrlMonitorRequestPtr(v *UrlMonitorRequestArgs) UrlMonitorRequestPtrInput {
+	return (*urlMonitorRequestPtrType)(v)
+}
+
+func (*urlMonitorRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorRequest)(nil)).Elem()
+}
+
+func (i *urlMonitorRequestPtrType) ToUrlMonitorRequestPtrOutput() UrlMonitorRequestPtrOutput {
+	return i.ToUrlMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *urlMonitorRequestPtrType) ToUrlMonitorRequestPtrOutputWithContext(ctx context.Context) UrlMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRequestPtrOutput)
+}
+
+type UrlMonitorRequestOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorRequest)(nil)).Elem()
+}
+
+func (o UrlMonitorRequestOutput) ToUrlMonitorRequestOutput() UrlMonitorRequestOutput {
+	return o
+}
+
+func (o UrlMonitorRequestOutput) ToUrlMonitorRequestOutputWithContext(ctx context.Context) UrlMonitorRequestOutput {
+	return o
+}
+
+func (o UrlMonitorRequestOutput) ToUrlMonitorRequestPtrOutput() UrlMonitorRequestPtrOutput {
+	return o.ToUrlMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (o UrlMonitorRequestOutput) ToUrlMonitorRequestPtrOutputWithContext(ctx context.Context) UrlMonitorRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UrlMonitorRequest) *UrlMonitorRequest {
+		return &v
+	}).(UrlMonitorRequestPtrOutput)
+}
+
+// Assertions to validate the HTTP response. URL monitors only support status code assertions.
+func (o UrlMonitorRequestOutput) Assertions() UrlMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v UrlMonitorRequest) []UrlMonitorRequestAssertion { return v.Assertions }).(UrlMonitorRequestAssertionArrayOutput)
+}
+
+// Whether to follow HTTP redirects automatically. (Default `true`).
+func (o UrlMonitorRequestOutput) FollowRedirects() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRequest) *bool { return v.FollowRedirects }).(pulumi.BoolPtrOutput)
+}
+
+// IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o UrlMonitorRequestOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRequest) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// Whether to skip SSL certificate verification. (Default `false`).
+func (o UrlMonitorRequestOutput) SkipSsl() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRequest) *bool { return v.SkipSsl }).(pulumi.BoolPtrOutput)
+}
+
+// The URL to monitor. Must be a valid HTTP or HTTPS URL.
+func (o UrlMonitorRequestOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorRequest) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type UrlMonitorRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorRequest)(nil)).Elem()
+}
+
+func (o UrlMonitorRequestPtrOutput) ToUrlMonitorRequestPtrOutput() UrlMonitorRequestPtrOutput {
+	return o
+}
+
+func (o UrlMonitorRequestPtrOutput) ToUrlMonitorRequestPtrOutputWithContext(ctx context.Context) UrlMonitorRequestPtrOutput {
+	return o
+}
+
+func (o UrlMonitorRequestPtrOutput) Elem() UrlMonitorRequestOutput {
+	return o.ApplyT(func(v *UrlMonitorRequest) UrlMonitorRequest {
+		if v != nil {
+			return *v
+		}
+		var ret UrlMonitorRequest
+		return ret
+	}).(UrlMonitorRequestOutput)
+}
+
+// Assertions to validate the HTTP response. URL monitors only support status code assertions.
+func (o UrlMonitorRequestPtrOutput) Assertions() UrlMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v *UrlMonitorRequest) []UrlMonitorRequestAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(UrlMonitorRequestAssertionArrayOutput)
+}
+
+// Whether to follow HTTP redirects automatically. (Default `true`).
+func (o UrlMonitorRequestPtrOutput) FollowRedirects() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRequest) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.FollowRedirects
+	}).(pulumi.BoolPtrOutput)
+}
+
+// IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o UrlMonitorRequestPtrOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to skip SSL certificate verification. (Default `false`).
+func (o UrlMonitorRequestPtrOutput) SkipSsl() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRequest) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SkipSsl
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The URL to monitor. Must be a valid HTTP or HTTPS URL.
+func (o UrlMonitorRequestPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type UrlMonitorRequestAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+	Comparison string  `pulumi:"comparison"`
+	Property   *string `pulumi:"property"`
+	// The source of the asserted value. The only allowed value is `STATUS_CODE`.
+	Source string `pulumi:"source"`
+	// The target value. Typically `200` when the source is `STATUS_CODE`.
+	Target string `pulumi:"target"`
+}
+
+// UrlMonitorRequestAssertionInput is an input type that accepts UrlMonitorRequestAssertionArgs and UrlMonitorRequestAssertionOutput values.
+// You can construct a concrete instance of `UrlMonitorRequestAssertionInput` via:
+//
+//	UrlMonitorRequestAssertionArgs{...}
+type UrlMonitorRequestAssertionInput interface {
+	pulumi.Input
+
+	ToUrlMonitorRequestAssertionOutput() UrlMonitorRequestAssertionOutput
+	ToUrlMonitorRequestAssertionOutputWithContext(context.Context) UrlMonitorRequestAssertionOutput
+}
+
+type UrlMonitorRequestAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+	Comparison pulumi.StringInput    `pulumi:"comparison"`
+	Property   pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. The only allowed value is `STATUS_CODE`.
+	Source pulumi.StringInput `pulumi:"source"`
+	// The target value. Typically `200` when the source is `STATUS_CODE`.
+	Target pulumi.StringInput `pulumi:"target"`
+}
+
+func (UrlMonitorRequestAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i UrlMonitorRequestAssertionArgs) ToUrlMonitorRequestAssertionOutput() UrlMonitorRequestAssertionOutput {
+	return i.ToUrlMonitorRequestAssertionOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorRequestAssertionArgs) ToUrlMonitorRequestAssertionOutputWithContext(ctx context.Context) UrlMonitorRequestAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRequestAssertionOutput)
+}
+
+// UrlMonitorRequestAssertionArrayInput is an input type that accepts UrlMonitorRequestAssertionArray and UrlMonitorRequestAssertionArrayOutput values.
+// You can construct a concrete instance of `UrlMonitorRequestAssertionArrayInput` via:
+//
+//	UrlMonitorRequestAssertionArray{ UrlMonitorRequestAssertionArgs{...} }
+type UrlMonitorRequestAssertionArrayInput interface {
+	pulumi.Input
+
+	ToUrlMonitorRequestAssertionArrayOutput() UrlMonitorRequestAssertionArrayOutput
+	ToUrlMonitorRequestAssertionArrayOutputWithContext(context.Context) UrlMonitorRequestAssertionArrayOutput
+}
+
+type UrlMonitorRequestAssertionArray []UrlMonitorRequestAssertionInput
+
+func (UrlMonitorRequestAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i UrlMonitorRequestAssertionArray) ToUrlMonitorRequestAssertionArrayOutput() UrlMonitorRequestAssertionArrayOutput {
+	return i.ToUrlMonitorRequestAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorRequestAssertionArray) ToUrlMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) UrlMonitorRequestAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRequestAssertionArrayOutput)
+}
+
+type UrlMonitorRequestAssertionOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorRequestAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o UrlMonitorRequestAssertionOutput) ToUrlMonitorRequestAssertionOutput() UrlMonitorRequestAssertionOutput {
+	return o
+}
+
+func (o UrlMonitorRequestAssertionOutput) ToUrlMonitorRequestAssertionOutputWithContext(ctx context.Context) UrlMonitorRequestAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+func (o UrlMonitorRequestAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+func (o UrlMonitorRequestAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. The only allowed value is `STATUS_CODE`.
+func (o UrlMonitorRequestAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+// The target value. Typically `200` when the source is `STATUS_CODE`.
+func (o UrlMonitorRequestAssertionOutput) Target() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorRequestAssertion) string { return v.Target }).(pulumi.StringOutput)
+}
+
+type UrlMonitorRequestAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorRequestAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]UrlMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o UrlMonitorRequestAssertionArrayOutput) ToUrlMonitorRequestAssertionArrayOutput() UrlMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o UrlMonitorRequestAssertionArrayOutput) ToUrlMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) UrlMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o UrlMonitorRequestAssertionArrayOutput) Index(i pulumi.IntInput) UrlMonitorRequestAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) UrlMonitorRequestAssertion {
+		return vs[0].([]UrlMonitorRequestAssertion)[vs[1].(int)]
+	}).(UrlMonitorRequestAssertionOutput)
+}
+
+type UrlMonitorRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Whether retries should be run in the same region as the initial monitor run. (Default `true`).
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
+	Type string `pulumi:"type"`
+}
+
+// UrlMonitorRetryStrategyInput is an input type that accepts UrlMonitorRetryStrategyArgs and UrlMonitorRetryStrategyOutput values.
+// You can construct a concrete instance of `UrlMonitorRetryStrategyInput` via:
+//
+//	UrlMonitorRetryStrategyArgs{...}
+type UrlMonitorRetryStrategyInput interface {
+	pulumi.Input
+
+	ToUrlMonitorRetryStrategyOutput() UrlMonitorRetryStrategyOutput
+	ToUrlMonitorRetryStrategyOutputWithContext(context.Context) UrlMonitorRetryStrategyOutput
+}
+
+type UrlMonitorRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Whether retries should be run in the same region as the initial monitor run. (Default `true`).
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (UrlMonitorRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i UrlMonitorRetryStrategyArgs) ToUrlMonitorRetryStrategyOutput() UrlMonitorRetryStrategyOutput {
+	return i.ToUrlMonitorRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorRetryStrategyArgs) ToUrlMonitorRetryStrategyOutputWithContext(ctx context.Context) UrlMonitorRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRetryStrategyOutput)
+}
+
+func (i UrlMonitorRetryStrategyArgs) ToUrlMonitorRetryStrategyPtrOutput() UrlMonitorRetryStrategyPtrOutput {
+	return i.ToUrlMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorRetryStrategyArgs) ToUrlMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) UrlMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRetryStrategyOutput).ToUrlMonitorRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// UrlMonitorRetryStrategyPtrInput is an input type that accepts UrlMonitorRetryStrategyArgs, UrlMonitorRetryStrategyPtr and UrlMonitorRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `UrlMonitorRetryStrategyPtrInput` via:
+//
+//	        UrlMonitorRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type UrlMonitorRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToUrlMonitorRetryStrategyPtrOutput() UrlMonitorRetryStrategyPtrOutput
+	ToUrlMonitorRetryStrategyPtrOutputWithContext(context.Context) UrlMonitorRetryStrategyPtrOutput
+}
+
+type urlMonitorRetryStrategyPtrType UrlMonitorRetryStrategyArgs
+
+func UrlMonitorRetryStrategyPtr(v *UrlMonitorRetryStrategyArgs) UrlMonitorRetryStrategyPtrInput {
+	return (*urlMonitorRetryStrategyPtrType)(v)
+}
+
+func (*urlMonitorRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i *urlMonitorRetryStrategyPtrType) ToUrlMonitorRetryStrategyPtrOutput() UrlMonitorRetryStrategyPtrOutput {
+	return i.ToUrlMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *urlMonitorRetryStrategyPtrType) ToUrlMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) UrlMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorRetryStrategyPtrOutput)
+}
+
+type UrlMonitorRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o UrlMonitorRetryStrategyOutput) ToUrlMonitorRetryStrategyOutput() UrlMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o UrlMonitorRetryStrategyOutput) ToUrlMonitorRetryStrategyOutputWithContext(ctx context.Context) UrlMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o UrlMonitorRetryStrategyOutput) ToUrlMonitorRetryStrategyPtrOutput() UrlMonitorRetryStrategyPtrOutput {
+	return o.ToUrlMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o UrlMonitorRetryStrategyOutput) ToUrlMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) UrlMonitorRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UrlMonitorRetryStrategy) *UrlMonitorRetryStrategy {
+		return &v
+	}).(UrlMonitorRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o UrlMonitorRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+func (o UrlMonitorRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+func (o UrlMonitorRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial monitor run. (Default `true`).
+func (o UrlMonitorRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v UrlMonitorRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
+func (o UrlMonitorRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type UrlMonitorRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o UrlMonitorRetryStrategyPtrOutput) ToUrlMonitorRetryStrategyPtrOutput() UrlMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o UrlMonitorRetryStrategyPtrOutput) ToUrlMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) UrlMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o UrlMonitorRetryStrategyPtrOutput) Elem() UrlMonitorRetryStrategyOutput {
+	return o.ApplyT(func(v *UrlMonitorRetryStrategy) UrlMonitorRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret UrlMonitorRetryStrategy
+		return ret
+	}).(UrlMonitorRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o UrlMonitorRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).
+func (o UrlMonitorRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).
+func (o UrlMonitorRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial monitor run. (Default `true`).
+func (o UrlMonitorRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
+func (o UrlMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelCallInput)(nil)).Elem(), AlertChannelCallArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelCallPtrInput)(nil)).Elem(), AlertChannelCallArgs{})
@@ -7161,6 +10741,22 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), HeartbeatCheckAlertSettingsTimeBasedEscalationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatPtrInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertChannelSubscriptionInput)(nil)).Elem(), HeartbeatMonitorAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), HeartbeatMonitorAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsPtrInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsReminderInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsReminderArrayInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsRunBasedEscalationInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsSslCertificateInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsSslCertificateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsSslCertificateArrayInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsSslCertificateArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorHeartbeatInput)(nil)).Elem(), HeartbeatMonitorHeartbeatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorHeartbeatPtrInput)(nil)).Elem(), HeartbeatMonitorHeartbeatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardInput)(nil)).Elem(), StatusPageCardArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardArrayInput)(nil)).Elem(), StatusPageCardArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentInput)(nil)).Elem(), StatusPageCardServiceAttachmentArgs{})
@@ -7183,6 +10779,42 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRequestAssertionArrayInput)(nil)).Elem(), TcpCheckRequestAssertionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRetryStrategyInput)(nil)).Elem(), TcpCheckRetryStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRetryStrategyPtrInput)(nil)).Elem(), TcpCheckRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertChannelSubscriptionInput)(nil)).Elem(), TcpMonitorAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), TcpMonitorAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsInput)(nil)).Elem(), TcpMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsPtrInput)(nil)).Elem(), TcpMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), TcpMonitorAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), TcpMonitorAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsReminderInput)(nil)).Elem(), TcpMonitorAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsReminderArrayInput)(nil)).Elem(), TcpMonitorAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsRunBasedEscalationInput)(nil)).Elem(), TcpMonitorAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), TcpMonitorAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), TcpMonitorAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), TcpMonitorAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRequestInput)(nil)).Elem(), TcpMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRequestPtrInput)(nil)).Elem(), TcpMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRequestAssertionInput)(nil)).Elem(), TcpMonitorRequestAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRequestAssertionArrayInput)(nil)).Elem(), TcpMonitorRequestAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRetryStrategyInput)(nil)).Elem(), TcpMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRetryStrategyPtrInput)(nil)).Elem(), TcpMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertChannelSubscriptionInput)(nil)).Elem(), UrlMonitorAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), UrlMonitorAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsInput)(nil)).Elem(), UrlMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsPtrInput)(nil)).Elem(), UrlMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), UrlMonitorAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), UrlMonitorAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsReminderInput)(nil)).Elem(), UrlMonitorAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsReminderArrayInput)(nil)).Elem(), UrlMonitorAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsRunBasedEscalationInput)(nil)).Elem(), UrlMonitorAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), UrlMonitorAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), UrlMonitorAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), UrlMonitorAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRequestInput)(nil)).Elem(), UrlMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRequestPtrInput)(nil)).Elem(), UrlMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRequestAssertionInput)(nil)).Elem(), UrlMonitorRequestAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRequestAssertionArrayInput)(nil)).Elem(), UrlMonitorRequestAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRetryStrategyInput)(nil)).Elem(), UrlMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRetryStrategyPtrInput)(nil)).Elem(), UrlMonitorRetryStrategyArgs{})
 	pulumi.RegisterOutputType(AlertChannelCallOutput{})
 	pulumi.RegisterOutputType(AlertChannelCallPtrOutput{})
 	pulumi.RegisterOutputType(AlertChannelEmailOutput{})
@@ -7261,6 +10893,22 @@ func init() {
 	pulumi.RegisterOutputType(HeartbeatCheckAlertSettingsTimeBasedEscalationArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatPtrOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsSslCertificateOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsSslCertificateArrayOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorHeartbeatOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorHeartbeatPtrOutput{})
 	pulumi.RegisterOutputType(StatusPageCardOutput{})
 	pulumi.RegisterOutputType(StatusPageCardArrayOutput{})
 	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentOutput{})
@@ -7283,4 +10931,40 @@ func init() {
 	pulumi.RegisterOutputType(TcpCheckRequestAssertionArrayOutput{})
 	pulumi.RegisterOutputType(TcpCheckRetryStrategyOutput{})
 	pulumi.RegisterOutputType(TcpCheckRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(TcpMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(TcpMonitorRequestOutput{})
+	pulumi.RegisterOutputType(TcpMonitorRequestPtrOutput{})
+	pulumi.RegisterOutputType(TcpMonitorRequestAssertionOutput{})
+	pulumi.RegisterOutputType(TcpMonitorRequestAssertionArrayOutput{})
+	pulumi.RegisterOutputType(TcpMonitorRetryStrategyOutput{})
+	pulumi.RegisterOutputType(TcpMonitorRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(UrlMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(UrlMonitorRequestOutput{})
+	pulumi.RegisterOutputType(UrlMonitorRequestPtrOutput{})
+	pulumi.RegisterOutputType(UrlMonitorRequestAssertionOutput{})
+	pulumi.RegisterOutputType(UrlMonitorRequestAssertionArrayOutput{})
+	pulumi.RegisterOutputType(UrlMonitorRetryStrategyOutput{})
+	pulumi.RegisterOutputType(UrlMonitorRetryStrategyPtrOutput{})
 }
