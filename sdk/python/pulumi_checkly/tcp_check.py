@@ -690,8 +690,6 @@ class TcpCheck(pulumi.CustomResource):
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        TCP checks allow you to monitor remote endpoints at a lower level.
-
         ## Example Usage
 
         ```python
@@ -789,8 +787,6 @@ class TcpCheck(pulumi.CustomResource):
                  args: TcpCheckArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        TCP checks allow you to monitor remote endpoints at a lower level.
-
         ## Example Usage
 
         ```python

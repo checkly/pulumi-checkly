@@ -279,8 +279,6 @@ class HeartbeatCheck(pulumi.CustomResource):
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        Heartbeats allows you to monitor your cron jobs and set up alerting, so you get a notification when things break or slow down.
-
         ## Example Usage
 
         ```python
@@ -314,8 +312,6 @@ class HeartbeatCheck(pulumi.CustomResource):
                  args: HeartbeatCheckArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Heartbeats allows you to monitor your cron jobs and set up alerting, so you get a notification when things break or slow down.
-
         ## Example Usage
 
         ```python

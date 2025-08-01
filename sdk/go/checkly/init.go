@@ -35,6 +35,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EnvironmentVariable{}
 	case "checkly:index/heartbeatCheck:HeartbeatCheck":
 		r = &HeartbeatCheck{}
+	case "checkly:index/heartbeatMonitor:HeartbeatMonitor":
+		r = &HeartbeatMonitor{}
 	case "checkly:index/maintenanceWindow:MaintenanceWindow":
 		r = &MaintenanceWindow{}
 	case "checkly:index/privateLocation:PrivateLocation":
@@ -47,10 +49,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &StatusPageService{}
 	case "checkly:index/tcpCheck:TcpCheck":
 		r = &TcpCheck{}
+	case "checkly:index/tcpMonitor:TcpMonitor":
+		r = &TcpMonitor{}
 	case "checkly:index/triggerCheck:TriggerCheck":
 		r = &TriggerCheck{}
 	case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
 		r = &TriggerCheckGroup{}
+	case "checkly:index/urlMonitor:UrlMonitor":
+		r = &UrlMonitor{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -119,6 +125,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
+		"index/heartbeatMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
 		"index/maintenanceWindow",
 		&module{version},
 	)
@@ -149,12 +160,22 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
+		"index/tcpMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
 		"index/triggerCheck",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/triggerCheckGroup",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/urlMonitor",
 		&module{version},
 	)
 	pulumi.RegisterResourcePackage(

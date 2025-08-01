@@ -10,8 +10,6 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// Heartbeats allows you to monitor your cron jobs and set up alerting, so you get a notification when things break or slow down.
-    /// 
     /// ## Example Usage
     /// 
     /// ```csharp

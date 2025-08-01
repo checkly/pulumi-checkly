@@ -12,8 +12,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Heartbeats allows you to monitor your cron jobs and set up alerting, so you get a notification when things break or slow down.
-//
 // ## Example Usage
 //
 // ```go

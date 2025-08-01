@@ -54,9 +54,13 @@ export class Dashboard extends pulumi.CustomResource {
     }
 
     /**
-     * Determines how many checks to show per page.
+     * Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
      */
     public readonly checksPerPage!: pulumi.Output<number | undefined>;
+    /**
+     * Custom CSS to be applied to the dashboard.
+     */
+    public readonly customCss!: pulumi.Output<string | undefined>;
     /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
@@ -70,15 +74,23 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public readonly description!: pulumi.Output<string | undefined>;
     /**
+     * Enable incident support for the dashboard. (Default `false`).
+     */
+    public readonly enableIncidents!: pulumi.Output<boolean | undefined>;
+    /**
+     * Expand or collapse checks on the dashboard. (Default `false`).
+     */
+    public readonly expandChecks!: pulumi.Output<boolean | undefined>;
+    /**
      * A URL pointing to an image file to use as browser favicon.
      */
     public readonly favicon!: pulumi.Output<string | undefined>;
     /**
      * A piece of text displayed at the top of your dashboard.
      */
-    public readonly header!: pulumi.Output<string | undefined>;
+    public readonly header!: pulumi.Output<string>;
     /**
-     * Show or hide the tags on the dashboard.
+     * Show or hide the tags on the dashboard. (Default `false`).
      */
     public readonly hideTags!: pulumi.Output<boolean | undefined>;
     /**
@@ -98,27 +110,43 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public readonly logo!: pulumi.Output<string | undefined>;
     /**
-     * Determines if pagination is on or off.
+     * Determines if pagination is on or off. (Default `true`).
      */
     public readonly paginate!: pulumi.Output<boolean | undefined>;
     /**
-     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
      */
     public readonly paginationRate!: pulumi.Output<number | undefined>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
      */
     public readonly refreshRate!: pulumi.Output<number | undefined>;
+    /**
+     * Show or hide check run links on the dashboard. (Default `false`).
+     */
+    public readonly showCheckRunLinks!: pulumi.Output<boolean | undefined>;
+    /**
+     * Show or hide header and description on the dashboard. (Default `true`).
+     */
+    public readonly showHeader!: pulumi.Output<boolean | undefined>;
+    /**
+     * Show or hide the P95 stats on the dashboard. (Default `true`).
+     */
+    public readonly showP95!: pulumi.Output<boolean | undefined>;
+    /**
+     * Show or hide the P99 stats on the dashboard. (Default `true`).
+     */
+    public readonly showP99!: pulumi.Output<boolean | undefined>;
     /**
      * A list of one or more tags that filter which checks to display on the dashboard.
      */
     public readonly tags!: pulumi.Output<string[] | undefined>;
     /**
-     * Set when to use AND operator for fetching dashboard tags.
+     * Set when to use AND operator for fetching dashboard tags. (Default `false`).
      */
     public readonly useTagsAndOperator!: pulumi.Output<boolean | undefined>;
     /**
-     * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+     * Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
      */
     public readonly width!: pulumi.Output<string | undefined>;
 
@@ -136,9 +164,12 @@ export class Dashboard extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as DashboardState | undefined;
             resourceInputs["checksPerPage"] = state ? state.checksPerPage : undefined;
+            resourceInputs["customCss"] = state ? state.customCss : undefined;
             resourceInputs["customDomain"] = state ? state.customDomain : undefined;
             resourceInputs["customUrl"] = state ? state.customUrl : undefined;
             resourceInputs["description"] = state ? state.description : undefined;
+            resourceInputs["enableIncidents"] = state ? state.enableIncidents : undefined;
+            resourceInputs["expandChecks"] = state ? state.expandChecks : undefined;
             resourceInputs["favicon"] = state ? state.favicon : undefined;
             resourceInputs["header"] = state ? state.header : undefined;
             resourceInputs["hideTags"] = state ? state.hideTags : undefined;
@@ -149,6 +180,10 @@ export class Dashboard extends pulumi.CustomResource {
             resourceInputs["paginate"] = state ? state.paginate : undefined;
             resourceInputs["paginationRate"] = state ? state.paginationRate : undefined;
             resourceInputs["refreshRate"] = state ? state.refreshRate : undefined;
+            resourceInputs["showCheckRunLinks"] = state ? state.showCheckRunLinks : undefined;
+            resourceInputs["showHeader"] = state ? state.showHeader : undefined;
+            resourceInputs["showP95"] = state ? state.showP95 : undefined;
+            resourceInputs["showP99"] = state ? state.showP99 : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["useTagsAndOperator"] = state ? state.useTagsAndOperator : undefined;
             resourceInputs["width"] = state ? state.width : undefined;
@@ -157,10 +192,16 @@ export class Dashboard extends pulumi.CustomResource {
             if ((!args || args.customUrl === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'customUrl'");
             }
+            if ((!args || args.header === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'header'");
+            }
             resourceInputs["checksPerPage"] = args ? args.checksPerPage : undefined;
+            resourceInputs["customCss"] = args ? args.customCss : undefined;
             resourceInputs["customDomain"] = args ? args.customDomain : undefined;
             resourceInputs["customUrl"] = args ? args.customUrl : undefined;
             resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["enableIncidents"] = args ? args.enableIncidents : undefined;
+            resourceInputs["expandChecks"] = args ? args.expandChecks : undefined;
             resourceInputs["favicon"] = args ? args.favicon : undefined;
             resourceInputs["header"] = args ? args.header : undefined;
             resourceInputs["hideTags"] = args ? args.hideTags : undefined;
@@ -170,6 +211,10 @@ export class Dashboard extends pulumi.CustomResource {
             resourceInputs["paginate"] = args ? args.paginate : undefined;
             resourceInputs["paginationRate"] = args ? args.paginationRate : undefined;
             resourceInputs["refreshRate"] = args ? args.refreshRate : undefined;
+            resourceInputs["showCheckRunLinks"] = args ? args.showCheckRunLinks : undefined;
+            resourceInputs["showHeader"] = args ? args.showHeader : undefined;
+            resourceInputs["showP95"] = args ? args.showP95 : undefined;
+            resourceInputs["showP99"] = args ? args.showP99 : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["useTagsAndOperator"] = args ? args.useTagsAndOperator : undefined;
             resourceInputs["width"] = args ? args.width : undefined;
@@ -187,9 +232,13 @@ export class Dashboard extends pulumi.CustomResource {
  */
 export interface DashboardState {
     /**
-     * Determines how many checks to show per page.
+     * Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
      */
     checksPerPage?: pulumi.Input<number>;
+    /**
+     * Custom CSS to be applied to the dashboard.
+     */
+    customCss?: pulumi.Input<string>;
     /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
@@ -203,6 +252,14 @@ export interface DashboardState {
      */
     description?: pulumi.Input<string>;
     /**
+     * Enable incident support for the dashboard. (Default `false`).
+     */
+    enableIncidents?: pulumi.Input<boolean>;
+    /**
+     * Expand or collapse checks on the dashboard. (Default `false`).
+     */
+    expandChecks?: pulumi.Input<boolean>;
+    /**
      * A URL pointing to an image file to use as browser favicon.
      */
     favicon?: pulumi.Input<string>;
@@ -211,7 +268,7 @@ export interface DashboardState {
      */
     header?: pulumi.Input<string>;
     /**
-     * Show or hide the tags on the dashboard.
+     * Show or hide the tags on the dashboard. (Default `false`).
      */
     hideTags?: pulumi.Input<boolean>;
     /**
@@ -231,27 +288,43 @@ export interface DashboardState {
      */
     logo?: pulumi.Input<string>;
     /**
-     * Determines if pagination is on or off.
+     * Determines if pagination is on or off. (Default `true`).
      */
     paginate?: pulumi.Input<boolean>;
     /**
-     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
      */
     paginationRate?: pulumi.Input<number>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
      */
     refreshRate?: pulumi.Input<number>;
+    /**
+     * Show or hide check run links on the dashboard. (Default `false`).
+     */
+    showCheckRunLinks?: pulumi.Input<boolean>;
+    /**
+     * Show or hide header and description on the dashboard. (Default `true`).
+     */
+    showHeader?: pulumi.Input<boolean>;
+    /**
+     * Show or hide the P95 stats on the dashboard. (Default `true`).
+     */
+    showP95?: pulumi.Input<boolean>;
+    /**
+     * Show or hide the P99 stats on the dashboard. (Default `true`).
+     */
+    showP99?: pulumi.Input<boolean>;
     /**
      * A list of one or more tags that filter which checks to display on the dashboard.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Set when to use AND operator for fetching dashboard tags.
+     * Set when to use AND operator for fetching dashboard tags. (Default `false`).
      */
     useTagsAndOperator?: pulumi.Input<boolean>;
     /**
-     * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+     * Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
      */
     width?: pulumi.Input<string>;
 }
@@ -261,9 +334,13 @@ export interface DashboardState {
  */
 export interface DashboardArgs {
     /**
-     * Determines how many checks to show per page.
+     * Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
      */
     checksPerPage?: pulumi.Input<number>;
+    /**
+     * Custom CSS to be applied to the dashboard.
+     */
+    customCss?: pulumi.Input<string>;
     /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
@@ -277,15 +354,23 @@ export interface DashboardArgs {
      */
     description?: pulumi.Input<string>;
     /**
+     * Enable incident support for the dashboard. (Default `false`).
+     */
+    enableIncidents?: pulumi.Input<boolean>;
+    /**
+     * Expand or collapse checks on the dashboard. (Default `false`).
+     */
+    expandChecks?: pulumi.Input<boolean>;
+    /**
      * A URL pointing to an image file to use as browser favicon.
      */
     favicon?: pulumi.Input<string>;
     /**
      * A piece of text displayed at the top of your dashboard.
      */
-    header?: pulumi.Input<string>;
+    header: pulumi.Input<string>;
     /**
-     * Show or hide the tags on the dashboard.
+     * Show or hide the tags on the dashboard. (Default `false`).
      */
     hideTags?: pulumi.Input<boolean>;
     /**
@@ -301,27 +386,43 @@ export interface DashboardArgs {
      */
     logo?: pulumi.Input<string>;
     /**
-     * Determines if pagination is on or off.
+     * Determines if pagination is on or off. (Default `true`).
      */
     paginate?: pulumi.Input<boolean>;
     /**
-     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`.
+     * How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
      */
     paginationRate?: pulumi.Input<number>;
     /**
-     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`.
+     * How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
      */
     refreshRate?: pulumi.Input<number>;
+    /**
+     * Show or hide check run links on the dashboard. (Default `false`).
+     */
+    showCheckRunLinks?: pulumi.Input<boolean>;
+    /**
+     * Show or hide header and description on the dashboard. (Default `true`).
+     */
+    showHeader?: pulumi.Input<boolean>;
+    /**
+     * Show or hide the P95 stats on the dashboard. (Default `true`).
+     */
+    showP95?: pulumi.Input<boolean>;
+    /**
+     * Show or hide the P99 stats on the dashboard. (Default `true`).
+     */
+    showP99?: pulumi.Input<boolean>;
     /**
      * A list of one or more tags that filter which checks to display on the dashboard.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Set when to use AND operator for fetching dashboard tags.
+     * Set when to use AND operator for fetching dashboard tags. (Default `false`).
      */
     useTagsAndOperator?: pulumi.Input<boolean>;
     /**
-     * Determines whether to use the full screen or focus in the center. Possible values `FULL` and `960PX`.
+     * Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
      */
     width?: pulumi.Input<string>;
 }
