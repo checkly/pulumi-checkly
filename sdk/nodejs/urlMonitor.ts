@@ -133,6 +133,10 @@ export class UrlMonitor extends pulumi.CustomResource {
      */
     public readonly tags!: pulumi.Output<string[] | undefined>;
     /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    public readonly triggerIncident!: pulumi.Output<outputs.UrlMonitorTriggerIncident | undefined>;
+    /**
      * When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
      */
     public readonly useGlobalAlertSettings!: pulumi.Output<boolean | undefined>;
@@ -168,6 +172,7 @@ export class UrlMonitor extends pulumi.CustomResource {
             resourceInputs["runParallel"] = state ? state.runParallel : undefined;
             resourceInputs["shouldFail"] = state ? state.shouldFail : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
+            resourceInputs["triggerIncident"] = state ? state.triggerIncident : undefined;
             resourceInputs["useGlobalAlertSettings"] = state ? state.useGlobalAlertSettings : undefined;
         } else {
             const args = argsOrState as UrlMonitorArgs | undefined;
@@ -198,6 +203,7 @@ export class UrlMonitor extends pulumi.CustomResource {
             resourceInputs["runParallel"] = args ? args.runParallel : undefined;
             resourceInputs["shouldFail"] = args ? args.shouldFail : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["triggerIncident"] = args ? args.triggerIncident : undefined;
             resourceInputs["useGlobalAlertSettings"] = args ? args.useGlobalAlertSettings : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -282,6 +288,10 @@ export interface UrlMonitorState {
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    triggerIncident?: pulumi.Input<inputs.UrlMonitorTriggerIncident>;
+    /**
      * When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
      */
     useGlobalAlertSettings?: pulumi.Input<boolean>;
@@ -363,6 +373,10 @@ export interface UrlMonitorArgs {
      * A list of tags for organizing and filtering checks and monitors.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    triggerIncident?: pulumi.Input<inputs.UrlMonitorTriggerIncident>;
     /**
      * When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
      */

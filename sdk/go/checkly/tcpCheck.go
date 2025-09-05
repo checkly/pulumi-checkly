@@ -145,6 +145,8 @@ type TcpCheck struct {
 	ShouldFail pulumi.BoolPtrOutput `pulumi:"shouldFail"`
 	// A list of tags for organizing and filtering checks.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident TcpCheckTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
 }
@@ -225,6 +227,8 @@ type tcpCheckState struct {
 	ShouldFail *bool `pulumi:"shouldFail"`
 	// A list of tags for organizing and filtering checks.
 	Tags []string `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *TcpCheckTriggerIncident `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
@@ -267,6 +271,8 @@ type TcpCheckState struct {
 	ShouldFail pulumi.BoolPtrInput
 	// A list of tags for organizing and filtering checks.
 	Tags pulumi.StringArrayInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident TcpCheckTriggerIncidentPtrInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
@@ -313,6 +319,8 @@ type tcpCheckArgs struct {
 	ShouldFail *bool `pulumi:"shouldFail"`
 	// A list of tags for organizing and filtering checks.
 	Tags []string `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *TcpCheckTriggerIncident `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
@@ -356,6 +364,8 @@ type TcpCheckArgs struct {
 	ShouldFail pulumi.BoolPtrInput
 	// A list of tags for organizing and filtering checks.
 	Tags pulumi.StringArrayInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident TcpCheckTriggerIncidentPtrInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
@@ -539,6 +549,11 @@ func (o TcpCheckOutput) ShouldFail() pulumi.BoolPtrOutput {
 // A list of tags for organizing and filtering checks.
 func (o TcpCheckOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *TcpCheck) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+func (o TcpCheckOutput) TriggerIncident() TcpCheckTriggerIncidentPtrOutput {
+	return o.ApplyT(func(v *TcpCheck) TcpCheckTriggerIncidentPtrOutput { return v.TriggerIncident }).(TcpCheckTriggerIncidentPtrOutput)
 }
 
 // When true, the account level alert settings will be used, not the alert setting defined on this check.

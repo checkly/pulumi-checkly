@@ -40,6 +40,7 @@ class TcpMonitorArgs:
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a TcpMonitor resource.
@@ -61,6 +62,7 @@ class TcpMonitorArgs:
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input['TcpMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         pulumi.set(__self__, "activated", activated)
@@ -98,6 +100,8 @@ class TcpMonitorArgs:
             pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -327,6 +331,18 @@ class TcpMonitorArgs:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -361,6 +377,7 @@ class _TcpMonitorState:
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         Input properties used for looking up and filtering TcpMonitor resources.
@@ -382,6 +399,7 @@ class _TcpMonitorState:
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input['TcpMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         if activated is not None:
@@ -422,6 +440,8 @@ class _TcpMonitorState:
             pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -651,6 +671,18 @@ class _TcpMonitorState:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -687,6 +719,7 @@ class TcpMonitor(pulumi.CustomResource):
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
@@ -780,6 +813,7 @@ class TcpMonitor(pulumi.CustomResource):
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         ...
@@ -893,6 +927,7 @@ class TcpMonitor(pulumi.CustomResource):
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -928,6 +963,7 @@ class TcpMonitor(pulumi.CustomResource):
             __props__.__dict__["runtime_id"] = runtime_id
             __props__.__dict__["should_fail"] = should_fail
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["trigger_incident"] = trigger_incident
             __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         super(TcpMonitor, __self__).__init__(
             'checkly:index/tcpMonitor:TcpMonitor',
@@ -958,6 +994,7 @@ class TcpMonitor(pulumi.CustomResource):
             runtime_id: Optional[pulumi.Input[str]] = None,
             should_fail: Optional[pulumi.Input[bool]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            trigger_incident: Optional[pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']]] = None,
             use_global_alert_settings: Optional[pulumi.Input[bool]] = None) -> 'TcpMonitor':
         """
         Get an existing TcpMonitor resource's state with the given name, id, and optional extra
@@ -984,6 +1021,7 @@ class TcpMonitor(pulumi.CustomResource):
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1009,6 +1047,7 @@ class TcpMonitor(pulumi.CustomResource):
         __props__.__dict__["runtime_id"] = runtime_id
         __props__.__dict__["should_fail"] = should_fail
         __props__.__dict__["tags"] = tags
+        __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return TcpMonitor(resource_name, opts=opts, __props__=__props__)
 
@@ -1160,6 +1199,14 @@ class TcpMonitor(pulumi.CustomResource):
         A list of tags for organizing and filtering checks.
         """
         return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> pulumi.Output[Optional['outputs.TcpMonitorTriggerIncident']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
 
     @property
     @pulumi.getter(name="useGlobalAlertSettings")

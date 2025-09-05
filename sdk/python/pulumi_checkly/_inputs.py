@@ -77,6 +77,8 @@ __all__ = [
     'CheckRequestBasicAuthArgsDict',
     'CheckRetryStrategyArgs',
     'CheckRetryStrategyArgsDict',
+    'CheckTriggerIncidentArgs',
+    'CheckTriggerIncidentArgsDict',
     'HeartbeatCheckAlertChannelSubscriptionArgs',
     'HeartbeatCheckAlertChannelSubscriptionArgsDict',
     'HeartbeatCheckAlertSettingsArgs',
@@ -93,6 +95,8 @@ __all__ = [
     'HeartbeatCheckAlertSettingsTimeBasedEscalationArgsDict',
     'HeartbeatCheckHeartbeatArgs',
     'HeartbeatCheckHeartbeatArgsDict',
+    'HeartbeatCheckTriggerIncidentArgs',
+    'HeartbeatCheckTriggerIncidentArgsDict',
     'HeartbeatMonitorAlertChannelSubscriptionArgs',
     'HeartbeatMonitorAlertChannelSubscriptionArgsDict',
     'HeartbeatMonitorAlertSettingsArgs',
@@ -109,6 +113,8 @@ __all__ = [
     'HeartbeatMonitorAlertSettingsTimeBasedEscalationArgsDict',
     'HeartbeatMonitorHeartbeatArgs',
     'HeartbeatMonitorHeartbeatArgsDict',
+    'HeartbeatMonitorTriggerIncidentArgs',
+    'HeartbeatMonitorTriggerIncidentArgsDict',
     'StatusPageCardArgs',
     'StatusPageCardArgsDict',
     'StatusPageCardServiceAttachmentArgs',
@@ -131,6 +137,8 @@ __all__ = [
     'TcpCheckRequestAssertionArgsDict',
     'TcpCheckRetryStrategyArgs',
     'TcpCheckRetryStrategyArgsDict',
+    'TcpCheckTriggerIncidentArgs',
+    'TcpCheckTriggerIncidentArgsDict',
     'TcpMonitorAlertChannelSubscriptionArgs',
     'TcpMonitorAlertChannelSubscriptionArgsDict',
     'TcpMonitorAlertSettingsArgs',
@@ -149,6 +157,8 @@ __all__ = [
     'TcpMonitorRequestAssertionArgsDict',
     'TcpMonitorRetryStrategyArgs',
     'TcpMonitorRetryStrategyArgsDict',
+    'TcpMonitorTriggerIncidentArgs',
+    'TcpMonitorTriggerIncidentArgsDict',
     'UrlMonitorAlertChannelSubscriptionArgs',
     'UrlMonitorAlertChannelSubscriptionArgsDict',
     'UrlMonitorAlertSettingsArgs',
@@ -167,6 +177,8 @@ __all__ = [
     'UrlMonitorRequestAssertionArgsDict',
     'UrlMonitorRetryStrategyArgs',
     'UrlMonitorRetryStrategyArgsDict',
+    'UrlMonitorTriggerIncidentArgs',
+    'UrlMonitorTriggerIncidentArgsDict',
 ]
 
 MYPY = False
@@ -2140,6 +2152,113 @@ class CheckRetryStrategyArgs:
 
 
 if not MYPY:
+    class CheckTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    CheckTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class CheckTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 notify_subscribers: pulumi.Input[bool],
+                 service_id: pulumi.Input[str],
+                 severity: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] description: A detailed description of the incident.
+        :param pulumi.Input[str] name: The name of the incident.
+        :param pulumi.Input[bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[str]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_id", value)
+
+    @property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[str]):
+        pulumi.set(self, "severity", value)
+
+
+if not MYPY:
     class HeartbeatCheckAlertChannelSubscriptionArgsDict(TypedDict):
         activated: pulumi.Input[bool]
         channel_id: pulumi.Input[int]
@@ -2603,6 +2722,113 @@ class HeartbeatCheckHeartbeatArgs:
 
 
 if not MYPY:
+    class HeartbeatCheckTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    HeartbeatCheckTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class HeartbeatCheckTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 notify_subscribers: pulumi.Input[bool],
+                 service_id: pulumi.Input[str],
+                 severity: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] description: A detailed description of the incident.
+        :param pulumi.Input[str] name: The name of the incident.
+        :param pulumi.Input[bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[str]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_id", value)
+
+    @property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[str]):
+        pulumi.set(self, "severity", value)
+
+
+if not MYPY:
     class HeartbeatMonitorAlertChannelSubscriptionArgsDict(TypedDict):
         activated: pulumi.Input[bool]
         channel_id: pulumi.Input[int]
@@ -3063,6 +3289,113 @@ class HeartbeatMonitorHeartbeatArgs:
     @ping_token.setter
     def ping_token(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ping_token", value)
+
+
+if not MYPY:
+    class HeartbeatMonitorTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    HeartbeatMonitorTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class HeartbeatMonitorTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 notify_subscribers: pulumi.Input[bool],
+                 service_id: pulumi.Input[str],
+                 severity: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] description: A detailed description of the incident.
+        :param pulumi.Input[str] name: The name of the incident.
+        :param pulumi.Input[bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[str]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_id", value)
+
+    @property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[str]):
+        pulumi.set(self, "severity", value)
 
 
 if not MYPY:
@@ -3730,6 +4063,113 @@ class TcpCheckRetryStrategyArgs:
 
 
 if not MYPY:
+    class TcpCheckTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    TcpCheckTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpCheckTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 notify_subscribers: pulumi.Input[bool],
+                 service_id: pulumi.Input[str],
+                 severity: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] description: A detailed description of the incident.
+        :param pulumi.Input[str] name: The name of the incident.
+        :param pulumi.Input[bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[str]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_id", value)
+
+    @property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[str]):
+        pulumi.set(self, "severity", value)
+
+
+if not MYPY:
     class TcpMonitorAlertChannelSubscriptionArgsDict(TypedDict):
         activated: pulumi.Input[bool]
         channel_id: pulumi.Input[int]
@@ -4310,6 +4750,113 @@ class TcpMonitorRetryStrategyArgs:
     @same_region.setter
     def same_region(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "same_region", value)
+
+
+if not MYPY:
+    class TcpMonitorTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    TcpMonitorTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class TcpMonitorTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 notify_subscribers: pulumi.Input[bool],
+                 service_id: pulumi.Input[str],
+                 severity: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] description: A detailed description of the incident.
+        :param pulumi.Input[str] name: The name of the incident.
+        :param pulumi.Input[bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[str]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_id", value)
+
+    @property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[str]):
+        pulumi.set(self, "severity", value)
 
 
 if not MYPY:
@@ -4943,5 +5490,112 @@ class UrlMonitorRetryStrategyArgs:
     @same_region.setter
     def same_region(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "same_region", value)
+
+
+if not MYPY:
+    class UrlMonitorTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    UrlMonitorTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class UrlMonitorTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 notify_subscribers: pulumi.Input[bool],
+                 service_id: pulumi.Input[str],
+                 severity: pulumi.Input[str]):
+        """
+        :param pulumi.Input[str] description: A detailed description of the incident.
+        :param pulumi.Input[str] name: The name of the incident.
+        :param pulumi.Input[bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[str]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "service_id", value)
+
+    @property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[str]):
+        pulumi.set(self, "severity", value)
 
 

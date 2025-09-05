@@ -157,6 +157,10 @@ export class Check extends pulumi.CustomResource {
      */
     public readonly teardownSnippetId!: pulumi.Output<number | undefined>;
     /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    public readonly triggerIncident!: pulumi.Output<outputs.CheckTriggerIncident | undefined>;
+    /**
      * The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
      */
     public readonly type!: pulumi.Output<string>;
@@ -207,6 +211,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["sslCheckDomain"] = state ? state.sslCheckDomain : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["teardownSnippetId"] = state ? state.teardownSnippetId : undefined;
+            resourceInputs["triggerIncident"] = state ? state.triggerIncident : undefined;
             resourceInputs["type"] = state ? state.type : undefined;
             resourceInputs["useGlobalAlertSettings"] = state ? state.useGlobalAlertSettings : undefined;
         } else {
@@ -249,6 +254,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["sslCheckDomain"] = args ? args.sslCheckDomain : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["teardownSnippetId"] = args ? args.teardownSnippetId : undefined;
+            resourceInputs["triggerIncident"] = args ? args.triggerIncident : undefined;
             resourceInputs["type"] = args ? args.type : undefined;
             resourceInputs["useGlobalAlertSettings"] = args ? args.useGlobalAlertSettings : undefined;
         }
@@ -380,6 +386,10 @@ export interface CheckState {
      * An ID reference to a snippet to use in the teardown phase of an API check.
      */
     teardownSnippetId?: pulumi.Input<number>;
+    /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    triggerIncident?: pulumi.Input<inputs.CheckTriggerIncident>;
     /**
      * The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
      */
@@ -513,6 +523,10 @@ export interface CheckArgs {
      * An ID reference to a snippet to use in the teardown phase of an API check.
      */
     teardownSnippetId?: pulumi.Input<number>;
+    /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    triggerIncident?: pulumi.Input<inputs.CheckTriggerIncident>;
     /**
      * The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
      */

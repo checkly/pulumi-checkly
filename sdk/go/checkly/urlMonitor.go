@@ -94,6 +94,8 @@ type UrlMonitor struct {
 	ShouldFail pulumi.BoolPtrOutput `pulumi:"shouldFail"`
 	// A list of tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident UrlMonitorTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
 	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
 }
@@ -173,6 +175,8 @@ type urlMonitorState struct {
 	ShouldFail *bool `pulumi:"shouldFail"`
 	// A list of tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *UrlMonitorTriggerIncident `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
@@ -214,6 +218,8 @@ type UrlMonitorState struct {
 	ShouldFail pulumi.BoolPtrInput
 	// A list of tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident UrlMonitorTriggerIncidentPtrInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
@@ -259,6 +265,8 @@ type urlMonitorArgs struct {
 	ShouldFail *bool `pulumi:"shouldFail"`
 	// A list of tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *UrlMonitorTriggerIncident `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
@@ -301,6 +309,8 @@ type UrlMonitorArgs struct {
 	ShouldFail pulumi.BoolPtrInput
 	// A list of tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident UrlMonitorTriggerIncidentPtrInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
@@ -480,6 +490,11 @@ func (o UrlMonitorOutput) ShouldFail() pulumi.BoolPtrOutput {
 // A list of tags for organizing and filtering checks and monitors.
 func (o UrlMonitorOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *UrlMonitor) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+func (o UrlMonitorOutput) TriggerIncident() UrlMonitorTriggerIncidentPtrOutput {
+	return o.ApplyT(func(v *UrlMonitor) UrlMonitorTriggerIncidentPtrOutput { return v.TriggerIncident }).(UrlMonitorTriggerIncidentPtrOutput)
 }
 
 // When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).

@@ -51,6 +51,7 @@ class CheckArgs:
                  ssl_check_domain: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teardown_snippet_id: Optional[pulumi.Input[int]] = None,
+                 trigger_incident: Optional[pulumi.Input['CheckTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a Check resource.
@@ -83,6 +84,7 @@ class CheckArgs:
         :param pulumi.Input[str] ssl_check_domain: A valid fully qualified domain name (FQDN) to check its SSL certificate.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
+        :param pulumi.Input['CheckTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         pulumi.set(__self__, "activated", activated)
@@ -151,6 +153,8 @@ class CheckArgs:
             pulumi.set(__self__, "tags", tags)
         if teardown_snippet_id is not None:
             pulumi.set(__self__, "teardown_snippet_id", teardown_snippet_id)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -515,6 +519,18 @@ class CheckArgs:
         pulumi.set(self, "teardown_snippet_id", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['CheckTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['CheckTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -559,6 +575,7 @@ class _CheckState:
                  ssl_check_domain: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teardown_snippet_id: Optional[pulumi.Input[int]] = None,
+                 trigger_incident: Optional[pulumi.Input['CheckTriggerIncidentArgs']] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
@@ -591,6 +608,7 @@ class _CheckState:
         :param pulumi.Input[str] ssl_check_domain: A valid fully qualified domain name (FQDN) to check its SSL certificate.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
+        :param pulumi.Input['CheckTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
@@ -661,6 +679,8 @@ class _CheckState:
             pulumi.set(__self__, "tags", tags)
         if teardown_snippet_id is not None:
             pulumi.set(__self__, "teardown_snippet_id", teardown_snippet_id)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if type is not None:
             pulumi.set(__self__, "type", type)
         if use_global_alert_settings is not None:
@@ -1015,6 +1035,18 @@ class _CheckState:
         pulumi.set(self, "teardown_snippet_id", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['CheckTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['CheckTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
         """
@@ -1073,6 +1105,7 @@ class Check(pulumi.CustomResource):
                  ssl_check_domain: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teardown_snippet_id: Optional[pulumi.Input[int]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['CheckTriggerIncidentArgs', 'CheckTriggerIncidentArgsDict']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
@@ -1109,6 +1142,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] ssl_check_domain: A valid fully qualified domain name (FQDN) to check its SSL certificate.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
+        :param pulumi.Input[Union['CheckTriggerIncidentArgs', 'CheckTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
@@ -1165,6 +1199,7 @@ class Check(pulumi.CustomResource):
                  ssl_check_domain: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  teardown_snippet_id: Optional[pulumi.Input[int]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['CheckTriggerIncidentArgs', 'CheckTriggerIncidentArgsDict']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
@@ -1209,6 +1244,7 @@ class Check(pulumi.CustomResource):
             __props__.__dict__["ssl_check_domain"] = ssl_check_domain
             __props__.__dict__["tags"] = tags
             __props__.__dict__["teardown_snippet_id"] = teardown_snippet_id
+            __props__.__dict__["trigger_incident"] = trigger_incident
             if type is None and not opts.urn:
                 raise TypeError("Missing required property 'type'")
             __props__.__dict__["type"] = type
@@ -1252,6 +1288,7 @@ class Check(pulumi.CustomResource):
             ssl_check_domain: Optional[pulumi.Input[str]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             teardown_snippet_id: Optional[pulumi.Input[int]] = None,
+            trigger_incident: Optional[pulumi.Input[Union['CheckTriggerIncidentArgs', 'CheckTriggerIncidentArgsDict']]] = None,
             type: Optional[pulumi.Input[str]] = None,
             use_global_alert_settings: Optional[pulumi.Input[bool]] = None) -> 'Check':
         """
@@ -1289,6 +1326,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] ssl_check_domain: A valid fully qualified domain name (FQDN) to check its SSL certificate.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
         :param pulumi.Input[int] teardown_snippet_id: An ID reference to a snippet to use in the teardown phase of an API check.
+        :param pulumi.Input[Union['CheckTriggerIncidentArgs', 'CheckTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[str] type: The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
@@ -1325,6 +1363,7 @@ class Check(pulumi.CustomResource):
         __props__.__dict__["ssl_check_domain"] = ssl_check_domain
         __props__.__dict__["tags"] = tags
         __props__.__dict__["teardown_snippet_id"] = teardown_snippet_id
+        __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["type"] = type
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return Check(resource_name, opts=opts, __props__=__props__)
@@ -1560,6 +1599,14 @@ class Check(pulumi.CustomResource):
         An ID reference to a snippet to use in the teardown phase of an API check.
         """
         return pulumi.get(self, "teardown_snippet_id")
+
+    @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> pulumi.Output[Optional['outputs.CheckTriggerIncident']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
 
     @property
     @pulumi.getter

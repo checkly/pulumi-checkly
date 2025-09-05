@@ -61,6 +61,8 @@ type HeartbeatMonitor struct {
 	Name pulumi.StringOutput `pulumi:"name"`
 	// A list of tags for organizing and filtering checks.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident HeartbeatMonitorTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
 }
@@ -112,6 +114,8 @@ type heartbeatMonitorState struct {
 	Name *string `pulumi:"name"`
 	// A list of tags for organizing and filtering checks.
 	Tags []string `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *HeartbeatMonitorTriggerIncident `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
@@ -128,6 +132,8 @@ type HeartbeatMonitorState struct {
 	Name pulumi.StringPtrInput
 	// A list of tags for organizing and filtering checks.
 	Tags pulumi.StringArrayInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident HeartbeatMonitorTriggerIncidentPtrInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
@@ -148,6 +154,8 @@ type heartbeatMonitorArgs struct {
 	Name *string `pulumi:"name"`
 	// A list of tags for organizing and filtering checks.
 	Tags []string `pulumi:"tags"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *HeartbeatMonitorTriggerIncident `pulumi:"triggerIncident"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
@@ -165,6 +173,8 @@ type HeartbeatMonitorArgs struct {
 	Name pulumi.StringPtrInput
 	// A list of tags for organizing and filtering checks.
 	Tags pulumi.StringArrayInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident HeartbeatMonitorTriggerIncidentPtrInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
@@ -288,6 +298,11 @@ func (o HeartbeatMonitorOutput) Name() pulumi.StringOutput {
 // A list of tags for organizing and filtering checks.
 func (o HeartbeatMonitorOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *HeartbeatMonitor) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+func (o HeartbeatMonitorOutput) TriggerIncident() HeartbeatMonitorTriggerIncidentPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitor) HeartbeatMonitorTriggerIncidentPtrOutput { return v.TriggerIncident }).(HeartbeatMonitorTriggerIncidentPtrOutput)
 }
 
 // When true, the account level alert settings will be used, not the alert setting defined on this check.

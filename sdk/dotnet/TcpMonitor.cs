@@ -225,6 +225,12 @@ namespace Pulumi.Checkly
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
         /// <summary>
+        /// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        /// </summary>
+        [Output("triggerIncident")]
+        public Output<Outputs.TcpMonitorTriggerIncident?> TriggerIncident { get; private set; } = null!;
+
+        /// <summary>
         /// When true, the account level alert settings will be used, not the alert setting defined on this check.
         /// </summary>
         [Output("useGlobalAlertSettings")]
@@ -413,6 +419,12 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
+        /// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        /// </summary>
+        [Input("triggerIncident")]
+        public Input<Inputs.TcpMonitorTriggerIncidentArgs>? TriggerIncident { get; set; }
+
+        /// <summary>
         /// When true, the account level alert settings will be used, not the alert setting defined on this check.
         /// </summary>
         [Input("useGlobalAlertSettings")]
@@ -560,6 +572,12 @@ namespace Pulumi.Checkly
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
+
+        /// <summary>
+        /// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        /// </summary>
+        [Input("triggerIncident")]
+        public Input<Inputs.TcpMonitorTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
         /// When true, the account level alert settings will be used, not the alert setting defined on this check.

@@ -4579,6 +4579,219 @@ func (o CheckRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type CheckTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// CheckTriggerIncidentInput is an input type that accepts CheckTriggerIncidentArgs and CheckTriggerIncidentOutput values.
+// You can construct a concrete instance of `CheckTriggerIncidentInput` via:
+//
+//	CheckTriggerIncidentArgs{...}
+type CheckTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToCheckTriggerIncidentOutput() CheckTriggerIncidentOutput
+	ToCheckTriggerIncidentOutputWithContext(context.Context) CheckTriggerIncidentOutput
+}
+
+type CheckTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (CheckTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckTriggerIncident)(nil)).Elem()
+}
+
+func (i CheckTriggerIncidentArgs) ToCheckTriggerIncidentOutput() CheckTriggerIncidentOutput {
+	return i.ToCheckTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i CheckTriggerIncidentArgs) ToCheckTriggerIncidentOutputWithContext(ctx context.Context) CheckTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckTriggerIncidentOutput)
+}
+
+func (i CheckTriggerIncidentArgs) ToCheckTriggerIncidentPtrOutput() CheckTriggerIncidentPtrOutput {
+	return i.ToCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i CheckTriggerIncidentArgs) ToCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) CheckTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckTriggerIncidentOutput).ToCheckTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// CheckTriggerIncidentPtrInput is an input type that accepts CheckTriggerIncidentArgs, CheckTriggerIncidentPtr and CheckTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `CheckTriggerIncidentPtrInput` via:
+//
+//	        CheckTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToCheckTriggerIncidentPtrOutput() CheckTriggerIncidentPtrOutput
+	ToCheckTriggerIncidentPtrOutputWithContext(context.Context) CheckTriggerIncidentPtrOutput
+}
+
+type checkTriggerIncidentPtrType CheckTriggerIncidentArgs
+
+func CheckTriggerIncidentPtr(v *CheckTriggerIncidentArgs) CheckTriggerIncidentPtrInput {
+	return (*checkTriggerIncidentPtrType)(v)
+}
+
+func (*checkTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckTriggerIncident)(nil)).Elem()
+}
+
+func (i *checkTriggerIncidentPtrType) ToCheckTriggerIncidentPtrOutput() CheckTriggerIncidentPtrOutput {
+	return i.ToCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *checkTriggerIncidentPtrType) ToCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) CheckTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckTriggerIncidentPtrOutput)
+}
+
+type CheckTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (CheckTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckTriggerIncident)(nil)).Elem()
+}
+
+func (o CheckTriggerIncidentOutput) ToCheckTriggerIncidentOutput() CheckTriggerIncidentOutput {
+	return o
+}
+
+func (o CheckTriggerIncidentOutput) ToCheckTriggerIncidentOutputWithContext(ctx context.Context) CheckTriggerIncidentOutput {
+	return o
+}
+
+func (o CheckTriggerIncidentOutput) ToCheckTriggerIncidentPtrOutput() CheckTriggerIncidentPtrOutput {
+	return o.ToCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o CheckTriggerIncidentOutput) ToCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) CheckTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckTriggerIncident) *CheckTriggerIncident {
+		return &v
+	}).(CheckTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o CheckTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o CheckTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o CheckTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o CheckTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o CheckTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type CheckTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckTriggerIncident)(nil)).Elem()
+}
+
+func (o CheckTriggerIncidentPtrOutput) ToCheckTriggerIncidentPtrOutput() CheckTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o CheckTriggerIncidentPtrOutput) ToCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) CheckTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o CheckTriggerIncidentPtrOutput) Elem() CheckTriggerIncidentOutput {
+	return o.ApplyT(func(v *CheckTriggerIncident) CheckTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret CheckTriggerIncident
+		return ret
+	}).(CheckTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o CheckTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o CheckTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o CheckTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o CheckTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o CheckTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
 type HeartbeatCheckAlertChannelSubscription struct {
 	Activated bool `pulumi:"activated"`
 	ChannelId int  `pulumi:"channelId"`
@@ -5628,6 +5841,219 @@ func (o HeartbeatCheckHeartbeatPtrOutput) PingToken() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type HeartbeatCheckTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// HeartbeatCheckTriggerIncidentInput is an input type that accepts HeartbeatCheckTriggerIncidentArgs and HeartbeatCheckTriggerIncidentOutput values.
+// You can construct a concrete instance of `HeartbeatCheckTriggerIncidentInput` via:
+//
+//	HeartbeatCheckTriggerIncidentArgs{...}
+type HeartbeatCheckTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToHeartbeatCheckTriggerIncidentOutput() HeartbeatCheckTriggerIncidentOutput
+	ToHeartbeatCheckTriggerIncidentOutputWithContext(context.Context) HeartbeatCheckTriggerIncidentOutput
+}
+
+type HeartbeatCheckTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (HeartbeatCheckTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatCheckTriggerIncident)(nil)).Elem()
+}
+
+func (i HeartbeatCheckTriggerIncidentArgs) ToHeartbeatCheckTriggerIncidentOutput() HeartbeatCheckTriggerIncidentOutput {
+	return i.ToHeartbeatCheckTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i HeartbeatCheckTriggerIncidentArgs) ToHeartbeatCheckTriggerIncidentOutputWithContext(ctx context.Context) HeartbeatCheckTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatCheckTriggerIncidentOutput)
+}
+
+func (i HeartbeatCheckTriggerIncidentArgs) ToHeartbeatCheckTriggerIncidentPtrOutput() HeartbeatCheckTriggerIncidentPtrOutput {
+	return i.ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i HeartbeatCheckTriggerIncidentArgs) ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatCheckTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatCheckTriggerIncidentOutput).ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// HeartbeatCheckTriggerIncidentPtrInput is an input type that accepts HeartbeatCheckTriggerIncidentArgs, HeartbeatCheckTriggerIncidentPtr and HeartbeatCheckTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `HeartbeatCheckTriggerIncidentPtrInput` via:
+//
+//	        HeartbeatCheckTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type HeartbeatCheckTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToHeartbeatCheckTriggerIncidentPtrOutput() HeartbeatCheckTriggerIncidentPtrOutput
+	ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(context.Context) HeartbeatCheckTriggerIncidentPtrOutput
+}
+
+type heartbeatCheckTriggerIncidentPtrType HeartbeatCheckTriggerIncidentArgs
+
+func HeartbeatCheckTriggerIncidentPtr(v *HeartbeatCheckTriggerIncidentArgs) HeartbeatCheckTriggerIncidentPtrInput {
+	return (*heartbeatCheckTriggerIncidentPtrType)(v)
+}
+
+func (*heartbeatCheckTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatCheckTriggerIncident)(nil)).Elem()
+}
+
+func (i *heartbeatCheckTriggerIncidentPtrType) ToHeartbeatCheckTriggerIncidentPtrOutput() HeartbeatCheckTriggerIncidentPtrOutput {
+	return i.ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *heartbeatCheckTriggerIncidentPtrType) ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatCheckTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatCheckTriggerIncidentPtrOutput)
+}
+
+type HeartbeatCheckTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatCheckTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatCheckTriggerIncident)(nil)).Elem()
+}
+
+func (o HeartbeatCheckTriggerIncidentOutput) ToHeartbeatCheckTriggerIncidentOutput() HeartbeatCheckTriggerIncidentOutput {
+	return o
+}
+
+func (o HeartbeatCheckTriggerIncidentOutput) ToHeartbeatCheckTriggerIncidentOutputWithContext(ctx context.Context) HeartbeatCheckTriggerIncidentOutput {
+	return o
+}
+
+func (o HeartbeatCheckTriggerIncidentOutput) ToHeartbeatCheckTriggerIncidentPtrOutput() HeartbeatCheckTriggerIncidentPtrOutput {
+	return o.ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o HeartbeatCheckTriggerIncidentOutput) ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatCheckTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HeartbeatCheckTriggerIncident) *HeartbeatCheckTriggerIncident {
+		return &v
+	}).(HeartbeatCheckTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o HeartbeatCheckTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatCheckTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o HeartbeatCheckTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatCheckTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o HeartbeatCheckTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v HeartbeatCheckTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o HeartbeatCheckTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatCheckTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o HeartbeatCheckTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatCheckTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type HeartbeatCheckTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatCheckTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatCheckTriggerIncident)(nil)).Elem()
+}
+
+func (o HeartbeatCheckTriggerIncidentPtrOutput) ToHeartbeatCheckTriggerIncidentPtrOutput() HeartbeatCheckTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o HeartbeatCheckTriggerIncidentPtrOutput) ToHeartbeatCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatCheckTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o HeartbeatCheckTriggerIncidentPtrOutput) Elem() HeartbeatCheckTriggerIncidentOutput {
+	return o.ApplyT(func(v *HeartbeatCheckTriggerIncident) HeartbeatCheckTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret HeartbeatCheckTriggerIncident
+		return ret
+	}).(HeartbeatCheckTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o HeartbeatCheckTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o HeartbeatCheckTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o HeartbeatCheckTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *HeartbeatCheckTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o HeartbeatCheckTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o HeartbeatCheckTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
 type HeartbeatMonitorAlertChannelSubscription struct {
 	Activated bool `pulumi:"activated"`
 	ChannelId int  `pulumi:"channelId"`
@@ -6674,6 +7100,219 @@ func (o HeartbeatMonitorHeartbeatPtrOutput) PingToken() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.PingToken
+	}).(pulumi.StringPtrOutput)
+}
+
+type HeartbeatMonitorTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// HeartbeatMonitorTriggerIncidentInput is an input type that accepts HeartbeatMonitorTriggerIncidentArgs and HeartbeatMonitorTriggerIncidentOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorTriggerIncidentInput` via:
+//
+//	HeartbeatMonitorTriggerIncidentArgs{...}
+type HeartbeatMonitorTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorTriggerIncidentOutput() HeartbeatMonitorTriggerIncidentOutput
+	ToHeartbeatMonitorTriggerIncidentOutputWithContext(context.Context) HeartbeatMonitorTriggerIncidentOutput
+}
+
+type HeartbeatMonitorTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (HeartbeatMonitorTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i HeartbeatMonitorTriggerIncidentArgs) ToHeartbeatMonitorTriggerIncidentOutput() HeartbeatMonitorTriggerIncidentOutput {
+	return i.ToHeartbeatMonitorTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorTriggerIncidentArgs) ToHeartbeatMonitorTriggerIncidentOutputWithContext(ctx context.Context) HeartbeatMonitorTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorTriggerIncidentOutput)
+}
+
+func (i HeartbeatMonitorTriggerIncidentArgs) ToHeartbeatMonitorTriggerIncidentPtrOutput() HeartbeatMonitorTriggerIncidentPtrOutput {
+	return i.ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i HeartbeatMonitorTriggerIncidentArgs) ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorTriggerIncidentOutput).ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// HeartbeatMonitorTriggerIncidentPtrInput is an input type that accepts HeartbeatMonitorTriggerIncidentArgs, HeartbeatMonitorTriggerIncidentPtr and HeartbeatMonitorTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `HeartbeatMonitorTriggerIncidentPtrInput` via:
+//
+//	        HeartbeatMonitorTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type HeartbeatMonitorTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToHeartbeatMonitorTriggerIncidentPtrOutput() HeartbeatMonitorTriggerIncidentPtrOutput
+	ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(context.Context) HeartbeatMonitorTriggerIncidentPtrOutput
+}
+
+type heartbeatMonitorTriggerIncidentPtrType HeartbeatMonitorTriggerIncidentArgs
+
+func HeartbeatMonitorTriggerIncidentPtr(v *HeartbeatMonitorTriggerIncidentArgs) HeartbeatMonitorTriggerIncidentPtrInput {
+	return (*heartbeatMonitorTriggerIncidentPtrType)(v)
+}
+
+func (*heartbeatMonitorTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i *heartbeatMonitorTriggerIncidentPtrType) ToHeartbeatMonitorTriggerIncidentPtrOutput() HeartbeatMonitorTriggerIncidentPtrOutput {
+	return i.ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *heartbeatMonitorTriggerIncidentPtrType) ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HeartbeatMonitorTriggerIncidentPtrOutput)
+}
+
+type HeartbeatMonitorTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HeartbeatMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorTriggerIncidentOutput) ToHeartbeatMonitorTriggerIncidentOutput() HeartbeatMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o HeartbeatMonitorTriggerIncidentOutput) ToHeartbeatMonitorTriggerIncidentOutputWithContext(ctx context.Context) HeartbeatMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o HeartbeatMonitorTriggerIncidentOutput) ToHeartbeatMonitorTriggerIncidentPtrOutput() HeartbeatMonitorTriggerIncidentPtrOutput {
+	return o.ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o HeartbeatMonitorTriggerIncidentOutput) ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatMonitorTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HeartbeatMonitorTriggerIncident) *HeartbeatMonitorTriggerIncident {
+		return &v
+	}).(HeartbeatMonitorTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o HeartbeatMonitorTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatMonitorTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o HeartbeatMonitorTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatMonitorTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o HeartbeatMonitorTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v HeartbeatMonitorTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o HeartbeatMonitorTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatMonitorTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o HeartbeatMonitorTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v HeartbeatMonitorTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type HeartbeatMonitorTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (HeartbeatMonitorTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**HeartbeatMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) ToHeartbeatMonitorTriggerIncidentPtrOutput() HeartbeatMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) ToHeartbeatMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) HeartbeatMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) Elem() HeartbeatMonitorTriggerIncidentOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorTriggerIncident) HeartbeatMonitorTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret HeartbeatMonitorTriggerIncident
+		return ret
+	}).(HeartbeatMonitorTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o HeartbeatMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -8131,6 +8770,219 @@ func (o TcpCheckRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TcpCheckTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// TcpCheckTriggerIncidentInput is an input type that accepts TcpCheckTriggerIncidentArgs and TcpCheckTriggerIncidentOutput values.
+// You can construct a concrete instance of `TcpCheckTriggerIncidentInput` via:
+//
+//	TcpCheckTriggerIncidentArgs{...}
+type TcpCheckTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToTcpCheckTriggerIncidentOutput() TcpCheckTriggerIncidentOutput
+	ToTcpCheckTriggerIncidentOutputWithContext(context.Context) TcpCheckTriggerIncidentOutput
+}
+
+type TcpCheckTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (TcpCheckTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckTriggerIncident)(nil)).Elem()
+}
+
+func (i TcpCheckTriggerIncidentArgs) ToTcpCheckTriggerIncidentOutput() TcpCheckTriggerIncidentOutput {
+	return i.ToTcpCheckTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i TcpCheckTriggerIncidentArgs) ToTcpCheckTriggerIncidentOutputWithContext(ctx context.Context) TcpCheckTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckTriggerIncidentOutput)
+}
+
+func (i TcpCheckTriggerIncidentArgs) ToTcpCheckTriggerIncidentPtrOutput() TcpCheckTriggerIncidentPtrOutput {
+	return i.ToTcpCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i TcpCheckTriggerIncidentArgs) ToTcpCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpCheckTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckTriggerIncidentOutput).ToTcpCheckTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// TcpCheckTriggerIncidentPtrInput is an input type that accepts TcpCheckTriggerIncidentArgs, TcpCheckTriggerIncidentPtr and TcpCheckTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `TcpCheckTriggerIncidentPtrInput` via:
+//
+//	        TcpCheckTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpCheckTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToTcpCheckTriggerIncidentPtrOutput() TcpCheckTriggerIncidentPtrOutput
+	ToTcpCheckTriggerIncidentPtrOutputWithContext(context.Context) TcpCheckTriggerIncidentPtrOutput
+}
+
+type tcpCheckTriggerIncidentPtrType TcpCheckTriggerIncidentArgs
+
+func TcpCheckTriggerIncidentPtr(v *TcpCheckTriggerIncidentArgs) TcpCheckTriggerIncidentPtrInput {
+	return (*tcpCheckTriggerIncidentPtrType)(v)
+}
+
+func (*tcpCheckTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckTriggerIncident)(nil)).Elem()
+}
+
+func (i *tcpCheckTriggerIncidentPtrType) ToTcpCheckTriggerIncidentPtrOutput() TcpCheckTriggerIncidentPtrOutput {
+	return i.ToTcpCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpCheckTriggerIncidentPtrType) ToTcpCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpCheckTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpCheckTriggerIncidentPtrOutput)
+}
+
+type TcpCheckTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpCheckTriggerIncident)(nil)).Elem()
+}
+
+func (o TcpCheckTriggerIncidentOutput) ToTcpCheckTriggerIncidentOutput() TcpCheckTriggerIncidentOutput {
+	return o
+}
+
+func (o TcpCheckTriggerIncidentOutput) ToTcpCheckTriggerIncidentOutputWithContext(ctx context.Context) TcpCheckTriggerIncidentOutput {
+	return o
+}
+
+func (o TcpCheckTriggerIncidentOutput) ToTcpCheckTriggerIncidentPtrOutput() TcpCheckTriggerIncidentPtrOutput {
+	return o.ToTcpCheckTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o TcpCheckTriggerIncidentOutput) ToTcpCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpCheckTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpCheckTriggerIncident) *TcpCheckTriggerIncident {
+		return &v
+	}).(TcpCheckTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o TcpCheckTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o TcpCheckTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o TcpCheckTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v TcpCheckTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o TcpCheckTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o TcpCheckTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpCheckTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type TcpCheckTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpCheckTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpCheckTriggerIncident)(nil)).Elem()
+}
+
+func (o TcpCheckTriggerIncidentPtrOutput) ToTcpCheckTriggerIncidentPtrOutput() TcpCheckTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o TcpCheckTriggerIncidentPtrOutput) ToTcpCheckTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpCheckTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o TcpCheckTriggerIncidentPtrOutput) Elem() TcpCheckTriggerIncidentOutput {
+	return o.ApplyT(func(v *TcpCheckTriggerIncident) TcpCheckTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret TcpCheckTriggerIncident
+		return ret
+	}).(TcpCheckTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o TcpCheckTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o TcpCheckTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o TcpCheckTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TcpCheckTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o TcpCheckTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o TcpCheckTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpCheckTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
 type TcpMonitorAlertChannelSubscription struct {
 	Activated bool `pulumi:"activated"`
 	ChannelId int  `pulumi:"channelId"`
@@ -9381,6 +10233,219 @@ func (o TcpMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 			return nil
 		}
 		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type TcpMonitorTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// TcpMonitorTriggerIncidentInput is an input type that accepts TcpMonitorTriggerIncidentArgs and TcpMonitorTriggerIncidentOutput values.
+// You can construct a concrete instance of `TcpMonitorTriggerIncidentInput` via:
+//
+//	TcpMonitorTriggerIncidentArgs{...}
+type TcpMonitorTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToTcpMonitorTriggerIncidentOutput() TcpMonitorTriggerIncidentOutput
+	ToTcpMonitorTriggerIncidentOutputWithContext(context.Context) TcpMonitorTriggerIncidentOutput
+}
+
+type TcpMonitorTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (TcpMonitorTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i TcpMonitorTriggerIncidentArgs) ToTcpMonitorTriggerIncidentOutput() TcpMonitorTriggerIncidentOutput {
+	return i.ToTcpMonitorTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorTriggerIncidentArgs) ToTcpMonitorTriggerIncidentOutputWithContext(ctx context.Context) TcpMonitorTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorTriggerIncidentOutput)
+}
+
+func (i TcpMonitorTriggerIncidentArgs) ToTcpMonitorTriggerIncidentPtrOutput() TcpMonitorTriggerIncidentPtrOutput {
+	return i.ToTcpMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i TcpMonitorTriggerIncidentArgs) ToTcpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorTriggerIncidentOutput).ToTcpMonitorTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// TcpMonitorTriggerIncidentPtrInput is an input type that accepts TcpMonitorTriggerIncidentArgs, TcpMonitorTriggerIncidentPtr and TcpMonitorTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `TcpMonitorTriggerIncidentPtrInput` via:
+//
+//	        TcpMonitorTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type TcpMonitorTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToTcpMonitorTriggerIncidentPtrOutput() TcpMonitorTriggerIncidentPtrOutput
+	ToTcpMonitorTriggerIncidentPtrOutputWithContext(context.Context) TcpMonitorTriggerIncidentPtrOutput
+}
+
+type tcpMonitorTriggerIncidentPtrType TcpMonitorTriggerIncidentArgs
+
+func TcpMonitorTriggerIncidentPtr(v *TcpMonitorTriggerIncidentArgs) TcpMonitorTriggerIncidentPtrInput {
+	return (*tcpMonitorTriggerIncidentPtrType)(v)
+}
+
+func (*tcpMonitorTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i *tcpMonitorTriggerIncidentPtrType) ToTcpMonitorTriggerIncidentPtrOutput() TcpMonitorTriggerIncidentPtrOutput {
+	return i.ToTcpMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *tcpMonitorTriggerIncidentPtrType) ToTcpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TcpMonitorTriggerIncidentPtrOutput)
+}
+
+type TcpMonitorTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TcpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o TcpMonitorTriggerIncidentOutput) ToTcpMonitorTriggerIncidentOutput() TcpMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o TcpMonitorTriggerIncidentOutput) ToTcpMonitorTriggerIncidentOutputWithContext(ctx context.Context) TcpMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o TcpMonitorTriggerIncidentOutput) ToTcpMonitorTriggerIncidentPtrOutput() TcpMonitorTriggerIncidentPtrOutput {
+	return o.ToTcpMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o TcpMonitorTriggerIncidentOutput) ToTcpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpMonitorTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TcpMonitorTriggerIncident) *TcpMonitorTriggerIncident {
+		return &v
+	}).(TcpMonitorTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o TcpMonitorTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o TcpMonitorTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o TcpMonitorTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v TcpMonitorTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o TcpMonitorTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o TcpMonitorTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v TcpMonitorTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type TcpMonitorTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (TcpMonitorTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TcpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o TcpMonitorTriggerIncidentPtrOutput) ToTcpMonitorTriggerIncidentPtrOutput() TcpMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o TcpMonitorTriggerIncidentPtrOutput) ToTcpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TcpMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o TcpMonitorTriggerIncidentPtrOutput) Elem() TcpMonitorTriggerIncidentOutput {
+	return o.ApplyT(func(v *TcpMonitorTriggerIncident) TcpMonitorTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret TcpMonitorTriggerIncident
+		return ret
+	}).(TcpMonitorTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o TcpMonitorTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o TcpMonitorTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o TcpMonitorTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o TcpMonitorTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o TcpMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -10662,6 +11727,219 @@ func (o UrlMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type UrlMonitorTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// UrlMonitorTriggerIncidentInput is an input type that accepts UrlMonitorTriggerIncidentArgs and UrlMonitorTriggerIncidentOutput values.
+// You can construct a concrete instance of `UrlMonitorTriggerIncidentInput` via:
+//
+//	UrlMonitorTriggerIncidentArgs{...}
+type UrlMonitorTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToUrlMonitorTriggerIncidentOutput() UrlMonitorTriggerIncidentOutput
+	ToUrlMonitorTriggerIncidentOutputWithContext(context.Context) UrlMonitorTriggerIncidentOutput
+}
+
+type UrlMonitorTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (UrlMonitorTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i UrlMonitorTriggerIncidentArgs) ToUrlMonitorTriggerIncidentOutput() UrlMonitorTriggerIncidentOutput {
+	return i.ToUrlMonitorTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorTriggerIncidentArgs) ToUrlMonitorTriggerIncidentOutputWithContext(ctx context.Context) UrlMonitorTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorTriggerIncidentOutput)
+}
+
+func (i UrlMonitorTriggerIncidentArgs) ToUrlMonitorTriggerIncidentPtrOutput() UrlMonitorTriggerIncidentPtrOutput {
+	return i.ToUrlMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i UrlMonitorTriggerIncidentArgs) ToUrlMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) UrlMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorTriggerIncidentOutput).ToUrlMonitorTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// UrlMonitorTriggerIncidentPtrInput is an input type that accepts UrlMonitorTriggerIncidentArgs, UrlMonitorTriggerIncidentPtr and UrlMonitorTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `UrlMonitorTriggerIncidentPtrInput` via:
+//
+//	        UrlMonitorTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type UrlMonitorTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToUrlMonitorTriggerIncidentPtrOutput() UrlMonitorTriggerIncidentPtrOutput
+	ToUrlMonitorTriggerIncidentPtrOutputWithContext(context.Context) UrlMonitorTriggerIncidentPtrOutput
+}
+
+type urlMonitorTriggerIncidentPtrType UrlMonitorTriggerIncidentArgs
+
+func UrlMonitorTriggerIncidentPtr(v *UrlMonitorTriggerIncidentArgs) UrlMonitorTriggerIncidentPtrInput {
+	return (*urlMonitorTriggerIncidentPtrType)(v)
+}
+
+func (*urlMonitorTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i *urlMonitorTriggerIncidentPtrType) ToUrlMonitorTriggerIncidentPtrOutput() UrlMonitorTriggerIncidentPtrOutput {
+	return i.ToUrlMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *urlMonitorTriggerIncidentPtrType) ToUrlMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) UrlMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UrlMonitorTriggerIncidentPtrOutput)
+}
+
+type UrlMonitorTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UrlMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o UrlMonitorTriggerIncidentOutput) ToUrlMonitorTriggerIncidentOutput() UrlMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o UrlMonitorTriggerIncidentOutput) ToUrlMonitorTriggerIncidentOutputWithContext(ctx context.Context) UrlMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o UrlMonitorTriggerIncidentOutput) ToUrlMonitorTriggerIncidentPtrOutput() UrlMonitorTriggerIncidentPtrOutput {
+	return o.ToUrlMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o UrlMonitorTriggerIncidentOutput) ToUrlMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) UrlMonitorTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UrlMonitorTriggerIncident) *UrlMonitorTriggerIncident {
+		return &v
+	}).(UrlMonitorTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o UrlMonitorTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o UrlMonitorTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o UrlMonitorTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v UrlMonitorTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o UrlMonitorTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o UrlMonitorTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v UrlMonitorTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type UrlMonitorTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (UrlMonitorTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**UrlMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o UrlMonitorTriggerIncidentPtrOutput) ToUrlMonitorTriggerIncidentPtrOutput() UrlMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o UrlMonitorTriggerIncidentPtrOutput) ToUrlMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) UrlMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o UrlMonitorTriggerIncidentPtrOutput) Elem() UrlMonitorTriggerIncidentOutput {
+	return o.ApplyT(func(v *UrlMonitorTriggerIncident) UrlMonitorTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret UrlMonitorTriggerIncident
+		return ret
+	}).(UrlMonitorTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o UrlMonitorTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o UrlMonitorTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o UrlMonitorTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o UrlMonitorTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o UrlMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UrlMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelCallInput)(nil)).Elem(), AlertChannelCallArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelCallPtrInput)(nil)).Elem(), AlertChannelCallArgs{})
@@ -10725,6 +12003,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestBasicAuthPtrInput)(nil)).Elem(), CheckRequestBasicAuthArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRetryStrategyInput)(nil)).Elem(), CheckRetryStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRetryStrategyPtrInput)(nil)).Elem(), CheckRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckTriggerIncidentInput)(nil)).Elem(), CheckTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckTriggerIncidentPtrInput)(nil)).Elem(), CheckTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertChannelSubscriptionInput)(nil)).Elem(), HeartbeatCheckAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertChannelSubscriptionArrayInput)(nil)).Elem(), HeartbeatCheckAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertSettingsInput)(nil)).Elem(), HeartbeatCheckAlertSettingsArgs{})
@@ -10741,6 +12021,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), HeartbeatCheckAlertSettingsTimeBasedEscalationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckHeartbeatPtrInput)(nil)).Elem(), HeartbeatCheckHeartbeatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckTriggerIncidentInput)(nil)).Elem(), HeartbeatCheckTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckTriggerIncidentPtrInput)(nil)).Elem(), HeartbeatCheckTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertChannelSubscriptionInput)(nil)).Elem(), HeartbeatMonitorAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), HeartbeatMonitorAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsArgs{})
@@ -10757,6 +12039,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), HeartbeatMonitorAlertSettingsTimeBasedEscalationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorHeartbeatInput)(nil)).Elem(), HeartbeatMonitorHeartbeatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorHeartbeatPtrInput)(nil)).Elem(), HeartbeatMonitorHeartbeatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorTriggerIncidentInput)(nil)).Elem(), HeartbeatMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorTriggerIncidentPtrInput)(nil)).Elem(), HeartbeatMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardInput)(nil)).Elem(), StatusPageCardArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardArrayInput)(nil)).Elem(), StatusPageCardArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentInput)(nil)).Elem(), StatusPageCardServiceAttachmentArgs{})
@@ -10779,6 +12063,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRequestAssertionArrayInput)(nil)).Elem(), TcpCheckRequestAssertionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRetryStrategyInput)(nil)).Elem(), TcpCheckRetryStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckRetryStrategyPtrInput)(nil)).Elem(), TcpCheckRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckTriggerIncidentInput)(nil)).Elem(), TcpCheckTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckTriggerIncidentPtrInput)(nil)).Elem(), TcpCheckTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertChannelSubscriptionInput)(nil)).Elem(), TcpMonitorAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), TcpMonitorAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorAlertSettingsInput)(nil)).Elem(), TcpMonitorAlertSettingsArgs{})
@@ -10797,6 +12083,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRequestAssertionArrayInput)(nil)).Elem(), TcpMonitorRequestAssertionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRetryStrategyInput)(nil)).Elem(), TcpMonitorRetryStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRetryStrategyPtrInput)(nil)).Elem(), TcpMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorTriggerIncidentInput)(nil)).Elem(), TcpMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorTriggerIncidentPtrInput)(nil)).Elem(), TcpMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertChannelSubscriptionInput)(nil)).Elem(), UrlMonitorAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), UrlMonitorAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsInput)(nil)).Elem(), UrlMonitorAlertSettingsArgs{})
@@ -10815,6 +12103,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRequestAssertionArrayInput)(nil)).Elem(), UrlMonitorRequestAssertionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRetryStrategyInput)(nil)).Elem(), UrlMonitorRetryStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorRetryStrategyPtrInput)(nil)).Elem(), UrlMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorTriggerIncidentInput)(nil)).Elem(), UrlMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorTriggerIncidentPtrInput)(nil)).Elem(), UrlMonitorTriggerIncidentArgs{})
 	pulumi.RegisterOutputType(AlertChannelCallOutput{})
 	pulumi.RegisterOutputType(AlertChannelCallPtrOutput{})
 	pulumi.RegisterOutputType(AlertChannelEmailOutput{})
@@ -10877,6 +12167,8 @@ func init() {
 	pulumi.RegisterOutputType(CheckRequestBasicAuthPtrOutput{})
 	pulumi.RegisterOutputType(CheckRetryStrategyOutput{})
 	pulumi.RegisterOutputType(CheckRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(CheckTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(CheckTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckAlertSettingsOutput{})
@@ -10893,6 +12185,8 @@ func init() {
 	pulumi.RegisterOutputType(HeartbeatCheckAlertSettingsTimeBasedEscalationArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckHeartbeatPtrOutput{})
+	pulumi.RegisterOutputType(HeartbeatCheckTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(HeartbeatCheckTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(HeartbeatMonitorAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(HeartbeatMonitorAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsOutput{})
@@ -10909,6 +12203,8 @@ func init() {
 	pulumi.RegisterOutputType(HeartbeatMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatMonitorHeartbeatOutput{})
 	pulumi.RegisterOutputType(HeartbeatMonitorHeartbeatPtrOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(HeartbeatMonitorTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(StatusPageCardOutput{})
 	pulumi.RegisterOutputType(StatusPageCardArrayOutput{})
 	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentOutput{})
@@ -10931,6 +12227,8 @@ func init() {
 	pulumi.RegisterOutputType(TcpCheckRequestAssertionArrayOutput{})
 	pulumi.RegisterOutputType(TcpCheckRetryStrategyOutput{})
 	pulumi.RegisterOutputType(TcpCheckRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(TcpCheckTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(TcpCheckTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(TcpMonitorAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(TcpMonitorAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(TcpMonitorAlertSettingsOutput{})
@@ -10949,6 +12247,8 @@ func init() {
 	pulumi.RegisterOutputType(TcpMonitorRequestAssertionArrayOutput{})
 	pulumi.RegisterOutputType(TcpMonitorRetryStrategyOutput{})
 	pulumi.RegisterOutputType(TcpMonitorRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(TcpMonitorTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(TcpMonitorTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(UrlMonitorAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(UrlMonitorAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(UrlMonitorAlertSettingsOutput{})
@@ -10967,4 +12267,6 @@ func init() {
 	pulumi.RegisterOutputType(UrlMonitorRequestAssertionArrayOutput{})
 	pulumi.RegisterOutputType(UrlMonitorRetryStrategyOutput{})
 	pulumi.RegisterOutputType(UrlMonitorRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(UrlMonitorTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(UrlMonitorTriggerIncidentPtrOutput{})
 }

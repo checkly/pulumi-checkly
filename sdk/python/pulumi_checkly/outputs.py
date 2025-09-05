@@ -47,6 +47,7 @@ __all__ = [
     'CheckRequestAssertion',
     'CheckRequestBasicAuth',
     'CheckRetryStrategy',
+    'CheckTriggerIncident',
     'HeartbeatCheckAlertChannelSubscription',
     'HeartbeatCheckAlertSettings',
     'HeartbeatCheckAlertSettingsParallelRunFailureThreshold',
@@ -55,6 +56,7 @@ __all__ = [
     'HeartbeatCheckAlertSettingsSslCertificate',
     'HeartbeatCheckAlertSettingsTimeBasedEscalation',
     'HeartbeatCheckHeartbeat',
+    'HeartbeatCheckTriggerIncident',
     'HeartbeatMonitorAlertChannelSubscription',
     'HeartbeatMonitorAlertSettings',
     'HeartbeatMonitorAlertSettingsParallelRunFailureThreshold',
@@ -63,6 +65,7 @@ __all__ = [
     'HeartbeatMonitorAlertSettingsSslCertificate',
     'HeartbeatMonitorAlertSettingsTimeBasedEscalation',
     'HeartbeatMonitorHeartbeat',
+    'HeartbeatMonitorTriggerIncident',
     'StatusPageCard',
     'StatusPageCardServiceAttachment',
     'TcpCheckAlertChannelSubscription',
@@ -74,6 +77,7 @@ __all__ = [
     'TcpCheckRequest',
     'TcpCheckRequestAssertion',
     'TcpCheckRetryStrategy',
+    'TcpCheckTriggerIncident',
     'TcpMonitorAlertChannelSubscription',
     'TcpMonitorAlertSettings',
     'TcpMonitorAlertSettingsParallelRunFailureThreshold',
@@ -83,6 +87,7 @@ __all__ = [
     'TcpMonitorRequest',
     'TcpMonitorRequestAssertion',
     'TcpMonitorRetryStrategy',
+    'TcpMonitorTriggerIncident',
     'UrlMonitorAlertChannelSubscription',
     'UrlMonitorAlertSettings',
     'UrlMonitorAlertSettingsParallelRunFailureThreshold',
@@ -92,6 +97,7 @@ __all__ = [
     'UrlMonitorRequest',
     'UrlMonitorRequestAssertion',
     'UrlMonitorRetryStrategy',
+    'UrlMonitorTriggerIncident',
 ]
 
 @pulumi.output_type
@@ -1593,6 +1599,87 @@ class CheckRetryStrategy(dict):
 
 
 @pulumi.output_type
+class CheckTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: str,
+                 name: str,
+                 notify_subscribers: bool,
+                 service_id: str,
+                 severity: str):
+        """
+        :param str description: A detailed description of the incident.
+        :param str name: The name of the incident.
+        :param bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param str service_id: The status page service that this incident will be associated with.
+        :param str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @property
+    @pulumi.getter
+    def severity(self) -> str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+
+@pulumi.output_type
 class HeartbeatCheckAlertChannelSubscription(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1980,6 +2067,87 @@ class HeartbeatCheckHeartbeat(dict):
 
 
 @pulumi.output_type
+class HeartbeatCheckTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatCheckTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatCheckTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatCheckTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: str,
+                 name: str,
+                 notify_subscribers: bool,
+                 service_id: str,
+                 severity: str):
+        """
+        :param str description: A detailed description of the incident.
+        :param str name: The name of the incident.
+        :param bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param str service_id: The status page service that this incident will be associated with.
+        :param str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @property
+    @pulumi.getter
+    def severity(self) -> str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+
+@pulumi.output_type
 class HeartbeatMonitorAlertChannelSubscription(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -2364,6 +2532,87 @@ class HeartbeatMonitorHeartbeat(dict):
         Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
         """
         return pulumi.get(self, "ping_token")
+
+
+@pulumi.output_type
+class HeartbeatMonitorTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HeartbeatMonitorTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HeartbeatMonitorTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HeartbeatMonitorTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: str,
+                 name: str,
+                 notify_subscribers: bool,
+                 service_id: str,
+                 severity: str):
+        """
+        :param str description: A detailed description of the incident.
+        :param str name: The name of the incident.
+        :param bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param str service_id: The status page service that this incident will be associated with.
+        :param str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @property
+    @pulumi.getter
+    def severity(self) -> str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
 
 
 @pulumi.output_type
@@ -2908,6 +3157,87 @@ class TcpCheckRetryStrategy(dict):
 
 
 @pulumi.output_type
+class TcpCheckTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpCheckTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpCheckTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpCheckTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: str,
+                 name: str,
+                 notify_subscribers: bool,
+                 service_id: str,
+                 severity: str):
+        """
+        :param str description: A detailed description of the incident.
+        :param str name: The name of the incident.
+        :param bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param str service_id: The status page service that this incident will be associated with.
+        :param str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @property
+    @pulumi.getter
+    def severity(self) -> str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+
+@pulumi.output_type
 class TcpMonitorAlertChannelSubscription(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -3365,6 +3695,87 @@ class TcpMonitorRetryStrategy(dict):
         Whether retries should be run in the same region as the initial check run.
         """
         return pulumi.get(self, "same_region")
+
+
+@pulumi.output_type
+class TcpMonitorTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TcpMonitorTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TcpMonitorTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: str,
+                 name: str,
+                 notify_subscribers: bool,
+                 service_id: str,
+                 severity: str):
+        """
+        :param str description: A detailed description of the incident.
+        :param str name: The name of the incident.
+        :param bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param str service_id: The status page service that this incident will be associated with.
+        :param str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @property
+    @pulumi.getter
+    def severity(self) -> str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
 
 
 @pulumi.output_type
@@ -3858,5 +4269,86 @@ class UrlMonitorRetryStrategy(dict):
         Whether retries should be run in the same region as the initial monitor run. (Default `true`).
         """
         return pulumi.get(self, "same_region")
+
+
+@pulumi.output_type
+class UrlMonitorTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in UrlMonitorTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        UrlMonitorTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        UrlMonitorTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: str,
+                 name: str,
+                 notify_subscribers: bool,
+                 service_id: str,
+                 severity: str):
+        """
+        :param str description: A detailed description of the incident.
+        :param str name: The name of the incident.
+        :param bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param str service_id: The status page service that this incident will be associated with.
+        :param str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @property
+    @pulumi.getter
+    def severity(self) -> str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
 
 

@@ -74,6 +74,10 @@ export class HeartbeatCheck extends pulumi.CustomResource {
      */
     public readonly tags!: pulumi.Output<string[] | undefined>;
     /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    public readonly triggerIncident!: pulumi.Output<outputs.HeartbeatCheckTriggerIncident | undefined>;
+    /**
      * When true, the account level alert settings will be used, not the alert setting defined on this check.
      */
     public readonly useGlobalAlertSettings!: pulumi.Output<boolean | undefined>;
@@ -98,6 +102,7 @@ export class HeartbeatCheck extends pulumi.CustomResource {
             resourceInputs["muted"] = state ? state.muted : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
+            resourceInputs["triggerIncident"] = state ? state.triggerIncident : undefined;
             resourceInputs["useGlobalAlertSettings"] = state ? state.useGlobalAlertSettings : undefined;
         } else {
             const args = argsOrState as HeartbeatCheckArgs | undefined;
@@ -114,6 +119,7 @@ export class HeartbeatCheck extends pulumi.CustomResource {
             resourceInputs["muted"] = args ? args.muted : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["triggerIncident"] = args ? args.triggerIncident : undefined;
             resourceInputs["useGlobalAlertSettings"] = args ? args.useGlobalAlertSettings : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -145,6 +151,10 @@ export interface HeartbeatCheckState {
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    triggerIncident?: pulumi.Input<inputs.HeartbeatCheckTriggerIncident>;
+    /**
      * When true, the account level alert settings will be used, not the alert setting defined on this check.
      */
     useGlobalAlertSettings?: pulumi.Input<boolean>;
@@ -173,6 +183,10 @@ export interface HeartbeatCheckArgs {
      * A list of tags for organizing and filtering checks.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Create and resolve an incident based on the alert configuration. Useful for status page automation.
+     */
+    triggerIncident?: pulumi.Input<inputs.HeartbeatCheckTriggerIncident>;
     /**
      * When true, the account level alert settings will be used, not the alert setting defined on this check.
      */

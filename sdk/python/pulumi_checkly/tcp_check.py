@@ -40,6 +40,7 @@ class TcpCheckArgs:
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['TcpCheckTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a TcpCheck resource.
@@ -61,6 +62,7 @@ class TcpCheckArgs:
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input['TcpCheckTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         pulumi.set(__self__, "activated", activated)
@@ -98,6 +100,8 @@ class TcpCheckArgs:
             pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -327,6 +331,18 @@ class TcpCheckArgs:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['TcpCheckTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['TcpCheckTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -361,6 +377,7 @@ class _TcpCheckState:
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['TcpCheckTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         Input properties used for looking up and filtering TcpCheck resources.
@@ -382,6 +399,7 @@ class _TcpCheckState:
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input['TcpCheckTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         if activated is not None:
@@ -422,6 +440,8 @@ class _TcpCheckState:
             pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -651,6 +671,18 @@ class _TcpCheckState:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['TcpCheckTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['TcpCheckTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -687,6 +719,7 @@ class TcpCheck(pulumi.CustomResource):
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['TcpCheckTriggerIncidentArgs', 'TcpCheckTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
@@ -778,6 +811,7 @@ class TcpCheck(pulumi.CustomResource):
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input[Union['TcpCheckTriggerIncidentArgs', 'TcpCheckTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         ...
@@ -889,6 +923,7 @@ class TcpCheck(pulumi.CustomResource):
                  runtime_id: Optional[pulumi.Input[str]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['TcpCheckTriggerIncidentArgs', 'TcpCheckTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -924,6 +959,7 @@ class TcpCheck(pulumi.CustomResource):
             __props__.__dict__["runtime_id"] = runtime_id
             __props__.__dict__["should_fail"] = should_fail
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["trigger_incident"] = trigger_incident
             __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         super(TcpCheck, __self__).__init__(
             'checkly:index/tcpCheck:TcpCheck',
@@ -954,6 +990,7 @@ class TcpCheck(pulumi.CustomResource):
             runtime_id: Optional[pulumi.Input[str]] = None,
             should_fail: Optional[pulumi.Input[bool]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            trigger_incident: Optional[pulumi.Input[Union['TcpCheckTriggerIncidentArgs', 'TcpCheckTriggerIncidentArgsDict']]] = None,
             use_global_alert_settings: Optional[pulumi.Input[bool]] = None) -> 'TcpCheck':
         """
         Get an existing TcpCheck resource's state with the given name, id, and optional extra
@@ -980,6 +1017,7 @@ class TcpCheck(pulumi.CustomResource):
         :param pulumi.Input[str] runtime_id: The ID of the runtime to use for this check.
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when a check is considered to fail.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input[Union['TcpCheckTriggerIncidentArgs', 'TcpCheckTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1005,6 +1043,7 @@ class TcpCheck(pulumi.CustomResource):
         __props__.__dict__["runtime_id"] = runtime_id
         __props__.__dict__["should_fail"] = should_fail
         __props__.__dict__["tags"] = tags
+        __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return TcpCheck(resource_name, opts=opts, __props__=__props__)
 
@@ -1156,6 +1195,14 @@ class TcpCheck(pulumi.CustomResource):
         A list of tags for organizing and filtering checks.
         """
         return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> pulumi.Output[Optional['outputs.TcpCheckTriggerIncident']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
 
     @property
     @pulumi.getter(name="useGlobalAlertSettings")
