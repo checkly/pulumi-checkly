@@ -359,6 +359,29 @@ export interface CheckRetryStrategy {
     type: pulumi.Input<string>;
 }
 
+export interface CheckTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
+}
+
 export interface HeartbeatCheckAlertChannelSubscription {
     activated: pulumi.Input<boolean>;
     channelId: pulumi.Input<number>;
@@ -449,6 +472,29 @@ export interface HeartbeatCheckHeartbeat {
     pingToken?: pulumi.Input<string>;
 }
 
+export interface HeartbeatCheckTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
+}
+
 export interface HeartbeatMonitorAlertChannelSubscription {
     activated: pulumi.Input<boolean>;
     channelId: pulumi.Input<number>;
@@ -537,6 +583,29 @@ export interface HeartbeatMonitorHeartbeat {
      * Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
      */
     pingToken?: pulumi.Input<string>;
+}
+
+export interface HeartbeatMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
 }
 
 export interface StatusPageCard {
@@ -668,6 +737,29 @@ export interface TcpCheckRetryStrategy {
     type: pulumi.Input<string>;
 }
 
+export interface TcpCheckTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
+}
+
 export interface TcpMonitorAlertChannelSubscription {
     activated: pulumi.Input<boolean>;
     channelId: pulumi.Input<number>;
@@ -777,6 +869,29 @@ export interface TcpMonitorRetryStrategy {
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
      */
     type: pulumi.Input<string>;
+}
+
+export interface TcpMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
 }
 
 export interface UrlMonitorAlertChannelSubscription {
@@ -909,4 +1024,27 @@ export interface UrlMonitorRetryStrategy {
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
      */
     type: pulumi.Input<string>;
+}
+
+export interface UrlMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
 }

@@ -28,6 +28,7 @@ class HeartbeatMonitorArgs:
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a HeartbeatMonitor resource.
@@ -35,6 +36,7 @@ class HeartbeatMonitorArgs:
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input['HeartbeatMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         pulumi.set(__self__, "activated", activated)
@@ -49,6 +51,8 @@ class HeartbeatMonitorArgs:
             pulumi.set(__self__, "name", name)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -128,6 +132,18 @@ class HeartbeatMonitorArgs:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -150,6 +166,7 @@ class _HeartbeatMonitorState:
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         Input properties used for looking up and filtering HeartbeatMonitor resources.
@@ -157,6 +174,7 @@ class _HeartbeatMonitorState:
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input['HeartbeatMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         if activated is not None:
@@ -173,6 +191,8 @@ class _HeartbeatMonitorState:
             pulumi.set(__self__, "name", name)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -252,6 +272,18 @@ class _HeartbeatMonitorState:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -276,6 +308,7 @@ class HeartbeatMonitor(pulumi.CustomResource):
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
@@ -305,6 +338,7 @@ class HeartbeatMonitor(pulumi.CustomResource):
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         ...
@@ -356,6 +390,7 @@ class HeartbeatMonitor(pulumi.CustomResource):
                  muted: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -377,6 +412,7 @@ class HeartbeatMonitor(pulumi.CustomResource):
             __props__.__dict__["muted"] = muted
             __props__.__dict__["name"] = name
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["trigger_incident"] = trigger_incident
             __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         super(HeartbeatMonitor, __self__).__init__(
             'checkly:index/heartbeatMonitor:HeartbeatMonitor',
@@ -395,6 +431,7 @@ class HeartbeatMonitor(pulumi.CustomResource):
             muted: Optional[pulumi.Input[bool]] = None,
             name: Optional[pulumi.Input[str]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            trigger_incident: Optional[pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']]] = None,
             use_global_alert_settings: Optional[pulumi.Input[bool]] = None) -> 'HeartbeatMonitor':
         """
         Get an existing HeartbeatMonitor resource's state with the given name, id, and optional extra
@@ -407,6 +444,7 @@ class HeartbeatMonitor(pulumi.CustomResource):
         :param pulumi.Input[bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks.
+        :param pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -420,6 +458,7 @@ class HeartbeatMonitor(pulumi.CustomResource):
         __props__.__dict__["muted"] = muted
         __props__.__dict__["name"] = name
         __props__.__dict__["tags"] = tags
+        __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return HeartbeatMonitor(resource_name, opts=opts, __props__=__props__)
 
@@ -469,6 +508,14 @@ class HeartbeatMonitor(pulumi.CustomResource):
         A list of tags for organizing and filtering checks.
         """
         return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> pulumi.Output[Optional['outputs.HeartbeatMonitorTriggerIncident']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
 
     @property
     @pulumi.getter(name="useGlobalAlertSettings")

@@ -39,6 +39,7 @@ class UrlMonitorArgs:
                  run_parallel: Optional[pulumi.Input[bool]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['UrlMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a UrlMonitor resource.
@@ -60,6 +61,7 @@ class UrlMonitorArgs:
         :param pulumi.Input[bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when the monitor is considered to fail. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input['UrlMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
         """
         pulumi.set(__self__, "activated", activated)
@@ -95,6 +97,8 @@ class UrlMonitorArgs:
             pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -315,6 +319,18 @@ class UrlMonitorArgs:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['UrlMonitorTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['UrlMonitorTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -348,6 +364,7 @@ class _UrlMonitorState:
                  run_parallel: Optional[pulumi.Input[bool]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input['UrlMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None):
         """
         Input properties used for looking up and filtering UrlMonitor resources.
@@ -369,6 +386,7 @@ class _UrlMonitorState:
         :param pulumi.Input[bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when the monitor is considered to fail. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input['UrlMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
         """
         if activated is not None:
@@ -407,6 +425,8 @@ class _UrlMonitorState:
             pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if trigger_incident is not None:
+            pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
 
@@ -627,6 +647,18 @@ class _UrlMonitorState:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> Optional[pulumi.Input['UrlMonitorTriggerIncidentArgs']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
+
+    @trigger_incident.setter
+    def trigger_incident(self, value: Optional[pulumi.Input['UrlMonitorTriggerIncidentArgs']]):
+        pulumi.set(self, "trigger_incident", value)
+
+    @property
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -662,6 +694,7 @@ class UrlMonitor(pulumi.CustomResource):
                  run_parallel: Optional[pulumi.Input[bool]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['UrlMonitorTriggerIncidentArgs', 'UrlMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
@@ -709,6 +742,7 @@ class UrlMonitor(pulumi.CustomResource):
         :param pulumi.Input[bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when the monitor is considered to fail. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Union['UrlMonitorTriggerIncidentArgs', 'UrlMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
         """
         ...
@@ -775,6 +809,7 @@ class UrlMonitor(pulumi.CustomResource):
                  run_parallel: Optional[pulumi.Input[bool]] = None,
                  should_fail: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 trigger_incident: Optional[pulumi.Input[Union['UrlMonitorTriggerIncidentArgs', 'UrlMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -809,6 +844,7 @@ class UrlMonitor(pulumi.CustomResource):
             __props__.__dict__["run_parallel"] = run_parallel
             __props__.__dict__["should_fail"] = should_fail
             __props__.__dict__["tags"] = tags
+            __props__.__dict__["trigger_incident"] = trigger_incident
             __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         super(UrlMonitor, __self__).__init__(
             'checkly:index/urlMonitor:UrlMonitor',
@@ -838,6 +874,7 @@ class UrlMonitor(pulumi.CustomResource):
             run_parallel: Optional[pulumi.Input[bool]] = None,
             should_fail: Optional[pulumi.Input[bool]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            trigger_incident: Optional[pulumi.Input[Union['UrlMonitorTriggerIncidentArgs', 'UrlMonitorTriggerIncidentArgsDict']]] = None,
             use_global_alert_settings: Optional[pulumi.Input[bool]] = None) -> 'UrlMonitor':
         """
         Get an existing UrlMonitor resource's state with the given name, id, and optional extra
@@ -864,6 +901,7 @@ class UrlMonitor(pulumi.CustomResource):
         :param pulumi.Input[bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
         :param pulumi.Input[bool] should_fail: Allows to invert the behaviour of when the monitor is considered to fail. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Union['UrlMonitorTriggerIncidentArgs', 'UrlMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -888,6 +926,7 @@ class UrlMonitor(pulumi.CustomResource):
         __props__.__dict__["run_parallel"] = run_parallel
         __props__.__dict__["should_fail"] = should_fail
         __props__.__dict__["tags"] = tags
+        __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return UrlMonitor(resource_name, opts=opts, __props__=__props__)
 
@@ -1034,6 +1073,14 @@ class UrlMonitor(pulumi.CustomResource):
         A list of tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="triggerIncident")
+    def trigger_incident(self) -> pulumi.Output[Optional['outputs.UrlMonitorTriggerIncident']]:
+        """
+        Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        """
+        return pulumi.get(self, "trigger_incident")
 
     @property
     @pulumi.getter(name="useGlobalAlertSettings")

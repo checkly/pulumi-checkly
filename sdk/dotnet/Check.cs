@@ -187,6 +187,12 @@ namespace Pulumi.Checkly
         public Output<int?> TeardownSnippetId { get; private set; } = null!;
 
         /// <summary>
+        /// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        /// </summary>
+        [Output("triggerIncident")]
+        public Output<Outputs.CheckTriggerIncident?> TriggerIncident { get; private set; } = null!;
+
+        /// <summary>
         /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         /// </summary>
         [Output("type")]
@@ -454,6 +460,12 @@ namespace Pulumi.Checkly
         public Input<int>? TeardownSnippetId { get; set; }
 
         /// <summary>
+        /// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        /// </summary>
+        [Input("triggerIncident")]
+        public Input<Inputs.CheckTriggerIncidentArgs>? TriggerIncident { get; set; }
+
+        /// <summary>
         /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         /// </summary>
         [Input("type", required: true)]
@@ -680,6 +692,12 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
+
+        /// <summary>
+        /// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        /// </summary>
+        [Input("triggerIncident")]
+        public Input<Inputs.CheckTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
         /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.

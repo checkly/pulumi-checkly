@@ -79,6 +79,8 @@ type Check struct {
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId pulumi.IntPtrOutput `pulumi:"teardownSnippetId"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident CheckTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
 	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
 	Type pulumi.StringOutput `pulumi:"type"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
@@ -187,6 +189,8 @@ type checkState struct {
 	Tags []string `pulumi:"tags"`
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId *int `pulumi:"teardownSnippetId"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *CheckTriggerIncident `pulumi:"triggerIncident"`
 	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
 	Type *string `pulumi:"type"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
@@ -257,6 +261,8 @@ type CheckState struct {
 	Tags pulumi.StringArrayInput
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId pulumi.IntPtrInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident CheckTriggerIncidentPtrInput
 	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
 	Type pulumi.StringPtrInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
@@ -331,6 +337,8 @@ type checkArgs struct {
 	Tags []string `pulumi:"tags"`
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId *int `pulumi:"teardownSnippetId"`
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident *CheckTriggerIncident `pulumi:"triggerIncident"`
 	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
 	Type string `pulumi:"type"`
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
@@ -402,6 +410,8 @@ type CheckArgs struct {
 	Tags pulumi.StringArrayInput
 	// An ID reference to a snippet to use in the teardown phase of an API check.
 	TeardownSnippetId pulumi.IntPtrInput
+	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+	TriggerIncident CheckTriggerIncidentPtrInput
 	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
 	Type pulumi.StringInput
 	// When true, the account level alert settings will be used, not the alert setting defined on this check.
@@ -643,6 +653,11 @@ func (o CheckOutput) Tags() pulumi.StringArrayOutput {
 // An ID reference to a snippet to use in the teardown phase of an API check.
 func (o CheckOutput) TeardownSnippetId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.TeardownSnippetId }).(pulumi.IntPtrOutput)
+}
+
+// Create and resolve an incident based on the alert configuration. Useful for status page automation.
+func (o CheckOutput) TriggerIncident() CheckTriggerIncidentPtrOutput {
+	return o.ApplyT(func(v *Check) CheckTriggerIncidentPtrOutput { return v.TriggerIncident }).(CheckTriggerIncidentPtrOutput)
 }
 
 // The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.

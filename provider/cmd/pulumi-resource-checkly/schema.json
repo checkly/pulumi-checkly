@@ -751,6 +751,38 @@
                 "type"
             ]
         },
+        "checkly:index/CheckTriggerIncident:CheckTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
+        },
         "checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
@@ -915,6 +947,38 @@
                 }
             }
         },
+        "checkly:index/HeartbeatCheckTriggerIncident:HeartbeatCheckTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
+        },
         "checkly:index/HeartbeatMonitorAlertChannelSubscription:HeartbeatMonitorAlertChannelSubscription": {
             "properties": {
                 "activated": {
@@ -1078,6 +1142,38 @@
                     ]
                 }
             }
+        },
+        "checkly:index/HeartbeatMonitorTriggerIncident:HeartbeatMonitorTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
         },
         "checkly:index/StatusPageCard:StatusPageCard": {
             "properties": {
@@ -1296,6 +1392,38 @@
                 "type"
             ]
         },
+        "checkly:index/TcpCheckTriggerIncident:TcpCheckTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
+        },
         "checkly:index/TcpMonitorAlertChannelSubscription:TcpMonitorAlertChannelSubscription": {
             "properties": {
                 "activated": {
@@ -1479,6 +1607,38 @@
             "type": "object",
             "required": [
                 "type"
+            ]
+        },
+        "checkly:index/TcpMonitorTriggerIncident:TcpMonitorTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
             ]
         },
         "checkly:index/UrlMonitorAlertChannelSubscription:UrlMonitorAlertChannelSubscription": {
@@ -1675,6 +1835,38 @@
             "type": "object",
             "required": [
                 "type"
+            ]
+        },
+        "checkly:index/UrlMonitorTriggerIncident:UrlMonitorTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
             ]
         }
     },
@@ -1985,6 +2177,10 @@
                     "type": "integer",
                     "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/CheckTriggerIncident:CheckTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "type": {
                     "type": "string",
                     "description": "The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.\n"
@@ -2139,6 +2335,10 @@
                     "type": "integer",
                     "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/CheckTriggerIncident:CheckTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "type": {
                     "type": "string",
                     "description": "The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.\n"
@@ -2291,6 +2491,10 @@
                     "teardownSnippetId": {
                         "type": "integer",
                         "description": "An ID reference to a snippet to use in the teardown phase of an API check.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/CheckTriggerIncident:CheckTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
                     },
                     "type": {
                         "type": "string",
@@ -3136,6 +3340,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/HeartbeatCheckTriggerIncident:HeartbeatCheckTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -3184,6 +3392,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/HeartbeatCheckTriggerIncident:HeartbeatCheckTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -3227,6 +3439,10 @@
                         },
                         "description": "A list of tags for organizing and filtering checks.\n"
                     },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/HeartbeatCheckTriggerIncident:HeartbeatCheckTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                    },
                     "useGlobalAlertSettings": {
                         "type": "boolean",
                         "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -3268,6 +3484,10 @@
                         "type": "string"
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/HeartbeatMonitorTriggerIncident:HeartbeatMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
                 },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
@@ -3312,6 +3532,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/HeartbeatMonitorTriggerIncident:HeartbeatMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -3354,6 +3578,10 @@
                             "type": "string"
                         },
                         "description": "A list of tags for organizing and filtering checks.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/HeartbeatMonitorTriggerIncident:HeartbeatMonitorTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
                     },
                     "useGlobalAlertSettings": {
                         "type": "boolean",
@@ -3840,6 +4068,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/TcpCheckTriggerIncident:TcpCheckTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -3941,6 +4173,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/TcpCheckTriggerIncident:TcpCheckTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -4041,6 +4277,10 @@
                         },
                         "description": "A list of tags for organizing and filtering checks.\n"
                     },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/TcpCheckTriggerIncident:TcpCheckTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                    },
                     "useGlobalAlertSettings": {
                         "type": "boolean",
                         "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -4138,6 +4378,10 @@
                         "type": "string"
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/TcpMonitorTriggerIncident:TcpMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
                 },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
@@ -4240,6 +4484,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/TcpMonitorTriggerIncident:TcpMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
@@ -4339,6 +4587,10 @@
                             "type": "string"
                         },
                         "description": "A list of tags for organizing and filtering checks.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/TcpMonitorTriggerIncident:TcpMonitorTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
                     },
                     "useGlobalAlertSettings": {
                         "type": "boolean",
@@ -4549,6 +4801,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks and monitors.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/UrlMonitorTriggerIncident:UrlMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).\n"
@@ -4647,6 +4903,10 @@
                     },
                     "description": "A list of tags for organizing and filtering checks and monitors.\n"
                 },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/UrlMonitorTriggerIncident:UrlMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
                 "useGlobalAlertSettings": {
                     "type": "boolean",
                     "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).\n"
@@ -4743,6 +5003,10 @@
                             "type": "string"
                         },
                         "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/UrlMonitorTriggerIncident:UrlMonitorTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
                     },
                     "useGlobalAlertSettings": {
                         "type": "boolean",

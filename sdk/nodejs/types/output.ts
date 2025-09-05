@@ -359,6 +359,29 @@ export interface CheckRetryStrategy {
     type: string;
 }
 
+export interface CheckTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: string;
+    /**
+     * The name of the incident.
+     */
+    name: string;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: boolean;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: string;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: string;
+}
+
 export interface HeartbeatCheckAlertChannelSubscription {
     activated: boolean;
     channelId: number;
@@ -449,6 +472,29 @@ export interface HeartbeatCheckHeartbeat {
     pingToken: string;
 }
 
+export interface HeartbeatCheckTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: string;
+    /**
+     * The name of the incident.
+     */
+    name: string;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: boolean;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: string;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: string;
+}
+
 export interface HeartbeatMonitorAlertChannelSubscription {
     activated: boolean;
     channelId: number;
@@ -537,6 +583,29 @@ export interface HeartbeatMonitorHeartbeat {
      * Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
      */
     pingToken: string;
+}
+
+export interface HeartbeatMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: string;
+    /**
+     * The name of the incident.
+     */
+    name: string;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: boolean;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: string;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: string;
 }
 
 export interface StatusPageCard {
@@ -668,6 +737,29 @@ export interface TcpCheckRetryStrategy {
     type: string;
 }
 
+export interface TcpCheckTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: string;
+    /**
+     * The name of the incident.
+     */
+    name: string;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: boolean;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: string;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: string;
+}
+
 export interface TcpMonitorAlertChannelSubscription {
     activated: boolean;
     channelId: number;
@@ -777,6 +869,29 @@ export interface TcpMonitorRetryStrategy {
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.
      */
     type: string;
+}
+
+export interface TcpMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: string;
+    /**
+     * The name of the incident.
+     */
+    name: string;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: boolean;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: string;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: string;
 }
 
 export interface UrlMonitorAlertChannelSubscription {
@@ -909,5 +1024,28 @@ export interface UrlMonitorRetryStrategy {
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.
      */
     type: string;
+}
+
+export interface UrlMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: string;
+    /**
+     * The name of the incident.
+     */
+    name: string;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: boolean;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: string;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: string;
 }
 
