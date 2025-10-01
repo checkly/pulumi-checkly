@@ -80,7 +80,14 @@
                         }
                     },
                     "retry_strategy": {
-                        "maxItemsOne": true
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
                     },
                     "tags": {
                         "maxItemsOne": false
@@ -142,7 +149,14 @@
                         "maxItemsOne": false
                     },
                     "retry_strategy": {
-                        "maxItemsOne": true
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
                     },
                     "tags": {
                         "maxItemsOne": false
@@ -331,7 +345,14 @@
                         }
                     },
                     "retry_strategy": {
-                        "maxItemsOne": true
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
                     },
                     "tags": {
                         "maxItemsOne": false
@@ -384,7 +405,14 @@
                         }
                     },
                     "retry_strategy": {
-                        "maxItemsOne": true
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
                     },
                     "tags": {
                         "maxItemsOne": false
@@ -445,7 +473,14 @@
                         }
                     },
                     "retry_strategy": {
-                        "maxItemsOne": true
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
                     },
                     "tags": {
                         "maxItemsOne": false

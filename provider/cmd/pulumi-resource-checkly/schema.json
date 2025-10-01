@@ -595,29 +595,42 @@
             "properties": {
                 "baseBackoffSeconds": {
                     "type": "integer",
-                    "description": "The number of seconds to wait before the first retry attempt.\n"
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
                 },
                 "maxDurationSeconds": {
                     "type": "integer",
-                    "description": "The total amount of time to continue retrying the check (maximum 600 seconds).\n"
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
                 },
                 "maxRetries": {
                     "type": "integer",
-                    "description": "The maximum number of times to retry the check. Value must be between 1 and 10.\n"
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/CheckGroupRetryStrategyOnlyOn:CheckGroupRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
                 },
                 "sameRegion": {
                     "type": "boolean",
-                    "description": "Whether retries should be run in the same region as the initial check run.\n"
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
                 },
                 "type": {
                     "type": "string",
-                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.\n"
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
                 }
             },
             "type": "object",
             "required": [
                 "type"
             ]
+        },
+        "checkly:index/CheckGroupRetryStrategyOnlyOn:CheckGroupRetryStrategyOnlyOn": {
+            "properties": {
+                "networkError": {
+                    "type": "boolean",
+                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
+                }
+            },
+            "type": "object"
         },
         "checkly:index/CheckRequest:CheckRequest": {
             "properties": {
@@ -727,29 +740,42 @@
             "properties": {
                 "baseBackoffSeconds": {
                     "type": "integer",
-                    "description": "The number of seconds to wait before the first retry attempt.\n"
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
                 },
                 "maxDurationSeconds": {
                     "type": "integer",
-                    "description": "The total amount of time to continue retrying the check (maximum 600 seconds).\n"
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
                 },
                 "maxRetries": {
                     "type": "integer",
-                    "description": "The maximum number of times to retry the check. Value must be between 1 and 10.\n"
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/CheckRetryStrategyOnlyOn:CheckRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
                 },
                 "sameRegion": {
                     "type": "boolean",
-                    "description": "Whether retries should be run in the same region as the initial check run.\n"
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
                 },
                 "type": {
                     "type": "string",
-                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.\n"
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
                 }
             },
             "type": "object",
             "required": [
                 "type"
             ]
+        },
+        "checkly:index/CheckRetryStrategyOnlyOn:CheckRetryStrategyOnlyOn": {
+            "properties": {
+                "networkError": {
+                    "type": "boolean",
+                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
+                }
+            },
+            "type": "object"
         },
         "checkly:index/CheckTriggerIncident:CheckTriggerIncident": {
             "properties": {
@@ -1368,29 +1394,42 @@
             "properties": {
                 "baseBackoffSeconds": {
                     "type": "integer",
-                    "description": "The number of seconds to wait before the first retry attempt.\n"
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
                 },
                 "maxDurationSeconds": {
                     "type": "integer",
-                    "description": "The total amount of time to continue retrying the check (maximum 600 seconds).\n"
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
                 },
                 "maxRetries": {
                     "type": "integer",
-                    "description": "The maximum number of times to retry the check. Value must be between 1 and 10.\n"
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/TcpCheckRetryStrategyOnlyOn:TcpCheckRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
                 },
                 "sameRegion": {
                     "type": "boolean",
-                    "description": "Whether retries should be run in the same region as the initial check run.\n"
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
                 },
                 "type": {
                     "type": "string",
-                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.\n"
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
                 }
             },
             "type": "object",
             "required": [
                 "type"
             ]
+        },
+        "checkly:index/TcpCheckRetryStrategyOnlyOn:TcpCheckRetryStrategyOnlyOn": {
+            "properties": {
+                "networkError": {
+                    "type": "boolean",
+                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
+                }
+            },
+            "type": "object"
         },
         "checkly:index/TcpCheckTriggerIncident:TcpCheckTriggerIncident": {
             "properties": {
@@ -1585,29 +1624,42 @@
             "properties": {
                 "baseBackoffSeconds": {
                     "type": "integer",
-                    "description": "The number of seconds to wait before the first retry attempt.\n"
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
                 },
                 "maxDurationSeconds": {
                     "type": "integer",
-                    "description": "The total amount of time to continue retrying the check (maximum 600 seconds).\n"
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
                 },
                 "maxRetries": {
                     "type": "integer",
-                    "description": "The maximum number of times to retry the check. Value must be between 1 and 10.\n"
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/TcpMonitorRetryStrategyOnlyOn:TcpMonitorRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
                 },
                 "sameRegion": {
                     "type": "boolean",
-                    "description": "Whether retries should be run in the same region as the initial check run.\n"
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
                 },
                 "type": {
                     "type": "string",
-                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, or `EXPONENTIAL`.\n"
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
                 }
             },
             "type": "object",
             "required": [
                 "type"
             ]
+        },
+        "checkly:index/TcpMonitorRetryStrategyOnlyOn:TcpMonitorRetryStrategyOnlyOn": {
+            "properties": {
+                "networkError": {
+                    "type": "boolean",
+                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
+                }
+            },
+            "type": "object"
         },
         "checkly:index/TcpMonitorTriggerIncident:TcpMonitorTriggerIncident": {
             "properties": {
@@ -1817,25 +1869,38 @@
                 },
                 "maxDurationSeconds": {
                     "type": "integer",
-                    "description": "The total amount of time to continue retrying the monitor (maximum 600 seconds). (Default `600`).\n"
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
                 },
                 "maxRetries": {
                     "type": "integer",
-                    "description": "The maximum number of times to retry the monitor. Value must be between `1` and `10`. (Default `2`).\n"
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/UrlMonitorRetryStrategyOnlyOn:UrlMonitorRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
                 },
                 "sameRegion": {
                     "type": "boolean",
-                    "description": "Whether retries should be run in the same region as the initial monitor run. (Default `true`).\n"
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
                 },
                 "type": {
                     "type": "string",
-                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, and `EXPONENTIAL`.\n"
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
                 }
             },
             "type": "object",
             "required": [
                 "type"
             ]
+        },
+        "checkly:index/UrlMonitorRetryStrategyOnlyOn:UrlMonitorRetryStrategyOnlyOn": {
+            "properties": {
+                "networkError": {
+                    "type": "boolean",
+                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
+                }
+            },
+            "type": "object"
         },
         "checkly:index/UrlMonitorTriggerIncident:UrlMonitorTriggerIncident": {
             "properties": {
@@ -1883,9 +1948,6 @@
                 "type": "string"
             }
         },
-        "required": [
-            "apiKey"
-        ],
         "inputProperties": {
             "accountId": {
                 "type": "string"
@@ -1897,9 +1959,9 @@
                 "type": "string"
             }
         },
-        "requiredInputs": [
-            "apiKey"
-        ]
+        "methods": {
+            "terraformConfig": "pulumi:providers:checkly/terraformConfig"
+        }
     },
     "resources": {
         "checkly:index/alertChannel:AlertChannel": {
@@ -2061,7 +2123,7 @@
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
                     "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
                 },
                 "environmentVariable": {
@@ -2135,7 +2197,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/CheckRetryStrategy:CheckRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -2219,7 +2281,7 @@
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
                     "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
                 },
                 "environmentVariable": {
@@ -2293,7 +2355,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/CheckRetryStrategy:CheckRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -2376,7 +2438,7 @@
                     },
                     "doubleCheck": {
                         "type": "boolean",
-                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
                         "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
                     },
                     "environmentVariable": {
@@ -2450,7 +2512,7 @@
                     },
                     "retryStrategy": {
                         "$ref": "#/types/checkly:index/CheckRetryStrategy:CheckRetryStrategy",
-                        "description": "A strategy for retrying failed check runs.\n"
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
                     },
                     "runParallel": {
                         "type": "boolean",
@@ -2533,7 +2595,7 @@
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
                     "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
                 },
                 "environmentVariable": {
@@ -2583,7 +2645,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/CheckGroupRetryStrategy:CheckGroupRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -2644,7 +2706,7 @@
                 },
                 "doubleCheck": {
                     "type": "boolean",
-                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                    "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
                     "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
                 },
                 "environmentVariable": {
@@ -2694,7 +2756,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/CheckGroupRetryStrategy:CheckGroupRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -2753,7 +2815,7 @@
                     },
                     "doubleCheck": {
                         "type": "boolean",
-                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed.\n",
+                        "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
                         "deprecationMessage": "The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead."
                     },
                     "environmentVariable": {
@@ -2803,7 +2865,7 @@
                     },
                     "retryStrategy": {
                         "$ref": "#/types/checkly:index/CheckGroupRetryStrategy:CheckGroupRetryStrategy",
-                        "description": "A strategy for retrying failed check runs.\n"
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
                     },
                     "runParallel": {
                         "type": "boolean",
@@ -4047,7 +4109,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/TcpCheckRetryStrategy:TcpCheckRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -4152,7 +4214,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/TcpCheckRetryStrategy:TcpCheckRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -4256,7 +4318,7 @@
                     },
                     "retryStrategy": {
                         "$ref": "#/types/checkly:index/TcpCheckRetryStrategy:TcpCheckRetryStrategy",
-                        "description": "A strategy for retrying failed check runs.\n"
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
                     },
                     "runParallel": {
                         "type": "boolean",
@@ -4358,7 +4420,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/TcpMonitorRetryStrategy:TcpMonitorRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -4463,7 +4525,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/TcpMonitorRetryStrategy:TcpMonitorRetryStrategy",
-                    "description": "A strategy for retrying failed check runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -4567,7 +4629,7 @@
                     },
                     "retryStrategy": {
                         "$ref": "#/types/checkly:index/TcpMonitorRetryStrategy:TcpMonitorRetryStrategy",
-                        "description": "A strategy for retrying failed check runs.\n"
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
                     },
                     "runParallel": {
                         "type": "boolean",
@@ -4658,7 +4720,7 @@
             }
         },
         "checkly:index/triggerCheckGroup:TriggerCheckGroup": {
-            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst testTriggerGroup = new checkly.TriggerCheckGroup(\"test_trigger_group\", {groupId: 215});\nexport const testTriggerGroupUrl = testTriggerGroup.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_group = checkly.TriggerCheckGroup(\"test_trigger_group\", group_id=215)\npulumi.export(\"testTriggerGroupUrl\", test_trigger_group.url)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testTriggerGroup = new Checkly.TriggerCheckGroup(\"test_trigger_group\", new()\n    {\n        GroupId = 215,\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"testTriggerGroupUrl\"] = testTriggerGroup.Url,\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, \"test_trigger_group\", \u0026checkly.TriggerCheckGroupArgs{\n\t\t\tGroupId: pulumi.Int(215),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerGroupUrl\", testTriggerGroup.Url)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TriggerCheckGroup;\nimport com.pulumi.checkly.TriggerCheckGroupArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testTriggerGroup = new TriggerCheckGroup(\"testTriggerGroup\", TriggerCheckGroupArgs.builder()\n            .groupId(\"215\")\n            .build());\n\n        ctx.export(\"testTriggerGroupUrl\", testTriggerGroup.url());\n    }\n}\n```\n```yaml\nresources:\n  testTriggerGroup:\n    type: checkly:TriggerCheckGroup\n    name: test_trigger_group\n    properties:\n      groupId: '215'\noutputs:\n  testTriggerGroupUrl: ${testTriggerGroup.url}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst testTriggerGroup = new checkly.TriggerCheckGroup(\"test_trigger_group\", {groupId: 215});\nexport const testTriggerGroupUrl = testTriggerGroup.url;\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\ntest_trigger_group = checkly.TriggerCheckGroup(\"test_trigger_group\", group_id=215)\npulumi.export(\"testTriggerGroupUrl\", test_trigger_group.url)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var testTriggerGroup = new Checkly.TriggerCheckGroup(\"test_trigger_group\", new()\n    {\n        GroupId = 215,\n    });\n\n    return new Dictionary\u003cstring, object?\u003e\n    {\n        [\"testTriggerGroupUrl\"] = testTriggerGroup.Url,\n    };\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\ttestTriggerGroup, err := checkly.NewTriggerCheckGroup(ctx, \"test_trigger_group\", \u0026checkly.TriggerCheckGroupArgs{\n\t\t\tGroupId: pulumi.Int(215),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tctx.Export(\"testTriggerGroupUrl\", testTriggerGroup.Url)\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TriggerCheckGroup;\nimport com.pulumi.checkly.TriggerCheckGroupArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var testTriggerGroup = new TriggerCheckGroup(\"testTriggerGroup\", TriggerCheckGroupArgs.builder()\n            .groupId(215)\n            .build());\n\n        ctx.export(\"testTriggerGroupUrl\", testTriggerGroup.url());\n    }\n}\n```\n```yaml\nresources:\n  testTriggerGroup:\n    type: checkly:TriggerCheckGroup\n    name: test_trigger_group\n    properties:\n      groupId: '215'\noutputs:\n  testTriggerGroupUrl: ${testTriggerGroup.url}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "groupId": {
                     "type": "integer",
@@ -4784,7 +4846,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/UrlMonitorRetryStrategy:UrlMonitorRetryStrategy",
-                    "description": "A strategy for retrying failed monitor runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -4886,7 +4948,7 @@
                 },
                 "retryStrategy": {
                     "$ref": "#/types/checkly:index/UrlMonitorRetryStrategy:UrlMonitorRetryStrategy",
-                    "description": "A strategy for retrying failed monitor runs.\n"
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
                 },
                 "runParallel": {
                     "type": "boolean",
@@ -4987,7 +5049,7 @@
                     },
                     "retryStrategy": {
                         "$ref": "#/types/checkly:index/UrlMonitorRetryStrategy:UrlMonitorRetryStrategy",
-                        "description": "A strategy for retrying failed monitor runs.\n"
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
                     },
                     "runParallel": {
                         "type": "boolean",
@@ -5065,6 +5127,35 @@
                 "required": [
                     "addresses",
                     "id"
+                ],
+                "type": "object"
+            }
+        },
+        "pulumi:providers:checkly/terraformConfig": {
+            "description": "This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.",
+            "inputs": {
+                "properties": {
+                    "__self__": {
+                        "type": "ref",
+                        "$ref": "#/provider"
+                    }
+                },
+                "type": "pulumi:providers:checkly/terraformConfig",
+                "required": [
+                    "__self__"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "result": {
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        },
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "result"
                 ],
                 "type": "object"
             }
