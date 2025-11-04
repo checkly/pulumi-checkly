@@ -33,6 +33,7 @@ class HeartbeatCheckArgs:
         """
         The set of arguments for constructing a HeartbeatCheck resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
+        :param pulumi.Input['HeartbeatCheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -89,6 +90,9 @@ class HeartbeatCheckArgs:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['HeartbeatCheckAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the monitor.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -171,6 +175,7 @@ class _HeartbeatCheckState:
         """
         Input properties used for looking up and filtering HeartbeatCheck resources.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
+        :param pulumi.Input['HeartbeatCheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -220,6 +225,9 @@ class _HeartbeatCheckState:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['HeartbeatCheckAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the monitor.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -334,6 +342,7 @@ class HeartbeatCheck(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
+        :param pulumi.Input[Union['HeartbeatCheckAlertSettingsArgs', 'HeartbeatCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -438,6 +447,7 @@ class HeartbeatCheck(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
+        :param pulumi.Input[Union['HeartbeatCheckAlertSettingsArgs', 'HeartbeatCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -475,6 +485,9 @@ class HeartbeatCheck(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> pulumi.Output['outputs.HeartbeatCheckAlertSettings']:
+        """
+        Determines the alert escalation policy for the monitor.
+        """
         return pulumi.get(self, "alert_settings")
 
     @_builtins.property

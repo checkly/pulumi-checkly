@@ -45,6 +45,9 @@ export class Check extends pulumi.CustomResource {
      * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
      */
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.CheckAlertChannelSubscription[] | undefined>;
+    /**
+     * Determines the alert escalation policy for the check.
+     */
     declare public readonly alertSettings: pulumi.Output<outputs.CheckAlertSettings>;
     /**
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
@@ -275,6 +278,9 @@ export interface CheckState {
      * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the check.
+     */
     alertSettings?: pulumi.Input<inputs.CheckAlertSettings>;
     /**
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
@@ -412,6 +418,9 @@ export interface CheckArgs {
      * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the check.
+     */
     alertSettings?: pulumi.Input<inputs.CheckAlertSettings>;
     /**
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).

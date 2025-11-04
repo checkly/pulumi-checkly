@@ -1502,10 +1502,10 @@ github.com/charmbracelet/bubbletea v0.25.0 h1:bAfwk7jRz7FKFl9RzlIULPkStffg5k6pNt
 github.com/charmbracelet/bubbletea v0.25.0/go.mod h1:EN3QDR1T5ZdWmdfDzYcqOCAps45+QIJbLOBxmVNWNNg=
 github.com/charmbracelet/lipgloss v0.7.1 h1:17WMwi7N1b1rVWOjMT+rCh7sQkvDU75B2hbZpc5Kc1E=
 github.com/charmbracelet/lipgloss v0.7.1/go.mod h1:yG0k3giv8Qj8edTCbbg6AlQ5e8KNWpFujkNawKNhE2c=
-github.com/checkly/checkly-go-sdk v1.16.0 h1:m8ixcmHlNxnls/sFlcAa48j3xrvEcBaDcHnYOL9gbZM=
-github.com/checkly/checkly-go-sdk v1.16.0/go.mod h1:Pd6tBOggAe41NnCU5KwqA8JvD6J20/IctszT2E0AvHo=
-github.com/checkly/terraform-provider-checkly v1.15.0 h1:wBK768jik36DdtRpOYVF/D4AIxtR8HnB/41gppacavc=
-github.com/checkly/terraform-provider-checkly v1.15.0/go.mod h1:gXT5BxpAIUzpVs7o730ZI+tVsY+rLnqaTayR78iUj6I=
+github.com/checkly/checkly-go-sdk v1.17.0 h1:QjgzCzk93Mv37A9abQ7N2LXxXqC2D8KEQr0l2cB1j7o=
+github.com/checkly/checkly-go-sdk v1.17.0/go.mod h1:Pd6tBOggAe41NnCU5KwqA8JvD6J20/IctszT2E0AvHo=
+github.com/checkly/terraform-provider-checkly v1.16.0 h1:uE+naWm2QyObIaQfYH3jKz7kzg4bK9CeJAnsbSzDovo=
+github.com/checkly/terraform-provider-checkly v1.16.0/go.mod h1:j+zq1XBu8OODElUYbRCZP8fHthYvEx9cMZCjypGaoP0=
 github.com/cheggaaa/pb v1.0.27/go.mod h1:pQciLPpbU0oxA0h+VJYYLxO+XeDQb5pZijXscXHm81s=
 github.com/cheggaaa/pb v1.0.29 h1:FckUN5ngEk2LpvuG0fw1GEFx6LtyY2pWI/Z2QgCnEYo=
 github.com/cheggaaa/pb v1.0.29/go.mod h1:W40334L7FMC5JKWldsTWbdGjLo0RxUKK73K+TuPxX30=

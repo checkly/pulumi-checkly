@@ -13,10 +13,10 @@ namespace Pulumi.Checkly.Inputs
     public sealed class UrlMonitorAlertSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         /// </summary>
-        [Input("escalationType", required: true)]
-        public Input<string> EscalationType { get; set; } = null!;
+        [Input("escalationType")]
+        public Input<string>? EscalationType { get; set; }
 
         [Input("parallelRunFailureThresholds")]
         private InputList<Inputs.UrlMonitorAlertSettingsParallelRunFailureThresholdArgs>? _parallelRunFailureThresholds;

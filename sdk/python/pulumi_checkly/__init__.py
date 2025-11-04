@@ -11,6 +11,7 @@ from .check import *
 from .check_group import *
 from .client_certificate import *
 from .dashboard import *
+from .dns_monitor import *
 from .environment_variable import *
 from .get_static_ips import *
 from .heartbeat_check import *
@@ -77,6 +78,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/dashboard:Dashboard": "Dashboard"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/dnsMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/dnsMonitor:DnsMonitor": "DnsMonitor"
   }
  },
  {

@@ -42,6 +42,9 @@ export class CheckGroup extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.CheckGroupAlertChannelSubscription[] | undefined>;
+    /**
+     * Determines the alert escalation policy for the check.
+     */
     declare public readonly alertSettings: pulumi.Output<outputs.CheckGroupAlertSettings>;
     declare public readonly apiCheckDefaults: pulumi.Output<outputs.CheckGroupApiCheckDefaults>;
     /**
@@ -195,6 +198,9 @@ export interface CheckGroupState {
      */
     activated?: pulumi.Input<boolean>;
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the check.
+     */
     alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings>;
     apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults>;
     /**
@@ -280,6 +286,9 @@ export interface CheckGroupArgs {
      */
     activated: pulumi.Input<boolean>;
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the check.
+     */
     alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings>;
     apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults>;
     /**

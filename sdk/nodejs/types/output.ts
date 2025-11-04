@@ -84,62 +84,74 @@ export interface CheckAlertChannelSubscription {
 
 export interface CheckAlertSettings {
     /**
-     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
      */
     escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
     parallelRunFailureThresholds: outputs.CheckAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
     reminders: outputs.CheckAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
     runBasedEscalations: outputs.CheckAlertSettingsRunBasedEscalation[];
     /**
-     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
      */
     sslCertificates?: outputs.CheckAlertSettingsSslCertificate[];
+    /**
+     * Configuration for time-based escalation.
+     */
     timeBasedEscalations: outputs.CheckAlertSettingsTimeBasedEscalation[];
 }
 
 export interface CheckAlertSettingsParallelRunFailureThreshold {
     /**
-     * Applicable only for checks scheduled in parallel in multiple locations.
+     * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
      */
     enabled?: boolean;
     /**
-     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
      */
     percentage?: number;
 }
 
 export interface CheckAlertSettingsReminder {
     /**
-     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
      */
     amount?: number;
     /**
-     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     interval?: number;
 }
 
 export interface CheckAlertSettingsRunBasedEscalation {
     /**
-     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
      */
     failedRunThreshold?: number;
 }
 
 export interface CheckAlertSettingsSslCertificate {
     /**
-     * How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     * No longer available.
      */
     alertThreshold?: number;
     /**
-     * Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+     * No longer available.
      */
     enabled?: boolean;
 }
 
 export interface CheckAlertSettingsTimeBasedEscalation {
     /**
-     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     minutesFailingThreshold?: number;
 }
@@ -158,62 +170,74 @@ export interface CheckGroupAlertChannelSubscription {
 
 export interface CheckGroupAlertSettings {
     /**
-     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
      */
     escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
     parallelRunFailureThresholds: outputs.CheckGroupAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
     reminders: outputs.CheckGroupAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
     runBasedEscalations: outputs.CheckGroupAlertSettingsRunBasedEscalation[];
     /**
-     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
      */
     sslCertificates?: outputs.CheckGroupAlertSettingsSslCertificate[];
+    /**
+     * Configuration for time-based escalation.
+     */
     timeBasedEscalations: outputs.CheckGroupAlertSettingsTimeBasedEscalation[];
 }
 
 export interface CheckGroupAlertSettingsParallelRunFailureThreshold {
     /**
-     * Applicable only for checks scheduled in parallel in multiple locations.
+     * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
      */
     enabled?: boolean;
     /**
-     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
      */
     percentage?: number;
 }
 
 export interface CheckGroupAlertSettingsReminder {
     /**
-     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
      */
     amount?: number;
     /**
-     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     interval?: number;
 }
 
 export interface CheckGroupAlertSettingsRunBasedEscalation {
     /**
-     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
      */
     failedRunThreshold?: number;
 }
 
 export interface CheckGroupAlertSettingsSslCertificate {
     /**
-     * At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     * No longer available.
      */
     alertThreshold?: number;
     /**
-     * Determines if alert notifications should be sent for expiring SSL certificates.
+     * No longer available.
      */
     enabled?: boolean;
 }
 
 export interface CheckGroupAlertSettingsTimeBasedEscalation {
     /**
-     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     minutesFailingThreshold?: number;
 }
@@ -404,6 +428,183 @@ export interface CheckTriggerIncident {
     severity: string;
 }
 
+export interface DnsMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: number;
+}
+
+export interface DnsMonitorAlertSettings {
+    /**
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+     */
+    escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds: outputs.DnsMonitorAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders: outputs.DnsMonitorAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations: outputs.DnsMonitorAlertSettingsRunBasedEscalation[];
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations: outputs.DnsMonitorAlertSettingsTimeBasedEscalation[];
+}
+
+export interface DnsMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+     */
+    enabled?: boolean;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: number;
+}
+
+export interface DnsMonitorAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: number;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: number;
+}
+
+export interface DnsMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: number;
+}
+
+export interface DnsMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: number;
+}
+
+export interface DnsMonitorRequest {
+    /**
+     * Assertions to validate the HTTP response. DNS monitors only support status code assertions.
+     */
+    assertions?: outputs.DnsMonitorRequestAssertion[];
+    /**
+     * The name server to use.
+     */
+    nameServer?: outputs.DnsMonitorRequestNameServer;
+    /**
+     * The protocol used to communicate with the name server. Possible values are `UDP` and `TCP`. (Default `UDP`).
+     */
+    protocol?: string;
+    /**
+     * The DNS record to query.
+     */
+    query: string;
+    /**
+     * The DNS record type. Possible values are `A`, `AAAA`, `CNAME`, `MX`, `NS`, `TXT` and `SOA`.
+     */
+    recordType: string;
+}
+
+export interface DnsMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+     */
+    comparison: string;
+    property?: string;
+    /**
+     * The source of the asserted value. Possible values are `RESPONSE_CODE`, `RESPONSE_TIME`, `TEXT_ANSWER` and `JSON_ANSWER`.
+     */
+    source: string;
+    /**
+     * The target value. Typically `NOERROR` when the source is `RESPONSE_CODE`.
+     */
+    target: string;
+}
+
+export interface DnsMonitorRequestNameServer {
+    /**
+     * The name server host.
+     */
+    host?: string;
+    /**
+     * The name server port.
+     */
+    port?: number;
+}
+
+export interface DnsMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: number;
+    /**
+     * The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+     */
+    maxDurationSeconds?: number;
+    /**
+     * The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+     */
+    maxRetries?: number;
+    /**
+     * Apply the retry strategy only if the defined conditions match.
+     */
+    onlyOn?: outputs.DnsMonitorRetryStrategyOnlyOn;
+    /**
+     * Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+     */
+    sameRegion?: boolean;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+     */
+    type: string;
+}
+
+export interface DnsMonitorRetryStrategyOnlyOn {
+    /**
+     * When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+     */
+    networkError?: boolean;
+}
+
+export interface DnsMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: string;
+    /**
+     * The name of the incident.
+     */
+    name: string;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: boolean;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: string;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: string;
+}
+
 export interface HeartbeatCheckAlertChannelSubscription {
     activated: boolean;
     channelId: number;
@@ -411,62 +612,74 @@ export interface HeartbeatCheckAlertChannelSubscription {
 
 export interface HeartbeatCheckAlertSettings {
     /**
-     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
      */
     escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
     parallelRunFailureThresholds: outputs.HeartbeatCheckAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
     reminders: outputs.HeartbeatCheckAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
     runBasedEscalations: outputs.HeartbeatCheckAlertSettingsRunBasedEscalation[];
     /**
-     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
      */
     sslCertificates?: outputs.HeartbeatCheckAlertSettingsSslCertificate[];
+    /**
+     * Configuration for time-based escalation.
+     */
     timeBasedEscalations: outputs.HeartbeatCheckAlertSettingsTimeBasedEscalation[];
 }
 
 export interface HeartbeatCheckAlertSettingsParallelRunFailureThreshold {
     /**
-     * Applicable only for checks scheduled in parallel in multiple locations.
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
      */
     enabled?: boolean;
     /**
-     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
      */
     percentage?: number;
 }
 
 export interface HeartbeatCheckAlertSettingsReminder {
     /**
-     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
      */
     amount?: number;
     /**
-     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     interval?: number;
 }
 
 export interface HeartbeatCheckAlertSettingsRunBasedEscalation {
     /**
-     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
      */
     failedRunThreshold?: number;
 }
 
 export interface HeartbeatCheckAlertSettingsSslCertificate {
     /**
-     * How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     * No longer available.
      */
     alertThreshold?: number;
     /**
-     * Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+     * No longer available.
      */
     enabled?: boolean;
 }
 
 export interface HeartbeatCheckAlertSettingsTimeBasedEscalation {
     /**
-     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     minutesFailingThreshold?: number;
 }
@@ -524,62 +737,74 @@ export interface HeartbeatMonitorAlertChannelSubscription {
 
 export interface HeartbeatMonitorAlertSettings {
     /**
-     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
      */
     escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
     parallelRunFailureThresholds: outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
     reminders: outputs.HeartbeatMonitorAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
     runBasedEscalations: outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation[];
     /**
-     * @deprecated This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
+     * @deprecated This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
      */
     sslCertificates?: outputs.HeartbeatMonitorAlertSettingsSslCertificate[];
+    /**
+     * Configuration for time-based escalation.
+     */
     timeBasedEscalations: outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation[];
 }
 
 export interface HeartbeatMonitorAlertSettingsParallelRunFailureThreshold {
     /**
-     * Applicable only for checks scheduled in parallel in multiple locations.
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
      */
     enabled?: boolean;
     /**
-     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
      */
     percentage?: number;
 }
 
 export interface HeartbeatMonitorAlertSettingsReminder {
     /**
-     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
      */
     amount?: number;
     /**
-     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     interval?: number;
 }
 
 export interface HeartbeatMonitorAlertSettingsRunBasedEscalation {
     /**
-     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
      */
     failedRunThreshold?: number;
 }
 
 export interface HeartbeatMonitorAlertSettingsSslCertificate {
     /**
-     * How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+     * No longer available.
      */
     alertThreshold?: number;
     /**
-     * Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+     * No longer available.
      */
     enabled?: boolean;
 }
 
 export interface HeartbeatMonitorAlertSettingsTimeBasedEscalation {
     /**
-     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     minutesFailingThreshold?: number;
 }
@@ -655,47 +880,59 @@ export interface TcpCheckAlertChannelSubscription {
 
 export interface TcpCheckAlertSettings {
     /**
-     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
      */
     escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
     parallelRunFailureThresholds: outputs.TcpCheckAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
     reminders: outputs.TcpCheckAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
     runBasedEscalations: outputs.TcpCheckAlertSettingsRunBasedEscalation[];
+    /**
+     * Configuration for time-based escalation.
+     */
     timeBasedEscalations: outputs.TcpCheckAlertSettingsTimeBasedEscalation[];
 }
 
 export interface TcpCheckAlertSettingsParallelRunFailureThreshold {
     /**
-     * Applicable only for checks scheduled in parallel in multiple locations.
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
      */
     enabled?: boolean;
     /**
-     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
      */
     percentage?: number;
 }
 
 export interface TcpCheckAlertSettingsReminder {
     /**
-     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
      */
     amount?: number;
     /**
-     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     interval?: number;
 }
 
 export interface TcpCheckAlertSettingsRunBasedEscalation {
     /**
-     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
      */
     failedRunThreshold?: number;
 }
 
 export interface TcpCheckAlertSettingsTimeBasedEscalation {
     /**
-     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     minutesFailingThreshold?: number;
 }
@@ -800,47 +1037,59 @@ export interface TcpMonitorAlertChannelSubscription {
 
 export interface TcpMonitorAlertSettings {
     /**
-     * Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
      */
     escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
     parallelRunFailureThresholds: outputs.TcpMonitorAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
     reminders: outputs.TcpMonitorAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
     runBasedEscalations: outputs.TcpMonitorAlertSettingsRunBasedEscalation[];
+    /**
+     * Configuration for time-based escalation.
+     */
     timeBasedEscalations: outputs.TcpMonitorAlertSettingsTimeBasedEscalation[];
 }
 
 export interface TcpMonitorAlertSettingsParallelRunFailureThreshold {
     /**
-     * Applicable only for checks scheduled in parallel in multiple locations.
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
      */
     enabled?: boolean;
     /**
-     * Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
      */
     percentage?: number;
 }
 
 export interface TcpMonitorAlertSettingsReminder {
     /**
-     * How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
      */
     amount?: number;
     /**
-     * Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     interval?: number;
 }
 
 export interface TcpMonitorAlertSettingsRunBasedEscalation {
     /**
-     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
      */
     failedRunThreshold?: number;
 }
 
 export interface TcpMonitorAlertSettingsTimeBasedEscalation {
     /**
-     * After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     minutesFailingThreshold?: number;
 }
@@ -951,9 +1200,9 @@ export interface UrlMonitorAlertChannelSubscription {
 
 export interface UrlMonitorAlertSettings {
     /**
-     * Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
      */
-    escalationType: string;
+    escalationType?: string;
     /**
      * Configuration for parallel run failure threshold.
      */
@@ -974,7 +1223,7 @@ export interface UrlMonitorAlertSettings {
 
 export interface UrlMonitorAlertSettingsParallelRunFailureThreshold {
     /**
-     * Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
      */
     enabled?: boolean;
     /**
@@ -996,14 +1245,14 @@ export interface UrlMonitorAlertSettingsReminder {
 
 export interface UrlMonitorAlertSettingsRunBasedEscalation {
     /**
-     * After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
      */
     failedRunThreshold?: number;
 }
 
 export interface UrlMonitorAlertSettingsTimeBasedEscalation {
     /**
-     * After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
      */
     minutesFailingThreshold?: number;
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class UrlMonitorAlertSettingsTimeBasedEscalationGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        /// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         /// </summary>
         [Input("minutesFailingThreshold")]
         public Input<int>? MinutesFailingThreshold { get; set; }

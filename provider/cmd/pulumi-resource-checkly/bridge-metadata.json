@@ -176,6 +176,66 @@
                     }
                 }
             },
+            "checkly_dns_monitor": {
+                "current": "checkly:index/dnsMonitor:DnsMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "locations": {
+                        "maxItemsOne": false
+                    },
+                    "request": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "assertion": {
+                                    "maxItemsOne": false
+                                },
+                                "name_server": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    },
+                    "retry_strategy": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    },
+                    "trigger_incident": {
+                        "maxItemsOne": true
+                    }
+                }
+            },
             "checkly_environment_variable": {
                 "current": "checkly:index/environmentVariable:EnvironmentVariable",
                 "majorVersion": 2

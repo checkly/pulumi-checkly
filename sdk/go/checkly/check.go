@@ -20,7 +20,8 @@ type Check struct {
 	Activated pulumi.BoolOutput `pulumi:"activated"`
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             CheckAlertSettingsOutput                 `pulumi:"alertSettings"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings CheckAlertSettingsOutput `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -130,7 +131,8 @@ type checkState struct {
 	Activated *bool `pulumi:"activated"`
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions []CheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             *CheckAlertSettings             `pulumi:"alertSettings"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -202,7 +204,8 @@ type CheckState struct {
 	Activated pulumi.BoolPtrInput
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayInput
-	AlertSettings             CheckAlertSettingsPtrInput
+	// Determines the alert escalation policy for the check.
+	AlertSettings CheckAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime pulumi.IntPtrInput
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -278,7 +281,8 @@ type checkArgs struct {
 	Activated bool `pulumi:"activated"`
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions []CheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             *CheckAlertSettings             `pulumi:"alertSettings"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -351,7 +355,8 @@ type CheckArgs struct {
 	Activated pulumi.BoolInput
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayInput
-	AlertSettings             CheckAlertSettingsPtrInput
+	// Determines the alert escalation policy for the check.
+	AlertSettings CheckAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime pulumi.IntPtrInput
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -515,6 +520,7 @@ func (o CheckOutput) AlertChannelSubscriptions() CheckAlertChannelSubscriptionAr
 	return o.ApplyT(func(v *Check) CheckAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(CheckAlertChannelSubscriptionArrayOutput)
 }
 
+// Determines the alert escalation policy for the check.
 func (o CheckOutput) AlertSettings() CheckAlertSettingsOutput {
 	return o.ApplyT(func(v *Check) CheckAlertSettingsOutput { return v.AlertSettings }).(CheckAlertSettingsOutput)
 }

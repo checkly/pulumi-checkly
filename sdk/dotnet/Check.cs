@@ -27,6 +27,9 @@ namespace Pulumi.Checkly
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.CheckAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
+        /// <summary>
+        /// Determines the alert escalation policy for the check.
+        /// </summary>
         [Output("alertSettings")]
         public Output<Outputs.CheckAlertSettings> AlertSettings { get; private set; } = null!;
 
@@ -269,6 +272,9 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
+        /// <summary>
+        /// Determines the alert escalation policy for the check.
+        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckAlertSettingsArgs>? AlertSettings { get; set; }
 
@@ -503,6 +509,9 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
+        /// <summary>
+        /// Determines the alert escalation policy for the check.
+        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckAlertSettingsGetArgs>? AlertSettings { get; set; }
 

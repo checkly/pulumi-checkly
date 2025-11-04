@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class HeartbeatMonitorAlertSettingsSslCertificateArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        /// No longer available.
         /// </summary>
         [Input("alertThreshold")]
         public Input<int>? AlertThreshold { get; set; }
 
         /// <summary>
-        /// Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        /// No longer available.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }

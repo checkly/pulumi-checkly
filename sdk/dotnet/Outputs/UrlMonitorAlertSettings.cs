@@ -14,9 +14,9 @@ namespace Pulumi.Checkly.Outputs
     public sealed class UrlMonitorAlertSettings
     {
         /// <summary>
-        /// Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         /// </summary>
-        public readonly string EscalationType;
+        public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
@@ -36,7 +36,7 @@ namespace Pulumi.Checkly.Outputs
 
         [OutputConstructor]
         private UrlMonitorAlertSettings(
-            string escalationType,
+            string? escalationType,
 
             ImmutableArray<Outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
 

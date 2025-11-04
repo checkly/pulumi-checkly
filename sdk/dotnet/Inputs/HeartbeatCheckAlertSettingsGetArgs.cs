@@ -13,13 +13,17 @@ namespace Pulumi.Checkly.Inputs
     public sealed class HeartbeatCheckAlertSettingsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
         [Input("parallelRunFailureThresholds")]
         private InputList<Inputs.HeartbeatCheckAlertSettingsParallelRunFailureThresholdGetArgs>? _parallelRunFailureThresholds;
+
+        /// <summary>
+        /// Configuration for parallel run failure threshold.
+        /// </summary>
         public InputList<Inputs.HeartbeatCheckAlertSettingsParallelRunFailureThresholdGetArgs> ParallelRunFailureThresholds
         {
             get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.HeartbeatCheckAlertSettingsParallelRunFailureThresholdGetArgs>());
@@ -28,6 +32,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("reminders")]
         private InputList<Inputs.HeartbeatCheckAlertSettingsReminderGetArgs>? _reminders;
+
+        /// <summary>
+        /// Defines how often to send reminder notifications after initial alert.
+        /// </summary>
         public InputList<Inputs.HeartbeatCheckAlertSettingsReminderGetArgs> Reminders
         {
             get => _reminders ?? (_reminders = new InputList<Inputs.HeartbeatCheckAlertSettingsReminderGetArgs>());
@@ -36,6 +44,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("runBasedEscalations")]
         private InputList<Inputs.HeartbeatCheckAlertSettingsRunBasedEscalationGetArgs>? _runBasedEscalations;
+
+        /// <summary>
+        /// Configuration for run-based escalation.
+        /// </summary>
         public InputList<Inputs.HeartbeatCheckAlertSettingsRunBasedEscalationGetArgs> RunBasedEscalations
         {
             get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.HeartbeatCheckAlertSettingsRunBasedEscalationGetArgs>());
@@ -44,7 +56,7 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("sslCertificates")]
         private InputList<Inputs.HeartbeatCheckAlertSettingsSslCertificateGetArgs>? _sslCertificates;
-        [Obsolete(@"This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.")]
+        [Obsolete(@"This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.")]
         public InputList<Inputs.HeartbeatCheckAlertSettingsSslCertificateGetArgs> SslCertificates
         {
             get => _sslCertificates ?? (_sslCertificates = new InputList<Inputs.HeartbeatCheckAlertSettingsSslCertificateGetArgs>());
@@ -53,6 +65,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("timeBasedEscalations")]
         private InputList<Inputs.HeartbeatCheckAlertSettingsTimeBasedEscalationGetArgs>? _timeBasedEscalations;
+
+        /// <summary>
+        /// Configuration for time-based escalation.
+        /// </summary>
         public InputList<Inputs.HeartbeatCheckAlertSettingsTimeBasedEscalationGetArgs> TimeBasedEscalations
         {
             get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.HeartbeatCheckAlertSettingsTimeBasedEscalationGetArgs>());

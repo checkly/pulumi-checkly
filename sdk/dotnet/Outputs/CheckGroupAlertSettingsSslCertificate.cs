@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckGroupAlertSettingsSslCertificate
     {
         /// <summary>
-        /// At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        /// No longer available.
         /// </summary>
         public readonly int? AlertThreshold;
         /// <summary>
-        /// Determines if alert notifications should be sent for expiring SSL certificates.
+        /// No longer available.
         /// </summary>
         public readonly bool? Enabled;
 

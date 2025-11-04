@@ -46,6 +46,7 @@ class CheckGroupArgs:
         The set of arguments for constructing a CheckGroup resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
+        :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -146,6 +147,9 @@ class CheckGroupArgs:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckGroupAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the check.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -383,6 +387,7 @@ class _CheckGroupState:
         """
         Input properties used for looking up and filtering CheckGroup resources.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
+        :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -474,6 +479,9 @@ class _CheckGroupState:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckGroupAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the check.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -730,6 +738,7 @@ class CheckGroup(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
+        :param pulumi.Input[Union['CheckGroupAlertSettingsArgs', 'CheckGroupAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupEnvironmentVariableArgs', 'CheckGroupEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -866,6 +875,7 @@ class CheckGroup(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
+        :param pulumi.Input[Union['CheckGroupAlertSettingsArgs', 'CheckGroupAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupEnvironmentVariableArgs', 'CheckGroupEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -927,6 +937,9 @@ class CheckGroup(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> pulumi.Output['outputs.CheckGroupAlertSettings']:
+        """
+        Determines the alert escalation policy for the check.
+        """
         return pulumi.get(self, "alert_settings")
 
     @_builtins.property

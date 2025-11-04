@@ -48,6 +48,7 @@ class TcpCheckArgs:
         :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input['TcpCheckRequestArgs'] request: The parameters for the TCP connection.
         :param pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input['TcpCheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
@@ -156,6 +157,9 @@ class TcpCheckArgs:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['TcpCheckAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the monitor.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -383,6 +387,7 @@ class _TcpCheckState:
         Input properties used for looking up and filtering TcpCheck resources.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input['TcpCheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input['TcpCheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
@@ -472,6 +477,9 @@ class _TcpCheckState:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['TcpCheckAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the monitor.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -796,6 +804,7 @@ class TcpCheck(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TcpCheckAlertChannelSubscriptionArgs', 'TcpCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Union['TcpCheckAlertSettingsArgs', 'TcpCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
@@ -1002,6 +1011,7 @@ class TcpCheck(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['TcpCheckAlertChannelSubscriptionArgs', 'TcpCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Union['TcpCheckAlertSettingsArgs', 'TcpCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
         :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
@@ -1067,6 +1077,9 @@ class TcpCheck(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> pulumi.Output['outputs.TcpCheckAlertSettings']:
+        """
+        Determines the alert escalation policy for the monitor.
+        """
         return pulumi.get(self, "alert_settings")
 
     @_builtins.property

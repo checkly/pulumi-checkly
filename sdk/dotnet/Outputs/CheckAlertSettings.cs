@@ -14,13 +14,25 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckAlertSettings
     {
         /// <summary>
-        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         /// </summary>
         public readonly string? EscalationType;
+        /// <summary>
+        /// Configuration for parallel run failure threshold.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CheckAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        /// <summary>
+        /// Defines how often to send reminder notifications after initial alert.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CheckAlertSettingsReminder> Reminders;
+        /// <summary>
+        /// Configuration for run-based escalation.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CheckAlertSettingsRunBasedEscalation> RunBasedEscalations;
         public readonly ImmutableArray<Outputs.CheckAlertSettingsSslCertificate> SslCertificates;
+        /// <summary>
+        /// Configuration for time-based escalation.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CheckAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
 
         [OutputConstructor]

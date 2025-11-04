@@ -5,7 +5,7 @@ go 1.24.0
 replace github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20250530111747-935112552988
 
 require (
-	github.com/checkly/terraform-provider-checkly v1.15.0
+	github.com/checkly/terraform-provider-checkly v1.16.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.114.0
 	github.com/pulumi/pulumi/pkg/v3 v3.190.0
 	github.com/pulumi/pulumi/sdk/v3 v3.190.0
@@ -46,7 +46,7 @@ require (
 	github.com/charmbracelet/bubbles v0.16.1 // indirect
 	github.com/charmbracelet/bubbletea v0.25.0 // indirect
 	github.com/charmbracelet/lipgloss v0.7.1 // indirect
-	github.com/checkly/checkly-go-sdk v1.16.0 // indirect
+	github.com/checkly/checkly-go-sdk v1.17.0 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
 	github.com/cloudflare/circl v1.6.1 // indirect
 	github.com/cncf/xds/go v0.0.0-20250501225837-2ac532fd4443 // indirect
