@@ -19,8 +19,9 @@ type CheckGroup struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 pulumi.BoolOutput                             `pulumi:"activated"`
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             CheckGroupAlertSettingsOutput                 `pulumi:"alertSettings"`
-	ApiCheckDefaults          CheckGroupApiCheckDefaultsOutput              `pulumi:"apiCheckDefaults"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings    CheckGroupAlertSettingsOutput    `pulumi:"alertSettings"`
+	ApiCheckDefaults CheckGroupApiCheckDefaultsOutput `pulumi:"apiCheckDefaults"`
 	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency pulumi.IntOutput `pulumi:"concurrency"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -103,8 +104,9 @@ type checkGroupState struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 *bool                                `pulumi:"activated"`
 	AlertChannelSubscriptions []CheckGroupAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             *CheckGroupAlertSettings             `pulumi:"alertSettings"`
-	ApiCheckDefaults          *CheckGroupApiCheckDefaults          `pulumi:"apiCheckDefaults"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings    *CheckGroupAlertSettings    `pulumi:"alertSettings"`
+	ApiCheckDefaults *CheckGroupApiCheckDefaults `pulumi:"apiCheckDefaults"`
 	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency *int `pulumi:"concurrency"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -149,8 +151,9 @@ type CheckGroupState struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 pulumi.BoolPtrInput
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayInput
-	AlertSettings             CheckGroupAlertSettingsPtrInput
-	ApiCheckDefaults          CheckGroupApiCheckDefaultsPtrInput
+	// Determines the alert escalation policy for the check.
+	AlertSettings    CheckGroupAlertSettingsPtrInput
+	ApiCheckDefaults CheckGroupApiCheckDefaultsPtrInput
 	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency pulumi.IntPtrInput
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -199,8 +202,9 @@ type checkGroupArgs struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 bool                                 `pulumi:"activated"`
 	AlertChannelSubscriptions []CheckGroupAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             *CheckGroupAlertSettings             `pulumi:"alertSettings"`
-	ApiCheckDefaults          *CheckGroupApiCheckDefaults          `pulumi:"apiCheckDefaults"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings    *CheckGroupAlertSettings    `pulumi:"alertSettings"`
+	ApiCheckDefaults *CheckGroupApiCheckDefaults `pulumi:"apiCheckDefaults"`
 	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency int `pulumi:"concurrency"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -246,8 +250,9 @@ type CheckGroupArgs struct {
 	// Determines if the checks in the group are running or not.
 	Activated                 pulumi.BoolInput
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayInput
-	AlertSettings             CheckGroupAlertSettingsPtrInput
-	ApiCheckDefaults          CheckGroupApiCheckDefaultsPtrInput
+	// Determines the alert escalation policy for the check.
+	AlertSettings    CheckGroupAlertSettingsPtrInput
+	ApiCheckDefaults CheckGroupApiCheckDefaultsPtrInput
 	// Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
 	Concurrency pulumi.IntInput
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -384,6 +389,7 @@ func (o CheckGroupOutput) AlertChannelSubscriptions() CheckGroupAlertChannelSubs
 	return o.ApplyT(func(v *CheckGroup) CheckGroupAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(CheckGroupAlertChannelSubscriptionArrayOutput)
 }
 
+// Determines the alert escalation policy for the check.
 func (o CheckGroupOutput) AlertSettings() CheckGroupAlertSettingsOutput {
 	return o.ApplyT(func(v *CheckGroup) CheckGroupAlertSettingsOutput { return v.AlertSettings }).(CheckGroupAlertSettingsOutput)
 }

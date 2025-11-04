@@ -112,7 +112,8 @@ type TcpCheck struct {
 	Activated pulumi.BoolOutput `pulumi:"activated"`
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             TcpCheckAlertSettingsOutput                 `pulumi:"alertSettings"`
+	// Determines the alert escalation policy for the monitor.
+	AlertSettings TcpCheckAlertSettingsOutput `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
@@ -194,7 +195,8 @@ type tcpCheckState struct {
 	Activated *bool `pulumi:"activated"`
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions []TcpCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             *TcpCheckAlertSettings             `pulumi:"alertSettings"`
+	// Determines the alert escalation policy for the monitor.
+	AlertSettings *TcpCheckAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
@@ -238,7 +240,8 @@ type TcpCheckState struct {
 	Activated pulumi.BoolPtrInput
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayInput
-	AlertSettings             TcpCheckAlertSettingsPtrInput
+	// Determines the alert escalation policy for the monitor.
+	AlertSettings TcpCheckAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrInput
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
@@ -286,7 +289,8 @@ type tcpCheckArgs struct {
 	Activated bool `pulumi:"activated"`
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions []TcpCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
-	AlertSettings             *TcpCheckAlertSettings             `pulumi:"alertSettings"`
+	// Determines the alert escalation policy for the monitor.
+	AlertSettings *TcpCheckAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
@@ -331,7 +335,8 @@ type TcpCheckArgs struct {
 	Activated pulumi.BoolInput
 	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayInput
-	AlertSettings             TcpCheckAlertSettingsPtrInput
+	// Determines the alert escalation policy for the monitor.
+	AlertSettings TcpCheckAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrInput
 	// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
@@ -467,6 +472,7 @@ func (o TcpCheckOutput) AlertChannelSubscriptions() TcpCheckAlertChannelSubscrip
 	return o.ApplyT(func(v *TcpCheck) TcpCheckAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(TcpCheckAlertChannelSubscriptionArrayOutput)
 }
 
+// Determines the alert escalation policy for the monitor.
 func (o TcpCheckOutput) AlertSettings() TcpCheckAlertSettingsOutput {
 	return o.ApplyT(func(v *TcpCheck) TcpCheckAlertSettingsOutput { return v.AlertSettings }).(TcpCheckAlertSettingsOutput)
 }

@@ -123,6 +123,9 @@ namespace Pulumi.Checkly
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.TcpCheckAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
+        /// <summary>
+        /// Determines the alert escalation policy for the monitor.
+        /// </summary>
         [Output("alertSettings")]
         public Output<Outputs.TcpCheckAlertSettings> AlertSettings { get; private set; } = null!;
 
@@ -299,6 +302,9 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
+        /// <summary>
+        /// Determines the alert escalation policy for the monitor.
+        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.TcpCheckAlertSettingsArgs>? AlertSettings { get; set; }
 
@@ -454,6 +460,9 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
+        /// <summary>
+        /// Determines the alert escalation policy for the monitor.
+        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.TcpCheckAlertSettingsGetArgs>? AlertSettings { get; set; }
 

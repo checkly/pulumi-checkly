@@ -14,12 +14,24 @@ namespace Pulumi.Checkly.Outputs
     public sealed class TcpCheckAlertSettings
     {
         /// <summary>
-        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         /// </summary>
         public readonly string? EscalationType;
+        /// <summary>
+        /// Configuration for parallel run failure threshold.
+        /// </summary>
         public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        /// <summary>
+        /// Defines how often to send reminder notifications after initial alert.
+        /// </summary>
         public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsReminder> Reminders;
+        /// <summary>
+        /// Configuration for run-based escalation.
+        /// </summary>
         public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsRunBasedEscalation> RunBasedEscalations;
+        /// <summary>
+        /// Configuration for time-based escalation.
+        /// </summary>
         public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
 
         [OutputConstructor]

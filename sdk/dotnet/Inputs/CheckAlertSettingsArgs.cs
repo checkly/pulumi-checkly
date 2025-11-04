@@ -13,13 +13,17 @@ namespace Pulumi.Checkly.Inputs
     public sealed class CheckAlertSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
         [Input("parallelRunFailureThresholds")]
         private InputList<Inputs.CheckAlertSettingsParallelRunFailureThresholdArgs>? _parallelRunFailureThresholds;
+
+        /// <summary>
+        /// Configuration for parallel run failure threshold.
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsParallelRunFailureThresholdArgs> ParallelRunFailureThresholds
         {
             get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.CheckAlertSettingsParallelRunFailureThresholdArgs>());
@@ -28,6 +32,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("reminders")]
         private InputList<Inputs.CheckAlertSettingsReminderArgs>? _reminders;
+
+        /// <summary>
+        /// Defines how often to send reminder notifications after initial alert.
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsReminderArgs> Reminders
         {
             get => _reminders ?? (_reminders = new InputList<Inputs.CheckAlertSettingsReminderArgs>());
@@ -36,6 +44,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("runBasedEscalations")]
         private InputList<Inputs.CheckAlertSettingsRunBasedEscalationArgs>? _runBasedEscalations;
+
+        /// <summary>
+        /// Configuration for run-based escalation.
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsRunBasedEscalationArgs> RunBasedEscalations
         {
             get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.CheckAlertSettingsRunBasedEscalationArgs>());
@@ -44,7 +56,7 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("sslCertificates")]
         private InputList<Inputs.CheckAlertSettingsSslCertificateArgs>? _sslCertificates;
-        [Obsolete(@"This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.")]
+        [Obsolete(@"This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.")]
         public InputList<Inputs.CheckAlertSettingsSslCertificateArgs> SslCertificates
         {
             get => _sslCertificates ?? (_sslCertificates = new InputList<Inputs.CheckAlertSettingsSslCertificateArgs>());
@@ -53,6 +65,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("timeBasedEscalations")]
         private InputList<Inputs.CheckAlertSettingsTimeBasedEscalationArgs>? _timeBasedEscalations;
+
+        /// <summary>
+        /// Configuration for time-based escalation.
+        /// </summary>
         public InputList<Inputs.CheckAlertSettingsTimeBasedEscalationArgs> TimeBasedEscalations
         {
             get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.CheckAlertSettingsTimeBasedEscalationArgs>());

@@ -59,6 +59,7 @@ class CheckArgs:
         :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
         :param pulumi.Input[_builtins.str] type: The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -209,6 +210,9 @@ class CheckArgs:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the check.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -582,6 +586,7 @@ class _CheckState:
         Input properties used for looking up and filtering Check resources.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -713,6 +718,9 @@ class _CheckState:
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> Optional[pulumi.Input['CheckAlertSettingsArgs']]:
+        """
+        Determines the alert escalation policy for the check.
+        """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
@@ -1117,6 +1125,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -1301,6 +1310,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
@@ -1388,6 +1398,9 @@ class Check(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="alertSettings")
     def alert_settings(self) -> pulumi.Output['outputs.CheckAlertSettings']:
+        """
+        Determines the alert escalation policy for the check.
+        """
         return pulumi.get(self, "alert_settings")
 
     @_builtins.property

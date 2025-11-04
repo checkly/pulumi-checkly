@@ -30,6 +30,11 @@ export type Dashboard = import("./dashboard").Dashboard;
 export const Dashboard: typeof import("./dashboard").Dashboard = null as any;
 utilities.lazyLoad(exports, ["Dashboard"], () => require("./dashboard"));
 
+export { DnsMonitorArgs, DnsMonitorState } from "./dnsMonitor";
+export type DnsMonitor = import("./dnsMonitor").DnsMonitor;
+export const DnsMonitor: typeof import("./dnsMonitor").DnsMonitor = null as any;
+utilities.lazyLoad(exports, ["DnsMonitor"], () => require("./dnsMonitor"));
+
 export { EnvironmentVariableArgs, EnvironmentVariableState } from "./environmentVariable";
 export type EnvironmentVariable = import("./environmentVariable").EnvironmentVariable;
 export const EnvironmentVariable: typeof import("./environmentVariable").EnvironmentVariable = null as any;
@@ -127,6 +132,8 @@ const _module = {
                 return new ClientCertificate(name, <any>undefined, { urn })
             case "checkly:index/dashboard:Dashboard":
                 return new Dashboard(name, <any>undefined, { urn })
+            case "checkly:index/dnsMonitor:DnsMonitor":
+                return new DnsMonitor(name, <any>undefined, { urn })
             case "checkly:index/environmentVariable:EnvironmentVariable":
                 return new EnvironmentVariable(name, <any>undefined, { urn })
             case "checkly:index/heartbeatCheck:HeartbeatCheck":
@@ -163,6 +170,7 @@ pulumi.runtime.registerResourceModule("checkly", "index/check", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/clientCertificate", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/dashboard", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/dnsMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/environmentVariable", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatMonitor", _module)

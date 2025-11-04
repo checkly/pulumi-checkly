@@ -51,6 +51,9 @@ namespace Pulumi.Checkly
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.HeartbeatMonitorAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
+        /// <summary>
+        /// Determines the alert escalation policy for the monitor.
+        /// </summary>
         [Output("alertSettings")]
         public Output<Outputs.HeartbeatMonitorAlertSettings> AlertSettings { get; private set; } = null!;
 
@@ -148,6 +151,9 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
+        /// <summary>
+        /// Determines the alert escalation policy for the monitor.
+        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.HeartbeatMonitorAlertSettingsArgs>? AlertSettings { get; set; }
 
@@ -212,6 +218,9 @@ namespace Pulumi.Checkly
             set => _alertChannelSubscriptions = value;
         }
 
+        /// <summary>
+        /// Determines the alert escalation policy for the monitor.
+        /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.HeartbeatMonitorAlertSettingsGetArgs>? AlertSettings { get; set; }
 

@@ -13,13 +13,17 @@ namespace Pulumi.Checkly.Inputs
     public sealed class TcpCheckAlertSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
         [Input("parallelRunFailureThresholds")]
         private InputList<Inputs.TcpCheckAlertSettingsParallelRunFailureThresholdArgs>? _parallelRunFailureThresholds;
+
+        /// <summary>
+        /// Configuration for parallel run failure threshold.
+        /// </summary>
         public InputList<Inputs.TcpCheckAlertSettingsParallelRunFailureThresholdArgs> ParallelRunFailureThresholds
         {
             get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.TcpCheckAlertSettingsParallelRunFailureThresholdArgs>());
@@ -28,6 +32,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("reminders")]
         private InputList<Inputs.TcpCheckAlertSettingsReminderArgs>? _reminders;
+
+        /// <summary>
+        /// Defines how often to send reminder notifications after initial alert.
+        /// </summary>
         public InputList<Inputs.TcpCheckAlertSettingsReminderArgs> Reminders
         {
             get => _reminders ?? (_reminders = new InputList<Inputs.TcpCheckAlertSettingsReminderArgs>());
@@ -36,6 +44,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("runBasedEscalations")]
         private InputList<Inputs.TcpCheckAlertSettingsRunBasedEscalationArgs>? _runBasedEscalations;
+
+        /// <summary>
+        /// Configuration for run-based escalation.
+        /// </summary>
         public InputList<Inputs.TcpCheckAlertSettingsRunBasedEscalationArgs> RunBasedEscalations
         {
             get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.TcpCheckAlertSettingsRunBasedEscalationArgs>());
@@ -44,6 +56,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("timeBasedEscalations")]
         private InputList<Inputs.TcpCheckAlertSettingsTimeBasedEscalationArgs>? _timeBasedEscalations;
+
+        /// <summary>
+        /// Configuration for time-based escalation.
+        /// </summary>
         public InputList<Inputs.TcpCheckAlertSettingsTimeBasedEscalationArgs> TimeBasedEscalations
         {
             get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.TcpCheckAlertSettingsTimeBasedEscalationArgs>());

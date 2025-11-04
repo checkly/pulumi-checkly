@@ -59,6 +59,9 @@ export class HeartbeatCheck extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.HeartbeatCheckAlertChannelSubscription[] | undefined>;
+    /**
+     * Determines the alert escalation policy for the monitor.
+     */
     declare public readonly alertSettings: pulumi.Output<outputs.HeartbeatCheckAlertSettings>;
     declare public readonly heartbeat: pulumi.Output<outputs.HeartbeatCheckHeartbeat>;
     /**
@@ -136,6 +139,9 @@ export interface HeartbeatCheckState {
      */
     activated?: pulumi.Input<boolean>;
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatCheckAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the monitor.
+     */
     alertSettings?: pulumi.Input<inputs.HeartbeatCheckAlertSettings>;
     heartbeat?: pulumi.Input<inputs.HeartbeatCheckHeartbeat>;
     /**
@@ -169,6 +175,9 @@ export interface HeartbeatCheckArgs {
      */
     activated: pulumi.Input<boolean>;
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatCheckAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the monitor.
+     */
     alertSettings?: pulumi.Input<inputs.HeartbeatCheckAlertSettings>;
     heartbeat: pulumi.Input<inputs.HeartbeatCheckHeartbeat>;
     /**

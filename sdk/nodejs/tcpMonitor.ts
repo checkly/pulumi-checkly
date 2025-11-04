@@ -115,6 +115,9 @@ export class TcpMonitor extends pulumi.CustomResource {
      * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
      */
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.TcpMonitorAlertChannelSubscription[] | undefined>;
+    /**
+     * Determines the alert escalation policy for the monitor.
+     */
     declare public readonly alertSettings: pulumi.Output<outputs.TcpMonitorAlertSettings>;
     /**
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
@@ -273,6 +276,9 @@ export interface TcpMonitorState {
      * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the monitor.
+     */
     alertSettings?: pulumi.Input<inputs.TcpMonitorAlertSettings>;
     /**
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
@@ -360,6 +366,9 @@ export interface TcpMonitorArgs {
      * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertChannelSubscription>[]>;
+    /**
+     * Determines the alert escalation policy for the monitor.
+     */
     alertSettings?: pulumi.Input<inputs.TcpMonitorAlertSettings>;
     /**
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).

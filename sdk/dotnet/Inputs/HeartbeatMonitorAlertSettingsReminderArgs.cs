@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class HeartbeatMonitorAlertSettingsReminderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        /// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
         /// </summary>
         [Input("amount")]
         public Input<int>? Amount { get; set; }
 
         /// <summary>
-        /// Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        /// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         /// </summary>
         [Input("interval")]
         public Input<int>? Interval { get; set; }

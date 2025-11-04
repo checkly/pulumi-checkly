@@ -50,6 +50,18 @@ __all__ = [
     'CheckRetryStrategy',
     'CheckRetryStrategyOnlyOn',
     'CheckTriggerIncident',
+    'DnsMonitorAlertChannelSubscription',
+    'DnsMonitorAlertSettings',
+    'DnsMonitorAlertSettingsParallelRunFailureThreshold',
+    'DnsMonitorAlertSettingsReminder',
+    'DnsMonitorAlertSettingsRunBasedEscalation',
+    'DnsMonitorAlertSettingsTimeBasedEscalation',
+    'DnsMonitorRequest',
+    'DnsMonitorRequestAssertion',
+    'DnsMonitorRequestNameServer',
+    'DnsMonitorRetryStrategy',
+    'DnsMonitorRetryStrategyOnlyOn',
+    'DnsMonitorTriggerIncident',
     'HeartbeatCheckAlertChannelSubscription',
     'HeartbeatCheckAlertSettings',
     'HeartbeatCheckAlertSettingsParallelRunFailureThreshold',
@@ -476,7 +488,11 @@ class CheckAlertSettings(dict):
                  ssl_certificates: Optional[Sequence['outputs.CheckAlertSettingsSslCertificate']] = None,
                  time_based_escalations: Optional[Sequence['outputs.CheckAlertSettingsTimeBasedEscalation']] = None):
         """
-        :param _builtins.str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['CheckAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['CheckAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['CheckAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['CheckAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
         """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
@@ -495,34 +511,46 @@ class CheckAlertSettings(dict):
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[_builtins.str]:
         """
-        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         """
         return pulumi.get(self, "escalation_type")
 
     @_builtins.property
     @pulumi.getter(name="parallelRunFailureThresholds")
     def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.CheckAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
         return pulumi.get(self, "parallel_run_failure_thresholds")
 
     @_builtins.property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.CheckAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
         return pulumi.get(self, "reminders")
 
     @_builtins.property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.CheckAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @_builtins.property
     @pulumi.getter(name="sslCertificates")
-    @_utilities.deprecated("""This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+    @_utilities.deprecated("""This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.""")
     def ssl_certificates(self) -> Optional[Sequence['outputs.CheckAlertSettingsSslCertificate']]:
         return pulumi.get(self, "ssl_certificates")
 
     @_builtins.property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.CheckAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -532,8 +560,8 @@ class CheckAlertSettingsParallelRunFailureThreshold(dict):
                  enabled: Optional[_builtins.bool] = None,
                  percentage: Optional[_builtins.int] = None):
         """
-        :param _builtins.bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
-        :param _builtins.int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -544,7 +572,7 @@ class CheckAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Applicable only for checks scheduled in parallel in multiple locations.
+        Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
         """
         return pulumi.get(self, "enabled")
 
@@ -552,7 +580,7 @@ class CheckAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def percentage(self) -> Optional[_builtins.int]:
         """
-        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         return pulumi.get(self, "percentage")
 
@@ -563,8 +591,8 @@ class CheckAlertSettingsReminder(dict):
                  amount: Optional[_builtins.int] = None,
                  interval: Optional[_builtins.int] = None):
         """
-        :param _builtins.int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
-        :param _builtins.int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
@@ -575,7 +603,7 @@ class CheckAlertSettingsReminder(dict):
     @pulumi.getter
     def amount(self) -> Optional[_builtins.int]:
         """
-        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
         """
         return pulumi.get(self, "amount")
 
@@ -583,7 +611,7 @@ class CheckAlertSettingsReminder(dict):
     @pulumi.getter
     def interval(self) -> Optional[_builtins.int]:
         """
-        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "interval")
 
@@ -610,7 +638,7 @@ class CheckAlertSettingsRunBasedEscalation(dict):
     def __init__(__self__, *,
                  failed_run_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
@@ -619,7 +647,7 @@ class CheckAlertSettingsRunBasedEscalation(dict):
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         return pulumi.get(self, "failed_run_threshold")
 
@@ -647,8 +675,8 @@ class CheckAlertSettingsSslCertificate(dict):
                  alert_threshold: Optional[_builtins.int] = None,
                  enabled: Optional[_builtins.bool] = None):
         """
-        :param _builtins.int alert_threshold: How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
-        :param _builtins.bool enabled: Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        :param _builtins.int alert_threshold: No longer available.
+        :param _builtins.bool enabled: No longer available.
         """
         if alert_threshold is not None:
             pulumi.set(__self__, "alert_threshold", alert_threshold)
@@ -659,7 +687,7 @@ class CheckAlertSettingsSslCertificate(dict):
     @pulumi.getter(name="alertThreshold")
     def alert_threshold(self) -> Optional[_builtins.int]:
         """
-        How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        No longer available.
         """
         return pulumi.get(self, "alert_threshold")
 
@@ -667,7 +695,7 @@ class CheckAlertSettingsSslCertificate(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        No longer available.
         """
         return pulumi.get(self, "enabled")
 
@@ -694,7 +722,7 @@ class CheckAlertSettingsTimeBasedEscalation(dict):
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
@@ -703,7 +731,7 @@ class CheckAlertSettingsTimeBasedEscalation(dict):
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "minutes_failing_threshold")
 
@@ -814,7 +842,11 @@ class CheckGroupAlertSettings(dict):
                  ssl_certificates: Optional[Sequence['outputs.CheckGroupAlertSettingsSslCertificate']] = None,
                  time_based_escalations: Optional[Sequence['outputs.CheckGroupAlertSettingsTimeBasedEscalation']] = None):
         """
-        :param _builtins.str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['CheckGroupAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['CheckGroupAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['CheckGroupAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['CheckGroupAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
         """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
@@ -833,34 +865,46 @@ class CheckGroupAlertSettings(dict):
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[_builtins.str]:
         """
-        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         """
         return pulumi.get(self, "escalation_type")
 
     @_builtins.property
     @pulumi.getter(name="parallelRunFailureThresholds")
     def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
         return pulumi.get(self, "parallel_run_failure_thresholds")
 
     @_builtins.property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
         return pulumi.get(self, "reminders")
 
     @_builtins.property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @_builtins.property
     @pulumi.getter(name="sslCertificates")
-    @_utilities.deprecated("""This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+    @_utilities.deprecated("""This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.""")
     def ssl_certificates(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsSslCertificate']]:
         return pulumi.get(self, "ssl_certificates")
 
     @_builtins.property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -870,8 +914,8 @@ class CheckGroupAlertSettingsParallelRunFailureThreshold(dict):
                  enabled: Optional[_builtins.bool] = None,
                  percentage: Optional[_builtins.int] = None):
         """
-        :param _builtins.bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
-        :param _builtins.int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -882,7 +926,7 @@ class CheckGroupAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Applicable only for checks scheduled in parallel in multiple locations.
+        Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
         """
         return pulumi.get(self, "enabled")
 
@@ -890,7 +934,7 @@ class CheckGroupAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def percentage(self) -> Optional[_builtins.int]:
         """
-        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         return pulumi.get(self, "percentage")
 
@@ -901,8 +945,8 @@ class CheckGroupAlertSettingsReminder(dict):
                  amount: Optional[_builtins.int] = None,
                  interval: Optional[_builtins.int] = None):
         """
-        :param _builtins.int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
-        :param _builtins.int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
@@ -913,7 +957,7 @@ class CheckGroupAlertSettingsReminder(dict):
     @pulumi.getter
     def amount(self) -> Optional[_builtins.int]:
         """
-        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
         """
         return pulumi.get(self, "amount")
 
@@ -921,7 +965,7 @@ class CheckGroupAlertSettingsReminder(dict):
     @pulumi.getter
     def interval(self) -> Optional[_builtins.int]:
         """
-        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "interval")
 
@@ -948,7 +992,7 @@ class CheckGroupAlertSettingsRunBasedEscalation(dict):
     def __init__(__self__, *,
                  failed_run_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
@@ -957,7 +1001,7 @@ class CheckGroupAlertSettingsRunBasedEscalation(dict):
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         return pulumi.get(self, "failed_run_threshold")
 
@@ -985,8 +1029,8 @@ class CheckGroupAlertSettingsSslCertificate(dict):
                  alert_threshold: Optional[_builtins.int] = None,
                  enabled: Optional[_builtins.bool] = None):
         """
-        :param _builtins.int alert_threshold: At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).
-        :param _builtins.bool enabled: Determines if alert notifications should be sent for expiring SSL certificates.
+        :param _builtins.int alert_threshold: No longer available.
+        :param _builtins.bool enabled: No longer available.
         """
         if alert_threshold is not None:
             pulumi.set(__self__, "alert_threshold", alert_threshold)
@@ -997,7 +1041,7 @@ class CheckGroupAlertSettingsSslCertificate(dict):
     @pulumi.getter(name="alertThreshold")
     def alert_threshold(self) -> Optional[_builtins.int]:
         """
-        At what moment in time to start alerting on SSL certificates. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        No longer available.
         """
         return pulumi.get(self, "alert_threshold")
 
@@ -1005,7 +1049,7 @@ class CheckGroupAlertSettingsSslCertificate(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Determines if alert notifications should be sent for expiring SSL certificates.
+        No longer available.
         """
         return pulumi.get(self, "enabled")
 
@@ -1032,7 +1076,7 @@ class CheckGroupAlertSettingsTimeBasedEscalation(dict):
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
@@ -1041,7 +1085,7 @@ class CheckGroupAlertSettingsTimeBasedEscalation(dict):
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "minutes_failing_threshold")
 
@@ -1785,6 +1829,659 @@ class CheckTriggerIncident(dict):
 
 
 @pulumi.output_type
+class DnsMonitorAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: _builtins.bool,
+                 channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
+        return pulumi.get(self, "activated")
+
+    @_builtins.property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class DnsMonitorAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "parallelRunFailureThresholds":
+            suggest = "parallel_run_failure_thresholds"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: Optional[_builtins.str] = None,
+                 parallel_run_failure_thresholds: Optional[Sequence['outputs.DnsMonitorAlertSettingsParallelRunFailureThreshold']] = None,
+                 reminders: Optional[Sequence['outputs.DnsMonitorAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.DnsMonitorAlertSettingsRunBasedEscalation']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.DnsMonitorAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['DnsMonitorAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['DnsMonitorAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['DnsMonitorAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['DnsMonitorAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @_builtins.property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[_builtins.str]:
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @_builtins.property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.DnsMonitorAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @_builtins.property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.DnsMonitorAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        return pulumi.get(self, "reminders")
+
+    @_builtins.property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.DnsMonitorAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @_builtins.property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.DnsMonitorAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class DnsMonitorAlertSettingsParallelRunFailureThreshold(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
+                 percentage: Optional[_builtins.int] = None):
+        """
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> Optional[_builtins.int]:
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class DnsMonitorAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[_builtins.int] = None,
+                 interval: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @_builtins.property
+    @pulumi.getter
+    def amount(self) -> Optional[_builtins.int]:
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        return pulumi.get(self, "amount")
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> Optional[_builtins.int]:
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class DnsMonitorAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class DnsMonitorAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class DnsMonitorRequest(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "recordType":
+            suggest = "record_type"
+        elif key == "nameServer":
+            suggest = "name_server"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorRequest.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 query: _builtins.str,
+                 record_type: _builtins.str,
+                 assertions: Optional[Sequence['outputs.DnsMonitorRequestAssertion']] = None,
+                 name_server: Optional['outputs.DnsMonitorRequestNameServer'] = None,
+                 protocol: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str query: The DNS record to query.
+        :param _builtins.str record_type: The DNS record type. Possible values are `A`, `AAAA`, `CNAME`, `MX`, `NS`, `TXT` and `SOA`.
+        :param Sequence['DnsMonitorRequestAssertionArgs'] assertions: Assertions to validate the HTTP response. DNS monitors only support status code assertions.
+        :param 'DnsMonitorRequestNameServerArgs' name_server: The name server to use.
+        :param _builtins.str protocol: The protocol used to communicate with the name server. Possible values are `UDP` and `TCP`. (Default `UDP`).
+        """
+        pulumi.set(__self__, "query", query)
+        pulumi.set(__self__, "record_type", record_type)
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if name_server is not None:
+            pulumi.set(__self__, "name_server", name_server)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+
+    @_builtins.property
+    @pulumi.getter
+    def query(self) -> _builtins.str:
+        """
+        The DNS record to query.
+        """
+        return pulumi.get(self, "query")
+
+    @_builtins.property
+    @pulumi.getter(name="recordType")
+    def record_type(self) -> _builtins.str:
+        """
+        The DNS record type. Possible values are `A`, `AAAA`, `CNAME`, `MX`, `NS`, `TXT` and `SOA`.
+        """
+        return pulumi.get(self, "record_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def assertions(self) -> Optional[Sequence['outputs.DnsMonitorRequestAssertion']]:
+        """
+        Assertions to validate the HTTP response. DNS monitors only support status code assertions.
+        """
+        return pulumi.get(self, "assertions")
+
+    @_builtins.property
+    @pulumi.getter(name="nameServer")
+    def name_server(self) -> Optional['outputs.DnsMonitorRequestNameServer']:
+        """
+        The name server to use.
+        """
+        return pulumi.get(self, "name_server")
+
+    @_builtins.property
+    @pulumi.getter
+    def protocol(self) -> Optional[_builtins.str]:
+        """
+        The protocol used to communicate with the name server. Possible values are `UDP` and `TCP`. (Default `UDP`).
+        """
+        return pulumi.get(self, "protocol")
+
+
+@pulumi.output_type
+class DnsMonitorRequestAssertion(dict):
+    def __init__(__self__, *,
+                 comparison: _builtins.str,
+                 source: _builtins.str,
+                 target: _builtins.str,
+                 property: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str comparison: The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        :param _builtins.str source: The source of the asserted value. Possible values are `RESPONSE_CODE`, `RESPONSE_TIME`, `TEXT_ANSWER` and `JSON_ANSWER`.
+        :param _builtins.str target: The target value. Typically `NOERROR` when the source is `RESPONSE_CODE`.
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "target", target)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+
+    @_builtins.property
+    @pulumi.getter
+    def comparison(self) -> _builtins.str:
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> _builtins.str:
+        """
+        The source of the asserted value. Possible values are `RESPONSE_CODE`, `RESPONSE_TIME`, `TEXT_ANSWER` and `JSON_ANSWER`.
+        """
+        return pulumi.get(self, "source")
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> _builtins.str:
+        """
+        The target value. Typically `NOERROR` when the source is `RESPONSE_CODE`.
+        """
+        return pulumi.get(self, "target")
+
+    @_builtins.property
+    @pulumi.getter
+    def property(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "property")
+
+
+@pulumi.output_type
+class DnsMonitorRequestNameServer(dict):
+    def __init__(__self__, *,
+                 host: Optional[_builtins.str] = None,
+                 port: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str host: The name server host.
+        :param _builtins.int port: The name server port.
+        """
+        if host is not None:
+            pulumi.set(__self__, "host", host)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @_builtins.property
+    @pulumi.getter
+    def host(self) -> Optional[_builtins.str]:
+        """
+        The name server host.
+        """
+        return pulumi.get(self, "host")
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> Optional[_builtins.int]:
+        """
+        The name server port.
+        """
+        return pulumi.get(self, "port")
+
+
+@pulumi.output_type
+class DnsMonitorRetryStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "baseBackoffSeconds":
+            suggest = "base_backoff_seconds"
+        elif key == "maxDurationSeconds":
+            suggest = "max_duration_seconds"
+        elif key == "maxRetries":
+            suggest = "max_retries"
+        elif key == "onlyOn":
+            suggest = "only_on"
+        elif key == "sameRegion":
+            suggest = "same_region"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorRetryStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorRetryStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorRetryStrategy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 base_backoff_seconds: Optional[_builtins.int] = None,
+                 max_duration_seconds: Optional[_builtins.int] = None,
+                 max_retries: Optional[_builtins.int] = None,
+                 only_on: Optional['outputs.DnsMonitorRetryStrategyOnlyOn'] = None,
+                 same_region: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str type: Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        :param _builtins.int base_backoff_seconds: The number of seconds to wait before the first retry attempt. (Default `60`).
+        :param _builtins.int max_duration_seconds: The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        :param _builtins.int max_retries: The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        :param 'DnsMonitorRetryStrategyOnlyOnArgs' only_on: Apply the retry strategy only if the defined conditions match.
+        :param _builtins.bool same_region: Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        pulumi.set(__self__, "type", type)
+        if base_backoff_seconds is not None:
+            pulumi.set(__self__, "base_backoff_seconds", base_backoff_seconds)
+        if max_duration_seconds is not None:
+            pulumi.set(__self__, "max_duration_seconds", max_duration_seconds)
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if only_on is not None:
+            pulumi.set(__self__, "only_on", only_on)
+        if same_region is not None:
+            pulumi.set(__self__, "same_region", same_region)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="baseBackoffSeconds")
+    def base_backoff_seconds(self) -> Optional[_builtins.int]:
+        """
+        The number of seconds to wait before the first retry attempt. (Default `60`).
+        """
+        return pulumi.get(self, "base_backoff_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="maxDurationSeconds")
+    def max_duration_seconds(self) -> Optional[_builtins.int]:
+        """
+        The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        """
+        return pulumi.get(self, "max_duration_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> Optional[_builtins.int]:
+        """
+        The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        """
+        return pulumi.get(self, "max_retries")
+
+    @_builtins.property
+    @pulumi.getter(name="onlyOn")
+    def only_on(self) -> Optional['outputs.DnsMonitorRetryStrategyOnlyOn']:
+        """
+        Apply the retry strategy only if the defined conditions match.
+        """
+        return pulumi.get(self, "only_on")
+
+    @_builtins.property
+    @pulumi.getter(name="sameRegion")
+    def same_region(self) -> Optional[_builtins.bool]:
+        """
+        Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        return pulumi.get(self, "same_region")
+
+
+@pulumi.output_type
+class DnsMonitorRetryStrategyOnlyOn(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "networkError":
+            suggest = "network_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorRetryStrategyOnlyOn. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorRetryStrategyOnlyOn.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorRetryStrategyOnlyOn.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 network_error: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.bool network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+        """
+        if network_error is not None:
+            pulumi.set(__self__, "network_error", network_error)
+
+    @_builtins.property
+    @pulumi.getter(name="networkError")
+    def network_error(self) -> Optional[_builtins.bool]:
+        """
+        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+        """
+        return pulumi.get(self, "network_error")
+
+
+@pulumi.output_type
+class DnsMonitorTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DnsMonitorTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DnsMonitorTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: _builtins.str,
+                 name: _builtins.str,
+                 notify_subscribers: _builtins.bool,
+                 service_id: _builtins.str,
+                 severity: _builtins.str):
+        """
+        :param _builtins.str description: A detailed description of the incident.
+        :param _builtins.str name: The name of the incident.
+        :param _builtins.bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param _builtins.str service_id: The status page service that this incident will be associated with.
+        :param _builtins.str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> _builtins.bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> _builtins.str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def severity(self) -> _builtins.str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+
+@pulumi.output_type
 class HeartbeatCheckAlertChannelSubscription(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1855,7 +2552,11 @@ class HeartbeatCheckAlertSettings(dict):
                  ssl_certificates: Optional[Sequence['outputs.HeartbeatCheckAlertSettingsSslCertificate']] = None,
                  time_based_escalations: Optional[Sequence['outputs.HeartbeatCheckAlertSettingsTimeBasedEscalation']] = None):
         """
-        :param _builtins.str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['HeartbeatCheckAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['HeartbeatCheckAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['HeartbeatCheckAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['HeartbeatCheckAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
         """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
@@ -1874,34 +2575,46 @@ class HeartbeatCheckAlertSettings(dict):
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[_builtins.str]:
         """
-        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         """
         return pulumi.get(self, "escalation_type")
 
     @_builtins.property
     @pulumi.getter(name="parallelRunFailureThresholds")
     def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.HeartbeatCheckAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
         return pulumi.get(self, "parallel_run_failure_thresholds")
 
     @_builtins.property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.HeartbeatCheckAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
         return pulumi.get(self, "reminders")
 
     @_builtins.property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.HeartbeatCheckAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @_builtins.property
     @pulumi.getter(name="sslCertificates")
-    @_utilities.deprecated("""This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+    @_utilities.deprecated("""This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.""")
     def ssl_certificates(self) -> Optional[Sequence['outputs.HeartbeatCheckAlertSettingsSslCertificate']]:
         return pulumi.get(self, "ssl_certificates")
 
     @_builtins.property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.HeartbeatCheckAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -1911,8 +2624,8 @@ class HeartbeatCheckAlertSettingsParallelRunFailureThreshold(dict):
                  enabled: Optional[_builtins.bool] = None,
                  percentage: Optional[_builtins.int] = None):
         """
-        :param _builtins.bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
-        :param _builtins.int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -1923,7 +2636,7 @@ class HeartbeatCheckAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Applicable only for checks scheduled in parallel in multiple locations.
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
         """
         return pulumi.get(self, "enabled")
 
@@ -1931,7 +2644,7 @@ class HeartbeatCheckAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def percentage(self) -> Optional[_builtins.int]:
         """
-        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         return pulumi.get(self, "percentage")
 
@@ -1942,8 +2655,8 @@ class HeartbeatCheckAlertSettingsReminder(dict):
                  amount: Optional[_builtins.int] = None,
                  interval: Optional[_builtins.int] = None):
         """
-        :param _builtins.int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
-        :param _builtins.int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
@@ -1954,7 +2667,7 @@ class HeartbeatCheckAlertSettingsReminder(dict):
     @pulumi.getter
     def amount(self) -> Optional[_builtins.int]:
         """
-        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
         """
         return pulumi.get(self, "amount")
 
@@ -1962,7 +2675,7 @@ class HeartbeatCheckAlertSettingsReminder(dict):
     @pulumi.getter
     def interval(self) -> Optional[_builtins.int]:
         """
-        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "interval")
 
@@ -1989,7 +2702,7 @@ class HeartbeatCheckAlertSettingsRunBasedEscalation(dict):
     def __init__(__self__, *,
                  failed_run_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
@@ -1998,7 +2711,7 @@ class HeartbeatCheckAlertSettingsRunBasedEscalation(dict):
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         return pulumi.get(self, "failed_run_threshold")
 
@@ -2026,8 +2739,8 @@ class HeartbeatCheckAlertSettingsSslCertificate(dict):
                  alert_threshold: Optional[_builtins.int] = None,
                  enabled: Optional[_builtins.bool] = None):
         """
-        :param _builtins.int alert_threshold: How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
-        :param _builtins.bool enabled: Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        :param _builtins.int alert_threshold: No longer available.
+        :param _builtins.bool enabled: No longer available.
         """
         if alert_threshold is not None:
             pulumi.set(__self__, "alert_threshold", alert_threshold)
@@ -2038,7 +2751,7 @@ class HeartbeatCheckAlertSettingsSslCertificate(dict):
     @pulumi.getter(name="alertThreshold")
     def alert_threshold(self) -> Optional[_builtins.int]:
         """
-        How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        No longer available.
         """
         return pulumi.get(self, "alert_threshold")
 
@@ -2046,7 +2759,7 @@ class HeartbeatCheckAlertSettingsSslCertificate(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        No longer available.
         """
         return pulumi.get(self, "enabled")
 
@@ -2073,7 +2786,7 @@ class HeartbeatCheckAlertSettingsTimeBasedEscalation(dict):
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
@@ -2082,7 +2795,7 @@ class HeartbeatCheckAlertSettingsTimeBasedEscalation(dict):
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "minutes_failing_threshold")
 
@@ -2323,7 +3036,11 @@ class HeartbeatMonitorAlertSettings(dict):
                  ssl_certificates: Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsSslCertificate']] = None,
                  time_based_escalations: Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation']] = None):
         """
-        :param _builtins.str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['HeartbeatMonitorAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['HeartbeatMonitorAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['HeartbeatMonitorAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['HeartbeatMonitorAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
         """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
@@ -2342,34 +3059,46 @@ class HeartbeatMonitorAlertSettings(dict):
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[_builtins.str]:
         """
-        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         """
         return pulumi.get(self, "escalation_type")
 
     @_builtins.property
     @pulumi.getter(name="parallelRunFailureThresholds")
     def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
         return pulumi.get(self, "parallel_run_failure_thresholds")
 
     @_builtins.property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
         return pulumi.get(self, "reminders")
 
     @_builtins.property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @_builtins.property
     @pulumi.getter(name="sslCertificates")
-    @_utilities.deprecated("""This property is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.""")
+    @_utilities.deprecated("""This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.""")
     def ssl_certificates(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsSslCertificate']]:
         return pulumi.get(self, "ssl_certificates")
 
     @_builtins.property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -2379,8 +3108,8 @@ class HeartbeatMonitorAlertSettingsParallelRunFailureThreshold(dict):
                  enabled: Optional[_builtins.bool] = None,
                  percentage: Optional[_builtins.int] = None):
         """
-        :param _builtins.bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
-        :param _builtins.int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -2391,7 +3120,7 @@ class HeartbeatMonitorAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Applicable only for checks scheduled in parallel in multiple locations.
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
         """
         return pulumi.get(self, "enabled")
 
@@ -2399,7 +3128,7 @@ class HeartbeatMonitorAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def percentage(self) -> Optional[_builtins.int]:
         """
-        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         return pulumi.get(self, "percentage")
 
@@ -2410,8 +3139,8 @@ class HeartbeatMonitorAlertSettingsReminder(dict):
                  amount: Optional[_builtins.int] = None,
                  interval: Optional[_builtins.int] = None):
         """
-        :param _builtins.int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
-        :param _builtins.int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
@@ -2422,7 +3151,7 @@ class HeartbeatMonitorAlertSettingsReminder(dict):
     @pulumi.getter
     def amount(self) -> Optional[_builtins.int]:
         """
-        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
         """
         return pulumi.get(self, "amount")
 
@@ -2430,7 +3159,7 @@ class HeartbeatMonitorAlertSettingsReminder(dict):
     @pulumi.getter
     def interval(self) -> Optional[_builtins.int]:
         """
-        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "interval")
 
@@ -2457,7 +3186,7 @@ class HeartbeatMonitorAlertSettingsRunBasedEscalation(dict):
     def __init__(__self__, *,
                  failed_run_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
@@ -2466,7 +3195,7 @@ class HeartbeatMonitorAlertSettingsRunBasedEscalation(dict):
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         return pulumi.get(self, "failed_run_threshold")
 
@@ -2494,8 +3223,8 @@ class HeartbeatMonitorAlertSettingsSslCertificate(dict):
                  alert_threshold: Optional[_builtins.int] = None,
                  enabled: Optional[_builtins.bool] = None):
         """
-        :param _builtins.int alert_threshold: How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
-        :param _builtins.bool enabled: Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        :param _builtins.int alert_threshold: No longer available.
+        :param _builtins.bool enabled: No longer available.
         """
         if alert_threshold is not None:
             pulumi.set(__self__, "alert_threshold", alert_threshold)
@@ -2506,7 +3235,7 @@ class HeartbeatMonitorAlertSettingsSslCertificate(dict):
     @pulumi.getter(name="alertThreshold")
     def alert_threshold(self) -> Optional[_builtins.int]:
         """
-        How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        No longer available.
         """
         return pulumi.get(self, "alert_threshold")
 
@@ -2514,7 +3243,7 @@ class HeartbeatMonitorAlertSettingsSslCertificate(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        No longer available.
         """
         return pulumi.get(self, "enabled")
 
@@ -2541,7 +3270,7 @@ class HeartbeatMonitorAlertSettingsTimeBasedEscalation(dict):
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
@@ -2550,7 +3279,7 @@ class HeartbeatMonitorAlertSettingsTimeBasedEscalation(dict):
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "minutes_failing_threshold")
 
@@ -2869,7 +3598,11 @@ class TcpCheckAlertSettings(dict):
                  run_based_escalations: Optional[Sequence['outputs.TcpCheckAlertSettingsRunBasedEscalation']] = None,
                  time_based_escalations: Optional[Sequence['outputs.TcpCheckAlertSettingsTimeBasedEscalation']] = None):
         """
-        :param _builtins.str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['TcpCheckAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['TcpCheckAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['TcpCheckAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['TcpCheckAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
         """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
@@ -2886,28 +3619,40 @@ class TcpCheckAlertSettings(dict):
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[_builtins.str]:
         """
-        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         """
         return pulumi.get(self, "escalation_type")
 
     @_builtins.property
     @pulumi.getter(name="parallelRunFailureThresholds")
     def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.TcpCheckAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
         return pulumi.get(self, "parallel_run_failure_thresholds")
 
     @_builtins.property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.TcpCheckAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
         return pulumi.get(self, "reminders")
 
     @_builtins.property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.TcpCheckAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @_builtins.property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.TcpCheckAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -2917,8 +3662,8 @@ class TcpCheckAlertSettingsParallelRunFailureThreshold(dict):
                  enabled: Optional[_builtins.bool] = None,
                  percentage: Optional[_builtins.int] = None):
         """
-        :param _builtins.bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
-        :param _builtins.int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -2929,7 +3674,7 @@ class TcpCheckAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Applicable only for checks scheduled in parallel in multiple locations.
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
         """
         return pulumi.get(self, "enabled")
 
@@ -2937,7 +3682,7 @@ class TcpCheckAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def percentage(self) -> Optional[_builtins.int]:
         """
-        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         return pulumi.get(self, "percentage")
 
@@ -2948,8 +3693,8 @@ class TcpCheckAlertSettingsReminder(dict):
                  amount: Optional[_builtins.int] = None,
                  interval: Optional[_builtins.int] = None):
         """
-        :param _builtins.int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
-        :param _builtins.int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
@@ -2960,7 +3705,7 @@ class TcpCheckAlertSettingsReminder(dict):
     @pulumi.getter
     def amount(self) -> Optional[_builtins.int]:
         """
-        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
         """
         return pulumi.get(self, "amount")
 
@@ -2968,7 +3713,7 @@ class TcpCheckAlertSettingsReminder(dict):
     @pulumi.getter
     def interval(self) -> Optional[_builtins.int]:
         """
-        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "interval")
 
@@ -2995,7 +3740,7 @@ class TcpCheckAlertSettingsRunBasedEscalation(dict):
     def __init__(__self__, *,
                  failed_run_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
@@ -3004,7 +3749,7 @@ class TcpCheckAlertSettingsRunBasedEscalation(dict):
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         return pulumi.get(self, "failed_run_threshold")
 
@@ -3031,7 +3776,7 @@ class TcpCheckAlertSettingsTimeBasedEscalation(dict):
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
@@ -3040,7 +3785,7 @@ class TcpCheckAlertSettingsTimeBasedEscalation(dict):
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "minutes_failing_threshold")
 
@@ -3460,7 +4205,11 @@ class TcpMonitorAlertSettings(dict):
                  run_based_escalations: Optional[Sequence['outputs.TcpMonitorAlertSettingsRunBasedEscalation']] = None,
                  time_based_escalations: Optional[Sequence['outputs.TcpMonitorAlertSettingsTimeBasedEscalation']] = None):
         """
-        :param _builtins.str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['TcpMonitorAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['TcpMonitorAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['TcpMonitorAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['TcpMonitorAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
         """
         if escalation_type is not None:
             pulumi.set(__self__, "escalation_type", escalation_type)
@@ -3477,28 +4226,40 @@ class TcpMonitorAlertSettings(dict):
     @pulumi.getter(name="escalationType")
     def escalation_type(self) -> Optional[_builtins.str]:
         """
-        Determines what type of escalation to use. Possible values are `RUN_BASED` or `TIME_BASED`.
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         """
         return pulumi.get(self, "escalation_type")
 
     @_builtins.property
     @pulumi.getter(name="parallelRunFailureThresholds")
     def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
         return pulumi.get(self, "parallel_run_failure_thresholds")
 
     @_builtins.property
     @pulumi.getter
     def reminders(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
         return pulumi.get(self, "reminders")
 
     @_builtins.property
     @pulumi.getter(name="runBasedEscalations")
     def run_based_escalations(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
         return pulumi.get(self, "run_based_escalations")
 
     @_builtins.property
     @pulumi.getter(name="timeBasedEscalations")
     def time_based_escalations(self) -> Optional[Sequence['outputs.TcpMonitorAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
         return pulumi.get(self, "time_based_escalations")
 
 
@@ -3508,8 +4269,8 @@ class TcpMonitorAlertSettingsParallelRunFailureThreshold(dict):
                  enabled: Optional[_builtins.bool] = None,
                  percentage: Optional[_builtins.int] = None):
         """
-        :param _builtins.bool enabled: Applicable only for checks scheduled in parallel in multiple locations.
-        :param _builtins.int percentage: Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
@@ -3520,7 +4281,7 @@ class TcpMonitorAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Applicable only for checks scheduled in parallel in multiple locations.
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
         """
         return pulumi.get(self, "enabled")
 
@@ -3528,7 +4289,7 @@ class TcpMonitorAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def percentage(self) -> Optional[_builtins.int]:
         """
-        Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `100`, and `100`. (Default `10`).
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         return pulumi.get(self, "percentage")
 
@@ -3539,8 +4300,8 @@ class TcpMonitorAlertSettingsReminder(dict):
                  amount: Optional[_builtins.int] = None,
                  interval: Optional[_builtins.int] = None):
         """
-        :param _builtins.int amount: How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
-        :param _builtins.int interval: Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if amount is not None:
             pulumi.set(__self__, "amount", amount)
@@ -3551,7 +4312,7 @@ class TcpMonitorAlertSettingsReminder(dict):
     @pulumi.getter
     def amount(self) -> Optional[_builtins.int]:
         """
-        How many reminders to send out after the initial alert notification. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000`
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
         """
         return pulumi.get(self, "amount")
 
@@ -3559,7 +4320,7 @@ class TcpMonitorAlertSettingsReminder(dict):
     @pulumi.getter
     def interval(self) -> Optional[_builtins.int]:
         """
-        Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "interval")
 
@@ -3586,7 +4347,7 @@ class TcpMonitorAlertSettingsRunBasedEscalation(dict):
     def __init__(__self__, *,
                  failed_run_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
@@ -3595,7 +4356,7 @@ class TcpMonitorAlertSettingsRunBasedEscalation(dict):
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many failed consecutive check runs an alert notification should be sent. Possible values are between 1 and 5. (Default `1`).
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         return pulumi.get(self, "failed_run_threshold")
 
@@ -3622,7 +4383,7 @@ class TcpMonitorAlertSettingsTimeBasedEscalation(dict):
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int minutes_failing_threshold: After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
@@ -3631,7 +4392,7 @@ class TcpMonitorAlertSettingsTimeBasedEscalation(dict):
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many minutes after a check starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "minutes_failing_threshold")
 
@@ -4055,19 +4816,20 @@ class UrlMonitorAlertSettings(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 escalation_type: _builtins.str,
+                 escalation_type: Optional[_builtins.str] = None,
                  parallel_run_failure_thresholds: Optional[Sequence['outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold']] = None,
                  reminders: Optional[Sequence['outputs.UrlMonitorAlertSettingsReminder']] = None,
                  run_based_escalations: Optional[Sequence['outputs.UrlMonitorAlertSettingsRunBasedEscalation']] = None,
                  time_based_escalations: Optional[Sequence['outputs.UrlMonitorAlertSettingsTimeBasedEscalation']] = None):
         """
-        :param _builtins.str escalation_type: Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         :param Sequence['UrlMonitorAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
         :param Sequence['UrlMonitorAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
         :param Sequence['UrlMonitorAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
         :param Sequence['UrlMonitorAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
         """
-        pulumi.set(__self__, "escalation_type", escalation_type)
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
         if parallel_run_failure_thresholds is not None:
             pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
         if reminders is not None:
@@ -4079,9 +4841,9 @@ class UrlMonitorAlertSettings(dict):
 
     @_builtins.property
     @pulumi.getter(name="escalationType")
-    def escalation_type(self) -> _builtins.str:
+    def escalation_type(self) -> Optional[_builtins.str]:
         """
-        Determines what type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`.
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
         """
         return pulumi.get(self, "escalation_type")
 
@@ -4124,7 +4886,7 @@ class UrlMonitorAlertSettingsParallelRunFailureThreshold(dict):
                  enabled: Optional[_builtins.bool] = None,
                  percentage: Optional[_builtins.int] = None):
         """
-        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
         :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
         """
         if enabled is not None:
@@ -4136,7 +4898,7 @@ class UrlMonitorAlertSettingsParallelRunFailureThreshold(dict):
     @pulumi.getter
     def enabled(self) -> Optional[_builtins.bool]:
         """
-        Whether parallel run failure threshold is enabled. Applicable only for monitors scheduled in parallel in multiple locations. (Default `false`).
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
         """
         return pulumi.get(self, "enabled")
 
@@ -4202,7 +4964,7 @@ class UrlMonitorAlertSettingsRunBasedEscalation(dict):
     def __init__(__self__, *,
                  failed_run_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int failed_run_threshold: After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         if failed_run_threshold is not None:
             pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
@@ -4211,7 +4973,7 @@ class UrlMonitorAlertSettingsRunBasedEscalation(dict):
     @pulumi.getter(name="failedRunThreshold")
     def failed_run_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many failed consecutive check runs an alert notification should be sent. Possible values are between `1` and `5`. (Default `1`).
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
         """
         return pulumi.get(self, "failed_run_threshold")
 
@@ -4238,7 +5000,7 @@ class UrlMonitorAlertSettingsTimeBasedEscalation(dict):
     def __init__(__self__, *,
                  minutes_failing_threshold: Optional[_builtins.int] = None):
         """
-        :param _builtins.int minutes_failing_threshold: After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         if minutes_failing_threshold is not None:
             pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
@@ -4247,7 +5009,7 @@ class UrlMonitorAlertSettingsTimeBasedEscalation(dict):
     @pulumi.getter(name="minutesFailingThreshold")
     def minutes_failing_threshold(self) -> Optional[_builtins.int]:
         """
-        After how many minutes after a monitor starts failing an alert should be sent. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
         """
         return pulumi.get(self, "minutes_failing_threshold")
 

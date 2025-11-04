@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class HeartbeatMonitorAlertSettingsSslCertificate
     {
         /// <summary>
-        /// How long before SSL certificate expiry to send alerts. Possible values `3`, `7`, `14`, `30`. (Default `3`).
+        /// No longer available.
         /// </summary>
         public readonly int? AlertThreshold;
         /// <summary>
-        /// Determines if alert notifications should be sent for expiring SSL certificates. Possible values `true`, and `false`. (Default `false`).
+        /// No longer available.
         /// </summary>
         public readonly bool? Enabled;
 
