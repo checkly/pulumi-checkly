@@ -245,6 +245,15 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_dns_monitor": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "DnsMonitor"),
 			},
+			"checkly_icmp_monitor": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "IcmpMonitor"),
+			},
+			"checkly_playwright_check_suite": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PlaywrightCheckSuite"),
+			},
+			"checkly_playwright_code_bundle": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PlaywrightCodeBundle"),
+			},
 		},
 		// If extra types are needed for configuration, they can be added here.
 		ExtraTypes: map[string]schema.ComplexTypeSpec{},

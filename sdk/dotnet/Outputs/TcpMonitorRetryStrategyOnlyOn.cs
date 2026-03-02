@@ -13,15 +13,9 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class TcpMonitorRetryStrategyOnlyOn
     {
-        /// <summary>
-        /// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        /// </summary>
-        public readonly bool? NetworkError;
-
         [OutputConstructor]
-        private TcpMonitorRetryStrategyOnlyOn(bool? networkError)
+        private TcpMonitorRetryStrategyOnlyOn()
         {
-            NetworkError = networkError;
         }
     }
 }

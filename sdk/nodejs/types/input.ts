@@ -576,10 +576,6 @@ export interface DnsMonitorRetryStrategy {
 }
 
 export interface DnsMonitorRetryStrategyOnlyOn {
-    /**
-     * When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-     */
-    networkError?: pulumi.Input<boolean>;
 }
 
 export interface DnsMonitorTriggerIncident {
@@ -855,6 +851,332 @@ export interface HeartbeatMonitorTriggerIncident {
     severity: pulumi.Input<string>;
 }
 
+export interface IcmpMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: pulumi.Input<boolean>;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: pulumi.Input<number>;
+}
+
+export interface IcmpMonitorAlertSettings {
+    /**
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+     */
+    escalationType?: pulumi.Input<string>;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold>[]>;
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders?: pulumi.Input<pulumi.Input<inputs.IcmpMonitorAlertSettingsReminder>[]>;
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.IcmpMonitorAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.IcmpMonitorAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface IcmpMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface IcmpMonitorAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface IcmpMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface IcmpMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface IcmpMonitorRequest {
+    /**
+     * Assertions to validate the ICMP response.
+     */
+    assertions?: pulumi.Input<pulumi.Input<inputs.IcmpMonitorRequestAssertion>[]>;
+    /**
+     * The hostname to ping.
+     */
+    hostname: pulumi.Input<string>;
+    /**
+     * The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+     */
+    ipFamily?: pulumi.Input<string>;
+    /**
+     * The number of ping packets to send. (Default `10`).
+     */
+    pingCount?: pulumi.Input<number>;
+}
+
+export interface IcmpMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+     */
+    comparison: pulumi.Input<string>;
+    /**
+     * The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+     */
+    property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+     */
+    source: pulumi.Input<string>;
+    /**
+     * The target value for the assertion.
+     */
+    target: pulumi.Input<string>;
+}
+
+export interface IcmpMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Apply the retry strategy only if the defined conditions match.
+     */
+    onlyOn?: pulumi.Input<inputs.IcmpMonitorRetryStrategyOnlyOn>;
+    /**
+     * Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface IcmpMonitorRetryStrategyOnlyOn {
+}
+
+export interface IcmpMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: pulumi.Input<boolean>;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: pulumi.Input<number>;
+}
+
+export interface PlaywrightCheckSuiteAlertSettings {
+    /**
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+     */
+    escalationType?: pulumi.Input<string>;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold>[]>;
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsReminder>[]>;
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface PlaywrightCheckSuiteAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface PlaywrightCheckSuiteAlertSettingsRunBasedEscalation {
+    /**
+     * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation {
+    /**
+     * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface PlaywrightCheckSuiteBundle {
+    /**
+     * The ID of the code bundle.
+     */
+    id: pulumi.Input<string>;
+    /**
+     * The generated metadata of the code bundle.
+     */
+    metadata: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteRuntime {
+    /**
+     * Configure the Playwright capabilities that should be made available to the runtime environment.
+     */
+    playwright?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywright>;
+    /**
+     * Customize the actions taken during test execution.
+     */
+    steps?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeSteps>;
+}
+
+export interface PlaywrightCheckSuiteRuntimePlaywright {
+    /**
+     * The list of devices that should be made available for Playwright.
+     */
+    devices?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywrightDevice>[]>;
+    /**
+     * The Playwright version to use.
+     */
+    version?: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteRuntimePlaywrightDevice {
+    /**
+     * The type of the device.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteRuntimeSteps {
+    /**
+     * Customize the install step, which is used to initialize the environment prior to starting the test run.
+     */
+    install?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeStepsInstall>;
+    /**
+     * Customize the test step.
+     */
+    test?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeStepsTest>;
+}
+
+export interface PlaywrightCheckSuiteRuntimeStepsInstall {
+    /**
+     * The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+     */
+    command?: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteRuntimeStepsTest {
+    /**
+     * The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+     */
+    command?: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
+}
+
+export interface PlaywrightCodeBundlePrebuiltArchive {
+    /**
+     * Path to the archive file.
+     */
+    file: pulumi.Input<string>;
+}
+
 export interface StatusPageCard {
     /**
      * The name of the card.
@@ -1001,10 +1323,6 @@ export interface TcpCheckRetryStrategy {
 }
 
 export interface TcpCheckRetryStrategyOnlyOn {
-    /**
-     * When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-     */
-    networkError?: pulumi.Input<boolean>;
 }
 
 export interface TcpCheckTriggerIncident {
@@ -1158,10 +1476,6 @@ export interface TcpMonitorRetryStrategy {
 }
 
 export interface TcpMonitorRetryStrategyOnlyOn {
-    /**
-     * When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-     */
-    networkError?: pulumi.Input<boolean>;
 }
 
 export interface TcpMonitorTriggerIncident {

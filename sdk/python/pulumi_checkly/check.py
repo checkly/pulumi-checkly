@@ -56,7 +56,7 @@ class CheckArgs:
         """
         The set of arguments for constructing a Check resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.str] type: The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
         :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
@@ -64,7 +64,7 @@ class CheckArgs:
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
@@ -175,7 +175,7 @@ class CheckArgs:
     @pulumi.getter
     def frequency(self) -> pulumi.Input[_builtins.int]:
         """
-        The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         """
         return pulumi.get(self, "frequency")
 
@@ -273,7 +273,7 @@ class CheckArgs:
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -591,8 +591,8 @@ class _CheckState:
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
-        :param pulumi.Input[_builtins.int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
@@ -781,7 +781,7 @@ class _CheckState:
     @pulumi.getter
     def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         """
         return pulumi.get(self, "frequency")
 
@@ -793,7 +793,7 @@ class _CheckState:
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -1130,8 +1130,8 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
-        :param pulumi.Input[_builtins.int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
@@ -1315,8 +1315,8 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.int] frequency: The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
-        :param pulumi.Input[_builtins.int] frequency_offset: This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
@@ -1441,7 +1441,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter
     def frequency(self) -> pulumi.Output[_builtins.int]:
         """
-        The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         """
         return pulumi.get(self, "frequency")
 
@@ -1449,7 +1449,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.
+        Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 

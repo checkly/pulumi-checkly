@@ -122,11 +122,11 @@ export class TcpCheck extends pulumi.CustomResource {
      */
     declare public readonly degradedResponseTime: pulumi.Output<number | undefined>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+     * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */
     declare public readonly frequency: pulumi.Output<number>;
     /**
-     * To create a high frequency check, the property `frequency` must be `0` and `frequencyOffset` can be `10`, `20` or `30`.
+     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
     declare public readonly frequencyOffset: pulumi.Output<number | undefined>;
     /**
@@ -283,11 +283,11 @@ export interface TcpCheckState {
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+     * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */
     frequency?: pulumi.Input<number>;
     /**
-     * To create a high frequency check, the property `frequency` must be `0` and `frequencyOffset` can be `10`, `20` or `30`.
+     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
     frequencyOffset?: pulumi.Input<number>;
     /**
@@ -373,11 +373,11 @@ export interface TcpCheckArgs {
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
-     * The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+     * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */
     frequency: pulumi.Input<number>;
     /**
-     * To create a high frequency check, the property `frequency` must be `0` and `frequencyOffset` can be `10`, `20` or `30`.
+     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
     frequencyOffset?: pulumi.Input<number>;
     /**

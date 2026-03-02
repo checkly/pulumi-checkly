@@ -13,15 +13,9 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class DnsMonitorRetryStrategyOnlyOn
     {
-        /// <summary>
-        /// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        /// </summary>
-        public readonly bool? NetworkError;
-
         [OutputConstructor]
-        private DnsMonitorRetryStrategyOnlyOn(bool? networkError)
+        private DnsMonitorRetryStrategyOnlyOn()
         {
-            NetworkError = networkError;
         }
     }
 }

@@ -143,6 +143,58 @@ __all__ = [
     'HeartbeatMonitorHeartbeatArgsDict',
     'HeartbeatMonitorTriggerIncidentArgs',
     'HeartbeatMonitorTriggerIncidentArgsDict',
+    'IcmpMonitorAlertChannelSubscriptionArgs',
+    'IcmpMonitorAlertChannelSubscriptionArgsDict',
+    'IcmpMonitorAlertSettingsArgs',
+    'IcmpMonitorAlertSettingsArgsDict',
+    'IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs',
+    'IcmpMonitorAlertSettingsParallelRunFailureThresholdArgsDict',
+    'IcmpMonitorAlertSettingsReminderArgs',
+    'IcmpMonitorAlertSettingsReminderArgsDict',
+    'IcmpMonitorAlertSettingsRunBasedEscalationArgs',
+    'IcmpMonitorAlertSettingsRunBasedEscalationArgsDict',
+    'IcmpMonitorAlertSettingsTimeBasedEscalationArgs',
+    'IcmpMonitorAlertSettingsTimeBasedEscalationArgsDict',
+    'IcmpMonitorRequestArgs',
+    'IcmpMonitorRequestArgsDict',
+    'IcmpMonitorRequestAssertionArgs',
+    'IcmpMonitorRequestAssertionArgsDict',
+    'IcmpMonitorRetryStrategyArgs',
+    'IcmpMonitorRetryStrategyArgsDict',
+    'IcmpMonitorRetryStrategyOnlyOnArgs',
+    'IcmpMonitorRetryStrategyOnlyOnArgsDict',
+    'IcmpMonitorTriggerIncidentArgs',
+    'IcmpMonitorTriggerIncidentArgsDict',
+    'PlaywrightCheckSuiteAlertChannelSubscriptionArgs',
+    'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict',
+    'PlaywrightCheckSuiteAlertSettingsArgs',
+    'PlaywrightCheckSuiteAlertSettingsArgsDict',
+    'PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs',
+    'PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgsDict',
+    'PlaywrightCheckSuiteAlertSettingsReminderArgs',
+    'PlaywrightCheckSuiteAlertSettingsReminderArgsDict',
+    'PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs',
+    'PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgsDict',
+    'PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs',
+    'PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgsDict',
+    'PlaywrightCheckSuiteBundleArgs',
+    'PlaywrightCheckSuiteBundleArgsDict',
+    'PlaywrightCheckSuiteRuntimeArgs',
+    'PlaywrightCheckSuiteRuntimeArgsDict',
+    'PlaywrightCheckSuiteRuntimePlaywrightArgs',
+    'PlaywrightCheckSuiteRuntimePlaywrightArgsDict',
+    'PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs',
+    'PlaywrightCheckSuiteRuntimePlaywrightDeviceArgsDict',
+    'PlaywrightCheckSuiteRuntimeStepsArgs',
+    'PlaywrightCheckSuiteRuntimeStepsArgsDict',
+    'PlaywrightCheckSuiteRuntimeStepsInstallArgs',
+    'PlaywrightCheckSuiteRuntimeStepsInstallArgsDict',
+    'PlaywrightCheckSuiteRuntimeStepsTestArgs',
+    'PlaywrightCheckSuiteRuntimeStepsTestArgsDict',
+    'PlaywrightCheckSuiteTriggerIncidentArgs',
+    'PlaywrightCheckSuiteTriggerIncidentArgsDict',
+    'PlaywrightCodeBundlePrebuiltArchiveArgs',
+    'PlaywrightCodeBundlePrebuiltArchiveArgsDict',
     'StatusPageCardArgs',
     'StatusPageCardArgsDict',
     'StatusPageCardServiceAttachmentArgs',
@@ -3159,34 +3211,14 @@ class DnsMonitorRetryStrategyArgs:
 
 if not MYPY:
     class DnsMonitorRetryStrategyOnlyOnArgsDict(TypedDict):
-        network_error: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
+        pass
 elif False:
     DnsMonitorRetryStrategyOnlyOnArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class DnsMonitorRetryStrategyOnlyOnArgs:
-    def __init__(__self__, *,
-                 network_error: Optional[pulumi.Input[_builtins.bool]] = None):
-        """
-        :param pulumi.Input[_builtins.bool] network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        if network_error is not None:
-            pulumi.set(__self__, "network_error", network_error)
-
-    @_builtins.property
-    @pulumi.getter(name="networkError")
-    def network_error(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        return pulumi.get(self, "network_error")
-
-    @network_error.setter
-    def network_error(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "network_error", value)
+    def __init__(__self__):
+        pass
 
 
 if not MYPY:
@@ -4493,6 +4525,1535 @@ class HeartbeatMonitorTriggerIncidentArgs:
 
 
 if not MYPY:
+    class IcmpMonitorAlertChannelSubscriptionArgsDict(TypedDict):
+        activated: pulumi.Input[_builtins.bool]
+        """
+        Whether an alert should be sent to this channel.
+        """
+        channel_id: pulumi.Input[_builtins.int]
+        """
+        The ID of the alert channel.
+        """
+elif False:
+    IcmpMonitorAlertChannelSubscriptionArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorAlertChannelSubscriptionArgs:
+    def __init__(__self__, *,
+                 activated: pulumi.Input[_builtins.bool],
+                 channel_id: pulumi.Input[_builtins.int]):
+        """
+        :param pulumi.Input[_builtins.bool] activated: Whether an alert should be sent to this channel.
+        :param pulumi.Input[_builtins.int] channel_id: The ID of the alert channel.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def activated(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether an alert should be sent to this channel.
+        """
+        return pulumi.get(self, "activated")
+
+    @activated.setter
+    def activated(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "activated", value)
+
+    @_builtins.property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> pulumi.Input[_builtins.int]:
+        """
+        The ID of the alert channel.
+        """
+        return pulumi.get(self, "channel_id")
+
+    @channel_id.setter
+    def channel_id(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "channel_id", value)
+
+
+if not MYPY:
+    class IcmpMonitorAlertSettingsArgsDict(TypedDict):
+        escalation_type: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        parallel_run_failure_thresholds: NotRequired[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsParallelRunFailureThresholdArgsDict']]]]
+        """
+        Configuration for parallel run failure threshold.
+        """
+        reminders: NotRequired[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsReminderArgsDict']]]]
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        run_based_escalations: NotRequired[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsRunBasedEscalationArgsDict']]]]
+        """
+        Configuration for run-based escalation.
+        """
+        time_based_escalations: NotRequired[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsTimeBasedEscalationArgsDict']]]]
+        """
+        Configuration for time-based escalation.
+        """
+elif False:
+    IcmpMonitorAlertSettingsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorAlertSettingsArgs:
+    def __init__(__self__, *,
+                 escalation_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 parallel_run_failure_thresholds: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs']]]] = None,
+                 reminders: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsReminderArgs']]]] = None,
+                 run_based_escalations: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsRunBasedEscalationArgs']]]] = None,
+                 time_based_escalations: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsTimeBasedEscalationArgs']]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs']]] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsReminderArgs']]] reminders: Defines how often to send reminder notifications after initial alert.
+        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsRunBasedEscalationArgs']]] run_based_escalations: Configuration for run-based escalation.
+        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsTimeBasedEscalationArgs']]] time_based_escalations: Configuration for time-based escalation.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @_builtins.property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @escalation_type.setter
+    def escalation_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "escalation_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs']]]]:
+        """
+        Configuration for parallel run failure threshold.
+        """
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @parallel_run_failure_thresholds.setter
+    def parallel_run_failure_thresholds(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs']]]]):
+        pulumi.set(self, "parallel_run_failure_thresholds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def reminders(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsReminderArgs']]]]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        return pulumi.get(self, "reminders")
+
+    @reminders.setter
+    def reminders(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsReminderArgs']]]]):
+        pulumi.set(self, "reminders", value)
+
+    @_builtins.property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsRunBasedEscalationArgs']]]]:
+        """
+        Configuration for run-based escalation.
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @run_based_escalations.setter
+    def run_based_escalations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsRunBasedEscalationArgs']]]]):
+        pulumi.set(self, "run_based_escalations", value)
+
+    @_builtins.property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsTimeBasedEscalationArgs']]]]:
+        """
+        Configuration for time-based escalation.
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+    @time_based_escalations.setter
+    def time_based_escalations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertSettingsTimeBasedEscalationArgs']]]]):
+        pulumi.set(self, "time_based_escalations", value)
+
+
+if not MYPY:
+    class IcmpMonitorAlertSettingsParallelRunFailureThresholdArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        percentage: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+elif False:
+    IcmpMonitorAlertSettingsParallelRunFailureThresholdArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs:
+    def __init__(__self__, *,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 percentage: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.bool] enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        :param pulumi.Input[_builtins.int] percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+    @percentage.setter
+    def percentage(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "percentage", value)
+
+
+if not MYPY:
+    class IcmpMonitorAlertSettingsReminderArgsDict(TypedDict):
+        amount: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        interval: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+elif False:
+    IcmpMonitorAlertSettingsReminderArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorAlertSettingsReminderArgs:
+    def __init__(__self__, *,
+                 amount: Optional[pulumi.Input[_builtins.int]] = None,
+                 interval: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.int] amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param pulumi.Input[_builtins.int] interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @_builtins.property
+    @pulumi.getter
+    def amount(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        return pulumi.get(self, "amount")
+
+    @amount.setter
+    def amount(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "amount", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+    @interval.setter
+    def interval(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "interval", value)
+
+
+if not MYPY:
+    class IcmpMonitorAlertSettingsRunBasedEscalationArgsDict(TypedDict):
+        failed_run_threshold: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+elif False:
+    IcmpMonitorAlertSettingsRunBasedEscalationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorAlertSettingsRunBasedEscalationArgs:
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.int] failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+    @failed_run_threshold.setter
+    def failed_run_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "failed_run_threshold", value)
+
+
+if not MYPY:
+    class IcmpMonitorAlertSettingsTimeBasedEscalationArgsDict(TypedDict):
+        minutes_failing_threshold: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+elif False:
+    IcmpMonitorAlertSettingsTimeBasedEscalationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorAlertSettingsTimeBasedEscalationArgs:
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.int] minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+    @minutes_failing_threshold.setter
+    def minutes_failing_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "minutes_failing_threshold", value)
+
+
+if not MYPY:
+    class IcmpMonitorRequestArgsDict(TypedDict):
+        hostname: pulumi.Input[_builtins.str]
+        """
+        The hostname to ping.
+        """
+        assertions: NotRequired[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorRequestAssertionArgsDict']]]]
+        """
+        Assertions to validate the ICMP response.
+        """
+        ip_family: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+        """
+        ping_count: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        The number of ping packets to send. (Default `10`).
+        """
+elif False:
+    IcmpMonitorRequestArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorRequestArgs:
+    def __init__(__self__, *,
+                 hostname: pulumi.Input[_builtins.str],
+                 assertions: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorRequestAssertionArgs']]]] = None,
+                 ip_family: Optional[pulumi.Input[_builtins.str]] = None,
+                 ping_count: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.str] hostname: The hostname to ping.
+        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorRequestAssertionArgs']]] assertions: Assertions to validate the ICMP response.
+        :param pulumi.Input[_builtins.str] ip_family: The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+        :param pulumi.Input[_builtins.int] ping_count: The number of ping packets to send. (Default `10`).
+        """
+        pulumi.set(__self__, "hostname", hostname)
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if ip_family is not None:
+            pulumi.set(__self__, "ip_family", ip_family)
+        if ping_count is not None:
+            pulumi.set(__self__, "ping_count", ping_count)
+
+    @_builtins.property
+    @pulumi.getter
+    def hostname(self) -> pulumi.Input[_builtins.str]:
+        """
+        The hostname to ping.
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "hostname", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def assertions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorRequestAssertionArgs']]]]:
+        """
+        Assertions to validate the ICMP response.
+        """
+        return pulumi.get(self, "assertions")
+
+    @assertions.setter
+    def assertions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorRequestAssertionArgs']]]]):
+        pulumi.set(self, "assertions", value)
+
+    @_builtins.property
+    @pulumi.getter(name="ipFamily")
+    def ip_family(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+        """
+        return pulumi.get(self, "ip_family")
+
+    @ip_family.setter
+    def ip_family(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "ip_family", value)
+
+    @_builtins.property
+    @pulumi.getter(name="pingCount")
+    def ping_count(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The number of ping packets to send. (Default `10`).
+        """
+        return pulumi.get(self, "ping_count")
+
+    @ping_count.setter
+    def ping_count(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "ping_count", value)
+
+
+if not MYPY:
+    class IcmpMonitorRequestAssertionArgsDict(TypedDict):
+        comparison: pulumi.Input[_builtins.str]
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        """
+        source: pulumi.Input[_builtins.str]
+        """
+        The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+        """
+        target: pulumi.Input[_builtins.str]
+        """
+        The target value for the assertion.
+        """
+        property: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+        """
+elif False:
+    IcmpMonitorRequestAssertionArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorRequestAssertionArgs:
+    def __init__(__self__, *,
+                 comparison: pulumi.Input[_builtins.str],
+                 source: pulumi.Input[_builtins.str],
+                 target: pulumi.Input[_builtins.str],
+                 property: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] comparison: The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        :param pulumi.Input[_builtins.str] source: The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+        :param pulumi.Input[_builtins.str] target: The target value for the assertion.
+        :param pulumi.Input[_builtins.str] property: The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "target", target)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+
+    @_builtins.property
+    @pulumi.getter
+    def comparison(self) -> pulumi.Input[_builtins.str]:
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @comparison.setter
+    def comparison(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "comparison", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> pulumi.Input[_builtins.str]:
+        """
+        The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+        """
+        return pulumi.get(self, "source")
+
+    @source.setter
+    def source(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "source", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> pulumi.Input[_builtins.str]:
+        """
+        The target value for the assertion.
+        """
+        return pulumi.get(self, "target")
+
+    @target.setter
+    def target(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "target", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def property(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+        """
+        return pulumi.get(self, "property")
+
+    @property.setter
+    def property(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "property", value)
+
+
+if not MYPY:
+    class IcmpMonitorRetryStrategyArgsDict(TypedDict):
+        type: pulumi.Input[_builtins.str]
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        """
+        base_backoff_seconds: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        The number of seconds to wait before the first retry attempt. (Default `60`).
+        """
+        max_duration_seconds: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        """
+        max_retries: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        """
+        only_on: NotRequired[pulumi.Input['IcmpMonitorRetryStrategyOnlyOnArgsDict']]
+        """
+        Apply the retry strategy only if the defined conditions match.
+        """
+        same_region: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+elif False:
+    IcmpMonitorRetryStrategyArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorRetryStrategyArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str],
+                 base_backoff_seconds: Optional[pulumi.Input[_builtins.int]] = None,
+                 max_duration_seconds: Optional[pulumi.Input[_builtins.int]] = None,
+                 max_retries: Optional[pulumi.Input[_builtins.int]] = None,
+                 only_on: Optional[pulumi.Input['IcmpMonitorRetryStrategyOnlyOnArgs']] = None,
+                 same_region: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] type: Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        :param pulumi.Input[_builtins.int] base_backoff_seconds: The number of seconds to wait before the first retry attempt. (Default `60`).
+        :param pulumi.Input[_builtins.int] max_duration_seconds: The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        :param pulumi.Input[_builtins.int] max_retries: The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        :param pulumi.Input['IcmpMonitorRetryStrategyOnlyOnArgs'] only_on: Apply the retry strategy only if the defined conditions match.
+        :param pulumi.Input[_builtins.bool] same_region: Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        pulumi.set(__self__, "type", type)
+        if base_backoff_seconds is not None:
+            pulumi.set(__self__, "base_backoff_seconds", base_backoff_seconds)
+        if max_duration_seconds is not None:
+            pulumi.set(__self__, "max_duration_seconds", max_duration_seconds)
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if only_on is not None:
+            pulumi.set(__self__, "only_on", only_on)
+        if same_region is not None:
+            pulumi.set(__self__, "same_region", same_region)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="baseBackoffSeconds")
+    def base_backoff_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The number of seconds to wait before the first retry attempt. (Default `60`).
+        """
+        return pulumi.get(self, "base_backoff_seconds")
+
+    @base_backoff_seconds.setter
+    def base_backoff_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "base_backoff_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxDurationSeconds")
+    def max_duration_seconds(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        """
+        return pulumi.get(self, "max_duration_seconds")
+
+    @max_duration_seconds.setter
+    def max_duration_seconds(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "max_duration_seconds", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        """
+        return pulumi.get(self, "max_retries")
+
+    @max_retries.setter
+    def max_retries(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "max_retries", value)
+
+    @_builtins.property
+    @pulumi.getter(name="onlyOn")
+    def only_on(self) -> Optional[pulumi.Input['IcmpMonitorRetryStrategyOnlyOnArgs']]:
+        """
+        Apply the retry strategy only if the defined conditions match.
+        """
+        return pulumi.get(self, "only_on")
+
+    @only_on.setter
+    def only_on(self, value: Optional[pulumi.Input['IcmpMonitorRetryStrategyOnlyOnArgs']]):
+        pulumi.set(self, "only_on", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sameRegion")
+    def same_region(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        return pulumi.get(self, "same_region")
+
+    @same_region.setter
+    def same_region(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "same_region", value)
+
+
+if not MYPY:
+    class IcmpMonitorRetryStrategyOnlyOnArgsDict(TypedDict):
+        pass
+elif False:
+    IcmpMonitorRetryStrategyOnlyOnArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorRetryStrategyOnlyOnArgs:
+    def __init__(__self__):
+        pass
+
+
+if not MYPY:
+    class IcmpMonitorTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[_builtins.str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[_builtins.str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[_builtins.bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[_builtins.str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[_builtins.str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    IcmpMonitorTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class IcmpMonitorTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[_builtins.str],
+                 name: pulumi.Input[_builtins.str],
+                 notify_subscribers: pulumi.Input[_builtins.bool],
+                 service_id: pulumi.Input[_builtins.str],
+                 severity: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] description: A detailed description of the incident.
+        :param pulumi.Input[_builtins.str] name: The name of the incident.
+        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[_builtins.str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[_builtins.str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[_builtins.str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "service_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[_builtins.str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "severity", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict(TypedDict):
+        activated: pulumi.Input[_builtins.bool]
+        """
+        Whether an alert should be sent to this channel.
+        """
+        channel_id: pulumi.Input[_builtins.int]
+        """
+        The ID of the alert channel.
+        """
+elif False:
+    PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteAlertChannelSubscriptionArgs:
+    def __init__(__self__, *,
+                 activated: pulumi.Input[_builtins.bool],
+                 channel_id: pulumi.Input[_builtins.int]):
+        """
+        :param pulumi.Input[_builtins.bool] activated: Whether an alert should be sent to this channel.
+        :param pulumi.Input[_builtins.int] channel_id: The ID of the alert channel.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def activated(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether an alert should be sent to this channel.
+        """
+        return pulumi.get(self, "activated")
+
+    @activated.setter
+    def activated(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "activated", value)
+
+    @_builtins.property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> pulumi.Input[_builtins.int]:
+        """
+        The ID of the alert channel.
+        """
+        return pulumi.get(self, "channel_id")
+
+    @channel_id.setter
+    def channel_id(self, value: pulumi.Input[_builtins.int]):
+        pulumi.set(self, "channel_id", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteAlertSettingsArgsDict(TypedDict):
+        escalation_type: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        parallel_run_failure_thresholds: NotRequired[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgsDict']]]]
+        """
+        Configuration for parallel run failure threshold.
+        """
+        reminders: NotRequired[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsReminderArgsDict']]]]
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        run_based_escalations: NotRequired[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgsDict']]]]
+        """
+        Configuration for run-based escalation.
+        """
+        time_based_escalations: NotRequired[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgsDict']]]]
+        """
+        Configuration for time-based escalation.
+        """
+elif False:
+    PlaywrightCheckSuiteAlertSettingsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteAlertSettingsArgs:
+    def __init__(__self__, *,
+                 escalation_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 parallel_run_failure_thresholds: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs']]]] = None,
+                 reminders: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsReminderArgs']]]] = None,
+                 run_based_escalations: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs']]]] = None,
+                 time_based_escalations: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs']]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs']]] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsReminderArgs']]] reminders: Defines how often to send reminder notifications after initial alert.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs']]] run_based_escalations: Configuration for run-based escalation.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs']]] time_based_escalations: Configuration for time-based escalation.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @_builtins.property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @escalation_type.setter
+    def escalation_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "escalation_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs']]]]:
+        """
+        Configuration for parallel run failure threshold.
+        """
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @parallel_run_failure_thresholds.setter
+    def parallel_run_failure_thresholds(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs']]]]):
+        pulumi.set(self, "parallel_run_failure_thresholds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def reminders(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsReminderArgs']]]]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        return pulumi.get(self, "reminders")
+
+    @reminders.setter
+    def reminders(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsReminderArgs']]]]):
+        pulumi.set(self, "reminders", value)
+
+    @_builtins.property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs']]]]:
+        """
+        Configuration for run-based escalation.
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @run_based_escalations.setter
+    def run_based_escalations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs']]]]):
+        pulumi.set(self, "run_based_escalations", value)
+
+    @_builtins.property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs']]]]:
+        """
+        Configuration for time-based escalation.
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+    @time_based_escalations.setter
+    def time_based_escalations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs']]]]):
+        pulumi.set(self, "time_based_escalations", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgsDict(TypedDict):
+        enabled: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        percentage: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+elif False:
+    PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs:
+    def __init__(__self__, *,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 percentage: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.bool] enabled: Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        :param pulumi.Input[_builtins.int] percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+    @percentage.setter
+    def percentage(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "percentage", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteAlertSettingsReminderArgsDict(TypedDict):
+        amount: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        interval: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+elif False:
+    PlaywrightCheckSuiteAlertSettingsReminderArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteAlertSettingsReminderArgs:
+    def __init__(__self__, *,
+                 amount: Optional[pulumi.Input[_builtins.int]] = None,
+                 interval: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.int] amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param pulumi.Input[_builtins.int] interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @_builtins.property
+    @pulumi.getter
+    def amount(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        return pulumi.get(self, "amount")
+
+    @amount.setter
+    def amount(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "amount", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+    @interval.setter
+    def interval(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "interval", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgsDict(TypedDict):
+        failed_run_threshold: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+elif False:
+    PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs:
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.int] failed_run_threshold: Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+    @failed_run_threshold.setter
+    def failed_run_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "failed_run_threshold", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgsDict(TypedDict):
+        minutes_failing_threshold: NotRequired[pulumi.Input[_builtins.int]]
+        """
+        Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+elif False:
+    PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs:
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.int] minutes_failing_threshold: Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+    @minutes_failing_threshold.setter
+    def minutes_failing_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "minutes_failing_threshold", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteBundleArgsDict(TypedDict):
+        id: pulumi.Input[_builtins.str]
+        """
+        The ID of the code bundle.
+        """
+        metadata: pulumi.Input[_builtins.str]
+        """
+        The generated metadata of the code bundle.
+        """
+elif False:
+    PlaywrightCheckSuiteBundleArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteBundleArgs:
+    def __init__(__self__, *,
+                 id: pulumi.Input[_builtins.str],
+                 metadata: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] id: The ID of the code bundle.
+        :param pulumi.Input[_builtins.str] metadata: The generated metadata of the code bundle.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "metadata", metadata)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The ID of the code bundle.
+        """
+        return pulumi.get(self, "id")
+
+    @id.setter
+    def id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input[_builtins.str]:
+        """
+        The generated metadata of the code bundle.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "metadata", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteRuntimeArgsDict(TypedDict):
+        playwright: NotRequired[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgsDict']]
+        """
+        Configure the Playwright capabilities that should be made available to the runtime environment.
+        """
+        steps: NotRequired[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgsDict']]
+        """
+        Customize the actions taken during test execution.
+        """
+elif False:
+    PlaywrightCheckSuiteRuntimeArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteRuntimeArgs:
+    def __init__(__self__, *,
+                 playwright: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgs']] = None,
+                 steps: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs']] = None):
+        """
+        :param pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgs'] playwright: Configure the Playwright capabilities that should be made available to the runtime environment.
+        :param pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs'] steps: Customize the actions taken during test execution.
+        """
+        if playwright is not None:
+            pulumi.set(__self__, "playwright", playwright)
+        if steps is not None:
+            pulumi.set(__self__, "steps", steps)
+
+    @_builtins.property
+    @pulumi.getter
+    def playwright(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgs']]:
+        """
+        Configure the Playwright capabilities that should be made available to the runtime environment.
+        """
+        return pulumi.get(self, "playwright")
+
+    @playwright.setter
+    def playwright(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgs']]):
+        pulumi.set(self, "playwright", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def steps(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs']]:
+        """
+        Customize the actions taken during test execution.
+        """
+        return pulumi.get(self, "steps")
+
+    @steps.setter
+    def steps(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs']]):
+        pulumi.set(self, "steps", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteRuntimePlaywrightArgsDict(TypedDict):
+        devices: NotRequired[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgsDict']]]]
+        """
+        The list of devices that should be made available for Playwright.
+        """
+        version: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        The Playwright version to use.
+        """
+elif False:
+    PlaywrightCheckSuiteRuntimePlaywrightArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteRuntimePlaywrightArgs:
+    def __init__(__self__, *,
+                 devices: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]]] = None,
+                 version: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]] devices: The list of devices that should be made available for Playwright.
+        :param pulumi.Input[_builtins.str] version: The Playwright version to use.
+        """
+        if devices is not None:
+            pulumi.set(__self__, "devices", devices)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter
+    def devices(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]]]:
+        """
+        The list of devices that should be made available for Playwright.
+        """
+        return pulumi.get(self, "devices")
+
+    @devices.setter
+    def devices(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]]]):
+        pulumi.set(self, "devices", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The Playwright version to use.
+        """
+        return pulumi.get(self, "version")
+
+    @version.setter
+    def version(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "version", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteRuntimePlaywrightDeviceArgsDict(TypedDict):
+        type: pulumi.Input[_builtins.str]
+        """
+        The type of the device.
+        """
+elif False:
+    PlaywrightCheckSuiteRuntimePlaywrightDeviceArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] type: The type of the device.
+        """
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        The type of the device.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteRuntimeStepsArgsDict(TypedDict):
+        install: NotRequired[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsInstallArgsDict']]
+        """
+        Customize the install step, which is used to initialize the environment prior to starting the test run.
+        """
+        test: NotRequired[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsTestArgsDict']]
+        """
+        Customize the test step.
+        """
+elif False:
+    PlaywrightCheckSuiteRuntimeStepsArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteRuntimeStepsArgs:
+    def __init__(__self__, *,
+                 install: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsInstallArgs']] = None,
+                 test: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsTestArgs']] = None):
+        """
+        :param pulumi.Input['PlaywrightCheckSuiteRuntimeStepsInstallArgs'] install: Customize the install step, which is used to initialize the environment prior to starting the test run.
+        :param pulumi.Input['PlaywrightCheckSuiteRuntimeStepsTestArgs'] test: Customize the test step.
+        """
+        if install is not None:
+            pulumi.set(__self__, "install", install)
+        if test is not None:
+            pulumi.set(__self__, "test", test)
+
+    @_builtins.property
+    @pulumi.getter
+    def install(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsInstallArgs']]:
+        """
+        Customize the install step, which is used to initialize the environment prior to starting the test run.
+        """
+        return pulumi.get(self, "install")
+
+    @install.setter
+    def install(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsInstallArgs']]):
+        pulumi.set(self, "install", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def test(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsTestArgs']]:
+        """
+        Customize the test step.
+        """
+        return pulumi.get(self, "test")
+
+    @test.setter
+    def test(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsTestArgs']]):
+        pulumi.set(self, "test", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteRuntimeStepsInstallArgsDict(TypedDict):
+        command: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+        """
+elif False:
+    PlaywrightCheckSuiteRuntimeStepsInstallArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteRuntimeStepsInstallArgs:
+    def __init__(__self__, *,
+                 command: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] command: The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+        """
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+
+    @_builtins.property
+    @pulumi.getter
+    def command(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+        """
+        return pulumi.get(self, "command")
+
+    @command.setter
+    def command(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "command", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteRuntimeStepsTestArgsDict(TypedDict):
+        command: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+        """
+elif False:
+    PlaywrightCheckSuiteRuntimeStepsTestArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteRuntimeStepsTestArgs:
+    def __init__(__self__, *,
+                 command: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] command: The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+        """
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+
+    @_builtins.property
+    @pulumi.getter
+    def command(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+        """
+        return pulumi.get(self, "command")
+
+    @command.setter
+    def command(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "command", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteTriggerIncidentArgsDict(TypedDict):
+        description: pulumi.Input[_builtins.str]
+        """
+        A detailed description of the incident.
+        """
+        name: pulumi.Input[_builtins.str]
+        """
+        The name of the incident.
+        """
+        notify_subscribers: pulumi.Input[_builtins.bool]
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        service_id: pulumi.Input[_builtins.str]
+        """
+        The status page service that this incident will be associated with.
+        """
+        severity: pulumi.Input[_builtins.str]
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+elif False:
+    PlaywrightCheckSuiteTriggerIncidentArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteTriggerIncidentArgs:
+    def __init__(__self__, *,
+                 description: pulumi.Input[_builtins.str],
+                 name: pulumi.Input[_builtins.str],
+                 notify_subscribers: pulumi.Input[_builtins.bool],
+                 service_id: pulumi.Input[_builtins.str],
+                 severity: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] description: A detailed description of the incident.
+        :param pulumi.Input[_builtins.str] name: The name of the incident.
+        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param pulumi.Input[_builtins.str] service_id: The status page service that this incident will be associated with.
+        :param pulumi.Input[_builtins.str] severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Input[_builtins.str]:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "description", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> pulumi.Input[_builtins.bool]:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @notify_subscribers.setter
+    def notify_subscribers(self, value: pulumi.Input[_builtins.bool]):
+        pulumi.set(self, "notify_subscribers", value)
+
+    @_builtins.property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @service_id.setter
+    def service_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "service_id", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def severity(self) -> pulumi.Input[_builtins.str]:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @severity.setter
+    def severity(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "severity", value)
+
+
+if not MYPY:
+    class PlaywrightCodeBundlePrebuiltArchiveArgsDict(TypedDict):
+        file: pulumi.Input[_builtins.str]
+        """
+        Path to the archive file.
+        """
+elif False:
+    PlaywrightCodeBundlePrebuiltArchiveArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCodeBundlePrebuiltArchiveArgs:
+    def __init__(__self__, *,
+                 file: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] file: Path to the archive file.
+        """
+        pulumi.set(__self__, "file", file)
+
+    @_builtins.property
+    @pulumi.getter
+    def file(self) -> pulumi.Input[_builtins.str]:
+        """
+        Path to the archive file.
+        """
+        return pulumi.get(self, "file")
+
+    @file.setter
+    def file(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "file", value)
+
+
+if not MYPY:
     class StatusPageCardArgsDict(TypedDict):
         name: pulumi.Input[_builtins.str]
         """
@@ -5206,34 +6767,14 @@ class TcpCheckRetryStrategyArgs:
 
 if not MYPY:
     class TcpCheckRetryStrategyOnlyOnArgsDict(TypedDict):
-        network_error: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
+        pass
 elif False:
     TcpCheckRetryStrategyOnlyOnArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class TcpCheckRetryStrategyOnlyOnArgs:
-    def __init__(__self__, *,
-                 network_error: Optional[pulumi.Input[_builtins.bool]] = None):
-        """
-        :param pulumi.Input[_builtins.bool] network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        if network_error is not None:
-            pulumi.set(__self__, "network_error", network_error)
-
-    @_builtins.property
-    @pulumi.getter(name="networkError")
-    def network_error(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        return pulumi.get(self, "network_error")
-
-    @network_error.setter
-    def network_error(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "network_error", value)
+    def __init__(__self__):
+        pass
 
 
 if not MYPY:
@@ -5976,34 +7517,14 @@ class TcpMonitorRetryStrategyArgs:
 
 if not MYPY:
     class TcpMonitorRetryStrategyOnlyOnArgsDict(TypedDict):
-        network_error: NotRequired[pulumi.Input[_builtins.bool]]
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
+        pass
 elif False:
     TcpMonitorRetryStrategyOnlyOnArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class TcpMonitorRetryStrategyOnlyOnArgs:
-    def __init__(__self__, *,
-                 network_error: Optional[pulumi.Input[_builtins.bool]] = None):
-        """
-        :param pulumi.Input[_builtins.bool] network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        if network_error is not None:
-            pulumi.set(__self__, "network_error", network_error)
-
-    @_builtins.property
-    @pulumi.getter(name="networkError")
-    def network_error(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        return pulumi.get(self, "network_error")
-
-    @network_error.setter
-    def network_error(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "network_error", value)
+    def __init__(__self__):
+        pass
 
 
 if not MYPY:

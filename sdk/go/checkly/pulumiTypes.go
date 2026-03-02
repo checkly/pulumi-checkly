@@ -6590,8 +6590,6 @@ func (o DnsMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 type DnsMonitorRetryStrategyOnlyOn struct {
-	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-	NetworkError *bool `pulumi:"networkError"`
 }
 
 // DnsMonitorRetryStrategyOnlyOnInput is an input type that accepts DnsMonitorRetryStrategyOnlyOnArgs and DnsMonitorRetryStrategyOnlyOnOutput values.
@@ -6606,8 +6604,6 @@ type DnsMonitorRetryStrategyOnlyOnInput interface {
 }
 
 type DnsMonitorRetryStrategyOnlyOnArgs struct {
-	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-	NetworkError pulumi.BoolPtrInput `pulumi:"networkError"`
 }
 
 func (DnsMonitorRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
@@ -6687,11 +6683,6 @@ func (o DnsMonitorRetryStrategyOnlyOnOutput) ToDnsMonitorRetryStrategyOnlyOnPtrO
 	}).(DnsMonitorRetryStrategyOnlyOnPtrOutput)
 }
 
-// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-func (o DnsMonitorRetryStrategyOnlyOnOutput) NetworkError() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v DnsMonitorRetryStrategyOnlyOn) *bool { return v.NetworkError }).(pulumi.BoolPtrOutput)
-}
-
 type DnsMonitorRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
 
 func (DnsMonitorRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
@@ -6714,16 +6705,6 @@ func (o DnsMonitorRetryStrategyOnlyOnPtrOutput) Elem() DnsMonitorRetryStrategyOn
 		var ret DnsMonitorRetryStrategyOnlyOn
 		return ret
 	}).(DnsMonitorRetryStrategyOnlyOnOutput)
-}
-
-// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-func (o DnsMonitorRetryStrategyOnlyOnPtrOutput) NetworkError() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *DnsMonitorRetryStrategyOnlyOn) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.NetworkError
-	}).(pulumi.BoolPtrOutput)
 }
 
 type DnsMonitorTriggerIncident struct {
@@ -9495,6 +9476,3698 @@ func (o HeartbeatMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
+type IcmpMonitorAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
+	Activated bool `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
+}
+
+// IcmpMonitorAlertChannelSubscriptionInput is an input type that accepts IcmpMonitorAlertChannelSubscriptionArgs and IcmpMonitorAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertChannelSubscriptionInput` via:
+//
+//	IcmpMonitorAlertChannelSubscriptionArgs{...}
+type IcmpMonitorAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertChannelSubscriptionOutput() IcmpMonitorAlertChannelSubscriptionOutput
+	ToIcmpMonitorAlertChannelSubscriptionOutputWithContext(context.Context) IcmpMonitorAlertChannelSubscriptionOutput
+}
+
+type IcmpMonitorAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
+}
+
+func (IcmpMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertChannelSubscriptionArgs) ToIcmpMonitorAlertChannelSubscriptionOutput() IcmpMonitorAlertChannelSubscriptionOutput {
+	return i.ToIcmpMonitorAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertChannelSubscriptionArgs) ToIcmpMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) IcmpMonitorAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertChannelSubscriptionOutput)
+}
+
+// IcmpMonitorAlertChannelSubscriptionArrayInput is an input type that accepts IcmpMonitorAlertChannelSubscriptionArray and IcmpMonitorAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertChannelSubscriptionArrayInput` via:
+//
+//	IcmpMonitorAlertChannelSubscriptionArray{ IcmpMonitorAlertChannelSubscriptionArgs{...} }
+type IcmpMonitorAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertChannelSubscriptionArrayOutput() IcmpMonitorAlertChannelSubscriptionArrayOutput
+	ToIcmpMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Context) IcmpMonitorAlertChannelSubscriptionArrayOutput
+}
+
+type IcmpMonitorAlertChannelSubscriptionArray []IcmpMonitorAlertChannelSubscriptionInput
+
+func (IcmpMonitorAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertChannelSubscriptionArray) ToIcmpMonitorAlertChannelSubscriptionArrayOutput() IcmpMonitorAlertChannelSubscriptionArrayOutput {
+	return i.ToIcmpMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertChannelSubscriptionArray) ToIcmpMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertChannelSubscriptionArrayOutput)
+}
+
+type IcmpMonitorAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertChannelSubscriptionOutput) ToIcmpMonitorAlertChannelSubscriptionOutput() IcmpMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertChannelSubscriptionOutput) ToIcmpMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) IcmpMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Whether an alert should be sent to this channel.
+func (o IcmpMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+// The ID of the alert channel.
+func (o IcmpMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type IcmpMonitorAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertChannelSubscriptionArrayOutput) ToIcmpMonitorAlertChannelSubscriptionArrayOutput() IcmpMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertChannelSubscriptionArrayOutput) ToIcmpMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) IcmpMonitorAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IcmpMonitorAlertChannelSubscription {
+		return vs[0].([]IcmpMonitorAlertChannelSubscription)[vs[1].(int)]
+	}).(IcmpMonitorAlertChannelSubscriptionOutput)
+}
+
+type IcmpMonitorAlertSettings struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType *string `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds []IcmpMonitorAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders []IcmpMonitorAlertSettingsReminder `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations []IcmpMonitorAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations []IcmpMonitorAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// IcmpMonitorAlertSettingsInput is an input type that accepts IcmpMonitorAlertSettingsArgs and IcmpMonitorAlertSettingsOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsInput` via:
+//
+//	IcmpMonitorAlertSettingsArgs{...}
+type IcmpMonitorAlertSettingsInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsOutput() IcmpMonitorAlertSettingsOutput
+	ToIcmpMonitorAlertSettingsOutputWithContext(context.Context) IcmpMonitorAlertSettingsOutput
+}
+
+type IcmpMonitorAlertSettingsArgs struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders IcmpMonitorAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations IcmpMonitorAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations IcmpMonitorAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (IcmpMonitorAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsArgs) ToIcmpMonitorAlertSettingsOutput() IcmpMonitorAlertSettingsOutput {
+	return i.ToIcmpMonitorAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsArgs) ToIcmpMonitorAlertSettingsOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsOutput)
+}
+
+func (i IcmpMonitorAlertSettingsArgs) ToIcmpMonitorAlertSettingsPtrOutput() IcmpMonitorAlertSettingsPtrOutput {
+	return i.ToIcmpMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsArgs) ToIcmpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsOutput).ToIcmpMonitorAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// IcmpMonitorAlertSettingsPtrInput is an input type that accepts IcmpMonitorAlertSettingsArgs, IcmpMonitorAlertSettingsPtr and IcmpMonitorAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsPtrInput` via:
+//
+//	        IcmpMonitorAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type IcmpMonitorAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsPtrOutput() IcmpMonitorAlertSettingsPtrOutput
+	ToIcmpMonitorAlertSettingsPtrOutputWithContext(context.Context) IcmpMonitorAlertSettingsPtrOutput
+}
+
+type icmpMonitorAlertSettingsPtrType IcmpMonitorAlertSettingsArgs
+
+func IcmpMonitorAlertSettingsPtr(v *IcmpMonitorAlertSettingsArgs) IcmpMonitorAlertSettingsPtrInput {
+	return (*icmpMonitorAlertSettingsPtrType)(v)
+}
+
+func (*icmpMonitorAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i *icmpMonitorAlertSettingsPtrType) ToIcmpMonitorAlertSettingsPtrOutput() IcmpMonitorAlertSettingsPtrOutput {
+	return i.ToIcmpMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *icmpMonitorAlertSettingsPtrType) ToIcmpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsPtrOutput)
+}
+
+type IcmpMonitorAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsOutput) ToIcmpMonitorAlertSettingsOutput() IcmpMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsOutput) ToIcmpMonitorAlertSettingsOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsOutput) ToIcmpMonitorAlertSettingsPtrOutput() IcmpMonitorAlertSettingsPtrOutput {
+	return o.ToIcmpMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o IcmpMonitorAlertSettingsOutput) ToIcmpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IcmpMonitorAlertSettings) *IcmpMonitorAlertSettings {
+		return &v
+	}).(IcmpMonitorAlertSettingsPtrOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o IcmpMonitorAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o IcmpMonitorAlertSettingsOutput) ParallelRunFailureThresholds() IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o IcmpMonitorAlertSettingsOutput) Reminders() IcmpMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsReminder { return v.Reminders }).(IcmpMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o IcmpMonitorAlertSettingsOutput) RunBasedEscalations() IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o IcmpMonitorAlertSettingsOutput) TimeBasedEscalations() IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type IcmpMonitorAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsPtrOutput) ToIcmpMonitorAlertSettingsPtrOutput() IcmpMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsPtrOutput) ToIcmpMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsPtrOutput) Elem() IcmpMonitorAlertSettingsOutput {
+	return o.ApplyT(func(v *IcmpMonitorAlertSettings) IcmpMonitorAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret IcmpMonitorAlertSettings
+		return ret
+	}).(IcmpMonitorAlertSettingsOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o IcmpMonitorAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o IcmpMonitorAlertSettingsPtrOutput) ParallelRunFailureThresholds() IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o IcmpMonitorAlertSettingsPtrOutput) Reminders() IcmpMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(IcmpMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o IcmpMonitorAlertSettingsPtrOutput) RunBasedEscalations() IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o IcmpMonitorAlertSettingsPtrOutput) TimeBasedEscalations() IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *IcmpMonitorAlertSettings) []IcmpMonitorAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type IcmpMonitorAlertSettingsParallelRunFailureThreshold struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// IcmpMonitorAlertSettingsParallelRunFailureThresholdInput is an input type that accepts IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs and IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs{...}
+type IcmpMonitorAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsParallelRunFailureThresholdOutput() IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput
+	ToIcmpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdOutput() IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToIcmpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts IcmpMonitorAlertSettingsParallelRunFailureThresholdArray and IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	IcmpMonitorAlertSettingsParallelRunFailureThresholdArray{ IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs{...} }
+type IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToIcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type IcmpMonitorAlertSettingsParallelRunFailureThresholdArray []IcmpMonitorAlertSettingsParallelRunFailureThresholdInput
+
+func (IcmpMonitorAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsParallelRunFailureThresholdArray) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToIcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsParallelRunFailureThresholdArray) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdOutput() IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+func (o IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+func (o IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToIcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IcmpMonitorAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]IcmpMonitorAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type IcmpMonitorAlertSettingsReminder struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount *int `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// IcmpMonitorAlertSettingsReminderInput is an input type that accepts IcmpMonitorAlertSettingsReminderArgs and IcmpMonitorAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsReminderInput` via:
+//
+//	IcmpMonitorAlertSettingsReminderArgs{...}
+type IcmpMonitorAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsReminderOutput() IcmpMonitorAlertSettingsReminderOutput
+	ToIcmpMonitorAlertSettingsReminderOutputWithContext(context.Context) IcmpMonitorAlertSettingsReminderOutput
+}
+
+type IcmpMonitorAlertSettingsReminderArgs struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (IcmpMonitorAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsReminderArgs) ToIcmpMonitorAlertSettingsReminderOutput() IcmpMonitorAlertSettingsReminderOutput {
+	return i.ToIcmpMonitorAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsReminderArgs) ToIcmpMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsReminderOutput)
+}
+
+// IcmpMonitorAlertSettingsReminderArrayInput is an input type that accepts IcmpMonitorAlertSettingsReminderArray and IcmpMonitorAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsReminderArrayInput` via:
+//
+//	IcmpMonitorAlertSettingsReminderArray{ IcmpMonitorAlertSettingsReminderArgs{...} }
+type IcmpMonitorAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsReminderArrayOutput() IcmpMonitorAlertSettingsReminderArrayOutput
+	ToIcmpMonitorAlertSettingsReminderArrayOutputWithContext(context.Context) IcmpMonitorAlertSettingsReminderArrayOutput
+}
+
+type IcmpMonitorAlertSettingsReminderArray []IcmpMonitorAlertSettingsReminderInput
+
+func (IcmpMonitorAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsReminderArray) ToIcmpMonitorAlertSettingsReminderArrayOutput() IcmpMonitorAlertSettingsReminderArrayOutput {
+	return i.ToIcmpMonitorAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsReminderArray) ToIcmpMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsReminderArrayOutput)
+}
+
+type IcmpMonitorAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsReminderOutput) ToIcmpMonitorAlertSettingsReminderOutput() IcmpMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsReminderOutput) ToIcmpMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+func (o IcmpMonitorAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o IcmpMonitorAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type IcmpMonitorAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsReminderArrayOutput) ToIcmpMonitorAlertSettingsReminderArrayOutput() IcmpMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsReminderArrayOutput) ToIcmpMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) IcmpMonitorAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IcmpMonitorAlertSettingsReminder {
+		return vs[0].([]IcmpMonitorAlertSettingsReminder)[vs[1].(int)]
+	}).(IcmpMonitorAlertSettingsReminderOutput)
+}
+
+type IcmpMonitorAlertSettingsRunBasedEscalation struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// IcmpMonitorAlertSettingsRunBasedEscalationInput is an input type that accepts IcmpMonitorAlertSettingsRunBasedEscalationArgs and IcmpMonitorAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsRunBasedEscalationInput` via:
+//
+//	IcmpMonitorAlertSettingsRunBasedEscalationArgs{...}
+type IcmpMonitorAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsRunBasedEscalationOutput() IcmpMonitorAlertSettingsRunBasedEscalationOutput
+	ToIcmpMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Context) IcmpMonitorAlertSettingsRunBasedEscalationOutput
+}
+
+type IcmpMonitorAlertSettingsRunBasedEscalationArgs struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (IcmpMonitorAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsRunBasedEscalationArgs) ToIcmpMonitorAlertSettingsRunBasedEscalationOutput() IcmpMonitorAlertSettingsRunBasedEscalationOutput {
+	return i.ToIcmpMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsRunBasedEscalationArgs) ToIcmpMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+// IcmpMonitorAlertSettingsRunBasedEscalationArrayInput is an input type that accepts IcmpMonitorAlertSettingsRunBasedEscalationArray and IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	IcmpMonitorAlertSettingsRunBasedEscalationArray{ IcmpMonitorAlertSettingsRunBasedEscalationArgs{...} }
+type IcmpMonitorAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsRunBasedEscalationArrayOutput() IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput
+	ToIcmpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type IcmpMonitorAlertSettingsRunBasedEscalationArray []IcmpMonitorAlertSettingsRunBasedEscalationInput
+
+func (IcmpMonitorAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsRunBasedEscalationArray) ToIcmpMonitorAlertSettingsRunBasedEscalationArrayOutput() IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToIcmpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsRunBasedEscalationArray) ToIcmpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type IcmpMonitorAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsRunBasedEscalationOutput) ToIcmpMonitorAlertSettingsRunBasedEscalationOutput() IcmpMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsRunBasedEscalationOutput) ToIcmpMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+func (o IcmpMonitorAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput) ToIcmpMonitorAlertSettingsRunBasedEscalationArrayOutput() IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput) ToIcmpMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) IcmpMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IcmpMonitorAlertSettingsRunBasedEscalation {
+		return vs[0].([]IcmpMonitorAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(IcmpMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+type IcmpMonitorAlertSettingsTimeBasedEscalation struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// IcmpMonitorAlertSettingsTimeBasedEscalationInput is an input type that accepts IcmpMonitorAlertSettingsTimeBasedEscalationArgs and IcmpMonitorAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsTimeBasedEscalationInput` via:
+//
+//	IcmpMonitorAlertSettingsTimeBasedEscalationArgs{...}
+type IcmpMonitorAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsTimeBasedEscalationOutput() IcmpMonitorAlertSettingsTimeBasedEscalationOutput
+	ToIcmpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) IcmpMonitorAlertSettingsTimeBasedEscalationOutput
+}
+
+type IcmpMonitorAlertSettingsTimeBasedEscalationArgs struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (IcmpMonitorAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsTimeBasedEscalationArgs) ToIcmpMonitorAlertSettingsTimeBasedEscalationOutput() IcmpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return i.ToIcmpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsTimeBasedEscalationArgs) ToIcmpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+// IcmpMonitorAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts IcmpMonitorAlertSettingsTimeBasedEscalationArray and IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `IcmpMonitorAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	IcmpMonitorAlertSettingsTimeBasedEscalationArray{ IcmpMonitorAlertSettingsTimeBasedEscalationArgs{...} }
+type IcmpMonitorAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput() IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput
+	ToIcmpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type IcmpMonitorAlertSettingsTimeBasedEscalationArray []IcmpMonitorAlertSettingsTimeBasedEscalationInput
+
+func (IcmpMonitorAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i IcmpMonitorAlertSettingsTimeBasedEscalationArray) ToIcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput() IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToIcmpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorAlertSettingsTimeBasedEscalationArray) ToIcmpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type IcmpMonitorAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsTimeBasedEscalationOutput) ToIcmpMonitorAlertSettingsTimeBasedEscalationOutput() IcmpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsTimeBasedEscalationOutput) ToIcmpMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o IcmpMonitorAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToIcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput() IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToIcmpMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) IcmpMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IcmpMonitorAlertSettingsTimeBasedEscalation {
+		return vs[0].([]IcmpMonitorAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(IcmpMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+type IcmpMonitorRequest struct {
+	// Assertions to validate the ICMP response.
+	Assertions []IcmpMonitorRequestAssertion `pulumi:"assertions"`
+	// The hostname to ping.
+	Hostname string `pulumi:"hostname"`
+	// The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+	IpFamily *string `pulumi:"ipFamily"`
+	// The number of ping packets to send. (Default `10`).
+	PingCount *int `pulumi:"pingCount"`
+}
+
+// IcmpMonitorRequestInput is an input type that accepts IcmpMonitorRequestArgs and IcmpMonitorRequestOutput values.
+// You can construct a concrete instance of `IcmpMonitorRequestInput` via:
+//
+//	IcmpMonitorRequestArgs{...}
+type IcmpMonitorRequestInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRequestOutput() IcmpMonitorRequestOutput
+	ToIcmpMonitorRequestOutputWithContext(context.Context) IcmpMonitorRequestOutput
+}
+
+type IcmpMonitorRequestArgs struct {
+	// Assertions to validate the ICMP response.
+	Assertions IcmpMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	// The hostname to ping.
+	Hostname pulumi.StringInput `pulumi:"hostname"`
+	// The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// The number of ping packets to send. (Default `10`).
+	PingCount pulumi.IntPtrInput `pulumi:"pingCount"`
+}
+
+func (IcmpMonitorRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRequest)(nil)).Elem()
+}
+
+func (i IcmpMonitorRequestArgs) ToIcmpMonitorRequestOutput() IcmpMonitorRequestOutput {
+	return i.ToIcmpMonitorRequestOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRequestArgs) ToIcmpMonitorRequestOutputWithContext(ctx context.Context) IcmpMonitorRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRequestOutput)
+}
+
+func (i IcmpMonitorRequestArgs) ToIcmpMonitorRequestPtrOutput() IcmpMonitorRequestPtrOutput {
+	return i.ToIcmpMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRequestArgs) ToIcmpMonitorRequestPtrOutputWithContext(ctx context.Context) IcmpMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRequestOutput).ToIcmpMonitorRequestPtrOutputWithContext(ctx)
+}
+
+// IcmpMonitorRequestPtrInput is an input type that accepts IcmpMonitorRequestArgs, IcmpMonitorRequestPtr and IcmpMonitorRequestPtrOutput values.
+// You can construct a concrete instance of `IcmpMonitorRequestPtrInput` via:
+//
+//	        IcmpMonitorRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type IcmpMonitorRequestPtrInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRequestPtrOutput() IcmpMonitorRequestPtrOutput
+	ToIcmpMonitorRequestPtrOutputWithContext(context.Context) IcmpMonitorRequestPtrOutput
+}
+
+type icmpMonitorRequestPtrType IcmpMonitorRequestArgs
+
+func IcmpMonitorRequestPtr(v *IcmpMonitorRequestArgs) IcmpMonitorRequestPtrInput {
+	return (*icmpMonitorRequestPtrType)(v)
+}
+
+func (*icmpMonitorRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorRequest)(nil)).Elem()
+}
+
+func (i *icmpMonitorRequestPtrType) ToIcmpMonitorRequestPtrOutput() IcmpMonitorRequestPtrOutput {
+	return i.ToIcmpMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *icmpMonitorRequestPtrType) ToIcmpMonitorRequestPtrOutputWithContext(ctx context.Context) IcmpMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRequestPtrOutput)
+}
+
+type IcmpMonitorRequestOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRequest)(nil)).Elem()
+}
+
+func (o IcmpMonitorRequestOutput) ToIcmpMonitorRequestOutput() IcmpMonitorRequestOutput {
+	return o
+}
+
+func (o IcmpMonitorRequestOutput) ToIcmpMonitorRequestOutputWithContext(ctx context.Context) IcmpMonitorRequestOutput {
+	return o
+}
+
+func (o IcmpMonitorRequestOutput) ToIcmpMonitorRequestPtrOutput() IcmpMonitorRequestPtrOutput {
+	return o.ToIcmpMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (o IcmpMonitorRequestOutput) ToIcmpMonitorRequestPtrOutputWithContext(ctx context.Context) IcmpMonitorRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IcmpMonitorRequest) *IcmpMonitorRequest {
+		return &v
+	}).(IcmpMonitorRequestPtrOutput)
+}
+
+// Assertions to validate the ICMP response.
+func (o IcmpMonitorRequestOutput) Assertions() IcmpMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v IcmpMonitorRequest) []IcmpMonitorRequestAssertion { return v.Assertions }).(IcmpMonitorRequestAssertionArrayOutput)
+}
+
+// The hostname to ping.
+func (o IcmpMonitorRequestOutput) Hostname() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorRequest) string { return v.Hostname }).(pulumi.StringOutput)
+}
+
+// The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+func (o IcmpMonitorRequestOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRequest) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// The number of ping packets to send. (Default `10`).
+func (o IcmpMonitorRequestOutput) PingCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRequest) *int { return v.PingCount }).(pulumi.IntPtrOutput)
+}
+
+type IcmpMonitorRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorRequest)(nil)).Elem()
+}
+
+func (o IcmpMonitorRequestPtrOutput) ToIcmpMonitorRequestPtrOutput() IcmpMonitorRequestPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorRequestPtrOutput) ToIcmpMonitorRequestPtrOutputWithContext(ctx context.Context) IcmpMonitorRequestPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorRequestPtrOutput) Elem() IcmpMonitorRequestOutput {
+	return o.ApplyT(func(v *IcmpMonitorRequest) IcmpMonitorRequest {
+		if v != nil {
+			return *v
+		}
+		var ret IcmpMonitorRequest
+		return ret
+	}).(IcmpMonitorRequestOutput)
+}
+
+// Assertions to validate the ICMP response.
+func (o IcmpMonitorRequestPtrOutput) Assertions() IcmpMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v *IcmpMonitorRequest) []IcmpMonitorRequestAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(IcmpMonitorRequestAssertionArrayOutput)
+}
+
+// The hostname to ping.
+func (o IcmpMonitorRequestPtrOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Hostname
+	}).(pulumi.StringPtrOutput)
+}
+
+// The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+func (o IcmpMonitorRequestPtrOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// The number of ping packets to send. (Default `10`).
+func (o IcmpMonitorRequestPtrOutput) PingCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.PingCount
+	}).(pulumi.IntPtrOutput)
+}
+
+type IcmpMonitorRequestAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+	Comparison string `pulumi:"comparison"`
+	// The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+	Property *string `pulumi:"property"`
+	// The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+	Source string `pulumi:"source"`
+	// The target value for the assertion.
+	Target string `pulumi:"target"`
+}
+
+// IcmpMonitorRequestAssertionInput is an input type that accepts IcmpMonitorRequestAssertionArgs and IcmpMonitorRequestAssertionOutput values.
+// You can construct a concrete instance of `IcmpMonitorRequestAssertionInput` via:
+//
+//	IcmpMonitorRequestAssertionArgs{...}
+type IcmpMonitorRequestAssertionInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRequestAssertionOutput() IcmpMonitorRequestAssertionOutput
+	ToIcmpMonitorRequestAssertionOutputWithContext(context.Context) IcmpMonitorRequestAssertionOutput
+}
+
+type IcmpMonitorRequestAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+	Comparison pulumi.StringInput `pulumi:"comparison"`
+	// The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+	Property pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+	Source pulumi.StringInput `pulumi:"source"`
+	// The target value for the assertion.
+	Target pulumi.StringInput `pulumi:"target"`
+}
+
+func (IcmpMonitorRequestAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i IcmpMonitorRequestAssertionArgs) ToIcmpMonitorRequestAssertionOutput() IcmpMonitorRequestAssertionOutput {
+	return i.ToIcmpMonitorRequestAssertionOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRequestAssertionArgs) ToIcmpMonitorRequestAssertionOutputWithContext(ctx context.Context) IcmpMonitorRequestAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRequestAssertionOutput)
+}
+
+// IcmpMonitorRequestAssertionArrayInput is an input type that accepts IcmpMonitorRequestAssertionArray and IcmpMonitorRequestAssertionArrayOutput values.
+// You can construct a concrete instance of `IcmpMonitorRequestAssertionArrayInput` via:
+//
+//	IcmpMonitorRequestAssertionArray{ IcmpMonitorRequestAssertionArgs{...} }
+type IcmpMonitorRequestAssertionArrayInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRequestAssertionArrayOutput() IcmpMonitorRequestAssertionArrayOutput
+	ToIcmpMonitorRequestAssertionArrayOutputWithContext(context.Context) IcmpMonitorRequestAssertionArrayOutput
+}
+
+type IcmpMonitorRequestAssertionArray []IcmpMonitorRequestAssertionInput
+
+func (IcmpMonitorRequestAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i IcmpMonitorRequestAssertionArray) ToIcmpMonitorRequestAssertionArrayOutput() IcmpMonitorRequestAssertionArrayOutput {
+	return i.ToIcmpMonitorRequestAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRequestAssertionArray) ToIcmpMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) IcmpMonitorRequestAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRequestAssertionArrayOutput)
+}
+
+type IcmpMonitorRequestAssertionOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRequestAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o IcmpMonitorRequestAssertionOutput) ToIcmpMonitorRequestAssertionOutput() IcmpMonitorRequestAssertionOutput {
+	return o
+}
+
+func (o IcmpMonitorRequestAssertionOutput) ToIcmpMonitorRequestAssertionOutputWithContext(ctx context.Context) IcmpMonitorRequestAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+func (o IcmpMonitorRequestAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+// The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+func (o IcmpMonitorRequestAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+func (o IcmpMonitorRequestAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+// The target value for the assertion.
+func (o IcmpMonitorRequestAssertionOutput) Target() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorRequestAssertion) string { return v.Target }).(pulumi.StringOutput)
+}
+
+type IcmpMonitorRequestAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRequestAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IcmpMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o IcmpMonitorRequestAssertionArrayOutput) ToIcmpMonitorRequestAssertionArrayOutput() IcmpMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorRequestAssertionArrayOutput) ToIcmpMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) IcmpMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o IcmpMonitorRequestAssertionArrayOutput) Index(i pulumi.IntInput) IcmpMonitorRequestAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IcmpMonitorRequestAssertion {
+		return vs[0].([]IcmpMonitorRequestAssertion)[vs[1].(int)]
+	}).(IcmpMonitorRequestAssertionOutput)
+}
+
+type IcmpMonitorRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn *IcmpMonitorRetryStrategyOnlyOn `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type string `pulumi:"type"`
+}
+
+// IcmpMonitorRetryStrategyInput is an input type that accepts IcmpMonitorRetryStrategyArgs and IcmpMonitorRetryStrategyOutput values.
+// You can construct a concrete instance of `IcmpMonitorRetryStrategyInput` via:
+//
+//	IcmpMonitorRetryStrategyArgs{...}
+type IcmpMonitorRetryStrategyInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRetryStrategyOutput() IcmpMonitorRetryStrategyOutput
+	ToIcmpMonitorRetryStrategyOutputWithContext(context.Context) IcmpMonitorRetryStrategyOutput
+}
+
+type IcmpMonitorRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn IcmpMonitorRetryStrategyOnlyOnPtrInput `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (IcmpMonitorRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i IcmpMonitorRetryStrategyArgs) ToIcmpMonitorRetryStrategyOutput() IcmpMonitorRetryStrategyOutput {
+	return i.ToIcmpMonitorRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRetryStrategyArgs) ToIcmpMonitorRetryStrategyOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRetryStrategyOutput)
+}
+
+func (i IcmpMonitorRetryStrategyArgs) ToIcmpMonitorRetryStrategyPtrOutput() IcmpMonitorRetryStrategyPtrOutput {
+	return i.ToIcmpMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRetryStrategyArgs) ToIcmpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRetryStrategyOutput).ToIcmpMonitorRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// IcmpMonitorRetryStrategyPtrInput is an input type that accepts IcmpMonitorRetryStrategyArgs, IcmpMonitorRetryStrategyPtr and IcmpMonitorRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `IcmpMonitorRetryStrategyPtrInput` via:
+//
+//	        IcmpMonitorRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type IcmpMonitorRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRetryStrategyPtrOutput() IcmpMonitorRetryStrategyPtrOutput
+	ToIcmpMonitorRetryStrategyPtrOutputWithContext(context.Context) IcmpMonitorRetryStrategyPtrOutput
+}
+
+type icmpMonitorRetryStrategyPtrType IcmpMonitorRetryStrategyArgs
+
+func IcmpMonitorRetryStrategyPtr(v *IcmpMonitorRetryStrategyArgs) IcmpMonitorRetryStrategyPtrInput {
+	return (*icmpMonitorRetryStrategyPtrType)(v)
+}
+
+func (*icmpMonitorRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i *icmpMonitorRetryStrategyPtrType) ToIcmpMonitorRetryStrategyPtrOutput() IcmpMonitorRetryStrategyPtrOutput {
+	return i.ToIcmpMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *icmpMonitorRetryStrategyPtrType) ToIcmpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRetryStrategyPtrOutput)
+}
+
+type IcmpMonitorRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o IcmpMonitorRetryStrategyOutput) ToIcmpMonitorRetryStrategyOutput() IcmpMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyOutput) ToIcmpMonitorRetryStrategyOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyOutput) ToIcmpMonitorRetryStrategyPtrOutput() IcmpMonitorRetryStrategyPtrOutput {
+	return o.ToIcmpMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o IcmpMonitorRetryStrategyOutput) ToIcmpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IcmpMonitorRetryStrategy) *IcmpMonitorRetryStrategy {
+		return &v
+	}).(IcmpMonitorRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o IcmpMonitorRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o IcmpMonitorRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o IcmpMonitorRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o IcmpMonitorRetryStrategyOutput) OnlyOn() IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRetryStrategy) *IcmpMonitorRetryStrategyOnlyOn { return v.OnlyOn }).(IcmpMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o IcmpMonitorRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v IcmpMonitorRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o IcmpMonitorRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type IcmpMonitorRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o IcmpMonitorRetryStrategyPtrOutput) ToIcmpMonitorRetryStrategyPtrOutput() IcmpMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyPtrOutput) ToIcmpMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyPtrOutput) Elem() IcmpMonitorRetryStrategyOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategy) IcmpMonitorRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret IcmpMonitorRetryStrategy
+		return ret
+	}).(IcmpMonitorRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o IcmpMonitorRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o IcmpMonitorRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o IcmpMonitorRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o IcmpMonitorRetryStrategyPtrOutput) OnlyOn() IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategy) *IcmpMonitorRetryStrategyOnlyOn {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyOn
+	}).(IcmpMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o IcmpMonitorRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o IcmpMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type IcmpMonitorRetryStrategyOnlyOn struct {
+}
+
+// IcmpMonitorRetryStrategyOnlyOnInput is an input type that accepts IcmpMonitorRetryStrategyOnlyOnArgs and IcmpMonitorRetryStrategyOnlyOnOutput values.
+// You can construct a concrete instance of `IcmpMonitorRetryStrategyOnlyOnInput` via:
+//
+//	IcmpMonitorRetryStrategyOnlyOnArgs{...}
+type IcmpMonitorRetryStrategyOnlyOnInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRetryStrategyOnlyOnOutput() IcmpMonitorRetryStrategyOnlyOnOutput
+	ToIcmpMonitorRetryStrategyOnlyOnOutputWithContext(context.Context) IcmpMonitorRetryStrategyOnlyOnOutput
+}
+
+type IcmpMonitorRetryStrategyOnlyOnArgs struct {
+}
+
+func (IcmpMonitorRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i IcmpMonitorRetryStrategyOnlyOnArgs) ToIcmpMonitorRetryStrategyOnlyOnOutput() IcmpMonitorRetryStrategyOnlyOnOutput {
+	return i.ToIcmpMonitorRetryStrategyOnlyOnOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRetryStrategyOnlyOnArgs) ToIcmpMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOnlyOnOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRetryStrategyOnlyOnOutput)
+}
+
+func (i IcmpMonitorRetryStrategyOnlyOnArgs) ToIcmpMonitorRetryStrategyOnlyOnPtrOutput() IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorRetryStrategyOnlyOnArgs) ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRetryStrategyOnlyOnOutput).ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx)
+}
+
+// IcmpMonitorRetryStrategyOnlyOnPtrInput is an input type that accepts IcmpMonitorRetryStrategyOnlyOnArgs, IcmpMonitorRetryStrategyOnlyOnPtr and IcmpMonitorRetryStrategyOnlyOnPtrOutput values.
+// You can construct a concrete instance of `IcmpMonitorRetryStrategyOnlyOnPtrInput` via:
+//
+//	        IcmpMonitorRetryStrategyOnlyOnArgs{...}
+//
+//	or:
+//
+//	        nil
+type IcmpMonitorRetryStrategyOnlyOnPtrInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorRetryStrategyOnlyOnPtrOutput() IcmpMonitorRetryStrategyOnlyOnPtrOutput
+	ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Context) IcmpMonitorRetryStrategyOnlyOnPtrOutput
+}
+
+type icmpMonitorRetryStrategyOnlyOnPtrType IcmpMonitorRetryStrategyOnlyOnArgs
+
+func IcmpMonitorRetryStrategyOnlyOnPtr(v *IcmpMonitorRetryStrategyOnlyOnArgs) IcmpMonitorRetryStrategyOnlyOnPtrInput {
+	return (*icmpMonitorRetryStrategyOnlyOnPtrType)(v)
+}
+
+func (*icmpMonitorRetryStrategyOnlyOnPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i *icmpMonitorRetryStrategyOnlyOnPtrType) ToIcmpMonitorRetryStrategyOnlyOnPtrOutput() IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i *icmpMonitorRetryStrategyOnlyOnPtrType) ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type IcmpMonitorRetryStrategyOnlyOnOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRetryStrategyOnlyOnOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o IcmpMonitorRetryStrategyOnlyOnOutput) ToIcmpMonitorRetryStrategyOnlyOnOutput() IcmpMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyOnlyOnOutput) ToIcmpMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyOnlyOnOutput) ToIcmpMonitorRetryStrategyOnlyOnPtrOutput() IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (o IcmpMonitorRetryStrategyOnlyOnOutput) ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IcmpMonitorRetryStrategyOnlyOn) *IcmpMonitorRetryStrategyOnlyOn {
+		return &v
+	}).(IcmpMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type IcmpMonitorRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o IcmpMonitorRetryStrategyOnlyOnPtrOutput) ToIcmpMonitorRetryStrategyOnlyOnPtrOutput() IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyOnlyOnPtrOutput) ToIcmpMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) IcmpMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorRetryStrategyOnlyOnPtrOutput) Elem() IcmpMonitorRetryStrategyOnlyOnOutput {
+	return o.ApplyT(func(v *IcmpMonitorRetryStrategyOnlyOn) IcmpMonitorRetryStrategyOnlyOn {
+		if v != nil {
+			return *v
+		}
+		var ret IcmpMonitorRetryStrategyOnlyOn
+		return ret
+	}).(IcmpMonitorRetryStrategyOnlyOnOutput)
+}
+
+type IcmpMonitorTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// IcmpMonitorTriggerIncidentInput is an input type that accepts IcmpMonitorTriggerIncidentArgs and IcmpMonitorTriggerIncidentOutput values.
+// You can construct a concrete instance of `IcmpMonitorTriggerIncidentInput` via:
+//
+//	IcmpMonitorTriggerIncidentArgs{...}
+type IcmpMonitorTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorTriggerIncidentOutput() IcmpMonitorTriggerIncidentOutput
+	ToIcmpMonitorTriggerIncidentOutputWithContext(context.Context) IcmpMonitorTriggerIncidentOutput
+}
+
+type IcmpMonitorTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (IcmpMonitorTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i IcmpMonitorTriggerIncidentArgs) ToIcmpMonitorTriggerIncidentOutput() IcmpMonitorTriggerIncidentOutput {
+	return i.ToIcmpMonitorTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorTriggerIncidentArgs) ToIcmpMonitorTriggerIncidentOutputWithContext(ctx context.Context) IcmpMonitorTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorTriggerIncidentOutput)
+}
+
+func (i IcmpMonitorTriggerIncidentArgs) ToIcmpMonitorTriggerIncidentPtrOutput() IcmpMonitorTriggerIncidentPtrOutput {
+	return i.ToIcmpMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i IcmpMonitorTriggerIncidentArgs) ToIcmpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) IcmpMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorTriggerIncidentOutput).ToIcmpMonitorTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// IcmpMonitorTriggerIncidentPtrInput is an input type that accepts IcmpMonitorTriggerIncidentArgs, IcmpMonitorTriggerIncidentPtr and IcmpMonitorTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `IcmpMonitorTriggerIncidentPtrInput` via:
+//
+//	        IcmpMonitorTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type IcmpMonitorTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToIcmpMonitorTriggerIncidentPtrOutput() IcmpMonitorTriggerIncidentPtrOutput
+	ToIcmpMonitorTriggerIncidentPtrOutputWithContext(context.Context) IcmpMonitorTriggerIncidentPtrOutput
+}
+
+type icmpMonitorTriggerIncidentPtrType IcmpMonitorTriggerIncidentArgs
+
+func IcmpMonitorTriggerIncidentPtr(v *IcmpMonitorTriggerIncidentArgs) IcmpMonitorTriggerIncidentPtrInput {
+	return (*icmpMonitorTriggerIncidentPtrType)(v)
+}
+
+func (*icmpMonitorTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i *icmpMonitorTriggerIncidentPtrType) ToIcmpMonitorTriggerIncidentPtrOutput() IcmpMonitorTriggerIncidentPtrOutput {
+	return i.ToIcmpMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *icmpMonitorTriggerIncidentPtrType) ToIcmpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) IcmpMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IcmpMonitorTriggerIncidentPtrOutput)
+}
+
+type IcmpMonitorTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IcmpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o IcmpMonitorTriggerIncidentOutput) ToIcmpMonitorTriggerIncidentOutput() IcmpMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o IcmpMonitorTriggerIncidentOutput) ToIcmpMonitorTriggerIncidentOutputWithContext(ctx context.Context) IcmpMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o IcmpMonitorTriggerIncidentOutput) ToIcmpMonitorTriggerIncidentPtrOutput() IcmpMonitorTriggerIncidentPtrOutput {
+	return o.ToIcmpMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o IcmpMonitorTriggerIncidentOutput) ToIcmpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) IcmpMonitorTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IcmpMonitorTriggerIncident) *IcmpMonitorTriggerIncident {
+		return &v
+	}).(IcmpMonitorTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o IcmpMonitorTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o IcmpMonitorTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o IcmpMonitorTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v IcmpMonitorTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o IcmpMonitorTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o IcmpMonitorTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v IcmpMonitorTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type IcmpMonitorTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (IcmpMonitorTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IcmpMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o IcmpMonitorTriggerIncidentPtrOutput) ToIcmpMonitorTriggerIncidentPtrOutput() IcmpMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorTriggerIncidentPtrOutput) ToIcmpMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) IcmpMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o IcmpMonitorTriggerIncidentPtrOutput) Elem() IcmpMonitorTriggerIncidentOutput {
+	return o.ApplyT(func(v *IcmpMonitorTriggerIncident) IcmpMonitorTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret IcmpMonitorTriggerIncident
+		return ret
+	}).(IcmpMonitorTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o IcmpMonitorTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o IcmpMonitorTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o IcmpMonitorTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o IcmpMonitorTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o IcmpMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
+	Activated bool `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
+}
+
+// PlaywrightCheckSuiteAlertChannelSubscriptionInput is an input type that accepts PlaywrightCheckSuiteAlertChannelSubscriptionArgs and PlaywrightCheckSuiteAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertChannelSubscriptionInput` via:
+//
+//	PlaywrightCheckSuiteAlertChannelSubscriptionArgs{...}
+type PlaywrightCheckSuiteAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertChannelSubscriptionOutput() PlaywrightCheckSuiteAlertChannelSubscriptionOutput
+	ToPlaywrightCheckSuiteAlertChannelSubscriptionOutputWithContext(context.Context) PlaywrightCheckSuiteAlertChannelSubscriptionOutput
+}
+
+type PlaywrightCheckSuiteAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
+}
+
+func (PlaywrightCheckSuiteAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertChannelSubscriptionArgs) ToPlaywrightCheckSuiteAlertChannelSubscriptionOutput() PlaywrightCheckSuiteAlertChannelSubscriptionOutput {
+	return i.ToPlaywrightCheckSuiteAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertChannelSubscriptionArgs) ToPlaywrightCheckSuiteAlertChannelSubscriptionOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertChannelSubscriptionOutput)
+}
+
+// PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput is an input type that accepts PlaywrightCheckSuiteAlertChannelSubscriptionArray and PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput` via:
+//
+//	PlaywrightCheckSuiteAlertChannelSubscriptionArray{ PlaywrightCheckSuiteAlertChannelSubscriptionArgs{...} }
+type PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput() PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput
+	ToPlaywrightCheckSuiteAlertChannelSubscriptionArrayOutputWithContext(context.Context) PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput
+}
+
+type PlaywrightCheckSuiteAlertChannelSubscriptionArray []PlaywrightCheckSuiteAlertChannelSubscriptionInput
+
+func (PlaywrightCheckSuiteAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertChannelSubscriptionArray) ToPlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput() PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
+	return i.ToPlaywrightCheckSuiteAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertChannelSubscriptionArray) ToPlaywrightCheckSuiteAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput)
+}
+
+type PlaywrightCheckSuiteAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertChannelSubscriptionOutput) ToPlaywrightCheckSuiteAlertChannelSubscriptionOutput() PlaywrightCheckSuiteAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertChannelSubscriptionOutput) ToPlaywrightCheckSuiteAlertChannelSubscriptionOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Whether an alert should be sent to this channel.
+func (o PlaywrightCheckSuiteAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+// The ID of the alert channel.
+func (o PlaywrightCheckSuiteAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput) ToPlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput() PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput) ToPlaywrightCheckSuiteAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) PlaywrightCheckSuiteAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PlaywrightCheckSuiteAlertChannelSubscription {
+		return vs[0].([]PlaywrightCheckSuiteAlertChannelSubscription)[vs[1].(int)]
+	}).(PlaywrightCheckSuiteAlertChannelSubscriptionOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettings struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType *string `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds []PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders []PlaywrightCheckSuiteAlertSettingsReminder `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations []PlaywrightCheckSuiteAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations []PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// PlaywrightCheckSuiteAlertSettingsInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsArgs and PlaywrightCheckSuiteAlertSettingsOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsArgs{...}
+type PlaywrightCheckSuiteAlertSettingsInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsOutput() PlaywrightCheckSuiteAlertSettingsOutput
+	ToPlaywrightCheckSuiteAlertSettingsOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsArgs struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders PlaywrightCheckSuiteAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (PlaywrightCheckSuiteAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettings)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsArgs) ToPlaywrightCheckSuiteAlertSettingsOutput() PlaywrightCheckSuiteAlertSettingsOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsArgs) ToPlaywrightCheckSuiteAlertSettingsOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsOutput)
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsArgs) ToPlaywrightCheckSuiteAlertSettingsPtrOutput() PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsArgs) ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsOutput).ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteAlertSettingsPtrInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsArgs, PlaywrightCheckSuiteAlertSettingsPtr and PlaywrightCheckSuiteAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsPtrInput` via:
+//
+//	        PlaywrightCheckSuiteAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsPtrOutput() PlaywrightCheckSuiteAlertSettingsPtrOutput
+	ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsPtrOutput
+}
+
+type playwrightCheckSuiteAlertSettingsPtrType PlaywrightCheckSuiteAlertSettingsArgs
+
+func PlaywrightCheckSuiteAlertSettingsPtr(v *PlaywrightCheckSuiteAlertSettingsArgs) PlaywrightCheckSuiteAlertSettingsPtrInput {
+	return (*playwrightCheckSuiteAlertSettingsPtrType)(v)
+}
+
+func (*playwrightCheckSuiteAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteAlertSettings)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteAlertSettingsPtrType) ToPlaywrightCheckSuiteAlertSettingsPtrOutput() PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteAlertSettingsPtrType) ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsPtrOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettings)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsOutput) ToPlaywrightCheckSuiteAlertSettingsOutput() PlaywrightCheckSuiteAlertSettingsOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsOutput) ToPlaywrightCheckSuiteAlertSettingsOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsOutput) ToPlaywrightCheckSuiteAlertSettingsPtrOutput() PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return o.ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsOutput) ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteAlertSettings) *PlaywrightCheckSuiteAlertSettings {
+		return &v
+	}).(PlaywrightCheckSuiteAlertSettingsPtrOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o PlaywrightCheckSuiteAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o PlaywrightCheckSuiteAlertSettingsOutput) ParallelRunFailureThresholds() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o PlaywrightCheckSuiteAlertSettingsOutput) Reminders() PlaywrightCheckSuiteAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsReminder {
+		return v.Reminders
+	}).(PlaywrightCheckSuiteAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o PlaywrightCheckSuiteAlertSettingsOutput) RunBasedEscalations() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o PlaywrightCheckSuiteAlertSettingsOutput) TimeBasedEscalations() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteAlertSettings)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) ToPlaywrightCheckSuiteAlertSettingsPtrOutput() PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) ToPlaywrightCheckSuiteAlertSettingsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) Elem() PlaywrightCheckSuiteAlertSettingsOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteAlertSettings) PlaywrightCheckSuiteAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteAlertSettings
+		return ret
+	}).(PlaywrightCheckSuiteAlertSettingsOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) ParallelRunFailureThresholds() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) Reminders() PlaywrightCheckSuiteAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(PlaywrightCheckSuiteAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) RunBasedEscalations() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o PlaywrightCheckSuiteAlertSettingsPtrOutput) TimeBasedEscalations() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteAlertSettings) []PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs and PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs{...}
+type PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput
+	ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArray and PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArray{ PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs{...} }
+type PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArray []PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdInput
+
+func (PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArray) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArray) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+func (o PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+func (o PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput() PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput) ToPlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsReminder struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount *int `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// PlaywrightCheckSuiteAlertSettingsReminderInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsReminderArgs and PlaywrightCheckSuiteAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsReminderInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsReminderArgs{...}
+type PlaywrightCheckSuiteAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsReminderOutput() PlaywrightCheckSuiteAlertSettingsReminderOutput
+	ToPlaywrightCheckSuiteAlertSettingsReminderOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsReminderOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsReminderArgs struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (PlaywrightCheckSuiteAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsReminderArgs) ToPlaywrightCheckSuiteAlertSettingsReminderOutput() PlaywrightCheckSuiteAlertSettingsReminderOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsReminderArgs) ToPlaywrightCheckSuiteAlertSettingsReminderOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsReminderOutput)
+}
+
+// PlaywrightCheckSuiteAlertSettingsReminderArrayInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsReminderArray and PlaywrightCheckSuiteAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsReminderArrayInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsReminderArray{ PlaywrightCheckSuiteAlertSettingsReminderArgs{...} }
+type PlaywrightCheckSuiteAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsReminderArrayOutput() PlaywrightCheckSuiteAlertSettingsReminderArrayOutput
+	ToPlaywrightCheckSuiteAlertSettingsReminderArrayOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsReminderArrayOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsReminderArray []PlaywrightCheckSuiteAlertSettingsReminderInput
+
+func (PlaywrightCheckSuiteAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsReminderArray) ToPlaywrightCheckSuiteAlertSettingsReminderArrayOutput() PlaywrightCheckSuiteAlertSettingsReminderArrayOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsReminderArray) ToPlaywrightCheckSuiteAlertSettingsReminderArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsReminderArrayOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsReminderOutput) ToPlaywrightCheckSuiteAlertSettingsReminderOutput() PlaywrightCheckSuiteAlertSettingsReminderOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsReminderOutput) ToPlaywrightCheckSuiteAlertSettingsReminderOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsReminderOutput {
+	return o
+}
+
+// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+func (o PlaywrightCheckSuiteAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o PlaywrightCheckSuiteAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsReminderArrayOutput) ToPlaywrightCheckSuiteAlertSettingsReminderArrayOutput() PlaywrightCheckSuiteAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsReminderArrayOutput) ToPlaywrightCheckSuiteAlertSettingsReminderArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) PlaywrightCheckSuiteAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PlaywrightCheckSuiteAlertSettingsReminder {
+		return vs[0].([]PlaywrightCheckSuiteAlertSettingsReminder)[vs[1].(int)]
+	}).(PlaywrightCheckSuiteAlertSettingsReminderOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsRunBasedEscalation struct {
+	// Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// PlaywrightCheckSuiteAlertSettingsRunBasedEscalationInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs and PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsRunBasedEscalationInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs{...}
+type PlaywrightCheckSuiteAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput
+	ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs struct {
+	// Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput)
+}
+
+// PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArray and PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArray{ PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs{...} }
+type PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput
+	ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArray []PlaywrightCheckSuiteAlertSettingsRunBasedEscalationInput
+
+func (PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArray) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArray) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+func (o PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput() PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput) ToPlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PlaywrightCheckSuiteAlertSettingsRunBasedEscalation {
+		return vs[0].([]PlaywrightCheckSuiteAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation struct {
+	// Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs and PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs{...}
+type PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput
+	ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs struct {
+	// Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput)
+}
+
+// PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray and PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray{ PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs{...} }
+type PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput
+	ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray []PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationInput
+
+func (PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput() PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput) ToPlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation {
+		return vs[0].([]PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput)
+}
+
+type PlaywrightCheckSuiteBundle struct {
+	// The ID of the code bundle.
+	Id string `pulumi:"id"`
+	// The generated metadata of the code bundle.
+	Metadata string `pulumi:"metadata"`
+}
+
+// PlaywrightCheckSuiteBundleInput is an input type that accepts PlaywrightCheckSuiteBundleArgs and PlaywrightCheckSuiteBundleOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteBundleInput` via:
+//
+//	PlaywrightCheckSuiteBundleArgs{...}
+type PlaywrightCheckSuiteBundleInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteBundleOutput() PlaywrightCheckSuiteBundleOutput
+	ToPlaywrightCheckSuiteBundleOutputWithContext(context.Context) PlaywrightCheckSuiteBundleOutput
+}
+
+type PlaywrightCheckSuiteBundleArgs struct {
+	// The ID of the code bundle.
+	Id pulumi.StringInput `pulumi:"id"`
+	// The generated metadata of the code bundle.
+	Metadata pulumi.StringInput `pulumi:"metadata"`
+}
+
+func (PlaywrightCheckSuiteBundleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteBundle)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteBundleArgs) ToPlaywrightCheckSuiteBundleOutput() PlaywrightCheckSuiteBundleOutput {
+	return i.ToPlaywrightCheckSuiteBundleOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteBundleArgs) ToPlaywrightCheckSuiteBundleOutputWithContext(ctx context.Context) PlaywrightCheckSuiteBundleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteBundleOutput)
+}
+
+func (i PlaywrightCheckSuiteBundleArgs) ToPlaywrightCheckSuiteBundlePtrOutput() PlaywrightCheckSuiteBundlePtrOutput {
+	return i.ToPlaywrightCheckSuiteBundlePtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteBundleArgs) ToPlaywrightCheckSuiteBundlePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteBundlePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteBundleOutput).ToPlaywrightCheckSuiteBundlePtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteBundlePtrInput is an input type that accepts PlaywrightCheckSuiteBundleArgs, PlaywrightCheckSuiteBundlePtr and PlaywrightCheckSuiteBundlePtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteBundlePtrInput` via:
+//
+//	        PlaywrightCheckSuiteBundleArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteBundlePtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteBundlePtrOutput() PlaywrightCheckSuiteBundlePtrOutput
+	ToPlaywrightCheckSuiteBundlePtrOutputWithContext(context.Context) PlaywrightCheckSuiteBundlePtrOutput
+}
+
+type playwrightCheckSuiteBundlePtrType PlaywrightCheckSuiteBundleArgs
+
+func PlaywrightCheckSuiteBundlePtr(v *PlaywrightCheckSuiteBundleArgs) PlaywrightCheckSuiteBundlePtrInput {
+	return (*playwrightCheckSuiteBundlePtrType)(v)
+}
+
+func (*playwrightCheckSuiteBundlePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteBundle)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteBundlePtrType) ToPlaywrightCheckSuiteBundlePtrOutput() PlaywrightCheckSuiteBundlePtrOutput {
+	return i.ToPlaywrightCheckSuiteBundlePtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteBundlePtrType) ToPlaywrightCheckSuiteBundlePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteBundlePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteBundlePtrOutput)
+}
+
+type PlaywrightCheckSuiteBundleOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteBundleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteBundle)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteBundleOutput) ToPlaywrightCheckSuiteBundleOutput() PlaywrightCheckSuiteBundleOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteBundleOutput) ToPlaywrightCheckSuiteBundleOutputWithContext(ctx context.Context) PlaywrightCheckSuiteBundleOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteBundleOutput) ToPlaywrightCheckSuiteBundlePtrOutput() PlaywrightCheckSuiteBundlePtrOutput {
+	return o.ToPlaywrightCheckSuiteBundlePtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteBundleOutput) ToPlaywrightCheckSuiteBundlePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteBundlePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteBundle) *PlaywrightCheckSuiteBundle {
+		return &v
+	}).(PlaywrightCheckSuiteBundlePtrOutput)
+}
+
+// The ID of the code bundle.
+func (o PlaywrightCheckSuiteBundleOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteBundle) string { return v.Id }).(pulumi.StringOutput)
+}
+
+// The generated metadata of the code bundle.
+func (o PlaywrightCheckSuiteBundleOutput) Metadata() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteBundle) string { return v.Metadata }).(pulumi.StringOutput)
+}
+
+type PlaywrightCheckSuiteBundlePtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteBundlePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteBundle)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteBundlePtrOutput) ToPlaywrightCheckSuiteBundlePtrOutput() PlaywrightCheckSuiteBundlePtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteBundlePtrOutput) ToPlaywrightCheckSuiteBundlePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteBundlePtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteBundlePtrOutput) Elem() PlaywrightCheckSuiteBundleOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteBundle) PlaywrightCheckSuiteBundle {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteBundle
+		return ret
+	}).(PlaywrightCheckSuiteBundleOutput)
+}
+
+// The ID of the code bundle.
+func (o PlaywrightCheckSuiteBundlePtrOutput) Id() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteBundle) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Id
+	}).(pulumi.StringPtrOutput)
+}
+
+// The generated metadata of the code bundle.
+func (o PlaywrightCheckSuiteBundlePtrOutput) Metadata() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteBundle) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Metadata
+	}).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntime struct {
+	// Configure the Playwright capabilities that should be made available to the runtime environment.
+	Playwright *PlaywrightCheckSuiteRuntimePlaywright `pulumi:"playwright"`
+	// Customize the actions taken during test execution.
+	Steps *PlaywrightCheckSuiteRuntimeSteps `pulumi:"steps"`
+}
+
+// PlaywrightCheckSuiteRuntimeInput is an input type that accepts PlaywrightCheckSuiteRuntimeArgs and PlaywrightCheckSuiteRuntimeOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeInput` via:
+//
+//	PlaywrightCheckSuiteRuntimeArgs{...}
+type PlaywrightCheckSuiteRuntimeInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeOutput() PlaywrightCheckSuiteRuntimeOutput
+	ToPlaywrightCheckSuiteRuntimeOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeOutput
+}
+
+type PlaywrightCheckSuiteRuntimeArgs struct {
+	// Configure the Playwright capabilities that should be made available to the runtime environment.
+	Playwright PlaywrightCheckSuiteRuntimePlaywrightPtrInput `pulumi:"playwright"`
+	// Customize the actions taken during test execution.
+	Steps PlaywrightCheckSuiteRuntimeStepsPtrInput `pulumi:"steps"`
+}
+
+func (PlaywrightCheckSuiteRuntimeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntime)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimeArgs) ToPlaywrightCheckSuiteRuntimeOutput() PlaywrightCheckSuiteRuntimeOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeArgs) ToPlaywrightCheckSuiteRuntimeOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeOutput)
+}
+
+func (i PlaywrightCheckSuiteRuntimeArgs) ToPlaywrightCheckSuiteRuntimePtrOutput() PlaywrightCheckSuiteRuntimePtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeArgs) ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeOutput).ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteRuntimePtrInput is an input type that accepts PlaywrightCheckSuiteRuntimeArgs, PlaywrightCheckSuiteRuntimePtr and PlaywrightCheckSuiteRuntimePtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimePtrInput` via:
+//
+//	        PlaywrightCheckSuiteRuntimeArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteRuntimePtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimePtrOutput() PlaywrightCheckSuiteRuntimePtrOutput
+	ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimePtrOutput
+}
+
+type playwrightCheckSuiteRuntimePtrType PlaywrightCheckSuiteRuntimeArgs
+
+func PlaywrightCheckSuiteRuntimePtr(v *PlaywrightCheckSuiteRuntimeArgs) PlaywrightCheckSuiteRuntimePtrInput {
+	return (*playwrightCheckSuiteRuntimePtrType)(v)
+}
+
+func (*playwrightCheckSuiteRuntimePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntime)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteRuntimePtrType) ToPlaywrightCheckSuiteRuntimePtrOutput() PlaywrightCheckSuiteRuntimePtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteRuntimePtrType) ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimePtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntime)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeOutput) ToPlaywrightCheckSuiteRuntimeOutput() PlaywrightCheckSuiteRuntimeOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeOutput) ToPlaywrightCheckSuiteRuntimeOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeOutput) ToPlaywrightCheckSuiteRuntimePtrOutput() PlaywrightCheckSuiteRuntimePtrOutput {
+	return o.ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteRuntimeOutput) ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntime {
+		return &v
+	}).(PlaywrightCheckSuiteRuntimePtrOutput)
+}
+
+// Configure the Playwright capabilities that should be made available to the runtime environment.
+func (o PlaywrightCheckSuiteRuntimeOutput) Playwright() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimePlaywright { return v.Playwright }).(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput)
+}
+
+// Customize the actions taken during test execution.
+func (o PlaywrightCheckSuiteRuntimeOutput) Steps() PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimeSteps { return v.Steps }).(PlaywrightCheckSuiteRuntimeStepsPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimePtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntime)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimePtrOutput) ToPlaywrightCheckSuiteRuntimePtrOutput() PlaywrightCheckSuiteRuntimePtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePtrOutput) ToPlaywrightCheckSuiteRuntimePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePtrOutput) Elem() PlaywrightCheckSuiteRuntimeOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) PlaywrightCheckSuiteRuntime {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteRuntime
+		return ret
+	}).(PlaywrightCheckSuiteRuntimeOutput)
+}
+
+// Configure the Playwright capabilities that should be made available to the runtime environment.
+func (o PlaywrightCheckSuiteRuntimePtrOutput) Playwright() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimePlaywright {
+		if v == nil {
+			return nil
+		}
+		return v.Playwright
+	}).(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput)
+}
+
+// Customize the actions taken during test execution.
+func (o PlaywrightCheckSuiteRuntimePtrOutput) Steps() PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimeSteps {
+		if v == nil {
+			return nil
+		}
+		return v.Steps
+	}).(PlaywrightCheckSuiteRuntimeStepsPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimePlaywright struct {
+	// The list of devices that should be made available for Playwright.
+	Devices []PlaywrightCheckSuiteRuntimePlaywrightDevice `pulumi:"devices"`
+	// The Playwright version to use.
+	Version *string `pulumi:"version"`
+}
+
+// PlaywrightCheckSuiteRuntimePlaywrightInput is an input type that accepts PlaywrightCheckSuiteRuntimePlaywrightArgs and PlaywrightCheckSuiteRuntimePlaywrightOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimePlaywrightInput` via:
+//
+//	PlaywrightCheckSuiteRuntimePlaywrightArgs{...}
+type PlaywrightCheckSuiteRuntimePlaywrightInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimePlaywrightOutput() PlaywrightCheckSuiteRuntimePlaywrightOutput
+	ToPlaywrightCheckSuiteRuntimePlaywrightOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimePlaywrightOutput
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightArgs struct {
+	// The list of devices that should be made available for Playwright.
+	Devices PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayInput `pulumi:"devices"`
+	// The Playwright version to use.
+	Version pulumi.StringPtrInput `pulumi:"version"`
+}
+
+func (PlaywrightCheckSuiteRuntimePlaywrightArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywright)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightArgs) ToPlaywrightCheckSuiteRuntimePlaywrightOutput() PlaywrightCheckSuiteRuntimePlaywrightOutput {
+	return i.ToPlaywrightCheckSuiteRuntimePlaywrightOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightArgs) ToPlaywrightCheckSuiteRuntimePlaywrightOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimePlaywrightOutput)
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightArgs) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutput() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightArgs) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimePlaywrightOutput).ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteRuntimePlaywrightPtrInput is an input type that accepts PlaywrightCheckSuiteRuntimePlaywrightArgs, PlaywrightCheckSuiteRuntimePlaywrightPtr and PlaywrightCheckSuiteRuntimePlaywrightPtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimePlaywrightPtrInput` via:
+//
+//	        PlaywrightCheckSuiteRuntimePlaywrightArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteRuntimePlaywrightPtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutput() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput
+	ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimePlaywrightPtrOutput
+}
+
+type playwrightCheckSuiteRuntimePlaywrightPtrType PlaywrightCheckSuiteRuntimePlaywrightArgs
+
+func PlaywrightCheckSuiteRuntimePlaywrightPtr(v *PlaywrightCheckSuiteRuntimePlaywrightArgs) PlaywrightCheckSuiteRuntimePlaywrightPtrInput {
+	return (*playwrightCheckSuiteRuntimePlaywrightPtrType)(v)
+}
+
+func (*playwrightCheckSuiteRuntimePlaywrightPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimePlaywright)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteRuntimePlaywrightPtrType) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutput() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteRuntimePlaywrightPtrType) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimePlaywrightOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywright)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) ToPlaywrightCheckSuiteRuntimePlaywrightOutput() PlaywrightCheckSuiteRuntimePlaywrightOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) ToPlaywrightCheckSuiteRuntimePlaywrightOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutput() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return o.ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteRuntimePlaywright) *PlaywrightCheckSuiteRuntimePlaywright {
+		return &v
+	}).(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput)
+}
+
+// The list of devices that should be made available for Playwright.
+func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) Devices() PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimePlaywright) []PlaywrightCheckSuiteRuntimePlaywrightDevice {
+		return v.Devices
+	}).(PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput)
+}
+
+// The Playwright version to use.
+func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimePlaywright) *string { return v.Version }).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightPtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimePlaywright)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutput() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) ToPlaywrightCheckSuiteRuntimePlaywrightPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) Elem() PlaywrightCheckSuiteRuntimePlaywrightOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimePlaywright) PlaywrightCheckSuiteRuntimePlaywright {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteRuntimePlaywright
+		return ret
+	}).(PlaywrightCheckSuiteRuntimePlaywrightOutput)
+}
+
+// The list of devices that should be made available for Playwright.
+func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) Devices() PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimePlaywright) []PlaywrightCheckSuiteRuntimePlaywrightDevice {
+		if v == nil {
+			return nil
+		}
+		return v.Devices
+	}).(PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput)
+}
+
+// The Playwright version to use.
+func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimePlaywright) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Version
+	}).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightDevice struct {
+	// The type of the device.
+	Type string `pulumi:"type"`
+}
+
+// PlaywrightCheckSuiteRuntimePlaywrightDeviceInput is an input type that accepts PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs and PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimePlaywrightDeviceInput` via:
+//
+//	PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs{...}
+type PlaywrightCheckSuiteRuntimePlaywrightDeviceInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimePlaywrightDeviceOutput() PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput
+	ToPlaywrightCheckSuiteRuntimePlaywrightDeviceOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs struct {
+	// The type of the device.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightDevice)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceOutput() PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput {
+	return i.ToPlaywrightCheckSuiteRuntimePlaywrightDeviceOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput)
+}
+
+// PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayInput is an input type that accepts PlaywrightCheckSuiteRuntimePlaywrightDeviceArray and PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayInput` via:
+//
+//	PlaywrightCheckSuiteRuntimePlaywrightDeviceArray{ PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs{...} }
+type PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput() PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput
+	ToPlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightDeviceArray []PlaywrightCheckSuiteRuntimePlaywrightDeviceInput
+
+func (PlaywrightCheckSuiteRuntimePlaywrightDeviceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteRuntimePlaywrightDevice)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightDeviceArray) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput() PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
+	return i.ToPlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimePlaywrightDeviceArray) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput)
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightDevice)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceOutput() PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput {
+	return o
+}
+
+// The type of the device.
+func (o PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimePlaywrightDevice) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteRuntimePlaywrightDevice)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput() PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput) ToPlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput) Index(i pulumi.IntInput) PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PlaywrightCheckSuiteRuntimePlaywrightDevice {
+		return vs[0].([]PlaywrightCheckSuiteRuntimePlaywrightDevice)[vs[1].(int)]
+	}).(PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeSteps struct {
+	// Customize the install step, which is used to initialize the environment prior to starting the test run.
+	Install *PlaywrightCheckSuiteRuntimeStepsInstall `pulumi:"install"`
+	// Customize the test step.
+	Test *PlaywrightCheckSuiteRuntimeStepsTest `pulumi:"test"`
+}
+
+// PlaywrightCheckSuiteRuntimeStepsInput is an input type that accepts PlaywrightCheckSuiteRuntimeStepsArgs and PlaywrightCheckSuiteRuntimeStepsOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeStepsInput` via:
+//
+//	PlaywrightCheckSuiteRuntimeStepsArgs{...}
+type PlaywrightCheckSuiteRuntimeStepsInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeStepsOutput() PlaywrightCheckSuiteRuntimeStepsOutput
+	ToPlaywrightCheckSuiteRuntimeStepsOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeStepsOutput
+}
+
+type PlaywrightCheckSuiteRuntimeStepsArgs struct {
+	// Customize the install step, which is used to initialize the environment prior to starting the test run.
+	Install PlaywrightCheckSuiteRuntimeStepsInstallPtrInput `pulumi:"install"`
+	// Customize the test step.
+	Test PlaywrightCheckSuiteRuntimeStepsTestPtrInput `pulumi:"test"`
+}
+
+func (PlaywrightCheckSuiteRuntimeStepsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeSteps)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsArgs) ToPlaywrightCheckSuiteRuntimeStepsOutput() PlaywrightCheckSuiteRuntimeStepsOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsArgs) ToPlaywrightCheckSuiteRuntimeStepsOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsOutput)
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsArgs) ToPlaywrightCheckSuiteRuntimeStepsPtrOutput() PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsArgs) ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsOutput).ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteRuntimeStepsPtrInput is an input type that accepts PlaywrightCheckSuiteRuntimeStepsArgs, PlaywrightCheckSuiteRuntimeStepsPtr and PlaywrightCheckSuiteRuntimeStepsPtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeStepsPtrInput` via:
+//
+//	        PlaywrightCheckSuiteRuntimeStepsArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteRuntimeStepsPtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeStepsPtrOutput() PlaywrightCheckSuiteRuntimeStepsPtrOutput
+	ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeStepsPtrOutput
+}
+
+type playwrightCheckSuiteRuntimeStepsPtrType PlaywrightCheckSuiteRuntimeStepsArgs
+
+func PlaywrightCheckSuiteRuntimeStepsPtr(v *PlaywrightCheckSuiteRuntimeStepsArgs) PlaywrightCheckSuiteRuntimeStepsPtrInput {
+	return (*playwrightCheckSuiteRuntimeStepsPtrType)(v)
+}
+
+func (*playwrightCheckSuiteRuntimeStepsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeSteps)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteRuntimeStepsPtrType) ToPlaywrightCheckSuiteRuntimeStepsPtrOutput() PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteRuntimeStepsPtrType) ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeStepsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeSteps)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsOutput) ToPlaywrightCheckSuiteRuntimeStepsOutput() PlaywrightCheckSuiteRuntimeStepsOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsOutput) ToPlaywrightCheckSuiteRuntimeStepsOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsOutput) ToPlaywrightCheckSuiteRuntimeStepsPtrOutput() PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return o.ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsOutput) ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteRuntimeSteps) *PlaywrightCheckSuiteRuntimeSteps {
+		return &v
+	}).(PlaywrightCheckSuiteRuntimeStepsPtrOutput)
+}
+
+// Customize the install step, which is used to initialize the environment prior to starting the test run.
+func (o PlaywrightCheckSuiteRuntimeStepsOutput) Install() PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimeSteps) *PlaywrightCheckSuiteRuntimeStepsInstall { return v.Install }).(PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput)
+}
+
+// Customize the test step.
+func (o PlaywrightCheckSuiteRuntimeStepsOutput) Test() PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimeSteps) *PlaywrightCheckSuiteRuntimeStepsTest { return v.Test }).(PlaywrightCheckSuiteRuntimeStepsTestPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsPtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeStepsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeSteps)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsPtrOutput) ToPlaywrightCheckSuiteRuntimeStepsPtrOutput() PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsPtrOutput) ToPlaywrightCheckSuiteRuntimeStepsPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsPtrOutput) Elem() PlaywrightCheckSuiteRuntimeStepsOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeSteps) PlaywrightCheckSuiteRuntimeSteps {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteRuntimeSteps
+		return ret
+	}).(PlaywrightCheckSuiteRuntimeStepsOutput)
+}
+
+// Customize the install step, which is used to initialize the environment prior to starting the test run.
+func (o PlaywrightCheckSuiteRuntimeStepsPtrOutput) Install() PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeSteps) *PlaywrightCheckSuiteRuntimeStepsInstall {
+		if v == nil {
+			return nil
+		}
+		return v.Install
+	}).(PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput)
+}
+
+// Customize the test step.
+func (o PlaywrightCheckSuiteRuntimeStepsPtrOutput) Test() PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeSteps) *PlaywrightCheckSuiteRuntimeStepsTest {
+		if v == nil {
+			return nil
+		}
+		return v.Test
+	}).(PlaywrightCheckSuiteRuntimeStepsTestPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsInstall struct {
+	// The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+	Command *string `pulumi:"command"`
+}
+
+// PlaywrightCheckSuiteRuntimeStepsInstallInput is an input type that accepts PlaywrightCheckSuiteRuntimeStepsInstallArgs and PlaywrightCheckSuiteRuntimeStepsInstallOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeStepsInstallInput` via:
+//
+//	PlaywrightCheckSuiteRuntimeStepsInstallArgs{...}
+type PlaywrightCheckSuiteRuntimeStepsInstallInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeStepsInstallOutput() PlaywrightCheckSuiteRuntimeStepsInstallOutput
+	ToPlaywrightCheckSuiteRuntimeStepsInstallOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeStepsInstallOutput
+}
+
+type PlaywrightCheckSuiteRuntimeStepsInstallArgs struct {
+	// The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+	Command pulumi.StringPtrInput `pulumi:"command"`
+}
+
+func (PlaywrightCheckSuiteRuntimeStepsInstallArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsInstall)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsInstallArgs) ToPlaywrightCheckSuiteRuntimeStepsInstallOutput() PlaywrightCheckSuiteRuntimeStepsInstallOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsInstallOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsInstallArgs) ToPlaywrightCheckSuiteRuntimeStepsInstallOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsInstallOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsInstallOutput)
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsInstallArgs) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutput() PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsInstallArgs) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsInstallOutput).ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteRuntimeStepsInstallPtrInput is an input type that accepts PlaywrightCheckSuiteRuntimeStepsInstallArgs, PlaywrightCheckSuiteRuntimeStepsInstallPtr and PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeStepsInstallPtrInput` via:
+//
+//	        PlaywrightCheckSuiteRuntimeStepsInstallArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteRuntimeStepsInstallPtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutput() PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput
+	ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput
+}
+
+type playwrightCheckSuiteRuntimeStepsInstallPtrType PlaywrightCheckSuiteRuntimeStepsInstallArgs
+
+func PlaywrightCheckSuiteRuntimeStepsInstallPtr(v *PlaywrightCheckSuiteRuntimeStepsInstallArgs) PlaywrightCheckSuiteRuntimeStepsInstallPtrInput {
+	return (*playwrightCheckSuiteRuntimeStepsInstallPtrType)(v)
+}
+
+func (*playwrightCheckSuiteRuntimeStepsInstallPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeStepsInstall)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteRuntimeStepsInstallPtrType) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutput() PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteRuntimeStepsInstallPtrType) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsInstallOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeStepsInstallOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsInstall)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsInstallOutput) ToPlaywrightCheckSuiteRuntimeStepsInstallOutput() PlaywrightCheckSuiteRuntimeStepsInstallOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsInstallOutput) ToPlaywrightCheckSuiteRuntimeStepsInstallOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsInstallOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsInstallOutput) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutput() PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return o.ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsInstallOutput) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteRuntimeStepsInstall) *PlaywrightCheckSuiteRuntimeStepsInstall {
+		return &v
+	}).(PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput)
+}
+
+// The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+func (o PlaywrightCheckSuiteRuntimeStepsInstallOutput) Command() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimeStepsInstall) *string { return v.Command }).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeStepsInstall)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutput() PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput) ToPlaywrightCheckSuiteRuntimeStepsInstallPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput) Elem() PlaywrightCheckSuiteRuntimeStepsInstallOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeStepsInstall) PlaywrightCheckSuiteRuntimeStepsInstall {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteRuntimeStepsInstall
+		return ret
+	}).(PlaywrightCheckSuiteRuntimeStepsInstallOutput)
+}
+
+// The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+func (o PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput) Command() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeStepsInstall) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Command
+	}).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsTest struct {
+	// The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+	Command *string `pulumi:"command"`
+}
+
+// PlaywrightCheckSuiteRuntimeStepsTestInput is an input type that accepts PlaywrightCheckSuiteRuntimeStepsTestArgs and PlaywrightCheckSuiteRuntimeStepsTestOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeStepsTestInput` via:
+//
+//	PlaywrightCheckSuiteRuntimeStepsTestArgs{...}
+type PlaywrightCheckSuiteRuntimeStepsTestInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeStepsTestOutput() PlaywrightCheckSuiteRuntimeStepsTestOutput
+	ToPlaywrightCheckSuiteRuntimeStepsTestOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeStepsTestOutput
+}
+
+type PlaywrightCheckSuiteRuntimeStepsTestArgs struct {
+	// The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+	Command pulumi.StringPtrInput `pulumi:"command"`
+}
+
+func (PlaywrightCheckSuiteRuntimeStepsTestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsTest)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsTestArgs) ToPlaywrightCheckSuiteRuntimeStepsTestOutput() PlaywrightCheckSuiteRuntimeStepsTestOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsTestOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsTestArgs) ToPlaywrightCheckSuiteRuntimeStepsTestOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsTestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsTestOutput)
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsTestArgs) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutput() PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeStepsTestArgs) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsTestOutput).ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteRuntimeStepsTestPtrInput is an input type that accepts PlaywrightCheckSuiteRuntimeStepsTestArgs, PlaywrightCheckSuiteRuntimeStepsTestPtr and PlaywrightCheckSuiteRuntimeStepsTestPtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeStepsTestPtrInput` via:
+//
+//	        PlaywrightCheckSuiteRuntimeStepsTestArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteRuntimeStepsTestPtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutput() PlaywrightCheckSuiteRuntimeStepsTestPtrOutput
+	ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeStepsTestPtrOutput
+}
+
+type playwrightCheckSuiteRuntimeStepsTestPtrType PlaywrightCheckSuiteRuntimeStepsTestArgs
+
+func PlaywrightCheckSuiteRuntimeStepsTestPtr(v *PlaywrightCheckSuiteRuntimeStepsTestArgs) PlaywrightCheckSuiteRuntimeStepsTestPtrInput {
+	return (*playwrightCheckSuiteRuntimeStepsTestPtrType)(v)
+}
+
+func (*playwrightCheckSuiteRuntimeStepsTestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeStepsTest)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteRuntimeStepsTestPtrType) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutput() PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteRuntimeStepsTestPtrType) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeStepsTestPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsTestOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeStepsTestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsTest)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsTestOutput) ToPlaywrightCheckSuiteRuntimeStepsTestOutput() PlaywrightCheckSuiteRuntimeStepsTestOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsTestOutput) ToPlaywrightCheckSuiteRuntimeStepsTestOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsTestOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsTestOutput) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutput() PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return o.ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsTestOutput) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteRuntimeStepsTest) *PlaywrightCheckSuiteRuntimeStepsTest {
+		return &v
+	}).(PlaywrightCheckSuiteRuntimeStepsTestPtrOutput)
+}
+
+// The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+func (o PlaywrightCheckSuiteRuntimeStepsTestOutput) Command() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimeStepsTest) *string { return v.Command }).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeStepsTestPtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeStepsTestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeStepsTest)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsTestPtrOutput) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutput() PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsTestPtrOutput) ToPlaywrightCheckSuiteRuntimeStepsTestPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeStepsTestPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeStepsTestPtrOutput) Elem() PlaywrightCheckSuiteRuntimeStepsTestOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeStepsTest) PlaywrightCheckSuiteRuntimeStepsTest {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteRuntimeStepsTest
+		return ret
+	}).(PlaywrightCheckSuiteRuntimeStepsTestOutput)
+}
+
+// The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+func (o PlaywrightCheckSuiteRuntimeStepsTestPtrOutput) Command() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeStepsTest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Command
+	}).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// PlaywrightCheckSuiteTriggerIncidentInput is an input type that accepts PlaywrightCheckSuiteTriggerIncidentArgs and PlaywrightCheckSuiteTriggerIncidentOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteTriggerIncidentInput` via:
+//
+//	PlaywrightCheckSuiteTriggerIncidentArgs{...}
+type PlaywrightCheckSuiteTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteTriggerIncidentOutput() PlaywrightCheckSuiteTriggerIncidentOutput
+	ToPlaywrightCheckSuiteTriggerIncidentOutputWithContext(context.Context) PlaywrightCheckSuiteTriggerIncidentOutput
+}
+
+type PlaywrightCheckSuiteTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (PlaywrightCheckSuiteTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteTriggerIncident)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteTriggerIncidentArgs) ToPlaywrightCheckSuiteTriggerIncidentOutput() PlaywrightCheckSuiteTriggerIncidentOutput {
+	return i.ToPlaywrightCheckSuiteTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteTriggerIncidentArgs) ToPlaywrightCheckSuiteTriggerIncidentOutputWithContext(ctx context.Context) PlaywrightCheckSuiteTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteTriggerIncidentOutput)
+}
+
+func (i PlaywrightCheckSuiteTriggerIncidentArgs) ToPlaywrightCheckSuiteTriggerIncidentPtrOutput() PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return i.ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteTriggerIncidentArgs) ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteTriggerIncidentOutput).ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteTriggerIncidentPtrInput is an input type that accepts PlaywrightCheckSuiteTriggerIncidentArgs, PlaywrightCheckSuiteTriggerIncidentPtr and PlaywrightCheckSuiteTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteTriggerIncidentPtrInput` via:
+//
+//	        PlaywrightCheckSuiteTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteTriggerIncidentPtrOutput() PlaywrightCheckSuiteTriggerIncidentPtrOutput
+	ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(context.Context) PlaywrightCheckSuiteTriggerIncidentPtrOutput
+}
+
+type playwrightCheckSuiteTriggerIncidentPtrType PlaywrightCheckSuiteTriggerIncidentArgs
+
+func PlaywrightCheckSuiteTriggerIncidentPtr(v *PlaywrightCheckSuiteTriggerIncidentArgs) PlaywrightCheckSuiteTriggerIncidentPtrInput {
+	return (*playwrightCheckSuiteTriggerIncidentPtrType)(v)
+}
+
+func (*playwrightCheckSuiteTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteTriggerIncident)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteTriggerIncidentPtrType) ToPlaywrightCheckSuiteTriggerIncidentPtrOutput() PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return i.ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteTriggerIncidentPtrType) ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteTriggerIncidentPtrOutput)
+}
+
+type PlaywrightCheckSuiteTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteTriggerIncident)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) ToPlaywrightCheckSuiteTriggerIncidentOutput() PlaywrightCheckSuiteTriggerIncidentOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) ToPlaywrightCheckSuiteTriggerIncidentOutputWithContext(ctx context.Context) PlaywrightCheckSuiteTriggerIncidentOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) ToPlaywrightCheckSuiteTriggerIncidentPtrOutput() PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return o.ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteTriggerIncident) *PlaywrightCheckSuiteTriggerIncident {
+		return &v
+	}).(PlaywrightCheckSuiteTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o PlaywrightCheckSuiteTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type PlaywrightCheckSuiteTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteTriggerIncident)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) ToPlaywrightCheckSuiteTriggerIncidentPtrOutput() PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) ToPlaywrightCheckSuiteTriggerIncidentPtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) Elem() PlaywrightCheckSuiteTriggerIncidentOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteTriggerIncident) PlaywrightCheckSuiteTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteTriggerIncident
+		return ret
+	}).(PlaywrightCheckSuiteTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o PlaywrightCheckSuiteTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCodeBundlePrebuiltArchive struct {
+	// Path to the archive file.
+	File string `pulumi:"file"`
+}
+
+// PlaywrightCodeBundlePrebuiltArchiveInput is an input type that accepts PlaywrightCodeBundlePrebuiltArchiveArgs and PlaywrightCodeBundlePrebuiltArchiveOutput values.
+// You can construct a concrete instance of `PlaywrightCodeBundlePrebuiltArchiveInput` via:
+//
+//	PlaywrightCodeBundlePrebuiltArchiveArgs{...}
+type PlaywrightCodeBundlePrebuiltArchiveInput interface {
+	pulumi.Input
+
+	ToPlaywrightCodeBundlePrebuiltArchiveOutput() PlaywrightCodeBundlePrebuiltArchiveOutput
+	ToPlaywrightCodeBundlePrebuiltArchiveOutputWithContext(context.Context) PlaywrightCodeBundlePrebuiltArchiveOutput
+}
+
+type PlaywrightCodeBundlePrebuiltArchiveArgs struct {
+	// Path to the archive file.
+	File pulumi.StringInput `pulumi:"file"`
+}
+
+func (PlaywrightCodeBundlePrebuiltArchiveArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCodeBundlePrebuiltArchive)(nil)).Elem()
+}
+
+func (i PlaywrightCodeBundlePrebuiltArchiveArgs) ToPlaywrightCodeBundlePrebuiltArchiveOutput() PlaywrightCodeBundlePrebuiltArchiveOutput {
+	return i.ToPlaywrightCodeBundlePrebuiltArchiveOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCodeBundlePrebuiltArchiveArgs) ToPlaywrightCodeBundlePrebuiltArchiveOutputWithContext(ctx context.Context) PlaywrightCodeBundlePrebuiltArchiveOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCodeBundlePrebuiltArchiveOutput)
+}
+
+func (i PlaywrightCodeBundlePrebuiltArchiveArgs) ToPlaywrightCodeBundlePrebuiltArchivePtrOutput() PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return i.ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCodeBundlePrebuiltArchiveArgs) ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(ctx context.Context) PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCodeBundlePrebuiltArchiveOutput).ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(ctx)
+}
+
+// PlaywrightCodeBundlePrebuiltArchivePtrInput is an input type that accepts PlaywrightCodeBundlePrebuiltArchiveArgs, PlaywrightCodeBundlePrebuiltArchivePtr and PlaywrightCodeBundlePrebuiltArchivePtrOutput values.
+// You can construct a concrete instance of `PlaywrightCodeBundlePrebuiltArchivePtrInput` via:
+//
+//	        PlaywrightCodeBundlePrebuiltArchiveArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCodeBundlePrebuiltArchivePtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCodeBundlePrebuiltArchivePtrOutput() PlaywrightCodeBundlePrebuiltArchivePtrOutput
+	ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(context.Context) PlaywrightCodeBundlePrebuiltArchivePtrOutput
+}
+
+type playwrightCodeBundlePrebuiltArchivePtrType PlaywrightCodeBundlePrebuiltArchiveArgs
+
+func PlaywrightCodeBundlePrebuiltArchivePtr(v *PlaywrightCodeBundlePrebuiltArchiveArgs) PlaywrightCodeBundlePrebuiltArchivePtrInput {
+	return (*playwrightCodeBundlePrebuiltArchivePtrType)(v)
+}
+
+func (*playwrightCodeBundlePrebuiltArchivePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCodeBundlePrebuiltArchive)(nil)).Elem()
+}
+
+func (i *playwrightCodeBundlePrebuiltArchivePtrType) ToPlaywrightCodeBundlePrebuiltArchivePtrOutput() PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return i.ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCodeBundlePrebuiltArchivePtrType) ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(ctx context.Context) PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCodeBundlePrebuiltArchivePtrOutput)
+}
+
+type PlaywrightCodeBundlePrebuiltArchiveOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCodeBundlePrebuiltArchiveOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCodeBundlePrebuiltArchive)(nil)).Elem()
+}
+
+func (o PlaywrightCodeBundlePrebuiltArchiveOutput) ToPlaywrightCodeBundlePrebuiltArchiveOutput() PlaywrightCodeBundlePrebuiltArchiveOutput {
+	return o
+}
+
+func (o PlaywrightCodeBundlePrebuiltArchiveOutput) ToPlaywrightCodeBundlePrebuiltArchiveOutputWithContext(ctx context.Context) PlaywrightCodeBundlePrebuiltArchiveOutput {
+	return o
+}
+
+func (o PlaywrightCodeBundlePrebuiltArchiveOutput) ToPlaywrightCodeBundlePrebuiltArchivePtrOutput() PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return o.ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCodeBundlePrebuiltArchiveOutput) ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(ctx context.Context) PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCodeBundlePrebuiltArchive) *PlaywrightCodeBundlePrebuiltArchive {
+		return &v
+	}).(PlaywrightCodeBundlePrebuiltArchivePtrOutput)
+}
+
+// Path to the archive file.
+func (o PlaywrightCodeBundlePrebuiltArchiveOutput) File() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCodeBundlePrebuiltArchive) string { return v.File }).(pulumi.StringOutput)
+}
+
+type PlaywrightCodeBundlePrebuiltArchivePtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCodeBundlePrebuiltArchivePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCodeBundlePrebuiltArchive)(nil)).Elem()
+}
+
+func (o PlaywrightCodeBundlePrebuiltArchivePtrOutput) ToPlaywrightCodeBundlePrebuiltArchivePtrOutput() PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return o
+}
+
+func (o PlaywrightCodeBundlePrebuiltArchivePtrOutput) ToPlaywrightCodeBundlePrebuiltArchivePtrOutputWithContext(ctx context.Context) PlaywrightCodeBundlePrebuiltArchivePtrOutput {
+	return o
+}
+
+func (o PlaywrightCodeBundlePrebuiltArchivePtrOutput) Elem() PlaywrightCodeBundlePrebuiltArchiveOutput {
+	return o.ApplyT(func(v *PlaywrightCodeBundlePrebuiltArchive) PlaywrightCodeBundlePrebuiltArchive {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCodeBundlePrebuiltArchive
+		return ret
+	}).(PlaywrightCodeBundlePrebuiltArchiveOutput)
+}
+
+// Path to the archive file.
+func (o PlaywrightCodeBundlePrebuiltArchivePtrOutput) File() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCodeBundlePrebuiltArchive) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.File
+	}).(pulumi.StringPtrOutput)
+}
+
 type StatusPageCard struct {
 	// The name of the card.
 	Name string `pulumi:"name"`
@@ -10985,8 +14658,6 @@ func (o TcpCheckRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 type TcpCheckRetryStrategyOnlyOn struct {
-	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-	NetworkError *bool `pulumi:"networkError"`
 }
 
 // TcpCheckRetryStrategyOnlyOnInput is an input type that accepts TcpCheckRetryStrategyOnlyOnArgs and TcpCheckRetryStrategyOnlyOnOutput values.
@@ -11001,8 +14672,6 @@ type TcpCheckRetryStrategyOnlyOnInput interface {
 }
 
 type TcpCheckRetryStrategyOnlyOnArgs struct {
-	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-	NetworkError pulumi.BoolPtrInput `pulumi:"networkError"`
 }
 
 func (TcpCheckRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
@@ -11082,11 +14751,6 @@ func (o TcpCheckRetryStrategyOnlyOnOutput) ToTcpCheckRetryStrategyOnlyOnPtrOutpu
 	}).(TcpCheckRetryStrategyOnlyOnPtrOutput)
 }
 
-// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-func (o TcpCheckRetryStrategyOnlyOnOutput) NetworkError() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v TcpCheckRetryStrategyOnlyOn) *bool { return v.NetworkError }).(pulumi.BoolPtrOutput)
-}
-
 type TcpCheckRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
 
 func (TcpCheckRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
@@ -11109,16 +14773,6 @@ func (o TcpCheckRetryStrategyOnlyOnPtrOutput) Elem() TcpCheckRetryStrategyOnlyOn
 		var ret TcpCheckRetryStrategyOnlyOn
 		return ret
 	}).(TcpCheckRetryStrategyOnlyOnOutput)
-}
-
-// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-func (o TcpCheckRetryStrategyOnlyOnPtrOutput) NetworkError() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *TcpCheckRetryStrategyOnlyOn) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.NetworkError
-	}).(pulumi.BoolPtrOutput)
 }
 
 type TcpCheckTriggerIncident struct {
@@ -12623,8 +16277,6 @@ func (o TcpMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 type TcpMonitorRetryStrategyOnlyOn struct {
-	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-	NetworkError *bool `pulumi:"networkError"`
 }
 
 // TcpMonitorRetryStrategyOnlyOnInput is an input type that accepts TcpMonitorRetryStrategyOnlyOnArgs and TcpMonitorRetryStrategyOnlyOnOutput values.
@@ -12639,8 +16291,6 @@ type TcpMonitorRetryStrategyOnlyOnInput interface {
 }
 
 type TcpMonitorRetryStrategyOnlyOnArgs struct {
-	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-	NetworkError pulumi.BoolPtrInput `pulumi:"networkError"`
 }
 
 func (TcpMonitorRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
@@ -12720,11 +16370,6 @@ func (o TcpMonitorRetryStrategyOnlyOnOutput) ToTcpMonitorRetryStrategyOnlyOnPtrO
 	}).(TcpMonitorRetryStrategyOnlyOnPtrOutput)
 }
 
-// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-func (o TcpMonitorRetryStrategyOnlyOnOutput) NetworkError() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v TcpMonitorRetryStrategyOnlyOn) *bool { return v.NetworkError }).(pulumi.BoolPtrOutput)
-}
-
 type TcpMonitorRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
 
 func (TcpMonitorRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
@@ -12747,16 +16392,6 @@ func (o TcpMonitorRetryStrategyOnlyOnPtrOutput) Elem() TcpMonitorRetryStrategyOn
 		var ret TcpMonitorRetryStrategyOnlyOn
 		return ret
 	}).(TcpMonitorRetryStrategyOnlyOnOutput)
-}
-
-// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-func (o TcpMonitorRetryStrategyOnlyOnPtrOutput) NetworkError() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *TcpMonitorRetryStrategyOnlyOn) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.NetworkError
-	}).(pulumi.BoolPtrOutput)
 }
 
 type TcpMonitorTriggerIncident struct {
@@ -14748,6 +18383,58 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorHeartbeatPtrInput)(nil)).Elem(), HeartbeatMonitorHeartbeatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorTriggerIncidentInput)(nil)).Elem(), HeartbeatMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatMonitorTriggerIncidentPtrInput)(nil)).Elem(), HeartbeatMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertChannelSubscriptionInput)(nil)).Elem(), IcmpMonitorAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), IcmpMonitorAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsInput)(nil)).Elem(), IcmpMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsPtrInput)(nil)).Elem(), IcmpMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), IcmpMonitorAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsReminderInput)(nil)).Elem(), IcmpMonitorAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsReminderArrayInput)(nil)).Elem(), IcmpMonitorAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsRunBasedEscalationInput)(nil)).Elem(), IcmpMonitorAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), IcmpMonitorAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), IcmpMonitorAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), IcmpMonitorAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRequestInput)(nil)).Elem(), IcmpMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRequestPtrInput)(nil)).Elem(), IcmpMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRequestAssertionInput)(nil)).Elem(), IcmpMonitorRequestAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRequestAssertionArrayInput)(nil)).Elem(), IcmpMonitorRequestAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRetryStrategyInput)(nil)).Elem(), IcmpMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRetryStrategyPtrInput)(nil)).Elem(), IcmpMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRetryStrategyOnlyOnInput)(nil)).Elem(), IcmpMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRetryStrategyOnlyOnPtrInput)(nil)).Elem(), IcmpMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorTriggerIncidentInput)(nil)).Elem(), IcmpMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorTriggerIncidentPtrInput)(nil)).Elem(), IcmpMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertChannelSubscriptionInput)(nil)).Elem(), PlaywrightCheckSuiteAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput)(nil)).Elem(), PlaywrightCheckSuiteAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsPtrInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsReminderInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsReminderArrayInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsRunBasedEscalationInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteBundleInput)(nil)).Elem(), PlaywrightCheckSuiteBundleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteBundlePtrInput)(nil)).Elem(), PlaywrightCheckSuiteBundleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightPtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightDeviceInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightDeviceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeStepsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsPtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeStepsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsInstallInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeStepsInstallArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsInstallPtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeStepsInstallArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsTestInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeStepsTestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeStepsTestPtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeStepsTestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteTriggerIncidentInput)(nil)).Elem(), PlaywrightCheckSuiteTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteTriggerIncidentPtrInput)(nil)).Elem(), PlaywrightCheckSuiteTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCodeBundlePrebuiltArchiveInput)(nil)).Elem(), PlaywrightCodeBundlePrebuiltArchiveArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCodeBundlePrebuiltArchivePtrInput)(nil)).Elem(), PlaywrightCodeBundlePrebuiltArchiveArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardInput)(nil)).Elem(), StatusPageCardArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardArrayInput)(nil)).Elem(), StatusPageCardArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentInput)(nil)).Elem(), StatusPageCardServiceAttachmentArgs{})
@@ -14946,6 +18633,58 @@ func init() {
 	pulumi.RegisterOutputType(HeartbeatMonitorHeartbeatPtrOutput{})
 	pulumi.RegisterOutputType(HeartbeatMonitorTriggerIncidentOutput{})
 	pulumi.RegisterOutputType(HeartbeatMonitorTriggerIncidentPtrOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRequestOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRequestPtrOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRequestAssertionOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRequestAssertionArrayOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRetryStrategyOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRetryStrategyOnlyOnOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorRetryStrategyOnlyOnPtrOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(IcmpMonitorTriggerIncidentPtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteBundleOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteBundlePtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeStepsOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeStepsPtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeStepsInstallOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeStepsInstallPtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeStepsTestOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeStepsTestPtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteTriggerIncidentPtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCodeBundlePrebuiltArchiveOutput{})
+	pulumi.RegisterOutputType(PlaywrightCodeBundlePrebuiltArchivePtrOutput{})
 	pulumi.RegisterOutputType(StatusPageCardOutput{})
 	pulumi.RegisterOutputType(StatusPageCardArrayOutput{})
 	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentOutput{})

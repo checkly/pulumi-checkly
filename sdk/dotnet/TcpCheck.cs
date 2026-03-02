@@ -136,13 +136,13 @@ namespace Pulumi.Checkly
         public Output<int?> DegradedResponseTime { get; private set; } = null!;
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
         /// <summary>
-        /// To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
@@ -315,13 +315,13 @@ namespace Pulumi.Checkly
         public Input<int>? DegradedResponseTime { get; set; }
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         /// </summary>
         [Input("frequency", required: true)]
         public Input<int> Frequency { get; set; } = null!;
 
         /// <summary>
-        /// To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
@@ -473,13 +473,13 @@ namespace Pulumi.Checkly
         public Input<int>? DegradedResponseTime { get; set; }
 
         /// <summary>
-        /// The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }

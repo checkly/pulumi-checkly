@@ -320,12 +320,151 @@
                     }
                 }
             },
+            "checkly_icmp_monitor": {
+                "current": "checkly:index/icmpMonitor:IcmpMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "locations": {
+                        "maxItemsOne": false
+                    },
+                    "request": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "assertion": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "retry_strategy": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    },
+                    "trigger_incident": {
+                        "maxItemsOne": true
+                    }
+                }
+            },
             "checkly_maintenance_windows": {
                 "current": "checkly:index/maintenanceWindow:MaintenanceWindow",
                 "majorVersion": 2,
                 "fields": {
                     "tags": {
                         "maxItemsOne": false
+                    }
+                }
+            },
+            "checkly_playwright_check_suite": {
+                "current": "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "bundle": {
+                        "maxItemsOne": true
+                    },
+                    "locations": {
+                        "maxItemsOne": false
+                    },
+                    "private_locations": {
+                        "maxItemsOne": false
+                    },
+                    "runtime": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "playwright": {
+                                    "maxItemsOne": true,
+                                    "elem": {
+                                        "fields": {
+                                            "device": {
+                                                "maxItemsOne": false
+                                            }
+                                        }
+                                    }
+                                },
+                                "steps": {
+                                    "maxItemsOne": true,
+                                    "elem": {
+                                        "fields": {
+                                            "install": {
+                                                "maxItemsOne": true
+                                            },
+                                            "test": {
+                                                "maxItemsOne": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    },
+                    "trigger_incident": {
+                        "maxItemsOne": true
+                    }
+                }
+            },
+            "checkly_playwright_code_bundle": {
+                "current": "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle",
+                "majorVersion": 2,
+                "fields": {
+                    "prebuilt_archive": {
+                        "maxItemsOne": true
                     }
                 }
             },

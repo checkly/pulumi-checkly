@@ -55,10 +55,25 @@ export type HeartbeatMonitor = import("./heartbeatMonitor").HeartbeatMonitor;
 export const HeartbeatMonitor: typeof import("./heartbeatMonitor").HeartbeatMonitor = null as any;
 utilities.lazyLoad(exports, ["HeartbeatMonitor"], () => require("./heartbeatMonitor"));
 
+export { IcmpMonitorArgs, IcmpMonitorState } from "./icmpMonitor";
+export type IcmpMonitor = import("./icmpMonitor").IcmpMonitor;
+export const IcmpMonitor: typeof import("./icmpMonitor").IcmpMonitor = null as any;
+utilities.lazyLoad(exports, ["IcmpMonitor"], () => require("./icmpMonitor"));
+
 export { MaintenanceWindowArgs, MaintenanceWindowState } from "./maintenanceWindow";
 export type MaintenanceWindow = import("./maintenanceWindow").MaintenanceWindow;
 export const MaintenanceWindow: typeof import("./maintenanceWindow").MaintenanceWindow = null as any;
 utilities.lazyLoad(exports, ["MaintenanceWindow"], () => require("./maintenanceWindow"));
+
+export { PlaywrightCheckSuiteArgs, PlaywrightCheckSuiteState } from "./playwrightCheckSuite";
+export type PlaywrightCheckSuite = import("./playwrightCheckSuite").PlaywrightCheckSuite;
+export const PlaywrightCheckSuite: typeof import("./playwrightCheckSuite").PlaywrightCheckSuite = null as any;
+utilities.lazyLoad(exports, ["PlaywrightCheckSuite"], () => require("./playwrightCheckSuite"));
+
+export { PlaywrightCodeBundleArgs, PlaywrightCodeBundleState } from "./playwrightCodeBundle";
+export type PlaywrightCodeBundle = import("./playwrightCodeBundle").PlaywrightCodeBundle;
+export const PlaywrightCodeBundle: typeof import("./playwrightCodeBundle").PlaywrightCodeBundle = null as any;
+utilities.lazyLoad(exports, ["PlaywrightCodeBundle"], () => require("./playwrightCodeBundle"));
 
 export { PrivateLocationArgs, PrivateLocationState } from "./privateLocation";
 export type PrivateLocation = import("./privateLocation").PrivateLocation;
@@ -140,8 +155,14 @@ const _module = {
                 return new HeartbeatCheck(name, <any>undefined, { urn })
             case "checkly:index/heartbeatMonitor:HeartbeatMonitor":
                 return new HeartbeatMonitor(name, <any>undefined, { urn })
+            case "checkly:index/icmpMonitor:IcmpMonitor":
+                return new IcmpMonitor(name, <any>undefined, { urn })
             case "checkly:index/maintenanceWindow:MaintenanceWindow":
                 return new MaintenanceWindow(name, <any>undefined, { urn })
+            case "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite":
+                return new PlaywrightCheckSuite(name, <any>undefined, { urn })
+            case "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle":
+                return new PlaywrightCodeBundle(name, <any>undefined, { urn })
             case "checkly:index/privateLocation:PrivateLocation":
                 return new PrivateLocation(name, <any>undefined, { urn })
             case "checkly:index/snippet:Snippet":
@@ -174,7 +195,10 @@ pulumi.runtime.registerResourceModule("checkly", "index/dnsMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/environmentVariable", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatMonitor", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/icmpMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/playwrightCheckSuite", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/playwrightCodeBundle", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/statusPage", _module)
