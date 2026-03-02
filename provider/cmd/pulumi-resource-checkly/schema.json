@@ -1028,12 +1028,6 @@
             ]
         },
         "checkly:index/DnsMonitorRetryStrategyOnlyOn:DnsMonitorRetryStrategyOnlyOn": {
-            "properties": {
-                "networkError": {
-                    "type": "boolean",
-                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
-                }
-            },
             "type": "object"
         },
         "checkly:index/DnsMonitorTriggerIncident:DnsMonitorTriggerIncident": {
@@ -1468,6 +1462,476 @@
                 "severity"
             ]
         },
+        "checkly:index/IcmpMonitorAlertChannelSubscription:IcmpMonitorAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
+                },
+                "channelId": {
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/IcmpMonitorAlertSettings:IcmpMonitorAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorAlertSettingsParallelRunFailureThreshold:IcmpMonitorAlertSettingsParallelRunFailureThreshold"
+                    },
+                    "description": "Configuration for parallel run failure threshold.\n"
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorAlertSettingsReminder:IcmpMonitorAlertSettingsReminder"
+                    },
+                    "description": "Defines how often to send reminder notifications after initial alert.\n"
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorAlertSettingsRunBasedEscalation:IcmpMonitorAlertSettingsRunBasedEscalation"
+                    },
+                    "description": "Configuration for run-based escalation.\n"
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorAlertSettingsTimeBasedEscalation:IcmpMonitorAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": "Configuration for time-based escalation.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/IcmpMonitorAlertSettingsParallelRunFailureThreshold:IcmpMonitorAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/IcmpMonitorAlertSettingsReminder:IcmpMonitorAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/IcmpMonitorAlertSettingsRunBasedEscalation:IcmpMonitorAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/IcmpMonitorAlertSettingsTimeBasedEscalation:IcmpMonitorAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/IcmpMonitorRequest:IcmpMonitorRequest": {
+            "properties": {
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorRequestAssertion:IcmpMonitorRequestAssertion"
+                    },
+                    "description": "Assertions to validate the ICMP response.\n"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "The hostname to ping.\n"
+                },
+                "ipFamily": {
+                    "type": "string",
+                    "description": "The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).\n"
+                },
+                "pingCount": {
+                    "type": "integer",
+                    "description": "The number of ping packets to send. (Default `10`).\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "hostname"
+            ]
+        },
+        "checkly:index/IcmpMonitorRequestAssertion:IcmpMonitorRequestAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.\n"
+                },
+                "property": {
+                    "type": "string",
+                    "description": "The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.\n"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.\n"
+                },
+                "target": {
+                    "type": "string",
+                    "description": "The target value for the assertion.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source",
+                "target"
+            ]
+        },
+        "checkly:index/IcmpMonitorRetryStrategy:IcmpMonitorRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorRetryStrategyOnlyOn:IcmpMonitorRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
+        },
+        "checkly:index/IcmpMonitorRetryStrategyOnlyOn:IcmpMonitorRetryStrategyOnlyOn": {
+            "type": "object"
+        },
+        "checkly:index/IcmpMonitorTriggerIncident:IcmpMonitorTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
+        },
+        "checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
+                },
+                "channelId": {
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/PlaywrightCheckSuiteAlertSettings:PlaywrightCheckSuiteAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold:PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold"
+                    },
+                    "description": "Configuration for parallel run failure threshold.\n"
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettingsReminder:PlaywrightCheckSuiteAlertSettingsReminder"
+                    },
+                    "description": "Defines how often to send reminder notifications after initial alert.\n"
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettingsRunBasedEscalation:PlaywrightCheckSuiteAlertSettingsRunBasedEscalation"
+                    },
+                    "description": "Configuration for run-based escalation.\n"
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation:PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": "Configuration for time-based escalation.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold:PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteAlertSettingsReminder:PlaywrightCheckSuiteAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteAlertSettingsRunBasedEscalation:PlaywrightCheckSuiteAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation:PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "The ID of the code bundle.\n"
+                },
+                "metadata": {
+                    "type": "string",
+                    "description": "The generated metadata of the code bundle.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "id",
+                "metadata"
+            ]
+        },
+        "checkly:index/PlaywrightCheckSuiteRuntime:PlaywrightCheckSuiteRuntime": {
+            "properties": {
+                "playwright": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntimePlaywright:PlaywrightCheckSuiteRuntimePlaywright",
+                    "description": "Configure the Playwright capabilities that should be made available to the runtime environment.\n"
+                },
+                "steps": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntimeSteps:PlaywrightCheckSuiteRuntimeSteps",
+                    "description": "Customize the actions taken during test execution.\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteRuntimePlaywright:PlaywrightCheckSuiteRuntimePlaywright": {
+            "properties": {
+                "devices": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntimePlaywrightDevice:PlaywrightCheckSuiteRuntimePlaywrightDevice"
+                    },
+                    "description": "The list of devices that should be made available for Playwright.\n"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The Playwright version to use.\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteRuntimePlaywrightDevice:PlaywrightCheckSuiteRuntimePlaywrightDevice": {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "The type of the device.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
+        },
+        "checkly:index/PlaywrightCheckSuiteRuntimeSteps:PlaywrightCheckSuiteRuntimeSteps": {
+            "properties": {
+                "install": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntimeStepsInstall:PlaywrightCheckSuiteRuntimeStepsInstall",
+                    "description": "Customize the install step, which is used to initialize the environment prior to starting the test run.\n"
+                },
+                "test": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntimeStepsTest:PlaywrightCheckSuiteRuntimeStepsTest",
+                    "description": "Customize the test step.\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteRuntimeStepsInstall:PlaywrightCheckSuiteRuntimeStepsInstall": {
+            "properties": {
+                "command": {
+                    "type": "string",
+                    "description": "The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteRuntimeStepsTest:PlaywrightCheckSuiteRuntimeStepsTest": {
+            "properties": {
+                "command": {
+                    "type": "string",
+                    "description": "The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/PlaywrightCheckSuiteTriggerIncident:PlaywrightCheckSuiteTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
+        },
+        "checkly:index/PlaywrightCodeBundlePrebuiltArchive:PlaywrightCodeBundlePrebuiltArchive": {
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "description": "Path to the archive file.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "file"
+            ]
+        },
         "checkly:index/StatusPageCard:StatusPageCard": {
             "properties": {
                 "name": {
@@ -1694,12 +2158,6 @@
             ]
         },
         "checkly:index/TcpCheckRetryStrategyOnlyOn:TcpCheckRetryStrategyOnlyOn": {
-            "properties": {
-                "networkError": {
-                    "type": "boolean",
-                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
-                }
-            },
             "type": "object"
         },
         "checkly:index/TcpCheckTriggerIncident:TcpCheckTriggerIncident": {
@@ -1928,12 +2386,6 @@
             ]
         },
         "checkly:index/TcpMonitorRetryStrategyOnlyOn:TcpMonitorRetryStrategyOnlyOn": {
-            "properties": {
-                "networkError": {
-                    "type": "boolean",
-                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
-                }
-            },
             "type": "object"
         },
         "checkly:index/TcpMonitorTriggerIncident:TcpMonitorTriggerIncident": {
@@ -2415,11 +2867,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                    "description": "Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -2574,11 +3026,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                    "description": "Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -2732,11 +3184,11 @@
                     },
                     "frequency": {
                         "type": "integer",
-                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                        "description": "Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                     },
                     "frequencyOffset": {
                         "type": "integer",
-                        "description": "This property only valid for API high frequency checks. To create a hight frequency check, the property `frequency` must be `0` and `frequency_offset` could be `10`, `20` or `30`.\n"
+                        "description": "Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                     },
                     "groupId": {
                         "type": "integer",
@@ -3612,11 +4064,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -3703,11 +4155,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -3793,11 +4245,11 @@
                     },
                     "frequency": {
                         "type": "integer",
-                        "description": "How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                     },
                     "frequencyOffset": {
                         "type": "integer",
-                        "description": "To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.\n"
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                     },
                     "groupId": {
                         "type": "integer",
@@ -4205,6 +4657,275 @@
                 "type": "object"
             }
         },
+        "checkly:index/icmpMonitor:IcmpMonitor": {
+            "description": "Creates an ICMP Monitor to check host availability using ping.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst example_icmp_monitor = new checkly.IcmpMonitor(\"example-icmp-monitor\", {\n    name: \"Example ICMP monitor\",\n    activated: true,\n    frequency: 10,\n    useGlobalAlertSettings: true,\n    locations: [\"eu-west-1\"],\n    request: {\n        hostname: \"example.com\",\n        ipFamily: \"IPv4\",\n        pingCount: 10,\n        assertions: [{\n            source: \"LATENCY\",\n            property: \"avg\",\n            comparison: \"LESS_THAN\",\n            target: \"200\",\n        }],\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nexample_icmp_monitor = checkly.IcmpMonitor(\"example-icmp-monitor\",\n    name=\"Example ICMP monitor\",\n    activated=True,\n    frequency=10,\n    use_global_alert_settings=True,\n    locations=[\"eu-west-1\"],\n    request={\n        \"hostname\": \"example.com\",\n        \"ip_family\": \"IPv4\",\n        \"ping_count\": 10,\n        \"assertions\": [{\n            \"source\": \"LATENCY\",\n            \"property\": \"avg\",\n            \"comparison\": \"LESS_THAN\",\n            \"target\": \"200\",\n        }],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example_icmp_monitor = new Checkly.IcmpMonitor(\"example-icmp-monitor\", new()\n    {\n        Name = \"Example ICMP monitor\",\n        Activated = true,\n        Frequency = 10,\n        UseGlobalAlertSettings = true,\n        Locations = new[]\n        {\n            \"eu-west-1\",\n        },\n        Request = new Checkly.Inputs.IcmpMonitorRequestArgs\n        {\n            Hostname = \"example.com\",\n            IpFamily = \"IPv4\",\n            PingCount = 10,\n            Assertions = new[]\n            {\n                new Checkly.Inputs.IcmpMonitorRequestAssertionArgs\n                {\n                    Source = \"LATENCY\",\n                    Property = \"avg\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"200\",\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewIcmpMonitor(ctx, \"example-icmp-monitor\", \u0026checkly.IcmpMonitorArgs{\n\t\t\tName:                   pulumi.String(\"Example ICMP monitor\"),\n\t\t\tActivated:              pulumi.Bool(true),\n\t\t\tFrequency:              pulumi.Int(10),\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"eu-west-1\"),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.IcmpMonitorRequestArgs{\n\t\t\t\tHostname:  pulumi.String(\"example.com\"),\n\t\t\t\tIpFamily:  pulumi.String(\"IPv4\"),\n\t\t\t\tPingCount: pulumi.Int(10),\n\t\t\t\tAssertions: checkly.IcmpMonitorRequestAssertionArray{\n\t\t\t\t\t\u0026checkly.IcmpMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"LATENCY\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"avg\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"200\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.IcmpMonitor;\nimport com.pulumi.checkly.IcmpMonitorArgs;\nimport com.pulumi.checkly.inputs.IcmpMonitorRequestArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example_icmp_monitor = new IcmpMonitor(\"example-icmp-monitor\", IcmpMonitorArgs.builder()\n            .name(\"Example ICMP monitor\")\n            .activated(true)\n            .frequency(10)\n            .useGlobalAlertSettings(true)\n            .locations(\"eu-west-1\")\n            .request(IcmpMonitorRequestArgs.builder()\n                .hostname(\"example.com\")\n                .ipFamily(\"IPv4\")\n                .pingCount(10)\n                .assertions(IcmpMonitorRequestAssertionArgs.builder()\n                    .source(\"LATENCY\")\n                    .property(\"avg\")\n                    .comparison(\"LESS_THAN\")\n                    .target(\"200\")\n                    .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example-icmp-monitor:\n    type: checkly:IcmpMonitor\n    properties:\n      name: Example ICMP monitor\n      activated: true\n      frequency: 10\n      useGlobalAlertSettings: true\n      locations:\n        - eu-west-1\n      request:\n        hostname: example.com\n        ipFamily: IPv4\n        pingCount: 10\n        assertions:\n          - source: LATENCY\n            property: avg\n            comparison: LESS_THAN\n            target: '200'\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines whether the monitor will run periodically or not after being deployed.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorAlertChannelSubscription:IcmpMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorAlertSettings:IcmpMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedPacketLossThreshold": {
+                    "type": "integer",
+                    "description": "The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The ID of the check group that this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor.\n"
+                },
+                "maxPacketLossThreshold": {
+                    "type": "integer",
+                    "description": "The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorRequest:IcmpMonitorRequest",
+                    "description": "The parameters of the ICMP request.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorRetryStrategy:IcmpMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorTriggerIncident:IcmpMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "frequency",
+                "name",
+                "request",
+                "retryStrategy"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines whether the monitor will run periodically or not after being deployed.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorAlertChannelSubscription:IcmpMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorAlertSettings:IcmpMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedPacketLossThreshold": {
+                    "type": "integer",
+                    "description": "The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The ID of the check group that this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor.\n"
+                },
+                "maxPacketLossThreshold": {
+                    "type": "integer",
+                    "description": "The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorRequest:IcmpMonitorRequest",
+                    "description": "The parameters of the ICMP request.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorRetryStrategy:IcmpMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/IcmpMonitorTriggerIncident:IcmpMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "frequency",
+                "request"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering IcmpMonitor resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines whether the monitor will run periodically or not after being deployed.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/IcmpMonitorAlertChannelSubscription:IcmpMonitorAlertChannelSubscription"
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorAlertSettings:IcmpMonitorAlertSettings",
+                        "description": "Determines the alert escalation policy for the monitor.\n"
+                    },
+                    "degradedPacketLossThreshold": {
+                        "type": "integer",
+                        "description": "The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).\n"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                    },
+                    "frequencyOffset": {
+                        "type": "integer",
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "description": "The ID of the check group that this monitor is part of.\n"
+                    },
+                    "groupOrder": {
+                        "type": "integer",
+                        "description": "The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run this monitor.\n"
+                    },
+                    "maxPacketLossThreshold": {
+                        "type": "integer",
+                        "description": "The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the monitor.\n"
+                    },
+                    "request": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorRequest:IcmpMonitorRequest",
+                        "description": "The parameters of the ICMP request.\n"
+                    },
+                    "retryStrategy": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorRetryStrategy:IcmpMonitorRetryStrategy",
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/IcmpMonitorTriggerIncident:IcmpMonitorTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "checkly:index/maintenanceWindow:MaintenanceWindow": {
             "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst maintenance_1 = new checkly.MaintenanceWindow(\"maintenance-1\", {\n    name: \"Maintenance Windows\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatUnit: \"MONTH\",\n    repeatEndsAt: \"2014-08-24T00:00:00.000Z\",\n    repeatInterval: 1,\n    tags: [\"production\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindow(\"maintenance-1\",\n    name=\"Maintenance Windows\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_unit=\"MONTH\",\n    repeat_ends_at=\"2014-08-24T00:00:00.000Z\",\n    repeat_interval=1,\n    tags=[\"production\"])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var maintenance_1 = new Checkly.MaintenanceWindow(\"maintenance-1\", new()\n    {\n        Name = \"Maintenance Windows\",\n        StartsAt = \"2014-08-24T00:00:00.000Z\",\n        EndsAt = \"2014-08-25T00:00:00.000Z\",\n        RepeatUnit = \"MONTH\",\n        RepeatEndsAt = \"2014-08-24T00:00:00.000Z\",\n        RepeatInterval = 1,\n        Tags = new[]\n        {\n            \"production\",\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindow(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tName:           pulumi.String(\"Maintenance Windows\"),\n\t\t\tStartsAt:       pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tEndsAt:         pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatUnit:     pulumi.String(\"MONTH\"),\n\t\t\tRepeatEndsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tRepeatInterval: pulumi.Int(1),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.MaintenanceWindow;\nimport com.pulumi.checkly.MaintenanceWindowArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var maintenance_1 = new MaintenanceWindow(\"maintenance-1\", MaintenanceWindowArgs.builder()\n            .name(\"Maintenance Windows\")\n            .startsAt(\"2014-08-24T00:00:00.000Z\")\n            .endsAt(\"2014-08-25T00:00:00.000Z\")\n            .repeatUnit(\"MONTH\")\n            .repeatEndsAt(\"2014-08-24T00:00:00.000Z\")\n            .repeatInterval(1)\n            .tags(\"production\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  maintenance-1:\n    type: checkly:MaintenanceWindow\n    properties:\n      name: Maintenance Windows\n      startsAt: 2014-08-24T00:00:00.000Z\n      endsAt: 2014-08-25T00:00:00.000Z\n      repeatUnit: MONTH\n      repeatEndsAt: 2014-08-24T00:00:00.000Z\n      repeatInterval: 1\n      tags:\n        - production\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
@@ -4315,6 +5036,304 @@
                             "type": "string"
                         },
                         "description": "The names of the checks and groups maintenance window should apply to.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite": {
+            "description": "Creates a Playwright check from a code bundle.\n\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines whether the check will run periodically or not after being deployed.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettings:PlaywrightCheckSuiteAlertSettings",
+                    "description": "Determines the alert escalation policy for the check.\n"
+                },
+                "bundle": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
+                    "description": "Attaches a code bundle to the check.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The ID of the check group that this check is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the this check.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).\n"
+                },
+                "runtime": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntime:PlaywrightCheckSuiteRuntime",
+                    "description": "Configure the runtime environment of the Playwright check.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteTriggerIncident:PlaywrightCheckSuiteTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "bundle",
+                "frequency",
+                "name",
+                "runtime"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines whether the check will run periodically or not after being deployed.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettings:PlaywrightCheckSuiteAlertSettings",
+                    "description": "Determines the alert escalation policy for the check.\n"
+                },
+                "bundle": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
+                    "description": "Attaches a code bundle to the check.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The ID of the check group that this check is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the this check.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).\n"
+                },
+                "runtime": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntime:PlaywrightCheckSuiteRuntime",
+                    "description": "Configure the runtime environment of the Playwright check.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/PlaywrightCheckSuiteTriggerIncident:PlaywrightCheckSuiteTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "bundle",
+                "frequency",
+                "runtime"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering PlaywrightCheckSuite resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines whether the check will run periodically or not after being deployed.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription"
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.\n"
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettings:PlaywrightCheckSuiteAlertSettings",
+                        "description": "Determines the alert escalation policy for the check.\n"
+                    },
+                    "bundle": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
+                        "description": "Attaches a code bundle to the check.\n"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "description": "Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "description": "The ID of the check group that this check is part of.\n"
+                    },
+                    "groupOrder": {
+                        "type": "integer",
+                        "description": "The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run the this check.\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the check.\n"
+                    },
+                    "privateLocations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more private locations slugs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).\n"
+                    },
+                    "runtime": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntime:PlaywrightCheckSuiteRuntime",
+                        "description": "Configure the runtime environment of the Playwright check.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteTriggerIncident:PlaywrightCheckSuiteTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle": {
+            "description": "A managed code bundle which can be used in Playwright Check Suite resources.\n\n",
+            "properties": {
+                "metadata": {
+                    "type": "string",
+                    "description": "An opaque blob of generated metadata. The value is not intended to be user-consumable and should be passed as-is to a Playwright check resource.\n"
+                },
+                "prebuiltArchive": {
+                    "$ref": "#/types/checkly:index/PlaywrightCodeBundlePrebuiltArchive:PlaywrightCodeBundlePrebuiltArchive",
+                    "description": "A prebuilt archive containing the code bundle.\n"
+                }
+            },
+            "required": [
+                "metadata",
+                "prebuiltArchive"
+            ],
+            "inputProperties": {
+                "prebuiltArchive": {
+                    "$ref": "#/types/checkly:index/PlaywrightCodeBundlePrebuiltArchive:PlaywrightCodeBundlePrebuiltArchive",
+                    "description": "A prebuilt archive containing the code bundle.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "prebuiltArchive"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering PlaywrightCodeBundle resources.\n",
+                "properties": {
+                    "metadata": {
+                        "type": "string",
+                        "description": "An opaque blob of generated metadata. The value is not intended to be user-consumable and should be passed as-is to a Playwright check resource.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "prebuiltArchive": {
+                        "$ref": "#/types/checkly:index/PlaywrightCodeBundlePrebuiltArchive:PlaywrightCodeBundlePrebuiltArchive",
+                        "description": "A prebuilt archive containing the code bundle.\n",
+                        "willReplaceOnChanges": true
                     }
                 },
                 "type": "object"
@@ -4616,11 +5635,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -4722,11 +5741,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -4827,11 +5846,11 @@
                     },
                     "frequency": {
                         "type": "integer",
-                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                     },
                     "frequencyOffset": {
                         "type": "integer",
-                        "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                     },
                     "groupId": {
                         "type": "integer",
@@ -4930,11 +5949,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -5036,11 +6055,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -5141,11 +6160,11 @@
                     },
                     "frequency": {
                         "type": "integer",
-                        "description": "The frequency in minutes to run the check. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                     },
                     "frequencyOffset": {
                         "type": "integer",
-                        "description": "To create a high frequency check, the property `frequency` must be `0` and `frequency_offset` can be `10`, `20` or `30`.\n"
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                     },
                     "groupId": {
                         "type": "integer",
@@ -5358,11 +6377,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -5460,11 +6479,11 @@
                 },
                 "frequency": {
                     "type": "integer",
-                    "description": "How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                 },
                 "frequencyOffset": {
                     "type": "integer",
-                    "description": "To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.\n"
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                 },
                 "groupId": {
                     "type": "integer",
@@ -5561,11 +6580,11 @@
                     },
                     "frequency": {
                         "type": "integer",
-                        "description": "How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.\n"
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
                     },
                     "frequencyOffset": {
                         "type": "integer",
-                        "description": "To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.\n"
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
                     },
                     "groupId": {
                         "type": "integer",

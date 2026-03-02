@@ -42,12 +42,12 @@ class DnsMonitorArgs:
         """
         The set of arguments for constructing a DnsMonitor resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[_builtins.int] frequency: How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input['DnsMonitorRequestArgs'] request: The parameters of the HTTP request.
         :param pulumi.Input[Sequence[pulumi.Input['DnsMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
         :param pulumi.Input['DnsMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
-        :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this monitor.
@@ -110,7 +110,7 @@ class DnsMonitorArgs:
     @pulumi.getter
     def frequency(self) -> pulumi.Input[_builtins.int]:
         """
-        How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         """
         return pulumi.get(self, "frequency")
 
@@ -170,7 +170,7 @@ class DnsMonitorArgs:
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -338,8 +338,8 @@ class _DnsMonitorState:
         :param pulumi.Input[Sequence[pulumi.Input['DnsMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
         :param pulumi.Input['DnsMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
-        :param pulumi.Input[_builtins.int] frequency: How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
-        :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this monitor.
@@ -442,7 +442,7 @@ class _DnsMonitorState:
     @pulumi.getter
     def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         """
         return pulumi.get(self, "frequency")
 
@@ -454,7 +454,7 @@ class _DnsMonitorState:
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -668,8 +668,8 @@ class DnsMonitor(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['DnsMonitorAlertChannelSubscriptionArgs', 'DnsMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
         :param pulumi.Input[Union['DnsMonitorAlertSettingsArgs', 'DnsMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
-        :param pulumi.Input[_builtins.int] frequency: How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
-        :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this monitor.
@@ -824,8 +824,8 @@ class DnsMonitor(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['DnsMonitorAlertChannelSubscriptionArgs', 'DnsMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
         :param pulumi.Input[Union['DnsMonitorAlertSettingsArgs', 'DnsMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
-        :param pulumi.Input[_builtins.int] frequency: How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
-        :param pulumi.Input[_builtins.int] frequency_offset: To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this monitor.
@@ -899,7 +899,7 @@ class DnsMonitor(pulumi.CustomResource):
     @pulumi.getter
     def frequency(self) -> pulumi.Output[_builtins.int]:
         """
-        How often the monitor should run in minutes. Possible values are `0`, `1`, `2`, `5`, `10`, `15`, `30`, `60`, `120`, `180`, `360`, `720`, and `1440`.
+        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         """
         return pulumi.get(self, "frequency")
 
@@ -907,7 +907,7 @@ class DnsMonitor(pulumi.CustomResource):
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        To create a high frequency monitor, set `frequency` to `0` and `frequency_offset` to `10`, `20`, or `30`.
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 

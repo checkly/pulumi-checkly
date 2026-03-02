@@ -80,6 +80,32 @@ __all__ = [
     'HeartbeatMonitorAlertSettingsTimeBasedEscalation',
     'HeartbeatMonitorHeartbeat',
     'HeartbeatMonitorTriggerIncident',
+    'IcmpMonitorAlertChannelSubscription',
+    'IcmpMonitorAlertSettings',
+    'IcmpMonitorAlertSettingsParallelRunFailureThreshold',
+    'IcmpMonitorAlertSettingsReminder',
+    'IcmpMonitorAlertSettingsRunBasedEscalation',
+    'IcmpMonitorAlertSettingsTimeBasedEscalation',
+    'IcmpMonitorRequest',
+    'IcmpMonitorRequestAssertion',
+    'IcmpMonitorRetryStrategy',
+    'IcmpMonitorRetryStrategyOnlyOn',
+    'IcmpMonitorTriggerIncident',
+    'PlaywrightCheckSuiteAlertChannelSubscription',
+    'PlaywrightCheckSuiteAlertSettings',
+    'PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold',
+    'PlaywrightCheckSuiteAlertSettingsReminder',
+    'PlaywrightCheckSuiteAlertSettingsRunBasedEscalation',
+    'PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation',
+    'PlaywrightCheckSuiteBundle',
+    'PlaywrightCheckSuiteRuntime',
+    'PlaywrightCheckSuiteRuntimePlaywright',
+    'PlaywrightCheckSuiteRuntimePlaywrightDevice',
+    'PlaywrightCheckSuiteRuntimeSteps',
+    'PlaywrightCheckSuiteRuntimeStepsInstall',
+    'PlaywrightCheckSuiteRuntimeStepsTest',
+    'PlaywrightCheckSuiteTriggerIncident',
+    'PlaywrightCodeBundlePrebuiltArchive',
     'StatusPageCard',
     'StatusPageCardServiceAttachment',
     'TcpCheckAlertChannelSubscription',
@@ -2366,38 +2392,8 @@ class DnsMonitorRetryStrategy(dict):
 
 @pulumi.output_type
 class DnsMonitorRetryStrategyOnlyOn(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "networkError":
-            suggest = "network_error"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in DnsMonitorRetryStrategyOnlyOn. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        DnsMonitorRetryStrategyOnlyOn.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        DnsMonitorRetryStrategyOnlyOn.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 network_error: Optional[_builtins.bool] = None):
-        """
-        :param _builtins.bool network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        if network_error is not None:
-            pulumi.set(__self__, "network_error", network_error)
-
-    @_builtins.property
-    @pulumi.getter(name="networkError")
-    def network_error(self) -> Optional[_builtins.bool]:
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        return pulumi.get(self, "network_error")
+    def __init__(__self__):
+        pass
 
 
 @pulumi.output_type
@@ -3450,6 +3446,1138 @@ class HeartbeatMonitorTriggerIncident(dict):
 
 
 @pulumi.output_type
+class IcmpMonitorAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IcmpMonitorAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IcmpMonitorAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IcmpMonitorAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: _builtins.bool,
+                 channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
+        return pulumi.get(self, "activated")
+
+    @_builtins.property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class IcmpMonitorAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "parallelRunFailureThresholds":
+            suggest = "parallel_run_failure_thresholds"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IcmpMonitorAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IcmpMonitorAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IcmpMonitorAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: Optional[_builtins.str] = None,
+                 parallel_run_failure_thresholds: Optional[Sequence['outputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold']] = None,
+                 reminders: Optional[Sequence['outputs.IcmpMonitorAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.IcmpMonitorAlertSettingsRunBasedEscalation']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.IcmpMonitorAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['IcmpMonitorAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['IcmpMonitorAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['IcmpMonitorAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @_builtins.property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[_builtins.str]:
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @_builtins.property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @_builtins.property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.IcmpMonitorAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        return pulumi.get(self, "reminders")
+
+    @_builtins.property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.IcmpMonitorAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @_builtins.property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.IcmpMonitorAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class IcmpMonitorAlertSettingsParallelRunFailureThreshold(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
+                 percentage: Optional[_builtins.int] = None):
+        """
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> Optional[_builtins.int]:
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class IcmpMonitorAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[_builtins.int] = None,
+                 interval: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @_builtins.property
+    @pulumi.getter
+    def amount(self) -> Optional[_builtins.int]:
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        return pulumi.get(self, "amount")
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> Optional[_builtins.int]:
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class IcmpMonitorAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IcmpMonitorAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IcmpMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IcmpMonitorAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class IcmpMonitorAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IcmpMonitorAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IcmpMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IcmpMonitorAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class IcmpMonitorRequest(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ipFamily":
+            suggest = "ip_family"
+        elif key == "pingCount":
+            suggest = "ping_count"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IcmpMonitorRequest. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IcmpMonitorRequest.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IcmpMonitorRequest.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hostname: _builtins.str,
+                 assertions: Optional[Sequence['outputs.IcmpMonitorRequestAssertion']] = None,
+                 ip_family: Optional[_builtins.str] = None,
+                 ping_count: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str hostname: The hostname to ping.
+        :param Sequence['IcmpMonitorRequestAssertionArgs'] assertions: Assertions to validate the ICMP response.
+        :param _builtins.str ip_family: The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+        :param _builtins.int ping_count: The number of ping packets to send. (Default `10`).
+        """
+        pulumi.set(__self__, "hostname", hostname)
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if ip_family is not None:
+            pulumi.set(__self__, "ip_family", ip_family)
+        if ping_count is not None:
+            pulumi.set(__self__, "ping_count", ping_count)
+
+    @_builtins.property
+    @pulumi.getter
+    def hostname(self) -> _builtins.str:
+        """
+        The hostname to ping.
+        """
+        return pulumi.get(self, "hostname")
+
+    @_builtins.property
+    @pulumi.getter
+    def assertions(self) -> Optional[Sequence['outputs.IcmpMonitorRequestAssertion']]:
+        """
+        Assertions to validate the ICMP response.
+        """
+        return pulumi.get(self, "assertions")
+
+    @_builtins.property
+    @pulumi.getter(name="ipFamily")
+    def ip_family(self) -> Optional[_builtins.str]:
+        """
+        The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+        """
+        return pulumi.get(self, "ip_family")
+
+    @_builtins.property
+    @pulumi.getter(name="pingCount")
+    def ping_count(self) -> Optional[_builtins.int]:
+        """
+        The number of ping packets to send. (Default `10`).
+        """
+        return pulumi.get(self, "ping_count")
+
+
+@pulumi.output_type
+class IcmpMonitorRequestAssertion(dict):
+    def __init__(__self__, *,
+                 comparison: _builtins.str,
+                 source: _builtins.str,
+                 target: _builtins.str,
+                 property: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str comparison: The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        :param _builtins.str source: The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+        :param _builtins.str target: The target value for the assertion.
+        :param _builtins.str property: The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "target", target)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+
+    @_builtins.property
+    @pulumi.getter
+    def comparison(self) -> _builtins.str:
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> _builtins.str:
+        """
+        The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
+        """
+        return pulumi.get(self, "source")
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> _builtins.str:
+        """
+        The target value for the assertion.
+        """
+        return pulumi.get(self, "target")
+
+    @_builtins.property
+    @pulumi.getter
+    def property(self) -> Optional[_builtins.str]:
+        """
+        The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+        """
+        return pulumi.get(self, "property")
+
+
+@pulumi.output_type
+class IcmpMonitorRetryStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "baseBackoffSeconds":
+            suggest = "base_backoff_seconds"
+        elif key == "maxDurationSeconds":
+            suggest = "max_duration_seconds"
+        elif key == "maxRetries":
+            suggest = "max_retries"
+        elif key == "onlyOn":
+            suggest = "only_on"
+        elif key == "sameRegion":
+            suggest = "same_region"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IcmpMonitorRetryStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IcmpMonitorRetryStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IcmpMonitorRetryStrategy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 base_backoff_seconds: Optional[_builtins.int] = None,
+                 max_duration_seconds: Optional[_builtins.int] = None,
+                 max_retries: Optional[_builtins.int] = None,
+                 only_on: Optional['outputs.IcmpMonitorRetryStrategyOnlyOn'] = None,
+                 same_region: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str type: Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        :param _builtins.int base_backoff_seconds: The number of seconds to wait before the first retry attempt. (Default `60`).
+        :param _builtins.int max_duration_seconds: The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        :param _builtins.int max_retries: The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        :param 'IcmpMonitorRetryStrategyOnlyOnArgs' only_on: Apply the retry strategy only if the defined conditions match.
+        :param _builtins.bool same_region: Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        pulumi.set(__self__, "type", type)
+        if base_backoff_seconds is not None:
+            pulumi.set(__self__, "base_backoff_seconds", base_backoff_seconds)
+        if max_duration_seconds is not None:
+            pulumi.set(__self__, "max_duration_seconds", max_duration_seconds)
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if only_on is not None:
+            pulumi.set(__self__, "only_on", only_on)
+        if same_region is not None:
+            pulumi.set(__self__, "same_region", same_region)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="baseBackoffSeconds")
+    def base_backoff_seconds(self) -> Optional[_builtins.int]:
+        """
+        The number of seconds to wait before the first retry attempt. (Default `60`).
+        """
+        return pulumi.get(self, "base_backoff_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="maxDurationSeconds")
+    def max_duration_seconds(self) -> Optional[_builtins.int]:
+        """
+        The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        """
+        return pulumi.get(self, "max_duration_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> Optional[_builtins.int]:
+        """
+        The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        """
+        return pulumi.get(self, "max_retries")
+
+    @_builtins.property
+    @pulumi.getter(name="onlyOn")
+    def only_on(self) -> Optional['outputs.IcmpMonitorRetryStrategyOnlyOn']:
+        """
+        Apply the retry strategy only if the defined conditions match.
+        """
+        return pulumi.get(self, "only_on")
+
+    @_builtins.property
+    @pulumi.getter(name="sameRegion")
+    def same_region(self) -> Optional[_builtins.bool]:
+        """
+        Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        return pulumi.get(self, "same_region")
+
+
+@pulumi.output_type
+class IcmpMonitorRetryStrategyOnlyOn(dict):
+    def __init__(__self__):
+        pass
+
+
+@pulumi.output_type
+class IcmpMonitorTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IcmpMonitorTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IcmpMonitorTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IcmpMonitorTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: _builtins.str,
+                 name: _builtins.str,
+                 notify_subscribers: _builtins.bool,
+                 service_id: _builtins.str,
+                 severity: _builtins.str):
+        """
+        :param _builtins.str description: A detailed description of the incident.
+        :param _builtins.str name: The name of the incident.
+        :param _builtins.bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param _builtins.str service_id: The status page service that this incident will be associated with.
+        :param _builtins.str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> _builtins.bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> _builtins.str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def severity(self) -> _builtins.str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PlaywrightCheckSuiteAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PlaywrightCheckSuiteAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PlaywrightCheckSuiteAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: _builtins.bool,
+                 channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
+        return pulumi.get(self, "activated")
+
+    @_builtins.property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "parallelRunFailureThresholds":
+            suggest = "parallel_run_failure_thresholds"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PlaywrightCheckSuiteAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PlaywrightCheckSuiteAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PlaywrightCheckSuiteAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: Optional[_builtins.str] = None,
+                 parallel_run_failure_thresholds: Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold']] = None,
+                 reminders: Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['PlaywrightCheckSuiteAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['PlaywrightCheckSuiteAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['PlaywrightCheckSuiteAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @_builtins.property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[_builtins.str]:
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @_builtins.property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @_builtins.property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        return pulumi.get(self, "reminders")
+
+    @_builtins.property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @_builtins.property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
+                 percentage: Optional[_builtins.int] = None):
+        """
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> Optional[_builtins.int]:
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[_builtins.int] = None,
+                 interval: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @_builtins.property
+    @pulumi.getter
+    def amount(self) -> Optional[_builtins.int]:
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        return pulumi.get(self, "amount")
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> Optional[_builtins.int]:
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PlaywrightCheckSuiteAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PlaywrightCheckSuiteAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PlaywrightCheckSuiteAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteBundle(dict):
+    def __init__(__self__, *,
+                 id: _builtins.str,
+                 metadata: _builtins.str):
+        """
+        :param _builtins.str id: The ID of the code bundle.
+        :param _builtins.str metadata: The generated metadata of the code bundle.
+        """
+        pulumi.set(__self__, "id", id)
+        pulumi.set(__self__, "metadata", metadata)
+
+    @_builtins.property
+    @pulumi.getter
+    def id(self) -> _builtins.str:
+        """
+        The ID of the code bundle.
+        """
+        return pulumi.get(self, "id")
+
+    @_builtins.property
+    @pulumi.getter
+    def metadata(self) -> _builtins.str:
+        """
+        The generated metadata of the code bundle.
+        """
+        return pulumi.get(self, "metadata")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteRuntime(dict):
+    def __init__(__self__, *,
+                 playwright: Optional['outputs.PlaywrightCheckSuiteRuntimePlaywright'] = None,
+                 steps: Optional['outputs.PlaywrightCheckSuiteRuntimeSteps'] = None):
+        """
+        :param 'PlaywrightCheckSuiteRuntimePlaywrightArgs' playwright: Configure the Playwright capabilities that should be made available to the runtime environment.
+        :param 'PlaywrightCheckSuiteRuntimeStepsArgs' steps: Customize the actions taken during test execution.
+        """
+        if playwright is not None:
+            pulumi.set(__self__, "playwright", playwright)
+        if steps is not None:
+            pulumi.set(__self__, "steps", steps)
+
+    @_builtins.property
+    @pulumi.getter
+    def playwright(self) -> Optional['outputs.PlaywrightCheckSuiteRuntimePlaywright']:
+        """
+        Configure the Playwright capabilities that should be made available to the runtime environment.
+        """
+        return pulumi.get(self, "playwright")
+
+    @_builtins.property
+    @pulumi.getter
+    def steps(self) -> Optional['outputs.PlaywrightCheckSuiteRuntimeSteps']:
+        """
+        Customize the actions taken during test execution.
+        """
+        return pulumi.get(self, "steps")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteRuntimePlaywright(dict):
+    def __init__(__self__, *,
+                 devices: Optional[Sequence['outputs.PlaywrightCheckSuiteRuntimePlaywrightDevice']] = None,
+                 version: Optional[_builtins.str] = None):
+        """
+        :param Sequence['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs'] devices: The list of devices that should be made available for Playwright.
+        :param _builtins.str version: The Playwright version to use.
+        """
+        if devices is not None:
+            pulumi.set(__self__, "devices", devices)
+        if version is not None:
+            pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter
+    def devices(self) -> Optional[Sequence['outputs.PlaywrightCheckSuiteRuntimePlaywrightDevice']]:
+        """
+        The list of devices that should be made available for Playwright.
+        """
+        return pulumi.get(self, "devices")
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> Optional[_builtins.str]:
+        """
+        The Playwright version to use.
+        """
+        return pulumi.get(self, "version")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteRuntimePlaywrightDevice(dict):
+    def __init__(__self__, *,
+                 type: _builtins.str):
+        """
+        :param _builtins.str type: The type of the device.
+        """
+        pulumi.set(__self__, "type", type)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        The type of the device.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteRuntimeSteps(dict):
+    def __init__(__self__, *,
+                 install: Optional['outputs.PlaywrightCheckSuiteRuntimeStepsInstall'] = None,
+                 test: Optional['outputs.PlaywrightCheckSuiteRuntimeStepsTest'] = None):
+        """
+        :param 'PlaywrightCheckSuiteRuntimeStepsInstallArgs' install: Customize the install step, which is used to initialize the environment prior to starting the test run.
+        :param 'PlaywrightCheckSuiteRuntimeStepsTestArgs' test: Customize the test step.
+        """
+        if install is not None:
+            pulumi.set(__self__, "install", install)
+        if test is not None:
+            pulumi.set(__self__, "test", test)
+
+    @_builtins.property
+    @pulumi.getter
+    def install(self) -> Optional['outputs.PlaywrightCheckSuiteRuntimeStepsInstall']:
+        """
+        Customize the install step, which is used to initialize the environment prior to starting the test run.
+        """
+        return pulumi.get(self, "install")
+
+    @_builtins.property
+    @pulumi.getter
+    def test(self) -> Optional['outputs.PlaywrightCheckSuiteRuntimeStepsTest']:
+        """
+        Customize the test step.
+        """
+        return pulumi.get(self, "test")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteRuntimeStepsInstall(dict):
+    def __init__(__self__, *,
+                 command: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str command: The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+        """
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+
+    @_builtins.property
+    @pulumi.getter
+    def command(self) -> Optional[_builtins.str]:
+        """
+        The command used to install dependencies prior to running Playwright. The default value is the appropriate install command for your package manager (e.g. `npm install` for `npm`).
+        """
+        return pulumi.get(self, "command")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteRuntimeStepsTest(dict):
+    def __init__(__self__, *,
+                 command: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str command: The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+        """
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+
+    @_builtins.property
+    @pulumi.getter
+    def command(self) -> Optional[_builtins.str]:
+        """
+        The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
+        """
+        return pulumi.get(self, "command")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteTriggerIncident(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notifySubscribers":
+            suggest = "notify_subscribers"
+        elif key == "serviceId":
+            suggest = "service_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PlaywrightCheckSuiteTriggerIncident. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PlaywrightCheckSuiteTriggerIncident.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PlaywrightCheckSuiteTriggerIncident.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 description: _builtins.str,
+                 name: _builtins.str,
+                 notify_subscribers: _builtins.bool,
+                 service_id: _builtins.str,
+                 severity: _builtins.str):
+        """
+        :param _builtins.str description: A detailed description of the incident.
+        :param _builtins.str name: The name of the incident.
+        :param _builtins.bool notify_subscribers: Whether to notify subscribers when the incident is triggered.
+        :param _builtins.str service_id: The status page service that this incident will be associated with.
+        :param _builtins.str severity: The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "notify_subscribers", notify_subscribers)
+        pulumi.set(__self__, "service_id", service_id)
+        pulumi.set(__self__, "severity", severity)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> _builtins.str:
+        """
+        A detailed description of the incident.
+        """
+        return pulumi.get(self, "description")
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The name of the incident.
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="notifySubscribers")
+    def notify_subscribers(self) -> _builtins.bool:
+        """
+        Whether to notify subscribers when the incident is triggered.
+        """
+        return pulumi.get(self, "notify_subscribers")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> _builtins.str:
+        """
+        The status page service that this incident will be associated with.
+        """
+        return pulumi.get(self, "service_id")
+
+    @_builtins.property
+    @pulumi.getter
+    def severity(self) -> _builtins.str:
+        """
+        The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+
+@pulumi.output_type
+class PlaywrightCodeBundlePrebuiltArchive(dict):
+    def __init__(__self__, *,
+                 file: _builtins.str):
+        """
+        :param _builtins.str file: Path to the archive file.
+        """
+        pulumi.set(__self__, "file", file)
+
+    @_builtins.property
+    @pulumi.getter
+    def file(self) -> _builtins.str:
+        """
+        Path to the archive file.
+        """
+        return pulumi.get(self, "file")
+
+
+@pulumi.output_type
 class StatusPageCard(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -4022,38 +5150,8 @@ class TcpCheckRetryStrategy(dict):
 
 @pulumi.output_type
 class TcpCheckRetryStrategyOnlyOn(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "networkError":
-            suggest = "network_error"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in TcpCheckRetryStrategyOnlyOn. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        TcpCheckRetryStrategyOnlyOn.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        TcpCheckRetryStrategyOnlyOn.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 network_error: Optional[_builtins.bool] = None):
-        """
-        :param _builtins.bool network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        if network_error is not None:
-            pulumi.set(__self__, "network_error", network_error)
-
-    @_builtins.property
-    @pulumi.getter(name="networkError")
-    def network_error(self) -> Optional[_builtins.bool]:
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        return pulumi.get(self, "network_error")
+    def __init__(__self__):
+        pass
 
 
 @pulumi.output_type
@@ -4629,38 +5727,8 @@ class TcpMonitorRetryStrategy(dict):
 
 @pulumi.output_type
 class TcpMonitorRetryStrategyOnlyOn(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "networkError":
-            suggest = "network_error"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in TcpMonitorRetryStrategyOnlyOn. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        TcpMonitorRetryStrategyOnlyOn.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        TcpMonitorRetryStrategyOnlyOn.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 network_error: Optional[_builtins.bool] = None):
-        """
-        :param _builtins.bool network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        if network_error is not None:
-            pulumi.set(__self__, "network_error", network_error)
-
-    @_builtins.property
-    @pulumi.getter(name="networkError")
-    def network_error(self) -> Optional[_builtins.bool]:
-        """
-        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        """
-        return pulumi.get(self, "network_error")
+    def __init__(__self__):
+        pass
 
 
 @pulumi.output_type

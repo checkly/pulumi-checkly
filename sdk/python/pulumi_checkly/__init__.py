@@ -16,7 +16,10 @@ from .environment_variable import *
 from .get_static_ips import *
 from .heartbeat_check import *
 from .heartbeat_monitor import *
+from .icmp_monitor import *
 from .maintenance_window import *
+from .playwright_check_suite import *
+from .playwright_code_bundle import *
 from .private_location import *
 from .provider import *
 from .snippet import *
@@ -114,10 +117,34 @@ _utilities.register(
  },
  {
   "pkg": "checkly",
+  "mod": "index/icmpMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/icmpMonitor:IcmpMonitor": "IcmpMonitor"
+  }
+ },
+ {
+  "pkg": "checkly",
   "mod": "index/maintenanceWindow",
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/maintenanceWindow:MaintenanceWindow": "MaintenanceWindow"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/playwrightCheckSuite",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite": "PlaywrightCheckSuite"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/playwrightCodeBundle",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle": "PlaywrightCodeBundle"
   }
  },
  {

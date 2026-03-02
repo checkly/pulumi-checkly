@@ -12,12 +12,6 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class TcpCheckRetryStrategyOnlyOnArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
-        /// </summary>
-        [Input("networkError")]
-        public Input<bool>? NetworkError { get; set; }
-
         public TcpCheckRetryStrategyOnlyOnArgs()
         {
         }

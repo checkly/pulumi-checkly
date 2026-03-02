@@ -39,8 +39,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &HeartbeatCheck{}
 	case "checkly:index/heartbeatMonitor:HeartbeatMonitor":
 		r = &HeartbeatMonitor{}
+	case "checkly:index/icmpMonitor:IcmpMonitor":
+		r = &IcmpMonitor{}
 	case "checkly:index/maintenanceWindow:MaintenanceWindow":
 		r = &MaintenanceWindow{}
+	case "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite":
+		r = &PlaywrightCheckSuite{}
+	case "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle":
+		r = &PlaywrightCodeBundle{}
 	case "checkly:index/privateLocation:PrivateLocation":
 		r = &PrivateLocation{}
 	case "checkly:index/snippet:Snippet":
@@ -137,7 +143,22 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
+		"index/icmpMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
 		"index/maintenanceWindow",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/playwrightCheckSuite",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/playwrightCodeBundle",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
