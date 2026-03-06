@@ -54,6 +54,10 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
      */
     declare public readonly bundle: pulumi.Output<outputs.PlaywrightCheckSuiteBundle>;
     /**
+     * Insert environment variables into the execution environment.
+     */
+    declare public readonly environmentVariables: pulumi.Output<outputs.PlaywrightCheckSuiteEnvironmentVariable[] | undefined>;
+    /**
      * Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */
     declare public readonly frequency: pulumi.Output<number>;
@@ -119,6 +123,7 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = state?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = state?.alertSettings;
             resourceInputs["bundle"] = state?.bundle;
+            resourceInputs["environmentVariables"] = state?.environmentVariables;
             resourceInputs["frequency"] = state?.frequency;
             resourceInputs["groupId"] = state?.groupId;
             resourceInputs["groupOrder"] = state?.groupOrder;
@@ -149,6 +154,7 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = args?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = args?.alertSettings;
             resourceInputs["bundle"] = args?.bundle;
+            resourceInputs["environmentVariables"] = args?.environmentVariables;
             resourceInputs["frequency"] = args?.frequency;
             resourceInputs["groupId"] = args?.groupId;
             resourceInputs["groupOrder"] = args?.groupOrder;
@@ -187,6 +193,10 @@ export interface PlaywrightCheckSuiteState {
      * Attaches a code bundle to the check.
      */
     bundle?: pulumi.Input<inputs.PlaywrightCheckSuiteBundle>;
+    /**
+     * Insert environment variables into the execution environment.
+     */
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteEnvironmentVariable>[]>;
     /**
      * Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */
@@ -257,6 +267,10 @@ export interface PlaywrightCheckSuiteArgs {
      * Attaches a code bundle to the check.
      */
     bundle: pulumi.Input<inputs.PlaywrightCheckSuiteBundle>;
+    /**
+     * Insert environment variables into the execution environment.
+     */
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteEnvironmentVariable>[]>;
     /**
      * Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */

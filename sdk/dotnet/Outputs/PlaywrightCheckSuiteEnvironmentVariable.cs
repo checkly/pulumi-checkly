@@ -7,38 +7,43 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Checkly.Inputs
+namespace Pulumi.Checkly.Outputs
 {
 
-    public sealed class CheckEnvironmentVariableGetArgs : global::Pulumi.ResourceArgs
+    [OutputType]
+    public sealed class PlaywrightCheckSuiteEnvironmentVariable
     {
         /// <summary>
         /// The name of the environment variable or secret.
         /// </summary>
-        [Input("key", required: true)]
-        public Input<string> Key { get; set; } = null!;
-
+        public readonly string Key;
         /// <summary>
         /// If true, the value is not shown by default, but it can be accessed. (Default `false`).
         /// </summary>
-        [Input("locked")]
-        public Input<bool>? Locked { get; set; }
-
+        public readonly bool? Locked;
         /// <summary>
         /// If true, the value will never be visible. (Default `false`).
         /// </summary>
-        [Input("secret")]
-        public Input<bool>? Secret { get; set; }
-
+        public readonly bool? Secret;
         /// <summary>
         /// The value of the environment variable or secret.
         /// </summary>
-        [Input("value", required: true)]
-        public Input<string> Value { get; set; } = null!;
+        public readonly string Value;
 
-        public CheckEnvironmentVariableGetArgs()
+        [OutputConstructor]
+        private PlaywrightCheckSuiteEnvironmentVariable(
+            string key,
+
+            bool? locked,
+
+            bool? secret,
+
+            string value)
         {
+            Key = key;
+            Locked = locked;
+            Secret = secret;
+            Value = value;
         }
-        public static new CheckEnvironmentVariableGetArgs Empty => new CheckEnvironmentVariableGetArgs();
     }
 }

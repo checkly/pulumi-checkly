@@ -415,6 +415,9 @@
                     "bundle": {
                         "maxItemsOne": true
                     },
+                    "environment_variable": {
+                        "maxItemsOne": false
+                    },
                     "locations": {
                         "maxItemsOne": false
                     },

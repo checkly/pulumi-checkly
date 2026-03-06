@@ -62,8 +62,8 @@ class CheckArgs:
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
@@ -105,8 +105,8 @@ class CheckArgs:
         if environment_variable is not None:
             pulumi.set(__self__, "environment_variable", environment_variable)
         if environment_variables is not None:
-            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
-            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+            warnings.warn("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if frequency_offset is not None:
@@ -248,7 +248,7 @@ class CheckArgs:
     @pulumi.getter(name="environmentVariable")
     def environment_variable(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]]]:
         """
-        Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variable")
 
@@ -258,10 +258,10 @@ class CheckArgs:
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    @_utilities.deprecated("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Key/value pairs of environment variables to insert into the runtime environment.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -589,8 +589,8 @@ class _CheckState:
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
@@ -633,8 +633,8 @@ class _CheckState:
         if environment_variable is not None:
             pulumi.set(__self__, "environment_variable", environment_variable)
         if environment_variables is not None:
-            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
-            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+            warnings.warn("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if frequency is not None:
@@ -756,7 +756,7 @@ class _CheckState:
     @pulumi.getter(name="environmentVariable")
     def environment_variable(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]]]:
         """
-        Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variable")
 
@@ -766,10 +766,10 @@ class _CheckState:
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    @_utilities.deprecated("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Key/value pairs of environment variables to insert into the runtime environment.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -1128,8 +1128,8 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
@@ -1313,8 +1313,8 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The id of the check group this check is part of.
@@ -1424,16 +1424,16 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="environmentVariable")
     def environment_variable(self) -> pulumi.Output[Optional[Sequence['outputs.CheckEnvironmentVariable']]]:
         """
-        Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variable")
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    @_utilities.deprecated("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
     def environment_variables(self) -> pulumi.Output[Optional[Mapping[str, _builtins.str]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Key/value pairs of environment variables to insert into the runtime environment.
         """
         return pulumi.get(self, "environment_variables")
 

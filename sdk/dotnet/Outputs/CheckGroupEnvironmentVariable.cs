@@ -13,9 +13,21 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupEnvironmentVariable
     {
+        /// <summary>
+        /// The name of the environment variable or secret.
+        /// </summary>
         public readonly string Key;
+        /// <summary>
+        /// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        /// </summary>
         public readonly bool? Locked;
+        /// <summary>
+        /// If true, the value will never be visible. (Default `false`).
+        /// </summary>
         public readonly bool? Secret;
+        /// <summary>
+        /// The value of the environment variable or secret.
+        /// </summary>
         public readonly string Value;
 
         [OutputConstructor]

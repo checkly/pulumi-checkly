@@ -46,13 +46,13 @@ namespace Pulumi.Checkly
         public Output<bool?> DoubleCheck { get; private set; } = null!;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         [Output("environmentVariable")]
         public Output<ImmutableArray<Outputs.CheckGroupEnvironmentVariable>> EnvironmentVariable { get; private set; } = null!;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// Key/value pairs of environment variables to insert into the runtime environment.
         /// </summary>
         [Output("environmentVariables")]
         public Output<ImmutableDictionary<string, string>?> EnvironmentVariables { get; private set; } = null!;
@@ -221,7 +221,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.CheckGroupEnvironmentVariableArgs>? _environmentVariable;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         public InputList<Inputs.CheckGroupEnvironmentVariableArgs> EnvironmentVariable
         {
@@ -233,9 +233,9 @@ namespace Pulumi.Checkly
         private InputMap<string>? _environmentVariables;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// Key/value pairs of environment variables to insert into the runtime environment.
         /// </summary>
-        [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
+        [Obsolete(@"This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.")]
         public InputMap<string> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
@@ -385,7 +385,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.CheckGroupEnvironmentVariableGetArgs>? _environmentVariable;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         /// </summary>
         public InputList<Inputs.CheckGroupEnvironmentVariableGetArgs> EnvironmentVariable
         {
@@ -397,9 +397,9 @@ namespace Pulumi.Checkly
         private InputMap<string>? _environmentVariables;
 
         /// <summary>
-        /// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        /// Key/value pairs of environment variables to insert into the runtime environment.
         /// </summary>
-        [Obsolete(@"The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.")]
+        [Obsolete(@"This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.")]
         public InputMap<string> EnvironmentVariables
         {
             get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());

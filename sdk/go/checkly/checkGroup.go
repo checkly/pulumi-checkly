@@ -28,11 +28,11 @@ type CheckGroup struct {
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck pulumi.BoolPtrOutput `pulumi:"doubleCheck"`
-	// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
 	EnvironmentVariable CheckGroupEnvironmentVariableArrayOutput `pulumi:"environmentVariable"`
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Key/value pairs of environment variables to insert into the runtime environment.
 	//
-	// Deprecated: The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
 	EnvironmentVariables pulumi.StringMapOutput `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrOutput `pulumi:"localSetupScript"`
@@ -113,11 +113,11 @@ type checkGroupState struct {
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck *bool `pulumi:"doubleCheck"`
-	// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
 	EnvironmentVariable []CheckGroupEnvironmentVariable `pulumi:"environmentVariable"`
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Key/value pairs of environment variables to insert into the runtime environment.
 	//
-	// Deprecated: The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
 	EnvironmentVariables map[string]string `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -160,11 +160,11 @@ type CheckGroupState struct {
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck pulumi.BoolPtrInput
-	// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
 	EnvironmentVariable CheckGroupEnvironmentVariableArrayInput
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Key/value pairs of environment variables to insert into the runtime environment.
 	//
-	// Deprecated: The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
 	EnvironmentVariables pulumi.StringMapInput
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrInput
@@ -211,11 +211,11 @@ type checkGroupArgs struct {
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck *bool `pulumi:"doubleCheck"`
-	// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
 	EnvironmentVariable []CheckGroupEnvironmentVariable `pulumi:"environmentVariable"`
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Key/value pairs of environment variables to insert into the runtime environment.
 	//
-	// Deprecated: The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
 	EnvironmentVariables map[string]string `pulumi:"environmentVariables"`
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -259,11 +259,11 @@ type CheckGroupArgs struct {
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck pulumi.BoolPtrInput
-	// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
 	EnvironmentVariable CheckGroupEnvironmentVariableArrayInput
-	// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+	// Key/value pairs of environment variables to insert into the runtime environment.
 	//
-	// Deprecated: The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
 	EnvironmentVariables pulumi.StringMapInput
 	// A valid piece of Node.js code to run in the setup phase of an API check in this group.
 	LocalSetupScript pulumi.StringPtrInput
@@ -410,14 +410,14 @@ func (o CheckGroupOutput) DoubleCheck() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CheckGroup) pulumi.BoolPtrOutput { return v.DoubleCheck }).(pulumi.BoolPtrOutput)
 }
 
-// Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
 func (o CheckGroupOutput) EnvironmentVariable() CheckGroupEnvironmentVariableArrayOutput {
 	return o.ApplyT(func(v *CheckGroup) CheckGroupEnvironmentVariableArrayOutput { return v.EnvironmentVariable }).(CheckGroupEnvironmentVariableArrayOutput)
 }
 
-// Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+// Key/value pairs of environment variables to insert into the runtime environment.
 //
-// Deprecated: The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
 func (o CheckGroupOutput) EnvironmentVariables() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CheckGroup) pulumi.StringMapOutput { return v.EnvironmentVariables }).(pulumi.StringMapOutput)
 }

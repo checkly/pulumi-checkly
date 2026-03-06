@@ -354,16 +354,20 @@
         "checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable": {
             "properties": {
                 "key": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The name of the environment variable or secret.\n"
                 },
                 "locked": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "If true, the value is not shown by default, but it can be accessed. (Default `false`).\n"
                 },
                 "secret": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "If true, the value will never be visible. (Default `false`).\n"
                 },
                 "value": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The value of the environment variable or secret.\n"
                 }
             },
             "type": "object",
@@ -581,16 +585,20 @@
         "checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable": {
             "properties": {
                 "key": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The name of the environment variable or secret.\n"
                 },
                 "locked": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "If true, the value is not shown by default, but it can be accessed. (Default `false`).\n"
                 },
                 "secret": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "If true, the value will never be visible. (Default `false`).\n"
                 },
                 "value": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The value of the environment variable or secret.\n"
                 }
             },
             "type": "object",
@@ -1815,6 +1823,31 @@
                 "metadata"
             ]
         },
+        "checkly:index/PlaywrightCheckSuiteEnvironmentVariable:PlaywrightCheckSuiteEnvironmentVariable": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The name of the environment variable or secret.\n"
+                },
+                "locked": {
+                    "type": "boolean",
+                    "description": "If true, the value is not shown by default, but it can be accessed. (Default `false`).\n"
+                },
+                "secret": {
+                    "type": "boolean",
+                    "description": "If true, the value will never be visible. (Default `false`).\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value of the environment variable or secret.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "key",
+                "value"
+            ]
+        },
         "checkly:index/PlaywrightCheckSuiteRuntime:PlaywrightCheckSuiteRuntime": {
             "properties": {
                 "playwright": {
@@ -2855,15 +2888,15 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
+                    "description": "Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
-                    "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
+                    "description": "Key/value pairs of environment variables to insert into the runtime environment.\n",
+                    "deprecationMessage": "This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead."
                 },
                 "frequency": {
                     "type": "integer",
@@ -3014,15 +3047,15 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
+                    "description": "Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
-                    "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
+                    "description": "Key/value pairs of environment variables to insert into the runtime environment.\n",
+                    "deprecationMessage": "This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead."
                 },
                 "frequency": {
                     "type": "integer",
@@ -3172,15 +3205,15 @@
                         "items": {
                             "$ref": "#/types/checkly:index/CheckEnvironmentVariable:CheckEnvironmentVariable"
                         },
-                        "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
+                        "description": "Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.\n"
                     },
                     "environmentVariables": {
                         "type": "object",
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
-                        "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
+                        "description": "Key/value pairs of environment variables to insert into the runtime environment.\n",
+                        "deprecationMessage": "This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead."
                     },
                     "frequency": {
                         "type": "integer",
@@ -3330,15 +3363,15 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
+                    "description": "Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
-                    "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
+                    "description": "Key/value pairs of environment variables to insert into the runtime environment.\n",
+                    "deprecationMessage": "This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead."
                 },
                 "localSetupScript": {
                     "type": "string",
@@ -3442,15 +3475,15 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
+                    "description": "Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.\n"
                 },
                 "environmentVariables": {
                     "type": "object",
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
-                    "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
+                    "description": "Key/value pairs of environment variables to insert into the runtime environment.\n",
+                    "deprecationMessage": "This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead."
                 },
                 "localSetupScript": {
                     "type": "string",
@@ -3552,15 +3585,15 @@
                         "items": {
                             "$ref": "#/types/checkly:index/CheckGroupEnvironmentVariable:CheckGroupEnvironmentVariable"
                         },
-                        "description": "Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.\n"
+                        "description": "Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.\n"
                     },
                     "environmentVariables": {
                         "type": "object",
                         "additionalProperties": {
                             "type": "string"
                         },
-                        "description": "Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.\n",
-                        "deprecationMessage": "The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list."
+                        "description": "Key/value pairs of environment variables to insert into the runtime environment.\n",
+                        "deprecationMessage": "This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead."
                     },
                     "localSetupScript": {
                         "type": "string",
@@ -5063,6 +5096,13 @@
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
                     "description": "Attaches a code bundle to the check.\n"
                 },
+                "environmentVariables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteEnvironmentVariable:PlaywrightCheckSuiteEnvironmentVariable"
+                    },
+                    "description": "Insert environment variables into the execution environment.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -5149,6 +5189,13 @@
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
                     "description": "Attaches a code bundle to the check.\n"
                 },
+                "environmentVariables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/PlaywrightCheckSuiteEnvironmentVariable:PlaywrightCheckSuiteEnvironmentVariable"
+                    },
+                    "description": "Insert environment variables into the execution environment.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -5234,6 +5281,13 @@
                     "bundle": {
                         "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
                         "description": "Attaches a code bundle to the check.\n"
+                    },
+                    "environmentVariables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/PlaywrightCheckSuiteEnvironmentVariable:PlaywrightCheckSuiteEnvironmentVariable"
+                        },
+                        "description": "Insert environment variables into the execution environment.\n"
                     },
                     "frequency": {
                         "type": "integer",

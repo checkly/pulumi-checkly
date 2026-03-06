@@ -2052,10 +2052,14 @@ func (o CheckAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInpu
 }
 
 type CheckEnvironmentVariable struct {
-	Key    string `pulumi:"key"`
-	Locked *bool  `pulumi:"locked"`
-	Secret *bool  `pulumi:"secret"`
-	Value  string `pulumi:"value"`
+	// The name of the environment variable or secret.
+	Key string `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
+	Secret *bool `pulumi:"secret"`
+	// The value of the environment variable or secret.
+	Value string `pulumi:"value"`
 }
 
 // CheckEnvironmentVariableInput is an input type that accepts CheckEnvironmentVariableArgs and CheckEnvironmentVariableOutput values.
@@ -2070,10 +2074,14 @@ type CheckEnvironmentVariableInput interface {
 }
 
 type CheckEnvironmentVariableArgs struct {
-	Key    pulumi.StringInput  `pulumi:"key"`
+	// The name of the environment variable or secret.
+	Key pulumi.StringInput `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
-	Value  pulumi.StringInput  `pulumi:"value"`
+	// The value of the environment variable or secret.
+	Value pulumi.StringInput `pulumi:"value"`
 }
 
 func (CheckEnvironmentVariableArgs) ElementType() reflect.Type {
@@ -2127,18 +2135,22 @@ func (o CheckEnvironmentVariableOutput) ToCheckEnvironmentVariableOutputWithCont
 	return o
 }
 
+// The name of the environment variable or secret.
 func (o CheckEnvironmentVariableOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) string { return v.Key }).(pulumi.StringOutput)
 }
 
+// If true, the value is not shown by default, but it can be accessed. (Default `false`).
 func (o CheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. (Default `false`).
 func (o CheckEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
 
+// The value of the environment variable or secret.
 func (o CheckEnvironmentVariableOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) string { return v.Value }).(pulumi.StringOutput)
 }
@@ -3501,10 +3513,14 @@ func (o CheckGroupApiCheckDefaultsBasicAuthPtrOutput) Username() pulumi.StringPt
 }
 
 type CheckGroupEnvironmentVariable struct {
-	Key    string `pulumi:"key"`
-	Locked *bool  `pulumi:"locked"`
-	Secret *bool  `pulumi:"secret"`
-	Value  string `pulumi:"value"`
+	// The name of the environment variable or secret.
+	Key string `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
+	Secret *bool `pulumi:"secret"`
+	// The value of the environment variable or secret.
+	Value string `pulumi:"value"`
 }
 
 // CheckGroupEnvironmentVariableInput is an input type that accepts CheckGroupEnvironmentVariableArgs and CheckGroupEnvironmentVariableOutput values.
@@ -3519,10 +3535,14 @@ type CheckGroupEnvironmentVariableInput interface {
 }
 
 type CheckGroupEnvironmentVariableArgs struct {
-	Key    pulumi.StringInput  `pulumi:"key"`
+	// The name of the environment variable or secret.
+	Key pulumi.StringInput `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
-	Value  pulumi.StringInput  `pulumi:"value"`
+	// The value of the environment variable or secret.
+	Value pulumi.StringInput `pulumi:"value"`
 }
 
 func (CheckGroupEnvironmentVariableArgs) ElementType() reflect.Type {
@@ -3576,18 +3596,22 @@ func (o CheckGroupEnvironmentVariableOutput) ToCheckGroupEnvironmentVariableOutp
 	return o
 }
 
+// The name of the environment variable or secret.
 func (o CheckGroupEnvironmentVariableOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) string { return v.Key }).(pulumi.StringOutput)
 }
 
+// If true, the value is not shown by default, but it can be accessed. (Default `false`).
 func (o CheckGroupEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. (Default `false`).
 func (o CheckGroupEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
 
+// The value of the environment variable or secret.
 func (o CheckGroupEnvironmentVariableOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) string { return v.Value }).(pulumi.StringOutput)
 }
@@ -11977,6 +12001,130 @@ func (o PlaywrightCheckSuiteBundlePtrOutput) Metadata() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type PlaywrightCheckSuiteEnvironmentVariable struct {
+	// The name of the environment variable or secret.
+	Key string `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
+	Secret *bool `pulumi:"secret"`
+	// The value of the environment variable or secret.
+	Value string `pulumi:"value"`
+}
+
+// PlaywrightCheckSuiteEnvironmentVariableInput is an input type that accepts PlaywrightCheckSuiteEnvironmentVariableArgs and PlaywrightCheckSuiteEnvironmentVariableOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteEnvironmentVariableInput` via:
+//
+//	PlaywrightCheckSuiteEnvironmentVariableArgs{...}
+type PlaywrightCheckSuiteEnvironmentVariableInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteEnvironmentVariableOutput() PlaywrightCheckSuiteEnvironmentVariableOutput
+	ToPlaywrightCheckSuiteEnvironmentVariableOutputWithContext(context.Context) PlaywrightCheckSuiteEnvironmentVariableOutput
+}
+
+type PlaywrightCheckSuiteEnvironmentVariableArgs struct {
+	// The name of the environment variable or secret.
+	Key pulumi.StringInput `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
+	Secret pulumi.BoolPtrInput `pulumi:"secret"`
+	// The value of the environment variable or secret.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (PlaywrightCheckSuiteEnvironmentVariableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteEnvironmentVariable)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteEnvironmentVariableArgs) ToPlaywrightCheckSuiteEnvironmentVariableOutput() PlaywrightCheckSuiteEnvironmentVariableOutput {
+	return i.ToPlaywrightCheckSuiteEnvironmentVariableOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteEnvironmentVariableArgs) ToPlaywrightCheckSuiteEnvironmentVariableOutputWithContext(ctx context.Context) PlaywrightCheckSuiteEnvironmentVariableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteEnvironmentVariableOutput)
+}
+
+// PlaywrightCheckSuiteEnvironmentVariableArrayInput is an input type that accepts PlaywrightCheckSuiteEnvironmentVariableArray and PlaywrightCheckSuiteEnvironmentVariableArrayOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteEnvironmentVariableArrayInput` via:
+//
+//	PlaywrightCheckSuiteEnvironmentVariableArray{ PlaywrightCheckSuiteEnvironmentVariableArgs{...} }
+type PlaywrightCheckSuiteEnvironmentVariableArrayInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteEnvironmentVariableArrayOutput() PlaywrightCheckSuiteEnvironmentVariableArrayOutput
+	ToPlaywrightCheckSuiteEnvironmentVariableArrayOutputWithContext(context.Context) PlaywrightCheckSuiteEnvironmentVariableArrayOutput
+}
+
+type PlaywrightCheckSuiteEnvironmentVariableArray []PlaywrightCheckSuiteEnvironmentVariableInput
+
+func (PlaywrightCheckSuiteEnvironmentVariableArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteEnvironmentVariable)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteEnvironmentVariableArray) ToPlaywrightCheckSuiteEnvironmentVariableArrayOutput() PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
+	return i.ToPlaywrightCheckSuiteEnvironmentVariableArrayOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteEnvironmentVariableArray) ToPlaywrightCheckSuiteEnvironmentVariableArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteEnvironmentVariableArrayOutput)
+}
+
+type PlaywrightCheckSuiteEnvironmentVariableOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteEnvironmentVariableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteEnvironmentVariable)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteEnvironmentVariableOutput) ToPlaywrightCheckSuiteEnvironmentVariableOutput() PlaywrightCheckSuiteEnvironmentVariableOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteEnvironmentVariableOutput) ToPlaywrightCheckSuiteEnvironmentVariableOutputWithContext(ctx context.Context) PlaywrightCheckSuiteEnvironmentVariableOutput {
+	return o
+}
+
+// The name of the environment variable or secret.
+func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
+}
+
+// If true, the value will never be visible. (Default `false`).
+func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
+}
+
+// The value of the environment variable or secret.
+func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type PlaywrightCheckSuiteEnvironmentVariableArrayOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteEnvironmentVariableArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PlaywrightCheckSuiteEnvironmentVariable)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteEnvironmentVariableArrayOutput) ToPlaywrightCheckSuiteEnvironmentVariableArrayOutput() PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteEnvironmentVariableArrayOutput) ToPlaywrightCheckSuiteEnvironmentVariableArrayOutputWithContext(ctx context.Context) PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteEnvironmentVariableArrayOutput) Index(i pulumi.IntInput) PlaywrightCheckSuiteEnvironmentVariableOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PlaywrightCheckSuiteEnvironmentVariable {
+		return vs[0].([]PlaywrightCheckSuiteEnvironmentVariable)[vs[1].(int)]
+	}).(PlaywrightCheckSuiteEnvironmentVariableOutput)
+}
+
 type PlaywrightCheckSuiteRuntime struct {
 	// Configure the Playwright capabilities that should be made available to the runtime environment.
 	Playwright *PlaywrightCheckSuiteRuntimePlaywright `pulumi:"playwright"`
@@ -18419,6 +18567,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteBundleInput)(nil)).Elem(), PlaywrightCheckSuiteBundleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteBundlePtrInput)(nil)).Elem(), PlaywrightCheckSuiteBundleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteEnvironmentVariableInput)(nil)).Elem(), PlaywrightCheckSuiteEnvironmentVariableArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteEnvironmentVariableArrayInput)(nil)).Elem(), PlaywrightCheckSuiteEnvironmentVariableArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightArgs{})
@@ -18669,6 +18819,8 @@ func init() {
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArrayOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteBundleOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteBundlePtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteEnvironmentVariableOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteEnvironmentVariableArrayOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePtrOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightOutput{})
