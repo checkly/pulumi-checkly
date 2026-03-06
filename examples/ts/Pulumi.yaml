@@ -1,3 +1,0 @@
-name: checkly-pulumi-demo-ts
-runtime: nodejs
-description: A minimal TypeScript setup for Checkly
