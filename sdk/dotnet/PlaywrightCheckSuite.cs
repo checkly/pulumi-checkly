@@ -40,6 +40,12 @@ namespace Pulumi.Checkly
         public Output<Outputs.PlaywrightCheckSuiteBundle> Bundle { get; private set; } = null!;
 
         /// <summary>
+        /// Insert environment variables into the execution environment.
+        /// </summary>
+        [Output("environmentVariables")]
+        public Output<ImmutableArray<Outputs.PlaywrightCheckSuiteEnvironmentVariable>> EnvironmentVariables { get; private set; } = null!;
+
+        /// <summary>
         /// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         /// </summary>
         [Output("frequency")]
@@ -188,6 +194,18 @@ namespace Pulumi.Checkly
         [Input("bundle", required: true)]
         public Input<Inputs.PlaywrightCheckSuiteBundleArgs> Bundle { get; set; } = null!;
 
+        [Input("environmentVariables")]
+        private InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableArgs>? _environmentVariables;
+
+        /// <summary>
+        /// Insert environment variables into the execution environment.
+        /// </summary>
+        public InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableArgs> EnvironmentVariables
+        {
+            get => _environmentVariables ?? (_environmentVariables = new InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableArgs>());
+            set => _environmentVariables = value;
+        }
+
         /// <summary>
         /// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         /// </summary>
@@ -315,6 +333,18 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("bundle")]
         public Input<Inputs.PlaywrightCheckSuiteBundleGetArgs>? Bundle { get; set; }
+
+        [Input("environmentVariables")]
+        private InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableGetArgs>? _environmentVariables;
+
+        /// <summary>
+        /// Insert environment variables into the execution environment.
+        /// </summary>
+        public InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableGetArgs> EnvironmentVariables
+        {
+            get => _environmentVariables ?? (_environmentVariables = new InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableGetArgs>());
+            set => _environmentVariables = value;
+        }
 
         /// <summary>
         /// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).

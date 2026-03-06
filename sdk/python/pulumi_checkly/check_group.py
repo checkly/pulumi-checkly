@@ -48,8 +48,8 @@ class CheckGroupArgs:
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the checks.
@@ -80,8 +80,8 @@ class CheckGroupArgs:
         if environment_variable is not None:
             pulumi.set(__self__, "environment_variable", environment_variable)
         if environment_variables is not None:
-            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
-            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+            warnings.warn("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if local_setup_script is not None:
@@ -182,7 +182,7 @@ class CheckGroupArgs:
     @pulumi.getter(name="environmentVariable")
     def environment_variable(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]]]:
         """
-        Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variable")
 
@@ -192,10 +192,10 @@ class CheckGroupArgs:
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    @_utilities.deprecated("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Key/value pairs of environment variables to insert into the runtime environment.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -390,8 +390,8 @@ class _CheckGroupState:
         :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the checks.
@@ -424,8 +424,8 @@ class _CheckGroupState:
         if environment_variable is not None:
             pulumi.set(__self__, "environment_variable", environment_variable)
         if environment_variables is not None:
-            warnings.warn("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""", DeprecationWarning)
-            pulumi.log.warn("""environment_variables is deprecated: The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+            warnings.warn("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""", DeprecationWarning)
+            pulumi.log.warn("""environment_variables is deprecated: This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if local_setup_script is not None:
@@ -526,7 +526,7 @@ class _CheckGroupState:
     @pulumi.getter(name="environmentVariable")
     def environment_variable(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]]]:
         """
-        Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variable")
 
@@ -536,10 +536,10 @@ class _CheckGroupState:
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    @_utilities.deprecated("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
     def environment_variables(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Key/value pairs of environment variables to insert into the runtime environment.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -741,8 +741,8 @@ class CheckGroup(pulumi.CustomResource):
         :param pulumi.Input[Union['CheckGroupAlertSettingsArgs', 'CheckGroupAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupEnvironmentVariableArgs', 'CheckGroupEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupEnvironmentVariableArgs', 'CheckGroupEnvironmentVariableArgsDict']]]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the checks.
@@ -878,8 +878,8 @@ class CheckGroup(pulumi.CustomResource):
         :param pulumi.Input[Union['CheckGroupAlertSettingsArgs', 'CheckGroupAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupEnvironmentVariableArgs', 'CheckGroupEnvironmentVariableArgsDict']]]] environment_variable: Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
-        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupEnvironmentVariableArgs', 'CheckGroupEnvironmentVariableArgsDict']]]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
+        :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check in this group.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check in this group.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the checks.
@@ -968,16 +968,16 @@ class CheckGroup(pulumi.CustomResource):
     @pulumi.getter(name="environmentVariable")
     def environment_variable(self) -> pulumi.Output[Optional[Sequence['outputs.CheckGroupEnvironmentVariable']]]:
         """
-        Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         """
         return pulumi.get(self, "environment_variable")
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    @_utilities.deprecated("""The property `environment_variables` is deprecated and will be removed in a future version. Consider using the new `environment_variable` list.""")
+    @_utilities.deprecated("""This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.""")
     def environment_variables(self) -> pulumi.Output[Optional[Mapping[str, _builtins.str]]]:
         """
-        Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+        Key/value pairs of environment variables to insert into the runtime environment.
         """
         return pulumi.get(self, "environment_variables")
 

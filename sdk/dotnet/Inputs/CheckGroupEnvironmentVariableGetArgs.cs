@@ -12,15 +12,27 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class CheckGroupEnvironmentVariableGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of the environment variable or secret.
+        /// </summary>
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
+        /// <summary>
+        /// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
+        /// <summary>
+        /// If true, the value will never be visible. (Default `false`).
+        /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }
 
+        /// <summary>
+        /// The value of the environment variable or secret.
+        /// </summary>
         [Input("value", required: true)]
         public Input<string> Value { get; set; } = null!;
 

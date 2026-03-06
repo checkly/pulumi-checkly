@@ -24,6 +24,8 @@ type PlaywrightCheckSuite struct {
 	AlertSettings PlaywrightCheckSuiteAlertSettingsOutput `pulumi:"alertSettings"`
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundleOutput `pulumi:"bundle"`
+	// Insert environment variables into the execution environment.
+	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayOutput `pulumi:"environmentVariables"`
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
 	// The ID of the check group that this check is part of.
@@ -100,6 +102,8 @@ type playwrightCheckSuiteState struct {
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
 	// Attaches a code bundle to the check.
 	Bundle *PlaywrightCheckSuiteBundle `pulumi:"bundle"`
+	// Insert environment variables into the execution environment.
+	EnvironmentVariables []PlaywrightCheckSuiteEnvironmentVariable `pulumi:"environmentVariables"`
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency *int `pulumi:"frequency"`
 	// The ID of the check group that this check is part of.
@@ -135,6 +139,8 @@ type PlaywrightCheckSuiteState struct {
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundlePtrInput
+	// Insert environment variables into the execution environment.
+	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayInput
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntPtrInput
 	// The ID of the check group that this check is part of.
@@ -174,6 +180,8 @@ type playwrightCheckSuiteArgs struct {
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundle `pulumi:"bundle"`
+	// Insert environment variables into the execution environment.
+	EnvironmentVariables []PlaywrightCheckSuiteEnvironmentVariable `pulumi:"environmentVariables"`
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency int `pulumi:"frequency"`
 	// The ID of the check group that this check is part of.
@@ -210,6 +218,8 @@ type PlaywrightCheckSuiteArgs struct {
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundleInput
+	// Insert environment variables into the execution environment.
+	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayInput
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntInput
 	// The ID of the check group that this check is part of.
@@ -343,6 +353,13 @@ func (o PlaywrightCheckSuiteOutput) AlertSettings() PlaywrightCheckSuiteAlertSet
 // Attaches a code bundle to the check.
 func (o PlaywrightCheckSuiteOutput) Bundle() PlaywrightCheckSuiteBundleOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteBundleOutput { return v.Bundle }).(PlaywrightCheckSuiteBundleOutput)
+}
+
+// Insert environment variables into the execution environment.
+func (o PlaywrightCheckSuiteOutput) EnvironmentVariables() PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
+		return v.EnvironmentVariables
+	}).(PlaywrightCheckSuiteEnvironmentVariableArrayOutput)
 }
 
 // Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).

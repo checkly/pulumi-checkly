@@ -179,6 +179,8 @@ __all__ = [
     'PlaywrightCheckSuiteAlertSettingsTimeBasedEscalationArgsDict',
     'PlaywrightCheckSuiteBundleArgs',
     'PlaywrightCheckSuiteBundleArgsDict',
+    'PlaywrightCheckSuiteEnvironmentVariableArgs',
+    'PlaywrightCheckSuiteEnvironmentVariableArgsDict',
     'PlaywrightCheckSuiteRuntimeArgs',
     'PlaywrightCheckSuiteRuntimeArgsDict',
     'PlaywrightCheckSuiteRuntimePlaywrightArgs',
@@ -1070,9 +1072,21 @@ class CheckAlertSettingsTimeBasedEscalationArgs:
 if not MYPY:
     class CheckEnvironmentVariableArgsDict(TypedDict):
         key: pulumi.Input[_builtins.str]
+        """
+        The name of the environment variable or secret.
+        """
         value: pulumi.Input[_builtins.str]
+        """
+        The value of the environment variable or secret.
+        """
         locked: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        """
         secret: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        If true, the value will never be visible. (Default `false`).
+        """
 elif False:
     CheckEnvironmentVariableArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -1083,6 +1097,12 @@ class CheckEnvironmentVariableArgs:
                  value: pulumi.Input[_builtins.str],
                  locked: Optional[pulumi.Input[_builtins.bool]] = None,
                  secret: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] key: The name of the environment variable or secret.
+        :param pulumi.Input[_builtins.str] value: The value of the environment variable or secret.
+        :param pulumi.Input[_builtins.bool] locked: If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        :param pulumi.Input[_builtins.bool] secret: If true, the value will never be visible. (Default `false`).
+        """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
         if locked is not None:
@@ -1093,6 +1113,9 @@ class CheckEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def key(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the environment variable or secret.
+        """
         return pulumi.get(self, "key")
 
     @key.setter
@@ -1102,6 +1125,9 @@ class CheckEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        The value of the environment variable or secret.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -1111,6 +1137,9 @@ class CheckEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def locked(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        """
         return pulumi.get(self, "locked")
 
     @locked.setter
@@ -1120,6 +1149,9 @@ class CheckEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value will never be visible. (Default `false`).
+        """
         return pulumi.get(self, "secret")
 
     @secret.setter
@@ -1708,9 +1740,21 @@ class CheckGroupApiCheckDefaultsBasicAuthArgs:
 if not MYPY:
     class CheckGroupEnvironmentVariableArgsDict(TypedDict):
         key: pulumi.Input[_builtins.str]
+        """
+        The name of the environment variable or secret.
+        """
         value: pulumi.Input[_builtins.str]
+        """
+        The value of the environment variable or secret.
+        """
         locked: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        """
         secret: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        If true, the value will never be visible. (Default `false`).
+        """
 elif False:
     CheckGroupEnvironmentVariableArgsDict: TypeAlias = Mapping[str, Any]
 
@@ -1721,6 +1765,12 @@ class CheckGroupEnvironmentVariableArgs:
                  value: pulumi.Input[_builtins.str],
                  locked: Optional[pulumi.Input[_builtins.bool]] = None,
                  secret: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] key: The name of the environment variable or secret.
+        :param pulumi.Input[_builtins.str] value: The value of the environment variable or secret.
+        :param pulumi.Input[_builtins.bool] locked: If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        :param pulumi.Input[_builtins.bool] secret: If true, the value will never be visible. (Default `false`).
+        """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
         if locked is not None:
@@ -1731,6 +1781,9 @@ class CheckGroupEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def key(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the environment variable or secret.
+        """
         return pulumi.get(self, "key")
 
     @key.setter
@@ -1740,6 +1793,9 @@ class CheckGroupEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        The value of the environment variable or secret.
+        """
         return pulumi.get(self, "value")
 
     @value.setter
@@ -1749,6 +1805,9 @@ class CheckGroupEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def locked(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        """
         return pulumi.get(self, "locked")
 
     @locked.setter
@@ -1758,6 +1817,9 @@ class CheckGroupEnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value will never be visible. (Default `false`).
+        """
         return pulumi.get(self, "secret")
 
     @secret.setter
@@ -5662,6 +5724,96 @@ class PlaywrightCheckSuiteBundleArgs:
     @metadata.setter
     def metadata(self, value: pulumi.Input[_builtins.str]):
         pulumi.set(self, "metadata", value)
+
+
+if not MYPY:
+    class PlaywrightCheckSuiteEnvironmentVariableArgsDict(TypedDict):
+        key: pulumi.Input[_builtins.str]
+        """
+        The name of the environment variable or secret.
+        """
+        value: pulumi.Input[_builtins.str]
+        """
+        The value of the environment variable or secret.
+        """
+        locked: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        """
+        secret: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        If true, the value will never be visible. (Default `false`).
+        """
+elif False:
+    PlaywrightCheckSuiteEnvironmentVariableArgsDict: TypeAlias = Mapping[str, Any]
+
+@pulumi.input_type
+class PlaywrightCheckSuiteEnvironmentVariableArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str],
+                 locked: Optional[pulumi.Input[_builtins.bool]] = None,
+                 secret: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] key: The name of the environment variable or secret.
+        :param pulumi.Input[_builtins.str] value: The value of the environment variable or secret.
+        :param pulumi.Input[_builtins.bool] locked: If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        :param pulumi.Input[_builtins.bool] secret: If true, the value will never be visible. (Default `false`).
+        """
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "value", value)
+        if locked is not None:
+            pulumi.set(__self__, "locked", locked)
+        if secret is not None:
+            pulumi.set(__self__, "secret", secret)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the environment variable or secret.
+        """
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "key", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        The value of the environment variable or secret.
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def locked(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        """
+        return pulumi.get(self, "locked")
+
+    @locked.setter
+    def locked(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "locked", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def secret(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value will never be visible. (Default `false`).
+        """
+        return pulumi.get(self, "secret")
+
+    @secret.setter
+    def secret(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "secret", value)
 
 
 if not MYPY:

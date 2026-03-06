@@ -60,13 +60,13 @@ export class Check extends pulumi.CustomResource {
      */
     declare public readonly doubleCheck: pulumi.Output<boolean | undefined>;
     /**
-     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+     * Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
      */
     declare public readonly environmentVariable: pulumi.Output<outputs.CheckEnvironmentVariable[] | undefined>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     * Key/value pairs of environment variables to insert into the runtime environment.
      *
-     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     * @deprecated This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
      */
     declare public readonly environmentVariables: pulumi.Output<{[key: string]: string} | undefined>;
     /**
@@ -293,13 +293,13 @@ export interface CheckState {
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+     * Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
      */
     environmentVariable?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[]>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     * Key/value pairs of environment variables to insert into the runtime environment.
      *
-     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     * @deprecated This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
      */
     environmentVariables?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
@@ -433,13 +433,13 @@ export interface CheckArgs {
      */
     doubleCheck?: pulumi.Input<boolean>;
     /**
-     * Key/value pairs for setting environment variables during check execution, add locked = true to keep value hidden, add secret = true to create a secret variable. These are only relevant for browser checks. Use global environment variables whenever possible.
+     * Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
      */
     environmentVariable?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[]>;
     /**
-     * Key/value pairs for setting environment variables during check execution. These are only relevant for browser checks. Use global environment variables whenever possible.
+     * Key/value pairs of environment variables to insert into the runtime environment.
      *
-     * @deprecated The property `environmentVariables` is deprecated and will be removed in a future version. Consider using the new `environmentVariable` list.
+     * @deprecated This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
      */
     environmentVariables?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**

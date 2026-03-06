@@ -157,9 +157,21 @@ export interface CheckAlertSettingsTimeBasedEscalation {
 }
 
 export interface CheckEnvironmentVariable {
+    /**
+     * The name of the environment variable or secret.
+     */
     key: pulumi.Input<string>;
+    /**
+     * If true, the value is not shown by default, but it can be accessed. (Default `false`).
+     */
     locked?: pulumi.Input<boolean>;
+    /**
+     * If true, the value will never be visible. (Default `false`).
+     */
     secret?: pulumi.Input<boolean>;
+    /**
+     * The value of the environment variable or secret.
+     */
     value: pulumi.Input<string>;
 }
 
@@ -281,9 +293,21 @@ export interface CheckGroupApiCheckDefaultsBasicAuth {
 }
 
 export interface CheckGroupEnvironmentVariable {
+    /**
+     * The name of the environment variable or secret.
+     */
     key: pulumi.Input<string>;
+    /**
+     * If true, the value is not shown by default, but it can be accessed. (Default `false`).
+     */
     locked?: pulumi.Input<boolean>;
+    /**
+     * If true, the value will never be visible. (Default `false`).
+     */
     secret?: pulumi.Input<boolean>;
+    /**
+     * The value of the environment variable or secret.
+     */
     value: pulumi.Input<string>;
 }
 
@@ -1091,6 +1115,25 @@ export interface PlaywrightCheckSuiteBundle {
      * The generated metadata of the code bundle.
      */
     metadata: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteEnvironmentVariable {
+    /**
+     * The name of the environment variable or secret.
+     */
+    key: pulumi.Input<string>;
+    /**
+     * If true, the value is not shown by default, but it can be accessed. (Default `false`).
+     */
+    locked?: pulumi.Input<boolean>;
+    /**
+     * If true, the value will never be visible. (Default `false`).
+     */
+    secret?: pulumi.Input<boolean>;
+    /**
+     * The value of the environment variable or secret.
+     */
+    value: pulumi.Input<string>;
 }
 
 export interface PlaywrightCheckSuiteRuntime {

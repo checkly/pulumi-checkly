@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly.Inputs
 {
 
-    public sealed class CheckEnvironmentVariableGetArgs : global::Pulumi.ResourceArgs
+    public sealed class PlaywrightCheckSuiteEnvironmentVariableArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the environment variable or secret.
@@ -36,9 +36,9 @@ namespace Pulumi.Checkly.Inputs
         [Input("value", required: true)]
         public Input<string> Value { get; set; } = null!;
 
-        public CheckEnvironmentVariableGetArgs()
+        public PlaywrightCheckSuiteEnvironmentVariableArgs()
         {
         }
-        public static new CheckEnvironmentVariableGetArgs Empty => new CheckEnvironmentVariableGetArgs();
+        public static new PlaywrightCheckSuiteEnvironmentVariableArgs Empty => new PlaywrightCheckSuiteEnvironmentVariableArgs();
     }
 }
