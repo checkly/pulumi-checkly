@@ -58,7 +58,7 @@ class CheckArgs:
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.str] type: The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
-        :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -199,7 +199,7 @@ class CheckArgs:
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -585,7 +585,7 @@ class _CheckState:
         """
         Input properties used for looking up and filtering Check resources.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -707,7 +707,7 @@ class _CheckState:
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -1124,7 +1124,7 @@ class Check(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -1309,7 +1309,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -1391,7 +1391,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> pulumi.Output[Optional[Sequence['outputs.CheckAlertChannelSubscription']]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 

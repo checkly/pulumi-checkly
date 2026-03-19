@@ -46,6 +46,9 @@ namespace Pulumi.Checkly
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.HeartbeatCheckAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
@@ -143,6 +146,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.HeartbeatCheckAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// </summary>
         public InputList<Inputs.HeartbeatCheckAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.HeartbeatCheckAlertChannelSubscriptionArgs>());
@@ -210,6 +217,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.HeartbeatCheckAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// </summary>
         public InputList<Inputs.HeartbeatCheckAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.HeartbeatCheckAlertChannelSubscriptionGetArgs>());

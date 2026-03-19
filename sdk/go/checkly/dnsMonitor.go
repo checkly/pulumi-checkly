@@ -65,7 +65,7 @@ type DnsMonitor struct {
 
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions DnsMonitorAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings DnsMonitorAlertSettingsOutput `pulumi:"alertSettings"`
@@ -142,7 +142,7 @@ func GetDnsMonitor(ctx *pulumi.Context,
 type dnsMonitorState struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []DnsMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *DnsMonitorAlertSettings `pulumi:"alertSettings"`
@@ -181,7 +181,7 @@ type dnsMonitorState struct {
 type DnsMonitorState struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions DnsMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings DnsMonitorAlertSettingsPtrInput
@@ -224,7 +224,7 @@ func (DnsMonitorState) ElementType() reflect.Type {
 type dnsMonitorArgs struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []DnsMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *DnsMonitorAlertSettings `pulumi:"alertSettings"`
@@ -264,7 +264,7 @@ type dnsMonitorArgs struct {
 type DnsMonitorArgs struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions DnsMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings DnsMonitorAlertSettingsPtrInput
@@ -392,7 +392,7 @@ func (o DnsMonitorOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o DnsMonitorOutput) AlertChannelSubscriptions() DnsMonitorAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *DnsMonitor) DnsMonitorAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(DnsMonitorAlertChannelSubscriptionArrayOutput)
 }

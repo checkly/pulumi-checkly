@@ -58,6 +58,9 @@ export class HeartbeatCheck extends pulumi.CustomResource {
      * Determines if the check is running or not. Possible values `true`, and `false`.
      */
     declare public readonly activated: pulumi.Output<boolean>;
+    /**
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     */
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.HeartbeatCheckAlertChannelSubscription[] | undefined>;
     /**
      * Determines the alert escalation policy for the monitor.
@@ -138,6 +141,9 @@ export interface HeartbeatCheckState {
      * Determines if the check is running or not. Possible values `true`, and `false`.
      */
     activated?: pulumi.Input<boolean>;
+    /**
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatCheckAlertChannelSubscription>[]>;
     /**
      * Determines the alert escalation policy for the monitor.
@@ -174,6 +180,9 @@ export interface HeartbeatCheckArgs {
      * Determines if the check is running or not. Possible values `true`, and `false`.
      */
     activated: pulumi.Input<boolean>;
+    /**
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatCheckAlertChannelSubscription>[]>;
     /**
      * Determines the alert escalation policy for the monitor.

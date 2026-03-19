@@ -17,7 +17,8 @@ type CheckGroup struct {
 	pulumi.CustomResourceState
 
 	// Determines if the checks in the group are running or not.
-	Activated                 pulumi.BoolOutput                             `pulumi:"activated"`
+	Activated pulumi.BoolOutput `pulumi:"activated"`
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings    CheckGroupAlertSettingsOutput    `pulumi:"alertSettings"`
@@ -102,7 +103,8 @@ func GetCheckGroup(ctx *pulumi.Context,
 // Input properties used for looking up and filtering CheckGroup resources.
 type checkGroupState struct {
 	// Determines if the checks in the group are running or not.
-	Activated                 *bool                                `pulumi:"activated"`
+	Activated *bool `pulumi:"activated"`
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []CheckGroupAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings    *CheckGroupAlertSettings    `pulumi:"alertSettings"`
@@ -149,7 +151,8 @@ type checkGroupState struct {
 
 type CheckGroupState struct {
 	// Determines if the checks in the group are running or not.
-	Activated                 pulumi.BoolPtrInput
+	Activated pulumi.BoolPtrInput
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings    CheckGroupAlertSettingsPtrInput
@@ -200,7 +203,8 @@ func (CheckGroupState) ElementType() reflect.Type {
 
 type checkGroupArgs struct {
 	// Determines if the checks in the group are running or not.
-	Activated                 bool                                 `pulumi:"activated"`
+	Activated bool `pulumi:"activated"`
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []CheckGroupAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings    *CheckGroupAlertSettings    `pulumi:"alertSettings"`
@@ -248,7 +252,8 @@ type checkGroupArgs struct {
 // The set of arguments for constructing a CheckGroup resource.
 type CheckGroupArgs struct {
 	// Determines if the checks in the group are running or not.
-	Activated                 pulumi.BoolInput
+	Activated pulumi.BoolInput
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckGroupAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings    CheckGroupAlertSettingsPtrInput
@@ -385,6 +390,7 @@ func (o CheckGroupOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *CheckGroup) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 func (o CheckGroupOutput) AlertChannelSubscriptions() CheckGroupAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *CheckGroup) CheckGroupAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(CheckGroupAlertChannelSubscriptionArrayOutput)
 }

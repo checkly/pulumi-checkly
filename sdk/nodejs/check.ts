@@ -42,7 +42,7 @@ export class Check extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.CheckAlertChannelSubscription[] | undefined>;
     /**
@@ -275,7 +275,7 @@ export interface CheckState {
      */
     activated?: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
     /**
@@ -415,7 +415,7 @@ export interface CheckArgs {
      */
     activated: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
     /**

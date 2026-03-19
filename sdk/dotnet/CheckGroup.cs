@@ -21,6 +21,9 @@ namespace Pulumi.Checkly
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.CheckGroupAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
@@ -190,6 +193,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.CheckGroupAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// </summary>
         public InputList<Inputs.CheckGroupAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.CheckGroupAlertChannelSubscriptionArgs>());
@@ -354,6 +361,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.CheckGroupAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// </summary>
         public InputList<Inputs.CheckGroupAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.CheckGroupAlertChannelSubscriptionGetArgs>());

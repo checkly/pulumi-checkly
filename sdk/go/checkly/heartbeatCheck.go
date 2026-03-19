@@ -49,7 +49,8 @@ type HeartbeatCheck struct {
 	pulumi.CustomResourceState
 
 	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated                 pulumi.BoolOutput                                 `pulumi:"activated"`
+	Activated pulumi.BoolOutput `pulumi:"activated"`
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsOutput `pulumi:"alertSettings"`
@@ -103,7 +104,8 @@ func GetHeartbeatCheck(ctx *pulumi.Context,
 // Input properties used for looking up and filtering HeartbeatCheck resources.
 type heartbeatCheckState struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated                 *bool                                    `pulumi:"activated"`
+	Activated *bool `pulumi:"activated"`
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []HeartbeatCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *HeartbeatCheckAlertSettings `pulumi:"alertSettings"`
@@ -122,7 +124,8 @@ type heartbeatCheckState struct {
 
 type HeartbeatCheckState struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated                 pulumi.BoolPtrInput
+	Activated pulumi.BoolPtrInput
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsPtrInput
@@ -145,7 +148,8 @@ func (HeartbeatCheckState) ElementType() reflect.Type {
 
 type heartbeatCheckArgs struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated                 bool                                     `pulumi:"activated"`
+	Activated bool `pulumi:"activated"`
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []HeartbeatCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *HeartbeatCheckAlertSettings `pulumi:"alertSettings"`
@@ -165,7 +169,8 @@ type heartbeatCheckArgs struct {
 // The set of arguments for constructing a HeartbeatCheck resource.
 type HeartbeatCheckArgs struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated                 pulumi.BoolInput
+	Activated pulumi.BoolInput
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsPtrInput
@@ -274,6 +279,7 @@ func (o HeartbeatCheckOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o HeartbeatCheckOutput) AlertChannelSubscriptions() HeartbeatCheckAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) HeartbeatCheckAlertChannelSubscriptionArrayOutput {
 		return v.AlertChannelSubscriptions

@@ -110,7 +110,7 @@ type TcpCheck struct {
 
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings TcpCheckAlertSettingsOutput `pulumi:"alertSettings"`
@@ -193,7 +193,7 @@ func GetTcpCheck(ctx *pulumi.Context,
 type tcpCheckState struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []TcpCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *TcpCheckAlertSettings `pulumi:"alertSettings"`
@@ -238,7 +238,7 @@ type tcpCheckState struct {
 type TcpCheckState struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings TcpCheckAlertSettingsPtrInput
@@ -287,7 +287,7 @@ func (TcpCheckState) ElementType() reflect.Type {
 type tcpCheckArgs struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []TcpCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *TcpCheckAlertSettings `pulumi:"alertSettings"`
@@ -333,7 +333,7 @@ type tcpCheckArgs struct {
 type TcpCheckArgs struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions TcpCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings TcpCheckAlertSettingsPtrInput
@@ -467,7 +467,7 @@ func (o TcpCheckOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *TcpCheck) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o TcpCheckOutput) AlertChannelSubscriptions() TcpCheckAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *TcpCheck) TcpCheckAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(TcpCheckAlertChannelSubscriptionArrayOutput)
 }

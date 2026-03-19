@@ -65,7 +65,7 @@ export class UrlMonitor extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.UrlMonitorAlertChannelSubscription[] | undefined>;
     /**
@@ -220,7 +220,7 @@ export interface UrlMonitorState {
      */
     activated?: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertChannelSubscription>[]>;
     /**
@@ -306,7 +306,7 @@ export interface UrlMonitorArgs {
      */
     activated: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertChannelSubscription>[]>;
     /**

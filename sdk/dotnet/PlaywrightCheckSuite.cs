@@ -22,7 +22,7 @@ namespace Pulumi.Checkly
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.PlaywrightCheckSuiteAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
@@ -174,7 +174,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.PlaywrightCheckSuiteAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.PlaywrightCheckSuiteAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
@@ -314,7 +314,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.PlaywrightCheckSuiteAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.PlaywrightCheckSuiteAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {

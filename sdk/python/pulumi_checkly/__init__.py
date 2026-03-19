@@ -9,6 +9,7 @@ import typing
 from .alert_channel import *
 from .check import *
 from .check_group import *
+from .check_group_v2 import *
 from .client_certificate import *
 from .dashboard import *
 from .dns_monitor import *
@@ -65,6 +66,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/checkGroup:CheckGroup": "CheckGroup"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/checkGroupV2",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/checkGroupV2:CheckGroupV2": "CheckGroupV2"
   }
  },
  {

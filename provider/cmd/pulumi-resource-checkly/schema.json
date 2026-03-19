@@ -228,10 +228,12 @@
         "checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
                 },
                 "channelId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
                 }
             },
             "type": "object",
@@ -379,10 +381,12 @@
         "checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
                 },
                 "channelId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
                 }
             },
             "type": "object",
@@ -644,6 +648,413 @@
                 "networkError": {
                     "type": "boolean",
                     "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2ApiCheckDefaults:CheckGroupV2ApiCheckDefaults": {
+            "properties": {
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2ApiCheckDefaultsAssertion:CheckGroupV2ApiCheckDefaultsAssertion"
+                    }
+                },
+                "basicAuth": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2ApiCheckDefaultsBasicAuth:CheckGroupV2ApiCheckDefaultsBasicAuth"
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "queryParameters": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.\n",
+                    "default": ""
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "basicAuth",
+                        "headers",
+                        "queryParameters",
+                        "url"
+                    ]
+                }
+            }
+        },
+        "checkly:index/CheckGroupV2ApiCheckDefaultsAssertion:CheckGroupV2ApiCheckDefaultsAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.\n"
+                },
+                "property": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.\n"
+                },
+                "target": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source",
+                "target"
+            ]
+        },
+        "checkly:index/CheckGroupV2ApiCheckDefaultsBasicAuth:CheckGroupV2ApiCheckDefaultsBasicAuth": {
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ]
+        },
+        "checkly:index/CheckGroupV2DefaultRuntime:CheckGroupV2DefaultRuntime": {
+            "properties": {
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The runtime ID.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "runtimeId"
+            ]
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettings:CheckGroupV2EnforceAlertSettings": {
+            "properties": {
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettingsAlertChannelSubscription:CheckGroupV2EnforceAlertSettingsAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettings:CheckGroupV2EnforceAlertSettingsAlertSettings",
+                    "description": "Determines the alert escalation policy for the check.\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Determines whether the enforced alert settings should be active.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "Whether to use account level alert settings instead of the group's alert settings.Default (`false`).\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "alertSettings",
+                        "enabled"
+                    ]
+                }
+            }
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettingsAlertChannelSubscription:CheckGroupV2EnforceAlertSettingsAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
+                },
+                "channelId": {
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettings:CheckGroupV2EnforceAlertSettingsAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold:CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold"
+                    },
+                    "description": "Configuration for parallel run failure threshold.\n"
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsReminder:CheckGroupV2EnforceAlertSettingsAlertSettingsReminder"
+                    },
+                    "description": "Defines how often to send reminder notifications after initial alert.\n"
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation:CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation"
+                    },
+                    "description": "Configuration for run-based escalation.\n"
+                },
+                "sslCertificates": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate:CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate"
+                    },
+                    "deprecationMessage": "This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version."
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation:CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": "Configuration for time-based escalation.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold:CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsReminder:CheckGroupV2EnforceAlertSettingsAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation:CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate:CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate": {
+            "properties": {
+                "alertThreshold": {
+                    "type": "integer",
+                    "description": "No longer available.\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "No longer available.\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation:CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2EnforceLocations:CheckGroupV2EnforceLocations": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Determines whether the enforced locations should be active.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run the checks.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled"
+            ]
+        },
+        "checkly:index/CheckGroupV2EnforceRetryStrategy:CheckGroupV2EnforceRetryStrategy": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Determines whether the enforced retry strategy should be active.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceRetryStrategyRetryStrategy:CheckGroupV2EnforceRetryStrategyRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled",
+                "retryStrategy"
+            ]
+        },
+        "checkly:index/CheckGroupV2EnforceRetryStrategyRetryStrategy:CheckGroupV2EnforceRetryStrategyRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn:CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
+        },
+        "checkly:index/CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn:CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn": {
+            "properties": {
+                "networkError": {
+                    "type": "boolean",
+                    "description": "When `true`, retry only if the cause of the failure is a network error. (Default `false`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2EnforceSchedulingStrategy:CheckGroupV2EnforceSchedulingStrategy": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Determines whether the enforced scheduling strategy should be active.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the checks in the group should run in all selected locations in parallel or round-robin.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "enabled",
+                "runParallel"
+            ]
+        },
+        "checkly:index/CheckGroupV2EnvironmentVariable:CheckGroupV2EnvironmentVariable": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The name of the environment variable or secret.\n"
+                },
+                "locked": {
+                    "type": "boolean",
+                    "description": "If true, the value is not shown by default, but it can be accessed. (Default `false`).\n"
+                },
+                "secret": {
+                    "type": "boolean",
+                    "description": "If true, the value will never be visible. (Default `false`).\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The value of the environment variable or secret.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "key",
+                "value"
+            ]
+        },
+        "checkly:index/CheckGroupV2SetupScript:CheckGroupV2SetupScript": {
+            "properties": {
+                "inlineScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code.\n"
+                },
+                "snippetId": {
+                    "type": "integer",
+                    "description": "The ID of a code snippet. Code snippets are not available for new plans.\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/CheckGroupV2TeardownScript:CheckGroupV2TeardownScript": {
+            "properties": {
+                "inlineScript": {
+                    "type": "string",
+                    "description": "A valid piece of Node.js code.\n"
+                },
+                "snippetId": {
+                    "type": "integer",
+                    "description": "The ID of a code snippet. Code snippets are not available for new plans.\n"
                 }
             },
             "type": "object"
@@ -1073,10 +1484,12 @@
         "checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
                 },
                 "channelId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
                 }
             },
             "type": "object",
@@ -1273,10 +1686,12 @@
         "checkly:index/HeartbeatMonitorAlertChannelSubscription:HeartbeatMonitorAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
                 },
                 "channelId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
                 }
             },
             "type": "object",
@@ -2000,10 +2415,12 @@
         "checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
                 },
                 "channelId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
                 }
             },
             "type": "object",
@@ -2228,10 +2645,12 @@
         "checkly:index/TcpMonitorAlertChannelSubscription:TcpMonitorAlertChannelSubscription": {
             "properties": {
                 "activated": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
                 },
                 "channelId": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
                 }
             },
             "type": "object",
@@ -2868,7 +3287,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings",
@@ -3027,7 +3446,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings",
@@ -3185,7 +3604,7 @@
                         "items": {
                             "$ref": "#/types/checkly:index/CheckAlertChannelSubscription:CheckAlertChannelSubscription"
                         },
-                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/CheckAlertSettings:CheckAlertSettings",
@@ -3340,7 +3759,8 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/CheckGroupAlertSettings:CheckGroupAlertSettings",
@@ -3452,7 +3872,8 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/CheckGroupAlertSettings:CheckGroupAlertSettings",
@@ -3562,7 +3983,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/types/checkly:index/CheckGroupAlertChannelSubscription:CheckGroupAlertChannelSubscription"
-                        }
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/CheckGroupAlertSettings:CheckGroupAlertSettings",
@@ -3655,6 +4077,210 @@
                     "useGlobalAlertSettings": {
                         "type": "boolean",
                         "description": "When true, the account level alert settings will be used, not the alert setting defined on this check group.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/checkGroupV2:CheckGroupV2": {
+            "description": "Check groups organize related checks together and allow optional shared configuration. \n\nUnlike `checkly.CheckGroup` (v1), which always imposed implicit defaults for various settings, `checkly.CheckGroupV2` does not override any check settings by default. A group can be as minimal as just a name. Use the optional `enforce_*` blocks only when you explicitly want the group to override individual check settings.\n\nThe new `checkly.CheckGroupV2` resource should always be preferred over the old `checkly.CheckGroup` resource.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// Minimal example: just a folder to organize checks.\nconst just_a_folder = new checkly.CheckGroupV2(\"just-a-folder\", {name: \"Just a Folder\"});\n// Full example: a group with enforced settings that override individual checks.\nconst production_api = new checkly.CheckGroupV2(\"production-api\", {\n    name: \"Production API\",\n    activated: true,\n    muted: false,\n    concurrency: 5,\n    tags: [\n        \"production\",\n        \"api\",\n    ],\n    enforceLocations: {\n        enabled: true,\n        locations: [\n            \"us-east-1\",\n            \"eu-west-1\",\n            \"ap-southeast-1\",\n        ],\n        privateLocations: [\"my-datacenter\"],\n    },\n    enforceRetryStrategy: {\n        enabled: true,\n        retryStrategy: {\n            type: \"LINEAR\",\n            baseBackoffSeconds: 30,\n            maxRetries: 3,\n            maxDurationSeconds: 300,\n            sameRegion: true,\n        },\n    },\n    enforceSchedulingStrategy: {\n        enabled: true,\n        runParallel: true,\n    },\n    enforceAlertSettings: {\n        enabled: true,\n        alertSettings: {\n            escalationType: \"RUN_BASED\",\n            runBasedEscalations: [{\n                failedRunThreshold: 2,\n            }],\n            reminders: [{\n                amount: 3,\n                interval: 10,\n            }],\n            parallelRunFailureThresholds: [{\n                enabled: true,\n                percentage: 50,\n            }],\n        },\n        alertChannelSubscriptions: [{\n            channelId: 1234,\n            activated: true,\n        }],\n    },\n    environmentVariables: [\n        {\n            key: \"BASE_URL\",\n            value: \"https://api.example.com\",\n            locked: false,\n        },\n        {\n            key: \"API_TOKEN\",\n            value: \"super-secret-token\",\n            locked: true,\n            secret: true,\n        },\n    ],\n    defaultRuntime: {\n        runtimeId: \"2024.02\",\n    },\n    apiCheckDefaults: {\n        url: \"https://api.example.com/\",\n        headers: {\n            \"X-Api-Key\": \"{{API_TOKEN}}\",\n            \"Content-Type\": \"application/json\",\n        },\n        queryParameters: {\n            version: \"v2\",\n        },\n        assertions: [\n            {\n                source: \"STATUS_CODE\",\n                comparison: \"LESS_THAN\",\n                target: \"400\",\n            },\n            {\n                source: \"RESPONSE_TIME\",\n                comparison: \"LESS_THAN\",\n                target: \"3000\",\n            },\n        ],\n        basicAuth: {\n            username: \"admin\",\n            password: \"pass\",\n        },\n    },\n    setupScript: {\n        inlineScript: `// Runs before every API check in this group\nconsole.log(\"Setting up...\")\n`,\n    },\n    teardownScript: {\n        inlineScript: `// Runs after every API check in this group\nconsole.log(\"Tearing down...\")\n`,\n    },\n});\n// Example: enforce only retry strategy with network-error-only retries.\nconst retry_on_network_errors = new checkly.CheckGroupV2(\"retry-on-network-errors\", {\n    name: \"Retry on Network Errors Only\",\n    enforceRetryStrategy: {\n        enabled: true,\n        retryStrategy: {\n            type: \"EXPONENTIAL\",\n            baseBackoffSeconds: 10,\n            maxRetries: 5,\n            maxDurationSeconds: 600,\n            sameRegion: false,\n            onlyOn: {\n                networkError: true,\n            },\n        },\n    },\n});\n// Example: enforce time-based alert escalation.\nconst time_based_alerts = new checkly.CheckGroupV2(\"time-based-alerts\", {\n    name: \"Time-Based Alert Escalation\",\n    enforceAlertSettings: {\n        enabled: true,\n        alertSettings: {\n            escalationType: \"TIME_BASED\",\n            timeBasedEscalations: [{\n                minutesFailingThreshold: 10,\n            }],\n            reminders: [{\n                amount: 5,\n                interval: 15,\n            }],\n        },\n    },\n});\n// Example: use global alert settings instead of custom ones.\nconst use_global_alerts = new checkly.CheckGroupV2(\"use-global-alerts\", {\n    name: \"Use Global Alert Settings\",\n    enforceAlertSettings: {\n        enabled: true,\n        useGlobalAlertSettings: true,\n    },\n});\n// Example: enforce alert channel subscriptions with custom alert settings.\nconst email = new checkly.AlertChannel(\"email\", {email: {\n    address: \"alerts@example.com\",\n}});\nconst slack = new checkly.AlertChannel(\"slack\", {slack: {\n    channel: \"#alerts\",\n    url: \"https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX\",\n}});\nconst with_alert_channels = new checkly.CheckGroupV2(\"with-alert-channels\", {\n    name: \"Group with Alert Channels\",\n    enforceAlertSettings: {\n        enabled: true,\n        alertSettings: {\n            escalationType: \"RUN_BASED\",\n            runBasedEscalations: [{\n                failedRunThreshold: 1,\n            }],\n            reminders: [{\n                amount: 0,\n                interval: 5,\n            }],\n        },\n        alertChannelSubscriptions: [\n            {\n                channelId: email.id,\n                activated: true,\n            },\n            {\n                channelId: slack.id,\n                activated: true,\n            },\n        ],\n    },\n});\n// Example: enforce no retries.\nconst no_retries = new checkly.CheckGroupV2(\"no-retries\", {\n    name: \"No Retries Group\",\n    enforceRetryStrategy: {\n        enabled: true,\n        retryStrategy: {\n            type: \"NO_RETRIES\",\n        },\n    },\n});\n// Example: enforce a single retry.\nconst single_retry = new checkly.CheckGroupV2(\"single-retry\", {\n    name: \"Single Retry Group\",\n    enforceRetryStrategy: {\n        enabled: true,\n        retryStrategy: {\n            type: \"SINGLE_RETRY\",\n            baseBackoffSeconds: 10,\n            sameRegion: true,\n        },\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# Minimal example: just a folder to organize checks.\njust_a_folder = checkly.CheckGroupV2(\"just-a-folder\", name=\"Just a Folder\")\n# Full example: a group with enforced settings that override individual checks.\nproduction_api = checkly.CheckGroupV2(\"production-api\",\n    name=\"Production API\",\n    activated=True,\n    muted=False,\n    concurrency=5,\n    tags=[\n        \"production\",\n        \"api\",\n    ],\n    enforce_locations={\n        \"enabled\": True,\n        \"locations\": [\n            \"us-east-1\",\n            \"eu-west-1\",\n            \"ap-southeast-1\",\n        ],\n        \"private_locations\": [\"my-datacenter\"],\n    },\n    enforce_retry_strategy={\n        \"enabled\": True,\n        \"retry_strategy\": {\n            \"type\": \"LINEAR\",\n            \"base_backoff_seconds\": 30,\n            \"max_retries\": 3,\n            \"max_duration_seconds\": 300,\n            \"same_region\": True,\n        },\n    },\n    enforce_scheduling_strategy={\n        \"enabled\": True,\n        \"run_parallel\": True,\n    },\n    enforce_alert_settings={\n        \"enabled\": True,\n        \"alert_settings\": {\n            \"escalation_type\": \"RUN_BASED\",\n            \"run_based_escalations\": [{\n                \"failed_run_threshold\": 2,\n            }],\n            \"reminders\": [{\n                \"amount\": 3,\n                \"interval\": 10,\n            }],\n            \"parallel_run_failure_thresholds\": [{\n                \"enabled\": True,\n                \"percentage\": 50,\n            }],\n        },\n        \"alert_channel_subscriptions\": [{\n            \"channel_id\": 1234,\n            \"activated\": True,\n        }],\n    },\n    environment_variables=[\n        {\n            \"key\": \"BASE_URL\",\n            \"value\": \"https://api.example.com\",\n            \"locked\": False,\n        },\n        {\n            \"key\": \"API_TOKEN\",\n            \"value\": \"super-secret-token\",\n            \"locked\": True,\n            \"secret\": True,\n        },\n    ],\n    default_runtime={\n        \"runtime_id\": \"2024.02\",\n    },\n    api_check_defaults={\n        \"url\": \"https://api.example.com/\",\n        \"headers\": {\n            \"X-Api-Key\": \"{{API_TOKEN}}\",\n            \"Content-Type\": \"application/json\",\n        },\n        \"query_parameters\": {\n            \"version\": \"v2\",\n        },\n        \"assertions\": [\n            {\n                \"source\": \"STATUS_CODE\",\n                \"comparison\": \"LESS_THAN\",\n                \"target\": \"400\",\n            },\n            {\n                \"source\": \"RESPONSE_TIME\",\n                \"comparison\": \"LESS_THAN\",\n                \"target\": \"3000\",\n            },\n        ],\n        \"basic_auth\": {\n            \"username\": \"admin\",\n            \"password\": \"pass\",\n        },\n    },\n    setup_script={\n        \"inline_script\": \"\"\"// Runs before every API check in this group\nconsole.log(\"Setting up...\")\n\"\"\",\n    },\n    teardown_script={\n        \"inline_script\": \"\"\"// Runs after every API check in this group\nconsole.log(\"Tearing down...\")\n\"\"\",\n    })\n# Example: enforce only retry strategy with network-error-only retries.\nretry_on_network_errors = checkly.CheckGroupV2(\"retry-on-network-errors\",\n    name=\"Retry on Network Errors Only\",\n    enforce_retry_strategy={\n        \"enabled\": True,\n        \"retry_strategy\": {\n            \"type\": \"EXPONENTIAL\",\n            \"base_backoff_seconds\": 10,\n            \"max_retries\": 5,\n            \"max_duration_seconds\": 600,\n            \"same_region\": False,\n            \"only_on\": {\n                \"network_error\": True,\n            },\n        },\n    })\n# Example: enforce time-based alert escalation.\ntime_based_alerts = checkly.CheckGroupV2(\"time-based-alerts\",\n    name=\"Time-Based Alert Escalation\",\n    enforce_alert_settings={\n        \"enabled\": True,\n        \"alert_settings\": {\n            \"escalation_type\": \"TIME_BASED\",\n            \"time_based_escalations\": [{\n                \"minutes_failing_threshold\": 10,\n            }],\n            \"reminders\": [{\n                \"amount\": 5,\n                \"interval\": 15,\n            }],\n        },\n    })\n# Example: use global alert settings instead of custom ones.\nuse_global_alerts = checkly.CheckGroupV2(\"use-global-alerts\",\n    name=\"Use Global Alert Settings\",\n    enforce_alert_settings={\n        \"enabled\": True,\n        \"use_global_alert_settings\": True,\n    })\n# Example: enforce alert channel subscriptions with custom alert settings.\nemail = checkly.AlertChannel(\"email\", email={\n    \"address\": \"alerts@example.com\",\n})\nslack = checkly.AlertChannel(\"slack\", slack={\n    \"channel\": \"#alerts\",\n    \"url\": \"https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX\",\n})\nwith_alert_channels = checkly.CheckGroupV2(\"with-alert-channels\",\n    name=\"Group with Alert Channels\",\n    enforce_alert_settings={\n        \"enabled\": True,\n        \"alert_settings\": {\n            \"escalation_type\": \"RUN_BASED\",\n            \"run_based_escalations\": [{\n                \"failed_run_threshold\": 1,\n            }],\n            \"reminders\": [{\n                \"amount\": 0,\n                \"interval\": 5,\n            }],\n        },\n        \"alert_channel_subscriptions\": [\n            {\n                \"channel_id\": email.id,\n                \"activated\": True,\n            },\n            {\n                \"channel_id\": slack.id,\n                \"activated\": True,\n            },\n        ],\n    })\n# Example: enforce no retries.\nno_retries = checkly.CheckGroupV2(\"no-retries\",\n    name=\"No Retries Group\",\n    enforce_retry_strategy={\n        \"enabled\": True,\n        \"retry_strategy\": {\n            \"type\": \"NO_RETRIES\",\n        },\n    })\n# Example: enforce a single retry.\nsingle_retry = checkly.CheckGroupV2(\"single-retry\",\n    name=\"Single Retry Group\",\n    enforce_retry_strategy={\n        \"enabled\": True,\n        \"retry_strategy\": {\n            \"type\": \"SINGLE_RETRY\",\n            \"base_backoff_seconds\": 10,\n            \"same_region\": True,\n        },\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // Minimal example: just a folder to organize checks.\n    var just_a_folder = new Checkly.CheckGroupV2(\"just-a-folder\", new()\n    {\n        Name = \"Just a Folder\",\n    });\n\n    // Full example: a group with enforced settings that override individual checks.\n    var production_api = new Checkly.CheckGroupV2(\"production-api\", new()\n    {\n        Name = \"Production API\",\n        Activated = true,\n        Muted = false,\n        Concurrency = 5,\n        Tags = new[]\n        {\n            \"production\",\n            \"api\",\n        },\n        EnforceLocations = new Checkly.Inputs.CheckGroupV2EnforceLocationsArgs\n        {\n            Enabled = true,\n            Locations = new[]\n            {\n                \"us-east-1\",\n                \"eu-west-1\",\n                \"ap-southeast-1\",\n            },\n            PrivateLocations = new[]\n            {\n                \"my-datacenter\",\n            },\n        },\n        EnforceRetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyArgs\n        {\n            Enabled = true,\n            RetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs\n            {\n                Type = \"LINEAR\",\n                BaseBackoffSeconds = 30,\n                MaxRetries = 3,\n                MaxDurationSeconds = 300,\n                SameRegion = true,\n            },\n        },\n        EnforceSchedulingStrategy = new Checkly.Inputs.CheckGroupV2EnforceSchedulingStrategyArgs\n        {\n            Enabled = true,\n            RunParallel = true,\n        },\n        EnforceAlertSettings = new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsArgs\n        {\n            Enabled = true,\n            AlertSettings = new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs\n            {\n                EscalationType = \"RUN_BASED\",\n                RunBasedEscalations = new[]\n                {\n                    new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs\n                    {\n                        FailedRunThreshold = 2,\n                    },\n                },\n                Reminders = new[]\n                {\n                    new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs\n                    {\n                        Amount = 3,\n                        Interval = 10,\n                    },\n                },\n                ParallelRunFailureThresholds = new[]\n                {\n                    new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs\n                    {\n                        Enabled = true,\n                        Percentage = 50,\n                    },\n                },\n            },\n            AlertChannelSubscriptions = new[]\n            {\n                new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs\n                {\n                    ChannelId = 1234,\n                    Activated = true,\n                },\n            },\n        },\n        EnvironmentVariables = new[]\n        {\n            new Checkly.Inputs.CheckGroupV2EnvironmentVariableArgs\n            {\n                Key = \"BASE_URL\",\n                Value = \"https://api.example.com\",\n                Locked = false,\n            },\n            new Checkly.Inputs.CheckGroupV2EnvironmentVariableArgs\n            {\n                Key = \"API_TOKEN\",\n                Value = \"super-secret-token\",\n                Locked = true,\n                Secret = true,\n            },\n        },\n        DefaultRuntime = new Checkly.Inputs.CheckGroupV2DefaultRuntimeArgs\n        {\n            RuntimeId = \"2024.02\",\n        },\n        ApiCheckDefaults = new Checkly.Inputs.CheckGroupV2ApiCheckDefaultsArgs\n        {\n            Url = \"https://api.example.com/\",\n            Headers = \n            {\n                { \"X-Api-Key\", \"{{API_TOKEN}}\" },\n                { \"Content-Type\", \"application/json\" },\n            },\n            QueryParameters = \n            {\n                { \"version\", \"v2\" },\n            },\n            Assertions = new[]\n            {\n                new Checkly.Inputs.CheckGroupV2ApiCheckDefaultsAssertionArgs\n                {\n                    Source = \"STATUS_CODE\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"400\",\n                },\n                new Checkly.Inputs.CheckGroupV2ApiCheckDefaultsAssertionArgs\n                {\n                    Source = \"RESPONSE_TIME\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"3000\",\n                },\n            },\n            BasicAuth = new Checkly.Inputs.CheckGroupV2ApiCheckDefaultsBasicAuthArgs\n            {\n                Username = \"admin\",\n                Password = \"pass\",\n            },\n        },\n        SetupScript = new Checkly.Inputs.CheckGroupV2SetupScriptArgs\n        {\n            InlineScript = @\"// Runs before every API check in this group\nconsole.log(\"\"Setting up...\"\")\n\",\n        },\n        TeardownScript = new Checkly.Inputs.CheckGroupV2TeardownScriptArgs\n        {\n            InlineScript = @\"// Runs after every API check in this group\nconsole.log(\"\"Tearing down...\"\")\n\",\n        },\n    });\n\n    // Example: enforce only retry strategy with network-error-only retries.\n    var retry_on_network_errors = new Checkly.CheckGroupV2(\"retry-on-network-errors\", new()\n    {\n        Name = \"Retry on Network Errors Only\",\n        EnforceRetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyArgs\n        {\n            Enabled = true,\n            RetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs\n            {\n                Type = \"EXPONENTIAL\",\n                BaseBackoffSeconds = 10,\n                MaxRetries = 5,\n                MaxDurationSeconds = 600,\n                SameRegion = false,\n                OnlyOn = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs\n                {\n                    NetworkError = true,\n                },\n            },\n        },\n    });\n\n    // Example: enforce time-based alert escalation.\n    var time_based_alerts = new Checkly.CheckGroupV2(\"time-based-alerts\", new()\n    {\n        Name = \"Time-Based Alert Escalation\",\n        EnforceAlertSettings = new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsArgs\n        {\n            Enabled = true,\n            AlertSettings = new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs\n            {\n                EscalationType = \"TIME_BASED\",\n                TimeBasedEscalations = new[]\n                {\n                    new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs\n                    {\n                        MinutesFailingThreshold = 10,\n                    },\n                },\n                Reminders = new[]\n                {\n                    new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs\n                    {\n                        Amount = 5,\n                        Interval = 15,\n                    },\n                },\n            },\n        },\n    });\n\n    // Example: use global alert settings instead of custom ones.\n    var use_global_alerts = new Checkly.CheckGroupV2(\"use-global-alerts\", new()\n    {\n        Name = \"Use Global Alert Settings\",\n        EnforceAlertSettings = new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsArgs\n        {\n            Enabled = true,\n            UseGlobalAlertSettings = true,\n        },\n    });\n\n    // Example: enforce alert channel subscriptions with custom alert settings.\n    var email = new Checkly.AlertChannel(\"email\", new()\n    {\n        Email = new Checkly.Inputs.AlertChannelEmailArgs\n        {\n            Address = \"alerts@example.com\",\n        },\n    });\n\n    var slack = new Checkly.AlertChannel(\"slack\", new()\n    {\n        Slack = new Checkly.Inputs.AlertChannelSlackArgs\n        {\n            Channel = \"#alerts\",\n            Url = \"https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX\",\n        },\n    });\n\n    var with_alert_channels = new Checkly.CheckGroupV2(\"with-alert-channels\", new()\n    {\n        Name = \"Group with Alert Channels\",\n        EnforceAlertSettings = new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsArgs\n        {\n            Enabled = true,\n            AlertSettings = new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs\n            {\n                EscalationType = \"RUN_BASED\",\n                RunBasedEscalations = new[]\n                {\n                    new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs\n                    {\n                        FailedRunThreshold = 1,\n                    },\n                },\n                Reminders = new[]\n                {\n                    new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs\n                    {\n                        Amount = 0,\n                        Interval = 5,\n                    },\n                },\n            },\n            AlertChannelSubscriptions = new[]\n            {\n                new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs\n                {\n                    ChannelId = email.Id,\n                    Activated = true,\n                },\n                new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs\n                {\n                    ChannelId = slack.Id,\n                    Activated = true,\n                },\n            },\n        },\n    });\n\n    // Example: enforce no retries.\n    var no_retries = new Checkly.CheckGroupV2(\"no-retries\", new()\n    {\n        Name = \"No Retries Group\",\n        EnforceRetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyArgs\n        {\n            Enabled = true,\n            RetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs\n            {\n                Type = \"NO_RETRIES\",\n            },\n        },\n    });\n\n    // Example: enforce a single retry.\n    var single_retry = new Checkly.CheckGroupV2(\"single-retry\", new()\n    {\n        Name = \"Single Retry Group\",\n        EnforceRetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyArgs\n        {\n            Enabled = true,\n            RetryStrategy = new Checkly.Inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs\n            {\n                Type = \"SINGLE_RETRY\",\n                BaseBackoffSeconds = 10,\n                SameRegion = true,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// Minimal example: just a folder to organize checks.\n\t\t_, err := checkly.NewCheckGroupV2(ctx, \"just-a-folder\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName: pulumi.String(\"Just a Folder\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Full example: a group with enforced settings that override individual checks.\n\t\t_, err = checkly.NewCheckGroupV2(ctx, \"production-api\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName:        pulumi.String(\"Production API\"),\n\t\t\tActivated:   pulumi.Bool(true),\n\t\t\tMuted:       pulumi.Bool(false),\n\t\t\tConcurrency: pulumi.Int(5),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t\tpulumi.String(\"api\"),\n\t\t\t},\n\t\t\tEnforceLocations: \u0026checkly.CheckGroupV2EnforceLocationsArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tLocations: pulumi.StringArray{\n\t\t\t\t\tpulumi.String(\"us-east-1\"),\n\t\t\t\t\tpulumi.String(\"eu-west-1\"),\n\t\t\t\t\tpulumi.String(\"ap-southeast-1\"),\n\t\t\t\t},\n\t\t\t\tPrivateLocations: pulumi.StringArray{\n\t\t\t\t\tpulumi.String(\"my-datacenter\"),\n\t\t\t\t},\n\t\t\t},\n\t\t\tEnforceRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{\n\t\t\t\t\tType:               pulumi.String(\"LINEAR\"),\n\t\t\t\t\tBaseBackoffSeconds: pulumi.Int(30),\n\t\t\t\t\tMaxRetries:         pulumi.Int(3),\n\t\t\t\t\tMaxDurationSeconds: pulumi.Int(300),\n\t\t\t\t\tSameRegion:         pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t\tEnforceSchedulingStrategy: \u0026checkly.CheckGroupV2EnforceSchedulingStrategyArgs{\n\t\t\t\tEnabled:     pulumi.Bool(true),\n\t\t\t\tRunParallel: pulumi.Bool(true),\n\t\t\t},\n\t\t\tEnforceAlertSettings: \u0026checkly.CheckGroupV2EnforceAlertSettingsArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tAlertSettings: \u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{\n\t\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\t\tRunBasedEscalations: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(2),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t\tReminders: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{\n\t\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{\n\t\t\t\t\t\t\tAmount:   pulumi.Int(3),\n\t\t\t\t\t\t\tInterval: pulumi.Int(10),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t\tParallelRunFailureThresholds: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray{\n\t\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs{\n\t\t\t\t\t\t\tEnabled:    pulumi.Bool(true),\n\t\t\t\t\t\t\tPercentage: pulumi.Int(50),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tAlertChannelSubscriptions: checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray{\n\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{\n\t\t\t\t\t\tChannelId: pulumi.Int(1234),\n\t\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tEnvironmentVariables: checkly.CheckGroupV2EnvironmentVariableArray{\n\t\t\t\t\u0026checkly.CheckGroupV2EnvironmentVariableArgs{\n\t\t\t\t\tKey:    pulumi.String(\"BASE_URL\"),\n\t\t\t\t\tValue:  pulumi.String(\"https://api.example.com\"),\n\t\t\t\t\tLocked: pulumi.Bool(false),\n\t\t\t\t},\n\t\t\t\t\u0026checkly.CheckGroupV2EnvironmentVariableArgs{\n\t\t\t\t\tKey:    pulumi.String(\"API_TOKEN\"),\n\t\t\t\t\tValue:  pulumi.String(\"super-secret-token\"),\n\t\t\t\t\tLocked: pulumi.Bool(true),\n\t\t\t\t\tSecret: pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t\tDefaultRuntime: \u0026checkly.CheckGroupV2DefaultRuntimeArgs{\n\t\t\t\tRuntimeId: pulumi.String(\"2024.02\"),\n\t\t\t},\n\t\t\tApiCheckDefaults: \u0026checkly.CheckGroupV2ApiCheckDefaultsArgs{\n\t\t\t\tUrl: pulumi.String(\"https://api.example.com/\"),\n\t\t\t\tHeaders: pulumi.StringMap{\n\t\t\t\t\t\"X-Api-Key\":    pulumi.String(\"{{API_TOKEN}}\"),\n\t\t\t\t\t\"Content-Type\": pulumi.String(\"application/json\"),\n\t\t\t\t},\n\t\t\t\tQueryParameters: pulumi.StringMap{\n\t\t\t\t\t\"version\": pulumi.String(\"v2\"),\n\t\t\t\t},\n\t\t\t\tAssertions: checkly.CheckGroupV2ApiCheckDefaultsAssertionArray{\n\t\t\t\t\t\u0026checkly.CheckGroupV2ApiCheckDefaultsAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"STATUS_CODE\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"400\"),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026checkly.CheckGroupV2ApiCheckDefaultsAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"RESPONSE_TIME\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"3000\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tBasicAuth: \u0026checkly.CheckGroupV2ApiCheckDefaultsBasicAuthArgs{\n\t\t\t\t\tUsername: pulumi.String(\"admin\"),\n\t\t\t\t\tPassword: pulumi.String(\"pass\"),\n\t\t\t\t},\n\t\t\t},\n\t\t\tSetupScript: \u0026checkly.CheckGroupV2SetupScriptArgs{\n\t\t\t\tInlineScript: pulumi.String(\"// Runs before every API check in this group\\nconsole.log(\\\"Setting up...\\\")\\n\"),\n\t\t\t},\n\t\t\tTeardownScript: \u0026checkly.CheckGroupV2TeardownScriptArgs{\n\t\t\t\tInlineScript: pulumi.String(\"// Runs after every API check in this group\\nconsole.log(\\\"Tearing down...\\\")\\n\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Example: enforce only retry strategy with network-error-only retries.\n\t\t_, err = checkly.NewCheckGroupV2(ctx, \"retry-on-network-errors\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName: pulumi.String(\"Retry on Network Errors Only\"),\n\t\t\tEnforceRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{\n\t\t\t\t\tType:               pulumi.String(\"EXPONENTIAL\"),\n\t\t\t\t\tBaseBackoffSeconds: pulumi.Int(10),\n\t\t\t\t\tMaxRetries:         pulumi.Int(5),\n\t\t\t\t\tMaxDurationSeconds: pulumi.Int(600),\n\t\t\t\t\tSameRegion:         pulumi.Bool(false),\n\t\t\t\t\tOnlyOn: \u0026checkly.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs{\n\t\t\t\t\t\tNetworkError: pulumi.Bool(true),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Example: enforce time-based alert escalation.\n\t\t_, err = checkly.NewCheckGroupV2(ctx, \"time-based-alerts\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName: pulumi.String(\"Time-Based Alert Escalation\"),\n\t\t\tEnforceAlertSettings: \u0026checkly.CheckGroupV2EnforceAlertSettingsArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tAlertSettings: \u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{\n\t\t\t\t\tEscalationType: pulumi.String(\"TIME_BASED\"),\n\t\t\t\t\tTimeBasedEscalations: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray{\n\t\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs{\n\t\t\t\t\t\t\tMinutesFailingThreshold: pulumi.Int(10),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t\tReminders: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{\n\t\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{\n\t\t\t\t\t\t\tAmount:   pulumi.Int(5),\n\t\t\t\t\t\t\tInterval: pulumi.Int(15),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Example: use global alert settings instead of custom ones.\n\t\t_, err = checkly.NewCheckGroupV2(ctx, \"use-global-alerts\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName: pulumi.String(\"Use Global Alert Settings\"),\n\t\t\tEnforceAlertSettings: \u0026checkly.CheckGroupV2EnforceAlertSettingsArgs{\n\t\t\t\tEnabled:                pulumi.Bool(true),\n\t\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Example: enforce alert channel subscriptions with custom alert settings.\n\t\temail, err := checkly.NewAlertChannel(ctx, \"email\", \u0026checkly.AlertChannelArgs{\n\t\t\tEmail: \u0026checkly.AlertChannelEmailArgs{\n\t\t\t\tAddress: pulumi.String(\"alerts@example.com\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tslack, err := checkly.NewAlertChannel(ctx, \"slack\", \u0026checkly.AlertChannelArgs{\n\t\t\tSlack: \u0026checkly.AlertChannelSlackArgs{\n\t\t\t\tChannel: pulumi.String(\"#alerts\"),\n\t\t\t\tUrl:     pulumi.String(\"https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewCheckGroupV2(ctx, \"with-alert-channels\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName: pulumi.String(\"Group with Alert Channels\"),\n\t\t\tEnforceAlertSettings: \u0026checkly.CheckGroupV2EnforceAlertSettingsArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tAlertSettings: \u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{\n\t\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\t\tRunBasedEscalations: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(1),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t\tReminders: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{\n\t\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{\n\t\t\t\t\t\t\tAmount:   pulumi.Int(0),\n\t\t\t\t\t\t\tInterval: pulumi.Int(5),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tAlertChannelSubscriptions: checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray{\n\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{\n\t\t\t\t\t\tChannelId: email.ID(),\n\t\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{\n\t\t\t\t\t\tChannelId: slack.ID(),\n\t\t\t\t\t\tActivated: pulumi.Bool(true),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Example: enforce no retries.\n\t\t_, err = checkly.NewCheckGroupV2(ctx, \"no-retries\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName: pulumi.String(\"No Retries Group\"),\n\t\t\tEnforceRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{\n\t\t\t\t\tType: pulumi.String(\"NO_RETRIES\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Example: enforce a single retry.\n\t\t_, err = checkly.NewCheckGroupV2(ctx, \"single-retry\", \u0026checkly.CheckGroupV2Args{\n\t\t\tName: pulumi.String(\"Single Retry Group\"),\n\t\t\tEnforceRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyArgs{\n\t\t\t\tEnabled: pulumi.Bool(true),\n\t\t\t\tRetryStrategy: \u0026checkly.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{\n\t\t\t\t\tType:               pulumi.String(\"SINGLE_RETRY\"),\n\t\t\t\t\tBaseBackoffSeconds: pulumi.Int(10),\n\t\t\t\t\tSameRegion:         pulumi.Bool(true),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.CheckGroupV2;\nimport com.pulumi.checkly.CheckGroupV2Args;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnforceLocationsArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnforceRetryStrategyArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnforceSchedulingStrategyArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnforceAlertSettingsArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnvironmentVariableArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2DefaultRuntimeArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2ApiCheckDefaultsArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2ApiCheckDefaultsBasicAuthArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2SetupScriptArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2TeardownScriptArgs;\nimport com.pulumi.checkly.inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs;\nimport com.pulumi.checkly.AlertChannel;\nimport com.pulumi.checkly.AlertChannelArgs;\nimport com.pulumi.checkly.inputs.AlertChannelEmailArgs;\nimport com.pulumi.checkly.inputs.AlertChannelSlackArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // Minimal example: just a folder to organize checks.\n        var just_a_folder = new CheckGroupV2(\"just-a-folder\", CheckGroupV2Args.builder()\n            .name(\"Just a Folder\")\n            .build());\n\n        // Full example: a group with enforced settings that override individual checks.\n        var production_api = new CheckGroupV2(\"production-api\", CheckGroupV2Args.builder()\n            .name(\"Production API\")\n            .activated(true)\n            .muted(false)\n            .concurrency(5)\n            .tags(            \n                \"production\",\n                \"api\")\n            .enforceLocations(CheckGroupV2EnforceLocationsArgs.builder()\n                .enabled(true)\n                .locations(                \n                    \"us-east-1\",\n                    \"eu-west-1\",\n                    \"ap-southeast-1\")\n                .privateLocations(\"my-datacenter\")\n                .build())\n            .enforceRetryStrategy(CheckGroupV2EnforceRetryStrategyArgs.builder()\n                .enabled(true)\n                .retryStrategy(CheckGroupV2EnforceRetryStrategyRetryStrategyArgs.builder()\n                    .type(\"LINEAR\")\n                    .baseBackoffSeconds(30)\n                    .maxRetries(3)\n                    .maxDurationSeconds(300)\n                    .sameRegion(true)\n                    .build())\n                .build())\n            .enforceSchedulingStrategy(CheckGroupV2EnforceSchedulingStrategyArgs.builder()\n                .enabled(true)\n                .runParallel(true)\n                .build())\n            .enforceAlertSettings(CheckGroupV2EnforceAlertSettingsArgs.builder()\n                .enabled(true)\n                .alertSettings(CheckGroupV2EnforceAlertSettingsAlertSettingsArgs.builder()\n                    .escalationType(\"RUN_BASED\")\n                    .runBasedEscalations(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs.builder()\n                        .failedRunThreshold(2)\n                        .build())\n                    .reminders(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs.builder()\n                        .amount(3)\n                        .interval(10)\n                        .build())\n                    .parallelRunFailureThresholds(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs.builder()\n                        .enabled(true)\n                        .percentage(50)\n                        .build())\n                    .build())\n                .alertChannelSubscriptions(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs.builder()\n                    .channelId(1234)\n                    .activated(true)\n                    .build())\n                .build())\n            .environmentVariables(            \n                CheckGroupV2EnvironmentVariableArgs.builder()\n                    .key(\"BASE_URL\")\n                    .value(\"https://api.example.com\")\n                    .locked(false)\n                    .build(),\n                CheckGroupV2EnvironmentVariableArgs.builder()\n                    .key(\"API_TOKEN\")\n                    .value(\"super-secret-token\")\n                    .locked(true)\n                    .secret(true)\n                    .build())\n            .defaultRuntime(CheckGroupV2DefaultRuntimeArgs.builder()\n                .runtimeId(\"2024.02\")\n                .build())\n            .apiCheckDefaults(CheckGroupV2ApiCheckDefaultsArgs.builder()\n                .url(\"https://api.example.com/\")\n                .headers(Map.ofEntries(\n                    Map.entry(\"X-Api-Key\", \"{{API_TOKEN}}\"),\n                    Map.entry(\"Content-Type\", \"application/json\")\n                ))\n                .queryParameters(Map.of(\"version\", \"v2\"))\n                .assertions(                \n                    CheckGroupV2ApiCheckDefaultsAssertionArgs.builder()\n                        .source(\"STATUS_CODE\")\n                        .comparison(\"LESS_THAN\")\n                        .target(\"400\")\n                        .build(),\n                    CheckGroupV2ApiCheckDefaultsAssertionArgs.builder()\n                        .source(\"RESPONSE_TIME\")\n                        .comparison(\"LESS_THAN\")\n                        .target(\"3000\")\n                        .build())\n                .basicAuth(CheckGroupV2ApiCheckDefaultsBasicAuthArgs.builder()\n                    .username(\"admin\")\n                    .password(\"pass\")\n                    .build())\n                .build())\n            .setupScript(CheckGroupV2SetupScriptArgs.builder()\n                .inlineScript(\"\"\"\n// Runs before every API check in this group\nconsole.log(\"Setting up...\")\n                \"\"\")\n                .build())\n            .teardownScript(CheckGroupV2TeardownScriptArgs.builder()\n                .inlineScript(\"\"\"\n// Runs after every API check in this group\nconsole.log(\"Tearing down...\")\n                \"\"\")\n                .build())\n            .build());\n\n        // Example: enforce only retry strategy with network-error-only retries.\n        var retry_on_network_errors = new CheckGroupV2(\"retry-on-network-errors\", CheckGroupV2Args.builder()\n            .name(\"Retry on Network Errors Only\")\n            .enforceRetryStrategy(CheckGroupV2EnforceRetryStrategyArgs.builder()\n                .enabled(true)\n                .retryStrategy(CheckGroupV2EnforceRetryStrategyRetryStrategyArgs.builder()\n                    .type(\"EXPONENTIAL\")\n                    .baseBackoffSeconds(10)\n                    .maxRetries(5)\n                    .maxDurationSeconds(600)\n                    .sameRegion(false)\n                    .onlyOn(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs.builder()\n                        .networkError(true)\n                        .build())\n                    .build())\n                .build())\n            .build());\n\n        // Example: enforce time-based alert escalation.\n        var time_based_alerts = new CheckGroupV2(\"time-based-alerts\", CheckGroupV2Args.builder()\n            .name(\"Time-Based Alert Escalation\")\n            .enforceAlertSettings(CheckGroupV2EnforceAlertSettingsArgs.builder()\n                .enabled(true)\n                .alertSettings(CheckGroupV2EnforceAlertSettingsAlertSettingsArgs.builder()\n                    .escalationType(\"TIME_BASED\")\n                    .timeBasedEscalations(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs.builder()\n                        .minutesFailingThreshold(10)\n                        .build())\n                    .reminders(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs.builder()\n                        .amount(5)\n                        .interval(15)\n                        .build())\n                    .build())\n                .build())\n            .build());\n\n        // Example: use global alert settings instead of custom ones.\n        var use_global_alerts = new CheckGroupV2(\"use-global-alerts\", CheckGroupV2Args.builder()\n            .name(\"Use Global Alert Settings\")\n            .enforceAlertSettings(CheckGroupV2EnforceAlertSettingsArgs.builder()\n                .enabled(true)\n                .useGlobalAlertSettings(true)\n                .build())\n            .build());\n\n        // Example: enforce alert channel subscriptions with custom alert settings.\n        var email = new AlertChannel(\"email\", AlertChannelArgs.builder()\n            .email(AlertChannelEmailArgs.builder()\n                .address(\"alerts@example.com\")\n                .build())\n            .build());\n\n        var slack = new AlertChannel(\"slack\", AlertChannelArgs.builder()\n            .slack(AlertChannelSlackArgs.builder()\n                .channel(\"#alerts\")\n                .url(\"https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX\")\n                .build())\n            .build());\n\n        var with_alert_channels = new CheckGroupV2(\"with-alert-channels\", CheckGroupV2Args.builder()\n            .name(\"Group with Alert Channels\")\n            .enforceAlertSettings(CheckGroupV2EnforceAlertSettingsArgs.builder()\n                .enabled(true)\n                .alertSettings(CheckGroupV2EnforceAlertSettingsAlertSettingsArgs.builder()\n                    .escalationType(\"RUN_BASED\")\n                    .runBasedEscalations(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs.builder()\n                        .failedRunThreshold(1)\n                        .build())\n                    .reminders(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs.builder()\n                        .amount(0)\n                        .interval(5)\n                        .build())\n                    .build())\n                .alertChannelSubscriptions(                \n                    CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs.builder()\n                        .channelId(email.id())\n                        .activated(true)\n                        .build(),\n                    CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs.builder()\n                        .channelId(slack.id())\n                        .activated(true)\n                        .build())\n                .build())\n            .build());\n\n        // Example: enforce no retries.\n        var no_retries = new CheckGroupV2(\"no-retries\", CheckGroupV2Args.builder()\n            .name(\"No Retries Group\")\n            .enforceRetryStrategy(CheckGroupV2EnforceRetryStrategyArgs.builder()\n                .enabled(true)\n                .retryStrategy(CheckGroupV2EnforceRetryStrategyRetryStrategyArgs.builder()\n                    .type(\"NO_RETRIES\")\n                    .build())\n                .build())\n            .build());\n\n        // Example: enforce a single retry.\n        var single_retry = new CheckGroupV2(\"single-retry\", CheckGroupV2Args.builder()\n            .name(\"Single Retry Group\")\n            .enforceRetryStrategy(CheckGroupV2EnforceRetryStrategyArgs.builder()\n                .enabled(true)\n                .retryStrategy(CheckGroupV2EnforceRetryStrategyRetryStrategyArgs.builder()\n                    .type(\"SINGLE_RETRY\")\n                    .baseBackoffSeconds(10)\n                    .sameRegion(true)\n                    .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # Minimal example: just a folder to organize checks.\n  just-a-folder:\n    type: checkly:CheckGroupV2\n    properties:\n      name: Just a Folder\n  # Full example: a group with enforced settings that override individual checks.\n  production-api:\n    type: checkly:CheckGroupV2\n    properties:\n      name: Production API\n      activated: true\n      muted: false\n      concurrency: 5\n      tags:\n        - production\n        - api\n      enforceLocations:\n        enabled: true\n        locations:\n          - us-east-1\n          - eu-west-1\n          - ap-southeast-1\n        privateLocations:\n          - my-datacenter\n      enforceRetryStrategy:\n        enabled: true\n        retryStrategy:\n          type: LINEAR\n          baseBackoffSeconds: 30\n          maxRetries: 3\n          maxDurationSeconds: 300\n          sameRegion: true\n      enforceSchedulingStrategy:\n        enabled: true\n        runParallel: true\n      enforceAlertSettings:\n        enabled: true\n        alertSettings:\n          escalationType: RUN_BASED\n          runBasedEscalations:\n            - failedRunThreshold: 2\n          reminders:\n            - amount: 3\n              interval: 10\n          parallelRunFailureThresholds:\n            - enabled: true\n              percentage: 50\n        alertChannelSubscriptions:\n          - channelId: 1234\n            activated: true\n      environmentVariables:\n        - key: BASE_URL\n          value: https://api.example.com\n          locked: false\n        - key: API_TOKEN\n          value: super-secret-token\n          locked: true\n          secret: true\n      defaultRuntime:\n        runtimeId: '2024.02'\n      apiCheckDefaults:\n        url: https://api.example.com/\n        headers:\n          X-Api-Key: '{{API_TOKEN}}'\n          Content-Type: application/json\n        queryParameters:\n          version: v2\n        assertions:\n          - source: STATUS_CODE\n            comparison: LESS_THAN\n            target: '400'\n          - source: RESPONSE_TIME\n            comparison: LESS_THAN\n            target: '3000'\n        basicAuth:\n          username: admin\n          password: pass\n      setupScript:\n        inlineScript: |\n          // Runs before every API check in this group\n          console.log(\"Setting up...\")\n      teardownScript:\n        inlineScript: |\n          // Runs after every API check in this group\n          console.log(\"Tearing down...\")\n  # Example: enforce only retry strategy with network-error-only retries.\n  retry-on-network-errors:\n    type: checkly:CheckGroupV2\n    properties:\n      name: Retry on Network Errors Only\n      enforceRetryStrategy:\n        enabled: true\n        retryStrategy:\n          type: EXPONENTIAL\n          baseBackoffSeconds: 10\n          maxRetries: 5\n          maxDurationSeconds: 600\n          sameRegion: false\n          onlyOn:\n            networkError: true\n  # Example: enforce time-based alert escalation.\n  time-based-alerts:\n    type: checkly:CheckGroupV2\n    properties:\n      name: Time-Based Alert Escalation\n      enforceAlertSettings:\n        enabled: true\n        alertSettings:\n          escalationType: TIME_BASED\n          timeBasedEscalations:\n            - minutesFailingThreshold: 10\n          reminders:\n            - amount: 5\n              interval: 15\n  # Example: use global alert settings instead of custom ones.\n  use-global-alerts:\n    type: checkly:CheckGroupV2\n    properties:\n      name: Use Global Alert Settings\n      enforceAlertSettings:\n        enabled: true\n        useGlobalAlertSettings: true\n  # Example: enforce alert channel subscriptions with custom alert settings.\n  email:\n    type: checkly:AlertChannel\n    properties:\n      email:\n        address: alerts@example.com\n  slack:\n    type: checkly:AlertChannel\n    properties:\n      slack:\n        channel: '#alerts'\n        url: https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX\n  with-alert-channels:\n    type: checkly:CheckGroupV2\n    properties:\n      name: Group with Alert Channels\n      enforceAlertSettings:\n        enabled: true\n        alertSettings:\n          escalationType: RUN_BASED\n          runBasedEscalations:\n            - failedRunThreshold: 1\n          reminders:\n            - amount: 0\n              interval: 5\n        alertChannelSubscriptions:\n          - channelId: ${email.id}\n            activated: true\n          - channelId: ${slack.id}\n            activated: true\n  # Example: enforce no retries.\n  no-retries:\n    type: checkly:CheckGroupV2\n    properties:\n      name: No Retries Group\n      enforceRetryStrategy:\n        enabled: true\n        retryStrategy:\n          type: NO_RETRIES\n  # Example: enforce a single retry.\n  single-retry:\n    type: checkly:CheckGroupV2\n    properties:\n      name: Single Retry Group\n      enforceRetryStrategy:\n        enabled: true\n        retryStrategy:\n          type: SINGLE_RETRY\n          baseBackoffSeconds: 10\n          sameRegion: true\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).\n"
+                },
+                "apiCheckDefaults": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2ApiCheckDefaults:CheckGroupV2ApiCheckDefaults"
+                },
+                "concurrency": {
+                    "type": "integer",
+                    "description": "Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).\n"
+                },
+                "defaultRuntime": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2DefaultRuntime:CheckGroupV2DefaultRuntime",
+                    "description": "Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.\n"
+                },
+                "enforceAlertSettings": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettings:CheckGroupV2EnforceAlertSettings",
+                    "description": "Enforces alert settings for the whole group. Overrides check configuration.\n"
+                },
+                "enforceLocations": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceLocations:CheckGroupV2EnforceLocations",
+                    "description": "Enforces public and private locations for the whole group. Overrides check configuration.\n"
+                },
+                "enforceRetryStrategy": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceRetryStrategy:CheckGroupV2EnforceRetryStrategy",
+                    "description": "Enforces a retry strategy for the whole group. Overrides check configuration.\n"
+                },
+                "enforceSchedulingStrategy": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceSchedulingStrategy:CheckGroupV2EnforceSchedulingStrategy",
+                    "description": "Enforces a scheduling strategy for the whole group. Overrides check configuration.\n"
+                },
+                "environmentVariables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnvironmentVariable:CheckGroupV2EnvironmentVariable"
+                    },
+                    "description": "Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check group.\n"
+                },
+                "setupScript": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2SetupScript:CheckGroupV2SetupScript",
+                    "description": "A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Additional tags to append to all checks in the group.\n"
+                },
+                "teardownScript": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2TeardownScript:CheckGroupV2TeardownScript",
+                    "description": "A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.\n"
+                }
+            },
+            "required": [
+                "apiCheckDefaults",
+                "enforceAlertSettings",
+                "enforceLocations",
+                "enforceRetryStrategy",
+                "enforceSchedulingStrategy",
+                "name"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).\n"
+                },
+                "apiCheckDefaults": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2ApiCheckDefaults:CheckGroupV2ApiCheckDefaults"
+                },
+                "concurrency": {
+                    "type": "integer",
+                    "description": "Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).\n"
+                },
+                "defaultRuntime": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2DefaultRuntime:CheckGroupV2DefaultRuntime",
+                    "description": "Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.\n"
+                },
+                "enforceAlertSettings": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettings:CheckGroupV2EnforceAlertSettings",
+                    "description": "Enforces alert settings for the whole group. Overrides check configuration.\n"
+                },
+                "enforceLocations": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceLocations:CheckGroupV2EnforceLocations",
+                    "description": "Enforces public and private locations for the whole group. Overrides check configuration.\n"
+                },
+                "enforceRetryStrategy": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceRetryStrategy:CheckGroupV2EnforceRetryStrategy",
+                    "description": "Enforces a retry strategy for the whole group. Overrides check configuration.\n"
+                },
+                "enforceSchedulingStrategy": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2EnforceSchedulingStrategy:CheckGroupV2EnforceSchedulingStrategy",
+                    "description": "Enforces a scheduling strategy for the whole group. Overrides check configuration.\n"
+                },
+                "environmentVariables": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnvironmentVariable:CheckGroupV2EnvironmentVariable"
+                    },
+                    "description": "Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the check group.\n"
+                },
+                "setupScript": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2SetupScript:CheckGroupV2SetupScript",
+                    "description": "A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Additional tags to append to all checks in the group.\n"
+                },
+                "teardownScript": {
+                    "$ref": "#/types/checkly:index/CheckGroupV2TeardownScript:CheckGroupV2TeardownScript",
+                    "description": "A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering CheckGroupV2 resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).\n"
+                    },
+                    "apiCheckDefaults": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2ApiCheckDefaults:CheckGroupV2ApiCheckDefaults"
+                    },
+                    "concurrency": {
+                        "type": "integer",
+                        "description": "Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).\n"
+                    },
+                    "defaultRuntime": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2DefaultRuntime:CheckGroupV2DefaultRuntime",
+                        "description": "Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.\n"
+                    },
+                    "enforceAlertSettings": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceAlertSettings:CheckGroupV2EnforceAlertSettings",
+                        "description": "Enforces alert settings for the whole group. Overrides check configuration.\n"
+                    },
+                    "enforceLocations": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceLocations:CheckGroupV2EnforceLocations",
+                        "description": "Enforces public and private locations for the whole group. Overrides check configuration.\n"
+                    },
+                    "enforceRetryStrategy": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceRetryStrategy:CheckGroupV2EnforceRetryStrategy",
+                        "description": "Enforces a retry strategy for the whole group. Overrides check configuration.\n"
+                    },
+                    "enforceSchedulingStrategy": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2EnforceSchedulingStrategy:CheckGroupV2EnforceSchedulingStrategy",
+                        "description": "Enforces a scheduling strategy for the whole group. Overrides check configuration.\n"
+                    },
+                    "environmentVariables": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/CheckGroupV2EnvironmentVariable:CheckGroupV2EnvironmentVariable"
+                        },
+                        "description": "Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the check group.\n"
+                    },
+                    "setupScript": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2SetupScript:CheckGroupV2SetupScript",
+                        "description": "A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Additional tags to append to all checks in the group.\n"
+                    },
+                    "teardownScript": {
+                        "$ref": "#/types/checkly:index/CheckGroupV2TeardownScript:CheckGroupV2TeardownScript",
+                        "description": "A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.\n"
                     }
                 },
                 "type": "object"
@@ -4085,7 +4711,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/DnsMonitorAlertChannelSubscription:DnsMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/DnsMonitorAlertSettings:DnsMonitorAlertSettings",
@@ -4176,7 +4802,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/DnsMonitorAlertChannelSubscription:DnsMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/DnsMonitorAlertSettings:DnsMonitorAlertSettings",
@@ -4266,7 +4892,7 @@
                         "items": {
                             "$ref": "#/types/checkly:index/DnsMonitorAlertChannelSubscription:DnsMonitorAlertChannelSubscription"
                         },
-                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/DnsMonitorAlertSettings:DnsMonitorAlertSettings",
@@ -4410,7 +5036,8 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings",
@@ -4463,7 +5090,8 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings",
@@ -4511,7 +5139,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/types/checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription"
-                        }
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings",
@@ -4558,7 +5187,8 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/HeartbeatMonitorAlertChannelSubscription:HeartbeatMonitorAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/HeartbeatMonitorAlertSettings:HeartbeatMonitorAlertSettings",
@@ -4606,7 +5236,8 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/types/checkly:index/HeartbeatMonitorAlertChannelSubscription:HeartbeatMonitorAlertChannelSubscription"
-                    }
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/HeartbeatMonitorAlertSettings:HeartbeatMonitorAlertSettings",
@@ -4654,7 +5285,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/types/checkly:index/HeartbeatMonitorAlertChannelSubscription:HeartbeatMonitorAlertChannelSubscription"
-                        }
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/HeartbeatMonitorAlertSettings:HeartbeatMonitorAlertSettings",
@@ -4702,7 +5334,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/IcmpMonitorAlertChannelSubscription:IcmpMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/IcmpMonitorAlertSettings:IcmpMonitorAlertSettings",
@@ -4793,7 +5425,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/IcmpMonitorAlertChannelSubscription:IcmpMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/IcmpMonitorAlertSettings:IcmpMonitorAlertSettings",
@@ -4883,7 +5515,7 @@
                         "items": {
                             "$ref": "#/types/checkly:index/IcmpMonitorAlertChannelSubscription:IcmpMonitorAlertChannelSubscription"
                         },
-                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/IcmpMonitorAlertSettings:IcmpMonitorAlertSettings",
@@ -5086,7 +5718,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettings:PlaywrightCheckSuiteAlertSettings",
@@ -5179,7 +5811,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettings:PlaywrightCheckSuiteAlertSettings",
@@ -5272,7 +5904,7 @@
                         "items": {
                             "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription"
                         },
-                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.\n"
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/PlaywrightCheckSuiteAlertSettings:PlaywrightCheckSuiteAlertSettings",
@@ -5677,7 +6309,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/TcpCheckAlertSettings:TcpCheckAlertSettings",
@@ -5783,7 +6415,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/TcpCheckAlertSettings:TcpCheckAlertSettings",
@@ -5888,7 +6520,7 @@
                         "items": {
                             "$ref": "#/types/checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription"
                         },
-                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/TcpCheckAlertSettings:TcpCheckAlertSettings",
@@ -5991,7 +6623,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/TcpMonitorAlertChannelSubscription:TcpMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/TcpMonitorAlertSettings:TcpMonitorAlertSettings",
@@ -6097,7 +6729,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/TcpMonitorAlertChannelSubscription:TcpMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/TcpMonitorAlertSettings:TcpMonitorAlertSettings",
@@ -6202,7 +6834,7 @@
                         "items": {
                             "$ref": "#/types/checkly:index/TcpMonitorAlertChannelSubscription:TcpMonitorAlertChannelSubscription"
                         },
-                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.\n"
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/TcpMonitorAlertSettings:TcpMonitorAlertSettings",
@@ -6419,7 +7051,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/UrlMonitorAlertChannelSubscription:UrlMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/UrlMonitorAlertSettings:UrlMonitorAlertSettings",
@@ -6521,7 +7153,7 @@
                     "items": {
                         "$ref": "#/types/checkly:index/UrlMonitorAlertChannelSubscription:UrlMonitorAlertChannelSubscription"
                     },
-                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                 },
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/UrlMonitorAlertSettings:UrlMonitorAlertSettings",
@@ -6622,7 +7254,7 @@
                         "items": {
                             "$ref": "#/types/checkly:index/UrlMonitorAlertChannelSubscription:UrlMonitorAlertChannelSubscription"
                         },
-                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.\n"
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
                     },
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/UrlMonitorAlertSettings:UrlMonitorAlertSettings",

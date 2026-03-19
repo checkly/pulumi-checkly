@@ -44,6 +44,26 @@ __all__ = [
     'CheckGroupEnvironmentVariable',
     'CheckGroupRetryStrategy',
     'CheckGroupRetryStrategyOnlyOn',
+    'CheckGroupV2ApiCheckDefaults',
+    'CheckGroupV2ApiCheckDefaultsAssertion',
+    'CheckGroupV2ApiCheckDefaultsBasicAuth',
+    'CheckGroupV2DefaultRuntime',
+    'CheckGroupV2EnforceAlertSettings',
+    'CheckGroupV2EnforceAlertSettingsAlertChannelSubscription',
+    'CheckGroupV2EnforceAlertSettingsAlertSettings',
+    'CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold',
+    'CheckGroupV2EnforceAlertSettingsAlertSettingsReminder',
+    'CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation',
+    'CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate',
+    'CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation',
+    'CheckGroupV2EnforceLocations',
+    'CheckGroupV2EnforceRetryStrategy',
+    'CheckGroupV2EnforceRetryStrategyRetryStrategy',
+    'CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn',
+    'CheckGroupV2EnforceSchedulingStrategy',
+    'CheckGroupV2EnvironmentVariable',
+    'CheckGroupV2SetupScript',
+    'CheckGroupV2TeardownScript',
     'CheckRequest',
     'CheckRequestAssertion',
     'CheckRequestBasicAuth',
@@ -466,17 +486,27 @@ class CheckAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: _builtins.bool,
                  channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @_builtins.property
     @pulumi.getter
     def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="channelId")
     def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
         return pulumi.get(self, "channel_id")
 
 
@@ -838,17 +868,27 @@ class CheckGroupAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: _builtins.bool,
                  channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @_builtins.property
     @pulumi.getter
     def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="channelId")
     def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
         return pulumi.get(self, "channel_id")
 
 
@@ -1460,6 +1500,1023 @@ class CheckGroupRetryStrategyOnlyOn(dict):
         When `true`, retry only if the cause of the failure is a network error. (Default `false`).
         """
         return pulumi.get(self, "network_error")
+
+
+@pulumi.output_type
+class CheckGroupV2ApiCheckDefaults(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "basicAuth":
+            suggest = "basic_auth"
+        elif key == "queryParameters":
+            suggest = "query_parameters"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2ApiCheckDefaults. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2ApiCheckDefaults.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2ApiCheckDefaults.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 assertions: Optional[Sequence['outputs.CheckGroupV2ApiCheckDefaultsAssertion']] = None,
+                 basic_auth: Optional['outputs.CheckGroupV2ApiCheckDefaultsBasicAuth'] = None,
+                 headers: Optional[Mapping[str, _builtins.str]] = None,
+                 query_parameters: Optional[Mapping[str, _builtins.str]] = None,
+                 url: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str url: The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+        """
+        if assertions is not None:
+            pulumi.set(__self__, "assertions", assertions)
+        if basic_auth is not None:
+            pulumi.set(__self__, "basic_auth", basic_auth)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if query_parameters is not None:
+            pulumi.set(__self__, "query_parameters", query_parameters)
+        if url is None:
+            url = ''
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @_builtins.property
+    @pulumi.getter
+    def assertions(self) -> Optional[Sequence['outputs.CheckGroupV2ApiCheckDefaultsAssertion']]:
+        return pulumi.get(self, "assertions")
+
+    @_builtins.property
+    @pulumi.getter(name="basicAuth")
+    def basic_auth(self) -> Optional['outputs.CheckGroupV2ApiCheckDefaultsBasicAuth']:
+        return pulumi.get(self, "basic_auth")
+
+    @_builtins.property
+    @pulumi.getter
+    def headers(self) -> Optional[Mapping[str, _builtins.str]]:
+        return pulumi.get(self, "headers")
+
+    @_builtins.property
+    @pulumi.getter(name="queryParameters")
+    def query_parameters(self) -> Optional[Mapping[str, _builtins.str]]:
+        return pulumi.get(self, "query_parameters")
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> Optional[_builtins.str]:
+        """
+        The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+        """
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class CheckGroupV2ApiCheckDefaultsAssertion(dict):
+    def __init__(__self__, *,
+                 comparison: _builtins.str,
+                 source: _builtins.str,
+                 target: _builtins.str,
+                 property: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str comparison: The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        :param _builtins.str source: The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        """
+        pulumi.set(__self__, "comparison", comparison)
+        pulumi.set(__self__, "source", source)
+        pulumi.set(__self__, "target", target)
+        if property is not None:
+            pulumi.set(__self__, "property", property)
+
+    @_builtins.property
+    @pulumi.getter
+    def comparison(self) -> _builtins.str:
+        """
+        The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        """
+        return pulumi.get(self, "comparison")
+
+    @_builtins.property
+    @pulumi.getter
+    def source(self) -> _builtins.str:
+        """
+        The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        """
+        return pulumi.get(self, "source")
+
+    @_builtins.property
+    @pulumi.getter
+    def target(self) -> _builtins.str:
+        return pulumi.get(self, "target")
+
+    @_builtins.property
+    @pulumi.getter
+    def property(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "property")
+
+
+@pulumi.output_type
+class CheckGroupV2ApiCheckDefaultsBasicAuth(dict):
+    def __init__(__self__, *,
+                 password: _builtins.str,
+                 username: _builtins.str):
+        pulumi.set(__self__, "password", password)
+        pulumi.set(__self__, "username", username)
+
+    @_builtins.property
+    @pulumi.getter
+    def password(self) -> _builtins.str:
+        return pulumi.get(self, "password")
+
+    @_builtins.property
+    @pulumi.getter
+    def username(self) -> _builtins.str:
+        return pulumi.get(self, "username")
+
+
+@pulumi.output_type
+class CheckGroupV2DefaultRuntime(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "runtimeId":
+            suggest = "runtime_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2DefaultRuntime. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2DefaultRuntime.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2DefaultRuntime.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 runtime_id: _builtins.str):
+        """
+        :param _builtins.str runtime_id: The runtime ID.
+        """
+        pulumi.set(__self__, "runtime_id", runtime_id)
+
+    @_builtins.property
+    @pulumi.getter(name="runtimeId")
+    def runtime_id(self) -> _builtins.str:
+        """
+        The runtime ID.
+        """
+        return pulumi.get(self, "runtime_id")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "alertChannelSubscriptions":
+            suggest = "alert_channel_subscriptions"
+        elif key == "alertSettings":
+            suggest = "alert_settings"
+        elif key == "useGlobalAlertSettings":
+            suggest = "use_global_alert_settings"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 alert_channel_subscriptions: Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscription']] = None,
+                 alert_settings: Optional['outputs.CheckGroupV2EnforceAlertSettingsAlertSettings'] = None,
+                 use_global_alert_settings: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.bool enabled: Determines whether the enforced alert settings should be active.
+        :param Sequence['CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs'] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        :param 'CheckGroupV2EnforceAlertSettingsAlertSettingsArgs' alert_settings: Determines the alert escalation policy for the check.
+        :param _builtins.bool use_global_alert_settings: Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        if alert_channel_subscriptions is not None:
+            pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
+        if alert_settings is not None:
+            pulumi.set(__self__, "alert_settings", alert_settings)
+        if use_global_alert_settings is not None:
+            pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Determines whether the enforced alert settings should be active.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="alertChannelSubscriptions")
+    def alert_channel_subscriptions(self) -> Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscription']]:
+        """
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        """
+        return pulumi.get(self, "alert_channel_subscriptions")
+
+    @_builtins.property
+    @pulumi.getter(name="alertSettings")
+    def alert_settings(self) -> Optional['outputs.CheckGroupV2EnforceAlertSettingsAlertSettings']:
+        """
+        Determines the alert escalation policy for the check.
+        """
+        return pulumi.get(self, "alert_settings")
+
+    @_builtins.property
+    @pulumi.getter(name="useGlobalAlertSettings")
+    def use_global_alert_settings(self) -> Optional[_builtins.bool]:
+        """
+        Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+        """
+        return pulumi.get(self, "use_global_alert_settings")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettingsAlertChannelSubscription(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "channelId":
+            suggest = "channel_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceAlertSettingsAlertChannelSubscription. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertChannelSubscription.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertChannelSubscription.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 activated: _builtins.bool,
+                 channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
+        pulumi.set(__self__, "activated", activated)
+        pulumi.set(__self__, "channel_id", channel_id)
+
+    @_builtins.property
+    @pulumi.getter
+    def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
+        return pulumi.get(self, "activated")
+
+    @_builtins.property
+    @pulumi.getter(name="channelId")
+    def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
+        return pulumi.get(self, "channel_id")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettingsAlertSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "escalationType":
+            suggest = "escalation_type"
+        elif key == "parallelRunFailureThresholds":
+            suggest = "parallel_run_failure_thresholds"
+        elif key == "runBasedEscalations":
+            suggest = "run_based_escalations"
+        elif key == "sslCertificates":
+            suggest = "ssl_certificates"
+        elif key == "timeBasedEscalations":
+            suggest = "time_based_escalations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceAlertSettingsAlertSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 escalation_type: Optional[_builtins.str] = None,
+                 parallel_run_failure_thresholds: Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold']] = None,
+                 reminders: Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminder']] = None,
+                 run_based_escalations: Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation']] = None,
+                 ssl_certificates: Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate']] = None,
+                 time_based_escalations: Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation']] = None):
+        """
+        :param _builtins.str escalation_type: Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        :param Sequence['CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs'] parallel_run_failure_thresholds: Configuration for parallel run failure threshold.
+        :param Sequence['CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs'] reminders: Defines how often to send reminder notifications after initial alert.
+        :param Sequence['CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs'] run_based_escalations: Configuration for run-based escalation.
+        :param Sequence['CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs'] time_based_escalations: Configuration for time-based escalation.
+        """
+        if escalation_type is not None:
+            pulumi.set(__self__, "escalation_type", escalation_type)
+        if parallel_run_failure_thresholds is not None:
+            pulumi.set(__self__, "parallel_run_failure_thresholds", parallel_run_failure_thresholds)
+        if reminders is not None:
+            pulumi.set(__self__, "reminders", reminders)
+        if run_based_escalations is not None:
+            pulumi.set(__self__, "run_based_escalations", run_based_escalations)
+        if ssl_certificates is not None:
+            pulumi.set(__self__, "ssl_certificates", ssl_certificates)
+        if time_based_escalations is not None:
+            pulumi.set(__self__, "time_based_escalations", time_based_escalations)
+
+    @_builtins.property
+    @pulumi.getter(name="escalationType")
+    def escalation_type(self) -> Optional[_builtins.str]:
+        """
+        Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        """
+        return pulumi.get(self, "escalation_type")
+
+    @_builtins.property
+    @pulumi.getter(name="parallelRunFailureThresholds")
+    def parallel_run_failure_thresholds(self) -> Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold']]:
+        """
+        Configuration for parallel run failure threshold.
+        """
+        return pulumi.get(self, "parallel_run_failure_thresholds")
+
+    @_builtins.property
+    @pulumi.getter
+    def reminders(self) -> Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminder']]:
+        """
+        Defines how often to send reminder notifications after initial alert.
+        """
+        return pulumi.get(self, "reminders")
+
+    @_builtins.property
+    @pulumi.getter(name="runBasedEscalations")
+    def run_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation']]:
+        """
+        Configuration for run-based escalation.
+        """
+        return pulumi.get(self, "run_based_escalations")
+
+    @_builtins.property
+    @pulumi.getter(name="sslCertificates")
+    @_utilities.deprecated("""This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.""")
+    def ssl_certificates(self) -> Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate']]:
+        return pulumi.get(self, "ssl_certificates")
+
+    @_builtins.property
+    @pulumi.getter(name="timeBasedEscalations")
+    def time_based_escalations(self) -> Optional[Sequence['outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation']]:
+        """
+        Configuration for time-based escalation.
+        """
+        return pulumi.get(self, "time_based_escalations")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold(dict):
+    def __init__(__self__, *,
+                 enabled: Optional[_builtins.bool] = None,
+                 percentage: Optional[_builtins.int] = None):
+        """
+        :param _builtins.bool enabled: Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        :param _builtins.int percentage: Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if percentage is not None:
+            pulumi.set(__self__, "percentage", percentage)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def percentage(self) -> Optional[_builtins.int]:
+        """
+        Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        """
+        return pulumi.get(self, "percentage")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettingsAlertSettingsReminder(dict):
+    def __init__(__self__, *,
+                 amount: Optional[_builtins.int] = None,
+                 interval: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int amount: Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        :param _builtins.int interval: Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if amount is not None:
+            pulumi.set(__self__, "amount", amount)
+        if interval is not None:
+            pulumi.set(__self__, "interval", interval)
+
+    @_builtins.property
+    @pulumi.getter
+    def amount(self) -> Optional[_builtins.int]:
+        """
+        Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+        """
+        return pulumi.get(self, "amount")
+
+    @_builtins.property
+    @pulumi.getter
+    def interval(self) -> Optional[_builtins.int]:
+        """
+        Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "interval")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "failedRunThreshold":
+            suggest = "failed_run_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 failed_run_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int failed_run_threshold: Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        if failed_run_threshold is not None:
+            pulumi.set(__self__, "failed_run_threshold", failed_run_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="failedRunThreshold")
+    def failed_run_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+        """
+        return pulumi.get(self, "failed_run_threshold")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "alertThreshold":
+            suggest = "alert_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 alert_threshold: Optional[_builtins.int] = None,
+                 enabled: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.int alert_threshold: No longer available.
+        :param _builtins.bool enabled: No longer available.
+        """
+        if alert_threshold is not None:
+            pulumi.set(__self__, "alert_threshold", alert_threshold)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="alertThreshold")
+    def alert_threshold(self) -> Optional[_builtins.int]:
+        """
+        No longer available.
+        """
+        return pulumi.get(self, "alert_threshold")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        No longer available.
+        """
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minutesFailingThreshold":
+            suggest = "minutes_failing_threshold"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 minutes_failing_threshold: Optional[_builtins.int] = None):
+        """
+        :param _builtins.int minutes_failing_threshold: Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        if minutes_failing_threshold is not None:
+            pulumi.set(__self__, "minutes_failing_threshold", minutes_failing_threshold)
+
+    @_builtins.property
+    @pulumi.getter(name="minutesFailingThreshold")
+    def minutes_failing_threshold(self) -> Optional[_builtins.int]:
+        """
+        Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        """
+        return pulumi.get(self, "minutes_failing_threshold")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceLocations(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "privateLocations":
+            suggest = "private_locations"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceLocations. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceLocations.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceLocations.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 locations: Optional[Sequence[_builtins.str]] = None,
+                 private_locations: Optional[Sequence[_builtins.str]] = None):
+        """
+        :param _builtins.bool enabled: Determines whether the enforced locations should be active.
+        :param Sequence[_builtins.str] locations: An array of one or more data center locations where to run the checks.
+        :param Sequence[_builtins.str] private_locations: An array of one or more private locations slugs.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        if locations is not None:
+            pulumi.set(__self__, "locations", locations)
+        if private_locations is not None:
+            pulumi.set(__self__, "private_locations", private_locations)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Determines whether the enforced locations should be active.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter
+    def locations(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        An array of one or more data center locations where to run the checks.
+        """
+        return pulumi.get(self, "locations")
+
+    @_builtins.property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        An array of one or more private locations slugs.
+        """
+        return pulumi.get(self, "private_locations")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceRetryStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "retryStrategy":
+            suggest = "retry_strategy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceRetryStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceRetryStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceRetryStrategy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 retry_strategy: 'outputs.CheckGroupV2EnforceRetryStrategyRetryStrategy'):
+        """
+        :param _builtins.bool enabled: Determines whether the enforced retry strategy should be active.
+        :param 'CheckGroupV2EnforceRetryStrategyRetryStrategyArgs' retry_strategy: A strategy for retrying failed check/monitor runs.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "retry_strategy", retry_strategy)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Determines whether the enforced retry strategy should be active.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="retryStrategy")
+    def retry_strategy(self) -> 'outputs.CheckGroupV2EnforceRetryStrategyRetryStrategy':
+        """
+        A strategy for retrying failed check/monitor runs.
+        """
+        return pulumi.get(self, "retry_strategy")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceRetryStrategyRetryStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "baseBackoffSeconds":
+            suggest = "base_backoff_seconds"
+        elif key == "maxDurationSeconds":
+            suggest = "max_duration_seconds"
+        elif key == "maxRetries":
+            suggest = "max_retries"
+        elif key == "onlyOn":
+            suggest = "only_on"
+        elif key == "sameRegion":
+            suggest = "same_region"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceRetryStrategyRetryStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceRetryStrategyRetryStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceRetryStrategyRetryStrategy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: _builtins.str,
+                 base_backoff_seconds: Optional[_builtins.int] = None,
+                 max_duration_seconds: Optional[_builtins.int] = None,
+                 max_retries: Optional[_builtins.int] = None,
+                 only_on: Optional['outputs.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn'] = None,
+                 same_region: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str type: Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        :param _builtins.int base_backoff_seconds: The number of seconds to wait before the first retry attempt. (Default `60`).
+        :param _builtins.int max_duration_seconds: The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        :param _builtins.int max_retries: The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        :param 'CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs' only_on: Apply the retry strategy only if the defined conditions match.
+        :param _builtins.bool same_region: Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        pulumi.set(__self__, "type", type)
+        if base_backoff_seconds is not None:
+            pulumi.set(__self__, "base_backoff_seconds", base_backoff_seconds)
+        if max_duration_seconds is not None:
+            pulumi.set(__self__, "max_duration_seconds", max_duration_seconds)
+        if max_retries is not None:
+            pulumi.set(__self__, "max_retries", max_retries)
+        if only_on is not None:
+            pulumi.set(__self__, "only_on", only_on)
+        if same_region is not None:
+            pulumi.set(__self__, "same_region", same_region)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> _builtins.str:
+        """
+        Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        """
+        return pulumi.get(self, "type")
+
+    @_builtins.property
+    @pulumi.getter(name="baseBackoffSeconds")
+    def base_backoff_seconds(self) -> Optional[_builtins.int]:
+        """
+        The number of seconds to wait before the first retry attempt. (Default `60`).
+        """
+        return pulumi.get(self, "base_backoff_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="maxDurationSeconds")
+    def max_duration_seconds(self) -> Optional[_builtins.int]:
+        """
+        The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        """
+        return pulumi.get(self, "max_duration_seconds")
+
+    @_builtins.property
+    @pulumi.getter(name="maxRetries")
+    def max_retries(self) -> Optional[_builtins.int]:
+        """
+        The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        """
+        return pulumi.get(self, "max_retries")
+
+    @_builtins.property
+    @pulumi.getter(name="onlyOn")
+    def only_on(self) -> Optional['outputs.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn']:
+        """
+        Apply the retry strategy only if the defined conditions match.
+        """
+        return pulumi.get(self, "only_on")
+
+    @_builtins.property
+    @pulumi.getter(name="sameRegion")
+    def same_region(self) -> Optional[_builtins.bool]:
+        """
+        Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        """
+        return pulumi.get(self, "same_region")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "networkError":
+            suggest = "network_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 network_error: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.bool network_error: When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+        """
+        if network_error is not None:
+            pulumi.set(__self__, "network_error", network_error)
+
+    @_builtins.property
+    @pulumi.getter(name="networkError")
+    def network_error(self) -> Optional[_builtins.bool]:
+        """
+        When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+        """
+        return pulumi.get(self, "network_error")
+
+
+@pulumi.output_type
+class CheckGroupV2EnforceSchedulingStrategy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "runParallel":
+            suggest = "run_parallel"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2EnforceSchedulingStrategy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2EnforceSchedulingStrategy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2EnforceSchedulingStrategy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 enabled: _builtins.bool,
+                 run_parallel: _builtins.bool):
+        """
+        :param _builtins.bool enabled: Determines whether the enforced scheduling strategy should be active.
+        :param _builtins.bool run_parallel: Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        """
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "run_parallel", run_parallel)
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> _builtins.bool:
+        """
+        Determines whether the enforced scheduling strategy should be active.
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="runParallel")
+    def run_parallel(self) -> _builtins.bool:
+        """
+        Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        """
+        return pulumi.get(self, "run_parallel")
+
+
+@pulumi.output_type
+class CheckGroupV2EnvironmentVariable(dict):
+    def __init__(__self__, *,
+                 key: _builtins.str,
+                 value: _builtins.str,
+                 locked: Optional[_builtins.bool] = None,
+                 secret: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.str key: The name of the environment variable or secret.
+        :param _builtins.str value: The value of the environment variable or secret.
+        :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        :param _builtins.bool secret: If true, the value will never be visible. (Default `false`).
+        """
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "value", value)
+        if locked is not None:
+            pulumi.set(__self__, "locked", locked)
+        if secret is not None:
+            pulumi.set(__self__, "secret", secret)
+
+    @_builtins.property
+    @pulumi.getter
+    def key(self) -> _builtins.str:
+        """
+        The name of the environment variable or secret.
+        """
+        return pulumi.get(self, "key")
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> _builtins.str:
+        """
+        The value of the environment variable or secret.
+        """
+        return pulumi.get(self, "value")
+
+    @_builtins.property
+    @pulumi.getter
+    def locked(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        """
+        return pulumi.get(self, "locked")
+
+    @_builtins.property
+    @pulumi.getter
+    def secret(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value will never be visible. (Default `false`).
+        """
+        return pulumi.get(self, "secret")
+
+
+@pulumi.output_type
+class CheckGroupV2SetupScript(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "inlineScript":
+            suggest = "inline_script"
+        elif key == "snippetId":
+            suggest = "snippet_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2SetupScript. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2SetupScript.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2SetupScript.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 inline_script: Optional[_builtins.str] = None,
+                 snippet_id: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str inline_script: A valid piece of Node.js code.
+        :param _builtins.int snippet_id: The ID of a code snippet. Code snippets are not available for new plans.
+        """
+        if inline_script is not None:
+            pulumi.set(__self__, "inline_script", inline_script)
+        if snippet_id is not None:
+            pulumi.set(__self__, "snippet_id", snippet_id)
+
+    @_builtins.property
+    @pulumi.getter(name="inlineScript")
+    def inline_script(self) -> Optional[_builtins.str]:
+        """
+        A valid piece of Node.js code.
+        """
+        return pulumi.get(self, "inline_script")
+
+    @_builtins.property
+    @pulumi.getter(name="snippetId")
+    def snippet_id(self) -> Optional[_builtins.int]:
+        """
+        The ID of a code snippet. Code snippets are not available for new plans.
+        """
+        return pulumi.get(self, "snippet_id")
+
+
+@pulumi.output_type
+class CheckGroupV2TeardownScript(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "inlineScript":
+            suggest = "inline_script"
+        elif key == "snippetId":
+            suggest = "snippet_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckGroupV2TeardownScript. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckGroupV2TeardownScript.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckGroupV2TeardownScript.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 inline_script: Optional[_builtins.str] = None,
+                 snippet_id: Optional[_builtins.int] = None):
+        """
+        :param _builtins.str inline_script: A valid piece of Node.js code.
+        :param _builtins.int snippet_id: The ID of a code snippet. Code snippets are not available for new plans.
+        """
+        if inline_script is not None:
+            pulumi.set(__self__, "inline_script", inline_script)
+        if snippet_id is not None:
+            pulumi.set(__self__, "snippet_id", snippet_id)
+
+    @_builtins.property
+    @pulumi.getter(name="inlineScript")
+    def inline_script(self) -> Optional[_builtins.str]:
+        """
+        A valid piece of Node.js code.
+        """
+        return pulumi.get(self, "inline_script")
+
+    @_builtins.property
+    @pulumi.getter(name="snippetId")
+    def snippet_id(self) -> Optional[_builtins.int]:
+        """
+        The ID of a code snippet. Code snippets are not available for new plans.
+        """
+        return pulumi.get(self, "snippet_id")
 
 
 @pulumi.output_type
@@ -2536,17 +3593,27 @@ class HeartbeatCheckAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: _builtins.bool,
                  channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @_builtins.property
     @pulumi.getter
     def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="channelId")
     def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
         return pulumi.get(self, "channel_id")
 
 
@@ -3020,17 +4087,27 @@ class HeartbeatMonitorAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: _builtins.bool,
                  channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @_builtins.property
     @pulumi.getter
     def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="channelId")
     def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
         return pulumi.get(self, "channel_id")
 
 
@@ -4770,17 +5847,27 @@ class TcpCheckAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: _builtins.bool,
                  channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @_builtins.property
     @pulumi.getter
     def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="channelId")
     def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
         return pulumi.get(self, "channel_id")
 
 
@@ -5347,17 +6434,27 @@ class TcpMonitorAlertChannelSubscription(dict):
     def __init__(__self__, *,
                  activated: _builtins.bool,
                  channel_id: _builtins.int):
+        """
+        :param _builtins.bool activated: Whether an alert should be sent to this channel.
+        :param _builtins.int channel_id: The ID of the alert channel.
+        """
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "channel_id", channel_id)
 
     @_builtins.property
     @pulumi.getter
     def activated(self) -> _builtins.bool:
+        """
+        Whether an alert should be sent to this channel.
+        """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="channelId")
     def channel_id(self) -> _builtins.int:
+        """
+        The ID of the alert channel.
+        """
         return pulumi.get(self, "channel_id")
 
 

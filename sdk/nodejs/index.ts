@@ -20,6 +20,11 @@ export type CheckGroup = import("./checkGroup").CheckGroup;
 export const CheckGroup: typeof import("./checkGroup").CheckGroup = null as any;
 utilities.lazyLoad(exports, ["CheckGroup"], () => require("./checkGroup"));
 
+export { CheckGroupV2Args, CheckGroupV2State } from "./checkGroupV2";
+export type CheckGroupV2 = import("./checkGroupV2").CheckGroupV2;
+export const CheckGroupV2: typeof import("./checkGroupV2").CheckGroupV2 = null as any;
+utilities.lazyLoad(exports, ["CheckGroupV2"], () => require("./checkGroupV2"));
+
 export { ClientCertificateArgs, ClientCertificateState } from "./clientCertificate";
 export type ClientCertificate = import("./clientCertificate").ClientCertificate;
 export const ClientCertificate: typeof import("./clientCertificate").ClientCertificate = null as any;
@@ -143,6 +148,8 @@ const _module = {
                 return new Check(name, <any>undefined, { urn })
             case "checkly:index/checkGroup:CheckGroup":
                 return new CheckGroup(name, <any>undefined, { urn })
+            case "checkly:index/checkGroupV2:CheckGroupV2":
+                return new CheckGroupV2(name, <any>undefined, { urn })
             case "checkly:index/clientCertificate:ClientCertificate":
                 return new ClientCertificate(name, <any>undefined, { urn })
             case "checkly:index/dashboard:Dashboard":
@@ -189,6 +196,7 @@ const _module = {
 pulumi.runtime.registerResourceModule("checkly", "index/alertChannel", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/check", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/checkGroupV2", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/clientCertificate", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/dashboard", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/dnsMonitor", _module)

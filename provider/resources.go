@@ -199,6 +199,28 @@ func Provider() tfbridge.ProviderInfo {
 					},
 				},
 			},
+			"checkly_check_group_v2": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CheckGroupV2"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"api_check_defaults": {
+						Elem: &tfbridge.SchemaInfo{
+							Fields: map[string]*tfbridge.SchemaInfo{
+								"url": {
+									Default: &tfbridge.DefaultInfo{
+										Value: "",
+									},
+								},
+								"headers": {
+									Transform: handleFaultySliceMapDefault,
+								},
+								"query_parameters": {
+									Transform: handleFaultySliceMapDefault,
+								},
+							},
+						},
+					},
+				},
+			},
 			"checkly_dashboard": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Dashboard"),
 			},

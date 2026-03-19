@@ -48,6 +48,9 @@ namespace Pulumi.Checkly
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.HeartbeatMonitorAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
@@ -145,6 +148,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.HeartbeatMonitorAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// </summary>
         public InputList<Inputs.HeartbeatMonitorAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.HeartbeatMonitorAlertChannelSubscriptionArgs>());
@@ -212,6 +219,10 @@ namespace Pulumi.Checkly
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.HeartbeatMonitorAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
+
+        /// <summary>
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// </summary>
         public InputList<Inputs.HeartbeatMonitorAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
             get => _alertChannelSubscriptions ?? (_alertChannelSubscriptions = new InputList<Inputs.HeartbeatMonitorAlertChannelSubscriptionGetArgs>());

@@ -18,7 +18,7 @@ type Check struct {
 
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings CheckAlertSettingsOutput `pulumi:"alertSettings"`
@@ -129,7 +129,7 @@ func GetCheck(ctx *pulumi.Context,
 type checkState struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []CheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
@@ -202,7 +202,7 @@ type checkState struct {
 type CheckState struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings CheckAlertSettingsPtrInput
@@ -279,7 +279,7 @@ func (CheckState) ElementType() reflect.Type {
 type checkArgs struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []CheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
@@ -353,7 +353,7 @@ type checkArgs struct {
 type CheckArgs struct {
 	// Determines if the check is running or not. Possible values `true`, and `false`.
 	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings CheckAlertSettingsPtrInput
@@ -515,7 +515,7 @@ func (o CheckOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Check) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 func (o CheckOutput) AlertChannelSubscriptions() CheckAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *Check) CheckAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(CheckAlertChannelSubscriptionArrayOutput)
 }
