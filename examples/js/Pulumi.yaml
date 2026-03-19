@@ -1,3 +1,0 @@
-name: checkly-pulumi-tests
-runtime: nodejs
-description: A minimal JavaScript Pulumi program
