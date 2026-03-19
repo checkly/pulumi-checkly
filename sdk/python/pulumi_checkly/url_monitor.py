@@ -46,7 +46,7 @@ class UrlMonitorArgs:
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input['UrlMonitorRequestArgs'] request: The parameters of the HTTP request.
-        :param pulumi.Input[Sequence[pulumi.Input['UrlMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input['UrlMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['UrlMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).
         :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -142,7 +142,7 @@ class UrlMonitorArgs:
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['UrlMonitorAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -369,7 +369,7 @@ class _UrlMonitorState:
         """
         Input properties used for looking up and filtering UrlMonitor resources.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input['UrlMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input['UrlMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['UrlMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -446,7 +446,7 @@ class _UrlMonitorState:
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['UrlMonitorAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -726,7 +726,7 @@ class UrlMonitor(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['UrlMonitorAlertChannelSubscriptionArgs', 'UrlMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['UrlMonitorAlertChannelSubscriptionArgs', 'UrlMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['UrlMonitorAlertSettingsArgs', 'UrlMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -885,7 +885,7 @@ class UrlMonitor(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['UrlMonitorAlertChannelSubscriptionArgs', 'UrlMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['UrlMonitorAlertChannelSubscriptionArgs', 'UrlMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['UrlMonitorAlertSettingsArgs', 'UrlMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -943,7 +943,7 @@ class UrlMonitor(pulumi.CustomResource):
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> pulumi.Output[Optional[Sequence['outputs.UrlMonitorAlertChannelSubscription']]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 

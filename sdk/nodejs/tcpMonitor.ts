@@ -112,7 +112,7 @@ export class TcpMonitor extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.TcpMonitorAlertChannelSubscription[] | undefined>;
     /**
@@ -273,7 +273,7 @@ export interface TcpMonitorState {
      */
     activated?: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertChannelSubscription>[]>;
     /**
@@ -363,7 +363,7 @@ export interface TcpMonitorArgs {
      */
     activated: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you in case something goes wrong with it.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.TcpMonitorAlertChannelSubscription>[]>;
     /**

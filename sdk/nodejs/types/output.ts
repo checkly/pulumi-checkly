@@ -78,7 +78,13 @@ export interface AlertChannelWebhook {
 }
 
 export interface CheckAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
     activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
     channelId: number;
 }
 
@@ -176,7 +182,13 @@ export interface CheckEnvironmentVariable {
 }
 
 export interface CheckGroupAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
     activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
     channelId: number;
 }
 
@@ -343,6 +355,267 @@ export interface CheckGroupRetryStrategyOnlyOn {
      * When `true`, retry only if the cause of the failure is a network error. (Default `false`).
      */
     networkError?: boolean;
+}
+
+export interface CheckGroupV2ApiCheckDefaults {
+    assertions?: outputs.CheckGroupV2ApiCheckDefaultsAssertion[];
+    basicAuth: outputs.CheckGroupV2ApiCheckDefaultsBasicAuth;
+    headers: {[key: string]: string};
+    queryParameters: {[key: string]: string};
+    /**
+     * The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+     */
+    url: string;
+}
+/**
+ * checkGroupV2ApiCheckDefaultsProvideDefaults sets the appropriate defaults for CheckGroupV2ApiCheckDefaults
+ */
+export function checkGroupV2ApiCheckDefaultsProvideDefaults(val: CheckGroupV2ApiCheckDefaults): CheckGroupV2ApiCheckDefaults {
+    return {
+        ...val,
+        url: (val.url) ?? "",
+    };
+}
+
+export interface CheckGroupV2ApiCheckDefaultsAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+     */
+    comparison: string;
+    property?: string;
+    /**
+     * The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+     */
+    source: string;
+    target: string;
+}
+
+export interface CheckGroupV2ApiCheckDefaultsBasicAuth {
+    password: string;
+    username: string;
+}
+
+export interface CheckGroupV2DefaultRuntime {
+    /**
+     * The runtime ID.
+     */
+    runtimeId: string;
+}
+
+export interface CheckGroupV2EnforceAlertSettings {
+    /**
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+     */
+    alertChannelSubscriptions?: outputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscription[];
+    /**
+     * Determines the alert escalation policy for the check.
+     */
+    alertSettings: outputs.CheckGroupV2EnforceAlertSettingsAlertSettings;
+    /**
+     * Determines whether the enforced alert settings should be active.
+     */
+    enabled: boolean;
+    /**
+     * Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+     */
+    useGlobalAlertSettings?: boolean;
+}
+
+export interface CheckGroupV2EnforceAlertSettingsAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: number;
+}
+
+export interface CheckGroupV2EnforceAlertSettingsAlertSettings {
+    /**
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+     */
+    escalationType?: string;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds: outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold[];
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders: outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminder[];
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations: outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation[];
+    /**
+     * @deprecated This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
+     */
+    sslCertificates?: outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate[];
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations: outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation[];
+}
+
+export interface CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+     */
+    enabled?: boolean;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: number;
+}
+
+export interface CheckGroupV2EnforceAlertSettingsAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: number;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: number;
+}
+
+export interface CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation {
+    /**
+     * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: number;
+}
+
+export interface CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate {
+    /**
+     * No longer available.
+     */
+    alertThreshold?: number;
+    /**
+     * No longer available.
+     */
+    enabled?: boolean;
+}
+
+export interface CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation {
+    /**
+     * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: number;
+}
+
+export interface CheckGroupV2EnforceLocations {
+    /**
+     * Determines whether the enforced locations should be active.
+     */
+    enabled: boolean;
+    /**
+     * An array of one or more data center locations where to run the checks.
+     */
+    locations?: string[];
+    /**
+     * An array of one or more private locations slugs.
+     */
+    privateLocations?: string[];
+}
+
+export interface CheckGroupV2EnforceRetryStrategy {
+    /**
+     * Determines whether the enforced retry strategy should be active.
+     */
+    enabled: boolean;
+    /**
+     * A strategy for retrying failed check/monitor runs.
+     */
+    retryStrategy: outputs.CheckGroupV2EnforceRetryStrategyRetryStrategy;
+}
+
+export interface CheckGroupV2EnforceRetryStrategyRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: number;
+    /**
+     * The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+     */
+    maxDurationSeconds?: number;
+    /**
+     * The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+     */
+    maxRetries?: number;
+    /**
+     * Apply the retry strategy only if the defined conditions match.
+     */
+    onlyOn?: outputs.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn;
+    /**
+     * Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+     */
+    sameRegion?: boolean;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+     */
+    type: string;
+}
+
+export interface CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn {
+    /**
+     * When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+     */
+    networkError?: boolean;
+}
+
+export interface CheckGroupV2EnforceSchedulingStrategy {
+    /**
+     * Determines whether the enforced scheduling strategy should be active.
+     */
+    enabled: boolean;
+    /**
+     * Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+     */
+    runParallel: boolean;
+}
+
+export interface CheckGroupV2EnvironmentVariable {
+    /**
+     * The name of the environment variable or secret.
+     */
+    key: string;
+    /**
+     * If true, the value is not shown by default, but it can be accessed. (Default `false`).
+     */
+    locked?: boolean;
+    /**
+     * If true, the value will never be visible. (Default `false`).
+     */
+    secret?: boolean;
+    /**
+     * The value of the environment variable or secret.
+     */
+    value: string;
+}
+
+export interface CheckGroupV2SetupScript {
+    /**
+     * A valid piece of Node.js code.
+     */
+    inlineScript?: string;
+    /**
+     * The ID of a code snippet. Code snippets are not available for new plans.
+     */
+    snippetId?: number;
+}
+
+export interface CheckGroupV2TeardownScript {
+    /**
+     * A valid piece of Node.js code.
+     */
+    inlineScript?: string;
+    /**
+     * The ID of a code snippet. Code snippets are not available for new plans.
+     */
+    snippetId?: number;
 }
 
 export interface CheckRequest {
@@ -626,7 +899,13 @@ export interface DnsMonitorTriggerIncident {
 }
 
 export interface HeartbeatCheckAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
     activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
     channelId: number;
 }
 
@@ -751,7 +1030,13 @@ export interface HeartbeatCheckTriggerIncident {
 }
 
 export interface HeartbeatMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
     activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
     channelId: number;
 }
 
@@ -1239,7 +1524,13 @@ export interface StatusPageCardServiceAttachment {
 }
 
 export interface TcpCheckAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
     activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
     channelId: number;
 }
 
@@ -1392,7 +1683,13 @@ export interface TcpCheckTriggerIncident {
 }
 
 export interface TcpMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
     activated: boolean;
+    /**
+     * The ID of the alert channel.
+     */
     channelId: number;
 }
 

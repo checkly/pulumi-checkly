@@ -66,7 +66,7 @@ namespace Pulumi.Checkly
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.DnsMonitorAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
@@ -224,7 +224,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.DnsMonitorAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.DnsMonitorAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
@@ -358,7 +358,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.DnsMonitorAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.DnsMonitorAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {

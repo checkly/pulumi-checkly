@@ -13,7 +13,13 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class TcpMonitorAlertChannelSubscription
     {
+        /// <summary>
+        /// Whether an alert should be sent to this channel.
+        /// </summary>
         public readonly bool Activated;
+        /// <summary>
+        /// The ID of the alert channel.
+        /// </summary>
         public readonly int ChannelId;
 
         [OutputConstructor]

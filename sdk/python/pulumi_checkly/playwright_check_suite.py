@@ -44,7 +44,7 @@ class PlaywrightCheckSuiteArgs:
         :param pulumi.Input['PlaywrightCheckSuiteBundleArgs'] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input['PlaywrightCheckSuiteRuntimeArgs'] runtime: Configure the runtime environment of the Playwright check.
-        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment.
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
@@ -141,7 +141,7 @@ class PlaywrightCheckSuiteArgs:
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -317,7 +317,7 @@ class _PlaywrightCheckSuiteState:
         """
         Input properties used for looking up and filtering PlaywrightCheckSuite resources.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input['PlaywrightCheckSuiteBundleArgs'] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment.
@@ -385,7 +385,7 @@ class _PlaywrightCheckSuiteState:
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -604,7 +604,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the execution environment.
@@ -731,7 +731,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the execution environment.
@@ -783,7 +783,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> pulumi.Output[Optional[Sequence['outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 

@@ -1206,8 +1206,10 @@ func (o AlertChannelWebhookPtrOutput) WebhookType() pulumi.StringPtrOutput {
 }
 
 type CheckAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
-	ChannelId int  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
 }
 
 // CheckAlertChannelSubscriptionInput is an input type that accepts CheckAlertChannelSubscriptionArgs and CheckAlertChannelSubscriptionOutput values.
@@ -1222,8 +1224,10 @@ type CheckAlertChannelSubscriptionInput interface {
 }
 
 type CheckAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
 	Activated pulumi.BoolInput `pulumi:"activated"`
-	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
 }
 
 func (CheckAlertChannelSubscriptionArgs) ElementType() reflect.Type {
@@ -1277,10 +1281,12 @@ func (o CheckAlertChannelSubscriptionOutput) ToCheckAlertChannelSubscriptionOutp
 	return o
 }
 
+// Whether an alert should be sent to this channel.
 func (o CheckAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v CheckAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// The ID of the alert channel.
 func (o CheckAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
 	return o.ApplyT(func(v CheckAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
 }
@@ -2176,8 +2182,10 @@ func (o CheckEnvironmentVariableArrayOutput) Index(i pulumi.IntInput) CheckEnvir
 }
 
 type CheckGroupAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
-	ChannelId int  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
 }
 
 // CheckGroupAlertChannelSubscriptionInput is an input type that accepts CheckGroupAlertChannelSubscriptionArgs and CheckGroupAlertChannelSubscriptionOutput values.
@@ -2192,8 +2200,10 @@ type CheckGroupAlertChannelSubscriptionInput interface {
 }
 
 type CheckGroupAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
 	Activated pulumi.BoolInput `pulumi:"activated"`
-	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
 }
 
 func (CheckGroupAlertChannelSubscriptionArgs) ElementType() reflect.Type {
@@ -2247,10 +2257,12 @@ func (o CheckGroupAlertChannelSubscriptionOutput) ToCheckGroupAlertChannelSubscr
 	return o
 }
 
+// Whether an alert should be sent to this channel.
 func (o CheckGroupAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v CheckGroupAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// The ID of the alert channel.
 func (o CheckGroupAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
 	return o.ApplyT(func(v CheckGroupAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
 }
@@ -4003,6 +4015,2992 @@ func (o CheckGroupRetryStrategyOnlyOnPtrOutput) NetworkError() pulumi.BoolPtrOut
 		}
 		return v.NetworkError
 	}).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupV2ApiCheckDefaults struct {
+	Assertions      []CheckGroupV2ApiCheckDefaultsAssertion `pulumi:"assertions"`
+	BasicAuth       *CheckGroupV2ApiCheckDefaultsBasicAuth  `pulumi:"basicAuth"`
+	Headers         map[string]string                       `pulumi:"headers"`
+	QueryParameters map[string]string                       `pulumi:"queryParameters"`
+	// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+	Url *string `pulumi:"url"`
+}
+
+// Defaults sets the appropriate defaults for CheckGroupV2ApiCheckDefaults
+func (val *CheckGroupV2ApiCheckDefaults) Defaults() *CheckGroupV2ApiCheckDefaults {
+	if val == nil {
+		return nil
+	}
+	tmp := *val
+	if tmp.Url == nil {
+		url_ := ""
+		tmp.Url = &url_
+	}
+	return &tmp
+}
+
+// CheckGroupV2ApiCheckDefaultsInput is an input type that accepts CheckGroupV2ApiCheckDefaultsArgs and CheckGroupV2ApiCheckDefaultsOutput values.
+// You can construct a concrete instance of `CheckGroupV2ApiCheckDefaultsInput` via:
+//
+//	CheckGroupV2ApiCheckDefaultsArgs{...}
+type CheckGroupV2ApiCheckDefaultsInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2ApiCheckDefaultsOutput() CheckGroupV2ApiCheckDefaultsOutput
+	ToCheckGroupV2ApiCheckDefaultsOutputWithContext(context.Context) CheckGroupV2ApiCheckDefaultsOutput
+}
+
+type CheckGroupV2ApiCheckDefaultsArgs struct {
+	Assertions      CheckGroupV2ApiCheckDefaultsAssertionArrayInput `pulumi:"assertions"`
+	BasicAuth       CheckGroupV2ApiCheckDefaultsBasicAuthPtrInput   `pulumi:"basicAuth"`
+	Headers         pulumi.StringMapInput                           `pulumi:"headers"`
+	QueryParameters pulumi.StringMapInput                           `pulumi:"queryParameters"`
+	// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+	Url pulumi.StringPtrInput `pulumi:"url"`
+}
+
+// Defaults sets the appropriate defaults for CheckGroupV2ApiCheckDefaultsArgs
+func (val *CheckGroupV2ApiCheckDefaultsArgs) Defaults() *CheckGroupV2ApiCheckDefaultsArgs {
+	if val == nil {
+		return nil
+	}
+	tmp := *val
+	if tmp.Url == nil {
+		tmp.Url = pulumi.StringPtr("")
+	}
+	return &tmp
+}
+func (CheckGroupV2ApiCheckDefaultsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2ApiCheckDefaults)(nil)).Elem()
+}
+
+func (i CheckGroupV2ApiCheckDefaultsArgs) ToCheckGroupV2ApiCheckDefaultsOutput() CheckGroupV2ApiCheckDefaultsOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2ApiCheckDefaultsArgs) ToCheckGroupV2ApiCheckDefaultsOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsOutput)
+}
+
+func (i CheckGroupV2ApiCheckDefaultsArgs) ToCheckGroupV2ApiCheckDefaultsPtrOutput() CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2ApiCheckDefaultsArgs) ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsOutput).ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2ApiCheckDefaultsPtrInput is an input type that accepts CheckGroupV2ApiCheckDefaultsArgs, CheckGroupV2ApiCheckDefaultsPtr and CheckGroupV2ApiCheckDefaultsPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2ApiCheckDefaultsPtrInput` via:
+//
+//	        CheckGroupV2ApiCheckDefaultsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2ApiCheckDefaultsPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2ApiCheckDefaultsPtrOutput() CheckGroupV2ApiCheckDefaultsPtrOutput
+	ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(context.Context) CheckGroupV2ApiCheckDefaultsPtrOutput
+}
+
+type checkGroupV2ApiCheckDefaultsPtrType CheckGroupV2ApiCheckDefaultsArgs
+
+func CheckGroupV2ApiCheckDefaultsPtr(v *CheckGroupV2ApiCheckDefaultsArgs) CheckGroupV2ApiCheckDefaultsPtrInput {
+	return (*checkGroupV2ApiCheckDefaultsPtrType)(v)
+}
+
+func (*checkGroupV2ApiCheckDefaultsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2ApiCheckDefaults)(nil)).Elem()
+}
+
+func (i *checkGroupV2ApiCheckDefaultsPtrType) ToCheckGroupV2ApiCheckDefaultsPtrOutput() CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2ApiCheckDefaultsPtrType) ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsPtrOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2ApiCheckDefaultsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2ApiCheckDefaults)(nil)).Elem()
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) ToCheckGroupV2ApiCheckDefaultsOutput() CheckGroupV2ApiCheckDefaultsOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) ToCheckGroupV2ApiCheckDefaultsOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) ToCheckGroupV2ApiCheckDefaultsPtrOutput() CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return o.ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2ApiCheckDefaults) *CheckGroupV2ApiCheckDefaults {
+		return &v
+	}).(CheckGroupV2ApiCheckDefaultsPtrOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) Assertions() CheckGroupV2ApiCheckDefaultsAssertionArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) []CheckGroupV2ApiCheckDefaultsAssertion { return v.Assertions }).(CheckGroupV2ApiCheckDefaultsAssertionArrayOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) BasicAuth() CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) *CheckGroupV2ApiCheckDefaultsBasicAuth { return v.BasicAuth }).(CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) Headers() pulumi.StringMapOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsOutput) QueryParameters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) map[string]string { return v.QueryParameters }).(pulumi.StringMapOutput)
+}
+
+// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+func (o CheckGroupV2ApiCheckDefaultsOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2ApiCheckDefaultsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2ApiCheckDefaults)(nil)).Elem()
+}
+
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) ToCheckGroupV2ApiCheckDefaultsPtrOutput() CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) ToCheckGroupV2ApiCheckDefaultsPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) Elem() CheckGroupV2ApiCheckDefaultsOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) CheckGroupV2ApiCheckDefaults {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2ApiCheckDefaults
+		return ret
+	}).(CheckGroupV2ApiCheckDefaultsOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) Assertions() CheckGroupV2ApiCheckDefaultsAssertionArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) []CheckGroupV2ApiCheckDefaultsAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(CheckGroupV2ApiCheckDefaultsAssertionArrayOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) BasicAuth() CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) *CheckGroupV2ApiCheckDefaultsBasicAuth {
+		if v == nil {
+			return nil
+		}
+		return v.BasicAuth
+	}).(CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) Headers() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(pulumi.StringMapOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) QueryParameters() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.QueryParameters
+	}).(pulumi.StringMapOutput)
+}
+
+// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
+func (o CheckGroupV2ApiCheckDefaultsPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison string  `pulumi:"comparison"`
+	Property   *string `pulumi:"property"`
+	// The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source string `pulumi:"source"`
+	Target string `pulumi:"target"`
+}
+
+// CheckGroupV2ApiCheckDefaultsAssertionInput is an input type that accepts CheckGroupV2ApiCheckDefaultsAssertionArgs and CheckGroupV2ApiCheckDefaultsAssertionOutput values.
+// You can construct a concrete instance of `CheckGroupV2ApiCheckDefaultsAssertionInput` via:
+//
+//	CheckGroupV2ApiCheckDefaultsAssertionArgs{...}
+type CheckGroupV2ApiCheckDefaultsAssertionInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2ApiCheckDefaultsAssertionOutput() CheckGroupV2ApiCheckDefaultsAssertionOutput
+	ToCheckGroupV2ApiCheckDefaultsAssertionOutputWithContext(context.Context) CheckGroupV2ApiCheckDefaultsAssertionOutput
+}
+
+type CheckGroupV2ApiCheckDefaultsAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+	Comparison pulumi.StringInput    `pulumi:"comparison"`
+	Property   pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+	Source pulumi.StringInput `pulumi:"source"`
+	Target pulumi.StringInput `pulumi:"target"`
+}
+
+func (CheckGroupV2ApiCheckDefaultsAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (i CheckGroupV2ApiCheckDefaultsAssertionArgs) ToCheckGroupV2ApiCheckDefaultsAssertionOutput() CheckGroupV2ApiCheckDefaultsAssertionOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsAssertionOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2ApiCheckDefaultsAssertionArgs) ToCheckGroupV2ApiCheckDefaultsAssertionOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsAssertionOutput)
+}
+
+// CheckGroupV2ApiCheckDefaultsAssertionArrayInput is an input type that accepts CheckGroupV2ApiCheckDefaultsAssertionArray and CheckGroupV2ApiCheckDefaultsAssertionArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2ApiCheckDefaultsAssertionArrayInput` via:
+//
+//	CheckGroupV2ApiCheckDefaultsAssertionArray{ CheckGroupV2ApiCheckDefaultsAssertionArgs{...} }
+type CheckGroupV2ApiCheckDefaultsAssertionArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2ApiCheckDefaultsAssertionArrayOutput() CheckGroupV2ApiCheckDefaultsAssertionArrayOutput
+	ToCheckGroupV2ApiCheckDefaultsAssertionArrayOutputWithContext(context.Context) CheckGroupV2ApiCheckDefaultsAssertionArrayOutput
+}
+
+type CheckGroupV2ApiCheckDefaultsAssertionArray []CheckGroupV2ApiCheckDefaultsAssertionInput
+
+func (CheckGroupV2ApiCheckDefaultsAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2ApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (i CheckGroupV2ApiCheckDefaultsAssertionArray) ToCheckGroupV2ApiCheckDefaultsAssertionArrayOutput() CheckGroupV2ApiCheckDefaultsAssertionArrayOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2ApiCheckDefaultsAssertionArray) ToCheckGroupV2ApiCheckDefaultsAssertionArrayOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsAssertionArrayOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsAssertionOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2ApiCheckDefaultsAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (o CheckGroupV2ApiCheckDefaultsAssertionOutput) ToCheckGroupV2ApiCheckDefaultsAssertionOutput() CheckGroupV2ApiCheckDefaultsAssertionOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsAssertionOutput) ToCheckGroupV2ApiCheckDefaultsAssertionOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+func (o CheckGroupV2ApiCheckDefaultsAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaultsAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaultsAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+func (o CheckGroupV2ApiCheckDefaultsAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaultsAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsAssertionOutput) Target() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaultsAssertion) string { return v.Target }).(pulumi.StringOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2ApiCheckDefaultsAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2ApiCheckDefaultsAssertion)(nil)).Elem()
+}
+
+func (o CheckGroupV2ApiCheckDefaultsAssertionArrayOutput) ToCheckGroupV2ApiCheckDefaultsAssertionArrayOutput() CheckGroupV2ApiCheckDefaultsAssertionArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsAssertionArrayOutput) ToCheckGroupV2ApiCheckDefaultsAssertionArrayOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsAssertionArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsAssertionArrayOutput) Index(i pulumi.IntInput) CheckGroupV2ApiCheckDefaultsAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2ApiCheckDefaultsAssertion {
+		return vs[0].([]CheckGroupV2ApiCheckDefaultsAssertion)[vs[1].(int)]
+	}).(CheckGroupV2ApiCheckDefaultsAssertionOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsBasicAuth struct {
+	Password string `pulumi:"password"`
+	Username string `pulumi:"username"`
+}
+
+// CheckGroupV2ApiCheckDefaultsBasicAuthInput is an input type that accepts CheckGroupV2ApiCheckDefaultsBasicAuthArgs and CheckGroupV2ApiCheckDefaultsBasicAuthOutput values.
+// You can construct a concrete instance of `CheckGroupV2ApiCheckDefaultsBasicAuthInput` via:
+//
+//	CheckGroupV2ApiCheckDefaultsBasicAuthArgs{...}
+type CheckGroupV2ApiCheckDefaultsBasicAuthInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2ApiCheckDefaultsBasicAuthOutput() CheckGroupV2ApiCheckDefaultsBasicAuthOutput
+	ToCheckGroupV2ApiCheckDefaultsBasicAuthOutputWithContext(context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthOutput
+}
+
+type CheckGroupV2ApiCheckDefaultsBasicAuthArgs struct {
+	Password pulumi.StringInput `pulumi:"password"`
+	Username pulumi.StringInput `pulumi:"username"`
+}
+
+func (CheckGroupV2ApiCheckDefaultsBasicAuthArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (i CheckGroupV2ApiCheckDefaultsBasicAuthArgs) ToCheckGroupV2ApiCheckDefaultsBasicAuthOutput() CheckGroupV2ApiCheckDefaultsBasicAuthOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsBasicAuthOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2ApiCheckDefaultsBasicAuthArgs) ToCheckGroupV2ApiCheckDefaultsBasicAuthOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsBasicAuthOutput)
+}
+
+func (i CheckGroupV2ApiCheckDefaultsBasicAuthArgs) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput() CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2ApiCheckDefaultsBasicAuthArgs) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsBasicAuthOutput).ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2ApiCheckDefaultsBasicAuthPtrInput is an input type that accepts CheckGroupV2ApiCheckDefaultsBasicAuthArgs, CheckGroupV2ApiCheckDefaultsBasicAuthPtr and CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2ApiCheckDefaultsBasicAuthPtrInput` via:
+//
+//	        CheckGroupV2ApiCheckDefaultsBasicAuthArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2ApiCheckDefaultsBasicAuthPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput() CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput
+	ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput
+}
+
+type checkGroupV2ApiCheckDefaultsBasicAuthPtrType CheckGroupV2ApiCheckDefaultsBasicAuthArgs
+
+func CheckGroupV2ApiCheckDefaultsBasicAuthPtr(v *CheckGroupV2ApiCheckDefaultsBasicAuthArgs) CheckGroupV2ApiCheckDefaultsBasicAuthPtrInput {
+	return (*checkGroupV2ApiCheckDefaultsBasicAuthPtrType)(v)
+}
+
+func (*checkGroupV2ApiCheckDefaultsBasicAuthPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2ApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (i *checkGroupV2ApiCheckDefaultsBasicAuthPtrType) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput() CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return i.ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2ApiCheckDefaultsBasicAuthPtrType) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsBasicAuthOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2ApiCheckDefaultsBasicAuthOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthOutput) ToCheckGroupV2ApiCheckDefaultsBasicAuthOutput() CheckGroupV2ApiCheckDefaultsBasicAuthOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthOutput) ToCheckGroupV2ApiCheckDefaultsBasicAuthOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthOutput) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput() CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthOutput) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2ApiCheckDefaultsBasicAuth) *CheckGroupV2ApiCheckDefaultsBasicAuth {
+		return &v
+	}).(CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthOutput) Password() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaultsBasicAuth) string { return v.Password }).(pulumi.StringOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthOutput) Username() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaultsBasicAuth) string { return v.Username }).(pulumi.StringOutput)
+}
+
+type CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2ApiCheckDefaultsBasicAuth)(nil)).Elem()
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput() CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput) ToCheckGroupV2ApiCheckDefaultsBasicAuthPtrOutputWithContext(ctx context.Context) CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput) Elem() CheckGroupV2ApiCheckDefaultsBasicAuthOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaultsBasicAuth) CheckGroupV2ApiCheckDefaultsBasicAuth {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2ApiCheckDefaultsBasicAuth
+		return ret
+	}).(CheckGroupV2ApiCheckDefaultsBasicAuthOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaultsBasicAuth) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Password
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaultsBasicAuth) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Username
+	}).(pulumi.StringPtrOutput)
+}
+
+type CheckGroupV2DefaultRuntime struct {
+	// The runtime ID.
+	RuntimeId string `pulumi:"runtimeId"`
+}
+
+// CheckGroupV2DefaultRuntimeInput is an input type that accepts CheckGroupV2DefaultRuntimeArgs and CheckGroupV2DefaultRuntimeOutput values.
+// You can construct a concrete instance of `CheckGroupV2DefaultRuntimeInput` via:
+//
+//	CheckGroupV2DefaultRuntimeArgs{...}
+type CheckGroupV2DefaultRuntimeInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2DefaultRuntimeOutput() CheckGroupV2DefaultRuntimeOutput
+	ToCheckGroupV2DefaultRuntimeOutputWithContext(context.Context) CheckGroupV2DefaultRuntimeOutput
+}
+
+type CheckGroupV2DefaultRuntimeArgs struct {
+	// The runtime ID.
+	RuntimeId pulumi.StringInput `pulumi:"runtimeId"`
+}
+
+func (CheckGroupV2DefaultRuntimeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2DefaultRuntime)(nil)).Elem()
+}
+
+func (i CheckGroupV2DefaultRuntimeArgs) ToCheckGroupV2DefaultRuntimeOutput() CheckGroupV2DefaultRuntimeOutput {
+	return i.ToCheckGroupV2DefaultRuntimeOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2DefaultRuntimeArgs) ToCheckGroupV2DefaultRuntimeOutputWithContext(ctx context.Context) CheckGroupV2DefaultRuntimeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2DefaultRuntimeOutput)
+}
+
+func (i CheckGroupV2DefaultRuntimeArgs) ToCheckGroupV2DefaultRuntimePtrOutput() CheckGroupV2DefaultRuntimePtrOutput {
+	return i.ToCheckGroupV2DefaultRuntimePtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2DefaultRuntimeArgs) ToCheckGroupV2DefaultRuntimePtrOutputWithContext(ctx context.Context) CheckGroupV2DefaultRuntimePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2DefaultRuntimeOutput).ToCheckGroupV2DefaultRuntimePtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2DefaultRuntimePtrInput is an input type that accepts CheckGroupV2DefaultRuntimeArgs, CheckGroupV2DefaultRuntimePtr and CheckGroupV2DefaultRuntimePtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2DefaultRuntimePtrInput` via:
+//
+//	        CheckGroupV2DefaultRuntimeArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2DefaultRuntimePtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2DefaultRuntimePtrOutput() CheckGroupV2DefaultRuntimePtrOutput
+	ToCheckGroupV2DefaultRuntimePtrOutputWithContext(context.Context) CheckGroupV2DefaultRuntimePtrOutput
+}
+
+type checkGroupV2DefaultRuntimePtrType CheckGroupV2DefaultRuntimeArgs
+
+func CheckGroupV2DefaultRuntimePtr(v *CheckGroupV2DefaultRuntimeArgs) CheckGroupV2DefaultRuntimePtrInput {
+	return (*checkGroupV2DefaultRuntimePtrType)(v)
+}
+
+func (*checkGroupV2DefaultRuntimePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2DefaultRuntime)(nil)).Elem()
+}
+
+func (i *checkGroupV2DefaultRuntimePtrType) ToCheckGroupV2DefaultRuntimePtrOutput() CheckGroupV2DefaultRuntimePtrOutput {
+	return i.ToCheckGroupV2DefaultRuntimePtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2DefaultRuntimePtrType) ToCheckGroupV2DefaultRuntimePtrOutputWithContext(ctx context.Context) CheckGroupV2DefaultRuntimePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2DefaultRuntimePtrOutput)
+}
+
+type CheckGroupV2DefaultRuntimeOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2DefaultRuntimeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2DefaultRuntime)(nil)).Elem()
+}
+
+func (o CheckGroupV2DefaultRuntimeOutput) ToCheckGroupV2DefaultRuntimeOutput() CheckGroupV2DefaultRuntimeOutput {
+	return o
+}
+
+func (o CheckGroupV2DefaultRuntimeOutput) ToCheckGroupV2DefaultRuntimeOutputWithContext(ctx context.Context) CheckGroupV2DefaultRuntimeOutput {
+	return o
+}
+
+func (o CheckGroupV2DefaultRuntimeOutput) ToCheckGroupV2DefaultRuntimePtrOutput() CheckGroupV2DefaultRuntimePtrOutput {
+	return o.ToCheckGroupV2DefaultRuntimePtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2DefaultRuntimeOutput) ToCheckGroupV2DefaultRuntimePtrOutputWithContext(ctx context.Context) CheckGroupV2DefaultRuntimePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2DefaultRuntime) *CheckGroupV2DefaultRuntime {
+		return &v
+	}).(CheckGroupV2DefaultRuntimePtrOutput)
+}
+
+// The runtime ID.
+func (o CheckGroupV2DefaultRuntimeOutput) RuntimeId() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2DefaultRuntime) string { return v.RuntimeId }).(pulumi.StringOutput)
+}
+
+type CheckGroupV2DefaultRuntimePtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2DefaultRuntimePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2DefaultRuntime)(nil)).Elem()
+}
+
+func (o CheckGroupV2DefaultRuntimePtrOutput) ToCheckGroupV2DefaultRuntimePtrOutput() CheckGroupV2DefaultRuntimePtrOutput {
+	return o
+}
+
+func (o CheckGroupV2DefaultRuntimePtrOutput) ToCheckGroupV2DefaultRuntimePtrOutputWithContext(ctx context.Context) CheckGroupV2DefaultRuntimePtrOutput {
+	return o
+}
+
+func (o CheckGroupV2DefaultRuntimePtrOutput) Elem() CheckGroupV2DefaultRuntimeOutput {
+	return o.ApplyT(func(v *CheckGroupV2DefaultRuntime) CheckGroupV2DefaultRuntime {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2DefaultRuntime
+		return ret
+	}).(CheckGroupV2DefaultRuntimeOutput)
+}
+
+// The runtime ID.
+func (o CheckGroupV2DefaultRuntimePtrOutput) RuntimeId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2DefaultRuntime) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.RuntimeId
+	}).(pulumi.StringPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettings struct {
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	AlertChannelSubscriptions []CheckGroupV2EnforceAlertSettingsAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings *CheckGroupV2EnforceAlertSettingsAlertSettings `pulumi:"alertSettings"`
+	// Determines whether the enforced alert settings should be active.
+	Enabled bool `pulumi:"enabled"`
+	// Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
+}
+
+// CheckGroupV2EnforceAlertSettingsInput is an input type that accepts CheckGroupV2EnforceAlertSettingsArgs and CheckGroupV2EnforceAlertSettingsOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsArgs{...}
+type CheckGroupV2EnforceAlertSettingsInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsOutput() CheckGroupV2EnforceAlertSettingsOutput
+	ToCheckGroupV2EnforceAlertSettingsOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsArgs struct {
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	AlertChannelSubscriptions CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayInput `pulumi:"alertChannelSubscriptions"`
+	// Determines the alert escalation policy for the check.
+	AlertSettings CheckGroupV2EnforceAlertSettingsAlertSettingsPtrInput `pulumi:"alertSettings"`
+	// Determines whether the enforced alert settings should be active.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+	UseGlobalAlertSettings pulumi.BoolPtrInput `pulumi:"useGlobalAlertSettings"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettings)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsOutput() CheckGroupV2EnforceAlertSettingsOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsOutput)
+}
+
+func (i CheckGroupV2EnforceAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsOutput).ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2EnforceAlertSettingsPtrInput is an input type that accepts CheckGroupV2EnforceAlertSettingsArgs, CheckGroupV2EnforceAlertSettingsPtr and CheckGroupV2EnforceAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsPtrInput` via:
+//
+//	        CheckGroupV2EnforceAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2EnforceAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsPtrOutput
+	ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsPtrOutput
+}
+
+type checkGroupV2EnforceAlertSettingsPtrType CheckGroupV2EnforceAlertSettingsArgs
+
+func CheckGroupV2EnforceAlertSettingsPtr(v *CheckGroupV2EnforceAlertSettingsArgs) CheckGroupV2EnforceAlertSettingsPtrInput {
+	return (*checkGroupV2EnforceAlertSettingsPtrType)(v)
+}
+
+func (*checkGroupV2EnforceAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceAlertSettings)(nil)).Elem()
+}
+
+func (i *checkGroupV2EnforceAlertSettingsPtrType) ToCheckGroupV2EnforceAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2EnforceAlertSettingsPtrType) ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettings)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsOutput() CheckGroupV2EnforceAlertSettingsOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return o.ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2EnforceAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2EnforceAlertSettings) *CheckGroupV2EnforceAlertSettings {
+		return &v
+	}).(CheckGroupV2EnforceAlertSettingsPtrOutput)
+}
+
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+func (o CheckGroupV2EnforceAlertSettingsOutput) AlertChannelSubscriptions() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertChannelSubscription {
+		return v.AlertChannelSubscriptions
+	}).(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput)
+}
+
+// Determines the alert escalation policy for the check.
+func (o CheckGroupV2EnforceAlertSettingsOutput) AlertSettings() CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettings) *CheckGroupV2EnforceAlertSettingsAlertSettings {
+		return v.AlertSettings
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput)
+}
+
+// Determines whether the enforced alert settings should be active.
+func (o CheckGroupV2EnforceAlertSettingsOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettings) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+func (o CheckGroupV2EnforceAlertSettingsOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettings) *bool { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceAlertSettings)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsPtrOutput) ToCheckGroupV2EnforceAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsPtrOutput) ToCheckGroupV2EnforceAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsPtrOutput) Elem() CheckGroupV2EnforceAlertSettingsOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettings) CheckGroupV2EnforceAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2EnforceAlertSettings
+		return ret
+	}).(CheckGroupV2EnforceAlertSettingsOutput)
+}
+
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+func (o CheckGroupV2EnforceAlertSettingsPtrOutput) AlertChannelSubscriptions() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertChannelSubscription {
+		if v == nil {
+			return nil
+		}
+		return v.AlertChannelSubscriptions
+	}).(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput)
+}
+
+// Determines the alert escalation policy for the check.
+func (o CheckGroupV2EnforceAlertSettingsPtrOutput) AlertSettings() CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettings) *CheckGroupV2EnforceAlertSettingsAlertSettings {
+		if v == nil {
+			return nil
+		}
+		return v.AlertSettings
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput)
+}
+
+// Determines whether the enforced alert settings should be active.
+func (o CheckGroupV2EnforceAlertSettingsPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+func (o CheckGroupV2EnforceAlertSettingsPtrOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseGlobalAlertSettings
+	}).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
+	Activated bool `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs and CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{...}
+type CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput)
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray and CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray{ CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{...} }
+type CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray []CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionInput
+
+func (CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Whether an alert should be sent to this channel.
+func (o CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+// The ID of the alert channel.
+func (o CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput() CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2EnforceAlertSettingsAlertChannelSubscription {
+		return vs[0].([]CheckGroupV2EnforceAlertSettingsAlertChannelSubscription)[vs[1].(int)]
+	}).(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettings struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType *string `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds []CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders []CheckGroupV2EnforceAlertSettingsAlertSettingsReminder `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations []CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// Deprecated: This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
+	SslCertificates []CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate `pulumi:"sslCertificates"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations []CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsArgs and CheckGroupV2EnforceAlertSettingsAlertSettingsOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{...}
+type CheckGroupV2EnforceAlertSettingsAlertSettingsInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsArgs struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// Deprecated: This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
+	SslCertificates CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayInput `pulumi:"sslCertificates"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettings)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsOutput)
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsOutput).ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsPtrInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsArgs, CheckGroupV2EnforceAlertSettingsAlertSettingsPtr and CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsPtrInput` via:
+//
+//	        CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2EnforceAlertSettingsAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput
+}
+
+type checkGroupV2EnforceAlertSettingsAlertSettingsPtrType CheckGroupV2EnforceAlertSettingsAlertSettingsArgs
+
+func CheckGroupV2EnforceAlertSettingsAlertSettingsPtr(v *CheckGroupV2EnforceAlertSettingsAlertSettingsArgs) CheckGroupV2EnforceAlertSettingsAlertSettingsPtrInput {
+	return (*checkGroupV2EnforceAlertSettingsAlertSettingsPtrType)(v)
+}
+
+func (*checkGroupV2EnforceAlertSettingsAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceAlertSettingsAlertSettings)(nil)).Elem()
+}
+
+func (i *checkGroupV2EnforceAlertSettingsAlertSettingsPtrType) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2EnforceAlertSettingsAlertSettingsPtrType) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettings)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return o.ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2EnforceAlertSettingsAlertSettings) *CheckGroupV2EnforceAlertSettingsAlertSettings {
+		return &v
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) ParallelRunFailureThresholds() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) Reminders() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsReminder {
+		return v.Reminders
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) RunBasedEscalations() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Deprecated: This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) SslCertificates() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate {
+		return v.SslCertificates
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsOutput) TimeBasedEscalations() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceAlertSettingsAlertSettings)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) Elem() CheckGroupV2EnforceAlertSettingsAlertSettingsOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettingsAlertSettings) CheckGroupV2EnforceAlertSettingsAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2EnforceAlertSettingsAlertSettings
+		return ret
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettingsAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) ParallelRunFailureThresholds() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) Reminders() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) RunBasedEscalations() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Deprecated: This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) SslCertificates() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate {
+		if v == nil {
+			return nil
+		}
+		return v.SslCertificates
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput) TimeBasedEscalations() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceAlertSettingsAlertSettings) []CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs and CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs{...}
+type CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray and CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray{ CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs{...} }
+type CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray []CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdInput
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold) *bool {
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold) *int {
+		return v.Percentage
+	}).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsReminder struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount *int `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsReminderInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs and CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsReminderInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{...}
+type CheckGroupV2EnforceAlertSettingsAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput)
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray and CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{ CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{...} }
+type CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray []CheckGroupV2EnforceAlertSettingsAlertSettingsReminderInput
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput {
+	return o
+}
+
+// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2EnforceAlertSettingsAlertSettingsReminder {
+		return vs[0].([]CheckGroupV2EnforceAlertSettingsAlertSettingsReminder)[vs[1].(int)]
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation struct {
+	// Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs and CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{...}
+type CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs struct {
+	// Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput)
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray and CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray{ CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{...} }
+type CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray []CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationInput
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. (Default `1`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation) *int {
+		return v.FailedRunThreshold
+	}).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation {
+		return vs[0].([]CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate struct {
+	// No longer available.
+	AlertThreshold *int `pulumi:"alertThreshold"`
+	// No longer available.
+	Enabled *bool `pulumi:"enabled"`
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs and CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs{...}
+type CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs struct {
+	// No longer available.
+	AlertThreshold pulumi.IntPtrInput `pulumi:"alertThreshold"`
+	// No longer available.
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput)
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArray and CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArray{ CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs{...} }
+type CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArray []CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateInput
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput {
+	return o
+}
+
+// No longer available.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput) AlertThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate) *int { return v.AlertThreshold }).(pulumi.IntPtrOutput)
+}
+
+// No longer available.
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput) Index(i pulumi.IntInput) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate {
+		return vs[0].([]CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate)[vs[1].(int)]
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation struct {
+	// Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs and CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs{...}
+type CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs struct {
+	// Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput)
+}
+
+// CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray and CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray{ CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs{...} }
+type CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput
+	ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray []CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationInput
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation) *int {
+		return v.MinutesFailingThreshold
+	}).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput() CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput) ToCheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation {
+		return vs[0].([]CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput)
+}
+
+type CheckGroupV2EnforceLocations struct {
+	// Determines whether the enforced locations should be active.
+	Enabled bool `pulumi:"enabled"`
+	// An array of one or more data center locations where to run the checks.
+	Locations []string `pulumi:"locations"`
+	// An array of one or more private locations slugs.
+	PrivateLocations []string `pulumi:"privateLocations"`
+}
+
+// CheckGroupV2EnforceLocationsInput is an input type that accepts CheckGroupV2EnforceLocationsArgs and CheckGroupV2EnforceLocationsOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceLocationsInput` via:
+//
+//	CheckGroupV2EnforceLocationsArgs{...}
+type CheckGroupV2EnforceLocationsInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceLocationsOutput() CheckGroupV2EnforceLocationsOutput
+	ToCheckGroupV2EnforceLocationsOutputWithContext(context.Context) CheckGroupV2EnforceLocationsOutput
+}
+
+type CheckGroupV2EnforceLocationsArgs struct {
+	// Determines whether the enforced locations should be active.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// An array of one or more data center locations where to run the checks.
+	Locations pulumi.StringArrayInput `pulumi:"locations"`
+	// An array of one or more private locations slugs.
+	PrivateLocations pulumi.StringArrayInput `pulumi:"privateLocations"`
+}
+
+func (CheckGroupV2EnforceLocationsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceLocations)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceLocationsArgs) ToCheckGroupV2EnforceLocationsOutput() CheckGroupV2EnforceLocationsOutput {
+	return i.ToCheckGroupV2EnforceLocationsOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceLocationsArgs) ToCheckGroupV2EnforceLocationsOutputWithContext(ctx context.Context) CheckGroupV2EnforceLocationsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceLocationsOutput)
+}
+
+func (i CheckGroupV2EnforceLocationsArgs) ToCheckGroupV2EnforceLocationsPtrOutput() CheckGroupV2EnforceLocationsPtrOutput {
+	return i.ToCheckGroupV2EnforceLocationsPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceLocationsArgs) ToCheckGroupV2EnforceLocationsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceLocationsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceLocationsOutput).ToCheckGroupV2EnforceLocationsPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2EnforceLocationsPtrInput is an input type that accepts CheckGroupV2EnforceLocationsArgs, CheckGroupV2EnforceLocationsPtr and CheckGroupV2EnforceLocationsPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceLocationsPtrInput` via:
+//
+//	        CheckGroupV2EnforceLocationsArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2EnforceLocationsPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceLocationsPtrOutput() CheckGroupV2EnforceLocationsPtrOutput
+	ToCheckGroupV2EnforceLocationsPtrOutputWithContext(context.Context) CheckGroupV2EnforceLocationsPtrOutput
+}
+
+type checkGroupV2EnforceLocationsPtrType CheckGroupV2EnforceLocationsArgs
+
+func CheckGroupV2EnforceLocationsPtr(v *CheckGroupV2EnforceLocationsArgs) CheckGroupV2EnforceLocationsPtrInput {
+	return (*checkGroupV2EnforceLocationsPtrType)(v)
+}
+
+func (*checkGroupV2EnforceLocationsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceLocations)(nil)).Elem()
+}
+
+func (i *checkGroupV2EnforceLocationsPtrType) ToCheckGroupV2EnforceLocationsPtrOutput() CheckGroupV2EnforceLocationsPtrOutput {
+	return i.ToCheckGroupV2EnforceLocationsPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2EnforceLocationsPtrType) ToCheckGroupV2EnforceLocationsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceLocationsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceLocationsPtrOutput)
+}
+
+type CheckGroupV2EnforceLocationsOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceLocationsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceLocations)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceLocationsOutput) ToCheckGroupV2EnforceLocationsOutput() CheckGroupV2EnforceLocationsOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceLocationsOutput) ToCheckGroupV2EnforceLocationsOutputWithContext(ctx context.Context) CheckGroupV2EnforceLocationsOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceLocationsOutput) ToCheckGroupV2EnforceLocationsPtrOutput() CheckGroupV2EnforceLocationsPtrOutput {
+	return o.ToCheckGroupV2EnforceLocationsPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2EnforceLocationsOutput) ToCheckGroupV2EnforceLocationsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceLocationsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2EnforceLocations) *CheckGroupV2EnforceLocations {
+		return &v
+	}).(CheckGroupV2EnforceLocationsPtrOutput)
+}
+
+// Determines whether the enforced locations should be active.
+func (o CheckGroupV2EnforceLocationsOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceLocations) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// An array of one or more data center locations where to run the checks.
+func (o CheckGroupV2EnforceLocationsOutput) Locations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceLocations) []string { return v.Locations }).(pulumi.StringArrayOutput)
+}
+
+// An array of one or more private locations slugs.
+func (o CheckGroupV2EnforceLocationsOutput) PrivateLocations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceLocations) []string { return v.PrivateLocations }).(pulumi.StringArrayOutput)
+}
+
+type CheckGroupV2EnforceLocationsPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceLocationsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceLocations)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceLocationsPtrOutput) ToCheckGroupV2EnforceLocationsPtrOutput() CheckGroupV2EnforceLocationsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceLocationsPtrOutput) ToCheckGroupV2EnforceLocationsPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceLocationsPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceLocationsPtrOutput) Elem() CheckGroupV2EnforceLocationsOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceLocations) CheckGroupV2EnforceLocations {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2EnforceLocations
+		return ret
+	}).(CheckGroupV2EnforceLocationsOutput)
+}
+
+// Determines whether the enforced locations should be active.
+func (o CheckGroupV2EnforceLocationsPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceLocations) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// An array of one or more data center locations where to run the checks.
+func (o CheckGroupV2EnforceLocationsPtrOutput) Locations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceLocations) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Locations
+	}).(pulumi.StringArrayOutput)
+}
+
+// An array of one or more private locations slugs.
+func (o CheckGroupV2EnforceLocationsPtrOutput) PrivateLocations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceLocations) []string {
+		if v == nil {
+			return nil
+		}
+		return v.PrivateLocations
+	}).(pulumi.StringArrayOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategy struct {
+	// Determines whether the enforced retry strategy should be active.
+	Enabled bool `pulumi:"enabled"`
+	// A strategy for retrying failed check/monitor runs.
+	RetryStrategy CheckGroupV2EnforceRetryStrategyRetryStrategy `pulumi:"retryStrategy"`
+}
+
+// CheckGroupV2EnforceRetryStrategyInput is an input type that accepts CheckGroupV2EnforceRetryStrategyArgs and CheckGroupV2EnforceRetryStrategyOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceRetryStrategyInput` via:
+//
+//	CheckGroupV2EnforceRetryStrategyArgs{...}
+type CheckGroupV2EnforceRetryStrategyInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceRetryStrategyOutput() CheckGroupV2EnforceRetryStrategyOutput
+	ToCheckGroupV2EnforceRetryStrategyOutputWithContext(context.Context) CheckGroupV2EnforceRetryStrategyOutput
+}
+
+type CheckGroupV2EnforceRetryStrategyArgs struct {
+	// Determines whether the enforced retry strategy should be active.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// A strategy for retrying failed check/monitor runs.
+	RetryStrategy CheckGroupV2EnforceRetryStrategyRetryStrategyInput `pulumi:"retryStrategy"`
+}
+
+func (CheckGroupV2EnforceRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceRetryStrategy)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyOutput() CheckGroupV2EnforceRetryStrategyOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyOutput)
+}
+
+func (i CheckGroupV2EnforceRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyOutput).ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2EnforceRetryStrategyPtrInput is an input type that accepts CheckGroupV2EnforceRetryStrategyArgs, CheckGroupV2EnforceRetryStrategyPtr and CheckGroupV2EnforceRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceRetryStrategyPtrInput` via:
+//
+//	        CheckGroupV2EnforceRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2EnforceRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyPtrOutput
+	ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(context.Context) CheckGroupV2EnforceRetryStrategyPtrOutput
+}
+
+type checkGroupV2EnforceRetryStrategyPtrType CheckGroupV2EnforceRetryStrategyArgs
+
+func CheckGroupV2EnforceRetryStrategyPtr(v *CheckGroupV2EnforceRetryStrategyArgs) CheckGroupV2EnforceRetryStrategyPtrInput {
+	return (*checkGroupV2EnforceRetryStrategyPtrType)(v)
+}
+
+func (*checkGroupV2EnforceRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceRetryStrategy)(nil)).Elem()
+}
+
+func (i *checkGroupV2EnforceRetryStrategyPtrType) ToCheckGroupV2EnforceRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2EnforceRetryStrategyPtrType) ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyPtrOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceRetryStrategy)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyOutput() CheckGroupV2EnforceRetryStrategyOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return o.ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2EnforceRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2EnforceRetryStrategy) *CheckGroupV2EnforceRetryStrategy {
+		return &v
+	}).(CheckGroupV2EnforceRetryStrategyPtrOutput)
+}
+
+// Determines whether the enforced retry strategy should be active.
+func (o CheckGroupV2EnforceRetryStrategyOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategy) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// A strategy for retrying failed check/monitor runs.
+func (o CheckGroupV2EnforceRetryStrategyOutput) RetryStrategy() CheckGroupV2EnforceRetryStrategyRetryStrategyOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategy) CheckGroupV2EnforceRetryStrategyRetryStrategy {
+		return v.RetryStrategy
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceRetryStrategy)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceRetryStrategyPtrOutput) ToCheckGroupV2EnforceRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyPtrOutput) ToCheckGroupV2EnforceRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyPtrOutput) Elem() CheckGroupV2EnforceRetryStrategyOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategy) CheckGroupV2EnforceRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2EnforceRetryStrategy
+		return ret
+	}).(CheckGroupV2EnforceRetryStrategyOutput)
+}
+
+// Determines whether the enforced retry strategy should be active.
+func (o CheckGroupV2EnforceRetryStrategyPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// A strategy for retrying failed check/monitor runs.
+func (o CheckGroupV2EnforceRetryStrategyPtrOutput) RetryStrategy() CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategy) *CheckGroupV2EnforceRetryStrategyRetryStrategy {
+		if v == nil {
+			return nil
+		}
+		return &v.RetryStrategy
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn *CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type string `pulumi:"type"`
+}
+
+// CheckGroupV2EnforceRetryStrategyRetryStrategyInput is an input type that accepts CheckGroupV2EnforceRetryStrategyRetryStrategyArgs and CheckGroupV2EnforceRetryStrategyRetryStrategyOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceRetryStrategyRetryStrategyInput` via:
+//
+//	CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{...}
+type CheckGroupV2EnforceRetryStrategyRetryStrategyInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOutput
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyOutputWithContext(context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOutput
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrInput `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (CheckGroupV2EnforceRetryStrategyRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategy)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyRetryStrategyOutput)
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyRetryStrategyOutput).ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2EnforceRetryStrategyRetryStrategyPtrInput is an input type that accepts CheckGroupV2EnforceRetryStrategyRetryStrategyArgs, CheckGroupV2EnforceRetryStrategyRetryStrategyPtr and CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceRetryStrategyRetryStrategyPtrInput` via:
+//
+//	        CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2EnforceRetryStrategyRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput
+}
+
+type checkGroupV2EnforceRetryStrategyRetryStrategyPtrType CheckGroupV2EnforceRetryStrategyRetryStrategyArgs
+
+func CheckGroupV2EnforceRetryStrategyRetryStrategyPtr(v *CheckGroupV2EnforceRetryStrategyRetryStrategyArgs) CheckGroupV2EnforceRetryStrategyRetryStrategyPtrInput {
+	return (*checkGroupV2EnforceRetryStrategyRetryStrategyPtrType)(v)
+}
+
+func (*checkGroupV2EnforceRetryStrategyRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceRetryStrategyRetryStrategy)(nil)).Elem()
+}
+
+func (i *checkGroupV2EnforceRetryStrategyRetryStrategyPtrType) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2EnforceRetryStrategyRetryStrategyPtrType) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategy)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return o.ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2EnforceRetryStrategyRetryStrategy) *CheckGroupV2EnforceRetryStrategyRetryStrategy {
+		return &v
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategyRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategyRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategyRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) OnlyOn() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategyRetryStrategy) *CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn {
+		return v.OnlyOn
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategyRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategyRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceRetryStrategyRetryStrategy)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) Elem() CheckGroupV2EnforceRetryStrategyRetryStrategyOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategy) CheckGroupV2EnforceRetryStrategyRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2EnforceRetryStrategyRetryStrategy
+		return ret
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) OnlyOn() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategy) *CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyOn
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn struct {
+	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+	NetworkError *bool `pulumi:"networkError"`
+}
+
+// CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnInput is an input type that accepts CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs and CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnInput` via:
+//
+//	CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs{...}
+type CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutputWithContext(context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs struct {
+	// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+	NetworkError pulumi.BoolPtrInput `pulumi:"networkError"`
+}
+
+func (CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput)
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput).ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrInput is an input type that accepts CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs, CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtr and CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrInput` via:
+//
+//	        CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput
+	ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput
+}
+
+type checkGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrType CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs
+
+func CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtr(v *CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrInput {
+	return (*checkGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrType)(v)
+}
+
+func (*checkGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i *checkGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrType) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return i.ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrType) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return o.ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn) *CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn {
+		return &v
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput)
+}
+
+// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput) NetworkError() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn) *bool { return v.NetworkError }).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput) ToCheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput) Elem() CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn) CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn
+		return ret
+	}).(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput)
+}
+
+// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+func (o CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput) NetworkError() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.NetworkError
+	}).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupV2EnforceSchedulingStrategy struct {
+	// Determines whether the enforced scheduling strategy should be active.
+	Enabled bool `pulumi:"enabled"`
+	// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+	RunParallel bool `pulumi:"runParallel"`
+}
+
+// CheckGroupV2EnforceSchedulingStrategyInput is an input type that accepts CheckGroupV2EnforceSchedulingStrategyArgs and CheckGroupV2EnforceSchedulingStrategyOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceSchedulingStrategyInput` via:
+//
+//	CheckGroupV2EnforceSchedulingStrategyArgs{...}
+type CheckGroupV2EnforceSchedulingStrategyInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceSchedulingStrategyOutput() CheckGroupV2EnforceSchedulingStrategyOutput
+	ToCheckGroupV2EnforceSchedulingStrategyOutputWithContext(context.Context) CheckGroupV2EnforceSchedulingStrategyOutput
+}
+
+type CheckGroupV2EnforceSchedulingStrategyArgs struct {
+	// Determines whether the enforced scheduling strategy should be active.
+	Enabled pulumi.BoolInput `pulumi:"enabled"`
+	// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+	RunParallel pulumi.BoolInput `pulumi:"runParallel"`
+}
+
+func (CheckGroupV2EnforceSchedulingStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceSchedulingStrategy)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnforceSchedulingStrategyArgs) ToCheckGroupV2EnforceSchedulingStrategyOutput() CheckGroupV2EnforceSchedulingStrategyOutput {
+	return i.ToCheckGroupV2EnforceSchedulingStrategyOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceSchedulingStrategyArgs) ToCheckGroupV2EnforceSchedulingStrategyOutputWithContext(ctx context.Context) CheckGroupV2EnforceSchedulingStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceSchedulingStrategyOutput)
+}
+
+func (i CheckGroupV2EnforceSchedulingStrategyArgs) ToCheckGroupV2EnforceSchedulingStrategyPtrOutput() CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return i.ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnforceSchedulingStrategyArgs) ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceSchedulingStrategyOutput).ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2EnforceSchedulingStrategyPtrInput is an input type that accepts CheckGroupV2EnforceSchedulingStrategyArgs, CheckGroupV2EnforceSchedulingStrategyPtr and CheckGroupV2EnforceSchedulingStrategyPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnforceSchedulingStrategyPtrInput` via:
+//
+//	        CheckGroupV2EnforceSchedulingStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2EnforceSchedulingStrategyPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnforceSchedulingStrategyPtrOutput() CheckGroupV2EnforceSchedulingStrategyPtrOutput
+	ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(context.Context) CheckGroupV2EnforceSchedulingStrategyPtrOutput
+}
+
+type checkGroupV2EnforceSchedulingStrategyPtrType CheckGroupV2EnforceSchedulingStrategyArgs
+
+func CheckGroupV2EnforceSchedulingStrategyPtr(v *CheckGroupV2EnforceSchedulingStrategyArgs) CheckGroupV2EnforceSchedulingStrategyPtrInput {
+	return (*checkGroupV2EnforceSchedulingStrategyPtrType)(v)
+}
+
+func (*checkGroupV2EnforceSchedulingStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceSchedulingStrategy)(nil)).Elem()
+}
+
+func (i *checkGroupV2EnforceSchedulingStrategyPtrType) ToCheckGroupV2EnforceSchedulingStrategyPtrOutput() CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return i.ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2EnforceSchedulingStrategyPtrType) ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnforceSchedulingStrategyPtrOutput)
+}
+
+type CheckGroupV2EnforceSchedulingStrategyOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceSchedulingStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnforceSchedulingStrategy)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceSchedulingStrategyOutput) ToCheckGroupV2EnforceSchedulingStrategyOutput() CheckGroupV2EnforceSchedulingStrategyOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceSchedulingStrategyOutput) ToCheckGroupV2EnforceSchedulingStrategyOutputWithContext(ctx context.Context) CheckGroupV2EnforceSchedulingStrategyOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceSchedulingStrategyOutput) ToCheckGroupV2EnforceSchedulingStrategyPtrOutput() CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return o.ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2EnforceSchedulingStrategyOutput) ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2EnforceSchedulingStrategy) *CheckGroupV2EnforceSchedulingStrategy {
+		return &v
+	}).(CheckGroupV2EnforceSchedulingStrategyPtrOutput)
+}
+
+// Determines whether the enforced scheduling strategy should be active.
+func (o CheckGroupV2EnforceSchedulingStrategyOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceSchedulingStrategy) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+func (o CheckGroupV2EnforceSchedulingStrategyOutput) RunParallel() pulumi.BoolOutput {
+	return o.ApplyT(func(v CheckGroupV2EnforceSchedulingStrategy) bool { return v.RunParallel }).(pulumi.BoolOutput)
+}
+
+type CheckGroupV2EnforceSchedulingStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnforceSchedulingStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2EnforceSchedulingStrategy)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnforceSchedulingStrategyPtrOutput) ToCheckGroupV2EnforceSchedulingStrategyPtrOutput() CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceSchedulingStrategyPtrOutput) ToCheckGroupV2EnforceSchedulingStrategyPtrOutputWithContext(ctx context.Context) CheckGroupV2EnforceSchedulingStrategyPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2EnforceSchedulingStrategyPtrOutput) Elem() CheckGroupV2EnforceSchedulingStrategyOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceSchedulingStrategy) CheckGroupV2EnforceSchedulingStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2EnforceSchedulingStrategy
+		return ret
+	}).(CheckGroupV2EnforceSchedulingStrategyOutput)
+}
+
+// Determines whether the enforced scheduling strategy should be active.
+func (o CheckGroupV2EnforceSchedulingStrategyPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceSchedulingStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+func (o CheckGroupV2EnforceSchedulingStrategyPtrOutput) RunParallel() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2EnforceSchedulingStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.RunParallel
+	}).(pulumi.BoolPtrOutput)
+}
+
+type CheckGroupV2EnvironmentVariable struct {
+	// The name of the environment variable or secret.
+	Key string `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
+	Secret *bool `pulumi:"secret"`
+	// The value of the environment variable or secret.
+	Value string `pulumi:"value"`
+}
+
+// CheckGroupV2EnvironmentVariableInput is an input type that accepts CheckGroupV2EnvironmentVariableArgs and CheckGroupV2EnvironmentVariableOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnvironmentVariableInput` via:
+//
+//	CheckGroupV2EnvironmentVariableArgs{...}
+type CheckGroupV2EnvironmentVariableInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnvironmentVariableOutput() CheckGroupV2EnvironmentVariableOutput
+	ToCheckGroupV2EnvironmentVariableOutputWithContext(context.Context) CheckGroupV2EnvironmentVariableOutput
+}
+
+type CheckGroupV2EnvironmentVariableArgs struct {
+	// The name of the environment variable or secret.
+	Key pulumi.StringInput `pulumi:"key"`
+	// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. (Default `false`).
+	Secret pulumi.BoolPtrInput `pulumi:"secret"`
+	// The value of the environment variable or secret.
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (CheckGroupV2EnvironmentVariableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnvironmentVariable)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnvironmentVariableArgs) ToCheckGroupV2EnvironmentVariableOutput() CheckGroupV2EnvironmentVariableOutput {
+	return i.ToCheckGroupV2EnvironmentVariableOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnvironmentVariableArgs) ToCheckGroupV2EnvironmentVariableOutputWithContext(ctx context.Context) CheckGroupV2EnvironmentVariableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnvironmentVariableOutput)
+}
+
+// CheckGroupV2EnvironmentVariableArrayInput is an input type that accepts CheckGroupV2EnvironmentVariableArray and CheckGroupV2EnvironmentVariableArrayOutput values.
+// You can construct a concrete instance of `CheckGroupV2EnvironmentVariableArrayInput` via:
+//
+//	CheckGroupV2EnvironmentVariableArray{ CheckGroupV2EnvironmentVariableArgs{...} }
+type CheckGroupV2EnvironmentVariableArrayInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2EnvironmentVariableArrayOutput() CheckGroupV2EnvironmentVariableArrayOutput
+	ToCheckGroupV2EnvironmentVariableArrayOutputWithContext(context.Context) CheckGroupV2EnvironmentVariableArrayOutput
+}
+
+type CheckGroupV2EnvironmentVariableArray []CheckGroupV2EnvironmentVariableInput
+
+func (CheckGroupV2EnvironmentVariableArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnvironmentVariable)(nil)).Elem()
+}
+
+func (i CheckGroupV2EnvironmentVariableArray) ToCheckGroupV2EnvironmentVariableArrayOutput() CheckGroupV2EnvironmentVariableArrayOutput {
+	return i.ToCheckGroupV2EnvironmentVariableArrayOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2EnvironmentVariableArray) ToCheckGroupV2EnvironmentVariableArrayOutputWithContext(ctx context.Context) CheckGroupV2EnvironmentVariableArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2EnvironmentVariableArrayOutput)
+}
+
+type CheckGroupV2EnvironmentVariableOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnvironmentVariableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2EnvironmentVariable)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnvironmentVariableOutput) ToCheckGroupV2EnvironmentVariableOutput() CheckGroupV2EnvironmentVariableOutput {
+	return o
+}
+
+func (o CheckGroupV2EnvironmentVariableOutput) ToCheckGroupV2EnvironmentVariableOutputWithContext(ctx context.Context) CheckGroupV2EnvironmentVariableOutput {
+	return o
+}
+
+// The name of the environment variable or secret.
+func (o CheckGroupV2EnvironmentVariableOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+func (o CheckGroupV2EnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
+}
+
+// If true, the value will never be visible. (Default `false`).
+func (o CheckGroupV2EnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
+}
+
+// The value of the environment variable or secret.
+func (o CheckGroupV2EnvironmentVariableOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type CheckGroupV2EnvironmentVariableArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2EnvironmentVariableArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckGroupV2EnvironmentVariable)(nil)).Elem()
+}
+
+func (o CheckGroupV2EnvironmentVariableArrayOutput) ToCheckGroupV2EnvironmentVariableArrayOutput() CheckGroupV2EnvironmentVariableArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnvironmentVariableArrayOutput) ToCheckGroupV2EnvironmentVariableArrayOutputWithContext(ctx context.Context) CheckGroupV2EnvironmentVariableArrayOutput {
+	return o
+}
+
+func (o CheckGroupV2EnvironmentVariableArrayOutput) Index(i pulumi.IntInput) CheckGroupV2EnvironmentVariableOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckGroupV2EnvironmentVariable {
+		return vs[0].([]CheckGroupV2EnvironmentVariable)[vs[1].(int)]
+	}).(CheckGroupV2EnvironmentVariableOutput)
+}
+
+type CheckGroupV2SetupScript struct {
+	// A valid piece of Node.js code.
+	InlineScript *string `pulumi:"inlineScript"`
+	// The ID of a code snippet. Code snippets are not available for new plans.
+	SnippetId *int `pulumi:"snippetId"`
+}
+
+// CheckGroupV2SetupScriptInput is an input type that accepts CheckGroupV2SetupScriptArgs and CheckGroupV2SetupScriptOutput values.
+// You can construct a concrete instance of `CheckGroupV2SetupScriptInput` via:
+//
+//	CheckGroupV2SetupScriptArgs{...}
+type CheckGroupV2SetupScriptInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2SetupScriptOutput() CheckGroupV2SetupScriptOutput
+	ToCheckGroupV2SetupScriptOutputWithContext(context.Context) CheckGroupV2SetupScriptOutput
+}
+
+type CheckGroupV2SetupScriptArgs struct {
+	// A valid piece of Node.js code.
+	InlineScript pulumi.StringPtrInput `pulumi:"inlineScript"`
+	// The ID of a code snippet. Code snippets are not available for new plans.
+	SnippetId pulumi.IntPtrInput `pulumi:"snippetId"`
+}
+
+func (CheckGroupV2SetupScriptArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2SetupScript)(nil)).Elem()
+}
+
+func (i CheckGroupV2SetupScriptArgs) ToCheckGroupV2SetupScriptOutput() CheckGroupV2SetupScriptOutput {
+	return i.ToCheckGroupV2SetupScriptOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2SetupScriptArgs) ToCheckGroupV2SetupScriptOutputWithContext(ctx context.Context) CheckGroupV2SetupScriptOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2SetupScriptOutput)
+}
+
+func (i CheckGroupV2SetupScriptArgs) ToCheckGroupV2SetupScriptPtrOutput() CheckGroupV2SetupScriptPtrOutput {
+	return i.ToCheckGroupV2SetupScriptPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2SetupScriptArgs) ToCheckGroupV2SetupScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2SetupScriptPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2SetupScriptOutput).ToCheckGroupV2SetupScriptPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2SetupScriptPtrInput is an input type that accepts CheckGroupV2SetupScriptArgs, CheckGroupV2SetupScriptPtr and CheckGroupV2SetupScriptPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2SetupScriptPtrInput` via:
+//
+//	        CheckGroupV2SetupScriptArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2SetupScriptPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2SetupScriptPtrOutput() CheckGroupV2SetupScriptPtrOutput
+	ToCheckGroupV2SetupScriptPtrOutputWithContext(context.Context) CheckGroupV2SetupScriptPtrOutput
+}
+
+type checkGroupV2SetupScriptPtrType CheckGroupV2SetupScriptArgs
+
+func CheckGroupV2SetupScriptPtr(v *CheckGroupV2SetupScriptArgs) CheckGroupV2SetupScriptPtrInput {
+	return (*checkGroupV2SetupScriptPtrType)(v)
+}
+
+func (*checkGroupV2SetupScriptPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2SetupScript)(nil)).Elem()
+}
+
+func (i *checkGroupV2SetupScriptPtrType) ToCheckGroupV2SetupScriptPtrOutput() CheckGroupV2SetupScriptPtrOutput {
+	return i.ToCheckGroupV2SetupScriptPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2SetupScriptPtrType) ToCheckGroupV2SetupScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2SetupScriptPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2SetupScriptPtrOutput)
+}
+
+type CheckGroupV2SetupScriptOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2SetupScriptOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2SetupScript)(nil)).Elem()
+}
+
+func (o CheckGroupV2SetupScriptOutput) ToCheckGroupV2SetupScriptOutput() CheckGroupV2SetupScriptOutput {
+	return o
+}
+
+func (o CheckGroupV2SetupScriptOutput) ToCheckGroupV2SetupScriptOutputWithContext(ctx context.Context) CheckGroupV2SetupScriptOutput {
+	return o
+}
+
+func (o CheckGroupV2SetupScriptOutput) ToCheckGroupV2SetupScriptPtrOutput() CheckGroupV2SetupScriptPtrOutput {
+	return o.ToCheckGroupV2SetupScriptPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2SetupScriptOutput) ToCheckGroupV2SetupScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2SetupScriptPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2SetupScript) *CheckGroupV2SetupScript {
+		return &v
+	}).(CheckGroupV2SetupScriptPtrOutput)
+}
+
+// A valid piece of Node.js code.
+func (o CheckGroupV2SetupScriptOutput) InlineScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2SetupScript) *string { return v.InlineScript }).(pulumi.StringPtrOutput)
+}
+
+// The ID of a code snippet. Code snippets are not available for new plans.
+func (o CheckGroupV2SetupScriptOutput) SnippetId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2SetupScript) *int { return v.SnippetId }).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupV2SetupScriptPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2SetupScriptPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2SetupScript)(nil)).Elem()
+}
+
+func (o CheckGroupV2SetupScriptPtrOutput) ToCheckGroupV2SetupScriptPtrOutput() CheckGroupV2SetupScriptPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2SetupScriptPtrOutput) ToCheckGroupV2SetupScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2SetupScriptPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2SetupScriptPtrOutput) Elem() CheckGroupV2SetupScriptOutput {
+	return o.ApplyT(func(v *CheckGroupV2SetupScript) CheckGroupV2SetupScript {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2SetupScript
+		return ret
+	}).(CheckGroupV2SetupScriptOutput)
+}
+
+// A valid piece of Node.js code.
+func (o CheckGroupV2SetupScriptPtrOutput) InlineScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2SetupScript) *string {
+		if v == nil {
+			return nil
+		}
+		return v.InlineScript
+	}).(pulumi.StringPtrOutput)
+}
+
+// The ID of a code snippet. Code snippets are not available for new plans.
+func (o CheckGroupV2SetupScriptPtrOutput) SnippetId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2SetupScript) *int {
+		if v == nil {
+			return nil
+		}
+		return v.SnippetId
+	}).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupV2TeardownScript struct {
+	// A valid piece of Node.js code.
+	InlineScript *string `pulumi:"inlineScript"`
+	// The ID of a code snippet. Code snippets are not available for new plans.
+	SnippetId *int `pulumi:"snippetId"`
+}
+
+// CheckGroupV2TeardownScriptInput is an input type that accepts CheckGroupV2TeardownScriptArgs and CheckGroupV2TeardownScriptOutput values.
+// You can construct a concrete instance of `CheckGroupV2TeardownScriptInput` via:
+//
+//	CheckGroupV2TeardownScriptArgs{...}
+type CheckGroupV2TeardownScriptInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2TeardownScriptOutput() CheckGroupV2TeardownScriptOutput
+	ToCheckGroupV2TeardownScriptOutputWithContext(context.Context) CheckGroupV2TeardownScriptOutput
+}
+
+type CheckGroupV2TeardownScriptArgs struct {
+	// A valid piece of Node.js code.
+	InlineScript pulumi.StringPtrInput `pulumi:"inlineScript"`
+	// The ID of a code snippet. Code snippets are not available for new plans.
+	SnippetId pulumi.IntPtrInput `pulumi:"snippetId"`
+}
+
+func (CheckGroupV2TeardownScriptArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2TeardownScript)(nil)).Elem()
+}
+
+func (i CheckGroupV2TeardownScriptArgs) ToCheckGroupV2TeardownScriptOutput() CheckGroupV2TeardownScriptOutput {
+	return i.ToCheckGroupV2TeardownScriptOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2TeardownScriptArgs) ToCheckGroupV2TeardownScriptOutputWithContext(ctx context.Context) CheckGroupV2TeardownScriptOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2TeardownScriptOutput)
+}
+
+func (i CheckGroupV2TeardownScriptArgs) ToCheckGroupV2TeardownScriptPtrOutput() CheckGroupV2TeardownScriptPtrOutput {
+	return i.ToCheckGroupV2TeardownScriptPtrOutputWithContext(context.Background())
+}
+
+func (i CheckGroupV2TeardownScriptArgs) ToCheckGroupV2TeardownScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2TeardownScriptPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2TeardownScriptOutput).ToCheckGroupV2TeardownScriptPtrOutputWithContext(ctx)
+}
+
+// CheckGroupV2TeardownScriptPtrInput is an input type that accepts CheckGroupV2TeardownScriptArgs, CheckGroupV2TeardownScriptPtr and CheckGroupV2TeardownScriptPtrOutput values.
+// You can construct a concrete instance of `CheckGroupV2TeardownScriptPtrInput` via:
+//
+//	        CheckGroupV2TeardownScriptArgs{...}
+//
+//	or:
+//
+//	        nil
+type CheckGroupV2TeardownScriptPtrInput interface {
+	pulumi.Input
+
+	ToCheckGroupV2TeardownScriptPtrOutput() CheckGroupV2TeardownScriptPtrOutput
+	ToCheckGroupV2TeardownScriptPtrOutputWithContext(context.Context) CheckGroupV2TeardownScriptPtrOutput
+}
+
+type checkGroupV2TeardownScriptPtrType CheckGroupV2TeardownScriptArgs
+
+func CheckGroupV2TeardownScriptPtr(v *CheckGroupV2TeardownScriptArgs) CheckGroupV2TeardownScriptPtrInput {
+	return (*checkGroupV2TeardownScriptPtrType)(v)
+}
+
+func (*checkGroupV2TeardownScriptPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2TeardownScript)(nil)).Elem()
+}
+
+func (i *checkGroupV2TeardownScriptPtrType) ToCheckGroupV2TeardownScriptPtrOutput() CheckGroupV2TeardownScriptPtrOutput {
+	return i.ToCheckGroupV2TeardownScriptPtrOutputWithContext(context.Background())
+}
+
+func (i *checkGroupV2TeardownScriptPtrType) ToCheckGroupV2TeardownScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2TeardownScriptPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckGroupV2TeardownScriptPtrOutput)
+}
+
+type CheckGroupV2TeardownScriptOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2TeardownScriptOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckGroupV2TeardownScript)(nil)).Elem()
+}
+
+func (o CheckGroupV2TeardownScriptOutput) ToCheckGroupV2TeardownScriptOutput() CheckGroupV2TeardownScriptOutput {
+	return o
+}
+
+func (o CheckGroupV2TeardownScriptOutput) ToCheckGroupV2TeardownScriptOutputWithContext(ctx context.Context) CheckGroupV2TeardownScriptOutput {
+	return o
+}
+
+func (o CheckGroupV2TeardownScriptOutput) ToCheckGroupV2TeardownScriptPtrOutput() CheckGroupV2TeardownScriptPtrOutput {
+	return o.ToCheckGroupV2TeardownScriptPtrOutputWithContext(context.Background())
+}
+
+func (o CheckGroupV2TeardownScriptOutput) ToCheckGroupV2TeardownScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2TeardownScriptPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CheckGroupV2TeardownScript) *CheckGroupV2TeardownScript {
+		return &v
+	}).(CheckGroupV2TeardownScriptPtrOutput)
+}
+
+// A valid piece of Node.js code.
+func (o CheckGroupV2TeardownScriptOutput) InlineScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2TeardownScript) *string { return v.InlineScript }).(pulumi.StringPtrOutput)
+}
+
+// The ID of a code snippet. Code snippets are not available for new plans.
+func (o CheckGroupV2TeardownScriptOutput) SnippetId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckGroupV2TeardownScript) *int { return v.SnippetId }).(pulumi.IntPtrOutput)
+}
+
+type CheckGroupV2TeardownScriptPtrOutput struct{ *pulumi.OutputState }
+
+func (CheckGroupV2TeardownScriptPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CheckGroupV2TeardownScript)(nil)).Elem()
+}
+
+func (o CheckGroupV2TeardownScriptPtrOutput) ToCheckGroupV2TeardownScriptPtrOutput() CheckGroupV2TeardownScriptPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2TeardownScriptPtrOutput) ToCheckGroupV2TeardownScriptPtrOutputWithContext(ctx context.Context) CheckGroupV2TeardownScriptPtrOutput {
+	return o
+}
+
+func (o CheckGroupV2TeardownScriptPtrOutput) Elem() CheckGroupV2TeardownScriptOutput {
+	return o.ApplyT(func(v *CheckGroupV2TeardownScript) CheckGroupV2TeardownScript {
+		if v != nil {
+			return *v
+		}
+		var ret CheckGroupV2TeardownScript
+		return ret
+	}).(CheckGroupV2TeardownScriptOutput)
+}
+
+// A valid piece of Node.js code.
+func (o CheckGroupV2TeardownScriptPtrOutput) InlineScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2TeardownScript) *string {
+		if v == nil {
+			return nil
+		}
+		return v.InlineScript
+	}).(pulumi.StringPtrOutput)
+}
+
+// The ID of a code snippet. Code snippets are not available for new plans.
+func (o CheckGroupV2TeardownScriptPtrOutput) SnippetId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CheckGroupV2TeardownScript) *int {
+		if v == nil {
+			return nil
+		}
+		return v.SnippetId
+	}).(pulumi.IntPtrOutput)
 }
 
 type CheckRequest struct {
@@ -6945,8 +9943,10 @@ func (o DnsMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
 }
 
 type HeartbeatCheckAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
-	ChannelId int  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
 }
 
 // HeartbeatCheckAlertChannelSubscriptionInput is an input type that accepts HeartbeatCheckAlertChannelSubscriptionArgs and HeartbeatCheckAlertChannelSubscriptionOutput values.
@@ -6961,8 +9961,10 @@ type HeartbeatCheckAlertChannelSubscriptionInput interface {
 }
 
 type HeartbeatCheckAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
 	Activated pulumi.BoolInput `pulumi:"activated"`
-	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
 }
 
 func (HeartbeatCheckAlertChannelSubscriptionArgs) ElementType() reflect.Type {
@@ -7016,10 +10018,12 @@ func (o HeartbeatCheckAlertChannelSubscriptionOutput) ToHeartbeatCheckAlertChann
 	return o
 }
 
+// Whether an alert should be sent to this channel.
 func (o HeartbeatCheckAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v HeartbeatCheckAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// The ID of the alert channel.
 func (o HeartbeatCheckAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
 	return o.ApplyT(func(v HeartbeatCheckAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
 }
@@ -8223,8 +11227,10 @@ func (o HeartbeatCheckTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutpu
 }
 
 type HeartbeatMonitorAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
-	ChannelId int  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
 }
 
 // HeartbeatMonitorAlertChannelSubscriptionInput is an input type that accepts HeartbeatMonitorAlertChannelSubscriptionArgs and HeartbeatMonitorAlertChannelSubscriptionOutput values.
@@ -8239,8 +11245,10 @@ type HeartbeatMonitorAlertChannelSubscriptionInput interface {
 }
 
 type HeartbeatMonitorAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
 	Activated pulumi.BoolInput `pulumi:"activated"`
-	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
 }
 
 func (HeartbeatMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
@@ -8294,10 +11302,12 @@ func (o HeartbeatMonitorAlertChannelSubscriptionOutput) ToHeartbeatMonitorAlertC
 	return o
 }
 
+// Whether an alert should be sent to this channel.
 func (o HeartbeatMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v HeartbeatMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// The ID of the alert channel.
 func (o HeartbeatMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
 	return o.ApplyT(func(v HeartbeatMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
 }
@@ -13520,8 +16530,10 @@ func (o StatusPageCardServiceAttachmentArrayOutput) Index(i pulumi.IntInput) Sta
 }
 
 type TcpCheckAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
-	ChannelId int  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
 }
 
 // TcpCheckAlertChannelSubscriptionInput is an input type that accepts TcpCheckAlertChannelSubscriptionArgs and TcpCheckAlertChannelSubscriptionOutput values.
@@ -13536,8 +16548,10 @@ type TcpCheckAlertChannelSubscriptionInput interface {
 }
 
 type TcpCheckAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
 	Activated pulumi.BoolInput `pulumi:"activated"`
-	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
 }
 
 func (TcpCheckAlertChannelSubscriptionArgs) ElementType() reflect.Type {
@@ -13591,10 +16605,12 @@ func (o TcpCheckAlertChannelSubscriptionOutput) ToTcpCheckAlertChannelSubscripti
 	return o
 }
 
+// Whether an alert should be sent to this channel.
 func (o TcpCheckAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v TcpCheckAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// The ID of the alert channel.
 func (o TcpCheckAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
 	return o.ApplyT(func(v TcpCheckAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
 }
@@ -15137,8 +18153,10 @@ func (o TcpCheckTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
 }
 
 type TcpMonitorAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
-	ChannelId int  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
 }
 
 // TcpMonitorAlertChannelSubscriptionInput is an input type that accepts TcpMonitorAlertChannelSubscriptionArgs and TcpMonitorAlertChannelSubscriptionOutput values.
@@ -15153,8 +18171,10 @@ type TcpMonitorAlertChannelSubscriptionInput interface {
 }
 
 type TcpMonitorAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
 	Activated pulumi.BoolInput `pulumi:"activated"`
-	ChannelId pulumi.IntInput  `pulumi:"channelId"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
 }
 
 func (TcpMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
@@ -15208,10 +18228,12 @@ func (o TcpMonitorAlertChannelSubscriptionOutput) ToTcpMonitorAlertChannelSubscr
 	return o
 }
 
+// Whether an alert should be sent to this channel.
 func (o TcpMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v TcpMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// The ID of the alert channel.
 func (o TcpMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
 	return o.ApplyT(func(v TcpMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
 }
@@ -18459,6 +21481,46 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupRetryStrategyPtrInput)(nil)).Elem(), CheckGroupRetryStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupRetryStrategyOnlyOnInput)(nil)).Elem(), CheckGroupRetryStrategyOnlyOnArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupRetryStrategyOnlyOnPtrInput)(nil)).Elem(), CheckGroupRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsInput)(nil)).Elem(), CheckGroupV2ApiCheckDefaultsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsPtrInput)(nil)).Elem(), CheckGroupV2ApiCheckDefaultsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsAssertionInput)(nil)).Elem(), CheckGroupV2ApiCheckDefaultsAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsAssertionArrayInput)(nil)).Elem(), CheckGroupV2ApiCheckDefaultsAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsBasicAuthInput)(nil)).Elem(), CheckGroupV2ApiCheckDefaultsBasicAuthArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2ApiCheckDefaultsBasicAuthPtrInput)(nil)).Elem(), CheckGroupV2ApiCheckDefaultsBasicAuthArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2DefaultRuntimeInput)(nil)).Elem(), CheckGroupV2DefaultRuntimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2DefaultRuntimePtrInput)(nil)).Elem(), CheckGroupV2DefaultRuntimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsPtrInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsPtrInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsReminderInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceLocationsInput)(nil)).Elem(), CheckGroupV2EnforceLocationsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceLocationsPtrInput)(nil)).Elem(), CheckGroupV2EnforceLocationsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyInput)(nil)).Elem(), CheckGroupV2EnforceRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyPtrInput)(nil)).Elem(), CheckGroupV2EnforceRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategyInput)(nil)).Elem(), CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategyPtrInput)(nil)).Elem(), CheckGroupV2EnforceRetryStrategyRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnInput)(nil)).Elem(), CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrInput)(nil)).Elem(), CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceSchedulingStrategyInput)(nil)).Elem(), CheckGroupV2EnforceSchedulingStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnforceSchedulingStrategyPtrInput)(nil)).Elem(), CheckGroupV2EnforceSchedulingStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnvironmentVariableInput)(nil)).Elem(), CheckGroupV2EnvironmentVariableArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2EnvironmentVariableArrayInput)(nil)).Elem(), CheckGroupV2EnvironmentVariableArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2SetupScriptInput)(nil)).Elem(), CheckGroupV2SetupScriptArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2SetupScriptPtrInput)(nil)).Elem(), CheckGroupV2SetupScriptArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2TeardownScriptInput)(nil)).Elem(), CheckGroupV2TeardownScriptArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckGroupV2TeardownScriptPtrInput)(nil)).Elem(), CheckGroupV2TeardownScriptArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestInput)(nil)).Elem(), CheckRequestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestPtrInput)(nil)).Elem(), CheckRequestArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CheckRequestAssertionInput)(nil)).Elem(), CheckRequestAssertionArgs{})
@@ -18711,6 +21773,46 @@ func init() {
 	pulumi.RegisterOutputType(CheckGroupRetryStrategyPtrOutput{})
 	pulumi.RegisterOutputType(CheckGroupRetryStrategyOnlyOnOutput{})
 	pulumi.RegisterOutputType(CheckGroupRetryStrategyOnlyOnPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2ApiCheckDefaultsOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2ApiCheckDefaultsPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2ApiCheckDefaultsAssertionOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2ApiCheckDefaultsAssertionArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2ApiCheckDefaultsBasicAuthOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2DefaultRuntimeOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2DefaultRuntimePtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceLocationsOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceLocationsPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceRetryStrategyOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceRetryStrategyRetryStrategyOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceRetryStrategyRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOnPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceSchedulingStrategyOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnforceSchedulingStrategyPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnvironmentVariableOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2EnvironmentVariableArrayOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2SetupScriptOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2SetupScriptPtrOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2TeardownScriptOutput{})
+	pulumi.RegisterOutputType(CheckGroupV2TeardownScriptPtrOutput{})
 	pulumi.RegisterOutputType(CheckRequestOutput{})
 	pulumi.RegisterOutputType(CheckRequestPtrOutput{})
 	pulumi.RegisterOutputType(CheckRequestAssertionOutput{})

@@ -63,7 +63,7 @@ type IcmpMonitor struct {
 
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions IcmpMonitorAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings IcmpMonitorAlertSettingsOutput `pulumi:"alertSettings"`
@@ -140,7 +140,7 @@ func GetIcmpMonitor(ctx *pulumi.Context,
 type icmpMonitorState struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []IcmpMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *IcmpMonitorAlertSettings `pulumi:"alertSettings"`
@@ -179,7 +179,7 @@ type icmpMonitorState struct {
 type IcmpMonitorState struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions IcmpMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings IcmpMonitorAlertSettingsPtrInput
@@ -222,7 +222,7 @@ func (IcmpMonitorState) ElementType() reflect.Type {
 type icmpMonitorArgs struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []IcmpMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *IcmpMonitorAlertSettings `pulumi:"alertSettings"`
@@ -262,7 +262,7 @@ type icmpMonitorArgs struct {
 type IcmpMonitorArgs struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions IcmpMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings IcmpMonitorAlertSettingsPtrInput
@@ -390,7 +390,7 @@ func (o IcmpMonitorOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o IcmpMonitorOutput) AlertChannelSubscriptions() IcmpMonitorAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *IcmpMonitor) IcmpMonitorAlertChannelSubscriptionArrayOutput {
 		return v.AlertChannelSubscriptions

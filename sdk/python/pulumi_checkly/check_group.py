@@ -46,6 +46,7 @@ class CheckGroupArgs:
         The set of arguments for constructing a CheckGroup resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckGroupEnvironmentVariableArgs']]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
@@ -138,6 +139,9 @@ class CheckGroupArgs:
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupAlertChannelSubscriptionArgs']]]]:
+        """
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
@@ -387,6 +391,7 @@ class _CheckGroupState:
         """
         Input properties used for looking up and filtering CheckGroup resources.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
+        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckGroupAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -470,6 +475,9 @@ class _CheckGroupState:
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupAlertChannelSubscriptionArgs']]]]:
+        """
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
@@ -738,6 +746,7 @@ class CheckGroup(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupAlertChannelSubscriptionArgs', 'CheckGroupAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckGroupAlertSettingsArgs', 'CheckGroupAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -875,6 +884,7 @@ class CheckGroup(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines if the checks in the group are running or not.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupAlertChannelSubscriptionArgs', 'CheckGroupAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckGroupAlertSettingsArgs', 'CheckGroupAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] concurrency: Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
@@ -932,6 +942,9 @@ class CheckGroup(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> pulumi.Output[Optional[Sequence['outputs.CheckGroupAlertChannelSubscription']]]:
+        """
+        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @_builtins.property

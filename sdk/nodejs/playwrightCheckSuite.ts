@@ -42,7 +42,7 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
     declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.PlaywrightCheckSuiteAlertChannelSubscription[] | undefined>;
     /**
@@ -182,7 +182,7 @@ export interface PlaywrightCheckSuiteState {
      */
     activated?: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteAlertChannelSubscription>[]>;
     /**
@@ -256,7 +256,7 @@ export interface PlaywrightCheckSuiteArgs {
      */
     activated: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteAlertChannelSubscription>[]>;
     /**

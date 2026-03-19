@@ -18,7 +18,7 @@ type PlaywrightCheckSuite struct {
 
 	// Determines whether the check will run periodically or not after being deployed.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings PlaywrightCheckSuiteAlertSettingsOutput `pulumi:"alertSettings"`
@@ -96,7 +96,7 @@ func GetPlaywrightCheckSuite(ctx *pulumi.Context,
 type playwrightCheckSuiteState struct {
 	// Determines whether the check will run periodically or not after being deployed.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []PlaywrightCheckSuiteAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
@@ -133,7 +133,7 @@ type playwrightCheckSuiteState struct {
 type PlaywrightCheckSuiteState struct {
 	// Determines whether the check will run periodically or not after being deployed.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
@@ -174,7 +174,7 @@ func (PlaywrightCheckSuiteState) ElementType() reflect.Type {
 type playwrightCheckSuiteArgs struct {
 	// Determines whether the check will run periodically or not after being deployed.
 	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []PlaywrightCheckSuiteAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
@@ -212,7 +212,7 @@ type playwrightCheckSuiteArgs struct {
 type PlaywrightCheckSuiteArgs struct {
 	// Determines whether the check will run periodically or not after being deployed.
 	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
@@ -338,7 +338,7 @@ func (o PlaywrightCheckSuiteOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your check, we won't be able to alert you.
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 func (o PlaywrightCheckSuiteOutput) AlertChannelSubscriptions() PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
 		return v.AlertChannelSubscriptions

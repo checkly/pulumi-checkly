@@ -60,7 +60,7 @@ type UrlMonitor struct {
 
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions UrlMonitorAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings UrlMonitorAlertSettingsOutput `pulumi:"alertSettings"`
@@ -141,7 +141,7 @@ func GetUrlMonitor(ctx *pulumi.Context,
 type urlMonitorState struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []UrlMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *UrlMonitorAlertSettings `pulumi:"alertSettings"`
@@ -184,7 +184,7 @@ type urlMonitorState struct {
 type UrlMonitorState struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions UrlMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings UrlMonitorAlertSettingsPtrInput
@@ -231,7 +231,7 @@ func (UrlMonitorState) ElementType() reflect.Type {
 type urlMonitorArgs struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []UrlMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *UrlMonitorAlertSettings `pulumi:"alertSettings"`
@@ -275,7 +275,7 @@ type urlMonitorArgs struct {
 type UrlMonitorArgs struct {
 	// Determines whether the monitor will run periodically or not after being deployed.
 	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions UrlMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings UrlMonitorAlertSettingsPtrInput
@@ -407,7 +407,7 @@ func (o UrlMonitorOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *UrlMonitor) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert subscription for your monitor, we won't be able to alert you.
+// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o UrlMonitorOutput) AlertChannelSubscriptions() UrlMonitorAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *UrlMonitor) UrlMonitorAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(UrlMonitorAlertChannelSubscriptionArrayOutput)
 }

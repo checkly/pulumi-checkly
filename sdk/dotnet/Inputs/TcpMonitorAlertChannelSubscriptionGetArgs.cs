@@ -12,9 +12,15 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class TcpMonitorAlertChannelSubscriptionGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether an alert should be sent to this channel.
+        /// </summary>
         [Input("activated", required: true)]
         public Input<bool> Activated { get; set; } = null!;
 
+        /// <summary>
+        /// The ID of the alert channel.
+        /// </summary>
         [Input("channelId", required: true)]
         public Input<int> ChannelId { get; set; } = null!;
 
