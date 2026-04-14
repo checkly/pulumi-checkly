@@ -14,6 +14,10 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntime
     {
         /// <summary>
+        /// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+        /// </summary>
+        public readonly bool? AutoDetect;
+        /// <summary>
         /// Configure the Playwright capabilities that should be made available to the runtime environment.
         /// </summary>
         public readonly Outputs.PlaywrightCheckSuiteRuntimePlaywright? Playwright;
@@ -21,15 +25,25 @@ namespace Pulumi.Checkly.Outputs
         /// Customize the actions taken during test execution.
         /// </summary>
         public readonly Outputs.PlaywrightCheckSuiteRuntimeSteps? Steps;
+        /// <summary>
+        /// The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+        /// </summary>
+        public readonly string? WorkingDir;
 
         [OutputConstructor]
         private PlaywrightCheckSuiteRuntime(
+            bool? autoDetect,
+
             Outputs.PlaywrightCheckSuiteRuntimePlaywright? playwright,
 
-            Outputs.PlaywrightCheckSuiteRuntimeSteps? steps)
+            Outputs.PlaywrightCheckSuiteRuntimeSteps? steps,
+
+            string? workingDir)
         {
+            AutoDetect = autoDetect;
             Playwright = playwright;
             Steps = steps;
+            WorkingDir = workingDir;
         }
     }
 }

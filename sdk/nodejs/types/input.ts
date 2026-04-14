@@ -1423,6 +1423,10 @@ export interface PlaywrightCheckSuiteEnvironmentVariable {
 
 export interface PlaywrightCheckSuiteRuntime {
     /**
+     * Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+     */
+    autoDetect?: pulumi.Input<boolean>;
+    /**
      * Configure the Playwright capabilities that should be made available to the runtime environment.
      */
     playwright?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywright>;
@@ -1430,15 +1434,19 @@ export interface PlaywrightCheckSuiteRuntime {
      * Customize the actions taken during test execution.
      */
     steps?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeSteps>;
+    /**
+     * The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+     */
+    workingDir?: pulumi.Input<string>;
 }
 
 export interface PlaywrightCheckSuiteRuntimePlaywright {
     /**
-     * The list of devices that should be made available for Playwright.
+     * The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
      */
     devices?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywrightDevice>[]>;
     /**
-     * The Playwright version to use.
+     * The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
      */
     version?: pulumi.Input<string>;
 }

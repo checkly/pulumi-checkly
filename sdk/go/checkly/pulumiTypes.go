@@ -15136,10 +15136,14 @@ func (o PlaywrightCheckSuiteEnvironmentVariableArrayOutput) Index(i pulumi.IntIn
 }
 
 type PlaywrightCheckSuiteRuntime struct {
+	// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+	AutoDetect *bool `pulumi:"autoDetect"`
 	// Configure the Playwright capabilities that should be made available to the runtime environment.
 	Playwright *PlaywrightCheckSuiteRuntimePlaywright `pulumi:"playwright"`
 	// Customize the actions taken during test execution.
 	Steps *PlaywrightCheckSuiteRuntimeSteps `pulumi:"steps"`
+	// The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+	WorkingDir *string `pulumi:"workingDir"`
 }
 
 // PlaywrightCheckSuiteRuntimeInput is an input type that accepts PlaywrightCheckSuiteRuntimeArgs and PlaywrightCheckSuiteRuntimeOutput values.
@@ -15154,10 +15158,14 @@ type PlaywrightCheckSuiteRuntimeInput interface {
 }
 
 type PlaywrightCheckSuiteRuntimeArgs struct {
+	// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+	AutoDetect pulumi.BoolPtrInput `pulumi:"autoDetect"`
 	// Configure the Playwright capabilities that should be made available to the runtime environment.
 	Playwright PlaywrightCheckSuiteRuntimePlaywrightPtrInput `pulumi:"playwright"`
 	// Customize the actions taken during test execution.
 	Steps PlaywrightCheckSuiteRuntimeStepsPtrInput `pulumi:"steps"`
+	// The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+	WorkingDir pulumi.StringPtrInput `pulumi:"workingDir"`
 }
 
 func (PlaywrightCheckSuiteRuntimeArgs) ElementType() reflect.Type {
@@ -15237,6 +15245,11 @@ func (o PlaywrightCheckSuiteRuntimeOutput) ToPlaywrightCheckSuiteRuntimePtrOutpu
 	}).(PlaywrightCheckSuiteRuntimePtrOutput)
 }
 
+// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+func (o PlaywrightCheckSuiteRuntimeOutput) AutoDetect() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *bool { return v.AutoDetect }).(pulumi.BoolPtrOutput)
+}
+
 // Configure the Playwright capabilities that should be made available to the runtime environment.
 func (o PlaywrightCheckSuiteRuntimeOutput) Playwright() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimePlaywright { return v.Playwright }).(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput)
@@ -15245,6 +15258,11 @@ func (o PlaywrightCheckSuiteRuntimeOutput) Playwright() PlaywrightCheckSuiteRunt
 // Customize the actions taken during test execution.
 func (o PlaywrightCheckSuiteRuntimeOutput) Steps() PlaywrightCheckSuiteRuntimeStepsPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimeSteps { return v.Steps }).(PlaywrightCheckSuiteRuntimeStepsPtrOutput)
+}
+
+// The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+func (o PlaywrightCheckSuiteRuntimeOutput) WorkingDir() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *string { return v.WorkingDir }).(pulumi.StringPtrOutput)
 }
 
 type PlaywrightCheckSuiteRuntimePtrOutput struct{ *pulumi.OutputState }
@@ -15271,6 +15289,16 @@ func (o PlaywrightCheckSuiteRuntimePtrOutput) Elem() PlaywrightCheckSuiteRuntime
 	}).(PlaywrightCheckSuiteRuntimeOutput)
 }
 
+// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+func (o PlaywrightCheckSuiteRuntimePtrOutput) AutoDetect() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoDetect
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Configure the Playwright capabilities that should be made available to the runtime environment.
 func (o PlaywrightCheckSuiteRuntimePtrOutput) Playwright() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimePlaywright {
@@ -15291,10 +15319,20 @@ func (o PlaywrightCheckSuiteRuntimePtrOutput) Steps() PlaywrightCheckSuiteRuntim
 	}).(PlaywrightCheckSuiteRuntimeStepsPtrOutput)
 }
 
+// The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+func (o PlaywrightCheckSuiteRuntimePtrOutput) WorkingDir() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WorkingDir
+	}).(pulumi.StringPtrOutput)
+}
+
 type PlaywrightCheckSuiteRuntimePlaywright struct {
-	// The list of devices that should be made available for Playwright.
+	// The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
 	Devices []PlaywrightCheckSuiteRuntimePlaywrightDevice `pulumi:"devices"`
-	// The Playwright version to use.
+	// The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
 	Version *string `pulumi:"version"`
 }
 
@@ -15310,9 +15348,9 @@ type PlaywrightCheckSuiteRuntimePlaywrightInput interface {
 }
 
 type PlaywrightCheckSuiteRuntimePlaywrightArgs struct {
-	// The list of devices that should be made available for Playwright.
+	// The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
 	Devices PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayInput `pulumi:"devices"`
-	// The Playwright version to use.
+	// The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
 	Version pulumi.StringPtrInput `pulumi:"version"`
 }
 
@@ -15393,14 +15431,14 @@ func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) ToPlaywrightCheckSuiteRunti
 	}).(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput)
 }
 
-// The list of devices that should be made available for Playwright.
+// The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
 func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) Devices() PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimePlaywright) []PlaywrightCheckSuiteRuntimePlaywrightDevice {
 		return v.Devices
 	}).(PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput)
 }
 
-// The Playwright version to use.
+// The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
 func (o PlaywrightCheckSuiteRuntimePlaywrightOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimePlaywright) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
@@ -15429,7 +15467,7 @@ func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) Elem() PlaywrightCheckSu
 	}).(PlaywrightCheckSuiteRuntimePlaywrightOutput)
 }
 
-// The list of devices that should be made available for Playwright.
+// The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
 func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) Devices() PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimePlaywright) []PlaywrightCheckSuiteRuntimePlaywrightDevice {
 		if v == nil {
@@ -15439,7 +15477,7 @@ func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) Devices() PlaywrightChec
 	}).(PlaywrightCheckSuiteRuntimePlaywrightDeviceArrayOutput)
 }
 
-// The Playwright version to use.
+// The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
 func (o PlaywrightCheckSuiteRuntimePlaywrightPtrOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimePlaywright) *string {
 		if v == nil {

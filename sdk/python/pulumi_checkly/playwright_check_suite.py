@@ -24,7 +24,6 @@ class PlaywrightCheckSuiteArgs:
                  activated: pulumi.Input[_builtins.bool],
                  bundle: pulumi.Input['PlaywrightCheckSuiteBundleArgs'],
                  frequency: pulumi.Input[_builtins.int],
-                 runtime: pulumi.Input['PlaywrightCheckSuiteRuntimeArgs'],
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']] = None,
                  environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]] = None,
@@ -35,6 +34,7 @@ class PlaywrightCheckSuiteArgs:
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
+                 runtime: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  trigger_incident: Optional[pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
@@ -43,7 +43,6 @@ class PlaywrightCheckSuiteArgs:
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
         :param pulumi.Input['PlaywrightCheckSuiteBundleArgs'] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input['PlaywrightCheckSuiteRuntimeArgs'] runtime: Configure the runtime environment of the Playwright check.
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment.
@@ -54,6 +53,7 @@ class PlaywrightCheckSuiteArgs:
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
         :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+        :param pulumi.Input['PlaywrightCheckSuiteRuntimeArgs'] runtime: Configure the runtime environment of the Playwright check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
         :param pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
@@ -61,7 +61,6 @@ class PlaywrightCheckSuiteArgs:
         pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "bundle", bundle)
         pulumi.set(__self__, "frequency", frequency)
-        pulumi.set(__self__, "runtime", runtime)
         if alert_channel_subscriptions is not None:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
@@ -82,6 +81,8 @@ class PlaywrightCheckSuiteArgs:
             pulumi.set(__self__, "private_locations", private_locations)
         if run_parallel is not None:
             pulumi.set(__self__, "run_parallel", run_parallel)
+        if runtime is not None:
+            pulumi.set(__self__, "runtime", runtime)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if trigger_incident is not None:
@@ -124,18 +125,6 @@ class PlaywrightCheckSuiteArgs:
     @frequency.setter
     def frequency(self, value: pulumi.Input[_builtins.int]):
         pulumi.set(self, "frequency", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def runtime(self) -> pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']:
-        """
-        Configure the runtime environment of the Playwright check.
-        """
-        return pulumi.get(self, "runtime")
-
-    @runtime.setter
-    def runtime(self, value: pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']):
-        pulumi.set(self, "runtime", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
@@ -256,6 +245,18 @@ class PlaywrightCheckSuiteArgs:
     @run_parallel.setter
     def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def runtime(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']]:
+        """
+        Configure the runtime environment of the Playwright check.
+        """
+        return pulumi.get(self, "runtime")
+
+    @runtime.setter
+    def runtime(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']]):
+        pulumi.set(self, "runtime", value)
 
     @_builtins.property
     @pulumi.getter
@@ -690,8 +691,6 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
             __props__.__dict__["name"] = name
             __props__.__dict__["private_locations"] = private_locations
             __props__.__dict__["run_parallel"] = run_parallel
-            if runtime is None and not opts.urn:
-                raise TypeError("Missing required property 'runtime'")
             __props__.__dict__["runtime"] = runtime
             __props__.__dict__["tags"] = tags
             __props__.__dict__["trigger_incident"] = trigger_incident

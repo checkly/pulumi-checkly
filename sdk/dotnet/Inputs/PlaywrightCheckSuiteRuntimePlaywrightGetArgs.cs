@@ -16,7 +16,7 @@ namespace Pulumi.Checkly.Inputs
         private InputList<Inputs.PlaywrightCheckSuiteRuntimePlaywrightDeviceGetArgs>? _devices;
 
         /// <summary>
-        /// The list of devices that should be made available for Playwright.
+        /// The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
         /// </summary>
         public InputList<Inputs.PlaywrightCheckSuiteRuntimePlaywrightDeviceGetArgs> Devices
         {
@@ -25,7 +25,7 @@ namespace Pulumi.Checkly.Inputs
         }
 
         /// <summary>
-        /// The Playwright version to use.
+        /// The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
         /// </summary>
         [Input("version")]
         public Input<string>? Version { get; set; }
