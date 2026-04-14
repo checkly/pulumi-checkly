@@ -1423,24 +1423,32 @@ export interface PlaywrightCheckSuiteEnvironmentVariable {
 
 export interface PlaywrightCheckSuiteRuntime {
     /**
+     * Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+     */
+    autoDetect?: boolean;
+    /**
      * Configure the Playwright capabilities that should be made available to the runtime environment.
      */
-    playwright?: outputs.PlaywrightCheckSuiteRuntimePlaywright;
+    playwright: outputs.PlaywrightCheckSuiteRuntimePlaywright;
     /**
      * Customize the actions taken during test execution.
      */
-    steps?: outputs.PlaywrightCheckSuiteRuntimeSteps;
+    steps: outputs.PlaywrightCheckSuiteRuntimeSteps;
+    /**
+     * The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+     */
+    workingDir: string;
 }
 
 export interface PlaywrightCheckSuiteRuntimePlaywright {
     /**
-     * The list of devices that should be made available for Playwright.
+     * The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
      */
-    devices?: outputs.PlaywrightCheckSuiteRuntimePlaywrightDevice[];
+    devices: outputs.PlaywrightCheckSuiteRuntimePlaywrightDevice[];
     /**
-     * The Playwright version to use.
+     * The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
      */
-    version?: string;
+    version: string;
 }
 
 export interface PlaywrightCheckSuiteRuntimePlaywrightDevice {
@@ -1458,7 +1466,7 @@ export interface PlaywrightCheckSuiteRuntimeSteps {
     /**
      * Customize the test step.
      */
-    test?: outputs.PlaywrightCheckSuiteRuntimeStepsTest;
+    test: outputs.PlaywrightCheckSuiteRuntimeStepsTest;
 }
 
 export interface PlaywrightCheckSuiteRuntimeStepsInstall {
@@ -1472,7 +1480,7 @@ export interface PlaywrightCheckSuiteRuntimeStepsTest {
     /**
      * The command used to run Playwright. The default value is the appropriate exec command for your package manager (e.g. `npx playwright test` for `npm`).
      */
-    command?: string;
+    command: string;
 }
 
 export interface PlaywrightCheckSuiteTriggerIncident {

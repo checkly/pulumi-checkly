@@ -7166,6 +7166,10 @@ class PlaywrightCheckSuiteEnvironmentVariableArgs:
 
 if not MYPY:
     class PlaywrightCheckSuiteRuntimeArgsDict(TypedDict):
+        auto_detect: NotRequired[pulumi.Input[_builtins.bool]]
+        """
+        Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+        """
         playwright: NotRequired[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgsDict']]
         """
         Configure the Playwright capabilities that should be made available to the runtime environment.
@@ -7174,22 +7178,46 @@ if not MYPY:
         """
         Customize the actions taken during test execution.
         """
+        working_dir: NotRequired[pulumi.Input[_builtins.str]]
+        """
+        The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+        """
 elif False:
     PlaywrightCheckSuiteRuntimeArgsDict: TypeAlias = Mapping[str, Any]
 
 @pulumi.input_type
 class PlaywrightCheckSuiteRuntimeArgs:
     def __init__(__self__, *,
+                 auto_detect: Optional[pulumi.Input[_builtins.bool]] = None,
                  playwright: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgs']] = None,
-                 steps: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs']] = None):
+                 steps: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs']] = None,
+                 working_dir: Optional[pulumi.Input[_builtins.str]] = None):
         """
+        :param pulumi.Input[_builtins.bool] auto_detect: Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
         :param pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightArgs'] playwright: Configure the Playwright capabilities that should be made available to the runtime environment.
         :param pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs'] steps: Customize the actions taken during test execution.
+        :param pulumi.Input[_builtins.str] working_dir: The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
         """
+        if auto_detect is not None:
+            pulumi.set(__self__, "auto_detect", auto_detect)
         if playwright is not None:
             pulumi.set(__self__, "playwright", playwright)
         if steps is not None:
             pulumi.set(__self__, "steps", steps)
+        if working_dir is not None:
+            pulumi.set(__self__, "working_dir", working_dir)
+
+    @_builtins.property
+    @pulumi.getter(name="autoDetect")
+    def auto_detect(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+        """
+        return pulumi.get(self, "auto_detect")
+
+    @auto_detect.setter
+    def auto_detect(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "auto_detect", value)
 
     @_builtins.property
     @pulumi.getter
@@ -7215,16 +7243,28 @@ class PlaywrightCheckSuiteRuntimeArgs:
     def steps(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeStepsArgs']]):
         pulumi.set(self, "steps", value)
 
+    @_builtins.property
+    @pulumi.getter(name="workingDir")
+    def working_dir(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+        """
+        return pulumi.get(self, "working_dir")
+
+    @working_dir.setter
+    def working_dir(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "working_dir", value)
+
 
 if not MYPY:
     class PlaywrightCheckSuiteRuntimePlaywrightArgsDict(TypedDict):
         devices: NotRequired[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgsDict']]]]
         """
-        The list of devices that should be made available for Playwright.
+        The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
         """
         version: NotRequired[pulumi.Input[_builtins.str]]
         """
-        The Playwright version to use.
+        The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
         """
 elif False:
     PlaywrightCheckSuiteRuntimePlaywrightArgsDict: TypeAlias = Mapping[str, Any]
@@ -7235,8 +7275,8 @@ class PlaywrightCheckSuiteRuntimePlaywrightArgs:
                  devices: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]]] = None,
                  version: Optional[pulumi.Input[_builtins.str]] = None):
         """
-        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]] devices: The list of devices that should be made available for Playwright.
-        :param pulumi.Input[_builtins.str] version: The Playwright version to use.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]] devices: The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
+        :param pulumi.Input[_builtins.str] version: The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
         """
         if devices is not None:
             pulumi.set(__self__, "devices", devices)
@@ -7247,7 +7287,7 @@ class PlaywrightCheckSuiteRuntimePlaywrightArgs:
     @pulumi.getter
     def devices(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs']]]]:
         """
-        The list of devices that should be made available for Playwright.
+        The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
         """
         return pulumi.get(self, "devices")
 
@@ -7259,7 +7299,7 @@ class PlaywrightCheckSuiteRuntimePlaywrightArgs:
     @pulumi.getter
     def version(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The Playwright version to use.
+        The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
         """
         return pulumi.get(self, "version")
 

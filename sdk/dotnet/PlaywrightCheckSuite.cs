@@ -269,8 +269,8 @@ namespace Pulumi.Checkly
         /// <summary>
         /// Configure the runtime environment of the Playwright check.
         /// </summary>
-        [Input("runtime", required: true)]
-        public Input<Inputs.PlaywrightCheckSuiteRuntimeArgs> Runtime { get; set; } = null!;
+        [Input("runtime")]
+        public Input<Inputs.PlaywrightCheckSuiteRuntimeArgs>? Runtime { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;

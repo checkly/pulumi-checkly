@@ -13,6 +13,12 @@ namespace Pulumi.Checkly.Inputs
     public sealed class PlaywrightCheckSuiteRuntimeGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+        /// </summary>
+        [Input("autoDetect")]
+        public Input<bool>? AutoDetect { get; set; }
+
+        /// <summary>
         /// Configure the Playwright capabilities that should be made available to the runtime environment.
         /// </summary>
         [Input("playwright")]
@@ -23,6 +29,12 @@ namespace Pulumi.Checkly.Inputs
         /// </summary>
         [Input("steps")]
         public Input<Inputs.PlaywrightCheckSuiteRuntimeStepsGetArgs>? Steps { get; set; }
+
+        /// <summary>
+        /// The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
+        /// </summary>
+        [Input("workingDir")]
+        public Input<string>? WorkingDir { get; set; }
 
         public PlaywrightCheckSuiteRuntimeGetArgs()
         {

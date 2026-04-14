@@ -147,9 +147,6 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
             if (args?.frequency === undefined && !opts.urn) {
                 throw new Error("Missing required property 'frequency'");
             }
-            if (args?.runtime === undefined && !opts.urn) {
-                throw new Error("Missing required property 'runtime'");
-            }
             resourceInputs["activated"] = args?.activated;
             resourceInputs["alertChannelSubscriptions"] = args?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = args?.alertSettings;
@@ -306,7 +303,7 @@ export interface PlaywrightCheckSuiteArgs {
     /**
      * Configure the runtime environment of the Playwright check.
      */
-    runtime: pulumi.Input<inputs.PlaywrightCheckSuiteRuntime>;
+    runtime?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntime>;
     /**
      * A list of tags for organizing and filtering checks and monitors.
      */

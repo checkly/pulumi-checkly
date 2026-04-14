@@ -68,9 +68,6 @@ func NewPlaywrightCheckSuite(ctx *pulumi.Context,
 	if args.Frequency == nil {
 		return nil, errors.New("invalid value for required argument 'Frequency'")
 	}
-	if args.Runtime == nil {
-		return nil, errors.New("invalid value for required argument 'Runtime'")
-	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource PlaywrightCheckSuite
 	err := ctx.RegisterResource("checkly:index/playwrightCheckSuite:PlaywrightCheckSuite", name, args, &resource, opts...)
@@ -199,7 +196,7 @@ type playwrightCheckSuiteArgs struct {
 	// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
 	RunParallel *bool `pulumi:"runParallel"`
 	// Configure the runtime environment of the Playwright check.
-	Runtime PlaywrightCheckSuiteRuntime `pulumi:"runtime"`
+	Runtime *PlaywrightCheckSuiteRuntime `pulumi:"runtime"`
 	// A list of tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
@@ -237,7 +234,7 @@ type PlaywrightCheckSuiteArgs struct {
 	// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
 	RunParallel pulumi.BoolPtrInput
 	// Configure the runtime environment of the Playwright check.
-	Runtime PlaywrightCheckSuiteRuntimeInput
+	Runtime PlaywrightCheckSuiteRuntimePtrInput
 	// A list of tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
