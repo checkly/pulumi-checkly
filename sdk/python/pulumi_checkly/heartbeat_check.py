@@ -25,6 +25,7 @@ class HeartbeatCheckArgs:
                  heartbeat: pulumi.Input['HeartbeatCheckHeartbeatArgs'],
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatCheckAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['HeartbeatCheckAlertSettingsArgs']] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  muted: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
@@ -35,6 +36,7 @@ class HeartbeatCheckArgs:
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input['HeartbeatCheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['HeartbeatCheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -47,6 +49,8 @@ class HeartbeatCheckArgs:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
             pulumi.set(__self__, "alert_settings", alert_settings)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if muted is not None:
             pulumi.set(__self__, "muted", muted)
         if name is not None:
@@ -102,6 +106,18 @@ class HeartbeatCheckArgs:
     @alert_settings.setter
     def alert_settings(self, value: Optional[pulumi.Input['HeartbeatCheckAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the monitor.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
@@ -170,6 +186,7 @@ class _HeartbeatCheckState:
                  activated: Optional[pulumi.Input[_builtins.bool]] = None,
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatCheckAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['HeartbeatCheckAlertSettingsArgs']] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  heartbeat: Optional[pulumi.Input['HeartbeatCheckHeartbeatArgs']] = None,
                  muted: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -181,6 +198,7 @@ class _HeartbeatCheckState:
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input['HeartbeatCheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['HeartbeatCheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -193,6 +211,8 @@ class _HeartbeatCheckState:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
             pulumi.set(__self__, "alert_settings", alert_settings)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if heartbeat is not None:
             pulumi.set(__self__, "heartbeat", heartbeat)
         if muted is not None:
@@ -241,6 +261,18 @@ class _HeartbeatCheckState:
     @alert_settings.setter
     def alert_settings(self, value: Optional[pulumi.Input['HeartbeatCheckAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the monitor.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
@@ -321,6 +353,7 @@ class HeartbeatCheck(pulumi.CustomResource):
                  activated: Optional[pulumi.Input[_builtins.bool]] = None,
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatCheckAlertChannelSubscriptionArgs', 'HeartbeatCheckAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['HeartbeatCheckAlertSettingsArgs', 'HeartbeatCheckAlertSettingsArgsDict']]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  heartbeat: Optional[pulumi.Input[Union['HeartbeatCheckHeartbeatArgs', 'HeartbeatCheckHeartbeatArgsDict']]] = None,
                  muted: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -352,6 +385,7 @@ class HeartbeatCheck(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatCheckAlertChannelSubscriptionArgs', 'HeartbeatCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['HeartbeatCheckAlertSettingsArgs', 'HeartbeatCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -401,6 +435,7 @@ class HeartbeatCheck(pulumi.CustomResource):
                  activated: Optional[pulumi.Input[_builtins.bool]] = None,
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatCheckAlertChannelSubscriptionArgs', 'HeartbeatCheckAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['HeartbeatCheckAlertSettingsArgs', 'HeartbeatCheckAlertSettingsArgsDict']]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  heartbeat: Optional[pulumi.Input[Union['HeartbeatCheckHeartbeatArgs', 'HeartbeatCheckHeartbeatArgsDict']]] = None,
                  muted: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -421,6 +456,7 @@ class HeartbeatCheck(pulumi.CustomResource):
             __props__.__dict__["activated"] = activated
             __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
             __props__.__dict__["alert_settings"] = alert_settings
+            __props__.__dict__["description"] = description
             if heartbeat is None and not opts.urn:
                 raise TypeError("Missing required property 'heartbeat'")
             __props__.__dict__["heartbeat"] = heartbeat
@@ -442,6 +478,7 @@ class HeartbeatCheck(pulumi.CustomResource):
             activated: Optional[pulumi.Input[_builtins.bool]] = None,
             alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatCheckAlertChannelSubscriptionArgs', 'HeartbeatCheckAlertChannelSubscriptionArgsDict']]]]] = None,
             alert_settings: Optional[pulumi.Input[Union['HeartbeatCheckAlertSettingsArgs', 'HeartbeatCheckAlertSettingsArgsDict']]] = None,
+            description: Optional[pulumi.Input[_builtins.str]] = None,
             heartbeat: Optional[pulumi.Input[Union['HeartbeatCheckHeartbeatArgs', 'HeartbeatCheckHeartbeatArgsDict']]] = None,
             muted: Optional[pulumi.Input[_builtins.bool]] = None,
             name: Optional[pulumi.Input[_builtins.str]] = None,
@@ -458,6 +495,7 @@ class HeartbeatCheck(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] activated: Determines if the check is running or not. Possible values `true`, and `false`.
         :param pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatCheckAlertChannelSubscriptionArgs', 'HeartbeatCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['HeartbeatCheckAlertSettingsArgs', 'HeartbeatCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check fails/degrades/recovers.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks.
@@ -471,6 +509,7 @@ class HeartbeatCheck(pulumi.CustomResource):
         __props__.__dict__["activated"] = activated
         __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
         __props__.__dict__["alert_settings"] = alert_settings
+        __props__.__dict__["description"] = description
         __props__.__dict__["heartbeat"] = heartbeat
         __props__.__dict__["muted"] = muted
         __props__.__dict__["name"] = name
@@ -502,6 +541,14 @@ class HeartbeatCheck(pulumi.CustomResource):
         Determines the alert escalation policy for the monitor.
         """
         return pulumi.get(self, "alert_settings")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        A description of the monitor.
+        """
+        return pulumi.get(self, "description")
 
     @_builtins.property
     @pulumi.getter

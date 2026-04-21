@@ -27,6 +27,7 @@ class DnsMonitorArgs:
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['DnsMonitorAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['DnsMonitorAlertSettingsArgs']] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
                  group_order: Optional[pulumi.Input[_builtins.int]] = None,
@@ -47,6 +48,7 @@ class DnsMonitorArgs:
         :param pulumi.Input[Sequence[pulumi.Input['DnsMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['DnsMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
@@ -69,6 +71,8 @@ class DnsMonitorArgs:
             pulumi.set(__self__, "alert_settings", alert_settings)
         if degraded_response_time is not None:
             pulumi.set(__self__, "degraded_response_time", degraded_response_time)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if frequency_offset is not None:
             pulumi.set(__self__, "frequency_offset", frequency_offset)
         if group_id is not None:
@@ -165,6 +169,18 @@ class DnsMonitorArgs:
     @degraded_response_time.setter
     def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the monitor.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="frequencyOffset")
@@ -318,6 +334,7 @@ class _DnsMonitorState:
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['DnsMonitorAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['DnsMonitorAlertSettingsArgs']] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  frequency: Optional[pulumi.Input[_builtins.int]] = None,
                  frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -338,6 +355,7 @@ class _DnsMonitorState:
         :param pulumi.Input[Sequence[pulumi.Input['DnsMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['DnsMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
@@ -361,6 +379,8 @@ class _DnsMonitorState:
             pulumi.set(__self__, "alert_settings", alert_settings)
         if degraded_response_time is not None:
             pulumi.set(__self__, "degraded_response_time", degraded_response_time)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if frequency is not None:
             pulumi.set(__self__, "frequency", frequency)
         if frequency_offset is not None:
@@ -437,6 +457,18 @@ class _DnsMonitorState:
     @degraded_response_time.setter
     def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the monitor.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
@@ -617,6 +649,7 @@ class DnsMonitor(pulumi.CustomResource):
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DnsMonitorAlertChannelSubscriptionArgs', 'DnsMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['DnsMonitorAlertSettingsArgs', 'DnsMonitorAlertSettingsArgsDict']]] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  frequency: Optional[pulumi.Input[_builtins.int]] = None,
                  frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -668,6 +701,7 @@ class DnsMonitor(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['DnsMonitorAlertChannelSubscriptionArgs', 'DnsMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['DnsMonitorAlertSettingsArgs', 'DnsMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
@@ -738,6 +772,7 @@ class DnsMonitor(pulumi.CustomResource):
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DnsMonitorAlertChannelSubscriptionArgs', 'DnsMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['DnsMonitorAlertSettingsArgs', 'DnsMonitorAlertSettingsArgsDict']]] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  frequency: Optional[pulumi.Input[_builtins.int]] = None,
                  frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -767,6 +802,7 @@ class DnsMonitor(pulumi.CustomResource):
             __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
             __props__.__dict__["alert_settings"] = alert_settings
             __props__.__dict__["degraded_response_time"] = degraded_response_time
+            __props__.__dict__["description"] = description
             if frequency is None and not opts.urn:
                 raise TypeError("Missing required property 'frequency'")
             __props__.__dict__["frequency"] = frequency
@@ -799,6 +835,7 @@ class DnsMonitor(pulumi.CustomResource):
             alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DnsMonitorAlertChannelSubscriptionArgs', 'DnsMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
             alert_settings: Optional[pulumi.Input[Union['DnsMonitorAlertSettingsArgs', 'DnsMonitorAlertSettingsArgsDict']]] = None,
             degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+            description: Optional[pulumi.Input[_builtins.str]] = None,
             frequency: Optional[pulumi.Input[_builtins.int]] = None,
             frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
             group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -824,6 +861,7 @@ class DnsMonitor(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['DnsMonitorAlertChannelSubscriptionArgs', 'DnsMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['DnsMonitorAlertSettingsArgs', 'DnsMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+        :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
@@ -847,6 +885,7 @@ class DnsMonitor(pulumi.CustomResource):
         __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
         __props__.__dict__["alert_settings"] = alert_settings
         __props__.__dict__["degraded_response_time"] = degraded_response_time
+        __props__.__dict__["description"] = description
         __props__.__dict__["frequency"] = frequency
         __props__.__dict__["frequency_offset"] = frequency_offset
         __props__.__dict__["group_id"] = group_id
@@ -894,6 +933,14 @@ class DnsMonitor(pulumi.CustomResource):
         The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
         """
         return pulumi.get(self, "degraded_response_time")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        A description of the monitor.
+        """
+        return pulumi.get(self, "description")
 
     @_builtins.property
     @pulumi.getter

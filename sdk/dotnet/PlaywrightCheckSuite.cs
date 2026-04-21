@@ -40,6 +40,12 @@ namespace Pulumi.Checkly
         public Output<Outputs.PlaywrightCheckSuiteBundle> Bundle { get; private set; } = null!;
 
         /// <summary>
+        /// A description of the check.
+        /// </summary>
+        [Output("description")]
+        public Output<string?> Description { get; private set; } = null!;
+
+        /// <summary>
         /// Insert environment variables into the execution environment.
         /// </summary>
         [Output("environmentVariables")]
@@ -194,6 +200,12 @@ namespace Pulumi.Checkly
         [Input("bundle", required: true)]
         public Input<Inputs.PlaywrightCheckSuiteBundleArgs> Bundle { get; set; } = null!;
 
+        /// <summary>
+        /// A description of the check.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
         [Input("environmentVariables")]
         private InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableArgs>? _environmentVariables;
 
@@ -333,6 +345,12 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("bundle")]
         public Input<Inputs.PlaywrightCheckSuiteBundleGetArgs>? Bundle { get; set; }
+
+        /// <summary>
+        /// A description of the check.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
 
         [Input("environmentVariables")]
         private InputList<Inputs.PlaywrightCheckSuiteEnvironmentVariableGetArgs>? _environmentVariables;

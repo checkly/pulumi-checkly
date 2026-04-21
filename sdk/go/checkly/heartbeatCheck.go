@@ -54,7 +54,9 @@ type HeartbeatCheck struct {
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsOutput `pulumi:"alertSettings"`
-	Heartbeat     HeartbeatCheckHeartbeatOutput     `pulumi:"heartbeat"`
+	// A description of the monitor.
+	Description pulumi.StringPtrOutput        `pulumi:"description"`
+	Heartbeat   HeartbeatCheckHeartbeatOutput `pulumi:"heartbeat"`
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
 	// The name of the check.
@@ -109,7 +111,9 @@ type heartbeatCheckState struct {
 	AlertChannelSubscriptions []HeartbeatCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *HeartbeatCheckAlertSettings `pulumi:"alertSettings"`
-	Heartbeat     *HeartbeatCheckHeartbeat     `pulumi:"heartbeat"`
+	// A description of the monitor.
+	Description *string                  `pulumi:"description"`
+	Heartbeat   *HeartbeatCheckHeartbeat `pulumi:"heartbeat"`
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
@@ -129,7 +133,9 @@ type HeartbeatCheckState struct {
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsPtrInput
-	Heartbeat     HeartbeatCheckHeartbeatPtrInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
+	Heartbeat   HeartbeatCheckHeartbeatPtrInput
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
@@ -153,7 +159,9 @@ type heartbeatCheckArgs struct {
 	AlertChannelSubscriptions []HeartbeatCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *HeartbeatCheckAlertSettings `pulumi:"alertSettings"`
-	Heartbeat     HeartbeatCheckHeartbeat      `pulumi:"heartbeat"`
+	// A description of the monitor.
+	Description *string                 `pulumi:"description"`
+	Heartbeat   HeartbeatCheckHeartbeat `pulumi:"heartbeat"`
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
@@ -174,7 +182,9 @@ type HeartbeatCheckArgs struct {
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsPtrInput
-	Heartbeat     HeartbeatCheckHeartbeatInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
+	Heartbeat   HeartbeatCheckHeartbeatInput
 	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
@@ -289,6 +299,11 @@ func (o HeartbeatCheckOutput) AlertChannelSubscriptions() HeartbeatCheckAlertCha
 // Determines the alert escalation policy for the monitor.
 func (o HeartbeatCheckOutput) AlertSettings() HeartbeatCheckAlertSettingsOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) HeartbeatCheckAlertSettingsOutput { return v.AlertSettings }).(HeartbeatCheckAlertSettingsOutput)
+}
+
+// A description of the monitor.
+func (o HeartbeatCheckOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HeartbeatCheck) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 func (o HeartbeatCheckOutput) Heartbeat() HeartbeatCheckHeartbeatOutput {

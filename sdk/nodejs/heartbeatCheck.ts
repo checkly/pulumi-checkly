@@ -66,6 +66,10 @@ export class HeartbeatCheck extends pulumi.CustomResource {
      * Determines the alert escalation policy for the monitor.
      */
     declare public readonly alertSettings: pulumi.Output<outputs.HeartbeatCheckAlertSettings>;
+    /**
+     * A description of the monitor.
+     */
+    declare public readonly description: pulumi.Output<string | undefined>;
     declare public readonly heartbeat: pulumi.Output<outputs.HeartbeatCheckHeartbeat>;
     /**
      * Determines if any notifications will be sent out when a check fails/degrades/recovers.
@@ -104,6 +108,7 @@ export class HeartbeatCheck extends pulumi.CustomResource {
             resourceInputs["activated"] = state?.activated;
             resourceInputs["alertChannelSubscriptions"] = state?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = state?.alertSettings;
+            resourceInputs["description"] = state?.description;
             resourceInputs["heartbeat"] = state?.heartbeat;
             resourceInputs["muted"] = state?.muted;
             resourceInputs["name"] = state?.name;
@@ -121,6 +126,7 @@ export class HeartbeatCheck extends pulumi.CustomResource {
             resourceInputs["activated"] = args?.activated;
             resourceInputs["alertChannelSubscriptions"] = args?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = args?.alertSettings;
+            resourceInputs["description"] = args?.description;
             resourceInputs["heartbeat"] = args?.heartbeat;
             resourceInputs["muted"] = args?.muted;
             resourceInputs["name"] = args?.name;
@@ -149,6 +155,10 @@ export interface HeartbeatCheckState {
      * Determines the alert escalation policy for the monitor.
      */
     alertSettings?: pulumi.Input<inputs.HeartbeatCheckAlertSettings>;
+    /**
+     * A description of the monitor.
+     */
+    description?: pulumi.Input<string>;
     heartbeat?: pulumi.Input<inputs.HeartbeatCheckHeartbeat>;
     /**
      * Determines if any notifications will be sent out when a check fails/degrades/recovers.
@@ -188,6 +198,10 @@ export interface HeartbeatCheckArgs {
      * Determines the alert escalation policy for the monitor.
      */
     alertSettings?: pulumi.Input<inputs.HeartbeatCheckAlertSettings>;
+    /**
+     * A description of the monitor.
+     */
+    description?: pulumi.Input<string>;
     heartbeat: pulumi.Input<inputs.HeartbeatCheckHeartbeat>;
     /**
      * Determines if any notifications will be sent out when a check fails/degrades/recovers.

@@ -60,6 +60,12 @@ namespace Pulumi.Checkly
         [Output("alertSettings")]
         public Output<Outputs.HeartbeatMonitorAlertSettings> AlertSettings { get; private set; } = null!;
 
+        /// <summary>
+        /// A description of the monitor.
+        /// </summary>
+        [Output("description")]
+        public Output<string?> Description { get; private set; } = null!;
+
         [Output("heartbeat")]
         public Output<Outputs.HeartbeatMonitorHeartbeat> Heartbeat { get; private set; } = null!;
 
@@ -164,6 +170,12 @@ namespace Pulumi.Checkly
         [Input("alertSettings")]
         public Input<Inputs.HeartbeatMonitorAlertSettingsArgs>? AlertSettings { get; set; }
 
+        /// <summary>
+        /// A description of the monitor.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
         [Input("heartbeat", required: true)]
         public Input<Inputs.HeartbeatMonitorHeartbeatArgs> Heartbeat { get; set; } = null!;
 
@@ -234,6 +246,12 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.HeartbeatMonitorAlertSettingsGetArgs>? AlertSettings { get; set; }
+
+        /// <summary>
+        /// A description of the monitor.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
 
         [Input("heartbeat")]
         public Input<Inputs.HeartbeatMonitorHeartbeatGetArgs>? Heartbeat { get; set; }

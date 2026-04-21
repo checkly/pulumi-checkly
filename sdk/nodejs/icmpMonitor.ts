@@ -80,6 +80,10 @@ export class IcmpMonitor extends pulumi.CustomResource {
      */
     declare public readonly degradedPacketLossThreshold: pulumi.Output<number | undefined>;
     /**
+     * A description of the monitor.
+     */
+    declare public readonly description: pulumi.Output<string | undefined>;
+    /**
      * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */
     declare public readonly frequency: pulumi.Output<number>;
@@ -153,6 +157,7 @@ export class IcmpMonitor extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = state?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = state?.alertSettings;
             resourceInputs["degradedPacketLossThreshold"] = state?.degradedPacketLossThreshold;
+            resourceInputs["description"] = state?.description;
             resourceInputs["frequency"] = state?.frequency;
             resourceInputs["frequencyOffset"] = state?.frequencyOffset;
             resourceInputs["groupId"] = state?.groupId;
@@ -182,6 +187,7 @@ export class IcmpMonitor extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = args?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = args?.alertSettings;
             resourceInputs["degradedPacketLossThreshold"] = args?.degradedPacketLossThreshold;
+            resourceInputs["description"] = args?.description;
             resourceInputs["frequency"] = args?.frequency;
             resourceInputs["frequencyOffset"] = args?.frequencyOffset;
             resourceInputs["groupId"] = args?.groupId;
@@ -222,6 +228,10 @@ export interface IcmpMonitorState {
      * The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
      */
     degradedPacketLossThreshold?: pulumi.Input<number>;
+    /**
+     * A description of the monitor.
+     */
+    description?: pulumi.Input<string>;
     /**
      * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */
@@ -300,6 +310,10 @@ export interface IcmpMonitorArgs {
      * The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
      */
     degradedPacketLossThreshold?: pulumi.Input<number>;
+    /**
+     * A description of the monitor.
+     */
+    description?: pulumi.Input<string>;
     /**
      * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
      */

@@ -71,6 +71,8 @@ type DnsMonitor struct {
 	AlertSettings DnsMonitorAlertSettingsOutput `pulumi:"alertSettings"`
 	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
 	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
+	// A description of the monitor.
+	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -148,6 +150,8 @@ type dnsMonitorState struct {
 	AlertSettings *DnsMonitorAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
+	// A description of the monitor.
+	Description *string `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency *int `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -187,6 +191,8 @@ type DnsMonitorState struct {
 	AlertSettings DnsMonitorAlertSettingsPtrInput
 	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
 	DegradedResponseTime pulumi.IntPtrInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntPtrInput
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -230,6 +236,8 @@ type dnsMonitorArgs struct {
 	AlertSettings *DnsMonitorAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
+	// A description of the monitor.
+	Description *string `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency int `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -270,6 +278,8 @@ type DnsMonitorArgs struct {
 	AlertSettings DnsMonitorAlertSettingsPtrInput
 	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
 	DegradedResponseTime pulumi.IntPtrInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntInput
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -405,6 +415,11 @@ func (o DnsMonitorOutput) AlertSettings() DnsMonitorAlertSettingsOutput {
 // The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
 func (o DnsMonitorOutput) DegradedResponseTime() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
+}
+
+// A description of the monitor.
+func (o DnsMonitorOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 // Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).

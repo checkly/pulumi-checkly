@@ -54,6 +54,10 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
      */
     declare public readonly bundle: pulumi.Output<outputs.PlaywrightCheckSuiteBundle>;
     /**
+     * A description of the check.
+     */
+    declare public readonly description: pulumi.Output<string | undefined>;
+    /**
      * Insert environment variables into the execution environment.
      */
     declare public readonly environmentVariables: pulumi.Output<outputs.PlaywrightCheckSuiteEnvironmentVariable[] | undefined>;
@@ -123,6 +127,7 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = state?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = state?.alertSettings;
             resourceInputs["bundle"] = state?.bundle;
+            resourceInputs["description"] = state?.description;
             resourceInputs["environmentVariables"] = state?.environmentVariables;
             resourceInputs["frequency"] = state?.frequency;
             resourceInputs["groupId"] = state?.groupId;
@@ -151,6 +156,7 @@ export class PlaywrightCheckSuite extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = args?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = args?.alertSettings;
             resourceInputs["bundle"] = args?.bundle;
+            resourceInputs["description"] = args?.description;
             resourceInputs["environmentVariables"] = args?.environmentVariables;
             resourceInputs["frequency"] = args?.frequency;
             resourceInputs["groupId"] = args?.groupId;
@@ -190,6 +196,10 @@ export interface PlaywrightCheckSuiteState {
      * Attaches a code bundle to the check.
      */
     bundle?: pulumi.Input<inputs.PlaywrightCheckSuiteBundle>;
+    /**
+     * A description of the check.
+     */
+    description?: pulumi.Input<string>;
     /**
      * Insert environment variables into the execution environment.
      */
@@ -264,6 +274,10 @@ export interface PlaywrightCheckSuiteArgs {
      * Attaches a code bundle to the check.
      */
     bundle: pulumi.Input<inputs.PlaywrightCheckSuiteBundle>;
+    /**
+     * A description of the check.
+     */
+    description?: pulumi.Input<string>;
     /**
      * Insert environment variables into the execution environment.
      */

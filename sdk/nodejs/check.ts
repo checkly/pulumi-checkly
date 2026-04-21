@@ -54,6 +54,10 @@ export class Check extends pulumi.CustomResource {
      */
     declare public readonly degradedResponseTime: pulumi.Output<number | undefined>;
     /**
+     * A description of the check.
+     */
+    declare public readonly description: pulumi.Output<string | undefined>;
+    /**
      * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
      *
      * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
@@ -189,6 +193,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = state?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = state?.alertSettings;
             resourceInputs["degradedResponseTime"] = state?.degradedResponseTime;
+            resourceInputs["description"] = state?.description;
             resourceInputs["doubleCheck"] = state?.doubleCheck;
             resourceInputs["environmentVariable"] = state?.environmentVariable;
             resourceInputs["environmentVariables"] = state?.environmentVariables;
@@ -232,6 +237,7 @@ export class Check extends pulumi.CustomResource {
             resourceInputs["alertChannelSubscriptions"] = args?.alertChannelSubscriptions;
             resourceInputs["alertSettings"] = args?.alertSettings;
             resourceInputs["degradedResponseTime"] = args?.degradedResponseTime;
+            resourceInputs["description"] = args?.description;
             resourceInputs["doubleCheck"] = args?.doubleCheck;
             resourceInputs["environmentVariable"] = args?.environmentVariable;
             resourceInputs["environmentVariables"] = args?.environmentVariables;
@@ -286,6 +292,10 @@ export interface CheckState {
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
      */
     degradedResponseTime?: pulumi.Input<number>;
+    /**
+     * A description of the check.
+     */
+    description?: pulumi.Input<string>;
     /**
      * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
      *
@@ -426,6 +436,10 @@ export interface CheckArgs {
      * The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
      */
     degradedResponseTime?: pulumi.Input<number>;
+    /**
+     * A description of the check.
+     */
+    description?: pulumi.Input<string>;
     /**
      * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
      *
