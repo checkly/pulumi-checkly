@@ -118,6 +118,8 @@ type TcpMonitor struct {
 	AlertSettings TcpMonitorAlertSettingsOutput `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
+	// A description of the monitor.
+	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -201,6 +203,8 @@ type tcpMonitorState struct {
 	AlertSettings *TcpMonitorAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
+	// A description of the monitor.
+	Description *string `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency *int `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -246,6 +250,8 @@ type TcpMonitorState struct {
 	AlertSettings TcpMonitorAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntPtrInput
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -295,6 +301,8 @@ type tcpMonitorArgs struct {
 	AlertSettings *TcpMonitorAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
+	// A description of the monitor.
+	Description *string `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency int `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -341,6 +349,8 @@ type TcpMonitorArgs struct {
 	AlertSettings TcpMonitorAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 	DegradedResponseTime pulumi.IntPtrInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntInput
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -482,6 +492,11 @@ func (o TcpMonitorOutput) AlertSettings() TcpMonitorAlertSettingsOutput {
 // The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
 func (o TcpMonitorOutput) DegradedResponseTime() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
+}
+
+// A description of the monitor.
+func (o TcpMonitorOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 // Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).

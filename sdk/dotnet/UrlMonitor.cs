@@ -78,6 +78,12 @@ namespace Pulumi.Checkly
         public Output<int?> DegradedResponseTime { get; private set; } = null!;
 
         /// <summary>
+        /// A description of the monitor.
+        /// </summary>
+        [Output("description")]
+        public Output<string?> Description { get; private set; } = null!;
+
+        /// <summary>
         /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         /// </summary>
         [Output("frequency")]
@@ -251,6 +257,12 @@ namespace Pulumi.Checkly
         public Input<int>? DegradedResponseTime { get; set; }
 
         /// <summary>
+        /// A description of the monitor.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
+        /// <summary>
         /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         /// </summary>
         [Input("frequency", required: true)]
@@ -401,6 +413,12 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
+
+        /// <summary>
+        /// A description of the monitor.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
 
         /// <summary>
         /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).

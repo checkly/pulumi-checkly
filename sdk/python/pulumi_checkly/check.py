@@ -27,6 +27,7 @@ class CheckArgs:
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['CheckAlertSettingsArgs']] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  double_check: Optional[pulumi.Input[_builtins.bool]] = None,
                  environment_variable: Optional[pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]]] = None,
                  environment_variables: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
@@ -61,6 +62,7 @@ class CheckArgs:
         :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
@@ -97,6 +99,8 @@ class CheckArgs:
             pulumi.set(__self__, "alert_settings", alert_settings)
         if degraded_response_time is not None:
             pulumi.set(__self__, "degraded_response_time", degraded_response_time)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if double_check is not None:
             warnings.warn("""The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead.""", DeprecationWarning)
             pulumi.log.warn("""double_check is deprecated: The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead.""")
@@ -230,6 +234,18 @@ class CheckArgs:
     @degraded_response_time.setter
     def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the check.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="doubleCheck")
@@ -554,6 +570,7 @@ class _CheckState:
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['CheckAlertSettingsArgs']] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  double_check: Optional[pulumi.Input[_builtins.bool]] = None,
                  environment_variable: Optional[pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]]] = None,
                  environment_variables: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
@@ -588,6 +605,7 @@ class _CheckState:
         :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input['CheckEnvironmentVariableArgs']]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
@@ -625,6 +643,8 @@ class _CheckState:
             pulumi.set(__self__, "alert_settings", alert_settings)
         if degraded_response_time is not None:
             pulumi.set(__self__, "degraded_response_time", degraded_response_time)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if double_check is not None:
             warnings.warn("""The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead.""", DeprecationWarning)
             pulumi.log.warn("""double_check is deprecated: The property `double_check` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retry_strategy` property instead.""")
@@ -738,6 +758,18 @@ class _CheckState:
     @degraded_response_time.setter
     def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the check.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="doubleCheck")
@@ -1089,6 +1121,7 @@ class Check(pulumi.CustomResource):
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']]] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  double_check: Optional[pulumi.Input[_builtins.bool]] = None,
                  environment_variable: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]]] = None,
                  environment_variables: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
@@ -1127,6 +1160,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
@@ -1184,6 +1218,7 @@ class Check(pulumi.CustomResource):
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']]] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  double_check: Optional[pulumi.Input[_builtins.bool]] = None,
                  environment_variable: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]]] = None,
                  environment_variables: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
@@ -1227,6 +1262,7 @@ class Check(pulumi.CustomResource):
             __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
             __props__.__dict__["alert_settings"] = alert_settings
             __props__.__dict__["degraded_response_time"] = degraded_response_time
+            __props__.__dict__["description"] = description
             __props__.__dict__["double_check"] = double_check
             __props__.__dict__["environment_variable"] = environment_variable
             __props__.__dict__["environment_variables"] = environment_variables
@@ -1273,6 +1309,7 @@ class Check(pulumi.CustomResource):
             alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]]] = None,
             alert_settings: Optional[pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']]] = None,
             degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
+            description: Optional[pulumi.Input[_builtins.str]] = None,
             double_check: Optional[pulumi.Input[_builtins.bool]] = None,
             environment_variable: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]]] = None,
             environment_variables: Optional[pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]]] = None,
@@ -1312,6 +1349,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[_builtins.bool] double_check: Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckEnvironmentVariableArgs', 'CheckEnvironmentVariableArgsDict']]]] environment_variable: Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
         :param pulumi.Input[Mapping[str, pulumi.Input[_builtins.str]]] environment_variables: Key/value pairs of environment variables to insert into the runtime environment.
@@ -1349,6 +1387,7 @@ class Check(pulumi.CustomResource):
         __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
         __props__.__dict__["alert_settings"] = alert_settings
         __props__.__dict__["degraded_response_time"] = degraded_response_time
+        __props__.__dict__["description"] = description
         __props__.__dict__["double_check"] = double_check
         __props__.__dict__["environment_variable"] = environment_variable
         __props__.__dict__["environment_variables"] = environment_variables
@@ -1410,6 +1449,14 @@ class Check(pulumi.CustomResource):
         The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
         """
         return pulumi.get(self, "degraded_response_time")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        A description of the check.
+        """
+        return pulumi.get(self, "description")
 
     @_builtins.property
     @pulumi.getter(name="doubleCheck")

@@ -24,6 +24,8 @@ type Check struct {
 	AlertSettings CheckAlertSettingsOutput `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
+	// A description of the check.
+	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
@@ -135,6 +137,8 @@ type checkState struct {
 	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
+	// A description of the check.
+	Description *string `pulumi:"description"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
@@ -208,6 +212,8 @@ type CheckState struct {
 	AlertSettings CheckAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime pulumi.IntPtrInput
+	// A description of the check.
+	Description pulumi.StringPtrInput
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
@@ -285,6 +291,8 @@ type checkArgs struct {
 	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
+	// A description of the check.
+	Description *string `pulumi:"description"`
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
@@ -359,6 +367,8 @@ type CheckArgs struct {
 	AlertSettings CheckAlertSettingsPtrInput
 	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 	DegradedResponseTime pulumi.IntPtrInput
+	// A description of the check.
+	Description pulumi.StringPtrInput
 	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
@@ -528,6 +538,11 @@ func (o CheckOutput) AlertSettings() CheckAlertSettingsOutput {
 // The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
 func (o CheckOutput) DegradedResponseTime() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
+}
+
+// A description of the check.
+func (o CheckOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Check) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 // Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).

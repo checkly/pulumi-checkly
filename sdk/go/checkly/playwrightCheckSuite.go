@@ -24,6 +24,8 @@ type PlaywrightCheckSuite struct {
 	AlertSettings PlaywrightCheckSuiteAlertSettingsOutput `pulumi:"alertSettings"`
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundleOutput `pulumi:"bundle"`
+	// A description of the check.
+	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Insert environment variables into the execution environment.
 	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayOutput `pulumi:"environmentVariables"`
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -99,6 +101,8 @@ type playwrightCheckSuiteState struct {
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
 	// Attaches a code bundle to the check.
 	Bundle *PlaywrightCheckSuiteBundle `pulumi:"bundle"`
+	// A description of the check.
+	Description *string `pulumi:"description"`
 	// Insert environment variables into the execution environment.
 	EnvironmentVariables []PlaywrightCheckSuiteEnvironmentVariable `pulumi:"environmentVariables"`
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -136,6 +140,8 @@ type PlaywrightCheckSuiteState struct {
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundlePtrInput
+	// A description of the check.
+	Description pulumi.StringPtrInput
 	// Insert environment variables into the execution environment.
 	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayInput
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -177,6 +183,8 @@ type playwrightCheckSuiteArgs struct {
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundle `pulumi:"bundle"`
+	// A description of the check.
+	Description *string `pulumi:"description"`
 	// Insert environment variables into the execution environment.
 	EnvironmentVariables []PlaywrightCheckSuiteEnvironmentVariable `pulumi:"environmentVariables"`
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -215,6 +223,8 @@ type PlaywrightCheckSuiteArgs struct {
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundleInput
+	// A description of the check.
+	Description pulumi.StringPtrInput
 	// Insert environment variables into the execution environment.
 	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayInput
 	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
@@ -350,6 +360,11 @@ func (o PlaywrightCheckSuiteOutput) AlertSettings() PlaywrightCheckSuiteAlertSet
 // Attaches a code bundle to the check.
 func (o PlaywrightCheckSuiteOutput) Bundle() PlaywrightCheckSuiteBundleOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteBundleOutput { return v.Bundle }).(PlaywrightCheckSuiteBundleOutput)
+}
+
+// A description of the check.
+func (o PlaywrightCheckSuiteOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 // Insert environment variables into the execution environment.

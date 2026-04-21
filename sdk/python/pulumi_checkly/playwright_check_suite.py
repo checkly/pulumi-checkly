@@ -26,6 +26,7 @@ class PlaywrightCheckSuiteArgs:
                  frequency: pulumi.Input[_builtins.int],
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
                  group_order: Optional[pulumi.Input[_builtins.int]] = None,
@@ -45,6 +46,7 @@ class PlaywrightCheckSuiteArgs:
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment.
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
         :param pulumi.Input[_builtins.int] group_order: The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
@@ -65,6 +67,8 @@ class PlaywrightCheckSuiteArgs:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
             pulumi.set(__self__, "alert_settings", alert_settings)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if group_id is not None:
@@ -149,6 +153,18 @@ class PlaywrightCheckSuiteArgs:
     @alert_settings.setter
     def alert_settings(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the check.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
@@ -302,6 +318,7 @@ class _PlaywrightCheckSuiteState:
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']] = None,
                  bundle: Optional[pulumi.Input['PlaywrightCheckSuiteBundleArgs']] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]] = None,
                  frequency: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -321,6 +338,7 @@ class _PlaywrightCheckSuiteState:
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input['PlaywrightCheckSuiteBundleArgs'] bundle: Attaches a code bundle to the check.
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
@@ -343,6 +361,8 @@ class _PlaywrightCheckSuiteState:
             pulumi.set(__self__, "alert_settings", alert_settings)
         if bundle is not None:
             pulumi.set(__self__, "bundle", bundle)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
         if frequency is not None:
@@ -417,6 +437,18 @@ class _PlaywrightCheckSuiteState:
     @bundle.setter
     def bundle(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteBundleArgs']]):
         pulumi.set(self, "bundle", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        A description of the check.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
@@ -585,6 +617,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']]] = None,
                  bundle: Optional[pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]]] = None,
                  frequency: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -608,6 +641,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']] bundle: Attaches a code bundle to the check.
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the execution environment.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
@@ -650,6 +684,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]]] = None,
                  alert_settings: Optional[pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']]] = None,
                  bundle: Optional[pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None,
                  environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]]] = None,
                  frequency: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -680,6 +715,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
             if bundle is None and not opts.urn:
                 raise TypeError("Missing required property 'bundle'")
             __props__.__dict__["bundle"] = bundle
+            __props__.__dict__["description"] = description
             __props__.__dict__["environment_variables"] = environment_variables
             if frequency is None and not opts.urn:
                 raise TypeError("Missing required property 'frequency'")
@@ -709,6 +745,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
             alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]]] = None,
             alert_settings: Optional[pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']]] = None,
             bundle: Optional[pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']]] = None,
+            description: Optional[pulumi.Input[_builtins.str]] = None,
             environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]]] = None,
             frequency: Optional[pulumi.Input[_builtins.int]] = None,
             group_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -733,6 +770,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']] bundle: Attaches a code bundle to the check.
+        :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the execution environment.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
@@ -755,6 +793,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
         __props__.__dict__["alert_settings"] = alert_settings
         __props__.__dict__["bundle"] = bundle
+        __props__.__dict__["description"] = description
         __props__.__dict__["environment_variables"] = environment_variables
         __props__.__dict__["frequency"] = frequency
         __props__.__dict__["group_id"] = group_id
@@ -801,6 +840,14 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         Attaches a code bundle to the check.
         """
         return pulumi.get(self, "bundle")
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        A description of the check.
+        """
+        return pulumi.get(self, "description")
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")

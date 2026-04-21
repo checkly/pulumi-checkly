@@ -40,6 +40,12 @@ namespace Pulumi.Checkly
         public Output<int?> DegradedResponseTime { get; private set; } = null!;
 
         /// <summary>
+        /// A description of the check.
+        /// </summary>
+        [Output("description")]
+        public Output<string?> Description { get; private set; } = null!;
+
+        /// <summary>
         /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         /// </summary>
         [Output("doubleCheck")]
@@ -285,6 +291,12 @@ namespace Pulumi.Checkly
         public Input<int>? DegradedResponseTime { get; set; }
 
         /// <summary>
+        /// A description of the check.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
+        /// <summary>
         /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
         /// </summary>
         [Input("doubleCheck")]
@@ -520,6 +532,12 @@ namespace Pulumi.Checkly
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
+
+        /// <summary>
+        /// A description of the check.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
 
         /// <summary>
         /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).

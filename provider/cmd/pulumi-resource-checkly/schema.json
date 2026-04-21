@@ -3336,6 +3336,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the check.\n"
+                },
                 "doubleCheck": {
                     "type": "boolean",
                     "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
@@ -3495,6 +3499,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the check.\n"
+                },
                 "doubleCheck": {
                     "type": "boolean",
                     "description": "Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).\n",
@@ -3652,6 +3660,10 @@
                     "degradedResponseTime": {
                         "type": "integer",
                         "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the check.\n"
                     },
                     "doubleCheck": {
                         "type": "boolean",
@@ -4760,6 +4772,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -4851,6 +4867,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -4940,6 +4960,10 @@
                     "degradedResponseTime": {
                         "type": "integer",
                         "description": "The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
                     },
                     "frequency": {
                         "type": "integer",
@@ -5082,6 +5106,10 @@
                     "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings",
                     "description": "Determines the alert escalation policy for the monitor.\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "heartbeat": {
                     "$ref": "#/types/checkly:index/HeartbeatCheckHeartbeat:HeartbeatCheckHeartbeat"
                 },
@@ -5136,6 +5164,10 @@
                     "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings",
                     "description": "Determines the alert escalation policy for the monitor.\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "heartbeat": {
                     "$ref": "#/types/checkly:index/HeartbeatCheckHeartbeat:HeartbeatCheckHeartbeat"
                 },
@@ -5185,6 +5217,10 @@
                         "$ref": "#/types/checkly:index/HeartbeatCheckAlertSettings:HeartbeatCheckAlertSettings",
                         "description": "Determines the alert escalation policy for the monitor.\n"
                     },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
+                    },
                     "heartbeat": {
                         "$ref": "#/types/checkly:index/HeartbeatCheckHeartbeat:HeartbeatCheckHeartbeat"
                     },
@@ -5232,6 +5268,10 @@
                 "alertSettings": {
                     "$ref": "#/types/checkly:index/HeartbeatMonitorAlertSettings:HeartbeatMonitorAlertSettings",
                     "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
                 },
                 "heartbeat": {
                     "$ref": "#/types/checkly:index/HeartbeatMonitorHeartbeat:HeartbeatMonitorHeartbeat"
@@ -5282,6 +5322,10 @@
                     "$ref": "#/types/checkly:index/HeartbeatMonitorAlertSettings:HeartbeatMonitorAlertSettings",
                     "description": "Determines the alert escalation policy for the monitor.\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "heartbeat": {
                     "$ref": "#/types/checkly:index/HeartbeatMonitorHeartbeat:HeartbeatMonitorHeartbeat"
                 },
@@ -5330,6 +5374,10 @@
                     "alertSettings": {
                         "$ref": "#/types/checkly:index/HeartbeatMonitorAlertSettings:HeartbeatMonitorAlertSettings",
                         "description": "Determines the alert escalation policy for the monitor.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
                     },
                     "heartbeat": {
                         "$ref": "#/types/checkly:index/HeartbeatMonitorHeartbeat:HeartbeatMonitorHeartbeat"
@@ -5382,6 +5430,10 @@
                 "degradedPacketLossThreshold": {
                     "type": "integer",
                     "description": "The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
                 },
                 "frequency": {
                     "type": "integer",
@@ -5474,6 +5526,10 @@
                     "type": "integer",
                     "description": "The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -5563,6 +5619,10 @@
                     "degradedPacketLossThreshold": {
                         "type": "integer",
                         "description": "The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
                     },
                     "frequency": {
                         "type": "integer",
@@ -5767,6 +5827,10 @@
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
                     "description": "Attaches a code bundle to the check.\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the check.\n"
+                },
                 "environmentVariables": {
                     "type": "array",
                     "items": {
@@ -5860,6 +5924,10 @@
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
                     "description": "Attaches a code bundle to the check.\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the check.\n"
+                },
                 "environmentVariables": {
                     "type": "array",
                     "items": {
@@ -5951,6 +6019,10 @@
                     "bundle": {
                         "$ref": "#/types/checkly:index/PlaywrightCheckSuiteBundle:PlaywrightCheckSuiteBundle",
                         "description": "Attaches a code bundle to the check.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the check.\n"
                     },
                     "environmentVariables": {
                         "type": "array",
@@ -6357,6 +6429,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -6463,6 +6539,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -6568,6 +6648,10 @@
                         "type": "integer",
                         "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
                     },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
+                    },
                     "frequency": {
                         "type": "integer",
                         "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -6670,6 +6754,10 @@
                 "degradedResponseTime": {
                     "type": "integer",
                     "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
                 },
                 "frequency": {
                     "type": "integer",
@@ -6777,6 +6865,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -6881,6 +6973,10 @@
                     "degradedResponseTime": {
                         "type": "integer",
                         "description": "The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
                     },
                     "frequency": {
                         "type": "integer",
@@ -7099,6 +7195,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -7201,6 +7301,10 @@
                     "type": "integer",
                     "description": "The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).\n"
                 },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
                 "frequency": {
                     "type": "integer",
                     "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
@@ -7301,6 +7405,10 @@
                     "degradedResponseTime": {
                         "type": "integer",
                         "description": "The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
                     },
                     "frequency": {
                         "type": "integer",

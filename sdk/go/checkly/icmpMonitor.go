@@ -69,6 +69,8 @@ type IcmpMonitor struct {
 	AlertSettings IcmpMonitorAlertSettingsOutput `pulumi:"alertSettings"`
 	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
 	DegradedPacketLossThreshold pulumi.IntPtrOutput `pulumi:"degradedPacketLossThreshold"`
+	// A description of the monitor.
+	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -146,6 +148,8 @@ type icmpMonitorState struct {
 	AlertSettings *IcmpMonitorAlertSettings `pulumi:"alertSettings"`
 	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
 	DegradedPacketLossThreshold *int `pulumi:"degradedPacketLossThreshold"`
+	// A description of the monitor.
+	Description *string `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency *int `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -185,6 +189,8 @@ type IcmpMonitorState struct {
 	AlertSettings IcmpMonitorAlertSettingsPtrInput
 	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
 	DegradedPacketLossThreshold pulumi.IntPtrInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntPtrInput
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -228,6 +234,8 @@ type icmpMonitorArgs struct {
 	AlertSettings *IcmpMonitorAlertSettings `pulumi:"alertSettings"`
 	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
 	DegradedPacketLossThreshold *int `pulumi:"degradedPacketLossThreshold"`
+	// A description of the monitor.
+	Description *string `pulumi:"description"`
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency int `pulumi:"frequency"`
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -268,6 +276,8 @@ type IcmpMonitorArgs struct {
 	AlertSettings IcmpMonitorAlertSettingsPtrInput
 	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
 	DegradedPacketLossThreshold pulumi.IntPtrInput
+	// A description of the monitor.
+	Description pulumi.StringPtrInput
 	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
 	Frequency pulumi.IntInput
 	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
@@ -405,6 +415,11 @@ func (o IcmpMonitorOutput) AlertSettings() IcmpMonitorAlertSettingsOutput {
 // The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
 func (o IcmpMonitorOutput) DegradedPacketLossThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntPtrOutput { return v.DegradedPacketLossThreshold }).(pulumi.IntPtrOutput)
+}
+
+// A description of the monitor.
+func (o IcmpMonitorOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 // Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
