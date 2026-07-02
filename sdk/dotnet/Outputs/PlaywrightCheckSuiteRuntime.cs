@@ -18,6 +18,10 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly bool? AutoDetect;
         /// <summary>
+        /// The JavaScript engine used to run the Playwright tests.
+        /// </summary>
+        public readonly Outputs.PlaywrightCheckSuiteRuntimeEngine? Engine;
+        /// <summary>
         /// Configure the Playwright capabilities that should be made available to the runtime environment.
         /// </summary>
         public readonly Outputs.PlaywrightCheckSuiteRuntimePlaywright? Playwright;
@@ -34,6 +38,8 @@ namespace Pulumi.Checkly.Outputs
         private PlaywrightCheckSuiteRuntime(
             bool? autoDetect,
 
+            Outputs.PlaywrightCheckSuiteRuntimeEngine? engine,
+
             Outputs.PlaywrightCheckSuiteRuntimePlaywright? playwright,
 
             Outputs.PlaywrightCheckSuiteRuntimeSteps? steps,
@@ -41,6 +47,7 @@ namespace Pulumi.Checkly.Outputs
             string? workingDir)
         {
             AutoDetect = autoDetect;
+            Engine = engine;
             Playwright = playwright;
             Steps = steps;
             WorkingDir = workingDir;

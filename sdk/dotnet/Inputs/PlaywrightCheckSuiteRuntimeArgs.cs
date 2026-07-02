@@ -19,6 +19,12 @@ namespace Pulumi.Checkly.Inputs
         public Input<bool>? AutoDetect { get; set; }
 
         /// <summary>
+        /// The JavaScript engine used to run the Playwright tests.
+        /// </summary>
+        [Input("engine")]
+        public Input<Inputs.PlaywrightCheckSuiteRuntimeEngineArgs>? Engine { get; set; }
+
+        /// <summary>
         /// Configure the Playwright capabilities that should be made available to the runtime environment.
         /// </summary>
         [Input("playwright")]

@@ -803,6 +803,143 @@ func (o AlertChannelSlackPtrOutput) Url() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type AlertChannelSlackApp struct {
+	// The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+	SlackChannels []string `pulumi:"slackChannels"`
+}
+
+// AlertChannelSlackAppInput is an input type that accepts AlertChannelSlackAppArgs and AlertChannelSlackAppOutput values.
+// You can construct a concrete instance of `AlertChannelSlackAppInput` via:
+//
+//	AlertChannelSlackAppArgs{...}
+type AlertChannelSlackAppInput interface {
+	pulumi.Input
+
+	ToAlertChannelSlackAppOutput() AlertChannelSlackAppOutput
+	ToAlertChannelSlackAppOutputWithContext(context.Context) AlertChannelSlackAppOutput
+}
+
+type AlertChannelSlackAppArgs struct {
+	// The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+	SlackChannels pulumi.StringArrayInput `pulumi:"slackChannels"`
+}
+
+func (AlertChannelSlackAppArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelSlackApp)(nil)).Elem()
+}
+
+func (i AlertChannelSlackAppArgs) ToAlertChannelSlackAppOutput() AlertChannelSlackAppOutput {
+	return i.ToAlertChannelSlackAppOutputWithContext(context.Background())
+}
+
+func (i AlertChannelSlackAppArgs) ToAlertChannelSlackAppOutputWithContext(ctx context.Context) AlertChannelSlackAppOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSlackAppOutput)
+}
+
+func (i AlertChannelSlackAppArgs) ToAlertChannelSlackAppPtrOutput() AlertChannelSlackAppPtrOutput {
+	return i.ToAlertChannelSlackAppPtrOutputWithContext(context.Background())
+}
+
+func (i AlertChannelSlackAppArgs) ToAlertChannelSlackAppPtrOutputWithContext(ctx context.Context) AlertChannelSlackAppPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSlackAppOutput).ToAlertChannelSlackAppPtrOutputWithContext(ctx)
+}
+
+// AlertChannelSlackAppPtrInput is an input type that accepts AlertChannelSlackAppArgs, AlertChannelSlackAppPtr and AlertChannelSlackAppPtrOutput values.
+// You can construct a concrete instance of `AlertChannelSlackAppPtrInput` via:
+//
+//	        AlertChannelSlackAppArgs{...}
+//
+//	or:
+//
+//	        nil
+type AlertChannelSlackAppPtrInput interface {
+	pulumi.Input
+
+	ToAlertChannelSlackAppPtrOutput() AlertChannelSlackAppPtrOutput
+	ToAlertChannelSlackAppPtrOutputWithContext(context.Context) AlertChannelSlackAppPtrOutput
+}
+
+type alertChannelSlackAppPtrType AlertChannelSlackAppArgs
+
+func AlertChannelSlackAppPtr(v *AlertChannelSlackAppArgs) AlertChannelSlackAppPtrInput {
+	return (*alertChannelSlackAppPtrType)(v)
+}
+
+func (*alertChannelSlackAppPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelSlackApp)(nil)).Elem()
+}
+
+func (i *alertChannelSlackAppPtrType) ToAlertChannelSlackAppPtrOutput() AlertChannelSlackAppPtrOutput {
+	return i.ToAlertChannelSlackAppPtrOutputWithContext(context.Background())
+}
+
+func (i *alertChannelSlackAppPtrType) ToAlertChannelSlackAppPtrOutputWithContext(ctx context.Context) AlertChannelSlackAppPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlertChannelSlackAppPtrOutput)
+}
+
+type AlertChannelSlackAppOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelSlackAppOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlertChannelSlackApp)(nil)).Elem()
+}
+
+func (o AlertChannelSlackAppOutput) ToAlertChannelSlackAppOutput() AlertChannelSlackAppOutput {
+	return o
+}
+
+func (o AlertChannelSlackAppOutput) ToAlertChannelSlackAppOutputWithContext(ctx context.Context) AlertChannelSlackAppOutput {
+	return o
+}
+
+func (o AlertChannelSlackAppOutput) ToAlertChannelSlackAppPtrOutput() AlertChannelSlackAppPtrOutput {
+	return o.ToAlertChannelSlackAppPtrOutputWithContext(context.Background())
+}
+
+func (o AlertChannelSlackAppOutput) ToAlertChannelSlackAppPtrOutputWithContext(ctx context.Context) AlertChannelSlackAppPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AlertChannelSlackApp) *AlertChannelSlackApp {
+		return &v
+	}).(AlertChannelSlackAppPtrOutput)
+}
+
+// The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+func (o AlertChannelSlackAppOutput) SlackChannels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v AlertChannelSlackApp) []string { return v.SlackChannels }).(pulumi.StringArrayOutput)
+}
+
+type AlertChannelSlackAppPtrOutput struct{ *pulumi.OutputState }
+
+func (AlertChannelSlackAppPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AlertChannelSlackApp)(nil)).Elem()
+}
+
+func (o AlertChannelSlackAppPtrOutput) ToAlertChannelSlackAppPtrOutput() AlertChannelSlackAppPtrOutput {
+	return o
+}
+
+func (o AlertChannelSlackAppPtrOutput) ToAlertChannelSlackAppPtrOutputWithContext(ctx context.Context) AlertChannelSlackAppPtrOutput {
+	return o
+}
+
+func (o AlertChannelSlackAppPtrOutput) Elem() AlertChannelSlackAppOutput {
+	return o.ApplyT(func(v *AlertChannelSlackApp) AlertChannelSlackApp {
+		if v != nil {
+			return *v
+		}
+		var ret AlertChannelSlackApp
+		return ret
+	}).(AlertChannelSlackAppOutput)
+}
+
+// The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+func (o AlertChannelSlackAppPtrOutput) SlackChannels() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *AlertChannelSlackApp) []string {
+		if v == nil {
+			return nil
+		}
+		return v.SlackChannels
+	}).(pulumi.StringArrayOutput)
+}
+
 type AlertChannelSms struct {
 	// The name of this alert channel
 	Name string `pulumi:"name"`
@@ -968,7 +1105,7 @@ type AlertChannelWebhook struct {
 	Template        *string           `pulumi:"template"`
 	Url             string            `pulumi:"url"`
 	WebhookSecret   *string           `pulumi:"webhookSecret"`
-	// Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+	// Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
 	WebhookType *string `pulumi:"webhookType"`
 }
 
@@ -992,7 +1129,7 @@ type AlertChannelWebhookArgs struct {
 	Template        pulumi.StringPtrInput `pulumi:"template"`
 	Url             pulumi.StringInput    `pulumi:"url"`
 	WebhookSecret   pulumi.StringPtrInput `pulumi:"webhookSecret"`
-	// Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+	// Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
 	WebhookType pulumi.StringPtrInput `pulumi:"webhookType"`
 }
 
@@ -1102,7 +1239,7 @@ func (o AlertChannelWebhookOutput) WebhookSecret() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.WebhookSecret }).(pulumi.StringPtrOutput)
 }
 
-// Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+// Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
 func (o AlertChannelWebhookOutput) WebhookType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) *string { return v.WebhookType }).(pulumi.StringPtrOutput)
 }
@@ -1195,7 +1332,7 @@ func (o AlertChannelWebhookPtrOutput) WebhookSecret() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+// Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
 func (o AlertChannelWebhookPtrOutput) WebhookType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) *string {
 		if v == nil {
@@ -15138,6 +15275,8 @@ func (o PlaywrightCheckSuiteEnvironmentVariableArrayOutput) Index(i pulumi.IntIn
 type PlaywrightCheckSuiteRuntime struct {
 	// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
 	AutoDetect *bool `pulumi:"autoDetect"`
+	// The JavaScript engine used to run the Playwright tests.
+	Engine *PlaywrightCheckSuiteRuntimeEngine `pulumi:"engine"`
 	// Configure the Playwright capabilities that should be made available to the runtime environment.
 	Playwright *PlaywrightCheckSuiteRuntimePlaywright `pulumi:"playwright"`
 	// Customize the actions taken during test execution.
@@ -15160,6 +15299,8 @@ type PlaywrightCheckSuiteRuntimeInput interface {
 type PlaywrightCheckSuiteRuntimeArgs struct {
 	// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
 	AutoDetect pulumi.BoolPtrInput `pulumi:"autoDetect"`
+	// The JavaScript engine used to run the Playwright tests.
+	Engine PlaywrightCheckSuiteRuntimeEnginePtrInput `pulumi:"engine"`
 	// Configure the Playwright capabilities that should be made available to the runtime environment.
 	Playwright PlaywrightCheckSuiteRuntimePlaywrightPtrInput `pulumi:"playwright"`
 	// Customize the actions taken during test execution.
@@ -15250,6 +15391,11 @@ func (o PlaywrightCheckSuiteRuntimeOutput) AutoDetect() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *bool { return v.AutoDetect }).(pulumi.BoolPtrOutput)
 }
 
+// The JavaScript engine used to run the Playwright tests.
+func (o PlaywrightCheckSuiteRuntimeOutput) Engine() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimeEngine { return v.Engine }).(PlaywrightCheckSuiteRuntimeEnginePtrOutput)
+}
+
 // Configure the Playwright capabilities that should be made available to the runtime environment.
 func (o PlaywrightCheckSuiteRuntimeOutput) Playwright() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimePlaywright { return v.Playwright }).(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput)
@@ -15299,6 +15445,16 @@ func (o PlaywrightCheckSuiteRuntimePtrOutput) AutoDetect() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
+// The JavaScript engine used to run the Playwright tests.
+func (o PlaywrightCheckSuiteRuntimePtrOutput) Engine() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimeEngine {
+		if v == nil {
+			return nil
+		}
+		return v.Engine
+	}).(PlaywrightCheckSuiteRuntimeEnginePtrOutput)
+}
+
 // Configure the Playwright capabilities that should be made available to the runtime environment.
 func (o PlaywrightCheckSuiteRuntimePtrOutput) Playwright() PlaywrightCheckSuiteRuntimePlaywrightPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimePlaywright {
@@ -15326,6 +15482,162 @@ func (o PlaywrightCheckSuiteRuntimePtrOutput) WorkingDir() pulumi.StringPtrOutpu
 			return nil
 		}
 		return v.WorkingDir
+	}).(pulumi.StringPtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeEngine struct {
+	// The engine name. Valid values are "node" or "bun".
+	Name string `pulumi:"name"`
+	// The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+	Version string `pulumi:"version"`
+}
+
+// PlaywrightCheckSuiteRuntimeEngineInput is an input type that accepts PlaywrightCheckSuiteRuntimeEngineArgs and PlaywrightCheckSuiteRuntimeEngineOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeEngineInput` via:
+//
+//	PlaywrightCheckSuiteRuntimeEngineArgs{...}
+type PlaywrightCheckSuiteRuntimeEngineInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeEngineOutput() PlaywrightCheckSuiteRuntimeEngineOutput
+	ToPlaywrightCheckSuiteRuntimeEngineOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeEngineOutput
+}
+
+type PlaywrightCheckSuiteRuntimeEngineArgs struct {
+	// The engine name. Valid values are "node" or "bun".
+	Name pulumi.StringInput `pulumi:"name"`
+	// The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+	Version pulumi.StringInput `pulumi:"version"`
+}
+
+func (PlaywrightCheckSuiteRuntimeEngineArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeEngine)(nil)).Elem()
+}
+
+func (i PlaywrightCheckSuiteRuntimeEngineArgs) ToPlaywrightCheckSuiteRuntimeEngineOutput() PlaywrightCheckSuiteRuntimeEngineOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeEngineOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeEngineArgs) ToPlaywrightCheckSuiteRuntimeEngineOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeEngineOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeEngineOutput)
+}
+
+func (i PlaywrightCheckSuiteRuntimeEngineArgs) ToPlaywrightCheckSuiteRuntimeEnginePtrOutput() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(context.Background())
+}
+
+func (i PlaywrightCheckSuiteRuntimeEngineArgs) ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeEngineOutput).ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(ctx)
+}
+
+// PlaywrightCheckSuiteRuntimeEnginePtrInput is an input type that accepts PlaywrightCheckSuiteRuntimeEngineArgs, PlaywrightCheckSuiteRuntimeEnginePtr and PlaywrightCheckSuiteRuntimeEnginePtrOutput values.
+// You can construct a concrete instance of `PlaywrightCheckSuiteRuntimeEnginePtrInput` via:
+//
+//	        PlaywrightCheckSuiteRuntimeEngineArgs{...}
+//
+//	or:
+//
+//	        nil
+type PlaywrightCheckSuiteRuntimeEnginePtrInput interface {
+	pulumi.Input
+
+	ToPlaywrightCheckSuiteRuntimeEnginePtrOutput() PlaywrightCheckSuiteRuntimeEnginePtrOutput
+	ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(context.Context) PlaywrightCheckSuiteRuntimeEnginePtrOutput
+}
+
+type playwrightCheckSuiteRuntimeEnginePtrType PlaywrightCheckSuiteRuntimeEngineArgs
+
+func PlaywrightCheckSuiteRuntimeEnginePtr(v *PlaywrightCheckSuiteRuntimeEngineArgs) PlaywrightCheckSuiteRuntimeEnginePtrInput {
+	return (*playwrightCheckSuiteRuntimeEnginePtrType)(v)
+}
+
+func (*playwrightCheckSuiteRuntimeEnginePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeEngine)(nil)).Elem()
+}
+
+func (i *playwrightCheckSuiteRuntimeEnginePtrType) ToPlaywrightCheckSuiteRuntimeEnginePtrOutput() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return i.ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(context.Background())
+}
+
+func (i *playwrightCheckSuiteRuntimeEnginePtrType) ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PlaywrightCheckSuiteRuntimeEnginePtrOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeEngineOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeEngineOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PlaywrightCheckSuiteRuntimeEngine)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeEngineOutput) ToPlaywrightCheckSuiteRuntimeEngineOutput() PlaywrightCheckSuiteRuntimeEngineOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeEngineOutput) ToPlaywrightCheckSuiteRuntimeEngineOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeEngineOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeEngineOutput) ToPlaywrightCheckSuiteRuntimeEnginePtrOutput() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return o.ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(context.Background())
+}
+
+func (o PlaywrightCheckSuiteRuntimeEngineOutput) ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PlaywrightCheckSuiteRuntimeEngine) *PlaywrightCheckSuiteRuntimeEngine {
+		return &v
+	}).(PlaywrightCheckSuiteRuntimeEnginePtrOutput)
+}
+
+// The engine name. Valid values are "node" or "bun".
+func (o PlaywrightCheckSuiteRuntimeEngineOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimeEngine) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+func (o PlaywrightCheckSuiteRuntimeEngineOutput) Version() pulumi.StringOutput {
+	return o.ApplyT(func(v PlaywrightCheckSuiteRuntimeEngine) string { return v.Version }).(pulumi.StringOutput)
+}
+
+type PlaywrightCheckSuiteRuntimeEnginePtrOutput struct{ *pulumi.OutputState }
+
+func (PlaywrightCheckSuiteRuntimeEnginePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PlaywrightCheckSuiteRuntimeEngine)(nil)).Elem()
+}
+
+func (o PlaywrightCheckSuiteRuntimeEnginePtrOutput) ToPlaywrightCheckSuiteRuntimeEnginePtrOutput() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeEnginePtrOutput) ToPlaywrightCheckSuiteRuntimeEnginePtrOutputWithContext(ctx context.Context) PlaywrightCheckSuiteRuntimeEnginePtrOutput {
+	return o
+}
+
+func (o PlaywrightCheckSuiteRuntimeEnginePtrOutput) Elem() PlaywrightCheckSuiteRuntimeEngineOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeEngine) PlaywrightCheckSuiteRuntimeEngine {
+		if v != nil {
+			return *v
+		}
+		var ret PlaywrightCheckSuiteRuntimeEngine
+		return ret
+	}).(PlaywrightCheckSuiteRuntimeEngineOutput)
+}
+
+// The engine name. Valid values are "node" or "bun".
+func (o PlaywrightCheckSuiteRuntimeEnginePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeEngine) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+func (o PlaywrightCheckSuiteRuntimeEnginePtrOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntimeEngine) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Version
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -21473,6 +21785,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelPagerdutyPtrInput)(nil)).Elem(), AlertChannelPagerdutyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSlackInput)(nil)).Elem(), AlertChannelSlackArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSlackPtrInput)(nil)).Elem(), AlertChannelSlackArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSlackAppInput)(nil)).Elem(), AlertChannelSlackAppArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSlackAppPtrInput)(nil)).Elem(), AlertChannelSlackAppArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSmsInput)(nil)).Elem(), AlertChannelSmsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelSmsPtrInput)(nil)).Elem(), AlertChannelSmsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlertChannelWebhookInput)(nil)).Elem(), AlertChannelWebhookArgs{})
@@ -21671,6 +21985,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteEnvironmentVariableArrayInput)(nil)).Elem(), PlaywrightCheckSuiteEnvironmentVariableArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeEngineInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeEngineArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimeEnginePtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimeEngineArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightPtrInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteRuntimePlaywrightDeviceInput)(nil)).Elem(), PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs{})
@@ -21765,6 +22081,8 @@ func init() {
 	pulumi.RegisterOutputType(AlertChannelPagerdutyPtrOutput{})
 	pulumi.RegisterOutputType(AlertChannelSlackOutput{})
 	pulumi.RegisterOutputType(AlertChannelSlackPtrOutput{})
+	pulumi.RegisterOutputType(AlertChannelSlackAppOutput{})
+	pulumi.RegisterOutputType(AlertChannelSlackAppPtrOutput{})
 	pulumi.RegisterOutputType(AlertChannelSmsOutput{})
 	pulumi.RegisterOutputType(AlertChannelSmsPtrOutput{})
 	pulumi.RegisterOutputType(AlertChannelWebhookOutput{})
@@ -21963,6 +22281,8 @@ func init() {
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteEnvironmentVariableArrayOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePtrOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeEngineOutput{})
+	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimeEnginePtrOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightPtrOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteRuntimePlaywrightDeviceOutput{})

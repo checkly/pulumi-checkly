@@ -53,7 +53,20 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			// A Slack alert channel
+//			// A Slack App alert channel, using the Checkly Slack App
+//			_, err = checkly.NewAlertChannel(ctx, "slack_app_ac", &checkly.AlertChannelArgs{
+//				SlackApp: &checkly.AlertChannelSlackAppArgs{
+//					SlackChannels: pulumi.StringArray{
+//						pulumi.String("#checkly-notifications"),
+//						pulumi.String("@john"),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// A legacy Slack alert channel, using a Slack webhook URL.
+//			// Deprecated: use the slack_app block instead.
 //			_, err = checkly.NewAlertChannel(ctx, "slack_ac", &checkly.AlertChannelArgs{
 //				Slack: &checkly.AlertChannelSlackArgs{
 //					Channel: pulumi.String("#checkly-notifications"),
@@ -123,6 +136,64 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// A Rootly alert channel — In-App Routing mode.
+//			// Alerts are sent to Rootly and routed internally via Rootly Alert Routes.
+//			_, err = checkly.NewAlertChannel(ctx, "rootly_inapp_ac", &checkly.AlertChannelArgs{
+//				Webhook: &checkly.AlertChannelWebhookArgs{
+//					Name:          pulumi.String("Rootly (In-App Routing)"),
+//					Method:        pulumi.String("POST"),
+//					Url:           pulumi.String("https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks"),
+//					WebhookSecret: pulumi.String("<rootly-webhook-secret>"),
+//					WebhookType:   pulumi.String("WEBHOOK_ROOTLY"),
+//					Template: pulumi.String(`{
+//	  "alert_type": "{{ALERT_TYPE}}",
+//	  "check_id": "{{CHECK_ID}}",
+//	  "check_result_id": "{{CHECK_RESULT_ID}}",
+//	  "check_name": "{{CHECK_NAME}}",
+//	  "alert_title": "{{ALERT_TITLE}}",
+//	  "started_at": "{{STARTED_AT}}",
+//	  "link": "{{RESULT_LINK}}"
+//	}
+//
+// `),
+//
+//				},
+//				SendRecovery: pulumi.Bool(true),
+//				SendFailure:  pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// A Rootly alert channel — Direct Routing mode.
+//			// Alerts are routed directly to a specific Rootly target via the URL.
+//			// Type is one of: Service, Group (for Teams), EscalationPolicy, Functionality.
+//			// The target ID can be found in the Rootly UI for the chosen resource.
+//			_, err = checkly.NewAlertChannel(ctx, "rootly_direct_ac", &checkly.AlertChannelArgs{
+//				Webhook: &checkly.AlertChannelWebhookArgs{
+//					Name:          pulumi.String("Rootly (Direct Routing)"),
+//					Method:        pulumi.String("POST"),
+//					Url:           pulumi.String("https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks/notify/EscalationPolicy/<rootly-escalation-policy-id>"),
+//					WebhookSecret: pulumi.String("<rootly-webhook-secret>"),
+//					WebhookType:   pulumi.String("WEBHOOK_ROOTLY"),
+//					Template: pulumi.String(`{
+//	  "alert_type": "{{ALERT_TYPE}}",
+//	  "check_id": "{{CHECK_ID}}",
+//	  "check_result_id": "{{CHECK_RESULT_ID}}",
+//	  "check_name": "{{CHECK_NAME}}",
+//	  "alert_title": "{{ALERT_TITLE}}",
+//	  "started_at": "{{STARTED_AT}}",
+//	  "link": "{{RESULT_LINK}}"
+//	}
+//
+// `),
+//
+//				},
+//				SendRecovery: pulumi.Bool(true),
+//				SendFailure:  pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
 //			// Connecting the alert channel to a check
 //			_, err = checkly.NewCheck(ctx, "example_check", &checkly.CheckArgs{
 //				Name: pulumi.String("Example check"),
@@ -157,9 +228,11 @@ type AlertChannel struct {
 	// (Default `true`)
 	SendFailure pulumi.BoolPtrOutput `pulumi:"sendFailure"`
 	// (Default `true`)
-	SendRecovery pulumi.BoolPtrOutput       `pulumi:"sendRecovery"`
-	Slack        AlertChannelSlackPtrOutput `pulumi:"slack"`
-	Sms          AlertChannelSmsPtrOutput   `pulumi:"sms"`
+	SendRecovery pulumi.BoolPtrOutput `pulumi:"sendRecovery"`
+	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack    AlertChannelSlackPtrOutput    `pulumi:"slack"`
+	SlackApp AlertChannelSlackAppPtrOutput `pulumi:"slackApp"`
+	Sms      AlertChannelSmsPtrOutput      `pulumi:"sms"`
 	// (Default `false`)
 	SslExpiry pulumi.BoolPtrOutput `pulumi:"sslExpiry"`
 	// Value must be between 1 and 30 (Default `30`)
@@ -206,9 +279,11 @@ type alertChannelState struct {
 	// (Default `true`)
 	SendFailure *bool `pulumi:"sendFailure"`
 	// (Default `true`)
-	SendRecovery *bool              `pulumi:"sendRecovery"`
-	Slack        *AlertChannelSlack `pulumi:"slack"`
-	Sms          *AlertChannelSms   `pulumi:"sms"`
+	SendRecovery *bool `pulumi:"sendRecovery"`
+	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack    *AlertChannelSlack    `pulumi:"slack"`
+	SlackApp *AlertChannelSlackApp `pulumi:"slackApp"`
+	Sms      *AlertChannelSms      `pulumi:"sms"`
 	// (Default `false`)
 	SslExpiry *bool `pulumi:"sslExpiry"`
 	// Value must be between 1 and 30 (Default `30`)
@@ -227,8 +302,10 @@ type AlertChannelState struct {
 	SendFailure pulumi.BoolPtrInput
 	// (Default `true`)
 	SendRecovery pulumi.BoolPtrInput
-	Slack        AlertChannelSlackPtrInput
-	Sms          AlertChannelSmsPtrInput
+	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack    AlertChannelSlackPtrInput
+	SlackApp AlertChannelSlackAppPtrInput
+	Sms      AlertChannelSmsPtrInput
 	// (Default `false`)
 	SslExpiry pulumi.BoolPtrInput
 	// Value must be between 1 and 30 (Default `30`)
@@ -250,9 +327,11 @@ type alertChannelArgs struct {
 	// (Default `true`)
 	SendFailure *bool `pulumi:"sendFailure"`
 	// (Default `true`)
-	SendRecovery *bool              `pulumi:"sendRecovery"`
-	Slack        *AlertChannelSlack `pulumi:"slack"`
-	Sms          *AlertChannelSms   `pulumi:"sms"`
+	SendRecovery *bool `pulumi:"sendRecovery"`
+	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack    *AlertChannelSlack    `pulumi:"slack"`
+	SlackApp *AlertChannelSlackApp `pulumi:"slackApp"`
+	Sms      *AlertChannelSms      `pulumi:"sms"`
 	// (Default `false`)
 	SslExpiry *bool `pulumi:"sslExpiry"`
 	// Value must be between 1 and 30 (Default `30`)
@@ -272,8 +351,10 @@ type AlertChannelArgs struct {
 	SendFailure pulumi.BoolPtrInput
 	// (Default `true`)
 	SendRecovery pulumi.BoolPtrInput
-	Slack        AlertChannelSlackPtrInput
-	Sms          AlertChannelSmsPtrInput
+	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack    AlertChannelSlackPtrInput
+	SlackApp AlertChannelSlackAppPtrInput
+	Sms      AlertChannelSmsPtrInput
 	// (Default `false`)
 	SslExpiry pulumi.BoolPtrInput
 	// Value must be between 1 and 30 (Default `30`)
@@ -399,8 +480,13 @@ func (o AlertChannelOutput) SendRecovery() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) pulumi.BoolPtrOutput { return v.SendRecovery }).(pulumi.BoolPtrOutput)
 }
 
+// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
 func (o AlertChannelOutput) Slack() AlertChannelSlackPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelSlackPtrOutput { return v.Slack }).(AlertChannelSlackPtrOutput)
+}
+
+func (o AlertChannelOutput) SlackApp() AlertChannelSlackAppPtrOutput {
+	return o.ApplyT(func(v *AlertChannel) AlertChannelSlackAppPtrOutput { return v.SlackApp }).(AlertChannelSlackAppPtrOutput)
 }
 
 func (o AlertChannelOutput) Sms() AlertChannelSmsPtrOutput {

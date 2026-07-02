@@ -48,7 +48,21 @@ namespace Pulumi.Checkly
     ///         SendFailure = true,
     ///     });
     /// 
-    ///     // A Slack alert channel
+    ///     // A Slack App alert channel, using the Checkly Slack App
+    ///     var slackAppAc = new Checkly.AlertChannel("slack_app_ac", new()
+    ///     {
+    ///         SlackApp = new Checkly.Inputs.AlertChannelSlackAppArgs
+    ///         {
+    ///             SlackChannels = new[]
+    ///             {
+    ///                 "#checkly-notifications",
+    ///                 "@john",
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    ///     // A legacy Slack alert channel, using a Slack webhook URL.
+    ///     // Deprecated: use the slack_app block instead.
     ///     var slackAc = new Checkly.AlertChannel("slack_ac", new()
     ///     {
     ///         Slack = new Checkly.Inputs.AlertChannelSlackArgs
@@ -116,6 +130,60 @@ namespace Pulumi.Checkly
     ///         },
     ///     });
     /// 
+    ///     // A Rootly alert channel — In-App Routing mode.
+    ///     // Alerts are sent to Rootly and routed internally via Rootly Alert Routes.
+    ///     var rootlyInappAc = new Checkly.AlertChannel("rootly_inapp_ac", new()
+    ///     {
+    ///         Webhook = new Checkly.Inputs.AlertChannelWebhookArgs
+    ///         {
+    ///             Name = "Rootly (In-App Routing)",
+    ///             Method = "POST",
+    ///             Url = "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks",
+    ///             WebhookSecret = "&lt;rootly-webhook-secret&gt;",
+    ///             WebhookType = "WEBHOOK_ROOTLY",
+    ///             Template = @"{
+    ///   ""alert_type"": ""{{ALERT_TYPE}}"",
+    ///   ""check_id"": ""{{CHECK_ID}}"",
+    ///   ""check_result_id"": ""{{CHECK_RESULT_ID}}"",
+    ///   ""check_name"": ""{{CHECK_NAME}}"",
+    ///   ""alert_title"": ""{{ALERT_TITLE}}"",
+    ///   ""started_at"": ""{{STARTED_AT}}"",
+    ///   ""link"": ""{{RESULT_LINK}}""
+    /// }
+    /// ",
+    ///         },
+    ///         SendRecovery = true,
+    ///         SendFailure = true,
+    ///     });
+    /// 
+    ///     // A Rootly alert channel — Direct Routing mode.
+    ///     // Alerts are routed directly to a specific Rootly target via the URL.
+    ///     // Type is one of: Service, Group (for Teams), EscalationPolicy, Functionality.
+    ///     // The target ID can be found in the Rootly UI for the chosen resource.
+    ///     var rootlyDirectAc = new Checkly.AlertChannel("rootly_direct_ac", new()
+    ///     {
+    ///         Webhook = new Checkly.Inputs.AlertChannelWebhookArgs
+    ///         {
+    ///             Name = "Rootly (Direct Routing)",
+    ///             Method = "POST",
+    ///             Url = "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks/notify/EscalationPolicy/&lt;rootly-escalation-policy-id&gt;",
+    ///             WebhookSecret = "&lt;rootly-webhook-secret&gt;",
+    ///             WebhookType = "WEBHOOK_ROOTLY",
+    ///             Template = @"{
+    ///   ""alert_type"": ""{{ALERT_TYPE}}"",
+    ///   ""check_id"": ""{{CHECK_ID}}"",
+    ///   ""check_result_id"": ""{{CHECK_RESULT_ID}}"",
+    ///   ""check_name"": ""{{CHECK_NAME}}"",
+    ///   ""alert_title"": ""{{ALERT_TITLE}}"",
+    ///   ""started_at"": ""{{STARTED_AT}}"",
+    ///   ""link"": ""{{RESULT_LINK}}""
+    /// }
+    /// ",
+    ///         },
+    ///         SendRecovery = true,
+    ///         SendFailure = true,
+    ///     });
+    /// 
     ///     // Connecting the alert channel to a check
     ///     var exampleCheck = new Checkly.Check("example_check", new()
     ///     {
@@ -173,6 +241,9 @@ namespace Pulumi.Checkly
 
         [Output("slack")]
         public Output<Outputs.AlertChannelSlack?> Slack { get; private set; } = null!;
+
+        [Output("slackApp")]
+        public Output<Outputs.AlertChannelSlackApp?> SlackApp { get; private set; } = null!;
 
         [Output("sms")]
         public Output<Outputs.AlertChannelSms?> Sms { get; private set; } = null!;
@@ -272,6 +343,9 @@ namespace Pulumi.Checkly
         [Input("slack")]
         public Input<Inputs.AlertChannelSlackArgs>? Slack { get; set; }
 
+        [Input("slackApp")]
+        public Input<Inputs.AlertChannelSlackAppArgs>? SlackApp { get; set; }
+
         [Input("sms")]
         public Input<Inputs.AlertChannelSmsArgs>? Sms { get; set; }
 
@@ -330,6 +404,9 @@ namespace Pulumi.Checkly
 
         [Input("slack")]
         public Input<Inputs.AlertChannelSlackGetArgs>? Slack { get; set; }
+
+        [Input("slackApp")]
+        public Input<Inputs.AlertChannelSlackAppGetArgs>? SlackApp { get; set; }
 
         [Input("sms")]
         public Input<Inputs.AlertChannelSmsGetArgs>? Sms { get; set; }

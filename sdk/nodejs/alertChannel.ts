@@ -35,7 +35,15 @@ import * as utilities from "./utilities";
  *     sendRecovery: true,
  *     sendFailure: true,
  * });
- * // A Slack alert channel
+ * // A Slack App alert channel, using the Checkly Slack App
+ * const slackAppAc = new checkly.AlertChannel("slack_app_ac", {slackApp: {
+ *     slackChannels: [
+ *         "#checkly-notifications",
+ *         "@john",
+ *     ],
+ * }});
+ * // A legacy Slack alert channel, using a Slack webhook URL.
+ * // Deprecated: use the slack_app block instead.
  * const slackAc = new checkly.AlertChannel("slack_ac", {slack: {
  *     channel: "#checkly-notifications",
  *     url: "https://hooks.slack.com/services/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",
@@ -78,6 +86,54 @@ import * as utilities from "./utilities";
  *     url: "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
  *     webhookType: "WEBHOOK_FIREHYDRANT",
  * }});
+ * // A Rootly alert channel — In-App Routing mode.
+ * // Alerts are sent to Rootly and routed internally via Rootly Alert Routes.
+ * const rootlyInappAc = new checkly.AlertChannel("rootly_inapp_ac", {
+ *     webhook: {
+ *         name: "Rootly (In-App Routing)",
+ *         method: "POST",
+ *         url: "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks",
+ *         webhookSecret: "<rootly-webhook-secret>",
+ *         webhookType: "WEBHOOK_ROOTLY",
+ *         template: `{
+ *   "alert_type": "{{ALERT_TYPE}}",
+ *   "check_id": "{{CHECK_ID}}",
+ *   "check_result_id": "{{CHECK_RESULT_ID}}",
+ *   "check_name": "{{CHECK_NAME}}",
+ *   "alert_title": "{{ALERT_TITLE}}",
+ *   "started_at": "{{STARTED_AT}}",
+ *   "link": "{{RESULT_LINK}}"
+ * }
+ * `,
+ *     },
+ *     sendRecovery: true,
+ *     sendFailure: true,
+ * });
+ * // A Rootly alert channel — Direct Routing mode.
+ * // Alerts are routed directly to a specific Rootly target via the URL.
+ * // Type is one of: Service, Group (for Teams), EscalationPolicy, Functionality.
+ * // The target ID can be found in the Rootly UI for the chosen resource.
+ * const rootlyDirectAc = new checkly.AlertChannel("rootly_direct_ac", {
+ *     webhook: {
+ *         name: "Rootly (Direct Routing)",
+ *         method: "POST",
+ *         url: "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks/notify/EscalationPolicy/<rootly-escalation-policy-id>",
+ *         webhookSecret: "<rootly-webhook-secret>",
+ *         webhookType: "WEBHOOK_ROOTLY",
+ *         template: `{
+ *   "alert_type": "{{ALERT_TYPE}}",
+ *   "check_id": "{{CHECK_ID}}",
+ *   "check_result_id": "{{CHECK_RESULT_ID}}",
+ *   "check_name": "{{CHECK_NAME}}",
+ *   "alert_title": "{{ALERT_TITLE}}",
+ *   "started_at": "{{STARTED_AT}}",
+ *   "link": "{{RESULT_LINK}}"
+ * }
+ * `,
+ *     },
+ *     sendRecovery: true,
+ *     sendFailure: true,
+ * });
  * // Connecting the alert channel to a check
  * const exampleCheck = new checkly.Check("example_check", {
  *     name: "Example check",
@@ -138,7 +194,11 @@ export class AlertChannel extends pulumi.CustomResource {
      * (Default `true`)
      */
     declare public readonly sendRecovery: pulumi.Output<boolean | undefined>;
+    /**
+     * @deprecated The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+     */
     declare public readonly slack: pulumi.Output<outputs.AlertChannelSlack | undefined>;
+    declare public readonly slackApp: pulumi.Output<outputs.AlertChannelSlackApp | undefined>;
     declare public readonly sms: pulumi.Output<outputs.AlertChannelSms | undefined>;
     /**
      * (Default `false`)
@@ -171,6 +231,7 @@ export class AlertChannel extends pulumi.CustomResource {
             resourceInputs["sendFailure"] = state?.sendFailure;
             resourceInputs["sendRecovery"] = state?.sendRecovery;
             resourceInputs["slack"] = state?.slack;
+            resourceInputs["slackApp"] = state?.slackApp;
             resourceInputs["sms"] = state?.sms;
             resourceInputs["sslExpiry"] = state?.sslExpiry;
             resourceInputs["sslExpiryThreshold"] = state?.sslExpiryThreshold;
@@ -185,6 +246,7 @@ export class AlertChannel extends pulumi.CustomResource {
             resourceInputs["sendFailure"] = args?.sendFailure;
             resourceInputs["sendRecovery"] = args?.sendRecovery;
             resourceInputs["slack"] = args?.slack;
+            resourceInputs["slackApp"] = args?.slackApp;
             resourceInputs["sms"] = args?.sms;
             resourceInputs["sslExpiry"] = args?.sslExpiry;
             resourceInputs["sslExpiryThreshold"] = args?.sslExpiryThreshold;
@@ -215,7 +277,11 @@ export interface AlertChannelState {
      * (Default `true`)
      */
     sendRecovery?: pulumi.Input<boolean>;
+    /**
+     * @deprecated The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+     */
     slack?: pulumi.Input<inputs.AlertChannelSlack>;
+    slackApp?: pulumi.Input<inputs.AlertChannelSlackApp>;
     sms?: pulumi.Input<inputs.AlertChannelSms>;
     /**
      * (Default `false`)
@@ -248,7 +314,11 @@ export interface AlertChannelArgs {
      * (Default `true`)
      */
     sendRecovery?: pulumi.Input<boolean>;
+    /**
+     * @deprecated The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+     */
     slack?: pulumi.Input<inputs.AlertChannelSlack>;
+    slackApp?: pulumi.Input<inputs.AlertChannelSlackApp>;
     sms?: pulumi.Input<inputs.AlertChannelSms>;
     /**
      * (Default `false`)
