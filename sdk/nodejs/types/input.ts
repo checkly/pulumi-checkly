@@ -49,6 +49,13 @@ export interface AlertChannelSlack {
     url: pulumi.Input<string>;
 }
 
+export interface AlertChannelSlackApp {
+    /**
+     * The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+     */
+    slackChannels: pulumi.Input<pulumi.Input<string>[]>;
+}
+
 export interface AlertChannelSms {
     /**
      * The name of this alert channel
@@ -72,7 +79,7 @@ export interface AlertChannelWebhook {
     url: pulumi.Input<string>;
     webhookSecret?: pulumi.Input<string>;
     /**
-     * Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+     * Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
      */
     webhookType?: pulumi.Input<string>;
 }
@@ -1427,6 +1434,10 @@ export interface PlaywrightCheckSuiteRuntime {
      */
     autoDetect?: pulumi.Input<boolean>;
     /**
+     * The JavaScript engine used to run the Playwright tests.
+     */
+    engine?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeEngine>;
+    /**
      * Configure the Playwright capabilities that should be made available to the runtime environment.
      */
     playwright?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywright>;
@@ -1438,6 +1449,17 @@ export interface PlaywrightCheckSuiteRuntime {
      * The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
      */
     workingDir?: pulumi.Input<string>;
+}
+
+export interface PlaywrightCheckSuiteRuntimeEngine {
+    /**
+     * The engine name. Valid values are "node" or "bun".
+     */
+    name: pulumi.Input<string>;
+    /**
+     * The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+     */
+    version: pulumi.Input<string>;
 }
 
 export interface PlaywrightCheckSuiteRuntimePlaywright {

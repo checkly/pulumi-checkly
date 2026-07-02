@@ -20,6 +20,16 @@
                     "slack": {
                         "maxItemsOne": true
                     },
+                    "slack_app": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "slack_channels": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
                     "sms": {
                         "maxItemsOne": true
                     },
@@ -527,6 +537,9 @@
                         "maxItemsOne": true,
                         "elem": {
                             "fields": {
+                                "engine": {
+                                    "maxItemsOne": true
+                                },
                                 "playwright": {
                                     "maxItemsOne": true,
                                     "elem": {

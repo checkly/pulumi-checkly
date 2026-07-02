@@ -29,6 +29,7 @@ class AlertChannelArgs:
                  send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
                  send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
                  slack: Optional[pulumi.Input['AlertChannelSlackArgs']] = None,
+                 slack_app: Optional[pulumi.Input['AlertChannelSlackAppArgs']] = None,
                  sms: Optional[pulumi.Input['AlertChannelSmsArgs']] = None,
                  ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
@@ -56,7 +57,12 @@ class AlertChannelArgs:
         if send_recovery is not None:
             pulumi.set(__self__, "send_recovery", send_recovery)
         if slack is not None:
+            warnings.warn("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""", DeprecationWarning)
+            pulumi.log.warn("""slack is deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
+        if slack is not None:
             pulumi.set(__self__, "slack", slack)
+        if slack_app is not None:
+            pulumi.set(__self__, "slack_app", slack_app)
         if sms is not None:
             pulumi.set(__self__, "sms", sms)
         if ssl_expiry is not None:
@@ -140,12 +146,22 @@ class AlertChannelArgs:
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
     def slack(self) -> Optional[pulumi.Input['AlertChannelSlackArgs']]:
         return pulumi.get(self, "slack")
 
     @slack.setter
     def slack(self, value: Optional[pulumi.Input['AlertChannelSlackArgs']]):
         pulumi.set(self, "slack", value)
+
+    @_builtins.property
+    @pulumi.getter(name="slackApp")
+    def slack_app(self) -> Optional[pulumi.Input['AlertChannelSlackAppArgs']]:
+        return pulumi.get(self, "slack_app")
+
+    @slack_app.setter
+    def slack_app(self, value: Optional[pulumi.Input['AlertChannelSlackAppArgs']]):
+        pulumi.set(self, "slack_app", value)
 
     @_builtins.property
     @pulumi.getter
@@ -201,6 +217,7 @@ class _AlertChannelState:
                  send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
                  send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
                  slack: Optional[pulumi.Input['AlertChannelSlackArgs']] = None,
+                 slack_app: Optional[pulumi.Input['AlertChannelSlackAppArgs']] = None,
                  sms: Optional[pulumi.Input['AlertChannelSmsArgs']] = None,
                  ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
@@ -228,7 +245,12 @@ class _AlertChannelState:
         if send_recovery is not None:
             pulumi.set(__self__, "send_recovery", send_recovery)
         if slack is not None:
+            warnings.warn("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""", DeprecationWarning)
+            pulumi.log.warn("""slack is deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
+        if slack is not None:
             pulumi.set(__self__, "slack", slack)
+        if slack_app is not None:
+            pulumi.set(__self__, "slack_app", slack_app)
         if sms is not None:
             pulumi.set(__self__, "sms", sms)
         if ssl_expiry is not None:
@@ -312,12 +334,22 @@ class _AlertChannelState:
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
     def slack(self) -> Optional[pulumi.Input['AlertChannelSlackArgs']]:
         return pulumi.get(self, "slack")
 
     @slack.setter
     def slack(self, value: Optional[pulumi.Input['AlertChannelSlackArgs']]):
         pulumi.set(self, "slack", value)
+
+    @_builtins.property
+    @pulumi.getter(name="slackApp")
+    def slack_app(self) -> Optional[pulumi.Input['AlertChannelSlackAppArgs']]:
+        return pulumi.get(self, "slack_app")
+
+    @slack_app.setter
+    def slack_app(self, value: Optional[pulumi.Input['AlertChannelSlackAppArgs']]):
+        pulumi.set(self, "slack_app", value)
 
     @_builtins.property
     @pulumi.getter
@@ -376,6 +408,7 @@ class AlertChannel(pulumi.CustomResource):
                  send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
                  send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
                  slack: Optional[pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict']]] = None,
+                 slack_app: Optional[pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict']]] = None,
                  sms: Optional[pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict']]] = None,
                  ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
@@ -408,7 +441,15 @@ class AlertChannel(pulumi.CustomResource):
             },
             send_recovery=True,
             send_failure=True)
-        # A Slack alert channel
+        # A Slack App alert channel, using the Checkly Slack App
+        slack_app_ac = checkly.AlertChannel("slack_app_ac", slack_app={
+            "slack_channels": [
+                "#checkly-notifications",
+                "@john",
+            ],
+        })
+        # A legacy Slack alert channel, using a Slack webhook URL.
+        # Deprecated: use the slack_app block instead.
         slack_ac = checkly.AlertChannel("slack_ac", slack={
             "channel": "#checkly-notifications",
             "url": "https://hooks.slack.com/services/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",
@@ -451,6 +492,52 @@ class AlertChannel(pulumi.CustomResource):
             "url": "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
             "webhook_type": "WEBHOOK_FIREHYDRANT",
         })
+        # A Rootly alert channel — In-App Routing mode.
+        # Alerts are sent to Rootly and routed internally via Rootly Alert Routes.
+        rootly_inapp_ac = checkly.AlertChannel("rootly_inapp_ac",
+            webhook={
+                "name": "Rootly (In-App Routing)",
+                "method": "POST",
+                "url": "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks",
+                "webhook_secret": "<rootly-webhook-secret>",
+                "webhook_type": "WEBHOOK_ROOTLY",
+                "template": \"\"\"{
+          "alert_type": "{{ALERT_TYPE}}",
+          "check_id": "{{CHECK_ID}}",
+          "check_result_id": "{{CHECK_RESULT_ID}}",
+          "check_name": "{{CHECK_NAME}}",
+          "alert_title": "{{ALERT_TITLE}}",
+          "started_at": "{{STARTED_AT}}",
+          "link": "{{RESULT_LINK}}"
+        }
+        \"\"\",
+            },
+            send_recovery=True,
+            send_failure=True)
+        # A Rootly alert channel — Direct Routing mode.
+        # Alerts are routed directly to a specific Rootly target via the URL.
+        # Type is one of: Service, Group (for Teams), EscalationPolicy, Functionality.
+        # The target ID can be found in the Rootly UI for the chosen resource.
+        rootly_direct_ac = checkly.AlertChannel("rootly_direct_ac",
+            webhook={
+                "name": "Rootly (Direct Routing)",
+                "method": "POST",
+                "url": "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks/notify/EscalationPolicy/<rootly-escalation-policy-id>",
+                "webhook_secret": "<rootly-webhook-secret>",
+                "webhook_type": "WEBHOOK_ROOTLY",
+                "template": \"\"\"{
+          "alert_type": "{{ALERT_TYPE}}",
+          "check_id": "{{CHECK_ID}}",
+          "check_result_id": "{{CHECK_RESULT_ID}}",
+          "check_name": "{{CHECK_NAME}}",
+          "alert_title": "{{ALERT_TITLE}}",
+          "started_at": "{{STARTED_AT}}",
+          "link": "{{RESULT_LINK}}"
+        }
+        \"\"\",
+            },
+            send_recovery=True,
+            send_failure=True)
         # Connecting the alert channel to a check
         example_check = checkly.Check("example_check",
             name="Example check",
@@ -507,7 +594,15 @@ class AlertChannel(pulumi.CustomResource):
             },
             send_recovery=True,
             send_failure=True)
-        # A Slack alert channel
+        # A Slack App alert channel, using the Checkly Slack App
+        slack_app_ac = checkly.AlertChannel("slack_app_ac", slack_app={
+            "slack_channels": [
+                "#checkly-notifications",
+                "@john",
+            ],
+        })
+        # A legacy Slack alert channel, using a Slack webhook URL.
+        # Deprecated: use the slack_app block instead.
         slack_ac = checkly.AlertChannel("slack_ac", slack={
             "channel": "#checkly-notifications",
             "url": "https://hooks.slack.com/services/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",
@@ -550,6 +645,52 @@ class AlertChannel(pulumi.CustomResource):
             "url": "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
             "webhook_type": "WEBHOOK_FIREHYDRANT",
         })
+        # A Rootly alert channel — In-App Routing mode.
+        # Alerts are sent to Rootly and routed internally via Rootly Alert Routes.
+        rootly_inapp_ac = checkly.AlertChannel("rootly_inapp_ac",
+            webhook={
+                "name": "Rootly (In-App Routing)",
+                "method": "POST",
+                "url": "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks",
+                "webhook_secret": "<rootly-webhook-secret>",
+                "webhook_type": "WEBHOOK_ROOTLY",
+                "template": \"\"\"{
+          "alert_type": "{{ALERT_TYPE}}",
+          "check_id": "{{CHECK_ID}}",
+          "check_result_id": "{{CHECK_RESULT_ID}}",
+          "check_name": "{{CHECK_NAME}}",
+          "alert_title": "{{ALERT_TITLE}}",
+          "started_at": "{{STARTED_AT}}",
+          "link": "{{RESULT_LINK}}"
+        }
+        \"\"\",
+            },
+            send_recovery=True,
+            send_failure=True)
+        # A Rootly alert channel — Direct Routing mode.
+        # Alerts are routed directly to a specific Rootly target via the URL.
+        # Type is one of: Service, Group (for Teams), EscalationPolicy, Functionality.
+        # The target ID can be found in the Rootly UI for the chosen resource.
+        rootly_direct_ac = checkly.AlertChannel("rootly_direct_ac",
+            webhook={
+                "name": "Rootly (Direct Routing)",
+                "method": "POST",
+                "url": "https://webhooks.rootly.com/webhooks/incoming/checkly_webhooks/notify/EscalationPolicy/<rootly-escalation-policy-id>",
+                "webhook_secret": "<rootly-webhook-secret>",
+                "webhook_type": "WEBHOOK_ROOTLY",
+                "template": \"\"\"{
+          "alert_type": "{{ALERT_TYPE}}",
+          "check_id": "{{CHECK_ID}}",
+          "check_result_id": "{{CHECK_RESULT_ID}}",
+          "check_name": "{{CHECK_NAME}}",
+          "alert_title": "{{ALERT_TITLE}}",
+          "started_at": "{{STARTED_AT}}",
+          "link": "{{RESULT_LINK}}"
+        }
+        \"\"\",
+            },
+            send_recovery=True,
+            send_failure=True)
         # Connecting the alert channel to a check
         example_check = checkly.Check("example_check",
             name="Example check",
@@ -588,6 +729,7 @@ class AlertChannel(pulumi.CustomResource):
                  send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
                  send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
                  slack: Optional[pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict']]] = None,
+                 slack_app: Optional[pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict']]] = None,
                  sms: Optional[pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict']]] = None,
                  ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
@@ -609,6 +751,7 @@ class AlertChannel(pulumi.CustomResource):
             __props__.__dict__["send_failure"] = send_failure
             __props__.__dict__["send_recovery"] = send_recovery
             __props__.__dict__["slack"] = slack
+            __props__.__dict__["slack_app"] = slack_app
             __props__.__dict__["sms"] = sms
             __props__.__dict__["ssl_expiry"] = ssl_expiry
             __props__.__dict__["ssl_expiry_threshold"] = ssl_expiry_threshold
@@ -631,6 +774,7 @@ class AlertChannel(pulumi.CustomResource):
             send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
             send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
             slack: Optional[pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict']]] = None,
+            slack_app: Optional[pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict']]] = None,
             sms: Optional[pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict']]] = None,
             ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
             ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
@@ -660,6 +804,7 @@ class AlertChannel(pulumi.CustomResource):
         __props__.__dict__["send_failure"] = send_failure
         __props__.__dict__["send_recovery"] = send_recovery
         __props__.__dict__["slack"] = slack
+        __props__.__dict__["slack_app"] = slack_app
         __props__.__dict__["sms"] = sms
         __props__.__dict__["ssl_expiry"] = ssl_expiry
         __props__.__dict__["ssl_expiry_threshold"] = ssl_expiry_threshold
@@ -712,8 +857,14 @@ class AlertChannel(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
+    @_utilities.deprecated("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
     def slack(self) -> pulumi.Output[Optional['outputs.AlertChannelSlack']]:
         return pulumi.get(self, "slack")
+
+    @_builtins.property
+    @pulumi.getter(name="slackApp")
+    def slack_app(self) -> pulumi.Output[Optional['outputs.AlertChannelSlackApp']]:
+        return pulumi.get(self, "slack_app")
 
     @_builtins.property
     @pulumi.getter

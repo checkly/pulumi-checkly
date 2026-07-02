@@ -21,6 +21,7 @@ __all__ = [
     'AlertChannelOpsgenie',
     'AlertChannelPagerduty',
     'AlertChannelSlack',
+    'AlertChannelSlackApp',
     'AlertChannelSms',
     'AlertChannelWebhook',
     'CheckAlertChannelSubscription',
@@ -120,6 +121,7 @@ __all__ = [
     'PlaywrightCheckSuiteBundle',
     'PlaywrightCheckSuiteEnvironmentVariable',
     'PlaywrightCheckSuiteRuntime',
+    'PlaywrightCheckSuiteRuntimeEngine',
     'PlaywrightCheckSuiteRuntimePlaywright',
     'PlaywrightCheckSuiteRuntimePlaywrightDevice',
     'PlaywrightCheckSuiteRuntimeSteps',
@@ -338,6 +340,41 @@ class AlertChannelSlack(dict):
 
 
 @pulumi.output_type
+class AlertChannelSlackApp(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "slackChannels":
+            suggest = "slack_channels"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AlertChannelSlackApp. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AlertChannelSlackApp.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AlertChannelSlackApp.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 slack_channels: Sequence[_builtins.str]):
+        """
+        :param Sequence[_builtins.str] slack_channels: The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+        """
+        pulumi.set(__self__, "slack_channels", slack_channels)
+
+    @_builtins.property
+    @pulumi.getter(name="slackChannels")
+    def slack_channels(self) -> Sequence[_builtins.str]:
+        """
+        The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+        """
+        return pulumi.get(self, "slack_channels")
+
+
+@pulumi.output_type
 class AlertChannelSms(dict):
     def __init__(__self__, *,
                  name: _builtins.str,
@@ -400,7 +437,7 @@ class AlertChannelWebhook(dict):
                  webhook_type: Optional[_builtins.str] = None):
         """
         :param _builtins.str method: (Default `POST`)
-        :param _builtins.str webhook_type: Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+        :param _builtins.str webhook_type: Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "url", url)
@@ -459,7 +496,7 @@ class AlertChannelWebhook(dict):
     @pulumi.getter(name="webhookType")
     def webhook_type(self) -> Optional[_builtins.str]:
         """
-        Type of the webhook. Possible values are 'WEBHOOK*DISCORD', 'WEBHOOK*FIREHYDRANT', 'WEBHOOK*GITLAB*ALERT', 'WEBHOOK*SPIKESH', 'WEBHOOK*SPLUNK', 'WEBHOOK*MSTEAMS' and 'WEBHOOK*TELEGRAM'.
+        Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
         """
         return pulumi.get(self, "webhook_type")
 
@@ -5519,17 +5556,21 @@ class PlaywrightCheckSuiteRuntime(dict):
 
     def __init__(__self__, *,
                  auto_detect: Optional[_builtins.bool] = None,
+                 engine: Optional['outputs.PlaywrightCheckSuiteRuntimeEngine'] = None,
                  playwright: Optional['outputs.PlaywrightCheckSuiteRuntimePlaywright'] = None,
                  steps: Optional['outputs.PlaywrightCheckSuiteRuntimeSteps'] = None,
                  working_dir: Optional[_builtins.str] = None):
         """
         :param _builtins.bool auto_detect: Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+        :param 'PlaywrightCheckSuiteRuntimeEngineArgs' engine: The JavaScript engine used to run the Playwright tests.
         :param 'PlaywrightCheckSuiteRuntimePlaywrightArgs' playwright: Configure the Playwright capabilities that should be made available to the runtime environment.
         :param 'PlaywrightCheckSuiteRuntimeStepsArgs' steps: Customize the actions taken during test execution.
         :param _builtins.str working_dir: The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
         """
         if auto_detect is not None:
             pulumi.set(__self__, "auto_detect", auto_detect)
+        if engine is not None:
+            pulumi.set(__self__, "engine", engine)
         if playwright is not None:
             pulumi.set(__self__, "playwright", playwright)
         if steps is not None:
@@ -5544,6 +5585,14 @@ class PlaywrightCheckSuiteRuntime(dict):
         Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
         """
         return pulumi.get(self, "auto_detect")
+
+    @_builtins.property
+    @pulumi.getter
+    def engine(self) -> Optional['outputs.PlaywrightCheckSuiteRuntimeEngine']:
+        """
+        The JavaScript engine used to run the Playwright tests.
+        """
+        return pulumi.get(self, "engine")
 
     @_builtins.property
     @pulumi.getter
@@ -5568,6 +5617,35 @@ class PlaywrightCheckSuiteRuntime(dict):
         The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
         """
         return pulumi.get(self, "working_dir")
+
+
+@pulumi.output_type
+class PlaywrightCheckSuiteRuntimeEngine(dict):
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 version: _builtins.str):
+        """
+        :param _builtins.str name: The engine name. Valid values are "node" or "bun".
+        :param _builtins.str version: The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+        """
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "version", version)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The engine name. Valid values are "node" or "bun".
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def version(self) -> _builtins.str:
+        """
+        The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+        """
+        return pulumi.get(self, "version")
 
 
 @pulumi.output_type
