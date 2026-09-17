@@ -1496,6 +1496,303 @@
                 "severity"
             ]
         },
+        "checkly:index/GrpcMonitorAlertChannelSubscription:GrpcMonitorAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
+                },
+                "channelId": {
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/GrpcMonitorAlertSettings:GrpcMonitorAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorAlertSettingsParallelRunFailureThreshold:GrpcMonitorAlertSettingsParallelRunFailureThreshold"
+                    },
+                    "description": "Configuration for parallel run failure threshold.\n"
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorAlertSettingsReminder:GrpcMonitorAlertSettingsReminder"
+                    },
+                    "description": "Defines how often to send reminder notifications after initial alert.\n"
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorAlertSettingsRunBasedEscalation:GrpcMonitorAlertSettingsRunBasedEscalation"
+                    },
+                    "description": "Configuration for run-based escalation.\n"
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorAlertSettingsTimeBasedEscalation:GrpcMonitorAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": "Configuration for time-based escalation.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/GrpcMonitorAlertSettingsParallelRunFailureThreshold:GrpcMonitorAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/GrpcMonitorAlertSettingsReminder:GrpcMonitorAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/GrpcMonitorAlertSettingsRunBasedEscalation:GrpcMonitorAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/GrpcMonitorAlertSettingsTimeBasedEscalation:GrpcMonitorAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/GrpcMonitorRequest:GrpcMonitorRequest": {
+            "properties": {
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorRequestAssertion:GrpcMonitorRequestAssertion"
+                    },
+                    "description": "A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.\n"
+                },
+                "grpcMode": {
+                    "type": "string",
+                    "description": "The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).\n"
+                },
+                "host": {
+                    "type": "string",
+                    "description": "The host to connect to. Do not include a scheme or a port in this value.\n"
+                },
+                "ipFamily": {
+                    "type": "string",
+                    "description": "The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).\n"
+                },
+                "message": {
+                    "type": "string",
+                    "description": "The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.\n"
+                },
+                "metadatas": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorRequestMetadata:GrpcMonitorRequestMetadata"
+                    },
+                    "description": "gRPC metadata (request headers) sent with the call.\n"
+                },
+                "method": {
+                    "type": "string",
+                    "description": "The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.\n"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port number to connect to. Possible values are between 1 and 65535.\n"
+                },
+                "protoContent": {
+                    "type": "string",
+                    "description": "The inline `.proto` file source used when `service_definition = \"PROTO_FILE\"` in `BEHAVIOR` mode.\n"
+                },
+                "service": {
+                    "type": "string",
+                    "description": "The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.\n"
+                },
+                "serviceDefinition": {
+                    "type": "string",
+                    "description": "How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. (Default `REFLECTION`).\n"
+                },
+                "skipSsl": {
+                    "type": "boolean",
+                    "description": "Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).\n"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).\n"
+                },
+                "tls": {
+                    "type": "boolean",
+                    "description": "Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "host",
+                "port"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "host",
+                        "port",
+                        "serviceDefinition",
+                        "timeout"
+                    ]
+                }
+            }
+        },
+        "checkly:index/GrpcMonitorRequestAssertion:GrpcMonitorRequestAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. For `GRPC_RESPONSE`, `TEXT_BODY` and `GRPC_METADATA`, possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. For `RESPONSE_TIME` and `GRPC_STATUS_CODE`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `GRPC_HEALTHCHECK_STATUS`, possible values are `EQUALS` and `NOT_EQUALS`.\n"
+                },
+                "property": {
+                    "type": "string",
+                    "description": "The property selecting the asserted value within the source, e.g. a JSONPath expression for `GRPC_RESPONSE` or a metadata key for `GRPC_METADATA`.\n"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "The source of the asserted value. Possible values are `RESPONSE_TIME`, `GRPC_RESPONSE`, `TEXT_BODY`, `GRPC_METADATA`, `GRPC_HEALTHCHECK_STATUS`, and `GRPC_STATUS_CODE`.\n"
+                },
+                "target": {
+                    "type": "string",
+                    "description": "The value to compare against. Must be numeric for `RESPONSE_TIME` (milliseconds), `GRPC_STATUS_CODE` (0-16), and `GRPC_HEALTHCHECK_STATUS` (0-3, where 0=UNKNOWN, 1=SERVING, 2=NOT*SERVING, 3=SERVICE*UNKNOWN).\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source"
+            ]
+        },
+        "checkly:index/GrpcMonitorRequestMetadata:GrpcMonitorRequestMetadata": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The gRPC metadata (header) key.\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The gRPC metadata (header) value.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "key"
+            ]
+        },
+        "checkly:index/GrpcMonitorRetryStrategy:GrpcMonitorRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorRetryStrategyOnlyOn:GrpcMonitorRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
+        },
+        "checkly:index/GrpcMonitorRetryStrategyOnlyOn:GrpcMonitorRetryStrategyOnlyOn": {
+            "type": "object"
+        },
+        "checkly:index/GrpcMonitorTriggerIncident:GrpcMonitorTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
+        },
         "checkly:index/HeartbeatCheckAlertChannelSubscription:HeartbeatCheckAlertChannelSubscription": {
             "properties": {
                 "activated": {
@@ -2286,7 +2583,7 @@
                 },
                 "engine": {
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntimeEngine:PlaywrightCheckSuiteRuntimeEngine",
-                    "description": "The JavaScript engine used to run the Playwright tests.\n"
+                    "description": "The JavaScript engine used to run the Playwright tests. When `auto_detect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.\n"
                 },
                 "playwright": {
                     "$ref": "#/types/checkly:index/PlaywrightCheckSuiteRuntimePlaywright:PlaywrightCheckSuiteRuntimePlaywright",
@@ -2454,6 +2751,419 @@
             "type": "object",
             "required": [
                 "file"
+            ]
+        },
+        "checkly:index/SslMonitorAlertChannelSubscription:SslMonitorAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
+                },
+                "channelId": {
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/SslMonitorAlertSettings:SslMonitorAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/SslMonitorAlertSettingsParallelRunFailureThreshold:SslMonitorAlertSettingsParallelRunFailureThreshold"
+                    },
+                    "description": "Configuration for parallel run failure threshold.\n"
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/SslMonitorAlertSettingsReminder:SslMonitorAlertSettingsReminder"
+                    },
+                    "description": "Defines how often to send reminder notifications after initial alert.\n"
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/SslMonitorAlertSettingsRunBasedEscalation:SslMonitorAlertSettingsRunBasedEscalation"
+                    },
+                    "description": "Configuration for run-based escalation.\n"
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/SslMonitorAlertSettingsTimeBasedEscalation:SslMonitorAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": "Configuration for time-based escalation.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/SslMonitorAlertSettingsParallelRunFailureThreshold:SslMonitorAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorAlertSettingsReminder:SslMonitorAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorAlertSettingsRunBasedEscalation:SslMonitorAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorAlertSettingsTimeBasedEscalation:SslMonitorAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequest:SslMonitorRequest": {
+            "properties": {
+                "alertDaysBeforeExpiry": {
+                    "type": "integer",
+                    "description": "Raise an alert when the certificate is within this many days of expiry. Possible values are between 1 and 365. (Default `20`).\n"
+                },
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/SslMonitorRequestAssertion:SslMonitorRequestAssertion"
+                    },
+                    "description": "A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.\n"
+                },
+                "clientCertificate": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestClientCertificate:SslMonitorRequestClientCertificate",
+                    "description": "The mutual-TLS client certificate configuration.\n"
+                },
+                "handshakeTimeoutMs": {
+                    "type": "integer",
+                    "description": "The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between 1000 and 30000. (Default `10000`).\n"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "The hostname to connect to and validate the TLS certificate of. Do not include a scheme or a port in this value.\n"
+                },
+                "ipFamily": {
+                    "type": "string",
+                    "description": "The IP family to use when executing the check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).\n"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port number to connect to. Possible values are between 1 and 65535. (Default `443`).\n"
+                },
+                "securityBaseline": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaseline:SslMonitorRequestSecurityBaseline",
+                    "description": "The SSL security baseline — a set of enforceable and advisory rules. Omit the block to inherit the account default baseline. Rules that are not listed keep their server defaults; removing a rule (or the whole block) resets it to its default on the next apply. Only listed rules are drift-checked: an external change to an unlisted rule is not shown by `pulumi preview` and is reset on the next apply.\n"
+                },
+                "serverName": {
+                    "type": "string",
+                    "description": "An optional SNI server name to send in the TLS handshake. Defaults to `hostname` when unset.\n"
+                },
+                "skipChainValidation": {
+                    "type": "boolean",
+                    "description": "When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). (Default `false`).\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "hostname"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "clientCertificate",
+                        "hostname"
+                    ]
+                }
+            }
+        },
+        "checkly:index/SslMonitorRequestAssertion:SslMonitorRequestAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. The allowed set depends on the asserted `source` and `property`; for example, boolean properties such as `chainTrusted` only allow `EQUALS`.\n"
+                },
+                "property": {
+                    "type": "string",
+                    "description": "The property selecting the asserted value within the source. For `CERTIFICATE`: `daysUntilExpiry`, `keySizeBits`, `subjectCN`, `issuerCN`, `serialNumber`, `fingerprintSha256`, `issuerFingerprintSha256`, `keyAlgorithm`, `signatureAlgorithm`, `sans`, `selfSigned`, or `isCA`. For `CONNECTION`: `tlsVersion`, `cipherSuite`, `hostnameVerified`, `chainTrusted`, `ocspStapled`, `ocspStatus`, or `resolvedIp`. For `JSON_RESPONSE`: a JSONPath expression. For `TEXT_RESPONSE`: a regular expression applied to the serialized response.\n"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "The source of the asserted value. Possible values are `CERTIFICATE`, `CONNECTION`, `RESPONSE_TIME`, `JSON_RESPONSE`, and `TEXT_RESPONSE`.\n"
+                },
+                "target": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source"
+            ]
+        },
+        "checkly:index/SslMonitorRequestClientCertificate:SslMonitorRequestClientCertificate": {
+            "properties": {
+                "clientCertificateId": {
+                    "type": "string",
+                    "description": "The ID of the stored client certificate to present. Required when `mode = \"explicit\"`.\n"
+                },
+                "mode": {
+                    "type": "string",
+                    "description": "The mutual-TLS client-certificate mode. `account_default` inherits the account setting (no certificate sent), `auto` lets Checkly select a stored certificate, `explicit` uses the certificate referenced by `client_certificate_id`. (Default `account_default`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaseline:SslMonitorRequestSecurityBaseline": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether the security baseline is enforced. (Default `true`).\n"
+                },
+                "knownBadCa": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineKnownBadCa:SslMonitorRequestSecurityBaselineKnownBadCa",
+                    "description": "Enforceable rule: the certificate chain must not include a known-bad CA.\n"
+                },
+                "minKeySizeBits": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineMinKeySizeBits:SslMonitorRequestSecurityBaselineMinKeySizeBits",
+                    "description": "Enforceable rule: the minimum public key size in bits.\n"
+                },
+                "minTlsVersion": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineMinTlsVersion:SslMonitorRequestSecurityBaselineMinTlsVersion",
+                    "description": "Enforceable rule: the minimum TLS version the server must accept.\n"
+                },
+                "ocspMustStapleRespected": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineOcspMustStapleRespected:SslMonitorRequestSecurityBaselineOcspMustStapleRespected",
+                    "description": "Advisory rule: an OCSP Must-Staple extension, when present, must be respected.\n"
+                },
+                "recommendedKeySizeBits": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineRecommendedKeySizeBits:SslMonitorRequestSecurityBaselineRecommendedKeySizeBits",
+                    "description": "Advisory rule: the recommended public key size in bits.\n"
+                },
+                "recommendedTlsVersion": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineRecommendedTlsVersion:SslMonitorRequestSecurityBaselineRecommendedTlsVersion",
+                    "description": "Advisory rule: the recommended TLS version.\n"
+                },
+                "sctPresent": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineSctPresent:SslMonitorRequestSecurityBaselineSctPresent",
+                    "description": "Advisory rule: the certificate should carry a Signed Certificate Timestamp.\n"
+                },
+                "weakCipherSuite": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineWeakCipherSuite:SslMonitorRequestSecurityBaselineWeakCipherSuite",
+                    "description": "Enforceable rule: the connection must not negotiate a weak cipher suite.\n"
+                },
+                "weakSignatureAlgorithm": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm:SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm",
+                    "description": "Enforceable rule: the certificate must not use a weak signature algorithm.\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineKnownBadCa:SslMonitorRequestSecurityBaselineKnownBadCa": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineMinKeySizeBits:SslMonitorRequestSecurityBaselineMinKeySizeBits": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).\n"
+                },
+                "value": {
+                    "type": "integer",
+                    "description": "The key size in bits. Possible values are between 1024 and 16384. (Default `2048`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineMinTlsVersion:SslMonitorRequestSecurityBaselineMinTlsVersion": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.2`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineOcspMustStapleRespected:SslMonitorRequestSecurityBaselineOcspMustStapleRespected": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineRecommendedKeySizeBits:SslMonitorRequestSecurityBaselineRecommendedKeySizeBits": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).\n"
+                },
+                "value": {
+                    "type": "integer",
+                    "description": "The key size in bits. Possible values are between 1024 and 16384. (Default `3072`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineRecommendedTlsVersion:SslMonitorRequestSecurityBaselineRecommendedTlsVersion": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).\n"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineSctPresent:SslMonitorRequestSecurityBaselineSctPresent": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineWeakCipherSuite:SslMonitorRequestSecurityBaselineWeakCipherSuite": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm:SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm": {
+            "properties": {
+                "severity": {
+                    "type": "string",
+                    "description": "What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/SslMonitorRetryStrategy:SslMonitorRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/SslMonitorRetryStrategyOnlyOn:SslMonitorRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
+        },
+        "checkly:index/SslMonitorRetryStrategyOnlyOn:SslMonitorRetryStrategyOnlyOn": {
+            "type": "object"
+        },
+        "checkly:index/SslMonitorTriggerIncident:SslMonitorTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
             ]
         },
         "checkly:index/StatusPageCard:StatusPageCard": {
@@ -2917,6 +3627,263 @@
             "type": "object"
         },
         "checkly:index/TcpMonitorTriggerIncident:TcpMonitorTriggerIncident": {
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A detailed description of the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the incident.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether to notify subscribers when the incident is triggered.\n"
+                },
+                "serviceId": {
+                    "type": "string",
+                    "description": "The status page service that this incident will be associated with.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "description",
+                "name",
+                "notifySubscribers",
+                "serviceId",
+                "severity"
+            ]
+        },
+        "checkly:index/TracerouteMonitorAlertChannelSubscription:TracerouteMonitorAlertChannelSubscription": {
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Whether an alert should be sent to this channel.\n"
+                },
+                "channelId": {
+                    "type": "integer",
+                    "description": "The ID of the alert channel.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "activated",
+                "channelId"
+            ]
+        },
+        "checkly:index/TracerouteMonitorAlertSettings:TracerouteMonitorAlertSettings": {
+            "properties": {
+                "escalationType": {
+                    "type": "string",
+                    "description": "Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).\n"
+                },
+                "parallelRunFailureThresholds": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorAlertSettingsParallelRunFailureThreshold:TracerouteMonitorAlertSettingsParallelRunFailureThreshold"
+                    },
+                    "description": "Configuration for parallel run failure threshold.\n"
+                },
+                "reminders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorAlertSettingsReminder:TracerouteMonitorAlertSettingsReminder"
+                    },
+                    "description": "Defines how often to send reminder notifications after initial alert.\n"
+                },
+                "runBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorAlertSettingsRunBasedEscalation:TracerouteMonitorAlertSettingsRunBasedEscalation"
+                    },
+                    "description": "Configuration for run-based escalation.\n"
+                },
+                "timeBasedEscalations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorAlertSettingsTimeBasedEscalation:TracerouteMonitorAlertSettingsTimeBasedEscalation"
+                    },
+                    "description": "Configuration for time-based escalation.\n"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "parallelRunFailureThresholds",
+                        "reminders",
+                        "runBasedEscalations",
+                        "timeBasedEscalations"
+                    ]
+                }
+            }
+        },
+        "checkly:index/TracerouteMonitorAlertSettingsParallelRunFailureThreshold:TracerouteMonitorAlertSettingsParallelRunFailureThreshold": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).\n"
+                },
+                "percentage": {
+                    "type": "integer",
+                    "description": "Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TracerouteMonitorAlertSettingsReminder:TracerouteMonitorAlertSettingsReminder": {
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "description": "Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).\n"
+                },
+                "interval": {
+                    "type": "integer",
+                    "description": "Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TracerouteMonitorAlertSettingsRunBasedEscalation:TracerouteMonitorAlertSettingsRunBasedEscalation": {
+            "properties": {
+                "failedRunThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TracerouteMonitorAlertSettingsTimeBasedEscalation:TracerouteMonitorAlertSettingsTimeBasedEscalation": {
+            "properties": {
+                "minutesFailingThreshold": {
+                    "type": "integer",
+                    "description": "Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).\n"
+                }
+            },
+            "type": "object"
+        },
+        "checkly:index/TracerouteMonitorRequest:TracerouteMonitorRequest": {
+            "properties": {
+                "assertions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorRequestAssertion:TracerouteMonitorRequestAssertion"
+                    },
+                    "description": "A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.\n"
+                },
+                "ipFamily": {
+                    "type": "string",
+                    "description": "The IP family to use when executing the traceroute. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).\n"
+                },
+                "maxHops": {
+                    "type": "integer",
+                    "description": "The maximum number of network hops to probe before stopping. Possible values are between 1 and 64. (Default `30`).\n"
+                },
+                "maxUnknownHops": {
+                    "type": "integer",
+                    "description": "The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between 1 and 30, and the value must not exceed `max_hops`. (Default `min(15, max_hops)`).\n"
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The destination port for TCP/UDP/SCTP probes. Possible values are between 1 and 65535. Ignored (and not sent) when `protocol = \"ICMP\"`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`.\n"
+                },
+                "protocol": {
+                    "type": "string",
+                    "description": "The probe protocol. `TCP` sends SYN probes (default), `UDP` sends datagrams to a high port, `ICMP` sends Echo Requests, `SCTP` sends INIT chunks. (Default `TCP`).\n"
+                },
+                "ptrLookup": {
+                    "type": "boolean",
+                    "description": "Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. (Default `true`).\n"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait for the traceroute to complete before timing out. Possible values are between 1 and 30. (Default `10`).\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The host to trace the network path to. Do not include a scheme or a port in this value.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "maxUnknownHops",
+                        "port",
+                        "timeout",
+                        "url"
+                    ]
+                }
+            }
+        },
+        "checkly:index/TracerouteMonitorRequestAssertion:TracerouteMonitorRequestAssertion": {
+            "properties": {
+                "comparison": {
+                    "type": "string",
+                    "description": "The type of comparison to be executed between expected and actual value of the assertion. For `RESPONSE_TIME`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `HOP_COUNT` and `PACKET_LOSS`, possible values are `EQUALS`, `GREATER_THAN`, and `LESS_THAN`.\n"
+                },
+                "property": {
+                    "type": "string",
+                    "description": "The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max`, and `stdDev`. Must be empty for `HOP_COUNT` and `PACKET_LOSS`.\n"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "The source of the asserted value. Possible values are `RESPONSE_TIME`, `HOP_COUNT`, and `PACKET_LOSS`.\n"
+                },
+                "target": {
+                    "type": "string",
+                    "description": "The value to compare against. Must be numeric: a non-negative number of milliseconds for `RESPONSE_TIME`, a non-negative integer for `HOP_COUNT`, or a number between 0 and 100 for `PACKET_LOSS`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "comparison",
+                "source"
+            ]
+        },
+        "checkly:index/TracerouteMonitorRetryStrategy:TracerouteMonitorRetryStrategy": {
+            "properties": {
+                "baseBackoffSeconds": {
+                    "type": "integer",
+                    "description": "The number of seconds to wait before the first retry attempt. (Default `60`).\n"
+                },
+                "maxDurationSeconds": {
+                    "type": "integer",
+                    "description": "The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).\n"
+                },
+                "maxRetries": {
+                    "type": "integer",
+                    "description": "The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).\n"
+                },
+                "onlyOn": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorRetryStrategyOnlyOn:TracerouteMonitorRetryStrategyOnlyOn",
+                    "description": "Apply the retry strategy only if the defined conditions match.\n"
+                },
+                "sameRegion": {
+                    "type": "boolean",
+                    "description": "Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "type"
+            ]
+        },
+        "checkly:index/TracerouteMonitorRetryStrategyOnlyOn:TracerouteMonitorRetryStrategyOnlyOn": {
+            "type": "object"
+        },
+        "checkly:index/TracerouteMonitorTriggerIncident:TracerouteMonitorTriggerIncident": {
             "properties": {
                 "description": {
                     "type": "string",
@@ -4387,7 +5354,7 @@
             }
         },
         "checkly:index/clientCertificate:ClientCertificate": {
-            "description": "Use client certificates to authenticate your API checks to APIs that require mutual TLS (mTLS) authentication, or any other authentication scheme where the requester needs to provide a certificate.\n\nEach client certificate is specific to a domain name, e.g. `acme.com` and will be used automatically by any API checks targeting that domain.\n\nChanging the value of any attribute forces a new resource to be created.\n\n",
+            "description": "Use client certificates to authenticate your API checks to APIs that require mutual TLS (mTLS) authentication, or any other authentication scheme where the requester needs to provide a certificate.\n\nEach client certificate is specific to a host name, e.g. `acme.com` or a wildcard such as `*.acme.com`, and will be used automatically by any API checks targeting that host. Set `path` to limit the certificate to requests under a URL path prefix.\n\nChanging the value of any attribute forces a new resource to be created.\n\n",
             "properties": {
                 "certificate": {
                     "type": "string",
@@ -4395,12 +5362,16 @@
                 },
                 "host": {
                     "type": "string",
-                    "description": "The host domain that the certificate should be used for.\n"
+                    "description": "The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.\n"
                 },
                 "passphrase": {
                     "type": "string",
                     "description": "Passphrase for the private key.\n",
                     "secret": true
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.\n"
                 },
                 "privateKey": {
                     "type": "string",
@@ -4424,13 +5395,18 @@
                 },
                 "host": {
                     "type": "string",
-                    "description": "The host domain that the certificate should be used for.\n",
+                    "description": "The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.\n",
                     "willReplaceOnChanges": true
                 },
                 "passphrase": {
                     "type": "string",
                     "description": "Passphrase for the private key.\n",
                     "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.\n",
                     "willReplaceOnChanges": true
                 },
                 "privateKey": {
@@ -4459,13 +5435,18 @@
                     },
                     "host": {
                         "type": "string",
-                        "description": "The host domain that the certificate should be used for.\n",
+                        "description": "The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.\n",
                         "willReplaceOnChanges": true
                     },
                     "passphrase": {
                         "type": "string",
                         "description": "Passphrase for the private key.\n",
                         "secret": true,
+                        "willReplaceOnChanges": true
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.\n",
                         "willReplaceOnChanges": true
                     },
                     "privateKey": {
@@ -5132,6 +6113,332 @@
                     },
                     "value": {
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/grpcMonitor:GrpcMonitor": {
+            "description": "gRPC monitors allow you to monitor gRPC services, either via a health check (HEALTH mode) or by invoking a unary method (BEHAVIOR mode).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// Basic gRPC monitor using a health check (HEALTH mode)\nconst example_grpc_monitor = new checkly.GrpcMonitor(\"example-grpc-monitor\", {\n    name: \"Example gRPC monitor\",\n    activated: true,\n    shouldFail: false,\n    frequency: 1,\n    useGlobalAlertSettings: true,\n    locations: [\"us-west-1\"],\n    request: {\n        host: \"grpcb.in\",\n        port: 9000,\n        grpcMode: \"HEALTH\",\n        service: \"grpcbin.GRPCBin\",\n    },\n});\n// A more complex example invoking a unary method (BEHAVIOR mode) with\n// metadata, assertions and an alert/retry policy\nconst example_grpc_monitor_2 = new checkly.GrpcMonitor(\"example-grpc-monitor-2\", {\n    name: \"Example gRPC monitor 2\",\n    activated: true,\n    shouldFail: false,\n    frequency: 5,\n    locations: [\n        \"us-west-1\",\n        \"eu-central-1\",\n    ],\n    alertSettings: {\n        escalationType: \"RUN_BASED\",\n        runBasedEscalations: [{\n            failedRunThreshold: 1,\n        }],\n        reminders: [{\n            amount: 1,\n        }],\n    },\n    retryStrategy: {\n        type: \"FIXED\",\n        baseBackoffSeconds: 60,\n        maxDurationSeconds: 600,\n        maxRetries: 3,\n        sameRegion: false,\n    },\n    request: {\n        host: \"grpcb.in\",\n        port: 9000,\n        grpcMode: \"BEHAVIOR\",\n        tls: true,\n        timeout: 30,\n        serviceDefinition: \"REFLECTION\",\n        method: \"grpcbin.GRPCBin/DummyUnary\",\n        message: JSON.stringify({\n            f_string: \"hello\",\n        }),\n        metadatas: [{\n            key: \"x-api-key\",\n            value: \"supersecret\",\n        }],\n        assertions: [\n            {\n                source: \"GRPC_STATUS_CODE\",\n                property: \"\",\n                comparison: \"EQUALS\",\n                target: \"0\",\n            },\n            {\n                source: \"RESPONSE_TIME\",\n                property: \"\",\n                comparison: \"LESS_THAN\",\n                target: \"1000\",\n            },\n        ],\n    },\n});\n```\n```python\nimport pulumi\nimport json\nimport pulumi_checkly as checkly\n\n# Basic gRPC monitor using a health check (HEALTH mode)\nexample_grpc_monitor = checkly.GrpcMonitor(\"example-grpc-monitor\",\n    name=\"Example gRPC monitor\",\n    activated=True,\n    should_fail=False,\n    frequency=1,\n    use_global_alert_settings=True,\n    locations=[\"us-west-1\"],\n    request={\n        \"host\": \"grpcb.in\",\n        \"port\": 9000,\n        \"grpc_mode\": \"HEALTH\",\n        \"service\": \"grpcbin.GRPCBin\",\n    })\n# A more complex example invoking a unary method (BEHAVIOR mode) with\n# metadata, assertions and an alert/retry policy\nexample_grpc_monitor_2 = checkly.GrpcMonitor(\"example-grpc-monitor-2\",\n    name=\"Example gRPC monitor 2\",\n    activated=True,\n    should_fail=False,\n    frequency=5,\n    locations=[\n        \"us-west-1\",\n        \"eu-central-1\",\n    ],\n    alert_settings={\n        \"escalation_type\": \"RUN_BASED\",\n        \"run_based_escalations\": [{\n            \"failed_run_threshold\": 1,\n        }],\n        \"reminders\": [{\n            \"amount\": 1,\n        }],\n    },\n    retry_strategy={\n        \"type\": \"FIXED\",\n        \"base_backoff_seconds\": 60,\n        \"max_duration_seconds\": 600,\n        \"max_retries\": 3,\n        \"same_region\": False,\n    },\n    request={\n        \"host\": \"grpcb.in\",\n        \"port\": 9000,\n        \"grpc_mode\": \"BEHAVIOR\",\n        \"tls\": True,\n        \"timeout\": 30,\n        \"service_definition\": \"REFLECTION\",\n        \"method\": \"grpcbin.GRPCBin/DummyUnary\",\n        \"message\": json.dumps({\n            \"f_string\": \"hello\",\n        }),\n        \"metadatas\": [{\n            \"key\": \"x-api-key\",\n            \"value\": \"supersecret\",\n        }],\n        \"assertions\": [\n            {\n                \"source\": \"GRPC_STATUS_CODE\",\n                \"property\": \"\",\n                \"comparison\": \"EQUALS\",\n                \"target\": \"0\",\n            },\n            {\n                \"source\": \"RESPONSE_TIME\",\n                \"property\": \"\",\n                \"comparison\": \"LESS_THAN\",\n                \"target\": \"1000\",\n            },\n        ],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Text.Json;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // Basic gRPC monitor using a health check (HEALTH mode)\n    var example_grpc_monitor = new Checkly.GrpcMonitor(\"example-grpc-monitor\", new()\n    {\n        Name = \"Example gRPC monitor\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 1,\n        UseGlobalAlertSettings = true,\n        Locations = new[]\n        {\n            \"us-west-1\",\n        },\n        Request = new Checkly.Inputs.GrpcMonitorRequestArgs\n        {\n            Host = \"grpcb.in\",\n            Port = 9000,\n            GrpcMode = \"HEALTH\",\n            Service = \"grpcbin.GRPCBin\",\n        },\n    });\n\n    // A more complex example invoking a unary method (BEHAVIOR mode) with\n    // metadata, assertions and an alert/retry policy\n    var example_grpc_monitor_2 = new Checkly.GrpcMonitor(\"example-grpc-monitor-2\", new()\n    {\n        Name = \"Example gRPC monitor 2\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 5,\n        Locations = new[]\n        {\n            \"us-west-1\",\n            \"eu-central-1\",\n        },\n        AlertSettings = new Checkly.Inputs.GrpcMonitorAlertSettingsArgs\n        {\n            EscalationType = \"RUN_BASED\",\n            RunBasedEscalations = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorAlertSettingsRunBasedEscalationArgs\n                {\n                    FailedRunThreshold = 1,\n                },\n            },\n            Reminders = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorAlertSettingsReminderArgs\n                {\n                    Amount = 1,\n                },\n            },\n        },\n        RetryStrategy = new Checkly.Inputs.GrpcMonitorRetryStrategyArgs\n        {\n            Type = \"FIXED\",\n            BaseBackoffSeconds = 60,\n            MaxDurationSeconds = 600,\n            MaxRetries = 3,\n            SameRegion = false,\n        },\n        Request = new Checkly.Inputs.GrpcMonitorRequestArgs\n        {\n            Host = \"grpcb.in\",\n            Port = 9000,\n            GrpcMode = \"BEHAVIOR\",\n            Tls = true,\n            Timeout = 30,\n            ServiceDefinition = \"REFLECTION\",\n            Method = \"grpcbin.GRPCBin/DummyUnary\",\n            Message = JsonSerializer.Serialize(new Dictionary\u003cstring, object?\u003e\n            {\n                [\"f_string\"] = \"hello\",\n            }),\n            Metadatas = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorRequestMetadataArgs\n                {\n                    Key = \"x-api-key\",\n                    Value = \"supersecret\",\n                },\n            },\n            Assertions = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorRequestAssertionArgs\n                {\n                    Source = \"GRPC_STATUS_CODE\",\n                    Property = \"\",\n                    Comparison = \"EQUALS\",\n                    Target = \"0\",\n                },\n                new Checkly.Inputs.GrpcMonitorRequestAssertionArgs\n                {\n                    Source = \"RESPONSE_TIME\",\n                    Property = \"\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"1000\",\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// Basic gRPC monitor using a health check (HEALTH mode)\n\t\t_, err := checkly.NewGrpcMonitor(ctx, \"example-grpc-monitor\", \u0026checkly.GrpcMonitorArgs{\n\t\t\tName:                   pulumi.String(\"Example gRPC monitor\"),\n\t\t\tActivated:              pulumi.Bool(true),\n\t\t\tShouldFail:             pulumi.Bool(false),\n\t\t\tFrequency:              pulumi.Int(1),\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.GrpcMonitorRequestArgs{\n\t\t\t\tHost:     pulumi.String(\"grpcb.in\"),\n\t\t\t\tPort:     pulumi.Int(9000),\n\t\t\t\tGrpcMode: pulumi.String(\"HEALTH\"),\n\t\t\t\tService:  pulumi.String(\"grpcbin.GRPCBin\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\ttmpJSON0, err := json.Marshal(map[string]interface{}{\n\t\t\t\"f_string\": \"hello\",\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tjson0 := string(tmpJSON0)\n\t\t// A more complex example invoking a unary method (BEHAVIOR mode) with\n\t\t// metadata, assertions and an alert/retry policy\n\t\t_, err = checkly.NewGrpcMonitor(ctx, \"example-grpc-monitor-2\", \u0026checkly.GrpcMonitorArgs{\n\t\t\tName:       pulumi.String(\"Example gRPC monitor 2\"),\n\t\t\tActivated:  pulumi.Bool(true),\n\t\t\tShouldFail: pulumi.Bool(false),\n\t\t\tFrequency:  pulumi.Int(5),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t\tpulumi.String(\"eu-central-1\"),\n\t\t\t},\n\t\t\tAlertSettings: \u0026checkly.GrpcMonitorAlertSettingsArgs{\n\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\tRunBasedEscalations: checkly.GrpcMonitorAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tReminders: checkly.GrpcMonitorAlertSettingsReminderArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorAlertSettingsReminderArgs{\n\t\t\t\t\t\tAmount: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tRetryStrategy: \u0026checkly.GrpcMonitorRetryStrategyArgs{\n\t\t\t\tType:               pulumi.String(\"FIXED\"),\n\t\t\t\tBaseBackoffSeconds: pulumi.Int(60),\n\t\t\t\tMaxDurationSeconds: pulumi.Int(600),\n\t\t\t\tMaxRetries:         pulumi.Int(3),\n\t\t\t\tSameRegion:         pulumi.Bool(false),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.GrpcMonitorRequestArgs{\n\t\t\t\tHost:              pulumi.String(\"grpcb.in\"),\n\t\t\t\tPort:              pulumi.Int(9000),\n\t\t\t\tGrpcMode:          pulumi.String(\"BEHAVIOR\"),\n\t\t\t\tTls:               pulumi.Bool(true),\n\t\t\t\tTimeout:           pulumi.Int(30),\n\t\t\t\tServiceDefinition: pulumi.String(\"REFLECTION\"),\n\t\t\t\tMethod:            pulumi.String(\"grpcbin.GRPCBin/DummyUnary\"),\n\t\t\t\tMessage:           pulumi.String(json0),\n\t\t\t\tMetadatas: checkly.GrpcMonitorRequestMetadataArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorRequestMetadataArgs{\n\t\t\t\t\t\tKey:   pulumi.String(\"x-api-key\"),\n\t\t\t\t\t\tValue: pulumi.String(\"supersecret\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tAssertions: checkly.GrpcMonitorRequestAssertionArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"GRPC_STATUS_CODE\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"EQUALS\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"0\"),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026checkly.GrpcMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"RESPONSE_TIME\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"1000\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.GrpcMonitor;\nimport com.pulumi.checkly.GrpcMonitorArgs;\nimport com.pulumi.checkly.inputs.GrpcMonitorRequestArgs;\nimport com.pulumi.checkly.inputs.GrpcMonitorAlertSettingsArgs;\nimport com.pulumi.checkly.inputs.GrpcMonitorRetryStrategyArgs;\nimport static com.pulumi.codegen.internal.Serialization.*;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // Basic gRPC monitor using a health check (HEALTH mode)\n        var example_grpc_monitor = new GrpcMonitor(\"example-grpc-monitor\", GrpcMonitorArgs.builder()\n            .name(\"Example gRPC monitor\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(1)\n            .useGlobalAlertSettings(true)\n            .locations(\"us-west-1\")\n            .request(GrpcMonitorRequestArgs.builder()\n                .host(\"grpcb.in\")\n                .port(9000)\n                .grpcMode(\"HEALTH\")\n                .service(\"grpcbin.GRPCBin\")\n                .build())\n            .build());\n\n        // A more complex example invoking a unary method (BEHAVIOR mode) with\n        // metadata, assertions and an alert/retry policy\n        var example_grpc_monitor_2 = new GrpcMonitor(\"example-grpc-monitor-2\", GrpcMonitorArgs.builder()\n            .name(\"Example gRPC monitor 2\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(5)\n            .locations(            \n                \"us-west-1\",\n                \"eu-central-1\")\n            .alertSettings(GrpcMonitorAlertSettingsArgs.builder()\n                .escalationType(\"RUN_BASED\")\n                .runBasedEscalations(GrpcMonitorAlertSettingsRunBasedEscalationArgs.builder()\n                    .failedRunThreshold(1)\n                    .build())\n                .reminders(GrpcMonitorAlertSettingsReminderArgs.builder()\n                    .amount(1)\n                    .build())\n                .build())\n            .retryStrategy(GrpcMonitorRetryStrategyArgs.builder()\n                .type(\"FIXED\")\n                .baseBackoffSeconds(60)\n                .maxDurationSeconds(600)\n                .maxRetries(3)\n                .sameRegion(false)\n                .build())\n            .request(GrpcMonitorRequestArgs.builder()\n                .host(\"grpcb.in\")\n                .port(9000)\n                .grpcMode(\"BEHAVIOR\")\n                .tls(true)\n                .timeout(30)\n                .serviceDefinition(\"REFLECTION\")\n                .method(\"grpcbin.GRPCBin/DummyUnary\")\n                .message(serializeJson(\n                    jsonObject(\n                        jsonProperty(\"f_string\", \"hello\")\n                    )))\n                .metadatas(GrpcMonitorRequestMetadataArgs.builder()\n                    .key(\"x-api-key\")\n                    .value(\"supersecret\")\n                    .build())\n                .assertions(                \n                    GrpcMonitorRequestAssertionArgs.builder()\n                        .source(\"GRPC_STATUS_CODE\")\n                        .property(\"\")\n                        .comparison(\"EQUALS\")\n                        .target(\"0\")\n                        .build(),\n                    GrpcMonitorRequestAssertionArgs.builder()\n                        .source(\"RESPONSE_TIME\")\n                        .property(\"\")\n                        .comparison(\"LESS_THAN\")\n                        .target(\"1000\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # Basic gRPC monitor using a health check (HEALTH mode)\n  example-grpc-monitor:\n    type: checkly:GrpcMonitor\n    properties:\n      name: Example gRPC monitor\n      activated: true\n      shouldFail: false\n      frequency: 1\n      useGlobalAlertSettings: true\n      locations:\n        - us-west-1\n      request:\n        host: grpcb.in\n        port: 9000\n        grpcMode: HEALTH\n        service: grpcbin.GRPCBin\n  # A more complex example invoking a unary method (BEHAVIOR mode) with\n  # metadata, assertions and an alert/retry policy\n  example-grpc-monitor-2:\n    type: checkly:GrpcMonitor\n    properties:\n      name: Example gRPC monitor 2\n      activated: true\n      shouldFail: false\n      frequency: 5\n      locations:\n        - us-west-1\n        - eu-central-1\n      alertSettings:\n        escalationType: RUN_BASED\n        runBasedEscalations:\n          - failedRunThreshold: 1\n        reminders:\n          - amount: 1\n      retryStrategy:\n        type: FIXED\n        baseBackoffSeconds: 60\n        maxDurationSeconds: 600\n        maxRetries: 3\n        sameRegion: false\n      request:\n        host: grpcb.in\n        port: 9000\n        grpcMode: BEHAVIOR\n        tls: true\n        timeout: 30\n        serviceDefinition: REFLECTION\n        method: grpcbin.GRPCBin/DummyUnary\n        message:\n          fn::toJSON:\n            f_string: hello\n        metadatas:\n          - key: x-api-key\n            value: supersecret\n        assertions:\n          - source: GRPC_STATUS_CODE\n            property: \"\"\n            comparison: EQUALS\n            target: '0'\n          - source: RESPONSE_TIME\n            property: \"\"\n            comparison: LESS_THAN\n            target: '1000'\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n\n## Assertion Reference\n\nEach `assertion` block has the shape `{ source, property, comparison, target }`. Which comparisons are allowed, and what `target` must contain, depend on `source`. The `comparison` and `target` rules are enforced by the Checkly API at apply time; where `property` is marked as ignored, the API accepts any value but does not use it.\n\n| `source` | `property` | Allowed `comparison` values | `target` |\n|---|---|---|---|\n| `RESPONSE_TIME` | Leave empty (ignored for this source). | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Milliseconds, ≥ 0. |\n| `GRPC_STATUS_CODE` | Leave empty (ignored for this source). | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Integer 0–16 (standard gRPC status codes; `0` = OK). |\n| `GRPC_HEALTHCHECK_STATUS` | Leave empty (ignored for this source). | `EQUALS`, `NOT_EQUALS` | Integer 0–3: `0` = UNKNOWN, `1` = SERVING, `2` = NOT_SERVING, `3` = SERVICE_UNKNOWN. Numeric only — labels are not accepted. |\n| `GRPC_RESPONSE` | A JSONPath expression into the response message (e.g. `$.user.id`). | `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, `NOT_NULL` | Free-form string. |\n| `TEXT_BODY` | Optional; selects within the serialized response body. | Same set as `GRPC_RESPONSE`. | Free-form string. |\n| `GRPC_METADATA` | A response metadata (header) key. | Same set as `GRPC_RESPONSE`. | Free-form string. |\n\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorAlertChannelSubscription:GrpcMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorAlertSettings:GrpcMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorRequest:GrpcMonitorRequest",
+                    "description": "The parameters for the gRPC connection.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorRetryStrategy:GrpcMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this monitor.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorTriggerIncident:GrpcMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "frequency",
+                "name",
+                "request",
+                "retryStrategy"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorAlertChannelSubscription:GrpcMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorAlertSettings:GrpcMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorRequest:GrpcMonitorRequest",
+                    "description": "The parameters for the gRPC connection.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorRetryStrategy:GrpcMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this monitor.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/GrpcMonitorTriggerIncident:GrpcMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "frequency",
+                "request"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GrpcMonitor resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/GrpcMonitorAlertChannelSubscription:GrpcMonitorAlertChannelSubscription"
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorAlertSettings:GrpcMonitorAlertSettings",
+                        "description": "Determines the alert escalation policy for the monitor.\n"
+                    },
+                    "degradedResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                    },
+                    "frequencyOffset": {
+                        "type": "integer",
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "description": "The id of the check group this monitor is part of.\n"
+                    },
+                    "groupOrder": {
+                        "type": "integer",
+                        "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                    },
+                    "maxResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the monitor.\n"
+                    },
+                    "privateLocations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more private locations slugs.\n"
+                    },
+                    "request": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorRequest:GrpcMonitorRequest",
+                        "description": "The parameters for the gRPC connection.\n"
+                    },
+                    "retryStrategy": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorRetryStrategy:GrpcMonitorRetryStrategy",
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                    },
+                    "runtimeId": {
+                        "type": "string",
+                        "description": "The ID of the runtime to use for this monitor.\n"
+                    },
+                    "shouldFail": {
+                        "type": "boolean",
+                        "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/GrpcMonitorTriggerIncident:GrpcMonitorTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
                     }
                 },
                 "type": "object"
@@ -6301,6 +7608,332 @@
                 "type": "object"
             }
         },
+        "checkly:index/sslMonitor:SslMonitor": {
+            "description": "SSL monitors check the TLS certificate of a host and alert before it expires or violates a security baseline.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// Basic SSL/TLS certificate monitor\nconst example_ssl_monitor = new checkly.SslMonitor(\"example-ssl-monitor\", {\n    name: \"Example SSL monitor\",\n    activated: true,\n    shouldFail: false,\n    frequency: 60,\n    useGlobalAlertSettings: true,\n    locations: [\"us-west-1\"],\n    request: {\n        hostname: \"api.checklyhq.com\",\n        port: 443,\n        alertDaysBeforeExpiry: 30,\n    },\n});\n// A more complex example with response-time thresholds, a custom security\n// baseline and certificate assertions\nconst example_ssl_monitor_2 = new checkly.SslMonitor(\"example-ssl-monitor-2\", {\n    name: \"Example SSL monitor 2\",\n    activated: true,\n    shouldFail: false,\n    frequency: 60,\n    degradedResponseTime: 3000,\n    maxResponseTime: 10000,\n    locations: [\n        \"us-west-1\",\n        \"eu-central-1\",\n    ],\n    alertSettings: {\n        escalationType: \"RUN_BASED\",\n        runBasedEscalations: [{\n            failedRunThreshold: 1,\n        }],\n        reminders: [{\n            amount: 1,\n        }],\n    },\n    request: {\n        hostname: \"api.checklyhq.com\",\n        port: 443,\n        serverName: \"api.checklyhq.com\",\n        ipFamily: \"IPv4\",\n        skipChainValidation: false,\n        handshakeTimeoutMs: 10000,\n        alertDaysBeforeExpiry: 20,\n        securityBaseline: {\n            minTlsVersion: {\n                value: \"TLS1.2\",\n                severity: \"fail\",\n            },\n            minKeySizeBits: {\n                value: 2048,\n                severity: \"fail\",\n            },\n        },\n        clientCertificate: {\n            mode: \"account_default\",\n        },\n        assertions: [\n            {\n                source: \"CERTIFICATE\",\n                property: \"daysUntilExpiry\",\n                comparison: \"GREATER_THAN\",\n                target: \"14\",\n            },\n            {\n                source: \"CONNECTION\",\n                property: \"hostnameVerified\",\n                comparison: \"EQUALS\",\n                target: \"true\",\n            },\n        ],\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# Basic SSL/TLS certificate monitor\nexample_ssl_monitor = checkly.SslMonitor(\"example-ssl-monitor\",\n    name=\"Example SSL monitor\",\n    activated=True,\n    should_fail=False,\n    frequency=60,\n    use_global_alert_settings=True,\n    locations=[\"us-west-1\"],\n    request={\n        \"hostname\": \"api.checklyhq.com\",\n        \"port\": 443,\n        \"alert_days_before_expiry\": 30,\n    })\n# A more complex example with response-time thresholds, a custom security\n# baseline and certificate assertions\nexample_ssl_monitor_2 = checkly.SslMonitor(\"example-ssl-monitor-2\",\n    name=\"Example SSL monitor 2\",\n    activated=True,\n    should_fail=False,\n    frequency=60,\n    degraded_response_time=3000,\n    max_response_time=10000,\n    locations=[\n        \"us-west-1\",\n        \"eu-central-1\",\n    ],\n    alert_settings={\n        \"escalation_type\": \"RUN_BASED\",\n        \"run_based_escalations\": [{\n            \"failed_run_threshold\": 1,\n        }],\n        \"reminders\": [{\n            \"amount\": 1,\n        }],\n    },\n    request={\n        \"hostname\": \"api.checklyhq.com\",\n        \"port\": 443,\n        \"server_name\": \"api.checklyhq.com\",\n        \"ip_family\": \"IPv4\",\n        \"skip_chain_validation\": False,\n        \"handshake_timeout_ms\": 10000,\n        \"alert_days_before_expiry\": 20,\n        \"security_baseline\": {\n            \"min_tls_version\": {\n                \"value\": \"TLS1.2\",\n                \"severity\": \"fail\",\n            },\n            \"min_key_size_bits\": {\n                \"value\": 2048,\n                \"severity\": \"fail\",\n            },\n        },\n        \"client_certificate\": {\n            \"mode\": \"account_default\",\n        },\n        \"assertions\": [\n            {\n                \"source\": \"CERTIFICATE\",\n                \"property\": \"daysUntilExpiry\",\n                \"comparison\": \"GREATER_THAN\",\n                \"target\": \"14\",\n            },\n            {\n                \"source\": \"CONNECTION\",\n                \"property\": \"hostnameVerified\",\n                \"comparison\": \"EQUALS\",\n                \"target\": \"true\",\n            },\n        ],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // Basic SSL/TLS certificate monitor\n    var example_ssl_monitor = new Checkly.SslMonitor(\"example-ssl-monitor\", new()\n    {\n        Name = \"Example SSL monitor\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 60,\n        UseGlobalAlertSettings = true,\n        Locations = new[]\n        {\n            \"us-west-1\",\n        },\n        Request = new Checkly.Inputs.SslMonitorRequestArgs\n        {\n            Hostname = \"api.checklyhq.com\",\n            Port = 443,\n            AlertDaysBeforeExpiry = 30,\n        },\n    });\n\n    // A more complex example with response-time thresholds, a custom security\n    // baseline and certificate assertions\n    var example_ssl_monitor_2 = new Checkly.SslMonitor(\"example-ssl-monitor-2\", new()\n    {\n        Name = \"Example SSL monitor 2\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 60,\n        DegradedResponseTime = 3000,\n        MaxResponseTime = 10000,\n        Locations = new[]\n        {\n            \"us-west-1\",\n            \"eu-central-1\",\n        },\n        AlertSettings = new Checkly.Inputs.SslMonitorAlertSettingsArgs\n        {\n            EscalationType = \"RUN_BASED\",\n            RunBasedEscalations = new[]\n            {\n                new Checkly.Inputs.SslMonitorAlertSettingsRunBasedEscalationArgs\n                {\n                    FailedRunThreshold = 1,\n                },\n            },\n            Reminders = new[]\n            {\n                new Checkly.Inputs.SslMonitorAlertSettingsReminderArgs\n                {\n                    Amount = 1,\n                },\n            },\n        },\n        Request = new Checkly.Inputs.SslMonitorRequestArgs\n        {\n            Hostname = \"api.checklyhq.com\",\n            Port = 443,\n            ServerName = \"api.checklyhq.com\",\n            IpFamily = \"IPv4\",\n            SkipChainValidation = false,\n            HandshakeTimeoutMs = 10000,\n            AlertDaysBeforeExpiry = 20,\n            SecurityBaseline = new Checkly.Inputs.SslMonitorRequestSecurityBaselineArgs\n            {\n                MinTlsVersion = new Checkly.Inputs.SslMonitorRequestSecurityBaselineMinTlsVersionArgs\n                {\n                    Value = \"TLS1.2\",\n                    Severity = \"fail\",\n                },\n                MinKeySizeBits = new Checkly.Inputs.SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs\n                {\n                    Value = 2048,\n                    Severity = \"fail\",\n                },\n            },\n            ClientCertificate = new Checkly.Inputs.SslMonitorRequestClientCertificateArgs\n            {\n                Mode = \"account_default\",\n            },\n            Assertions = new[]\n            {\n                new Checkly.Inputs.SslMonitorRequestAssertionArgs\n                {\n                    Source = \"CERTIFICATE\",\n                    Property = \"daysUntilExpiry\",\n                    Comparison = \"GREATER_THAN\",\n                    Target = \"14\",\n                },\n                new Checkly.Inputs.SslMonitorRequestAssertionArgs\n                {\n                    Source = \"CONNECTION\",\n                    Property = \"hostnameVerified\",\n                    Comparison = \"EQUALS\",\n                    Target = \"true\",\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// Basic SSL/TLS certificate monitor\n\t\t_, err := checkly.NewSslMonitor(ctx, \"example-ssl-monitor\", \u0026checkly.SslMonitorArgs{\n\t\t\tName:                   pulumi.String(\"Example SSL monitor\"),\n\t\t\tActivated:              pulumi.Bool(true),\n\t\t\tShouldFail:             pulumi.Bool(false),\n\t\t\tFrequency:              pulumi.Int(60),\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.SslMonitorRequestArgs{\n\t\t\t\tHostname:              pulumi.String(\"api.checklyhq.com\"),\n\t\t\t\tPort:                  pulumi.Int(443),\n\t\t\t\tAlertDaysBeforeExpiry: pulumi.Int(30),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A more complex example with response-time thresholds, a custom security\n\t\t// baseline and certificate assertions\n\t\t_, err = checkly.NewSslMonitor(ctx, \"example-ssl-monitor-2\", \u0026checkly.SslMonitorArgs{\n\t\t\tName:                 pulumi.String(\"Example SSL monitor 2\"),\n\t\t\tActivated:            pulumi.Bool(true),\n\t\t\tShouldFail:           pulumi.Bool(false),\n\t\t\tFrequency:            pulumi.Int(60),\n\t\t\tDegradedResponseTime: pulumi.Int(3000),\n\t\t\tMaxResponseTime:      pulumi.Int(10000),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t\tpulumi.String(\"eu-central-1\"),\n\t\t\t},\n\t\t\tAlertSettings: \u0026checkly.SslMonitorAlertSettingsArgs{\n\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\tRunBasedEscalations: checkly.SslMonitorAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\u0026checkly.SslMonitorAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tReminders: checkly.SslMonitorAlertSettingsReminderArray{\n\t\t\t\t\t\u0026checkly.SslMonitorAlertSettingsReminderArgs{\n\t\t\t\t\t\tAmount: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tRequest: \u0026checkly.SslMonitorRequestArgs{\n\t\t\t\tHostname:              pulumi.String(\"api.checklyhq.com\"),\n\t\t\t\tPort:                  pulumi.Int(443),\n\t\t\t\tServerName:            pulumi.String(\"api.checklyhq.com\"),\n\t\t\t\tIpFamily:              pulumi.String(\"IPv4\"),\n\t\t\t\tSkipChainValidation:   pulumi.Bool(false),\n\t\t\t\tHandshakeTimeoutMs:    pulumi.Int(10000),\n\t\t\t\tAlertDaysBeforeExpiry: pulumi.Int(20),\n\t\t\t\tSecurityBaseline: \u0026checkly.SslMonitorRequestSecurityBaselineArgs{\n\t\t\t\t\tMinTlsVersion: \u0026checkly.SslMonitorRequestSecurityBaselineMinTlsVersionArgs{\n\t\t\t\t\t\tValue:    pulumi.String(\"TLS1.2\"),\n\t\t\t\t\t\tSeverity: pulumi.String(\"fail\"),\n\t\t\t\t\t},\n\t\t\t\t\tMinKeySizeBits: \u0026checkly.SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs{\n\t\t\t\t\t\tValue:    pulumi.Int(2048),\n\t\t\t\t\t\tSeverity: pulumi.String(\"fail\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tClientCertificate: \u0026checkly.SslMonitorRequestClientCertificateArgs{\n\t\t\t\t\tMode: pulumi.String(\"account_default\"),\n\t\t\t\t},\n\t\t\t\tAssertions: checkly.SslMonitorRequestAssertionArray{\n\t\t\t\t\t\u0026checkly.SslMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"CERTIFICATE\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"daysUntilExpiry\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"GREATER_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"14\"),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026checkly.SslMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"CONNECTION\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"hostnameVerified\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"EQUALS\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"true\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.SslMonitor;\nimport com.pulumi.checkly.SslMonitorArgs;\nimport com.pulumi.checkly.inputs.SslMonitorRequestArgs;\nimport com.pulumi.checkly.inputs.SslMonitorAlertSettingsArgs;\nimport com.pulumi.checkly.inputs.SslMonitorRequestSecurityBaselineArgs;\nimport com.pulumi.checkly.inputs.SslMonitorRequestSecurityBaselineMinTlsVersionArgs;\nimport com.pulumi.checkly.inputs.SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs;\nimport com.pulumi.checkly.inputs.SslMonitorRequestClientCertificateArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // Basic SSL/TLS certificate monitor\n        var example_ssl_monitor = new SslMonitor(\"example-ssl-monitor\", SslMonitorArgs.builder()\n            .name(\"Example SSL monitor\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(60)\n            .useGlobalAlertSettings(true)\n            .locations(\"us-west-1\")\n            .request(SslMonitorRequestArgs.builder()\n                .hostname(\"api.checklyhq.com\")\n                .port(443)\n                .alertDaysBeforeExpiry(30)\n                .build())\n            .build());\n\n        // A more complex example with response-time thresholds, a custom security\n        // baseline and certificate assertions\n        var example_ssl_monitor_2 = new SslMonitor(\"example-ssl-monitor-2\", SslMonitorArgs.builder()\n            .name(\"Example SSL monitor 2\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(60)\n            .degradedResponseTime(3000)\n            .maxResponseTime(10000)\n            .locations(            \n                \"us-west-1\",\n                \"eu-central-1\")\n            .alertSettings(SslMonitorAlertSettingsArgs.builder()\n                .escalationType(\"RUN_BASED\")\n                .runBasedEscalations(SslMonitorAlertSettingsRunBasedEscalationArgs.builder()\n                    .failedRunThreshold(1)\n                    .build())\n                .reminders(SslMonitorAlertSettingsReminderArgs.builder()\n                    .amount(1)\n                    .build())\n                .build())\n            .request(SslMonitorRequestArgs.builder()\n                .hostname(\"api.checklyhq.com\")\n                .port(443)\n                .serverName(\"api.checklyhq.com\")\n                .ipFamily(\"IPv4\")\n                .skipChainValidation(false)\n                .handshakeTimeoutMs(10000)\n                .alertDaysBeforeExpiry(20)\n                .securityBaseline(SslMonitorRequestSecurityBaselineArgs.builder()\n                    .minTlsVersion(SslMonitorRequestSecurityBaselineMinTlsVersionArgs.builder()\n                        .value(\"TLS1.2\")\n                        .severity(\"fail\")\n                        .build())\n                    .minKeySizeBits(SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs.builder()\n                        .value(2048)\n                        .severity(\"fail\")\n                        .build())\n                    .build())\n                .clientCertificate(SslMonitorRequestClientCertificateArgs.builder()\n                    .mode(\"account_default\")\n                    .build())\n                .assertions(                \n                    SslMonitorRequestAssertionArgs.builder()\n                        .source(\"CERTIFICATE\")\n                        .property(\"daysUntilExpiry\")\n                        .comparison(\"GREATER_THAN\")\n                        .target(\"14\")\n                        .build(),\n                    SslMonitorRequestAssertionArgs.builder()\n                        .source(\"CONNECTION\")\n                        .property(\"hostnameVerified\")\n                        .comparison(\"EQUALS\")\n                        .target(\"true\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # Basic SSL/TLS certificate monitor\n  example-ssl-monitor:\n    type: checkly:SslMonitor\n    properties:\n      name: Example SSL monitor\n      activated: true\n      shouldFail: false\n      frequency: 60\n      useGlobalAlertSettings: true\n      locations:\n        - us-west-1\n      request:\n        hostname: api.checklyhq.com\n        port: 443\n        alertDaysBeforeExpiry: 30\n  # A more complex example with response-time thresholds, a custom security\n  # baseline and certificate assertions\n  example-ssl-monitor-2:\n    type: checkly:SslMonitor\n    properties:\n      name: Example SSL monitor 2\n      activated: true\n      shouldFail: false\n      frequency: 60\n      degradedResponseTime: 3000\n      maxResponseTime: 10000\n      locations:\n        - us-west-1\n        - eu-central-1\n      alertSettings:\n        escalationType: RUN_BASED\n        runBasedEscalations:\n          - failedRunThreshold: 1\n        reminders:\n          - amount: 1\n      request:\n        hostname: api.checklyhq.com\n        port: 443\n        serverName: api.checklyhq.com\n        ipFamily: IPv4\n        skipChainValidation: false\n        handshakeTimeoutMs: 10000\n        alertDaysBeforeExpiry: 20\n        securityBaseline:\n          minTlsVersion:\n            value: TLS1.2\n            severity: fail\n          minKeySizeBits:\n            value: 2048\n            severity: fail\n        clientCertificate:\n          mode: account_default\n        assertions:\n          - source: CERTIFICATE\n            property: daysUntilExpiry\n            comparison: GREATER_THAN\n            target: '14'\n          - source: CONNECTION\n            property: hostnameVerified\n            comparison: EQUALS\n            target: 'true'\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n\n## Assertion Reference\n\nEach `assertion` block has the shape `{ source, property, comparison, target }`. SSL assertions use a property-scoped grammar: for the `CERTIFICATE` and `CONNECTION` sources, `property` selects the fact being asserted, and that property determines which comparisons are allowed. These rules are enforced by the Checkly API at apply time.\n\n### Source `CERTIFICATE`\n\n`property` is required and must be one of the following.\n\n| `property` | Value type | Allowed `comparison` values | Notes |\n|---|---|---|---|\n| `daysUntilExpiry` | number | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Days until the certificate expires. |\n| `keySizeBits` | number | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Public key size in bits. |\n| `subjectCN` | string | `EQUALS`, `NOT_EQUALS`, `CONTAINS`, `NOT_CONTAINS` | Subject common name. |\n| `issuerCN` | string | `EQUALS`, `NOT_EQUALS`, `CONTAINS`, `NOT_CONTAINS` | Issuer common name. |\n| `serialNumber` | string | `EQUALS`, `NOT_EQUALS` | |\n| `fingerprintSha256` | string | `EQUALS`, `NOT_EQUALS` | |\n| `issuerFingerprintSha256` | string | `EQUALS`, `NOT_EQUALS` | |\n| `keyAlgorithm` | string | `EQUALS`, `NOT_EQUALS` | |\n| `signatureAlgorithm` | string | `EQUALS`, `NOT_EQUALS` | e.g. `SHA256-RSA`, `ECDSA-SHA256`, `Ed25519`. |\n| `sans` | list of strings | `CONTAINS`, `NOT_CONTAINS` | Subject alternative names. |\n| `selfSigned` | boolean | `EQUALS` only | `target` is `\"true\"` or `\"false\"`. |\n| `isCA` | boolean | `EQUALS` only | `target` is `\"true\"` or `\"false\"`. |\n\n### Source `CONNECTION`\n\n`property` is required and must be one of the following.\n\n| `property` | Value type | Allowed `comparison` values | Notes |\n|---|---|---|---|\n| `tlsVersion` | string (ordered) | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | TLS versions compare in protocol order, e.g. `GREATER_THAN` `TLSv1.2` matches TLS 1.3. |\n| `cipherSuite` | string | `EQUALS`, `NOT_EQUALS`, `CONTAINS`, `NOT_CONTAINS` | IANA cipher suite name. |\n| `hostnameVerified` | boolean | `EQUALS` only | `target` is `\"true\"` or `\"false\"`. |\n| `chainTrusted` | boolean | `EQUALS` only | `target` is `\"true\"` or `\"false\"`. |\n| `ocspStapled` | boolean | `EQUALS` only | `target` is `\"true\"` or `\"false\"`. |\n| `ocspStatus` | string | `EQUALS`, `NOT_EQUALS` | |\n| `resolvedIp` | string | `EQUALS`, `NOT_EQUALS`, `CONTAINS`, `NOT_CONTAINS` | |\n\n### Other sources\n\n| `source` | `property` | Allowed `comparison` values | `target` |\n|---|---|---|---|\n| `RESPONSE_TIME` | Must be empty. | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Handshake time in milliseconds, ≥ 0. |\n| `JSON_RESPONSE` | Required. A JSONPath expression over the check result (e.g. `$.certificate.keySizeBits`). | `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, `NOT_NULL` | Free-form string. |\n| `TEXT_RESPONSE` | Optional. A regular expression applied to the serialized response; empty matches the whole response. | `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `CONTAINS`, `NOT_CONTAINS`, `GREATER_THAN`, `LESS_THAN` | Free-form string. |\n\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/SslMonitorAlertChannelSubscription:SslMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/SslMonitorAlertSettings:SslMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degraded_response_time`. Possible values are between 0 and 30000. (Default `20000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequest:SslMonitorRequest",
+                    "description": "The parameters for the SSL connection.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/SslMonitorRetryStrategy:SslMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this monitor.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/SslMonitorTriggerIncident:SslMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "frequency",
+                "name",
+                "request",
+                "retryStrategy"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/SslMonitorAlertChannelSubscription:SslMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/SslMonitorAlertSettings:SslMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degraded_response_time`. Possible values are between 0 and 30000. (Default `20000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "privateLocations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more private locations slugs.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/SslMonitorRequest:SslMonitorRequest",
+                    "description": "The parameters for the SSL connection.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/SslMonitorRetryStrategy:SslMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this monitor.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/SslMonitorTriggerIncident:SslMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "frequency",
+                "request"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering SslMonitor resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/SslMonitorAlertChannelSubscription:SslMonitorAlertChannelSubscription"
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/SslMonitorAlertSettings:SslMonitorAlertSettings",
+                        "description": "Determines the alert escalation policy for the monitor.\n"
+                    },
+                    "degradedResponseTime": {
+                        "type": "integer",
+                        "description": "The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                    },
+                    "frequencyOffset": {
+                        "type": "integer",
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "description": "The id of the check group this monitor is part of.\n"
+                    },
+                    "groupOrder": {
+                        "type": "integer",
+                        "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                    },
+                    "maxResponseTime": {
+                        "type": "integer",
+                        "description": "The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degraded_response_time`. Possible values are between 0 and 30000. (Default `20000`).\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the monitor.\n"
+                    },
+                    "privateLocations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more private locations slugs.\n"
+                    },
+                    "request": {
+                        "$ref": "#/types/checkly:index/SslMonitorRequest:SslMonitorRequest",
+                        "description": "The parameters for the SSL connection.\n"
+                    },
+                    "retryStrategy": {
+                        "$ref": "#/types/checkly:index/SslMonitorRetryStrategy:SslMonitorRetryStrategy",
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                    },
+                    "runtimeId": {
+                        "type": "string",
+                        "description": "The ID of the runtime to use for this monitor.\n"
+                    },
+                    "shouldFail": {
+                        "type": "boolean",
+                        "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/SslMonitorTriggerIncident:SslMonitorTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "checkly:index/statusPage:StatusPage": {
             "description": "Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst api = new checkly.StatusPageService(\"api\", {name: \"API\"});\nconst database = new checkly.StatusPageService(\"database\", {name: \"Database\"});\nconst example = new checkly.StatusPage(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n    defaultTheme: \"DARK\",\n    cards: [{\n        name: \"Services\",\n        serviceAttachments: [\n            {\n                serviceId: api.id,\n            },\n            {\n                serviceId: database.id,\n            },\n        ],\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\napi = checkly.StatusPageService(\"api\", name=\"API\")\ndatabase = checkly.StatusPageService(\"database\", name=\"Database\")\nexample = checkly.StatusPage(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\",\n    default_theme=\"DARK\",\n    cards=[{\n        \"name\": \"Services\",\n        \"service_attachments\": [\n            {\n                \"service_id\": api.id,\n            },\n            {\n                \"service_id\": database.id,\n            },\n        ],\n    }])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var api = new Checkly.StatusPageService(\"api\", new()\n    {\n        Name = \"API\",\n    });\n\n    var database = new Checkly.StatusPageService(\"database\", new()\n    {\n        Name = \"Database\",\n    });\n\n    var example = new Checkly.StatusPage(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n        DefaultTheme = \"DARK\",\n        Cards = new[]\n        {\n            new Checkly.Inputs.StatusPageCardArgs\n            {\n                Name = \"Services\",\n                ServiceAttachments = new[]\n                {\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = api.Id,\n                    },\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = database.Id,\n                    },\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tapi, err := checkly.NewStatusPageService(ctx, \"api\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"API\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tdatabase, err := checkly.NewStatusPageService(ctx, \"database\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Database\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPage(ctx, \"example\", \u0026checkly.StatusPageArgs{\n\t\t\tName:         pulumi.String(\"Example Application\"),\n\t\t\tUrl:          pulumi.String(\"my-example-status-page\"),\n\t\t\tDefaultTheme: pulumi.String(\"DARK\"),\n\t\t\tCards: checkly.StatusPageCardArray{\n\t\t\t\t\u0026checkly.StatusPageCardArgs{\n\t\t\t\t\tName: pulumi.String(\"Services\"),\n\t\t\t\t\tServiceAttachments: checkly.StatusPageCardServiceAttachmentArray{\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: api.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: database.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport com.pulumi.checkly.StatusPage;\nimport com.pulumi.checkly.StatusPageArgs;\nimport com.pulumi.checkly.inputs.StatusPageCardArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var api = new StatusPageService(\"api\", StatusPageServiceArgs.builder()\n            .name(\"API\")\n            .build());\n\n        var database = new StatusPageService(\"database\", StatusPageServiceArgs.builder()\n            .name(\"Database\")\n            .build());\n\n        var example = new StatusPage(\"example\", StatusPageArgs.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .defaultTheme(\"DARK\")\n            .cards(StatusPageCardArgs.builder()\n                .name(\"Services\")\n                .serviceAttachments(                \n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(api.id())\n                        .build(),\n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(database.id())\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  api:\n    type: checkly:StatusPageService\n    properties:\n      name: API\n  database:\n    type: checkly:StatusPageService\n    properties:\n      name: Database\n  example:\n    type: checkly:StatusPage\n    properties:\n      name: Example Application\n      url: my-example-status-page\n      defaultTheme: DARK\n      cards:\n        - name: Services\n          serviceAttachments:\n            - serviceId: ${api.id}\n            - serviceId: ${database.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
@@ -7103,6 +8736,311 @@
                     "useGlobalAlertSettings": {
                         "type": "boolean",
                         "description": "When true, the account level alert settings will be used, not the alert setting defined on this check.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/tracerouteMonitor:TracerouteMonitor": {
+            "description": "Traceroute monitors trace the network path to a host and measure per-hop latency and packet loss. Traceroute monitors do not support private locations.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// Basic traceroute monitor\nconst example_traceroute_monitor = new checkly.TracerouteMonitor(\"example-traceroute-monitor\", {\n    name: \"Example traceroute monitor\",\n    activated: true,\n    shouldFail: false,\n    frequency: 1,\n    useGlobalAlertSettings: true,\n    locations: [\"us-west-1\"],\n    request: {\n        url: \"api.checklyhq.com\",\n    },\n});\n// A more complex example tuning the trace and adding assertions\nconst example_traceroute_monitor_2 = new checkly.TracerouteMonitor(\"example-traceroute-monitor-2\", {\n    name: \"Example traceroute monitor 2\",\n    activated: true,\n    shouldFail: false,\n    frequency: 5,\n    locations: [\n        \"us-west-1\",\n        \"ap-northeast-1\",\n    ],\n    alertSettings: {\n        escalationType: \"RUN_BASED\",\n        runBasedEscalations: [{\n            failedRunThreshold: 1,\n        }],\n        reminders: [{\n            amount: 1,\n        }],\n    },\n    request: {\n        url: \"api.checklyhq.com\",\n        protocol: \"ICMP\",\n        ipFamily: \"IPv4\",\n        maxHops: 30,\n        maxUnknownHops: 15,\n        ptrLookup: true,\n        timeout: 10,\n        assertions: [\n            {\n                source: \"PACKET_LOSS\",\n                property: \"\",\n                comparison: \"LESS_THAN\",\n                target: \"10\",\n            },\n            {\n                source: \"RESPONSE_TIME\",\n                property: \"avg\",\n                comparison: \"LESS_THAN\",\n                target: \"2000\",\n            },\n        ],\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\n# Basic traceroute monitor\nexample_traceroute_monitor = checkly.TracerouteMonitor(\"example-traceroute-monitor\",\n    name=\"Example traceroute monitor\",\n    activated=True,\n    should_fail=False,\n    frequency=1,\n    use_global_alert_settings=True,\n    locations=[\"us-west-1\"],\n    request={\n        \"url\": \"api.checklyhq.com\",\n    })\n# A more complex example tuning the trace and adding assertions\nexample_traceroute_monitor_2 = checkly.TracerouteMonitor(\"example-traceroute-monitor-2\",\n    name=\"Example traceroute monitor 2\",\n    activated=True,\n    should_fail=False,\n    frequency=5,\n    locations=[\n        \"us-west-1\",\n        \"ap-northeast-1\",\n    ],\n    alert_settings={\n        \"escalation_type\": \"RUN_BASED\",\n        \"run_based_escalations\": [{\n            \"failed_run_threshold\": 1,\n        }],\n        \"reminders\": [{\n            \"amount\": 1,\n        }],\n    },\n    request={\n        \"url\": \"api.checklyhq.com\",\n        \"protocol\": \"ICMP\",\n        \"ip_family\": \"IPv4\",\n        \"max_hops\": 30,\n        \"max_unknown_hops\": 15,\n        \"ptr_lookup\": True,\n        \"timeout\": 10,\n        \"assertions\": [\n            {\n                \"source\": \"PACKET_LOSS\",\n                \"property\": \"\",\n                \"comparison\": \"LESS_THAN\",\n                \"target\": \"10\",\n            },\n            {\n                \"source\": \"RESPONSE_TIME\",\n                \"property\": \"avg\",\n                \"comparison\": \"LESS_THAN\",\n                \"target\": \"2000\",\n            },\n        ],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // Basic traceroute monitor\n    var example_traceroute_monitor = new Checkly.TracerouteMonitor(\"example-traceroute-monitor\", new()\n    {\n        Name = \"Example traceroute monitor\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 1,\n        UseGlobalAlertSettings = true,\n        Locations = new[]\n        {\n            \"us-west-1\",\n        },\n        Request = new Checkly.Inputs.TracerouteMonitorRequestArgs\n        {\n            Url = \"api.checklyhq.com\",\n        },\n    });\n\n    // A more complex example tuning the trace and adding assertions\n    var example_traceroute_monitor_2 = new Checkly.TracerouteMonitor(\"example-traceroute-monitor-2\", new()\n    {\n        Name = \"Example traceroute monitor 2\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 5,\n        Locations = new[]\n        {\n            \"us-west-1\",\n            \"ap-northeast-1\",\n        },\n        AlertSettings = new Checkly.Inputs.TracerouteMonitorAlertSettingsArgs\n        {\n            EscalationType = \"RUN_BASED\",\n            RunBasedEscalations = new[]\n            {\n                new Checkly.Inputs.TracerouteMonitorAlertSettingsRunBasedEscalationArgs\n                {\n                    FailedRunThreshold = 1,\n                },\n            },\n            Reminders = new[]\n            {\n                new Checkly.Inputs.TracerouteMonitorAlertSettingsReminderArgs\n                {\n                    Amount = 1,\n                },\n            },\n        },\n        Request = new Checkly.Inputs.TracerouteMonitorRequestArgs\n        {\n            Url = \"api.checklyhq.com\",\n            Protocol = \"ICMP\",\n            IpFamily = \"IPv4\",\n            MaxHops = 30,\n            MaxUnknownHops = 15,\n            PtrLookup = true,\n            Timeout = 10,\n            Assertions = new[]\n            {\n                new Checkly.Inputs.TracerouteMonitorRequestAssertionArgs\n                {\n                    Source = \"PACKET_LOSS\",\n                    Property = \"\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"10\",\n                },\n                new Checkly.Inputs.TracerouteMonitorRequestAssertionArgs\n                {\n                    Source = \"RESPONSE_TIME\",\n                    Property = \"avg\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"2000\",\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// Basic traceroute monitor\n\t\t_, err := checkly.NewTracerouteMonitor(ctx, \"example-traceroute-monitor\", \u0026checkly.TracerouteMonitorArgs{\n\t\t\tName:                   pulumi.String(\"Example traceroute monitor\"),\n\t\t\tActivated:              pulumi.Bool(true),\n\t\t\tShouldFail:             pulumi.Bool(false),\n\t\t\tFrequency:              pulumi.Int(1),\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.TracerouteMonitorRequestArgs{\n\t\t\t\tUrl: pulumi.String(\"api.checklyhq.com\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// A more complex example tuning the trace and adding assertions\n\t\t_, err = checkly.NewTracerouteMonitor(ctx, \"example-traceroute-monitor-2\", \u0026checkly.TracerouteMonitorArgs{\n\t\t\tName:       pulumi.String(\"Example traceroute monitor 2\"),\n\t\t\tActivated:  pulumi.Bool(true),\n\t\t\tShouldFail: pulumi.Bool(false),\n\t\t\tFrequency:  pulumi.Int(5),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t\tpulumi.String(\"ap-northeast-1\"),\n\t\t\t},\n\t\t\tAlertSettings: \u0026checkly.TracerouteMonitorAlertSettingsArgs{\n\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\tRunBasedEscalations: checkly.TracerouteMonitorAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\u0026checkly.TracerouteMonitorAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tReminders: checkly.TracerouteMonitorAlertSettingsReminderArray{\n\t\t\t\t\t\u0026checkly.TracerouteMonitorAlertSettingsReminderArgs{\n\t\t\t\t\t\tAmount: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tRequest: \u0026checkly.TracerouteMonitorRequestArgs{\n\t\t\t\tUrl:            pulumi.String(\"api.checklyhq.com\"),\n\t\t\t\tProtocol:       pulumi.String(\"ICMP\"),\n\t\t\t\tIpFamily:       pulumi.String(\"IPv4\"),\n\t\t\t\tMaxHops:        pulumi.Int(30),\n\t\t\t\tMaxUnknownHops: pulumi.Int(15),\n\t\t\t\tPtrLookup:      pulumi.Bool(true),\n\t\t\t\tTimeout:        pulumi.Int(10),\n\t\t\t\tAssertions: checkly.TracerouteMonitorRequestAssertionArray{\n\t\t\t\t\t\u0026checkly.TracerouteMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"PACKET_LOSS\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"10\"),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026checkly.TracerouteMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"RESPONSE_TIME\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"avg\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"2000\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.TracerouteMonitor;\nimport com.pulumi.checkly.TracerouteMonitorArgs;\nimport com.pulumi.checkly.inputs.TracerouteMonitorRequestArgs;\nimport com.pulumi.checkly.inputs.TracerouteMonitorAlertSettingsArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // Basic traceroute monitor\n        var example_traceroute_monitor = new TracerouteMonitor(\"example-traceroute-monitor\", TracerouteMonitorArgs.builder()\n            .name(\"Example traceroute monitor\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(1)\n            .useGlobalAlertSettings(true)\n            .locations(\"us-west-1\")\n            .request(TracerouteMonitorRequestArgs.builder()\n                .url(\"api.checklyhq.com\")\n                .build())\n            .build());\n\n        // A more complex example tuning the trace and adding assertions\n        var example_traceroute_monitor_2 = new TracerouteMonitor(\"example-traceroute-monitor-2\", TracerouteMonitorArgs.builder()\n            .name(\"Example traceroute monitor 2\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(5)\n            .locations(            \n                \"us-west-1\",\n                \"ap-northeast-1\")\n            .alertSettings(TracerouteMonitorAlertSettingsArgs.builder()\n                .escalationType(\"RUN_BASED\")\n                .runBasedEscalations(TracerouteMonitorAlertSettingsRunBasedEscalationArgs.builder()\n                    .failedRunThreshold(1)\n                    .build())\n                .reminders(TracerouteMonitorAlertSettingsReminderArgs.builder()\n                    .amount(1)\n                    .build())\n                .build())\n            .request(TracerouteMonitorRequestArgs.builder()\n                .url(\"api.checklyhq.com\")\n                .protocol(\"ICMP\")\n                .ipFamily(\"IPv4\")\n                .maxHops(30)\n                .maxUnknownHops(15)\n                .ptrLookup(true)\n                .timeout(10)\n                .assertions(                \n                    TracerouteMonitorRequestAssertionArgs.builder()\n                        .source(\"PACKET_LOSS\")\n                        .property(\"\")\n                        .comparison(\"LESS_THAN\")\n                        .target(\"10\")\n                        .build(),\n                    TracerouteMonitorRequestAssertionArgs.builder()\n                        .source(\"RESPONSE_TIME\")\n                        .property(\"avg\")\n                        .comparison(\"LESS_THAN\")\n                        .target(\"2000\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # Basic traceroute monitor\n  example-traceroute-monitor:\n    type: checkly:TracerouteMonitor\n    properties:\n      name: Example traceroute monitor\n      activated: true\n      shouldFail: false\n      frequency: 1\n      useGlobalAlertSettings: true\n      locations:\n        - us-west-1\n      request:\n        url: api.checklyhq.com\n  # A more complex example tuning the trace and adding assertions\n  example-traceroute-monitor-2:\n    type: checkly:TracerouteMonitor\n    properties:\n      name: Example traceroute monitor 2\n      activated: true\n      shouldFail: false\n      frequency: 5\n      locations:\n        - us-west-1\n        - ap-northeast-1\n      alertSettings:\n        escalationType: RUN_BASED\n        runBasedEscalations:\n          - failedRunThreshold: 1\n        reminders:\n          - amount: 1\n      request:\n        url: api.checklyhq.com\n        protocol: ICMP\n        ipFamily: IPv4\n        maxHops: 30\n        maxUnknownHops: 15\n        ptrLookup: true\n        timeout: 10\n        assertions:\n          - source: PACKET_LOSS\n            property: \"\"\n            comparison: LESS_THAN\n            target: '10'\n          - source: RESPONSE_TIME\n            property: avg\n            comparison: LESS_THAN\n            target: '2000'\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n\n## Assertion Reference\n\nEach `assertion` block has the shape `{ source, property, comparison, target }`. Which comparisons are allowed, and what `target` must contain, depend on `source`. The `comparison`, `target`, and `RESPONSE_TIME` `property` rules are enforced by the Checkly API at apply time; where `property` is marked as ignored, the API accepts any value but does not use it. All traceroute assertion targets are numeric.\n\n| `source` | `property` | Allowed `comparison` values | `target` |\n|---|---|---|---|\n| `RESPONSE_TIME` | Required. The per-hop round-trip-time statistic to assert on: `avg`, `min`, `max`, or `stdDev`. | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Milliseconds, ≥ 0. |\n| `HOP_COUNT` | Leave empty (ignored for this source). | `EQUALS`, `GREATER_THAN`, `LESS_THAN` (`NOT_EQUALS` is not supported) | Integer, ≥ 0. |\n| `PACKET_LOSS` | Leave empty (ignored for this source). | `EQUALS`, `GREATER_THAN`, `LESS_THAN` (`NOT_EQUALS` is not supported) | Number 0–100 (percent). |\n\n",
+            "properties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorAlertChannelSubscription:TracerouteMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorAlertSettings:TracerouteMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 30000. (Default `10000`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 30000. (Default `20000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorRequest:TracerouteMonitorRequest",
+                    "description": "The parameters for the traceroute probe.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorRetryStrategy:TracerouteMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this monitor.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorTriggerIncident:TracerouteMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
+                }
+            },
+            "required": [
+                "activated",
+                "alertSettings",
+                "frequency",
+                "name",
+                "request",
+                "retryStrategy"
+            ],
+            "inputProperties": {
+                "activated": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                },
+                "alertChannelSubscriptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorAlertChannelSubscription:TracerouteMonitorAlertChannelSubscription"
+                    },
+                    "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                },
+                "alertSettings": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorAlertSettings:TracerouteMonitorAlertSettings",
+                    "description": "Determines the alert escalation policy for the monitor.\n"
+                },
+                "degradedResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 30000. (Default `10000`).\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A description of the monitor.\n"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                },
+                "frequencyOffset": {
+                    "type": "integer",
+                    "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                },
+                "groupId": {
+                    "type": "integer",
+                    "description": "The id of the check group this monitor is part of.\n"
+                },
+                "groupOrder": {
+                    "type": "integer",
+                    "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                },
+                "maxResponseTime": {
+                    "type": "integer",
+                    "description": "The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 30000. (Default `20000`).\n"
+                },
+                "muted": {
+                    "type": "boolean",
+                    "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the monitor.\n"
+                },
+                "request": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorRequest:TracerouteMonitorRequest",
+                    "description": "The parameters for the traceroute probe.\n"
+                },
+                "retryStrategy": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorRetryStrategy:TracerouteMonitorRetryStrategy",
+                    "description": "A strategy for retrying failed check/monitor runs.\n"
+                },
+                "runParallel": {
+                    "type": "boolean",
+                    "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                },
+                "runtimeId": {
+                    "type": "string",
+                    "description": "The ID of the runtime to use for this monitor.\n"
+                },
+                "shouldFail": {
+                    "type": "boolean",
+                    "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                },
+                "triggerIncident": {
+                    "$ref": "#/types/checkly:index/TracerouteMonitorTriggerIncident:TracerouteMonitorTriggerIncident",
+                    "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                },
+                "useGlobalAlertSettings": {
+                    "type": "boolean",
+                    "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
+                }
+            },
+            "requiredInputs": [
+                "activated",
+                "frequency",
+                "request"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering TracerouteMonitor resources.\n",
+                "properties": {
+                    "activated": {
+                        "type": "boolean",
+                        "description": "Determines if the monitor is running or not. Possible values `true`, and `false`.\n"
+                    },
+                    "alertChannelSubscriptions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/TracerouteMonitorAlertChannelSubscription:TracerouteMonitorAlertChannelSubscription"
+                        },
+                        "description": "An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.\n"
+                    },
+                    "alertSettings": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorAlertSettings:TracerouteMonitorAlertSettings",
+                        "description": "Determines the alert escalation policy for the monitor.\n"
+                    },
+                    "degradedResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 30000. (Default `10000`).\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the monitor.\n"
+                    },
+                    "frequency": {
+                        "type": "integer",
+                        "description": "Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).\n"
+                    },
+                    "frequencyOffset": {
+                        "type": "integer",
+                        "description": "When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).\n"
+                    },
+                    "groupId": {
+                        "type": "integer",
+                        "description": "The id of the check group this monitor is part of.\n"
+                    },
+                    "groupOrder": {
+                        "type": "integer",
+                        "description": "The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.\n"
+                    },
+                    "locations": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "An array of one or more data center locations where to run this monitor. (Default [\"us-east-1\"])\n"
+                    },
+                    "maxResponseTime": {
+                        "type": "integer",
+                        "description": "The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 30000. (Default `20000`).\n"
+                    },
+                    "muted": {
+                        "type": "boolean",
+                        "description": "Determines if any notifications will be sent out when a monitor fails/degrades/recovers.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the monitor.\n"
+                    },
+                    "request": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorRequest:TracerouteMonitorRequest",
+                        "description": "The parameters for the traceroute probe.\n"
+                    },
+                    "retryStrategy": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorRetryStrategy:TracerouteMonitorRetryStrategy",
+                        "description": "A strategy for retrying failed check/monitor runs.\n"
+                    },
+                    "runParallel": {
+                        "type": "boolean",
+                        "description": "Determines if the monitor should run in all selected locations in parallel or round-robin.\n"
+                    },
+                    "runtimeId": {
+                        "type": "string",
+                        "description": "The ID of the runtime to use for this monitor.\n"
+                    },
+                    "shouldFail": {
+                        "type": "boolean",
+                        "description": "Allows to invert the behaviour of when a monitor is considered to fail.\n"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of tags for organizing and filtering checks and monitors.\n"
+                    },
+                    "triggerIncident": {
+                        "$ref": "#/types/checkly:index/TracerouteMonitorTriggerIncident:TracerouteMonitorTriggerIncident",
+                        "description": "Create and resolve an incident based on the alert configuration. Useful for status page automation.\n"
+                    },
+                    "useGlobalAlertSettings": {
+                        "type": "boolean",
+                        "description": "When true, the account level alert settings will be used, not the alert setting defined on this monitor.\n"
                     }
                 },
                 "type": "object"

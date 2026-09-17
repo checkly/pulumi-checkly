@@ -50,6 +50,11 @@ export const getStaticIps: typeof import("./getStaticIps").getStaticIps = null a
 export const getStaticIpsOutput: typeof import("./getStaticIps").getStaticIpsOutput = null as any;
 utilities.lazyLoad(exports, ["getStaticIps","getStaticIpsOutput"], () => require("./getStaticIps"));
 
+export { GrpcMonitorArgs, GrpcMonitorState } from "./grpcMonitor";
+export type GrpcMonitor = import("./grpcMonitor").GrpcMonitor;
+export const GrpcMonitor: typeof import("./grpcMonitor").GrpcMonitor = null as any;
+utilities.lazyLoad(exports, ["GrpcMonitor"], () => require("./grpcMonitor"));
+
 export { HeartbeatCheckArgs, HeartbeatCheckState } from "./heartbeatCheck";
 export type HeartbeatCheck = import("./heartbeatCheck").HeartbeatCheck;
 export const HeartbeatCheck: typeof import("./heartbeatCheck").HeartbeatCheck = null as any;
@@ -93,6 +98,11 @@ export type Snippet = import("./snippet").Snippet;
 export const Snippet: typeof import("./snippet").Snippet = null as any;
 utilities.lazyLoad(exports, ["Snippet"], () => require("./snippet"));
 
+export { SslMonitorArgs, SslMonitorState } from "./sslMonitor";
+export type SslMonitor = import("./sslMonitor").SslMonitor;
+export const SslMonitor: typeof import("./sslMonitor").SslMonitor = null as any;
+utilities.lazyLoad(exports, ["SslMonitor"], () => require("./sslMonitor"));
+
 export { StatusPageArgs, StatusPageState } from "./statusPage";
 export type StatusPage = import("./statusPage").StatusPage;
 export const StatusPage: typeof import("./statusPage").StatusPage = null as any;
@@ -112,6 +122,11 @@ export { TcpMonitorArgs, TcpMonitorState } from "./tcpMonitor";
 export type TcpMonitor = import("./tcpMonitor").TcpMonitor;
 export const TcpMonitor: typeof import("./tcpMonitor").TcpMonitor = null as any;
 utilities.lazyLoad(exports, ["TcpMonitor"], () => require("./tcpMonitor"));
+
+export { TracerouteMonitorArgs, TracerouteMonitorState } from "./tracerouteMonitor";
+export type TracerouteMonitor = import("./tracerouteMonitor").TracerouteMonitor;
+export const TracerouteMonitor: typeof import("./tracerouteMonitor").TracerouteMonitor = null as any;
+utilities.lazyLoad(exports, ["TracerouteMonitor"], () => require("./tracerouteMonitor"));
 
 export { TriggerCheckArgs, TriggerCheckState } from "./triggerCheck";
 export type TriggerCheck = import("./triggerCheck").TriggerCheck;
@@ -158,6 +173,8 @@ const _module = {
                 return new DnsMonitor(name, <any>undefined, { urn })
             case "checkly:index/environmentVariable:EnvironmentVariable":
                 return new EnvironmentVariable(name, <any>undefined, { urn })
+            case "checkly:index/grpcMonitor:GrpcMonitor":
+                return new GrpcMonitor(name, <any>undefined, { urn })
             case "checkly:index/heartbeatCheck:HeartbeatCheck":
                 return new HeartbeatCheck(name, <any>undefined, { urn })
             case "checkly:index/heartbeatMonitor:HeartbeatMonitor":
@@ -174,6 +191,8 @@ const _module = {
                 return new PrivateLocation(name, <any>undefined, { urn })
             case "checkly:index/snippet:Snippet":
                 return new Snippet(name, <any>undefined, { urn })
+            case "checkly:index/sslMonitor:SslMonitor":
+                return new SslMonitor(name, <any>undefined, { urn })
             case "checkly:index/statusPage:StatusPage":
                 return new StatusPage(name, <any>undefined, { urn })
             case "checkly:index/statusPageService:StatusPageService":
@@ -182,6 +201,8 @@ const _module = {
                 return new TcpCheck(name, <any>undefined, { urn })
             case "checkly:index/tcpMonitor:TcpMonitor":
                 return new TcpMonitor(name, <any>undefined, { urn })
+            case "checkly:index/tracerouteMonitor:TracerouteMonitor":
+                return new TracerouteMonitor(name, <any>undefined, { urn })
             case "checkly:index/triggerCheck:TriggerCheck":
                 return new TriggerCheck(name, <any>undefined, { urn })
             case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
@@ -201,6 +222,7 @@ pulumi.runtime.registerResourceModule("checkly", "index/clientCertificate", _mod
 pulumi.runtime.registerResourceModule("checkly", "index/dashboard", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/dnsMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/environmentVariable", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/grpcMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/icmpMonitor", _module)
@@ -209,10 +231,12 @@ pulumi.runtime.registerResourceModule("checkly", "index/playwrightCheckSuite", _
 pulumi.runtime.registerResourceModule("checkly", "index/playwrightCodeBundle", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/sslMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/statusPage", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/statusPageService", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tcpCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tcpMonitor", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/tracerouteMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/urlMonitor", _module)

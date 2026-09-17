@@ -349,6 +349,69 @@
                 "current": "checkly:index/environmentVariable:EnvironmentVariable",
                 "majorVersion": 2
             },
+            "checkly_grpc_monitor": {
+                "current": "checkly:index/grpcMonitor:GrpcMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "locations": {
+                        "maxItemsOne": false
+                    },
+                    "private_locations": {
+                        "maxItemsOne": false
+                    },
+                    "request": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "assertion": {
+                                    "maxItemsOne": false
+                                },
+                                "metadata": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "retry_strategy": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    },
+                    "trigger_incident": {
+                        "maxItemsOne": true
+                    }
+                }
+            },
             "checkly_heartbeat": {
                 "current": "checkly:index/heartbeatCheck:HeartbeatCheck",
                 "majorVersion": 2,
@@ -596,6 +659,103 @@
                 "current": "checkly:index/snippet:Snippet",
                 "majorVersion": 2
             },
+            "checkly_ssl_monitor": {
+                "current": "checkly:index/sslMonitor:SslMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "locations": {
+                        "maxItemsOne": false
+                    },
+                    "private_locations": {
+                        "maxItemsOne": false
+                    },
+                    "request": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "assertion": {
+                                    "maxItemsOne": false
+                                },
+                                "client_certificate": {
+                                    "maxItemsOne": true
+                                },
+                                "security_baseline": {
+                                    "maxItemsOne": true,
+                                    "elem": {
+                                        "fields": {
+                                            "known_bad_ca": {
+                                                "maxItemsOne": true
+                                            },
+                                            "min_key_size_bits": {
+                                                "maxItemsOne": true
+                                            },
+                                            "min_tls_version": {
+                                                "maxItemsOne": true
+                                            },
+                                            "ocsp_must_staple_respected": {
+                                                "maxItemsOne": true
+                                            },
+                                            "recommended_key_size_bits": {
+                                                "maxItemsOne": true
+                                            },
+                                            "recommended_tls_version": {
+                                                "maxItemsOne": true
+                                            },
+                                            "sct_present": {
+                                                "maxItemsOne": true
+                                            },
+                                            "weak_cipher_suite": {
+                                                "maxItemsOne": true
+                                            },
+                                            "weak_signature_algorithm": {
+                                                "maxItemsOne": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "retry_strategy": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    },
+                    "trigger_incident": {
+                        "maxItemsOne": true
+                    }
+                }
+            },
             "checkly_status_page": {
                 "current": "checkly:index/statusPage:StatusPage",
                 "majorVersion": 2,
@@ -706,6 +866,63 @@
                         "maxItemsOne": false
                     },
                     "private_locations": {
+                        "maxItemsOne": false
+                    },
+                    "request": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "assertion": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "retry_strategy": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "only_on": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    },
+                    "trigger_incident": {
+                        "maxItemsOne": true
+                    }
+                }
+            },
+            "checkly_traceroute_monitor": {
+                "current": "checkly:index/tracerouteMonitor:TracerouteMonitor",
+                "majorVersion": 2,
+                "fields": {
+                    "alert_channel_subscription": {
+                        "maxItemsOne": false
+                    },
+                    "alert_settings": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "parallel_run_failure_threshold": {
+                                    "maxItemsOne": false
+                                },
+                                "reminders": {
+                                    "maxItemsOne": false
+                                },
+                                "run_based_escalation": {
+                                    "maxItemsOne": false
+                                },
+                                "time_based_escalation": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "locations": {
                         "maxItemsOne": false
                     },
                     "request": {

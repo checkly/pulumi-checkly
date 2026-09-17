@@ -10079,6 +10079,1914 @@ func (o DnsMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type GrpcMonitorAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
+	Activated bool `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
+}
+
+// GrpcMonitorAlertChannelSubscriptionInput is an input type that accepts GrpcMonitorAlertChannelSubscriptionArgs and GrpcMonitorAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertChannelSubscriptionInput` via:
+//
+//	GrpcMonitorAlertChannelSubscriptionArgs{...}
+type GrpcMonitorAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertChannelSubscriptionOutput() GrpcMonitorAlertChannelSubscriptionOutput
+	ToGrpcMonitorAlertChannelSubscriptionOutputWithContext(context.Context) GrpcMonitorAlertChannelSubscriptionOutput
+}
+
+type GrpcMonitorAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
+}
+
+func (GrpcMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertChannelSubscriptionArgs) ToGrpcMonitorAlertChannelSubscriptionOutput() GrpcMonitorAlertChannelSubscriptionOutput {
+	return i.ToGrpcMonitorAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertChannelSubscriptionArgs) ToGrpcMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) GrpcMonitorAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertChannelSubscriptionOutput)
+}
+
+// GrpcMonitorAlertChannelSubscriptionArrayInput is an input type that accepts GrpcMonitorAlertChannelSubscriptionArray and GrpcMonitorAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertChannelSubscriptionArrayInput` via:
+//
+//	GrpcMonitorAlertChannelSubscriptionArray{ GrpcMonitorAlertChannelSubscriptionArgs{...} }
+type GrpcMonitorAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertChannelSubscriptionArrayOutput() GrpcMonitorAlertChannelSubscriptionArrayOutput
+	ToGrpcMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Context) GrpcMonitorAlertChannelSubscriptionArrayOutput
+}
+
+type GrpcMonitorAlertChannelSubscriptionArray []GrpcMonitorAlertChannelSubscriptionInput
+
+func (GrpcMonitorAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertChannelSubscriptionArray) ToGrpcMonitorAlertChannelSubscriptionArrayOutput() GrpcMonitorAlertChannelSubscriptionArrayOutput {
+	return i.ToGrpcMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertChannelSubscriptionArray) ToGrpcMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertChannelSubscriptionArrayOutput)
+}
+
+type GrpcMonitorAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertChannelSubscriptionOutput) ToGrpcMonitorAlertChannelSubscriptionOutput() GrpcMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertChannelSubscriptionOutput) ToGrpcMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) GrpcMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Whether an alert should be sent to this channel.
+func (o GrpcMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+// The ID of the alert channel.
+func (o GrpcMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type GrpcMonitorAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertChannelSubscriptionArrayOutput) ToGrpcMonitorAlertChannelSubscriptionArrayOutput() GrpcMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertChannelSubscriptionArrayOutput) ToGrpcMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) GrpcMonitorAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GrpcMonitorAlertChannelSubscription {
+		return vs[0].([]GrpcMonitorAlertChannelSubscription)[vs[1].(int)]
+	}).(GrpcMonitorAlertChannelSubscriptionOutput)
+}
+
+type GrpcMonitorAlertSettings struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType *string `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds []GrpcMonitorAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders []GrpcMonitorAlertSettingsReminder `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations []GrpcMonitorAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations []GrpcMonitorAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// GrpcMonitorAlertSettingsInput is an input type that accepts GrpcMonitorAlertSettingsArgs and GrpcMonitorAlertSettingsOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsInput` via:
+//
+//	GrpcMonitorAlertSettingsArgs{...}
+type GrpcMonitorAlertSettingsInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsOutput() GrpcMonitorAlertSettingsOutput
+	ToGrpcMonitorAlertSettingsOutputWithContext(context.Context) GrpcMonitorAlertSettingsOutput
+}
+
+type GrpcMonitorAlertSettingsArgs struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders GrpcMonitorAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations GrpcMonitorAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations GrpcMonitorAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (GrpcMonitorAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsArgs) ToGrpcMonitorAlertSettingsOutput() GrpcMonitorAlertSettingsOutput {
+	return i.ToGrpcMonitorAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsArgs) ToGrpcMonitorAlertSettingsOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsOutput)
+}
+
+func (i GrpcMonitorAlertSettingsArgs) ToGrpcMonitorAlertSettingsPtrOutput() GrpcMonitorAlertSettingsPtrOutput {
+	return i.ToGrpcMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsArgs) ToGrpcMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsOutput).ToGrpcMonitorAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// GrpcMonitorAlertSettingsPtrInput is an input type that accepts GrpcMonitorAlertSettingsArgs, GrpcMonitorAlertSettingsPtr and GrpcMonitorAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsPtrInput` via:
+//
+//	        GrpcMonitorAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type GrpcMonitorAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsPtrOutput() GrpcMonitorAlertSettingsPtrOutput
+	ToGrpcMonitorAlertSettingsPtrOutputWithContext(context.Context) GrpcMonitorAlertSettingsPtrOutput
+}
+
+type grpcMonitorAlertSettingsPtrType GrpcMonitorAlertSettingsArgs
+
+func GrpcMonitorAlertSettingsPtr(v *GrpcMonitorAlertSettingsArgs) GrpcMonitorAlertSettingsPtrInput {
+	return (*grpcMonitorAlertSettingsPtrType)(v)
+}
+
+func (*grpcMonitorAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i *grpcMonitorAlertSettingsPtrType) ToGrpcMonitorAlertSettingsPtrOutput() GrpcMonitorAlertSettingsPtrOutput {
+	return i.ToGrpcMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *grpcMonitorAlertSettingsPtrType) ToGrpcMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsPtrOutput)
+}
+
+type GrpcMonitorAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsOutput) ToGrpcMonitorAlertSettingsOutput() GrpcMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsOutput) ToGrpcMonitorAlertSettingsOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsOutput) ToGrpcMonitorAlertSettingsPtrOutput() GrpcMonitorAlertSettingsPtrOutput {
+	return o.ToGrpcMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o GrpcMonitorAlertSettingsOutput) ToGrpcMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GrpcMonitorAlertSettings) *GrpcMonitorAlertSettings {
+		return &v
+	}).(GrpcMonitorAlertSettingsPtrOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o GrpcMonitorAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o GrpcMonitorAlertSettingsOutput) ParallelRunFailureThresholds() GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o GrpcMonitorAlertSettingsOutput) Reminders() GrpcMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsReminder { return v.Reminders }).(GrpcMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o GrpcMonitorAlertSettingsOutput) RunBasedEscalations() GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o GrpcMonitorAlertSettingsOutput) TimeBasedEscalations() GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type GrpcMonitorAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsPtrOutput) ToGrpcMonitorAlertSettingsPtrOutput() GrpcMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsPtrOutput) ToGrpcMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsPtrOutput) Elem() GrpcMonitorAlertSettingsOutput {
+	return o.ApplyT(func(v *GrpcMonitorAlertSettings) GrpcMonitorAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret GrpcMonitorAlertSettings
+		return ret
+	}).(GrpcMonitorAlertSettingsOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o GrpcMonitorAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o GrpcMonitorAlertSettingsPtrOutput) ParallelRunFailureThresholds() GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o GrpcMonitorAlertSettingsPtrOutput) Reminders() GrpcMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(GrpcMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o GrpcMonitorAlertSettingsPtrOutput) RunBasedEscalations() GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o GrpcMonitorAlertSettingsPtrOutput) TimeBasedEscalations() GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *GrpcMonitorAlertSettings) []GrpcMonitorAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type GrpcMonitorAlertSettingsParallelRunFailureThreshold struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// GrpcMonitorAlertSettingsParallelRunFailureThresholdInput is an input type that accepts GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs and GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs{...}
+type GrpcMonitorAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsParallelRunFailureThresholdOutput() GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput
+	ToGrpcMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdOutput() GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToGrpcMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts GrpcMonitorAlertSettingsParallelRunFailureThresholdArray and GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	GrpcMonitorAlertSettingsParallelRunFailureThresholdArray{ GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs{...} }
+type GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToGrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type GrpcMonitorAlertSettingsParallelRunFailureThresholdArray []GrpcMonitorAlertSettingsParallelRunFailureThresholdInput
+
+func (GrpcMonitorAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsParallelRunFailureThresholdArray) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToGrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsParallelRunFailureThresholdArray) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdOutput() GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+func (o GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+func (o GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToGrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GrpcMonitorAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]GrpcMonitorAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type GrpcMonitorAlertSettingsReminder struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount *int `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// GrpcMonitorAlertSettingsReminderInput is an input type that accepts GrpcMonitorAlertSettingsReminderArgs and GrpcMonitorAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsReminderInput` via:
+//
+//	GrpcMonitorAlertSettingsReminderArgs{...}
+type GrpcMonitorAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsReminderOutput() GrpcMonitorAlertSettingsReminderOutput
+	ToGrpcMonitorAlertSettingsReminderOutputWithContext(context.Context) GrpcMonitorAlertSettingsReminderOutput
+}
+
+type GrpcMonitorAlertSettingsReminderArgs struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (GrpcMonitorAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsReminderArgs) ToGrpcMonitorAlertSettingsReminderOutput() GrpcMonitorAlertSettingsReminderOutput {
+	return i.ToGrpcMonitorAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsReminderArgs) ToGrpcMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsReminderOutput)
+}
+
+// GrpcMonitorAlertSettingsReminderArrayInput is an input type that accepts GrpcMonitorAlertSettingsReminderArray and GrpcMonitorAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsReminderArrayInput` via:
+//
+//	GrpcMonitorAlertSettingsReminderArray{ GrpcMonitorAlertSettingsReminderArgs{...} }
+type GrpcMonitorAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsReminderArrayOutput() GrpcMonitorAlertSettingsReminderArrayOutput
+	ToGrpcMonitorAlertSettingsReminderArrayOutputWithContext(context.Context) GrpcMonitorAlertSettingsReminderArrayOutput
+}
+
+type GrpcMonitorAlertSettingsReminderArray []GrpcMonitorAlertSettingsReminderInput
+
+func (GrpcMonitorAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsReminderArray) ToGrpcMonitorAlertSettingsReminderArrayOutput() GrpcMonitorAlertSettingsReminderArrayOutput {
+	return i.ToGrpcMonitorAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsReminderArray) ToGrpcMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsReminderArrayOutput)
+}
+
+type GrpcMonitorAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsReminderOutput) ToGrpcMonitorAlertSettingsReminderOutput() GrpcMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsReminderOutput) ToGrpcMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+func (o GrpcMonitorAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o GrpcMonitorAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type GrpcMonitorAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsReminderArrayOutput) ToGrpcMonitorAlertSettingsReminderArrayOutput() GrpcMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsReminderArrayOutput) ToGrpcMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) GrpcMonitorAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GrpcMonitorAlertSettingsReminder {
+		return vs[0].([]GrpcMonitorAlertSettingsReminder)[vs[1].(int)]
+	}).(GrpcMonitorAlertSettingsReminderOutput)
+}
+
+type GrpcMonitorAlertSettingsRunBasedEscalation struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// GrpcMonitorAlertSettingsRunBasedEscalationInput is an input type that accepts GrpcMonitorAlertSettingsRunBasedEscalationArgs and GrpcMonitorAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsRunBasedEscalationInput` via:
+//
+//	GrpcMonitorAlertSettingsRunBasedEscalationArgs{...}
+type GrpcMonitorAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsRunBasedEscalationOutput() GrpcMonitorAlertSettingsRunBasedEscalationOutput
+	ToGrpcMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Context) GrpcMonitorAlertSettingsRunBasedEscalationOutput
+}
+
+type GrpcMonitorAlertSettingsRunBasedEscalationArgs struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (GrpcMonitorAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsRunBasedEscalationArgs) ToGrpcMonitorAlertSettingsRunBasedEscalationOutput() GrpcMonitorAlertSettingsRunBasedEscalationOutput {
+	return i.ToGrpcMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsRunBasedEscalationArgs) ToGrpcMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+// GrpcMonitorAlertSettingsRunBasedEscalationArrayInput is an input type that accepts GrpcMonitorAlertSettingsRunBasedEscalationArray and GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	GrpcMonitorAlertSettingsRunBasedEscalationArray{ GrpcMonitorAlertSettingsRunBasedEscalationArgs{...} }
+type GrpcMonitorAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsRunBasedEscalationArrayOutput() GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput
+	ToGrpcMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type GrpcMonitorAlertSettingsRunBasedEscalationArray []GrpcMonitorAlertSettingsRunBasedEscalationInput
+
+func (GrpcMonitorAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsRunBasedEscalationArray) ToGrpcMonitorAlertSettingsRunBasedEscalationArrayOutput() GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToGrpcMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsRunBasedEscalationArray) ToGrpcMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type GrpcMonitorAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsRunBasedEscalationOutput) ToGrpcMonitorAlertSettingsRunBasedEscalationOutput() GrpcMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsRunBasedEscalationOutput) ToGrpcMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+func (o GrpcMonitorAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput) ToGrpcMonitorAlertSettingsRunBasedEscalationArrayOutput() GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput) ToGrpcMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) GrpcMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GrpcMonitorAlertSettingsRunBasedEscalation {
+		return vs[0].([]GrpcMonitorAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(GrpcMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+type GrpcMonitorAlertSettingsTimeBasedEscalation struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// GrpcMonitorAlertSettingsTimeBasedEscalationInput is an input type that accepts GrpcMonitorAlertSettingsTimeBasedEscalationArgs and GrpcMonitorAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsTimeBasedEscalationInput` via:
+//
+//	GrpcMonitorAlertSettingsTimeBasedEscalationArgs{...}
+type GrpcMonitorAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsTimeBasedEscalationOutput() GrpcMonitorAlertSettingsTimeBasedEscalationOutput
+	ToGrpcMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) GrpcMonitorAlertSettingsTimeBasedEscalationOutput
+}
+
+type GrpcMonitorAlertSettingsTimeBasedEscalationArgs struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (GrpcMonitorAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsTimeBasedEscalationArgs) ToGrpcMonitorAlertSettingsTimeBasedEscalationOutput() GrpcMonitorAlertSettingsTimeBasedEscalationOutput {
+	return i.ToGrpcMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsTimeBasedEscalationArgs) ToGrpcMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+// GrpcMonitorAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts GrpcMonitorAlertSettingsTimeBasedEscalationArray and GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `GrpcMonitorAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	GrpcMonitorAlertSettingsTimeBasedEscalationArray{ GrpcMonitorAlertSettingsTimeBasedEscalationArgs{...} }
+type GrpcMonitorAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput() GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput
+	ToGrpcMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type GrpcMonitorAlertSettingsTimeBasedEscalationArray []GrpcMonitorAlertSettingsTimeBasedEscalationInput
+
+func (GrpcMonitorAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i GrpcMonitorAlertSettingsTimeBasedEscalationArray) ToGrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput() GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToGrpcMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorAlertSettingsTimeBasedEscalationArray) ToGrpcMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type GrpcMonitorAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsTimeBasedEscalationOutput) ToGrpcMonitorAlertSettingsTimeBasedEscalationOutput() GrpcMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsTimeBasedEscalationOutput) ToGrpcMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o GrpcMonitorAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToGrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput() GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToGrpcMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) GrpcMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GrpcMonitorAlertSettingsTimeBasedEscalation {
+		return vs[0].([]GrpcMonitorAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(GrpcMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+type GrpcMonitorRequest struct {
+	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+	Assertions []GrpcMonitorRequestAssertion `pulumi:"assertions"`
+	// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
+	GrpcMode *string `pulumi:"grpcMode"`
+	// The host to connect to. Do not include a scheme or a port in this value.
+	Host string `pulumi:"host"`
+	// The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily *string `pulumi:"ipFamily"`
+	// The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.
+	Message *string `pulumi:"message"`
+	// gRPC metadata (request headers) sent with the call.
+	Metadatas []GrpcMonitorRequestMetadata `pulumi:"metadatas"`
+	// The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.
+	Method *string `pulumi:"method"`
+	// The port number to connect to. Possible values are between 1 and 65535.
+	Port int `pulumi:"port"`
+	// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+	ProtoContent *string `pulumi:"protoContent"`
+	// The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
+	Service *string `pulumi:"service"`
+	// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+	ServiceDefinition *string `pulumi:"serviceDefinition"`
+	// Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
+	SkipSsl *bool `pulumi:"skipSsl"`
+	// The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
+	Timeout *int `pulumi:"timeout"`
+	// Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
+	Tls *bool `pulumi:"tls"`
+}
+
+// GrpcMonitorRequestInput is an input type that accepts GrpcMonitorRequestArgs and GrpcMonitorRequestOutput values.
+// You can construct a concrete instance of `GrpcMonitorRequestInput` via:
+//
+//	GrpcMonitorRequestArgs{...}
+type GrpcMonitorRequestInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRequestOutput() GrpcMonitorRequestOutput
+	ToGrpcMonitorRequestOutputWithContext(context.Context) GrpcMonitorRequestOutput
+}
+
+type GrpcMonitorRequestArgs struct {
+	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+	Assertions GrpcMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
+	GrpcMode pulumi.StringPtrInput `pulumi:"grpcMode"`
+	// The host to connect to. Do not include a scheme or a port in this value.
+	Host pulumi.StringInput `pulumi:"host"`
+	// The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// gRPC metadata (request headers) sent with the call.
+	Metadatas GrpcMonitorRequestMetadataArrayInput `pulumi:"metadatas"`
+	// The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.
+	Method pulumi.StringPtrInput `pulumi:"method"`
+	// The port number to connect to. Possible values are between 1 and 65535.
+	Port pulumi.IntInput `pulumi:"port"`
+	// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+	ProtoContent pulumi.StringPtrInput `pulumi:"protoContent"`
+	// The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
+	Service pulumi.StringPtrInput `pulumi:"service"`
+	// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+	ServiceDefinition pulumi.StringPtrInput `pulumi:"serviceDefinition"`
+	// Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
+	SkipSsl pulumi.BoolPtrInput `pulumi:"skipSsl"`
+	// The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
+	Timeout pulumi.IntPtrInput `pulumi:"timeout"`
+	// Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
+	Tls pulumi.BoolPtrInput `pulumi:"tls"`
+}
+
+func (GrpcMonitorRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRequest)(nil)).Elem()
+}
+
+func (i GrpcMonitorRequestArgs) ToGrpcMonitorRequestOutput() GrpcMonitorRequestOutput {
+	return i.ToGrpcMonitorRequestOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRequestArgs) ToGrpcMonitorRequestOutputWithContext(ctx context.Context) GrpcMonitorRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRequestOutput)
+}
+
+func (i GrpcMonitorRequestArgs) ToGrpcMonitorRequestPtrOutput() GrpcMonitorRequestPtrOutput {
+	return i.ToGrpcMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRequestArgs) ToGrpcMonitorRequestPtrOutputWithContext(ctx context.Context) GrpcMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRequestOutput).ToGrpcMonitorRequestPtrOutputWithContext(ctx)
+}
+
+// GrpcMonitorRequestPtrInput is an input type that accepts GrpcMonitorRequestArgs, GrpcMonitorRequestPtr and GrpcMonitorRequestPtrOutput values.
+// You can construct a concrete instance of `GrpcMonitorRequestPtrInput` via:
+//
+//	        GrpcMonitorRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type GrpcMonitorRequestPtrInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRequestPtrOutput() GrpcMonitorRequestPtrOutput
+	ToGrpcMonitorRequestPtrOutputWithContext(context.Context) GrpcMonitorRequestPtrOutput
+}
+
+type grpcMonitorRequestPtrType GrpcMonitorRequestArgs
+
+func GrpcMonitorRequestPtr(v *GrpcMonitorRequestArgs) GrpcMonitorRequestPtrInput {
+	return (*grpcMonitorRequestPtrType)(v)
+}
+
+func (*grpcMonitorRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorRequest)(nil)).Elem()
+}
+
+func (i *grpcMonitorRequestPtrType) ToGrpcMonitorRequestPtrOutput() GrpcMonitorRequestPtrOutput {
+	return i.ToGrpcMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *grpcMonitorRequestPtrType) ToGrpcMonitorRequestPtrOutputWithContext(ctx context.Context) GrpcMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRequestPtrOutput)
+}
+
+type GrpcMonitorRequestOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRequest)(nil)).Elem()
+}
+
+func (o GrpcMonitorRequestOutput) ToGrpcMonitorRequestOutput() GrpcMonitorRequestOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestOutput) ToGrpcMonitorRequestOutputWithContext(ctx context.Context) GrpcMonitorRequestOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestOutput) ToGrpcMonitorRequestPtrOutput() GrpcMonitorRequestPtrOutput {
+	return o.ToGrpcMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (o GrpcMonitorRequestOutput) ToGrpcMonitorRequestPtrOutputWithContext(ctx context.Context) GrpcMonitorRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GrpcMonitorRequest) *GrpcMonitorRequest {
+		return &v
+	}).(GrpcMonitorRequestPtrOutput)
+}
+
+// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+func (o GrpcMonitorRequestOutput) Assertions() GrpcMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) []GrpcMonitorRequestAssertion { return v.Assertions }).(GrpcMonitorRequestAssertionArrayOutput)
+}
+
+// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
+func (o GrpcMonitorRequestOutput) GrpcMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.GrpcMode }).(pulumi.StringPtrOutput)
+}
+
+// The host to connect to. Do not include a scheme or a port in this value.
+func (o GrpcMonitorRequestOutput) Host() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) string { return v.Host }).(pulumi.StringOutput)
+}
+
+// The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o GrpcMonitorRequestOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.
+func (o GrpcMonitorRequestOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// gRPC metadata (request headers) sent with the call.
+func (o GrpcMonitorRequestOutput) Metadatas() GrpcMonitorRequestMetadataArrayOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) []GrpcMonitorRequestMetadata { return v.Metadatas }).(GrpcMonitorRequestMetadataArrayOutput)
+}
+
+// The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.
+func (o GrpcMonitorRequestOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.Method }).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to. Possible values are between 1 and 65535.
+func (o GrpcMonitorRequestOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) int { return v.Port }).(pulumi.IntOutput)
+}
+
+// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+func (o GrpcMonitorRequestOutput) ProtoContent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.ProtoContent }).(pulumi.StringPtrOutput)
+}
+
+// The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
+func (o GrpcMonitorRequestOutput) Service() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.Service }).(pulumi.StringPtrOutput)
+}
+
+// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+func (o GrpcMonitorRequestOutput) ServiceDefinition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.ServiceDefinition }).(pulumi.StringPtrOutput)
+}
+
+// Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
+func (o GrpcMonitorRequestOutput) SkipSsl() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *bool { return v.SkipSsl }).(pulumi.BoolPtrOutput)
+}
+
+// The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
+func (o GrpcMonitorRequestOutput) Timeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *int { return v.Timeout }).(pulumi.IntPtrOutput)
+}
+
+// Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
+func (o GrpcMonitorRequestOutput) Tls() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *bool { return v.Tls }).(pulumi.BoolPtrOutput)
+}
+
+type GrpcMonitorRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorRequest)(nil)).Elem()
+}
+
+func (o GrpcMonitorRequestPtrOutput) ToGrpcMonitorRequestPtrOutput() GrpcMonitorRequestPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestPtrOutput) ToGrpcMonitorRequestPtrOutputWithContext(ctx context.Context) GrpcMonitorRequestPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestPtrOutput) Elem() GrpcMonitorRequestOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) GrpcMonitorRequest {
+		if v != nil {
+			return *v
+		}
+		var ret GrpcMonitorRequest
+		return ret
+	}).(GrpcMonitorRequestOutput)
+}
+
+// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+func (o GrpcMonitorRequestPtrOutput) Assertions() GrpcMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) []GrpcMonitorRequestAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(GrpcMonitorRequestAssertionArrayOutput)
+}
+
+// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
+func (o GrpcMonitorRequestPtrOutput) GrpcMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.GrpcMode
+	}).(pulumi.StringPtrOutput)
+}
+
+// The host to connect to. Do not include a scheme or a port in this value.
+func (o GrpcMonitorRequestPtrOutput) Host() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Host
+	}).(pulumi.StringPtrOutput)
+}
+
+// The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o GrpcMonitorRequestPtrOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.
+func (o GrpcMonitorRequestPtrOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Message
+	}).(pulumi.StringPtrOutput)
+}
+
+// gRPC metadata (request headers) sent with the call.
+func (o GrpcMonitorRequestPtrOutput) Metadatas() GrpcMonitorRequestMetadataArrayOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) []GrpcMonitorRequestMetadata {
+		if v == nil {
+			return nil
+		}
+		return v.Metadatas
+	}).(GrpcMonitorRequestMetadataArrayOutput)
+}
+
+// The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.
+func (o GrpcMonitorRequestPtrOutput) Method() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Method
+	}).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to. Possible values are between 1 and 65535.
+func (o GrpcMonitorRequestPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+func (o GrpcMonitorRequestPtrOutput) ProtoContent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ProtoContent
+	}).(pulumi.StringPtrOutput)
+}
+
+// The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
+func (o GrpcMonitorRequestPtrOutput) Service() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Service
+	}).(pulumi.StringPtrOutput)
+}
+
+// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+func (o GrpcMonitorRequestPtrOutput) ServiceDefinition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceDefinition
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
+func (o GrpcMonitorRequestPtrOutput) SkipSsl() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SkipSsl
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
+func (o GrpcMonitorRequestPtrOutput) Timeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Timeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
+func (o GrpcMonitorRequestPtrOutput) Tls() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Tls
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GrpcMonitorRequestAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. For `GRPC_RESPONSE`, `TEXT_BODY` and `GRPC_METADATA`, possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. For `RESPONSE_TIME` and `GRPC_STATUS_CODE`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `GRPC_HEALTHCHECK_STATUS`, possible values are `EQUALS` and `NOT_EQUALS`.
+	Comparison string `pulumi:"comparison"`
+	// The property selecting the asserted value within the source, e.g. a JSONPath expression for `GRPC_RESPONSE` or a metadata key for `GRPC_METADATA`.
+	Property *string `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_TIME`, `GRPC_RESPONSE`, `TEXT_BODY`, `GRPC_METADATA`, `GRPC_HEALTHCHECK_STATUS`, and `GRPC_STATUS_CODE`.
+	Source string `pulumi:"source"`
+	// The value to compare against. Must be numeric for `RESPONSE_TIME` (milliseconds), `GRPC_STATUS_CODE` (0-16), and `GRPC_HEALTHCHECK_STATUS` (0-3, where 0=UNKNOWN, 1=SERVING, 2=NOT*SERVING, 3=SERVICE*UNKNOWN).
+	Target *string `pulumi:"target"`
+}
+
+// GrpcMonitorRequestAssertionInput is an input type that accepts GrpcMonitorRequestAssertionArgs and GrpcMonitorRequestAssertionOutput values.
+// You can construct a concrete instance of `GrpcMonitorRequestAssertionInput` via:
+//
+//	GrpcMonitorRequestAssertionArgs{...}
+type GrpcMonitorRequestAssertionInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRequestAssertionOutput() GrpcMonitorRequestAssertionOutput
+	ToGrpcMonitorRequestAssertionOutputWithContext(context.Context) GrpcMonitorRequestAssertionOutput
+}
+
+type GrpcMonitorRequestAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. For `GRPC_RESPONSE`, `TEXT_BODY` and `GRPC_METADATA`, possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. For `RESPONSE_TIME` and `GRPC_STATUS_CODE`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `GRPC_HEALTHCHECK_STATUS`, possible values are `EQUALS` and `NOT_EQUALS`.
+	Comparison pulumi.StringInput `pulumi:"comparison"`
+	// The property selecting the asserted value within the source, e.g. a JSONPath expression for `GRPC_RESPONSE` or a metadata key for `GRPC_METADATA`.
+	Property pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_TIME`, `GRPC_RESPONSE`, `TEXT_BODY`, `GRPC_METADATA`, `GRPC_HEALTHCHECK_STATUS`, and `GRPC_STATUS_CODE`.
+	Source pulumi.StringInput `pulumi:"source"`
+	// The value to compare against. Must be numeric for `RESPONSE_TIME` (milliseconds), `GRPC_STATUS_CODE` (0-16), and `GRPC_HEALTHCHECK_STATUS` (0-3, where 0=UNKNOWN, 1=SERVING, 2=NOT*SERVING, 3=SERVICE*UNKNOWN).
+	Target pulumi.StringPtrInput `pulumi:"target"`
+}
+
+func (GrpcMonitorRequestAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i GrpcMonitorRequestAssertionArgs) ToGrpcMonitorRequestAssertionOutput() GrpcMonitorRequestAssertionOutput {
+	return i.ToGrpcMonitorRequestAssertionOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRequestAssertionArgs) ToGrpcMonitorRequestAssertionOutputWithContext(ctx context.Context) GrpcMonitorRequestAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRequestAssertionOutput)
+}
+
+// GrpcMonitorRequestAssertionArrayInput is an input type that accepts GrpcMonitorRequestAssertionArray and GrpcMonitorRequestAssertionArrayOutput values.
+// You can construct a concrete instance of `GrpcMonitorRequestAssertionArrayInput` via:
+//
+//	GrpcMonitorRequestAssertionArray{ GrpcMonitorRequestAssertionArgs{...} }
+type GrpcMonitorRequestAssertionArrayInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRequestAssertionArrayOutput() GrpcMonitorRequestAssertionArrayOutput
+	ToGrpcMonitorRequestAssertionArrayOutputWithContext(context.Context) GrpcMonitorRequestAssertionArrayOutput
+}
+
+type GrpcMonitorRequestAssertionArray []GrpcMonitorRequestAssertionInput
+
+func (GrpcMonitorRequestAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i GrpcMonitorRequestAssertionArray) ToGrpcMonitorRequestAssertionArrayOutput() GrpcMonitorRequestAssertionArrayOutput {
+	return i.ToGrpcMonitorRequestAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRequestAssertionArray) ToGrpcMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) GrpcMonitorRequestAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRequestAssertionArrayOutput)
+}
+
+type GrpcMonitorRequestAssertionOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRequestAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o GrpcMonitorRequestAssertionOutput) ToGrpcMonitorRequestAssertionOutput() GrpcMonitorRequestAssertionOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestAssertionOutput) ToGrpcMonitorRequestAssertionOutputWithContext(ctx context.Context) GrpcMonitorRequestAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. For `GRPC_RESPONSE`, `TEXT_BODY` and `GRPC_METADATA`, possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. For `RESPONSE_TIME` and `GRPC_STATUS_CODE`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `GRPC_HEALTHCHECK_STATUS`, possible values are `EQUALS` and `NOT_EQUALS`.
+func (o GrpcMonitorRequestAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+// The property selecting the asserted value within the source, e.g. a JSONPath expression for `GRPC_RESPONSE` or a metadata key for `GRPC_METADATA`.
+func (o GrpcMonitorRequestAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. Possible values are `RESPONSE_TIME`, `GRPC_RESPONSE`, `TEXT_BODY`, `GRPC_METADATA`, `GRPC_HEALTHCHECK_STATUS`, and `GRPC_STATUS_CODE`.
+func (o GrpcMonitorRequestAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+// The value to compare against. Must be numeric for `RESPONSE_TIME` (milliseconds), `GRPC_STATUS_CODE` (0-16), and `GRPC_HEALTHCHECK_STATUS` (0-3, where 0=UNKNOWN, 1=SERVING, 2=NOT*SERVING, 3=SERVICE*UNKNOWN).
+func (o GrpcMonitorRequestAssertionOutput) Target() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequestAssertion) *string { return v.Target }).(pulumi.StringPtrOutput)
+}
+
+type GrpcMonitorRequestAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRequestAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o GrpcMonitorRequestAssertionArrayOutput) ToGrpcMonitorRequestAssertionArrayOutput() GrpcMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestAssertionArrayOutput) ToGrpcMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) GrpcMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestAssertionArrayOutput) Index(i pulumi.IntInput) GrpcMonitorRequestAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GrpcMonitorRequestAssertion {
+		return vs[0].([]GrpcMonitorRequestAssertion)[vs[1].(int)]
+	}).(GrpcMonitorRequestAssertionOutput)
+}
+
+type GrpcMonitorRequestMetadata struct {
+	// The gRPC metadata (header) key.
+	Key string `pulumi:"key"`
+	// The gRPC metadata (header) value.
+	Value *string `pulumi:"value"`
+}
+
+// GrpcMonitorRequestMetadataInput is an input type that accepts GrpcMonitorRequestMetadataArgs and GrpcMonitorRequestMetadataOutput values.
+// You can construct a concrete instance of `GrpcMonitorRequestMetadataInput` via:
+//
+//	GrpcMonitorRequestMetadataArgs{...}
+type GrpcMonitorRequestMetadataInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRequestMetadataOutput() GrpcMonitorRequestMetadataOutput
+	ToGrpcMonitorRequestMetadataOutputWithContext(context.Context) GrpcMonitorRequestMetadataOutput
+}
+
+type GrpcMonitorRequestMetadataArgs struct {
+	// The gRPC metadata (header) key.
+	Key pulumi.StringInput `pulumi:"key"`
+	// The gRPC metadata (header) value.
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (GrpcMonitorRequestMetadataArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRequestMetadata)(nil)).Elem()
+}
+
+func (i GrpcMonitorRequestMetadataArgs) ToGrpcMonitorRequestMetadataOutput() GrpcMonitorRequestMetadataOutput {
+	return i.ToGrpcMonitorRequestMetadataOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRequestMetadataArgs) ToGrpcMonitorRequestMetadataOutputWithContext(ctx context.Context) GrpcMonitorRequestMetadataOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRequestMetadataOutput)
+}
+
+// GrpcMonitorRequestMetadataArrayInput is an input type that accepts GrpcMonitorRequestMetadataArray and GrpcMonitorRequestMetadataArrayOutput values.
+// You can construct a concrete instance of `GrpcMonitorRequestMetadataArrayInput` via:
+//
+//	GrpcMonitorRequestMetadataArray{ GrpcMonitorRequestMetadataArgs{...} }
+type GrpcMonitorRequestMetadataArrayInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRequestMetadataArrayOutput() GrpcMonitorRequestMetadataArrayOutput
+	ToGrpcMonitorRequestMetadataArrayOutputWithContext(context.Context) GrpcMonitorRequestMetadataArrayOutput
+}
+
+type GrpcMonitorRequestMetadataArray []GrpcMonitorRequestMetadataInput
+
+func (GrpcMonitorRequestMetadataArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorRequestMetadata)(nil)).Elem()
+}
+
+func (i GrpcMonitorRequestMetadataArray) ToGrpcMonitorRequestMetadataArrayOutput() GrpcMonitorRequestMetadataArrayOutput {
+	return i.ToGrpcMonitorRequestMetadataArrayOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRequestMetadataArray) ToGrpcMonitorRequestMetadataArrayOutputWithContext(ctx context.Context) GrpcMonitorRequestMetadataArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRequestMetadataArrayOutput)
+}
+
+type GrpcMonitorRequestMetadataOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRequestMetadataOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRequestMetadata)(nil)).Elem()
+}
+
+func (o GrpcMonitorRequestMetadataOutput) ToGrpcMonitorRequestMetadataOutput() GrpcMonitorRequestMetadataOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestMetadataOutput) ToGrpcMonitorRequestMetadataOutputWithContext(ctx context.Context) GrpcMonitorRequestMetadataOutput {
+	return o
+}
+
+// The gRPC metadata (header) key.
+func (o GrpcMonitorRequestMetadataOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorRequestMetadata) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// The gRPC metadata (header) value.
+func (o GrpcMonitorRequestMetadataOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequestMetadata) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type GrpcMonitorRequestMetadataArrayOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRequestMetadataArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GrpcMonitorRequestMetadata)(nil)).Elem()
+}
+
+func (o GrpcMonitorRequestMetadataArrayOutput) ToGrpcMonitorRequestMetadataArrayOutput() GrpcMonitorRequestMetadataArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestMetadataArrayOutput) ToGrpcMonitorRequestMetadataArrayOutputWithContext(ctx context.Context) GrpcMonitorRequestMetadataArrayOutput {
+	return o
+}
+
+func (o GrpcMonitorRequestMetadataArrayOutput) Index(i pulumi.IntInput) GrpcMonitorRequestMetadataOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GrpcMonitorRequestMetadata {
+		return vs[0].([]GrpcMonitorRequestMetadata)[vs[1].(int)]
+	}).(GrpcMonitorRequestMetadataOutput)
+}
+
+type GrpcMonitorRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn *GrpcMonitorRetryStrategyOnlyOn `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type string `pulumi:"type"`
+}
+
+// GrpcMonitorRetryStrategyInput is an input type that accepts GrpcMonitorRetryStrategyArgs and GrpcMonitorRetryStrategyOutput values.
+// You can construct a concrete instance of `GrpcMonitorRetryStrategyInput` via:
+//
+//	GrpcMonitorRetryStrategyArgs{...}
+type GrpcMonitorRetryStrategyInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRetryStrategyOutput() GrpcMonitorRetryStrategyOutput
+	ToGrpcMonitorRetryStrategyOutputWithContext(context.Context) GrpcMonitorRetryStrategyOutput
+}
+
+type GrpcMonitorRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn GrpcMonitorRetryStrategyOnlyOnPtrInput `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (GrpcMonitorRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i GrpcMonitorRetryStrategyArgs) ToGrpcMonitorRetryStrategyOutput() GrpcMonitorRetryStrategyOutput {
+	return i.ToGrpcMonitorRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRetryStrategyArgs) ToGrpcMonitorRetryStrategyOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRetryStrategyOutput)
+}
+
+func (i GrpcMonitorRetryStrategyArgs) ToGrpcMonitorRetryStrategyPtrOutput() GrpcMonitorRetryStrategyPtrOutput {
+	return i.ToGrpcMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRetryStrategyArgs) ToGrpcMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRetryStrategyOutput).ToGrpcMonitorRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// GrpcMonitorRetryStrategyPtrInput is an input type that accepts GrpcMonitorRetryStrategyArgs, GrpcMonitorRetryStrategyPtr and GrpcMonitorRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `GrpcMonitorRetryStrategyPtrInput` via:
+//
+//	        GrpcMonitorRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type GrpcMonitorRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRetryStrategyPtrOutput() GrpcMonitorRetryStrategyPtrOutput
+	ToGrpcMonitorRetryStrategyPtrOutputWithContext(context.Context) GrpcMonitorRetryStrategyPtrOutput
+}
+
+type grpcMonitorRetryStrategyPtrType GrpcMonitorRetryStrategyArgs
+
+func GrpcMonitorRetryStrategyPtr(v *GrpcMonitorRetryStrategyArgs) GrpcMonitorRetryStrategyPtrInput {
+	return (*grpcMonitorRetryStrategyPtrType)(v)
+}
+
+func (*grpcMonitorRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i *grpcMonitorRetryStrategyPtrType) ToGrpcMonitorRetryStrategyPtrOutput() GrpcMonitorRetryStrategyPtrOutput {
+	return i.ToGrpcMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *grpcMonitorRetryStrategyPtrType) ToGrpcMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRetryStrategyPtrOutput)
+}
+
+type GrpcMonitorRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o GrpcMonitorRetryStrategyOutput) ToGrpcMonitorRetryStrategyOutput() GrpcMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyOutput) ToGrpcMonitorRetryStrategyOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyOutput) ToGrpcMonitorRetryStrategyPtrOutput() GrpcMonitorRetryStrategyPtrOutput {
+	return o.ToGrpcMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o GrpcMonitorRetryStrategyOutput) ToGrpcMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GrpcMonitorRetryStrategy) *GrpcMonitorRetryStrategy {
+		return &v
+	}).(GrpcMonitorRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o GrpcMonitorRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o GrpcMonitorRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o GrpcMonitorRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o GrpcMonitorRetryStrategyOutput) OnlyOn() GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRetryStrategy) *GrpcMonitorRetryStrategyOnlyOn { return v.OnlyOn }).(GrpcMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o GrpcMonitorRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o GrpcMonitorRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type GrpcMonitorRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o GrpcMonitorRetryStrategyPtrOutput) ToGrpcMonitorRetryStrategyPtrOutput() GrpcMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyPtrOutput) ToGrpcMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyPtrOutput) Elem() GrpcMonitorRetryStrategyOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategy) GrpcMonitorRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret GrpcMonitorRetryStrategy
+		return ret
+	}).(GrpcMonitorRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o GrpcMonitorRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o GrpcMonitorRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o GrpcMonitorRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o GrpcMonitorRetryStrategyPtrOutput) OnlyOn() GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategy) *GrpcMonitorRetryStrategyOnlyOn {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyOn
+	}).(GrpcMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o GrpcMonitorRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o GrpcMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type GrpcMonitorRetryStrategyOnlyOn struct {
+}
+
+// GrpcMonitorRetryStrategyOnlyOnInput is an input type that accepts GrpcMonitorRetryStrategyOnlyOnArgs and GrpcMonitorRetryStrategyOnlyOnOutput values.
+// You can construct a concrete instance of `GrpcMonitorRetryStrategyOnlyOnInput` via:
+//
+//	GrpcMonitorRetryStrategyOnlyOnArgs{...}
+type GrpcMonitorRetryStrategyOnlyOnInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRetryStrategyOnlyOnOutput() GrpcMonitorRetryStrategyOnlyOnOutput
+	ToGrpcMonitorRetryStrategyOnlyOnOutputWithContext(context.Context) GrpcMonitorRetryStrategyOnlyOnOutput
+}
+
+type GrpcMonitorRetryStrategyOnlyOnArgs struct {
+}
+
+func (GrpcMonitorRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i GrpcMonitorRetryStrategyOnlyOnArgs) ToGrpcMonitorRetryStrategyOnlyOnOutput() GrpcMonitorRetryStrategyOnlyOnOutput {
+	return i.ToGrpcMonitorRetryStrategyOnlyOnOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRetryStrategyOnlyOnArgs) ToGrpcMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOnlyOnOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRetryStrategyOnlyOnOutput)
+}
+
+func (i GrpcMonitorRetryStrategyOnlyOnArgs) ToGrpcMonitorRetryStrategyOnlyOnPtrOutput() GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorRetryStrategyOnlyOnArgs) ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRetryStrategyOnlyOnOutput).ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx)
+}
+
+// GrpcMonitorRetryStrategyOnlyOnPtrInput is an input type that accepts GrpcMonitorRetryStrategyOnlyOnArgs, GrpcMonitorRetryStrategyOnlyOnPtr and GrpcMonitorRetryStrategyOnlyOnPtrOutput values.
+// You can construct a concrete instance of `GrpcMonitorRetryStrategyOnlyOnPtrInput` via:
+//
+//	        GrpcMonitorRetryStrategyOnlyOnArgs{...}
+//
+//	or:
+//
+//	        nil
+type GrpcMonitorRetryStrategyOnlyOnPtrInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorRetryStrategyOnlyOnPtrOutput() GrpcMonitorRetryStrategyOnlyOnPtrOutput
+	ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Context) GrpcMonitorRetryStrategyOnlyOnPtrOutput
+}
+
+type grpcMonitorRetryStrategyOnlyOnPtrType GrpcMonitorRetryStrategyOnlyOnArgs
+
+func GrpcMonitorRetryStrategyOnlyOnPtr(v *GrpcMonitorRetryStrategyOnlyOnArgs) GrpcMonitorRetryStrategyOnlyOnPtrInput {
+	return (*grpcMonitorRetryStrategyOnlyOnPtrType)(v)
+}
+
+func (*grpcMonitorRetryStrategyOnlyOnPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i *grpcMonitorRetryStrategyOnlyOnPtrType) ToGrpcMonitorRetryStrategyOnlyOnPtrOutput() GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i *grpcMonitorRetryStrategyOnlyOnPtrType) ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type GrpcMonitorRetryStrategyOnlyOnOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRetryStrategyOnlyOnOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o GrpcMonitorRetryStrategyOnlyOnOutput) ToGrpcMonitorRetryStrategyOnlyOnOutput() GrpcMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyOnlyOnOutput) ToGrpcMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyOnlyOnOutput) ToGrpcMonitorRetryStrategyOnlyOnPtrOutput() GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (o GrpcMonitorRetryStrategyOnlyOnOutput) ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GrpcMonitorRetryStrategyOnlyOn) *GrpcMonitorRetryStrategyOnlyOn {
+		return &v
+	}).(GrpcMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type GrpcMonitorRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o GrpcMonitorRetryStrategyOnlyOnPtrOutput) ToGrpcMonitorRetryStrategyOnlyOnPtrOutput() GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyOnlyOnPtrOutput) ToGrpcMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) GrpcMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorRetryStrategyOnlyOnPtrOutput) Elem() GrpcMonitorRetryStrategyOnlyOnOutput {
+	return o.ApplyT(func(v *GrpcMonitorRetryStrategyOnlyOn) GrpcMonitorRetryStrategyOnlyOn {
+		if v != nil {
+			return *v
+		}
+		var ret GrpcMonitorRetryStrategyOnlyOn
+		return ret
+	}).(GrpcMonitorRetryStrategyOnlyOnOutput)
+}
+
+type GrpcMonitorTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// GrpcMonitorTriggerIncidentInput is an input type that accepts GrpcMonitorTriggerIncidentArgs and GrpcMonitorTriggerIncidentOutput values.
+// You can construct a concrete instance of `GrpcMonitorTriggerIncidentInput` via:
+//
+//	GrpcMonitorTriggerIncidentArgs{...}
+type GrpcMonitorTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorTriggerIncidentOutput() GrpcMonitorTriggerIncidentOutput
+	ToGrpcMonitorTriggerIncidentOutputWithContext(context.Context) GrpcMonitorTriggerIncidentOutput
+}
+
+type GrpcMonitorTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (GrpcMonitorTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i GrpcMonitorTriggerIncidentArgs) ToGrpcMonitorTriggerIncidentOutput() GrpcMonitorTriggerIncidentOutput {
+	return i.ToGrpcMonitorTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorTriggerIncidentArgs) ToGrpcMonitorTriggerIncidentOutputWithContext(ctx context.Context) GrpcMonitorTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorTriggerIncidentOutput)
+}
+
+func (i GrpcMonitorTriggerIncidentArgs) ToGrpcMonitorTriggerIncidentPtrOutput() GrpcMonitorTriggerIncidentPtrOutput {
+	return i.ToGrpcMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i GrpcMonitorTriggerIncidentArgs) ToGrpcMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) GrpcMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorTriggerIncidentOutput).ToGrpcMonitorTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// GrpcMonitorTriggerIncidentPtrInput is an input type that accepts GrpcMonitorTriggerIncidentArgs, GrpcMonitorTriggerIncidentPtr and GrpcMonitorTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `GrpcMonitorTriggerIncidentPtrInput` via:
+//
+//	        GrpcMonitorTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type GrpcMonitorTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToGrpcMonitorTriggerIncidentPtrOutput() GrpcMonitorTriggerIncidentPtrOutput
+	ToGrpcMonitorTriggerIncidentPtrOutputWithContext(context.Context) GrpcMonitorTriggerIncidentPtrOutput
+}
+
+type grpcMonitorTriggerIncidentPtrType GrpcMonitorTriggerIncidentArgs
+
+func GrpcMonitorTriggerIncidentPtr(v *GrpcMonitorTriggerIncidentArgs) GrpcMonitorTriggerIncidentPtrInput {
+	return (*grpcMonitorTriggerIncidentPtrType)(v)
+}
+
+func (*grpcMonitorTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i *grpcMonitorTriggerIncidentPtrType) ToGrpcMonitorTriggerIncidentPtrOutput() GrpcMonitorTriggerIncidentPtrOutput {
+	return i.ToGrpcMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *grpcMonitorTriggerIncidentPtrType) ToGrpcMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) GrpcMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GrpcMonitorTriggerIncidentPtrOutput)
+}
+
+type GrpcMonitorTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GrpcMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o GrpcMonitorTriggerIncidentOutput) ToGrpcMonitorTriggerIncidentOutput() GrpcMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o GrpcMonitorTriggerIncidentOutput) ToGrpcMonitorTriggerIncidentOutputWithContext(ctx context.Context) GrpcMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o GrpcMonitorTriggerIncidentOutput) ToGrpcMonitorTriggerIncidentPtrOutput() GrpcMonitorTriggerIncidentPtrOutput {
+	return o.ToGrpcMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o GrpcMonitorTriggerIncidentOutput) ToGrpcMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) GrpcMonitorTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GrpcMonitorTriggerIncident) *GrpcMonitorTriggerIncident {
+		return &v
+	}).(GrpcMonitorTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o GrpcMonitorTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o GrpcMonitorTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o GrpcMonitorTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v GrpcMonitorTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o GrpcMonitorTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o GrpcMonitorTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v GrpcMonitorTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type GrpcMonitorTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (GrpcMonitorTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GrpcMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o GrpcMonitorTriggerIncidentPtrOutput) ToGrpcMonitorTriggerIncidentPtrOutput() GrpcMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorTriggerIncidentPtrOutput) ToGrpcMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) GrpcMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o GrpcMonitorTriggerIncidentPtrOutput) Elem() GrpcMonitorTriggerIncidentOutput {
+	return o.ApplyT(func(v *GrpcMonitorTriggerIncident) GrpcMonitorTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret GrpcMonitorTriggerIncident
+		return ret
+	}).(GrpcMonitorTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o GrpcMonitorTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o GrpcMonitorTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o GrpcMonitorTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o GrpcMonitorTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o GrpcMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
 type HeartbeatCheckAlertChannelSubscription struct {
 	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
@@ -15275,7 +17183,7 @@ func (o PlaywrightCheckSuiteEnvironmentVariableArrayOutput) Index(i pulumi.IntIn
 type PlaywrightCheckSuiteRuntime struct {
 	// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
 	AutoDetect *bool `pulumi:"autoDetect"`
-	// The JavaScript engine used to run the Playwright tests.
+	// The JavaScript engine used to run the Playwright tests. When `autoDetect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.
 	Engine *PlaywrightCheckSuiteRuntimeEngine `pulumi:"engine"`
 	// Configure the Playwright capabilities that should be made available to the runtime environment.
 	Playwright *PlaywrightCheckSuiteRuntimePlaywright `pulumi:"playwright"`
@@ -15299,7 +17207,7 @@ type PlaywrightCheckSuiteRuntimeInput interface {
 type PlaywrightCheckSuiteRuntimeArgs struct {
 	// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
 	AutoDetect pulumi.BoolPtrInput `pulumi:"autoDetect"`
-	// The JavaScript engine used to run the Playwright tests.
+	// The JavaScript engine used to run the Playwright tests. When `autoDetect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.
 	Engine PlaywrightCheckSuiteRuntimeEnginePtrInput `pulumi:"engine"`
 	// Configure the Playwright capabilities that should be made available to the runtime environment.
 	Playwright PlaywrightCheckSuiteRuntimePlaywrightPtrInput `pulumi:"playwright"`
@@ -15391,7 +17299,7 @@ func (o PlaywrightCheckSuiteRuntimeOutput) AutoDetect() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *bool { return v.AutoDetect }).(pulumi.BoolPtrOutput)
 }
 
-// The JavaScript engine used to run the Playwright tests.
+// The JavaScript engine used to run the Playwright tests. When `autoDetect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.
 func (o PlaywrightCheckSuiteRuntimeOutput) Engine() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimeEngine { return v.Engine }).(PlaywrightCheckSuiteRuntimeEnginePtrOutput)
 }
@@ -15445,7 +17353,7 @@ func (o PlaywrightCheckSuiteRuntimePtrOutput) AutoDetect() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The JavaScript engine used to run the Playwright tests.
+// The JavaScript engine used to run the Playwright tests. When `autoDetect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.
 func (o PlaywrightCheckSuiteRuntimePtrOutput) Engine() PlaywrightCheckSuiteRuntimeEnginePtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuiteRuntime) *PlaywrightCheckSuiteRuntimeEngine {
 		if v == nil {
@@ -16673,6 +18581,3520 @@ func (o PlaywrightCodeBundlePrebuiltArchivePtrOutput) File() pulumi.StringPtrOut
 			return nil
 		}
 		return &v.File
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
+	Activated bool `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
+}
+
+// SslMonitorAlertChannelSubscriptionInput is an input type that accepts SslMonitorAlertChannelSubscriptionArgs and SslMonitorAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `SslMonitorAlertChannelSubscriptionInput` via:
+//
+//	SslMonitorAlertChannelSubscriptionArgs{...}
+type SslMonitorAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertChannelSubscriptionOutput() SslMonitorAlertChannelSubscriptionOutput
+	ToSslMonitorAlertChannelSubscriptionOutputWithContext(context.Context) SslMonitorAlertChannelSubscriptionOutput
+}
+
+type SslMonitorAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
+}
+
+func (SslMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i SslMonitorAlertChannelSubscriptionArgs) ToSslMonitorAlertChannelSubscriptionOutput() SslMonitorAlertChannelSubscriptionOutput {
+	return i.ToSslMonitorAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertChannelSubscriptionArgs) ToSslMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) SslMonitorAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertChannelSubscriptionOutput)
+}
+
+// SslMonitorAlertChannelSubscriptionArrayInput is an input type that accepts SslMonitorAlertChannelSubscriptionArray and SslMonitorAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `SslMonitorAlertChannelSubscriptionArrayInput` via:
+//
+//	SslMonitorAlertChannelSubscriptionArray{ SslMonitorAlertChannelSubscriptionArgs{...} }
+type SslMonitorAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertChannelSubscriptionArrayOutput() SslMonitorAlertChannelSubscriptionArrayOutput
+	ToSslMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Context) SslMonitorAlertChannelSubscriptionArrayOutput
+}
+
+type SslMonitorAlertChannelSubscriptionArray []SslMonitorAlertChannelSubscriptionInput
+
+func (SslMonitorAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i SslMonitorAlertChannelSubscriptionArray) ToSslMonitorAlertChannelSubscriptionArrayOutput() SslMonitorAlertChannelSubscriptionArrayOutput {
+	return i.ToSslMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertChannelSubscriptionArray) ToSslMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) SslMonitorAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertChannelSubscriptionArrayOutput)
+}
+
+type SslMonitorAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o SslMonitorAlertChannelSubscriptionOutput) ToSslMonitorAlertChannelSubscriptionOutput() SslMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o SslMonitorAlertChannelSubscriptionOutput) ToSslMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) SslMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Whether an alert should be sent to this channel.
+func (o SslMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v SslMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+// The ID of the alert channel.
+func (o SslMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v SslMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type SslMonitorAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o SslMonitorAlertChannelSubscriptionArrayOutput) ToSslMonitorAlertChannelSubscriptionArrayOutput() SslMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertChannelSubscriptionArrayOutput) ToSslMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) SslMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) SslMonitorAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SslMonitorAlertChannelSubscription {
+		return vs[0].([]SslMonitorAlertChannelSubscription)[vs[1].(int)]
+	}).(SslMonitorAlertChannelSubscriptionOutput)
+}
+
+type SslMonitorAlertSettings struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType *string `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds []SslMonitorAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders []SslMonitorAlertSettingsReminder `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations []SslMonitorAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations []SslMonitorAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// SslMonitorAlertSettingsInput is an input type that accepts SslMonitorAlertSettingsArgs and SslMonitorAlertSettingsOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsInput` via:
+//
+//	SslMonitorAlertSettingsArgs{...}
+type SslMonitorAlertSettingsInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsOutput() SslMonitorAlertSettingsOutput
+	ToSslMonitorAlertSettingsOutputWithContext(context.Context) SslMonitorAlertSettingsOutput
+}
+
+type SslMonitorAlertSettingsArgs struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds SslMonitorAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders SslMonitorAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations SslMonitorAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations SslMonitorAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (SslMonitorAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsArgs) ToSslMonitorAlertSettingsOutput() SslMonitorAlertSettingsOutput {
+	return i.ToSslMonitorAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsArgs) ToSslMonitorAlertSettingsOutputWithContext(ctx context.Context) SslMonitorAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsOutput)
+}
+
+func (i SslMonitorAlertSettingsArgs) ToSslMonitorAlertSettingsPtrOutput() SslMonitorAlertSettingsPtrOutput {
+	return i.ToSslMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsArgs) ToSslMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) SslMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsOutput).ToSslMonitorAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// SslMonitorAlertSettingsPtrInput is an input type that accepts SslMonitorAlertSettingsArgs, SslMonitorAlertSettingsPtr and SslMonitorAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsPtrInput` via:
+//
+//	        SslMonitorAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsPtrOutput() SslMonitorAlertSettingsPtrOutput
+	ToSslMonitorAlertSettingsPtrOutputWithContext(context.Context) SslMonitorAlertSettingsPtrOutput
+}
+
+type sslMonitorAlertSettingsPtrType SslMonitorAlertSettingsArgs
+
+func SslMonitorAlertSettingsPtr(v *SslMonitorAlertSettingsArgs) SslMonitorAlertSettingsPtrInput {
+	return (*sslMonitorAlertSettingsPtrType)(v)
+}
+
+func (*sslMonitorAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i *sslMonitorAlertSettingsPtrType) ToSslMonitorAlertSettingsPtrOutput() SslMonitorAlertSettingsPtrOutput {
+	return i.ToSslMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorAlertSettingsPtrType) ToSslMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) SslMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsPtrOutput)
+}
+
+type SslMonitorAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsOutput) ToSslMonitorAlertSettingsOutput() SslMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsOutput) ToSslMonitorAlertSettingsOutputWithContext(ctx context.Context) SslMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsOutput) ToSslMonitorAlertSettingsPtrOutput() SslMonitorAlertSettingsPtrOutput {
+	return o.ToSslMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorAlertSettingsOutput) ToSslMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) SslMonitorAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorAlertSettings) *SslMonitorAlertSettings {
+		return &v
+	}).(SslMonitorAlertSettingsPtrOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o SslMonitorAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o SslMonitorAlertSettingsOutput) ParallelRunFailureThresholds() SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettings) []SslMonitorAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o SslMonitorAlertSettingsOutput) Reminders() SslMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettings) []SslMonitorAlertSettingsReminder { return v.Reminders }).(SslMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o SslMonitorAlertSettingsOutput) RunBasedEscalations() SslMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettings) []SslMonitorAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(SslMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o SslMonitorAlertSettingsOutput) TimeBasedEscalations() SslMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettings) []SslMonitorAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(SslMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type SslMonitorAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsPtrOutput) ToSslMonitorAlertSettingsPtrOutput() SslMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsPtrOutput) ToSslMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) SslMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsPtrOutput) Elem() SslMonitorAlertSettingsOutput {
+	return o.ApplyT(func(v *SslMonitorAlertSettings) SslMonitorAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorAlertSettings
+		return ret
+	}).(SslMonitorAlertSettingsOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o SslMonitorAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o SslMonitorAlertSettingsPtrOutput) ParallelRunFailureThresholds() SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *SslMonitorAlertSettings) []SslMonitorAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o SslMonitorAlertSettingsPtrOutput) Reminders() SslMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *SslMonitorAlertSettings) []SslMonitorAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(SslMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o SslMonitorAlertSettingsPtrOutput) RunBasedEscalations() SslMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *SslMonitorAlertSettings) []SslMonitorAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(SslMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o SslMonitorAlertSettingsPtrOutput) TimeBasedEscalations() SslMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *SslMonitorAlertSettings) []SslMonitorAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(SslMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type SslMonitorAlertSettingsParallelRunFailureThreshold struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// SslMonitorAlertSettingsParallelRunFailureThresholdInput is an input type that accepts SslMonitorAlertSettingsParallelRunFailureThresholdArgs and SslMonitorAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	SslMonitorAlertSettingsParallelRunFailureThresholdArgs{...}
+type SslMonitorAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsParallelRunFailureThresholdOutput() SslMonitorAlertSettingsParallelRunFailureThresholdOutput
+	ToSslMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) SslMonitorAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type SslMonitorAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (SslMonitorAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsParallelRunFailureThresholdArgs) ToSslMonitorAlertSettingsParallelRunFailureThresholdOutput() SslMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToSslMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsParallelRunFailureThresholdArgs) ToSslMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) SslMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// SslMonitorAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts SslMonitorAlertSettingsParallelRunFailureThresholdArray and SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	SslMonitorAlertSettingsParallelRunFailureThresholdArray{ SslMonitorAlertSettingsParallelRunFailureThresholdArgs{...} }
+type SslMonitorAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToSslMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type SslMonitorAlertSettingsParallelRunFailureThresholdArray []SslMonitorAlertSettingsParallelRunFailureThresholdInput
+
+func (SslMonitorAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsParallelRunFailureThresholdArray) ToSslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToSslMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsParallelRunFailureThresholdArray) ToSslMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type SslMonitorAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsParallelRunFailureThresholdOutput) ToSslMonitorAlertSettingsParallelRunFailureThresholdOutput() SslMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsParallelRunFailureThresholdOutput) ToSslMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) SslMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+func (o SslMonitorAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+func (o SslMonitorAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToSslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToSslMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) SslMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SslMonitorAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]SslMonitorAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(SslMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type SslMonitorAlertSettingsReminder struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount *int `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// SslMonitorAlertSettingsReminderInput is an input type that accepts SslMonitorAlertSettingsReminderArgs and SslMonitorAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsReminderInput` via:
+//
+//	SslMonitorAlertSettingsReminderArgs{...}
+type SslMonitorAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsReminderOutput() SslMonitorAlertSettingsReminderOutput
+	ToSslMonitorAlertSettingsReminderOutputWithContext(context.Context) SslMonitorAlertSettingsReminderOutput
+}
+
+type SslMonitorAlertSettingsReminderArgs struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (SslMonitorAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsReminderArgs) ToSslMonitorAlertSettingsReminderOutput() SslMonitorAlertSettingsReminderOutput {
+	return i.ToSslMonitorAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsReminderArgs) ToSslMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) SslMonitorAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsReminderOutput)
+}
+
+// SslMonitorAlertSettingsReminderArrayInput is an input type that accepts SslMonitorAlertSettingsReminderArray and SslMonitorAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsReminderArrayInput` via:
+//
+//	SslMonitorAlertSettingsReminderArray{ SslMonitorAlertSettingsReminderArgs{...} }
+type SslMonitorAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsReminderArrayOutput() SslMonitorAlertSettingsReminderArrayOutput
+	ToSslMonitorAlertSettingsReminderArrayOutputWithContext(context.Context) SslMonitorAlertSettingsReminderArrayOutput
+}
+
+type SslMonitorAlertSettingsReminderArray []SslMonitorAlertSettingsReminderInput
+
+func (SslMonitorAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsReminderArray) ToSslMonitorAlertSettingsReminderArrayOutput() SslMonitorAlertSettingsReminderArrayOutput {
+	return i.ToSslMonitorAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsReminderArray) ToSslMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsReminderArrayOutput)
+}
+
+type SslMonitorAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsReminderOutput) ToSslMonitorAlertSettingsReminderOutput() SslMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsReminderOutput) ToSslMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) SslMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+func (o SslMonitorAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o SslMonitorAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsReminderArrayOutput) ToSslMonitorAlertSettingsReminderArrayOutput() SslMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsReminderArrayOutput) ToSslMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) SslMonitorAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SslMonitorAlertSettingsReminder {
+		return vs[0].([]SslMonitorAlertSettingsReminder)[vs[1].(int)]
+	}).(SslMonitorAlertSettingsReminderOutput)
+}
+
+type SslMonitorAlertSettingsRunBasedEscalation struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// SslMonitorAlertSettingsRunBasedEscalationInput is an input type that accepts SslMonitorAlertSettingsRunBasedEscalationArgs and SslMonitorAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsRunBasedEscalationInput` via:
+//
+//	SslMonitorAlertSettingsRunBasedEscalationArgs{...}
+type SslMonitorAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsRunBasedEscalationOutput() SslMonitorAlertSettingsRunBasedEscalationOutput
+	ToSslMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Context) SslMonitorAlertSettingsRunBasedEscalationOutput
+}
+
+type SslMonitorAlertSettingsRunBasedEscalationArgs struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (SslMonitorAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsRunBasedEscalationArgs) ToSslMonitorAlertSettingsRunBasedEscalationOutput() SslMonitorAlertSettingsRunBasedEscalationOutput {
+	return i.ToSslMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsRunBasedEscalationArgs) ToSslMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) SslMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+// SslMonitorAlertSettingsRunBasedEscalationArrayInput is an input type that accepts SslMonitorAlertSettingsRunBasedEscalationArray and SslMonitorAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	SslMonitorAlertSettingsRunBasedEscalationArray{ SslMonitorAlertSettingsRunBasedEscalationArgs{...} }
+type SslMonitorAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsRunBasedEscalationArrayOutput() SslMonitorAlertSettingsRunBasedEscalationArrayOutput
+	ToSslMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) SslMonitorAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type SslMonitorAlertSettingsRunBasedEscalationArray []SslMonitorAlertSettingsRunBasedEscalationInput
+
+func (SslMonitorAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsRunBasedEscalationArray) ToSslMonitorAlertSettingsRunBasedEscalationArrayOutput() SslMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToSslMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsRunBasedEscalationArray) ToSslMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type SslMonitorAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsRunBasedEscalationOutput) ToSslMonitorAlertSettingsRunBasedEscalationOutput() SslMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsRunBasedEscalationOutput) ToSslMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) SslMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+func (o SslMonitorAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsRunBasedEscalationArrayOutput) ToSslMonitorAlertSettingsRunBasedEscalationArrayOutput() SslMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsRunBasedEscalationArrayOutput) ToSslMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) SslMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SslMonitorAlertSettingsRunBasedEscalation {
+		return vs[0].([]SslMonitorAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(SslMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+type SslMonitorAlertSettingsTimeBasedEscalation struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// SslMonitorAlertSettingsTimeBasedEscalationInput is an input type that accepts SslMonitorAlertSettingsTimeBasedEscalationArgs and SslMonitorAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsTimeBasedEscalationInput` via:
+//
+//	SslMonitorAlertSettingsTimeBasedEscalationArgs{...}
+type SslMonitorAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsTimeBasedEscalationOutput() SslMonitorAlertSettingsTimeBasedEscalationOutput
+	ToSslMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) SslMonitorAlertSettingsTimeBasedEscalationOutput
+}
+
+type SslMonitorAlertSettingsTimeBasedEscalationArgs struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (SslMonitorAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsTimeBasedEscalationArgs) ToSslMonitorAlertSettingsTimeBasedEscalationOutput() SslMonitorAlertSettingsTimeBasedEscalationOutput {
+	return i.ToSslMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsTimeBasedEscalationArgs) ToSslMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) SslMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+// SslMonitorAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts SslMonitorAlertSettingsTimeBasedEscalationArray and SslMonitorAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `SslMonitorAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	SslMonitorAlertSettingsTimeBasedEscalationArray{ SslMonitorAlertSettingsTimeBasedEscalationArgs{...} }
+type SslMonitorAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToSslMonitorAlertSettingsTimeBasedEscalationArrayOutput() SslMonitorAlertSettingsTimeBasedEscalationArrayOutput
+	ToSslMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) SslMonitorAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type SslMonitorAlertSettingsTimeBasedEscalationArray []SslMonitorAlertSettingsTimeBasedEscalationInput
+
+func (SslMonitorAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i SslMonitorAlertSettingsTimeBasedEscalationArray) ToSslMonitorAlertSettingsTimeBasedEscalationArrayOutput() SslMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToSslMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i SslMonitorAlertSettingsTimeBasedEscalationArray) ToSslMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type SslMonitorAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsTimeBasedEscalationOutput) ToSslMonitorAlertSettingsTimeBasedEscalationOutput() SslMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsTimeBasedEscalationOutput) ToSslMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) SslMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o SslMonitorAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o SslMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToSslMonitorAlertSettingsTimeBasedEscalationArrayOutput() SslMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToSslMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) SslMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o SslMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) SslMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SslMonitorAlertSettingsTimeBasedEscalation {
+		return vs[0].([]SslMonitorAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(SslMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+type SslMonitorRequest struct {
+	// Raise an alert when the certificate is within this many days of expiry. Possible values are between 1 and 365. (Default `20`).
+	AlertDaysBeforeExpiry *int `pulumi:"alertDaysBeforeExpiry"`
+	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+	Assertions []SslMonitorRequestAssertion `pulumi:"assertions"`
+	// The mutual-TLS client certificate configuration.
+	ClientCertificate *SslMonitorRequestClientCertificate `pulumi:"clientCertificate"`
+	// The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between 1000 and 30000. (Default `10000`).
+	HandshakeTimeoutMs *int `pulumi:"handshakeTimeoutMs"`
+	// The hostname to connect to and validate the TLS certificate of. Do not include a scheme or a port in this value.
+	Hostname string `pulumi:"hostname"`
+	// The IP family to use when executing the check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily *string `pulumi:"ipFamily"`
+	// The port number to connect to. Possible values are between 1 and 65535. (Default `443`).
+	Port *int `pulumi:"port"`
+	// The SSL security baseline — a set of enforceable and advisory rules. Omit the block to inherit the account default baseline. Rules that are not listed keep their server defaults; removing a rule (or the whole block) resets it to its default on the next apply. Only listed rules are drift-checked: an external change to an unlisted rule is not shown by `pulumi preview` and is reset on the next apply.
+	SecurityBaseline *SslMonitorRequestSecurityBaseline `pulumi:"securityBaseline"`
+	// An optional SNI server name to send in the TLS handshake. Defaults to `hostname` when unset.
+	ServerName *string `pulumi:"serverName"`
+	// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). (Default `false`).
+	SkipChainValidation *bool `pulumi:"skipChainValidation"`
+}
+
+// SslMonitorRequestInput is an input type that accepts SslMonitorRequestArgs and SslMonitorRequestOutput values.
+// You can construct a concrete instance of `SslMonitorRequestInput` via:
+//
+//	SslMonitorRequestArgs{...}
+type SslMonitorRequestInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestOutput() SslMonitorRequestOutput
+	ToSslMonitorRequestOutputWithContext(context.Context) SslMonitorRequestOutput
+}
+
+type SslMonitorRequestArgs struct {
+	// Raise an alert when the certificate is within this many days of expiry. Possible values are between 1 and 365. (Default `20`).
+	AlertDaysBeforeExpiry pulumi.IntPtrInput `pulumi:"alertDaysBeforeExpiry"`
+	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+	Assertions SslMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	// The mutual-TLS client certificate configuration.
+	ClientCertificate SslMonitorRequestClientCertificatePtrInput `pulumi:"clientCertificate"`
+	// The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between 1000 and 30000. (Default `10000`).
+	HandshakeTimeoutMs pulumi.IntPtrInput `pulumi:"handshakeTimeoutMs"`
+	// The hostname to connect to and validate the TLS certificate of. Do not include a scheme or a port in this value.
+	Hostname pulumi.StringInput `pulumi:"hostname"`
+	// The IP family to use when executing the check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// The port number to connect to. Possible values are between 1 and 65535. (Default `443`).
+	Port pulumi.IntPtrInput `pulumi:"port"`
+	// The SSL security baseline — a set of enforceable and advisory rules. Omit the block to inherit the account default baseline. Rules that are not listed keep their server defaults; removing a rule (or the whole block) resets it to its default on the next apply. Only listed rules are drift-checked: an external change to an unlisted rule is not shown by `pulumi preview` and is reset on the next apply.
+	SecurityBaseline SslMonitorRequestSecurityBaselinePtrInput `pulumi:"securityBaseline"`
+	// An optional SNI server name to send in the TLS handshake. Defaults to `hostname` when unset.
+	ServerName pulumi.StringPtrInput `pulumi:"serverName"`
+	// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). (Default `false`).
+	SkipChainValidation pulumi.BoolPtrInput `pulumi:"skipChainValidation"`
+}
+
+func (SslMonitorRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequest)(nil)).Elem()
+}
+
+func (i SslMonitorRequestArgs) ToSslMonitorRequestOutput() SslMonitorRequestOutput {
+	return i.ToSslMonitorRequestOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestArgs) ToSslMonitorRequestOutputWithContext(ctx context.Context) SslMonitorRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestOutput)
+}
+
+func (i SslMonitorRequestArgs) ToSslMonitorRequestPtrOutput() SslMonitorRequestPtrOutput {
+	return i.ToSslMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestArgs) ToSslMonitorRequestPtrOutputWithContext(ctx context.Context) SslMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestOutput).ToSslMonitorRequestPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestPtrInput is an input type that accepts SslMonitorRequestArgs, SslMonitorRequestPtr and SslMonitorRequestPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestPtrInput` via:
+//
+//	        SslMonitorRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestPtrOutput() SslMonitorRequestPtrOutput
+	ToSslMonitorRequestPtrOutputWithContext(context.Context) SslMonitorRequestPtrOutput
+}
+
+type sslMonitorRequestPtrType SslMonitorRequestArgs
+
+func SslMonitorRequestPtr(v *SslMonitorRequestArgs) SslMonitorRequestPtrInput {
+	return (*sslMonitorRequestPtrType)(v)
+}
+
+func (*sslMonitorRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequest)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestPtrType) ToSslMonitorRequestPtrOutput() SslMonitorRequestPtrOutput {
+	return i.ToSslMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestPtrType) ToSslMonitorRequestPtrOutputWithContext(ctx context.Context) SslMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestPtrOutput)
+}
+
+type SslMonitorRequestOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequest)(nil)).Elem()
+}
+
+func (o SslMonitorRequestOutput) ToSslMonitorRequestOutput() SslMonitorRequestOutput {
+	return o
+}
+
+func (o SslMonitorRequestOutput) ToSslMonitorRequestOutputWithContext(ctx context.Context) SslMonitorRequestOutput {
+	return o
+}
+
+func (o SslMonitorRequestOutput) ToSslMonitorRequestPtrOutput() SslMonitorRequestPtrOutput {
+	return o.ToSslMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestOutput) ToSslMonitorRequestPtrOutputWithContext(ctx context.Context) SslMonitorRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequest) *SslMonitorRequest {
+		return &v
+	}).(SslMonitorRequestPtrOutput)
+}
+
+// Raise an alert when the certificate is within this many days of expiry. Possible values are between 1 and 365. (Default `20`).
+func (o SslMonitorRequestOutput) AlertDaysBeforeExpiry() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *int { return v.AlertDaysBeforeExpiry }).(pulumi.IntPtrOutput)
+}
+
+// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+func (o SslMonitorRequestOutput) Assertions() SslMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v SslMonitorRequest) []SslMonitorRequestAssertion { return v.Assertions }).(SslMonitorRequestAssertionArrayOutput)
+}
+
+// The mutual-TLS client certificate configuration.
+func (o SslMonitorRequestOutput) ClientCertificate() SslMonitorRequestClientCertificatePtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *SslMonitorRequestClientCertificate { return v.ClientCertificate }).(SslMonitorRequestClientCertificatePtrOutput)
+}
+
+// The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between 1000 and 30000. (Default `10000`).
+func (o SslMonitorRequestOutput) HandshakeTimeoutMs() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *int { return v.HandshakeTimeoutMs }).(pulumi.IntPtrOutput)
+}
+
+// The hostname to connect to and validate the TLS certificate of. Do not include a scheme or a port in this value.
+func (o SslMonitorRequestOutput) Hostname() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorRequest) string { return v.Hostname }).(pulumi.StringOutput)
+}
+
+// The IP family to use when executing the check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o SslMonitorRequestOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to. Possible values are between 1 and 65535. (Default `443`).
+func (o SslMonitorRequestOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+// The SSL security baseline — a set of enforceable and advisory rules. Omit the block to inherit the account default baseline. Rules that are not listed keep their server defaults; removing a rule (or the whole block) resets it to its default on the next apply. Only listed rules are drift-checked: an external change to an unlisted rule is not shown by `pulumi preview` and is reset on the next apply.
+func (o SslMonitorRequestOutput) SecurityBaseline() SslMonitorRequestSecurityBaselinePtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *SslMonitorRequestSecurityBaseline { return v.SecurityBaseline }).(SslMonitorRequestSecurityBaselinePtrOutput)
+}
+
+// An optional SNI server name to send in the TLS handshake. Defaults to `hostname` when unset.
+func (o SslMonitorRequestOutput) ServerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *string { return v.ServerName }).(pulumi.StringPtrOutput)
+}
+
+// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). (Default `false`).
+func (o SslMonitorRequestOutput) SkipChainValidation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequest) *bool { return v.SkipChainValidation }).(pulumi.BoolPtrOutput)
+}
+
+type SslMonitorRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequest)(nil)).Elem()
+}
+
+func (o SslMonitorRequestPtrOutput) ToSslMonitorRequestPtrOutput() SslMonitorRequestPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestPtrOutput) ToSslMonitorRequestPtrOutputWithContext(ctx context.Context) SslMonitorRequestPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestPtrOutput) Elem() SslMonitorRequestOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) SslMonitorRequest {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequest
+		return ret
+	}).(SslMonitorRequestOutput)
+}
+
+// Raise an alert when the certificate is within this many days of expiry. Possible values are between 1 and 365. (Default `20`).
+func (o SslMonitorRequestPtrOutput) AlertDaysBeforeExpiry() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AlertDaysBeforeExpiry
+	}).(pulumi.IntPtrOutput)
+}
+
+// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+func (o SslMonitorRequestPtrOutput) Assertions() SslMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) []SslMonitorRequestAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(SslMonitorRequestAssertionArrayOutput)
+}
+
+// The mutual-TLS client certificate configuration.
+func (o SslMonitorRequestPtrOutput) ClientCertificate() SslMonitorRequestClientCertificatePtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *SslMonitorRequestClientCertificate {
+		if v == nil {
+			return nil
+		}
+		return v.ClientCertificate
+	}).(SslMonitorRequestClientCertificatePtrOutput)
+}
+
+// The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between 1000 and 30000. (Default `10000`).
+func (o SslMonitorRequestPtrOutput) HandshakeTimeoutMs() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.HandshakeTimeoutMs
+	}).(pulumi.IntPtrOutput)
+}
+
+// The hostname to connect to and validate the TLS certificate of. Do not include a scheme or a port in this value.
+func (o SslMonitorRequestPtrOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Hostname
+	}).(pulumi.StringPtrOutput)
+}
+
+// The IP family to use when executing the check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o SslMonitorRequestPtrOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// The port number to connect to. Possible values are between 1 and 65535. (Default `443`).
+func (o SslMonitorRequestPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+// The SSL security baseline — a set of enforceable and advisory rules. Omit the block to inherit the account default baseline. Rules that are not listed keep their server defaults; removing a rule (or the whole block) resets it to its default on the next apply. Only listed rules are drift-checked: an external change to an unlisted rule is not shown by `pulumi preview` and is reset on the next apply.
+func (o SslMonitorRequestPtrOutput) SecurityBaseline() SslMonitorRequestSecurityBaselinePtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *SslMonitorRequestSecurityBaseline {
+		if v == nil {
+			return nil
+		}
+		return v.SecurityBaseline
+	}).(SslMonitorRequestSecurityBaselinePtrOutput)
+}
+
+// An optional SNI server name to send in the TLS handshake. Defaults to `hostname` when unset.
+func (o SslMonitorRequestPtrOutput) ServerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ServerName
+	}).(pulumi.StringPtrOutput)
+}
+
+// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). (Default `false`).
+func (o SslMonitorRequestPtrOutput) SkipChainValidation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequest) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SkipChainValidation
+	}).(pulumi.BoolPtrOutput)
+}
+
+type SslMonitorRequestAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. The allowed set depends on the asserted `source` and `property`; for example, boolean properties such as `chainTrusted` only allow `EQUALS`.
+	Comparison string `pulumi:"comparison"`
+	// The property selecting the asserted value within the source. For `CERTIFICATE`: `daysUntilExpiry`, `keySizeBits`, `subjectCN`, `issuerCN`, `serialNumber`, `fingerprintSha256`, `issuerFingerprintSha256`, `keyAlgorithm`, `signatureAlgorithm`, `sans`, `selfSigned`, or `isCA`. For `CONNECTION`: `tlsVersion`, `cipherSuite`, `hostnameVerified`, `chainTrusted`, `ocspStapled`, `ocspStatus`, or `resolvedIp`. For `JSON_RESPONSE`: a JSONPath expression. For `TEXT_RESPONSE`: a regular expression applied to the serialized response.
+	Property *string `pulumi:"property"`
+	// The source of the asserted value. Possible values are `CERTIFICATE`, `CONNECTION`, `RESPONSE_TIME`, `JSON_RESPONSE`, and `TEXT_RESPONSE`.
+	Source string  `pulumi:"source"`
+	Target *string `pulumi:"target"`
+}
+
+// SslMonitorRequestAssertionInput is an input type that accepts SslMonitorRequestAssertionArgs and SslMonitorRequestAssertionOutput values.
+// You can construct a concrete instance of `SslMonitorRequestAssertionInput` via:
+//
+//	SslMonitorRequestAssertionArgs{...}
+type SslMonitorRequestAssertionInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestAssertionOutput() SslMonitorRequestAssertionOutput
+	ToSslMonitorRequestAssertionOutputWithContext(context.Context) SslMonitorRequestAssertionOutput
+}
+
+type SslMonitorRequestAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. The allowed set depends on the asserted `source` and `property`; for example, boolean properties such as `chainTrusted` only allow `EQUALS`.
+	Comparison pulumi.StringInput `pulumi:"comparison"`
+	// The property selecting the asserted value within the source. For `CERTIFICATE`: `daysUntilExpiry`, `keySizeBits`, `subjectCN`, `issuerCN`, `serialNumber`, `fingerprintSha256`, `issuerFingerprintSha256`, `keyAlgorithm`, `signatureAlgorithm`, `sans`, `selfSigned`, or `isCA`. For `CONNECTION`: `tlsVersion`, `cipherSuite`, `hostnameVerified`, `chainTrusted`, `ocspStapled`, `ocspStatus`, or `resolvedIp`. For `JSON_RESPONSE`: a JSONPath expression. For `TEXT_RESPONSE`: a regular expression applied to the serialized response.
+	Property pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. Possible values are `CERTIFICATE`, `CONNECTION`, `RESPONSE_TIME`, `JSON_RESPONSE`, and `TEXT_RESPONSE`.
+	Source pulumi.StringInput    `pulumi:"source"`
+	Target pulumi.StringPtrInput `pulumi:"target"`
+}
+
+func (SslMonitorRequestAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i SslMonitorRequestAssertionArgs) ToSslMonitorRequestAssertionOutput() SslMonitorRequestAssertionOutput {
+	return i.ToSslMonitorRequestAssertionOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestAssertionArgs) ToSslMonitorRequestAssertionOutputWithContext(ctx context.Context) SslMonitorRequestAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestAssertionOutput)
+}
+
+// SslMonitorRequestAssertionArrayInput is an input type that accepts SslMonitorRequestAssertionArray and SslMonitorRequestAssertionArrayOutput values.
+// You can construct a concrete instance of `SslMonitorRequestAssertionArrayInput` via:
+//
+//	SslMonitorRequestAssertionArray{ SslMonitorRequestAssertionArgs{...} }
+type SslMonitorRequestAssertionArrayInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestAssertionArrayOutput() SslMonitorRequestAssertionArrayOutput
+	ToSslMonitorRequestAssertionArrayOutputWithContext(context.Context) SslMonitorRequestAssertionArrayOutput
+}
+
+type SslMonitorRequestAssertionArray []SslMonitorRequestAssertionInput
+
+func (SslMonitorRequestAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i SslMonitorRequestAssertionArray) ToSslMonitorRequestAssertionArrayOutput() SslMonitorRequestAssertionArrayOutput {
+	return i.ToSslMonitorRequestAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestAssertionArray) ToSslMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) SslMonitorRequestAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestAssertionArrayOutput)
+}
+
+type SslMonitorRequestAssertionOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o SslMonitorRequestAssertionOutput) ToSslMonitorRequestAssertionOutput() SslMonitorRequestAssertionOutput {
+	return o
+}
+
+func (o SslMonitorRequestAssertionOutput) ToSslMonitorRequestAssertionOutputWithContext(ctx context.Context) SslMonitorRequestAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. The allowed set depends on the asserted `source` and `property`; for example, boolean properties such as `chainTrusted` only allow `EQUALS`.
+func (o SslMonitorRequestAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+// The property selecting the asserted value within the source. For `CERTIFICATE`: `daysUntilExpiry`, `keySizeBits`, `subjectCN`, `issuerCN`, `serialNumber`, `fingerprintSha256`, `issuerFingerprintSha256`, `keyAlgorithm`, `signatureAlgorithm`, `sans`, `selfSigned`, or `isCA`. For `CONNECTION`: `tlsVersion`, `cipherSuite`, `hostnameVerified`, `chainTrusted`, `ocspStapled`, `ocspStatus`, or `resolvedIp`. For `JSON_RESPONSE`: a JSONPath expression. For `TEXT_RESPONSE`: a regular expression applied to the serialized response.
+func (o SslMonitorRequestAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. Possible values are `CERTIFICATE`, `CONNECTION`, `RESPONSE_TIME`, `JSON_RESPONSE`, and `TEXT_RESPONSE`.
+func (o SslMonitorRequestAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+func (o SslMonitorRequestAssertionOutput) Target() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestAssertion) *string { return v.Target }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]SslMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o SslMonitorRequestAssertionArrayOutput) ToSslMonitorRequestAssertionArrayOutput() SslMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o SslMonitorRequestAssertionArrayOutput) ToSslMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) SslMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o SslMonitorRequestAssertionArrayOutput) Index(i pulumi.IntInput) SslMonitorRequestAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SslMonitorRequestAssertion {
+		return vs[0].([]SslMonitorRequestAssertion)[vs[1].(int)]
+	}).(SslMonitorRequestAssertionOutput)
+}
+
+type SslMonitorRequestClientCertificate struct {
+	// The ID of the stored client certificate to present. Required when `mode = "explicit"`.
+	ClientCertificateId *string `pulumi:"clientCertificateId"`
+	// The mutual-TLS client-certificate mode. `accountDefault` inherits the account setting (no certificate sent), `auto` lets Checkly select a stored certificate, `explicit` uses the certificate referenced by `clientCertificateId`. (Default `accountDefault`).
+	Mode *string `pulumi:"mode"`
+}
+
+// SslMonitorRequestClientCertificateInput is an input type that accepts SslMonitorRequestClientCertificateArgs and SslMonitorRequestClientCertificateOutput values.
+// You can construct a concrete instance of `SslMonitorRequestClientCertificateInput` via:
+//
+//	SslMonitorRequestClientCertificateArgs{...}
+type SslMonitorRequestClientCertificateInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestClientCertificateOutput() SslMonitorRequestClientCertificateOutput
+	ToSslMonitorRequestClientCertificateOutputWithContext(context.Context) SslMonitorRequestClientCertificateOutput
+}
+
+type SslMonitorRequestClientCertificateArgs struct {
+	// The ID of the stored client certificate to present. Required when `mode = "explicit"`.
+	ClientCertificateId pulumi.StringPtrInput `pulumi:"clientCertificateId"`
+	// The mutual-TLS client-certificate mode. `accountDefault` inherits the account setting (no certificate sent), `auto` lets Checkly select a stored certificate, `explicit` uses the certificate referenced by `clientCertificateId`. (Default `accountDefault`).
+	Mode pulumi.StringPtrInput `pulumi:"mode"`
+}
+
+func (SslMonitorRequestClientCertificateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestClientCertificate)(nil)).Elem()
+}
+
+func (i SslMonitorRequestClientCertificateArgs) ToSslMonitorRequestClientCertificateOutput() SslMonitorRequestClientCertificateOutput {
+	return i.ToSslMonitorRequestClientCertificateOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestClientCertificateArgs) ToSslMonitorRequestClientCertificateOutputWithContext(ctx context.Context) SslMonitorRequestClientCertificateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestClientCertificateOutput)
+}
+
+func (i SslMonitorRequestClientCertificateArgs) ToSslMonitorRequestClientCertificatePtrOutput() SslMonitorRequestClientCertificatePtrOutput {
+	return i.ToSslMonitorRequestClientCertificatePtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestClientCertificateArgs) ToSslMonitorRequestClientCertificatePtrOutputWithContext(ctx context.Context) SslMonitorRequestClientCertificatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestClientCertificateOutput).ToSslMonitorRequestClientCertificatePtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestClientCertificatePtrInput is an input type that accepts SslMonitorRequestClientCertificateArgs, SslMonitorRequestClientCertificatePtr and SslMonitorRequestClientCertificatePtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestClientCertificatePtrInput` via:
+//
+//	        SslMonitorRequestClientCertificateArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestClientCertificatePtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestClientCertificatePtrOutput() SslMonitorRequestClientCertificatePtrOutput
+	ToSslMonitorRequestClientCertificatePtrOutputWithContext(context.Context) SslMonitorRequestClientCertificatePtrOutput
+}
+
+type sslMonitorRequestClientCertificatePtrType SslMonitorRequestClientCertificateArgs
+
+func SslMonitorRequestClientCertificatePtr(v *SslMonitorRequestClientCertificateArgs) SslMonitorRequestClientCertificatePtrInput {
+	return (*sslMonitorRequestClientCertificatePtrType)(v)
+}
+
+func (*sslMonitorRequestClientCertificatePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestClientCertificate)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestClientCertificatePtrType) ToSslMonitorRequestClientCertificatePtrOutput() SslMonitorRequestClientCertificatePtrOutput {
+	return i.ToSslMonitorRequestClientCertificatePtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestClientCertificatePtrType) ToSslMonitorRequestClientCertificatePtrOutputWithContext(ctx context.Context) SslMonitorRequestClientCertificatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestClientCertificatePtrOutput)
+}
+
+type SslMonitorRequestClientCertificateOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestClientCertificateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestClientCertificate)(nil)).Elem()
+}
+
+func (o SslMonitorRequestClientCertificateOutput) ToSslMonitorRequestClientCertificateOutput() SslMonitorRequestClientCertificateOutput {
+	return o
+}
+
+func (o SslMonitorRequestClientCertificateOutput) ToSslMonitorRequestClientCertificateOutputWithContext(ctx context.Context) SslMonitorRequestClientCertificateOutput {
+	return o
+}
+
+func (o SslMonitorRequestClientCertificateOutput) ToSslMonitorRequestClientCertificatePtrOutput() SslMonitorRequestClientCertificatePtrOutput {
+	return o.ToSslMonitorRequestClientCertificatePtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestClientCertificateOutput) ToSslMonitorRequestClientCertificatePtrOutputWithContext(ctx context.Context) SslMonitorRequestClientCertificatePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestClientCertificate) *SslMonitorRequestClientCertificate {
+		return &v
+	}).(SslMonitorRequestClientCertificatePtrOutput)
+}
+
+// The ID of the stored client certificate to present. Required when `mode = "explicit"`.
+func (o SslMonitorRequestClientCertificateOutput) ClientCertificateId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestClientCertificate) *string { return v.ClientCertificateId }).(pulumi.StringPtrOutput)
+}
+
+// The mutual-TLS client-certificate mode. `accountDefault` inherits the account setting (no certificate sent), `auto` lets Checkly select a stored certificate, `explicit` uses the certificate referenced by `clientCertificateId`. (Default `accountDefault`).
+func (o SslMonitorRequestClientCertificateOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestClientCertificate) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestClientCertificatePtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestClientCertificatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestClientCertificate)(nil)).Elem()
+}
+
+func (o SslMonitorRequestClientCertificatePtrOutput) ToSslMonitorRequestClientCertificatePtrOutput() SslMonitorRequestClientCertificatePtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestClientCertificatePtrOutput) ToSslMonitorRequestClientCertificatePtrOutputWithContext(ctx context.Context) SslMonitorRequestClientCertificatePtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestClientCertificatePtrOutput) Elem() SslMonitorRequestClientCertificateOutput {
+	return o.ApplyT(func(v *SslMonitorRequestClientCertificate) SslMonitorRequestClientCertificate {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestClientCertificate
+		return ret
+	}).(SslMonitorRequestClientCertificateOutput)
+}
+
+// The ID of the stored client certificate to present. Required when `mode = "explicit"`.
+func (o SslMonitorRequestClientCertificatePtrOutput) ClientCertificateId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestClientCertificate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ClientCertificateId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The mutual-TLS client-certificate mode. `accountDefault` inherits the account setting (no certificate sent), `auto` lets Checkly select a stored certificate, `explicit` uses the certificate referenced by `clientCertificateId`. (Default `accountDefault`).
+func (o SslMonitorRequestClientCertificatePtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestClientCertificate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaseline struct {
+	// Whether the security baseline is enforced. (Default `true`).
+	Enabled *bool `pulumi:"enabled"`
+	// Enforceable rule: the certificate chain must not include a known-bad CA.
+	KnownBadCa *SslMonitorRequestSecurityBaselineKnownBadCa `pulumi:"knownBadCa"`
+	// Enforceable rule: the minimum public key size in bits.
+	MinKeySizeBits *SslMonitorRequestSecurityBaselineMinKeySizeBits `pulumi:"minKeySizeBits"`
+	// Enforceable rule: the minimum TLS version the server must accept.
+	MinTlsVersion *SslMonitorRequestSecurityBaselineMinTlsVersion `pulumi:"minTlsVersion"`
+	// Advisory rule: an OCSP Must-Staple extension, when present, must be respected.
+	OcspMustStapleRespected *SslMonitorRequestSecurityBaselineOcspMustStapleRespected `pulumi:"ocspMustStapleRespected"`
+	// Advisory rule: the recommended public key size in bits.
+	RecommendedKeySizeBits *SslMonitorRequestSecurityBaselineRecommendedKeySizeBits `pulumi:"recommendedKeySizeBits"`
+	// Advisory rule: the recommended TLS version.
+	RecommendedTlsVersion *SslMonitorRequestSecurityBaselineRecommendedTlsVersion `pulumi:"recommendedTlsVersion"`
+	// Advisory rule: the certificate should carry a Signed Certificate Timestamp.
+	SctPresent *SslMonitorRequestSecurityBaselineSctPresent `pulumi:"sctPresent"`
+	// Enforceable rule: the connection must not negotiate a weak cipher suite.
+	WeakCipherSuite *SslMonitorRequestSecurityBaselineWeakCipherSuite `pulumi:"weakCipherSuite"`
+	// Enforceable rule: the certificate must not use a weak signature algorithm.
+	WeakSignatureAlgorithm *SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm `pulumi:"weakSignatureAlgorithm"`
+}
+
+// SslMonitorRequestSecurityBaselineInput is an input type that accepts SslMonitorRequestSecurityBaselineArgs and SslMonitorRequestSecurityBaselineOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineInput` via:
+//
+//	SslMonitorRequestSecurityBaselineArgs{...}
+type SslMonitorRequestSecurityBaselineInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineOutput() SslMonitorRequestSecurityBaselineOutput
+	ToSslMonitorRequestSecurityBaselineOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineOutput
+}
+
+type SslMonitorRequestSecurityBaselineArgs struct {
+	// Whether the security baseline is enforced. (Default `true`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Enforceable rule: the certificate chain must not include a known-bad CA.
+	KnownBadCa SslMonitorRequestSecurityBaselineKnownBadCaPtrInput `pulumi:"knownBadCa"`
+	// Enforceable rule: the minimum public key size in bits.
+	MinKeySizeBits SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrInput `pulumi:"minKeySizeBits"`
+	// Enforceable rule: the minimum TLS version the server must accept.
+	MinTlsVersion SslMonitorRequestSecurityBaselineMinTlsVersionPtrInput `pulumi:"minTlsVersion"`
+	// Advisory rule: an OCSP Must-Staple extension, when present, must be respected.
+	OcspMustStapleRespected SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrInput `pulumi:"ocspMustStapleRespected"`
+	// Advisory rule: the recommended public key size in bits.
+	RecommendedKeySizeBits SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrInput `pulumi:"recommendedKeySizeBits"`
+	// Advisory rule: the recommended TLS version.
+	RecommendedTlsVersion SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrInput `pulumi:"recommendedTlsVersion"`
+	// Advisory rule: the certificate should carry a Signed Certificate Timestamp.
+	SctPresent SslMonitorRequestSecurityBaselineSctPresentPtrInput `pulumi:"sctPresent"`
+	// Enforceable rule: the connection must not negotiate a weak cipher suite.
+	WeakCipherSuite SslMonitorRequestSecurityBaselineWeakCipherSuitePtrInput `pulumi:"weakCipherSuite"`
+	// Enforceable rule: the certificate must not use a weak signature algorithm.
+	WeakSignatureAlgorithm SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrInput `pulumi:"weakSignatureAlgorithm"`
+}
+
+func (SslMonitorRequestSecurityBaselineArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaseline)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineArgs) ToSslMonitorRequestSecurityBaselineOutput() SslMonitorRequestSecurityBaselineOutput {
+	return i.ToSslMonitorRequestSecurityBaselineOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineArgs) ToSslMonitorRequestSecurityBaselineOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineArgs) ToSslMonitorRequestSecurityBaselinePtrOutput() SslMonitorRequestSecurityBaselinePtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineArgs) ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselinePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineOutput).ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselinePtrInput is an input type that accepts SslMonitorRequestSecurityBaselineArgs, SslMonitorRequestSecurityBaselinePtr and SslMonitorRequestSecurityBaselinePtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselinePtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselinePtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselinePtrOutput() SslMonitorRequestSecurityBaselinePtrOutput
+	ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselinePtrOutput
+}
+
+type sslMonitorRequestSecurityBaselinePtrType SslMonitorRequestSecurityBaselineArgs
+
+func SslMonitorRequestSecurityBaselinePtr(v *SslMonitorRequestSecurityBaselineArgs) SslMonitorRequestSecurityBaselinePtrInput {
+	return (*sslMonitorRequestSecurityBaselinePtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselinePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaseline)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselinePtrType) ToSslMonitorRequestSecurityBaselinePtrOutput() SslMonitorRequestSecurityBaselinePtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselinePtrType) ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselinePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselinePtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaseline)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineOutput) ToSslMonitorRequestSecurityBaselineOutput() SslMonitorRequestSecurityBaselineOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineOutput) ToSslMonitorRequestSecurityBaselineOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineOutput) ToSslMonitorRequestSecurityBaselinePtrOutput() SslMonitorRequestSecurityBaselinePtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineOutput) ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselinePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaseline {
+		return &v
+	}).(SslMonitorRequestSecurityBaselinePtrOutput)
+}
+
+// Whether the security baseline is enforced. (Default `true`).
+func (o SslMonitorRequestSecurityBaselineOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Enforceable rule: the certificate chain must not include a known-bad CA.
+func (o SslMonitorRequestSecurityBaselineOutput) KnownBadCa() SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineKnownBadCa {
+		return v.KnownBadCa
+	}).(SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput)
+}
+
+// Enforceable rule: the minimum public key size in bits.
+func (o SslMonitorRequestSecurityBaselineOutput) MinKeySizeBits() SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineMinKeySizeBits {
+		return v.MinKeySizeBits
+	}).(SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput)
+}
+
+// Enforceable rule: the minimum TLS version the server must accept.
+func (o SslMonitorRequestSecurityBaselineOutput) MinTlsVersion() SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineMinTlsVersion {
+		return v.MinTlsVersion
+	}).(SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput)
+}
+
+// Advisory rule: an OCSP Must-Staple extension, when present, must be respected.
+func (o SslMonitorRequestSecurityBaselineOutput) OcspMustStapleRespected() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineOcspMustStapleRespected {
+		return v.OcspMustStapleRespected
+	}).(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput)
+}
+
+// Advisory rule: the recommended public key size in bits.
+func (o SslMonitorRequestSecurityBaselineOutput) RecommendedKeySizeBits() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineRecommendedKeySizeBits {
+		return v.RecommendedKeySizeBits
+	}).(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput)
+}
+
+// Advisory rule: the recommended TLS version.
+func (o SslMonitorRequestSecurityBaselineOutput) RecommendedTlsVersion() SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineRecommendedTlsVersion {
+		return v.RecommendedTlsVersion
+	}).(SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput)
+}
+
+// Advisory rule: the certificate should carry a Signed Certificate Timestamp.
+func (o SslMonitorRequestSecurityBaselineOutput) SctPresent() SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineSctPresent {
+		return v.SctPresent
+	}).(SslMonitorRequestSecurityBaselineSctPresentPtrOutput)
+}
+
+// Enforceable rule: the connection must not negotiate a weak cipher suite.
+func (o SslMonitorRequestSecurityBaselineOutput) WeakCipherSuite() SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineWeakCipherSuite {
+		return v.WeakCipherSuite
+	}).(SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput)
+}
+
+// Enforceable rule: the certificate must not use a weak signature algorithm.
+func (o SslMonitorRequestSecurityBaselineOutput) WeakSignatureAlgorithm() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm {
+		return v.WeakSignatureAlgorithm
+	}).(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselinePtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselinePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaseline)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselinePtrOutput) ToSslMonitorRequestSecurityBaselinePtrOutput() SslMonitorRequestSecurityBaselinePtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselinePtrOutput) ToSslMonitorRequestSecurityBaselinePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselinePtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselinePtrOutput) Elem() SslMonitorRequestSecurityBaselineOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) SslMonitorRequestSecurityBaseline {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaseline
+		return ret
+	}).(SslMonitorRequestSecurityBaselineOutput)
+}
+
+// Whether the security baseline is enforced. (Default `true`).
+func (o SslMonitorRequestSecurityBaselinePtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Enforceable rule: the certificate chain must not include a known-bad CA.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) KnownBadCa() SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineKnownBadCa {
+		if v == nil {
+			return nil
+		}
+		return v.KnownBadCa
+	}).(SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput)
+}
+
+// Enforceable rule: the minimum public key size in bits.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) MinKeySizeBits() SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineMinKeySizeBits {
+		if v == nil {
+			return nil
+		}
+		return v.MinKeySizeBits
+	}).(SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput)
+}
+
+// Enforceable rule: the minimum TLS version the server must accept.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) MinTlsVersion() SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineMinTlsVersion {
+		if v == nil {
+			return nil
+		}
+		return v.MinTlsVersion
+	}).(SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput)
+}
+
+// Advisory rule: an OCSP Must-Staple extension, when present, must be respected.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) OcspMustStapleRespected() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineOcspMustStapleRespected {
+		if v == nil {
+			return nil
+		}
+		return v.OcspMustStapleRespected
+	}).(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput)
+}
+
+// Advisory rule: the recommended public key size in bits.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) RecommendedKeySizeBits() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineRecommendedKeySizeBits {
+		if v == nil {
+			return nil
+		}
+		return v.RecommendedKeySizeBits
+	}).(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput)
+}
+
+// Advisory rule: the recommended TLS version.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) RecommendedTlsVersion() SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineRecommendedTlsVersion {
+		if v == nil {
+			return nil
+		}
+		return v.RecommendedTlsVersion
+	}).(SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput)
+}
+
+// Advisory rule: the certificate should carry a Signed Certificate Timestamp.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) SctPresent() SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineSctPresent {
+		if v == nil {
+			return nil
+		}
+		return v.SctPresent
+	}).(SslMonitorRequestSecurityBaselineSctPresentPtrOutput)
+}
+
+// Enforceable rule: the connection must not negotiate a weak cipher suite.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) WeakCipherSuite() SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineWeakCipherSuite {
+		if v == nil {
+			return nil
+		}
+		return v.WeakCipherSuite
+	}).(SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput)
+}
+
+// Enforceable rule: the certificate must not use a weak signature algorithm.
+func (o SslMonitorRequestSecurityBaselinePtrOutput) WeakSignatureAlgorithm() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaseline) *SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm {
+		if v == nil {
+			return nil
+		}
+		return v.WeakSignatureAlgorithm
+	}).(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineKnownBadCa struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity *string `pulumi:"severity"`
+}
+
+// SslMonitorRequestSecurityBaselineKnownBadCaInput is an input type that accepts SslMonitorRequestSecurityBaselineKnownBadCaArgs and SslMonitorRequestSecurityBaselineKnownBadCaOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineKnownBadCaInput` via:
+//
+//	SslMonitorRequestSecurityBaselineKnownBadCaArgs{...}
+type SslMonitorRequestSecurityBaselineKnownBadCaInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineKnownBadCaOutput() SslMonitorRequestSecurityBaselineKnownBadCaOutput
+	ToSslMonitorRequestSecurityBaselineKnownBadCaOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineKnownBadCaOutput
+}
+
+type SslMonitorRequestSecurityBaselineKnownBadCaArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+}
+
+func (SslMonitorRequestSecurityBaselineKnownBadCaArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineKnownBadCa)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineKnownBadCaArgs) ToSslMonitorRequestSecurityBaselineKnownBadCaOutput() SslMonitorRequestSecurityBaselineKnownBadCaOutput {
+	return i.ToSslMonitorRequestSecurityBaselineKnownBadCaOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineKnownBadCaArgs) ToSslMonitorRequestSecurityBaselineKnownBadCaOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineKnownBadCaOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineKnownBadCaOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineKnownBadCaArgs) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutput() SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineKnownBadCaArgs) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineKnownBadCaOutput).ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineKnownBadCaPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineKnownBadCaArgs, SslMonitorRequestSecurityBaselineKnownBadCaPtr and SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineKnownBadCaPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineKnownBadCaArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineKnownBadCaPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutput() SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput
+	ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineKnownBadCaPtrType SslMonitorRequestSecurityBaselineKnownBadCaArgs
+
+func SslMonitorRequestSecurityBaselineKnownBadCaPtr(v *SslMonitorRequestSecurityBaselineKnownBadCaArgs) SslMonitorRequestSecurityBaselineKnownBadCaPtrInput {
+	return (*sslMonitorRequestSecurityBaselineKnownBadCaPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineKnownBadCaPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineKnownBadCa)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineKnownBadCaPtrType) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutput() SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineKnownBadCaPtrType) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineKnownBadCaOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineKnownBadCaOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineKnownBadCa)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineKnownBadCaOutput) ToSslMonitorRequestSecurityBaselineKnownBadCaOutput() SslMonitorRequestSecurityBaselineKnownBadCaOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineKnownBadCaOutput) ToSslMonitorRequestSecurityBaselineKnownBadCaOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineKnownBadCaOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineKnownBadCaOutput) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutput() SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineKnownBadCaOutput) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineKnownBadCa) *SslMonitorRequestSecurityBaselineKnownBadCa {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineKnownBadCaOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineKnownBadCa) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineKnownBadCa)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutput() SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput) ToSslMonitorRequestSecurityBaselineKnownBadCaPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput) Elem() SslMonitorRequestSecurityBaselineKnownBadCaOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineKnownBadCa) SslMonitorRequestSecurityBaselineKnownBadCa {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineKnownBadCa
+		return ret
+	}).(SslMonitorRequestSecurityBaselineKnownBadCaOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineKnownBadCa) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineMinKeySizeBits struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity *string `pulumi:"severity"`
+	// The key size in bits. Possible values are between 1024 and 16384. (Default `2048`).
+	Value *int `pulumi:"value"`
+}
+
+// SslMonitorRequestSecurityBaselineMinKeySizeBitsInput is an input type that accepts SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs and SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineMinKeySizeBitsInput` via:
+//
+//	SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs{...}
+type SslMonitorRequestSecurityBaselineMinKeySizeBitsInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineMinKeySizeBitsOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput
+	ToSslMonitorRequestSecurityBaselineMinKeySizeBitsOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput
+}
+
+type SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+	// The key size in bits. Possible values are between 1024 and 16384. (Default `2048`).
+	Value pulumi.IntPtrInput `pulumi:"value"`
+}
+
+func (SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinKeySizeBits)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput {
+	return i.ToSslMonitorRequestSecurityBaselineMinKeySizeBitsOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput).ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs, SslMonitorRequestSecurityBaselineMinKeySizeBitsPtr and SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput
+	ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineMinKeySizeBitsPtrType SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs
+
+func SslMonitorRequestSecurityBaselineMinKeySizeBitsPtr(v *SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs) SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrInput {
+	return (*sslMonitorRequestSecurityBaselineMinKeySizeBitsPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineMinKeySizeBitsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineMinKeySizeBits)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineMinKeySizeBitsPtrType) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineMinKeySizeBitsPtrType) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinKeySizeBits)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineMinKeySizeBits) *SslMonitorRequestSecurityBaselineMinKeySizeBits {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineMinKeySizeBits) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+// The key size in bits. Possible values are between 1024 and 16384. (Default `2048`).
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineMinKeySizeBits) *int { return v.Value }).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineMinKeySizeBits)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput) ToSslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput) Elem() SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineMinKeySizeBits) SslMonitorRequestSecurityBaselineMinKeySizeBits {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineMinKeySizeBits
+		return ret
+	}).(SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineMinKeySizeBits) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+// The key size in bits. Possible values are between 1024 and 16384. (Default `2048`).
+func (o SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineMinKeySizeBits) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Value
+	}).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineMinTlsVersion struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity *string `pulumi:"severity"`
+	// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.2`).
+	Value *string `pulumi:"value"`
+}
+
+// SslMonitorRequestSecurityBaselineMinTlsVersionInput is an input type that accepts SslMonitorRequestSecurityBaselineMinTlsVersionArgs and SslMonitorRequestSecurityBaselineMinTlsVersionOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineMinTlsVersionInput` via:
+//
+//	SslMonitorRequestSecurityBaselineMinTlsVersionArgs{...}
+type SslMonitorRequestSecurityBaselineMinTlsVersionInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineMinTlsVersionOutput() SslMonitorRequestSecurityBaselineMinTlsVersionOutput
+	ToSslMonitorRequestSecurityBaselineMinTlsVersionOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionOutput
+}
+
+type SslMonitorRequestSecurityBaselineMinTlsVersionArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+	// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.2`).
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (SslMonitorRequestSecurityBaselineMinTlsVersionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinTlsVersion)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineMinTlsVersionArgs) ToSslMonitorRequestSecurityBaselineMinTlsVersionOutput() SslMonitorRequestSecurityBaselineMinTlsVersionOutput {
+	return i.ToSslMonitorRequestSecurityBaselineMinTlsVersionOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineMinTlsVersionArgs) ToSslMonitorRequestSecurityBaselineMinTlsVersionOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineMinTlsVersionOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineMinTlsVersionArgs) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineMinTlsVersionArgs) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineMinTlsVersionOutput).ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineMinTlsVersionPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineMinTlsVersionArgs, SslMonitorRequestSecurityBaselineMinTlsVersionPtr and SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineMinTlsVersionPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineMinTlsVersionArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineMinTlsVersionPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput
+	ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineMinTlsVersionPtrType SslMonitorRequestSecurityBaselineMinTlsVersionArgs
+
+func SslMonitorRequestSecurityBaselineMinTlsVersionPtr(v *SslMonitorRequestSecurityBaselineMinTlsVersionArgs) SslMonitorRequestSecurityBaselineMinTlsVersionPtrInput {
+	return (*sslMonitorRequestSecurityBaselineMinTlsVersionPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineMinTlsVersionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineMinTlsVersion)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineMinTlsVersionPtrType) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineMinTlsVersionPtrType) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineMinTlsVersionOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineMinTlsVersionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinTlsVersion)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionOutput) ToSslMonitorRequestSecurityBaselineMinTlsVersionOutput() SslMonitorRequestSecurityBaselineMinTlsVersionOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionOutput) ToSslMonitorRequestSecurityBaselineMinTlsVersionOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionOutput) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionOutput) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineMinTlsVersion) *SslMonitorRequestSecurityBaselineMinTlsVersion {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineMinTlsVersion) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.2`).
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineMinTlsVersion) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineMinTlsVersion)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput) ToSslMonitorRequestSecurityBaselineMinTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput) Elem() SslMonitorRequestSecurityBaselineMinTlsVersionOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineMinTlsVersion) SslMonitorRequestSecurityBaselineMinTlsVersion {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineMinTlsVersion
+		return ret
+	}).(SslMonitorRequestSecurityBaselineMinTlsVersionOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineMinTlsVersion) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.2`).
+func (o SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineMinTlsVersion) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineOcspMustStapleRespected struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity *string `pulumi:"severity"`
+}
+
+// SslMonitorRequestSecurityBaselineOcspMustStapleRespectedInput is an input type that accepts SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs and SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineOcspMustStapleRespectedInput` via:
+//
+//	SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs{...}
+type SslMonitorRequestSecurityBaselineOcspMustStapleRespectedInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput
+	ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput
+}
+
+type SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+}
+
+func (SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineOcspMustStapleRespected)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput {
+	return i.ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput).ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs, SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtr and SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput
+	ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrType SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs
+
+func SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtr(v *SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrInput {
+	return (*sslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineOcspMustStapleRespected)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrType) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrType) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineOcspMustStapleRespected)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineOcspMustStapleRespected) *SslMonitorRequestSecurityBaselineOcspMustStapleRespected {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineOcspMustStapleRespected) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineOcspMustStapleRespected)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput) ToSslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput) Elem() SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineOcspMustStapleRespected) SslMonitorRequestSecurityBaselineOcspMustStapleRespected {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineOcspMustStapleRespected
+		return ret
+	}).(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineOcspMustStapleRespected) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedKeySizeBits struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity *string `pulumi:"severity"`
+	// The key size in bits. Possible values are between 1024 and 16384. (Default `3072`).
+	Value *int `pulumi:"value"`
+}
+
+// SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsInput is an input type that accepts SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs and SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsInput` via:
+//
+//	SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs{...}
+type SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput
+	ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+	// The key size in bits. Possible values are between 1024 and 16384. (Default `3072`).
+	Value pulumi.IntPtrInput `pulumi:"value"`
+}
+
+func (SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedKeySizeBits)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput {
+	return i.ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput).ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs, SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtr and SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput
+	ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrType SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs
+
+func SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtr(v *SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrInput {
+	return (*sslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineRecommendedKeySizeBits)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrType) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrType) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedKeySizeBits)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineRecommendedKeySizeBits) *SslMonitorRequestSecurityBaselineRecommendedKeySizeBits {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineRecommendedKeySizeBits) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+// The key size in bits. Possible values are between 1024 and 16384. (Default `3072`).
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineRecommendedKeySizeBits) *int { return v.Value }).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineRecommendedKeySizeBits)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput) ToSslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput) Elem() SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineRecommendedKeySizeBits) SslMonitorRequestSecurityBaselineRecommendedKeySizeBits {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineRecommendedKeySizeBits
+		return ret
+	}).(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineRecommendedKeySizeBits) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+// The key size in bits. Possible values are between 1024 and 16384. (Default `3072`).
+func (o SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineRecommendedKeySizeBits) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Value
+	}).(pulumi.IntPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedTlsVersion struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity *string `pulumi:"severity"`
+	// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).
+	Value *string `pulumi:"value"`
+}
+
+// SslMonitorRequestSecurityBaselineRecommendedTlsVersionInput is an input type that accepts SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs and SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineRecommendedTlsVersionInput` via:
+//
+//	SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs{...}
+type SslMonitorRequestSecurityBaselineRecommendedTlsVersionInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput
+	ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+	// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedTlsVersion)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput {
+	return i.ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput).ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs, SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtr and SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput
+	ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrType SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs
+
+func SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtr(v *SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs) SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrInput {
+	return (*sslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineRecommendedTlsVersion)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrType) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrType) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedTlsVersion)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineRecommendedTlsVersion) *SslMonitorRequestSecurityBaselineRecommendedTlsVersion {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineRecommendedTlsVersion) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineRecommendedTlsVersion) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineRecommendedTlsVersion)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput() SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput) ToSslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput) Elem() SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineRecommendedTlsVersion) SslMonitorRequestSecurityBaselineRecommendedTlsVersion {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineRecommendedTlsVersion
+		return ret
+	}).(SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineRecommendedTlsVersion) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).
+func (o SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineRecommendedTlsVersion) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Value
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineSctPresent struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity *string `pulumi:"severity"`
+}
+
+// SslMonitorRequestSecurityBaselineSctPresentInput is an input type that accepts SslMonitorRequestSecurityBaselineSctPresentArgs and SslMonitorRequestSecurityBaselineSctPresentOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineSctPresentInput` via:
+//
+//	SslMonitorRequestSecurityBaselineSctPresentArgs{...}
+type SslMonitorRequestSecurityBaselineSctPresentInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineSctPresentOutput() SslMonitorRequestSecurityBaselineSctPresentOutput
+	ToSslMonitorRequestSecurityBaselineSctPresentOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineSctPresentOutput
+}
+
+type SslMonitorRequestSecurityBaselineSctPresentArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+}
+
+func (SslMonitorRequestSecurityBaselineSctPresentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineSctPresent)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineSctPresentArgs) ToSslMonitorRequestSecurityBaselineSctPresentOutput() SslMonitorRequestSecurityBaselineSctPresentOutput {
+	return i.ToSslMonitorRequestSecurityBaselineSctPresentOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineSctPresentArgs) ToSslMonitorRequestSecurityBaselineSctPresentOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineSctPresentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineSctPresentOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineSctPresentArgs) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutput() SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineSctPresentArgs) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineSctPresentOutput).ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineSctPresentPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineSctPresentArgs, SslMonitorRequestSecurityBaselineSctPresentPtr and SslMonitorRequestSecurityBaselineSctPresentPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineSctPresentPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineSctPresentArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineSctPresentPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineSctPresentPtrOutput() SslMonitorRequestSecurityBaselineSctPresentPtrOutput
+	ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineSctPresentPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineSctPresentPtrType SslMonitorRequestSecurityBaselineSctPresentArgs
+
+func SslMonitorRequestSecurityBaselineSctPresentPtr(v *SslMonitorRequestSecurityBaselineSctPresentArgs) SslMonitorRequestSecurityBaselineSctPresentPtrInput {
+	return (*sslMonitorRequestSecurityBaselineSctPresentPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineSctPresentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineSctPresent)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineSctPresentPtrType) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutput() SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineSctPresentPtrType) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineSctPresentPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineSctPresentOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineSctPresentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineSctPresent)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineSctPresentOutput) ToSslMonitorRequestSecurityBaselineSctPresentOutput() SslMonitorRequestSecurityBaselineSctPresentOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineSctPresentOutput) ToSslMonitorRequestSecurityBaselineSctPresentOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineSctPresentOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineSctPresentOutput) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutput() SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineSctPresentOutput) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineSctPresent) *SslMonitorRequestSecurityBaselineSctPresent {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineSctPresentPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineSctPresentOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineSctPresent) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineSctPresentPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineSctPresentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineSctPresent)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineSctPresentPtrOutput) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutput() SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineSctPresentPtrOutput) ToSslMonitorRequestSecurityBaselineSctPresentPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineSctPresentPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineSctPresentPtrOutput) Elem() SslMonitorRequestSecurityBaselineSctPresentOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineSctPresent) SslMonitorRequestSecurityBaselineSctPresent {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineSctPresent
+		return ret
+	}).(SslMonitorRequestSecurityBaselineSctPresentOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+func (o SslMonitorRequestSecurityBaselineSctPresentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineSctPresent) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineWeakCipherSuite struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity *string `pulumi:"severity"`
+}
+
+// SslMonitorRequestSecurityBaselineWeakCipherSuiteInput is an input type that accepts SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs and SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineWeakCipherSuiteInput` via:
+//
+//	SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs{...}
+type SslMonitorRequestSecurityBaselineWeakCipherSuiteInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineWeakCipherSuiteOutput() SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput
+	ToSslMonitorRequestSecurityBaselineWeakCipherSuiteOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput
+}
+
+type SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+}
+
+func (SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakCipherSuite)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs) ToSslMonitorRequestSecurityBaselineWeakCipherSuiteOutput() SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput {
+	return i.ToSslMonitorRequestSecurityBaselineWeakCipherSuiteOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs) ToSslMonitorRequestSecurityBaselineWeakCipherSuiteOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput() SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput).ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineWeakCipherSuitePtrInput is an input type that accepts SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs, SslMonitorRequestSecurityBaselineWeakCipherSuitePtr and SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineWeakCipherSuitePtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineWeakCipherSuitePtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput() SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput
+	ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineWeakCipherSuitePtrType SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs
+
+func SslMonitorRequestSecurityBaselineWeakCipherSuitePtr(v *SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs) SslMonitorRequestSecurityBaselineWeakCipherSuitePtrInput {
+	return (*sslMonitorRequestSecurityBaselineWeakCipherSuitePtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineWeakCipherSuitePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineWeakCipherSuite)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineWeakCipherSuitePtrType) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput() SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineWeakCipherSuitePtrType) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakCipherSuite)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput) ToSslMonitorRequestSecurityBaselineWeakCipherSuiteOutput() SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput) ToSslMonitorRequestSecurityBaselineWeakCipherSuiteOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput() SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineWeakCipherSuite) *SslMonitorRequestSecurityBaselineWeakCipherSuite {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineWeakCipherSuite) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineWeakCipherSuite)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput() SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput) ToSslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput) Elem() SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineWeakCipherSuite) SslMonitorRequestSecurityBaselineWeakCipherSuite {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineWeakCipherSuite
+		return ret
+	}).(SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineWeakCipherSuite) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity *string `pulumi:"severity"`
+}
+
+// SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmInput is an input type that accepts SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs and SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmInput` via:
+//
+//	SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs{...}
+type SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput
+	ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput
+}
+
+type SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs struct {
+	// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+}
+
+func (SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm)(nil)).Elem()
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput {
+	return i.ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput)
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput).ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrInput is an input type that accepts SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs, SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtr and SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrInput` via:
+//
+//	        SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput
+	ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput
+}
+
+type sslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrType SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs
+
+func SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtr(v *SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrInput {
+	return (*sslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrType)(v)
+}
+
+func (*sslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm)(nil)).Elem()
+}
+
+func (i *sslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrType) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return i.ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrType) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return o.ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm) *SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm {
+		return &v
+	}).(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm)(nil)).Elem()
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput) ToSslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutputWithContext(ctx context.Context) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput {
+	return o
+}
+
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput) Elem() SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm) SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm
+		return ret
+	}).(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput)
+}
+
+// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+func (o SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn *SslMonitorRetryStrategyOnlyOn `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type string `pulumi:"type"`
+}
+
+// SslMonitorRetryStrategyInput is an input type that accepts SslMonitorRetryStrategyArgs and SslMonitorRetryStrategyOutput values.
+// You can construct a concrete instance of `SslMonitorRetryStrategyInput` via:
+//
+//	SslMonitorRetryStrategyArgs{...}
+type SslMonitorRetryStrategyInput interface {
+	pulumi.Input
+
+	ToSslMonitorRetryStrategyOutput() SslMonitorRetryStrategyOutput
+	ToSslMonitorRetryStrategyOutputWithContext(context.Context) SslMonitorRetryStrategyOutput
+}
+
+type SslMonitorRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn SslMonitorRetryStrategyOnlyOnPtrInput `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (SslMonitorRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i SslMonitorRetryStrategyArgs) ToSslMonitorRetryStrategyOutput() SslMonitorRetryStrategyOutput {
+	return i.ToSslMonitorRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRetryStrategyArgs) ToSslMonitorRetryStrategyOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRetryStrategyOutput)
+}
+
+func (i SslMonitorRetryStrategyArgs) ToSslMonitorRetryStrategyPtrOutput() SslMonitorRetryStrategyPtrOutput {
+	return i.ToSslMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRetryStrategyArgs) ToSslMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRetryStrategyOutput).ToSslMonitorRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRetryStrategyPtrInput is an input type that accepts SslMonitorRetryStrategyArgs, SslMonitorRetryStrategyPtr and SslMonitorRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRetryStrategyPtrInput` via:
+//
+//	        SslMonitorRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRetryStrategyPtrOutput() SslMonitorRetryStrategyPtrOutput
+	ToSslMonitorRetryStrategyPtrOutputWithContext(context.Context) SslMonitorRetryStrategyPtrOutput
+}
+
+type sslMonitorRetryStrategyPtrType SslMonitorRetryStrategyArgs
+
+func SslMonitorRetryStrategyPtr(v *SslMonitorRetryStrategyArgs) SslMonitorRetryStrategyPtrInput {
+	return (*sslMonitorRetryStrategyPtrType)(v)
+}
+
+func (*sslMonitorRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i *sslMonitorRetryStrategyPtrType) ToSslMonitorRetryStrategyPtrOutput() SslMonitorRetryStrategyPtrOutput {
+	return i.ToSslMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRetryStrategyPtrType) ToSslMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRetryStrategyPtrOutput)
+}
+
+type SslMonitorRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o SslMonitorRetryStrategyOutput) ToSslMonitorRetryStrategyOutput() SslMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyOutput) ToSslMonitorRetryStrategyOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyOutput) ToSslMonitorRetryStrategyPtrOutput() SslMonitorRetryStrategyPtrOutput {
+	return o.ToSslMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRetryStrategyOutput) ToSslMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRetryStrategy) *SslMonitorRetryStrategy {
+		return &v
+	}).(SslMonitorRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o SslMonitorRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o SslMonitorRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o SslMonitorRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SslMonitorRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o SslMonitorRetryStrategyOutput) OnlyOn() SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v SslMonitorRetryStrategy) *SslMonitorRetryStrategyOnlyOn { return v.OnlyOn }).(SslMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o SslMonitorRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v SslMonitorRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o SslMonitorRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type SslMonitorRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o SslMonitorRetryStrategyPtrOutput) ToSslMonitorRetryStrategyPtrOutput() SslMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyPtrOutput) ToSslMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyPtrOutput) Elem() SslMonitorRetryStrategyOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategy) SslMonitorRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRetryStrategy
+		return ret
+	}).(SslMonitorRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o SslMonitorRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o SslMonitorRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o SslMonitorRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o SslMonitorRetryStrategyPtrOutput) OnlyOn() SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategy) *SslMonitorRetryStrategyOnlyOn {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyOn
+	}).(SslMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o SslMonitorRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o SslMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type SslMonitorRetryStrategyOnlyOn struct {
+}
+
+// SslMonitorRetryStrategyOnlyOnInput is an input type that accepts SslMonitorRetryStrategyOnlyOnArgs and SslMonitorRetryStrategyOnlyOnOutput values.
+// You can construct a concrete instance of `SslMonitorRetryStrategyOnlyOnInput` via:
+//
+//	SslMonitorRetryStrategyOnlyOnArgs{...}
+type SslMonitorRetryStrategyOnlyOnInput interface {
+	pulumi.Input
+
+	ToSslMonitorRetryStrategyOnlyOnOutput() SslMonitorRetryStrategyOnlyOnOutput
+	ToSslMonitorRetryStrategyOnlyOnOutputWithContext(context.Context) SslMonitorRetryStrategyOnlyOnOutput
+}
+
+type SslMonitorRetryStrategyOnlyOnArgs struct {
+}
+
+func (SslMonitorRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i SslMonitorRetryStrategyOnlyOnArgs) ToSslMonitorRetryStrategyOnlyOnOutput() SslMonitorRetryStrategyOnlyOnOutput {
+	return i.ToSslMonitorRetryStrategyOnlyOnOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRetryStrategyOnlyOnArgs) ToSslMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOnlyOnOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRetryStrategyOnlyOnOutput)
+}
+
+func (i SslMonitorRetryStrategyOnlyOnArgs) ToSslMonitorRetryStrategyOnlyOnPtrOutput() SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorRetryStrategyOnlyOnArgs) ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRetryStrategyOnlyOnOutput).ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx)
+}
+
+// SslMonitorRetryStrategyOnlyOnPtrInput is an input type that accepts SslMonitorRetryStrategyOnlyOnArgs, SslMonitorRetryStrategyOnlyOnPtr and SslMonitorRetryStrategyOnlyOnPtrOutput values.
+// You can construct a concrete instance of `SslMonitorRetryStrategyOnlyOnPtrInput` via:
+//
+//	        SslMonitorRetryStrategyOnlyOnArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorRetryStrategyOnlyOnPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorRetryStrategyOnlyOnPtrOutput() SslMonitorRetryStrategyOnlyOnPtrOutput
+	ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Context) SslMonitorRetryStrategyOnlyOnPtrOutput
+}
+
+type sslMonitorRetryStrategyOnlyOnPtrType SslMonitorRetryStrategyOnlyOnArgs
+
+func SslMonitorRetryStrategyOnlyOnPtr(v *SslMonitorRetryStrategyOnlyOnArgs) SslMonitorRetryStrategyOnlyOnPtrInput {
+	return (*sslMonitorRetryStrategyOnlyOnPtrType)(v)
+}
+
+func (*sslMonitorRetryStrategyOnlyOnPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i *sslMonitorRetryStrategyOnlyOnPtrType) ToSslMonitorRetryStrategyOnlyOnPtrOutput() SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorRetryStrategyOnlyOnPtrType) ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type SslMonitorRetryStrategyOnlyOnOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRetryStrategyOnlyOnOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o SslMonitorRetryStrategyOnlyOnOutput) ToSslMonitorRetryStrategyOnlyOnOutput() SslMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyOnlyOnOutput) ToSslMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyOnlyOnOutput) ToSslMonitorRetryStrategyOnlyOnPtrOutput() SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorRetryStrategyOnlyOnOutput) ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorRetryStrategyOnlyOn) *SslMonitorRetryStrategyOnlyOn {
+		return &v
+	}).(SslMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type SslMonitorRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o SslMonitorRetryStrategyOnlyOnPtrOutput) ToSslMonitorRetryStrategyOnlyOnPtrOutput() SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyOnlyOnPtrOutput) ToSslMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) SslMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o SslMonitorRetryStrategyOnlyOnPtrOutput) Elem() SslMonitorRetryStrategyOnlyOnOutput {
+	return o.ApplyT(func(v *SslMonitorRetryStrategyOnlyOn) SslMonitorRetryStrategyOnlyOn {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorRetryStrategyOnlyOn
+		return ret
+	}).(SslMonitorRetryStrategyOnlyOnOutput)
+}
+
+type SslMonitorTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// SslMonitorTriggerIncidentInput is an input type that accepts SslMonitorTriggerIncidentArgs and SslMonitorTriggerIncidentOutput values.
+// You can construct a concrete instance of `SslMonitorTriggerIncidentInput` via:
+//
+//	SslMonitorTriggerIncidentArgs{...}
+type SslMonitorTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToSslMonitorTriggerIncidentOutput() SslMonitorTriggerIncidentOutput
+	ToSslMonitorTriggerIncidentOutputWithContext(context.Context) SslMonitorTriggerIncidentOutput
+}
+
+type SslMonitorTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (SslMonitorTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i SslMonitorTriggerIncidentArgs) ToSslMonitorTriggerIncidentOutput() SslMonitorTriggerIncidentOutput {
+	return i.ToSslMonitorTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i SslMonitorTriggerIncidentArgs) ToSslMonitorTriggerIncidentOutputWithContext(ctx context.Context) SslMonitorTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorTriggerIncidentOutput)
+}
+
+func (i SslMonitorTriggerIncidentArgs) ToSslMonitorTriggerIncidentPtrOutput() SslMonitorTriggerIncidentPtrOutput {
+	return i.ToSslMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i SslMonitorTriggerIncidentArgs) ToSslMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) SslMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorTriggerIncidentOutput).ToSslMonitorTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// SslMonitorTriggerIncidentPtrInput is an input type that accepts SslMonitorTriggerIncidentArgs, SslMonitorTriggerIncidentPtr and SslMonitorTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `SslMonitorTriggerIncidentPtrInput` via:
+//
+//	        SslMonitorTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type SslMonitorTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToSslMonitorTriggerIncidentPtrOutput() SslMonitorTriggerIncidentPtrOutput
+	ToSslMonitorTriggerIncidentPtrOutputWithContext(context.Context) SslMonitorTriggerIncidentPtrOutput
+}
+
+type sslMonitorTriggerIncidentPtrType SslMonitorTriggerIncidentArgs
+
+func SslMonitorTriggerIncidentPtr(v *SslMonitorTriggerIncidentArgs) SslMonitorTriggerIncidentPtrInput {
+	return (*sslMonitorTriggerIncidentPtrType)(v)
+}
+
+func (*sslMonitorTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i *sslMonitorTriggerIncidentPtrType) ToSslMonitorTriggerIncidentPtrOutput() SslMonitorTriggerIncidentPtrOutput {
+	return i.ToSslMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *sslMonitorTriggerIncidentPtrType) ToSslMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) SslMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SslMonitorTriggerIncidentPtrOutput)
+}
+
+type SslMonitorTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SslMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o SslMonitorTriggerIncidentOutput) ToSslMonitorTriggerIncidentOutput() SslMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o SslMonitorTriggerIncidentOutput) ToSslMonitorTriggerIncidentOutputWithContext(ctx context.Context) SslMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o SslMonitorTriggerIncidentOutput) ToSslMonitorTriggerIncidentPtrOutput() SslMonitorTriggerIncidentPtrOutput {
+	return o.ToSslMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o SslMonitorTriggerIncidentOutput) ToSslMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) SslMonitorTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SslMonitorTriggerIncident) *SslMonitorTriggerIncident {
+		return &v
+	}).(SslMonitorTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o SslMonitorTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o SslMonitorTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o SslMonitorTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v SslMonitorTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o SslMonitorTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o SslMonitorTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v SslMonitorTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type SslMonitorTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (SslMonitorTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SslMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o SslMonitorTriggerIncidentPtrOutput) ToSslMonitorTriggerIncidentPtrOutput() SslMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o SslMonitorTriggerIncidentPtrOutput) ToSslMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) SslMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o SslMonitorTriggerIncidentPtrOutput) Elem() SslMonitorTriggerIncidentOutput {
+	return o.ApplyT(func(v *SslMonitorTriggerIncident) SslMonitorTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret SslMonitorTriggerIncident
+		return ret
+	}).(SslMonitorTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o SslMonitorTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o SslMonitorTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o SslMonitorTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SslMonitorTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o SslMonitorTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o SslMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SslMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -20127,6 +25549,1713 @@ func (o TcpMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type TracerouteMonitorAlertChannelSubscription struct {
+	// Whether an alert should be sent to this channel.
+	Activated bool `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId int `pulumi:"channelId"`
+}
+
+// TracerouteMonitorAlertChannelSubscriptionInput is an input type that accepts TracerouteMonitorAlertChannelSubscriptionArgs and TracerouteMonitorAlertChannelSubscriptionOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertChannelSubscriptionInput` via:
+//
+//	TracerouteMonitorAlertChannelSubscriptionArgs{...}
+type TracerouteMonitorAlertChannelSubscriptionInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertChannelSubscriptionOutput() TracerouteMonitorAlertChannelSubscriptionOutput
+	ToTracerouteMonitorAlertChannelSubscriptionOutputWithContext(context.Context) TracerouteMonitorAlertChannelSubscriptionOutput
+}
+
+type TracerouteMonitorAlertChannelSubscriptionArgs struct {
+	// Whether an alert should be sent to this channel.
+	Activated pulumi.BoolInput `pulumi:"activated"`
+	// The ID of the alert channel.
+	ChannelId pulumi.IntInput `pulumi:"channelId"`
+}
+
+func (TracerouteMonitorAlertChannelSubscriptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertChannelSubscriptionArgs) ToTracerouteMonitorAlertChannelSubscriptionOutput() TracerouteMonitorAlertChannelSubscriptionOutput {
+	return i.ToTracerouteMonitorAlertChannelSubscriptionOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertChannelSubscriptionArgs) ToTracerouteMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) TracerouteMonitorAlertChannelSubscriptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertChannelSubscriptionOutput)
+}
+
+// TracerouteMonitorAlertChannelSubscriptionArrayInput is an input type that accepts TracerouteMonitorAlertChannelSubscriptionArray and TracerouteMonitorAlertChannelSubscriptionArrayOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertChannelSubscriptionArrayInput` via:
+//
+//	TracerouteMonitorAlertChannelSubscriptionArray{ TracerouteMonitorAlertChannelSubscriptionArgs{...} }
+type TracerouteMonitorAlertChannelSubscriptionArrayInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertChannelSubscriptionArrayOutput() TracerouteMonitorAlertChannelSubscriptionArrayOutput
+	ToTracerouteMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Context) TracerouteMonitorAlertChannelSubscriptionArrayOutput
+}
+
+type TracerouteMonitorAlertChannelSubscriptionArray []TracerouteMonitorAlertChannelSubscriptionInput
+
+func (TracerouteMonitorAlertChannelSubscriptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertChannelSubscriptionArray) ToTracerouteMonitorAlertChannelSubscriptionArrayOutput() TracerouteMonitorAlertChannelSubscriptionArrayOutput {
+	return i.ToTracerouteMonitorAlertChannelSubscriptionArrayOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertChannelSubscriptionArray) ToTracerouteMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertChannelSubscriptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertChannelSubscriptionArrayOutput)
+}
+
+type TracerouteMonitorAlertChannelSubscriptionOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertChannelSubscriptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertChannelSubscriptionOutput) ToTracerouteMonitorAlertChannelSubscriptionOutput() TracerouteMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertChannelSubscriptionOutput) ToTracerouteMonitorAlertChannelSubscriptionOutputWithContext(ctx context.Context) TracerouteMonitorAlertChannelSubscriptionOutput {
+	return o
+}
+
+// Whether an alert should be sent to this channel.
+func (o TracerouteMonitorAlertChannelSubscriptionOutput) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertChannelSubscription) bool { return v.Activated }).(pulumi.BoolOutput)
+}
+
+// The ID of the alert channel.
+func (o TracerouteMonitorAlertChannelSubscriptionOutput) ChannelId() pulumi.IntOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertChannelSubscription) int { return v.ChannelId }).(pulumi.IntOutput)
+}
+
+type TracerouteMonitorAlertChannelSubscriptionArrayOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertChannelSubscriptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertChannelSubscription)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertChannelSubscriptionArrayOutput) ToTracerouteMonitorAlertChannelSubscriptionArrayOutput() TracerouteMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertChannelSubscriptionArrayOutput) ToTracerouteMonitorAlertChannelSubscriptionArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertChannelSubscriptionArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertChannelSubscriptionArrayOutput) Index(i pulumi.IntInput) TracerouteMonitorAlertChannelSubscriptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TracerouteMonitorAlertChannelSubscription {
+		return vs[0].([]TracerouteMonitorAlertChannelSubscription)[vs[1].(int)]
+	}).(TracerouteMonitorAlertChannelSubscriptionOutput)
+}
+
+type TracerouteMonitorAlertSettings struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType *string `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds []TracerouteMonitorAlertSettingsParallelRunFailureThreshold `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders []TracerouteMonitorAlertSettingsReminder `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations []TracerouteMonitorAlertSettingsRunBasedEscalation `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations []TracerouteMonitorAlertSettingsTimeBasedEscalation `pulumi:"timeBasedEscalations"`
+}
+
+// TracerouteMonitorAlertSettingsInput is an input type that accepts TracerouteMonitorAlertSettingsArgs and TracerouteMonitorAlertSettingsOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsInput` via:
+//
+//	TracerouteMonitorAlertSettingsArgs{...}
+type TracerouteMonitorAlertSettingsInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsOutput() TracerouteMonitorAlertSettingsOutput
+	ToTracerouteMonitorAlertSettingsOutputWithContext(context.Context) TracerouteMonitorAlertSettingsOutput
+}
+
+type TracerouteMonitorAlertSettingsArgs struct {
+	// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+	EscalationType pulumi.StringPtrInput `pulumi:"escalationType"`
+	// Configuration for parallel run failure threshold.
+	ParallelRunFailureThresholds TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayInput `pulumi:"parallelRunFailureThresholds"`
+	// Defines how often to send reminder notifications after initial alert.
+	Reminders TracerouteMonitorAlertSettingsReminderArrayInput `pulumi:"reminders"`
+	// Configuration for run-based escalation.
+	RunBasedEscalations TracerouteMonitorAlertSettingsRunBasedEscalationArrayInput `pulumi:"runBasedEscalations"`
+	// Configuration for time-based escalation.
+	TimeBasedEscalations TracerouteMonitorAlertSettingsTimeBasedEscalationArrayInput `pulumi:"timeBasedEscalations"`
+}
+
+func (TracerouteMonitorAlertSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsArgs) ToTracerouteMonitorAlertSettingsOutput() TracerouteMonitorAlertSettingsOutput {
+	return i.ToTracerouteMonitorAlertSettingsOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsArgs) ToTracerouteMonitorAlertSettingsOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsOutput)
+}
+
+func (i TracerouteMonitorAlertSettingsArgs) ToTracerouteMonitorAlertSettingsPtrOutput() TracerouteMonitorAlertSettingsPtrOutput {
+	return i.ToTracerouteMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsArgs) ToTracerouteMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsOutput).ToTracerouteMonitorAlertSettingsPtrOutputWithContext(ctx)
+}
+
+// TracerouteMonitorAlertSettingsPtrInput is an input type that accepts TracerouteMonitorAlertSettingsArgs, TracerouteMonitorAlertSettingsPtr and TracerouteMonitorAlertSettingsPtrOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsPtrInput` via:
+//
+//	        TracerouteMonitorAlertSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TracerouteMonitorAlertSettingsPtrInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsPtrOutput() TracerouteMonitorAlertSettingsPtrOutput
+	ToTracerouteMonitorAlertSettingsPtrOutputWithContext(context.Context) TracerouteMonitorAlertSettingsPtrOutput
+}
+
+type tracerouteMonitorAlertSettingsPtrType TracerouteMonitorAlertSettingsArgs
+
+func TracerouteMonitorAlertSettingsPtr(v *TracerouteMonitorAlertSettingsArgs) TracerouteMonitorAlertSettingsPtrInput {
+	return (*tracerouteMonitorAlertSettingsPtrType)(v)
+}
+
+func (*tracerouteMonitorAlertSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorAlertSettings)(nil)).Elem()
+}
+
+func (i *tracerouteMonitorAlertSettingsPtrType) ToTracerouteMonitorAlertSettingsPtrOutput() TracerouteMonitorAlertSettingsPtrOutput {
+	return i.ToTracerouteMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *tracerouteMonitorAlertSettingsPtrType) ToTracerouteMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsPtrOutput)
+}
+
+type TracerouteMonitorAlertSettingsOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsOutput) ToTracerouteMonitorAlertSettingsOutput() TracerouteMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsOutput) ToTracerouteMonitorAlertSettingsOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsOutput) ToTracerouteMonitorAlertSettingsPtrOutput() TracerouteMonitorAlertSettingsPtrOutput {
+	return o.ToTracerouteMonitorAlertSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o TracerouteMonitorAlertSettingsOutput) ToTracerouteMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TracerouteMonitorAlertSettings) *TracerouteMonitorAlertSettings {
+		return &v
+	}).(TracerouteMonitorAlertSettingsPtrOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o TracerouteMonitorAlertSettingsOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettings) *string { return v.EscalationType }).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o TracerouteMonitorAlertSettingsOutput) ParallelRunFailureThresholds() TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsParallelRunFailureThreshold {
+		return v.ParallelRunFailureThresholds
+	}).(TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o TracerouteMonitorAlertSettingsOutput) Reminders() TracerouteMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsReminder { return v.Reminders }).(TracerouteMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o TracerouteMonitorAlertSettingsOutput) RunBasedEscalations() TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsRunBasedEscalation {
+		return v.RunBasedEscalations
+	}).(TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o TracerouteMonitorAlertSettingsOutput) TimeBasedEscalations() TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsTimeBasedEscalation {
+		return v.TimeBasedEscalations
+	}).(TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TracerouteMonitorAlertSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorAlertSettings)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsPtrOutput) ToTracerouteMonitorAlertSettingsPtrOutput() TracerouteMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsPtrOutput) ToTracerouteMonitorAlertSettingsPtrOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsPtrOutput) Elem() TracerouteMonitorAlertSettingsOutput {
+	return o.ApplyT(func(v *TracerouteMonitorAlertSettings) TracerouteMonitorAlertSettings {
+		if v != nil {
+			return *v
+		}
+		var ret TracerouteMonitorAlertSettings
+		return ret
+	}).(TracerouteMonitorAlertSettingsOutput)
+}
+
+// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+func (o TracerouteMonitorAlertSettingsPtrOutput) EscalationType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorAlertSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.EscalationType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Configuration for parallel run failure threshold.
+func (o TracerouteMonitorAlertSettingsPtrOutput) ParallelRunFailureThresholds() TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o.ApplyT(func(v *TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsParallelRunFailureThreshold {
+		if v == nil {
+			return nil
+		}
+		return v.ParallelRunFailureThresholds
+	}).(TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+// Defines how often to send reminder notifications after initial alert.
+func (o TracerouteMonitorAlertSettingsPtrOutput) Reminders() TracerouteMonitorAlertSettingsReminderArrayOutput {
+	return o.ApplyT(func(v *TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsReminder {
+		if v == nil {
+			return nil
+		}
+		return v.Reminders
+	}).(TracerouteMonitorAlertSettingsReminderArrayOutput)
+}
+
+// Configuration for run-based escalation.
+func (o TracerouteMonitorAlertSettingsPtrOutput) RunBasedEscalations() TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsRunBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.RunBasedEscalations
+	}).(TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+// Configuration for time-based escalation.
+func (o TracerouteMonitorAlertSettingsPtrOutput) TimeBasedEscalations() TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o.ApplyT(func(v *TracerouteMonitorAlertSettings) []TracerouteMonitorAlertSettingsTimeBasedEscalation {
+		if v == nil {
+			return nil
+		}
+		return v.TimeBasedEscalations
+	}).(TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TracerouteMonitorAlertSettingsParallelRunFailureThreshold struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage *int `pulumi:"percentage"`
+}
+
+// TracerouteMonitorAlertSettingsParallelRunFailureThresholdInput is an input type that accepts TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs and TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsParallelRunFailureThresholdInput` via:
+//
+//	TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs{...}
+type TracerouteMonitorAlertSettingsParallelRunFailureThresholdInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput() TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput
+	ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Context) TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput
+}
+
+type TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs struct {
+	// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+	Percentage pulumi.IntPtrInput `pulumi:"percentage"`
+}
+
+func (TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput() TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return i.ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+// TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayInput is an input type that accepts TracerouteMonitorAlertSettingsParallelRunFailureThresholdArray and TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayInput` via:
+//
+//	TracerouteMonitorAlertSettingsParallelRunFailureThresholdArray{ TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs{...} }
+type TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+	ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Context) TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput
+}
+
+type TracerouteMonitorAlertSettingsParallelRunFailureThresholdArray []TracerouteMonitorAlertSettingsParallelRunFailureThresholdInput
+
+func (TracerouteMonitorAlertSettingsParallelRunFailureThresholdArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsParallelRunFailureThresholdArray) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return i.ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsParallelRunFailureThresholdArray) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput)
+}
+
+type TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput() TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return o
+}
+
+// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+func (o TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettingsParallelRunFailureThreshold) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+func (o TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput) Percentage() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettingsParallelRunFailureThreshold) *int { return v.Percentage }).(pulumi.IntPtrOutput)
+}
+
+type TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsParallelRunFailureThreshold)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput() TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) ToTracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput) Index(i pulumi.IntInput) TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TracerouteMonitorAlertSettingsParallelRunFailureThreshold {
+		return vs[0].([]TracerouteMonitorAlertSettingsParallelRunFailureThreshold)[vs[1].(int)]
+	}).(TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput)
+}
+
+type TracerouteMonitorAlertSettingsReminder struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount *int `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval *int `pulumi:"interval"`
+}
+
+// TracerouteMonitorAlertSettingsReminderInput is an input type that accepts TracerouteMonitorAlertSettingsReminderArgs and TracerouteMonitorAlertSettingsReminderOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsReminderInput` via:
+//
+//	TracerouteMonitorAlertSettingsReminderArgs{...}
+type TracerouteMonitorAlertSettingsReminderInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsReminderOutput() TracerouteMonitorAlertSettingsReminderOutput
+	ToTracerouteMonitorAlertSettingsReminderOutputWithContext(context.Context) TracerouteMonitorAlertSettingsReminderOutput
+}
+
+type TracerouteMonitorAlertSettingsReminderArgs struct {
+	// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+	Amount pulumi.IntPtrInput `pulumi:"amount"`
+	// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	Interval pulumi.IntPtrInput `pulumi:"interval"`
+}
+
+func (TracerouteMonitorAlertSettingsReminderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsReminderArgs) ToTracerouteMonitorAlertSettingsReminderOutput() TracerouteMonitorAlertSettingsReminderOutput {
+	return i.ToTracerouteMonitorAlertSettingsReminderOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsReminderArgs) ToTracerouteMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsReminderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsReminderOutput)
+}
+
+// TracerouteMonitorAlertSettingsReminderArrayInput is an input type that accepts TracerouteMonitorAlertSettingsReminderArray and TracerouteMonitorAlertSettingsReminderArrayOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsReminderArrayInput` via:
+//
+//	TracerouteMonitorAlertSettingsReminderArray{ TracerouteMonitorAlertSettingsReminderArgs{...} }
+type TracerouteMonitorAlertSettingsReminderArrayInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsReminderArrayOutput() TracerouteMonitorAlertSettingsReminderArrayOutput
+	ToTracerouteMonitorAlertSettingsReminderArrayOutputWithContext(context.Context) TracerouteMonitorAlertSettingsReminderArrayOutput
+}
+
+type TracerouteMonitorAlertSettingsReminderArray []TracerouteMonitorAlertSettingsReminderInput
+
+func (TracerouteMonitorAlertSettingsReminderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsReminderArray) ToTracerouteMonitorAlertSettingsReminderArrayOutput() TracerouteMonitorAlertSettingsReminderArrayOutput {
+	return i.ToTracerouteMonitorAlertSettingsReminderArrayOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsReminderArray) ToTracerouteMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsReminderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsReminderArrayOutput)
+}
+
+type TracerouteMonitorAlertSettingsReminderOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsReminderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsReminderOutput) ToTracerouteMonitorAlertSettingsReminderOutput() TracerouteMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsReminderOutput) ToTracerouteMonitorAlertSettingsReminderOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsReminderOutput {
+	return o
+}
+
+// Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+func (o TracerouteMonitorAlertSettingsReminderOutput) Amount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettingsReminder) *int { return v.Amount }).(pulumi.IntPtrOutput)
+}
+
+// Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o TracerouteMonitorAlertSettingsReminderOutput) Interval() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettingsReminder) *int { return v.Interval }).(pulumi.IntPtrOutput)
+}
+
+type TracerouteMonitorAlertSettingsReminderArrayOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsReminderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsReminder)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsReminderArrayOutput) ToTracerouteMonitorAlertSettingsReminderArrayOutput() TracerouteMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsReminderArrayOutput) ToTracerouteMonitorAlertSettingsReminderArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsReminderArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsReminderArrayOutput) Index(i pulumi.IntInput) TracerouteMonitorAlertSettingsReminderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TracerouteMonitorAlertSettingsReminder {
+		return vs[0].([]TracerouteMonitorAlertSettingsReminder)[vs[1].(int)]
+	}).(TracerouteMonitorAlertSettingsReminderOutput)
+}
+
+type TracerouteMonitorAlertSettingsRunBasedEscalation struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold *int `pulumi:"failedRunThreshold"`
+}
+
+// TracerouteMonitorAlertSettingsRunBasedEscalationInput is an input type that accepts TracerouteMonitorAlertSettingsRunBasedEscalationArgs and TracerouteMonitorAlertSettingsRunBasedEscalationOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsRunBasedEscalationInput` via:
+//
+//	TracerouteMonitorAlertSettingsRunBasedEscalationArgs{...}
+type TracerouteMonitorAlertSettingsRunBasedEscalationInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsRunBasedEscalationOutput() TracerouteMonitorAlertSettingsRunBasedEscalationOutput
+	ToTracerouteMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Context) TracerouteMonitorAlertSettingsRunBasedEscalationOutput
+}
+
+type TracerouteMonitorAlertSettingsRunBasedEscalationArgs struct {
+	// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+	FailedRunThreshold pulumi.IntPtrInput `pulumi:"failedRunThreshold"`
+}
+
+func (TracerouteMonitorAlertSettingsRunBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsRunBasedEscalationArgs) ToTracerouteMonitorAlertSettingsRunBasedEscalationOutput() TracerouteMonitorAlertSettingsRunBasedEscalationOutput {
+	return i.ToTracerouteMonitorAlertSettingsRunBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsRunBasedEscalationArgs) ToTracerouteMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+// TracerouteMonitorAlertSettingsRunBasedEscalationArrayInput is an input type that accepts TracerouteMonitorAlertSettingsRunBasedEscalationArray and TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsRunBasedEscalationArrayInput` via:
+//
+//	TracerouteMonitorAlertSettingsRunBasedEscalationArray{ TracerouteMonitorAlertSettingsRunBasedEscalationArgs{...} }
+type TracerouteMonitorAlertSettingsRunBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput() TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput
+	ToTracerouteMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Context) TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput
+}
+
+type TracerouteMonitorAlertSettingsRunBasedEscalationArray []TracerouteMonitorAlertSettingsRunBasedEscalationInput
+
+func (TracerouteMonitorAlertSettingsRunBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsRunBasedEscalationArray) ToTracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput() TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return i.ToTracerouteMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsRunBasedEscalationArray) ToTracerouteMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput)
+}
+
+type TracerouteMonitorAlertSettingsRunBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsRunBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsRunBasedEscalationOutput) ToTracerouteMonitorAlertSettingsRunBasedEscalationOutput() TracerouteMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsRunBasedEscalationOutput) ToTracerouteMonitorAlertSettingsRunBasedEscalationOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsRunBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+func (o TracerouteMonitorAlertSettingsRunBasedEscalationOutput) FailedRunThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettingsRunBasedEscalation) *int { return v.FailedRunThreshold }).(pulumi.IntPtrOutput)
+}
+
+type TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsRunBasedEscalation)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput) ToTracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput() TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput) ToTracerouteMonitorAlertSettingsRunBasedEscalationArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput) Index(i pulumi.IntInput) TracerouteMonitorAlertSettingsRunBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TracerouteMonitorAlertSettingsRunBasedEscalation {
+		return vs[0].([]TracerouteMonitorAlertSettingsRunBasedEscalation)[vs[1].(int)]
+	}).(TracerouteMonitorAlertSettingsRunBasedEscalationOutput)
+}
+
+type TracerouteMonitorAlertSettingsTimeBasedEscalation struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold *int `pulumi:"minutesFailingThreshold"`
+}
+
+// TracerouteMonitorAlertSettingsTimeBasedEscalationInput is an input type that accepts TracerouteMonitorAlertSettingsTimeBasedEscalationArgs and TracerouteMonitorAlertSettingsTimeBasedEscalationOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsTimeBasedEscalationInput` via:
+//
+//	TracerouteMonitorAlertSettingsTimeBasedEscalationArgs{...}
+type TracerouteMonitorAlertSettingsTimeBasedEscalationInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsTimeBasedEscalationOutput() TracerouteMonitorAlertSettingsTimeBasedEscalationOutput
+	ToTracerouteMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Context) TracerouteMonitorAlertSettingsTimeBasedEscalationOutput
+}
+
+type TracerouteMonitorAlertSettingsTimeBasedEscalationArgs struct {
+	// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+	MinutesFailingThreshold pulumi.IntPtrInput `pulumi:"minutesFailingThreshold"`
+}
+
+func (TracerouteMonitorAlertSettingsTimeBasedEscalationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsTimeBasedEscalationArgs) ToTracerouteMonitorAlertSettingsTimeBasedEscalationOutput() TracerouteMonitorAlertSettingsTimeBasedEscalationOutput {
+	return i.ToTracerouteMonitorAlertSettingsTimeBasedEscalationOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsTimeBasedEscalationArgs) ToTracerouteMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+// TracerouteMonitorAlertSettingsTimeBasedEscalationArrayInput is an input type that accepts TracerouteMonitorAlertSettingsTimeBasedEscalationArray and TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput values.
+// You can construct a concrete instance of `TracerouteMonitorAlertSettingsTimeBasedEscalationArrayInput` via:
+//
+//	TracerouteMonitorAlertSettingsTimeBasedEscalationArray{ TracerouteMonitorAlertSettingsTimeBasedEscalationArgs{...} }
+type TracerouteMonitorAlertSettingsTimeBasedEscalationArrayInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput() TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput
+	ToTracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Context) TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput
+}
+
+type TracerouteMonitorAlertSettingsTimeBasedEscalationArray []TracerouteMonitorAlertSettingsTimeBasedEscalationInput
+
+func (TracerouteMonitorAlertSettingsTimeBasedEscalationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (i TracerouteMonitorAlertSettingsTimeBasedEscalationArray) ToTracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput() TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return i.ToTracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorAlertSettingsTimeBasedEscalationArray) ToTracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput)
+}
+
+type TracerouteMonitorAlertSettingsTimeBasedEscalationOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsTimeBasedEscalationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsTimeBasedEscalationOutput) ToTracerouteMonitorAlertSettingsTimeBasedEscalationOutput() TracerouteMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsTimeBasedEscalationOutput) ToTracerouteMonitorAlertSettingsTimeBasedEscalationOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsTimeBasedEscalationOutput {
+	return o
+}
+
+// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+func (o TracerouteMonitorAlertSettingsTimeBasedEscalationOutput) MinutesFailingThreshold() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorAlertSettingsTimeBasedEscalation) *int { return v.MinutesFailingThreshold }).(pulumi.IntPtrOutput)
+}
+
+type TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorAlertSettingsTimeBasedEscalation)(nil)).Elem()
+}
+
+func (o TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToTracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput() TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput) ToTracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutputWithContext(ctx context.Context) TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.IntInput) TracerouteMonitorAlertSettingsTimeBasedEscalationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TracerouteMonitorAlertSettingsTimeBasedEscalation {
+		return vs[0].([]TracerouteMonitorAlertSettingsTimeBasedEscalation)[vs[1].(int)]
+	}).(TracerouteMonitorAlertSettingsTimeBasedEscalationOutput)
+}
+
+type TracerouteMonitorRequest struct {
+	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+	Assertions []TracerouteMonitorRequestAssertion `pulumi:"assertions"`
+	// The IP family to use when executing the traceroute. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily *string `pulumi:"ipFamily"`
+	// The maximum number of network hops to probe before stopping. Possible values are between 1 and 64. (Default `30`).
+	MaxHops *int `pulumi:"maxHops"`
+	// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between 1 and 30, and the value must not exceed `maxHops`. (Default `min(15, max_hops)`).
+	MaxUnknownHops *int `pulumi:"maxUnknownHops"`
+	// The destination port for TCP/UDP/SCTP probes. Possible values are between 1 and 65535. Ignored (and not sent) when `protocol = "ICMP"`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`.
+	Port *int `pulumi:"port"`
+	// The probe protocol. `TCP` sends SYN probes (default), `UDP` sends datagrams to a high port, `ICMP` sends Echo Requests, `SCTP` sends INIT chunks. (Default `TCP`).
+	Protocol *string `pulumi:"protocol"`
+	// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. (Default `true`).
+	PtrLookup *bool `pulumi:"ptrLookup"`
+	// The number of seconds to wait for the traceroute to complete before timing out. Possible values are between 1 and 30. (Default `10`).
+	Timeout *int `pulumi:"timeout"`
+	// The host to trace the network path to. Do not include a scheme or a port in this value.
+	Url string `pulumi:"url"`
+}
+
+// TracerouteMonitorRequestInput is an input type that accepts TracerouteMonitorRequestArgs and TracerouteMonitorRequestOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRequestInput` via:
+//
+//	TracerouteMonitorRequestArgs{...}
+type TracerouteMonitorRequestInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRequestOutput() TracerouteMonitorRequestOutput
+	ToTracerouteMonitorRequestOutputWithContext(context.Context) TracerouteMonitorRequestOutput
+}
+
+type TracerouteMonitorRequestArgs struct {
+	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+	Assertions TracerouteMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	// The IP family to use when executing the traceroute. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
+	// The maximum number of network hops to probe before stopping. Possible values are between 1 and 64. (Default `30`).
+	MaxHops pulumi.IntPtrInput `pulumi:"maxHops"`
+	// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between 1 and 30, and the value must not exceed `maxHops`. (Default `min(15, max_hops)`).
+	MaxUnknownHops pulumi.IntPtrInput `pulumi:"maxUnknownHops"`
+	// The destination port for TCP/UDP/SCTP probes. Possible values are between 1 and 65535. Ignored (and not sent) when `protocol = "ICMP"`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`.
+	Port pulumi.IntPtrInput `pulumi:"port"`
+	// The probe protocol. `TCP` sends SYN probes (default), `UDP` sends datagrams to a high port, `ICMP` sends Echo Requests, `SCTP` sends INIT chunks. (Default `TCP`).
+	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
+	// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. (Default `true`).
+	PtrLookup pulumi.BoolPtrInput `pulumi:"ptrLookup"`
+	// The number of seconds to wait for the traceroute to complete before timing out. Possible values are between 1 and 30. (Default `10`).
+	Timeout pulumi.IntPtrInput `pulumi:"timeout"`
+	// The host to trace the network path to. Do not include a scheme or a port in this value.
+	Url pulumi.StringInput `pulumi:"url"`
+}
+
+func (TracerouteMonitorRequestArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRequest)(nil)).Elem()
+}
+
+func (i TracerouteMonitorRequestArgs) ToTracerouteMonitorRequestOutput() TracerouteMonitorRequestOutput {
+	return i.ToTracerouteMonitorRequestOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRequestArgs) ToTracerouteMonitorRequestOutputWithContext(ctx context.Context) TracerouteMonitorRequestOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRequestOutput)
+}
+
+func (i TracerouteMonitorRequestArgs) ToTracerouteMonitorRequestPtrOutput() TracerouteMonitorRequestPtrOutput {
+	return i.ToTracerouteMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRequestArgs) ToTracerouteMonitorRequestPtrOutputWithContext(ctx context.Context) TracerouteMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRequestOutput).ToTracerouteMonitorRequestPtrOutputWithContext(ctx)
+}
+
+// TracerouteMonitorRequestPtrInput is an input type that accepts TracerouteMonitorRequestArgs, TracerouteMonitorRequestPtr and TracerouteMonitorRequestPtrOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRequestPtrInput` via:
+//
+//	        TracerouteMonitorRequestArgs{...}
+//
+//	or:
+//
+//	        nil
+type TracerouteMonitorRequestPtrInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRequestPtrOutput() TracerouteMonitorRequestPtrOutput
+	ToTracerouteMonitorRequestPtrOutputWithContext(context.Context) TracerouteMonitorRequestPtrOutput
+}
+
+type tracerouteMonitorRequestPtrType TracerouteMonitorRequestArgs
+
+func TracerouteMonitorRequestPtr(v *TracerouteMonitorRequestArgs) TracerouteMonitorRequestPtrInput {
+	return (*tracerouteMonitorRequestPtrType)(v)
+}
+
+func (*tracerouteMonitorRequestPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorRequest)(nil)).Elem()
+}
+
+func (i *tracerouteMonitorRequestPtrType) ToTracerouteMonitorRequestPtrOutput() TracerouteMonitorRequestPtrOutput {
+	return i.ToTracerouteMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (i *tracerouteMonitorRequestPtrType) ToTracerouteMonitorRequestPtrOutputWithContext(ctx context.Context) TracerouteMonitorRequestPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRequestPtrOutput)
+}
+
+type TracerouteMonitorRequestOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRequestOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRequest)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRequestOutput) ToTracerouteMonitorRequestOutput() TracerouteMonitorRequestOutput {
+	return o
+}
+
+func (o TracerouteMonitorRequestOutput) ToTracerouteMonitorRequestOutputWithContext(ctx context.Context) TracerouteMonitorRequestOutput {
+	return o
+}
+
+func (o TracerouteMonitorRequestOutput) ToTracerouteMonitorRequestPtrOutput() TracerouteMonitorRequestPtrOutput {
+	return o.ToTracerouteMonitorRequestPtrOutputWithContext(context.Background())
+}
+
+func (o TracerouteMonitorRequestOutput) ToTracerouteMonitorRequestPtrOutputWithContext(ctx context.Context) TracerouteMonitorRequestPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TracerouteMonitorRequest) *TracerouteMonitorRequest {
+		return &v
+	}).(TracerouteMonitorRequestPtrOutput)
+}
+
+// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+func (o TracerouteMonitorRequestOutput) Assertions() TracerouteMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) []TracerouteMonitorRequestAssertion { return v.Assertions }).(TracerouteMonitorRequestAssertionArrayOutput)
+}
+
+// The IP family to use when executing the traceroute. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o TracerouteMonitorRequestOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+}
+
+// The maximum number of network hops to probe before stopping. Possible values are between 1 and 64. (Default `30`).
+func (o TracerouteMonitorRequestOutput) MaxHops() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) *int { return v.MaxHops }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between 1 and 30, and the value must not exceed `maxHops`. (Default `min(15, max_hops)`).
+func (o TracerouteMonitorRequestOutput) MaxUnknownHops() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) *int { return v.MaxUnknownHops }).(pulumi.IntPtrOutput)
+}
+
+// The destination port for TCP/UDP/SCTP probes. Possible values are between 1 and 65535. Ignored (and not sent) when `protocol = "ICMP"`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`.
+func (o TracerouteMonitorRequestOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+// The probe protocol. `TCP` sends SYN probes (default), `UDP` sends datagrams to a high port, `ICMP` sends Echo Requests, `SCTP` sends INIT chunks. (Default `TCP`).
+func (o TracerouteMonitorRequestOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
+// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. (Default `true`).
+func (o TracerouteMonitorRequestOutput) PtrLookup() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) *bool { return v.PtrLookup }).(pulumi.BoolPtrOutput)
+}
+
+// The number of seconds to wait for the traceroute to complete before timing out. Possible values are between 1 and 30. (Default `10`).
+func (o TracerouteMonitorRequestOutput) Timeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) *int { return v.Timeout }).(pulumi.IntPtrOutput)
+}
+
+// The host to trace the network path to. Do not include a scheme or a port in this value.
+func (o TracerouteMonitorRequestOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequest) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type TracerouteMonitorRequestPtrOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRequestPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorRequest)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRequestPtrOutput) ToTracerouteMonitorRequestPtrOutput() TracerouteMonitorRequestPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorRequestPtrOutput) ToTracerouteMonitorRequestPtrOutputWithContext(ctx context.Context) TracerouteMonitorRequestPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorRequestPtrOutput) Elem() TracerouteMonitorRequestOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) TracerouteMonitorRequest {
+		if v != nil {
+			return *v
+		}
+		var ret TracerouteMonitorRequest
+		return ret
+	}).(TracerouteMonitorRequestOutput)
+}
+
+// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+func (o TracerouteMonitorRequestPtrOutput) Assertions() TracerouteMonitorRequestAssertionArrayOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) []TracerouteMonitorRequestAssertion {
+		if v == nil {
+			return nil
+		}
+		return v.Assertions
+	}).(TracerouteMonitorRequestAssertionArrayOutput)
+}
+
+// The IP family to use when executing the traceroute. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+func (o TracerouteMonitorRequestPtrOutput) IpFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.IpFamily
+	}).(pulumi.StringPtrOutput)
+}
+
+// The maximum number of network hops to probe before stopping. Possible values are between 1 and 64. (Default `30`).
+func (o TracerouteMonitorRequestPtrOutput) MaxHops() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxHops
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between 1 and 30, and the value must not exceed `maxHops`. (Default `min(15, max_hops)`).
+func (o TracerouteMonitorRequestPtrOutput) MaxUnknownHops() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxUnknownHops
+	}).(pulumi.IntPtrOutput)
+}
+
+// The destination port for TCP/UDP/SCTP probes. Possible values are between 1 and 65535. Ignored (and not sent) when `protocol = "ICMP"`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`.
+func (o TracerouteMonitorRequestPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+// The probe protocol. `TCP` sends SYN probes (default), `UDP` sends datagrams to a high port, `ICMP` sends Echo Requests, `SCTP` sends INIT chunks. (Default `TCP`).
+func (o TracerouteMonitorRequestPtrOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Protocol
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. (Default `true`).
+func (o TracerouteMonitorRequestPtrOutput) PtrLookup() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.PtrLookup
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The number of seconds to wait for the traceroute to complete before timing out. Possible values are between 1 and 30. (Default `10`).
+func (o TracerouteMonitorRequestPtrOutput) Timeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Timeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// The host to trace the network path to. Do not include a scheme or a port in this value.
+func (o TracerouteMonitorRequestPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type TracerouteMonitorRequestAssertion struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. For `RESPONSE_TIME`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `HOP_COUNT` and `PACKET_LOSS`, possible values are `EQUALS`, `GREATER_THAN`, and `LESS_THAN`.
+	Comparison string `pulumi:"comparison"`
+	// The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max`, and `stdDev`. Must be empty for `HOP_COUNT` and `PACKET_LOSS`.
+	Property *string `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_TIME`, `HOP_COUNT`, and `PACKET_LOSS`.
+	Source string `pulumi:"source"`
+	// The value to compare against. Must be numeric: a non-negative number of milliseconds for `RESPONSE_TIME`, a non-negative integer for `HOP_COUNT`, or a number between 0 and 100 for `PACKET_LOSS`.
+	Target *string `pulumi:"target"`
+}
+
+// TracerouteMonitorRequestAssertionInput is an input type that accepts TracerouteMonitorRequestAssertionArgs and TracerouteMonitorRequestAssertionOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRequestAssertionInput` via:
+//
+//	TracerouteMonitorRequestAssertionArgs{...}
+type TracerouteMonitorRequestAssertionInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRequestAssertionOutput() TracerouteMonitorRequestAssertionOutput
+	ToTracerouteMonitorRequestAssertionOutputWithContext(context.Context) TracerouteMonitorRequestAssertionOutput
+}
+
+type TracerouteMonitorRequestAssertionArgs struct {
+	// The type of comparison to be executed between expected and actual value of the assertion. For `RESPONSE_TIME`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `HOP_COUNT` and `PACKET_LOSS`, possible values are `EQUALS`, `GREATER_THAN`, and `LESS_THAN`.
+	Comparison pulumi.StringInput `pulumi:"comparison"`
+	// The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max`, and `stdDev`. Must be empty for `HOP_COUNT` and `PACKET_LOSS`.
+	Property pulumi.StringPtrInput `pulumi:"property"`
+	// The source of the asserted value. Possible values are `RESPONSE_TIME`, `HOP_COUNT`, and `PACKET_LOSS`.
+	Source pulumi.StringInput `pulumi:"source"`
+	// The value to compare against. Must be numeric: a non-negative number of milliseconds for `RESPONSE_TIME`, a non-negative integer for `HOP_COUNT`, or a number between 0 and 100 for `PACKET_LOSS`.
+	Target pulumi.StringPtrInput `pulumi:"target"`
+}
+
+func (TracerouteMonitorRequestAssertionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i TracerouteMonitorRequestAssertionArgs) ToTracerouteMonitorRequestAssertionOutput() TracerouteMonitorRequestAssertionOutput {
+	return i.ToTracerouteMonitorRequestAssertionOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRequestAssertionArgs) ToTracerouteMonitorRequestAssertionOutputWithContext(ctx context.Context) TracerouteMonitorRequestAssertionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRequestAssertionOutput)
+}
+
+// TracerouteMonitorRequestAssertionArrayInput is an input type that accepts TracerouteMonitorRequestAssertionArray and TracerouteMonitorRequestAssertionArrayOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRequestAssertionArrayInput` via:
+//
+//	TracerouteMonitorRequestAssertionArray{ TracerouteMonitorRequestAssertionArgs{...} }
+type TracerouteMonitorRequestAssertionArrayInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRequestAssertionArrayOutput() TracerouteMonitorRequestAssertionArrayOutput
+	ToTracerouteMonitorRequestAssertionArrayOutputWithContext(context.Context) TracerouteMonitorRequestAssertionArrayOutput
+}
+
+type TracerouteMonitorRequestAssertionArray []TracerouteMonitorRequestAssertionInput
+
+func (TracerouteMonitorRequestAssertionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (i TracerouteMonitorRequestAssertionArray) ToTracerouteMonitorRequestAssertionArrayOutput() TracerouteMonitorRequestAssertionArrayOutput {
+	return i.ToTracerouteMonitorRequestAssertionArrayOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRequestAssertionArray) ToTracerouteMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) TracerouteMonitorRequestAssertionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRequestAssertionArrayOutput)
+}
+
+type TracerouteMonitorRequestAssertionOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRequestAssertionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRequestAssertionOutput) ToTracerouteMonitorRequestAssertionOutput() TracerouteMonitorRequestAssertionOutput {
+	return o
+}
+
+func (o TracerouteMonitorRequestAssertionOutput) ToTracerouteMonitorRequestAssertionOutputWithContext(ctx context.Context) TracerouteMonitorRequestAssertionOutput {
+	return o
+}
+
+// The type of comparison to be executed between expected and actual value of the assertion. For `RESPONSE_TIME`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `HOP_COUNT` and `PACKET_LOSS`, possible values are `EQUALS`, `GREATER_THAN`, and `LESS_THAN`.
+func (o TracerouteMonitorRequestAssertionOutput) Comparison() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequestAssertion) string { return v.Comparison }).(pulumi.StringOutput)
+}
+
+// The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max`, and `stdDev`. Must be empty for `HOP_COUNT` and `PACKET_LOSS`.
+func (o TracerouteMonitorRequestAssertionOutput) Property() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequestAssertion) *string { return v.Property }).(pulumi.StringPtrOutput)
+}
+
+// The source of the asserted value. Possible values are `RESPONSE_TIME`, `HOP_COUNT`, and `PACKET_LOSS`.
+func (o TracerouteMonitorRequestAssertionOutput) Source() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequestAssertion) string { return v.Source }).(pulumi.StringOutput)
+}
+
+// The value to compare against. Must be numeric: a non-negative number of milliseconds for `RESPONSE_TIME`, a non-negative integer for `HOP_COUNT`, or a number between 0 and 100 for `PACKET_LOSS`.
+func (o TracerouteMonitorRequestAssertionOutput) Target() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRequestAssertion) *string { return v.Target }).(pulumi.StringPtrOutput)
+}
+
+type TracerouteMonitorRequestAssertionArrayOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRequestAssertionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TracerouteMonitorRequestAssertion)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRequestAssertionArrayOutput) ToTracerouteMonitorRequestAssertionArrayOutput() TracerouteMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorRequestAssertionArrayOutput) ToTracerouteMonitorRequestAssertionArrayOutputWithContext(ctx context.Context) TracerouteMonitorRequestAssertionArrayOutput {
+	return o
+}
+
+func (o TracerouteMonitorRequestAssertionArrayOutput) Index(i pulumi.IntInput) TracerouteMonitorRequestAssertionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TracerouteMonitorRequestAssertion {
+		return vs[0].([]TracerouteMonitorRequestAssertion)[vs[1].(int)]
+	}).(TracerouteMonitorRequestAssertionOutput)
+}
+
+type TracerouteMonitorRetryStrategy struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds *int `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds *int `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries *int `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn *TracerouteMonitorRetryStrategyOnlyOn `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion *bool `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type string `pulumi:"type"`
+}
+
+// TracerouteMonitorRetryStrategyInput is an input type that accepts TracerouteMonitorRetryStrategyArgs and TracerouteMonitorRetryStrategyOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRetryStrategyInput` via:
+//
+//	TracerouteMonitorRetryStrategyArgs{...}
+type TracerouteMonitorRetryStrategyInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRetryStrategyOutput() TracerouteMonitorRetryStrategyOutput
+	ToTracerouteMonitorRetryStrategyOutputWithContext(context.Context) TracerouteMonitorRetryStrategyOutput
+}
+
+type TracerouteMonitorRetryStrategyArgs struct {
+	// The number of seconds to wait before the first retry attempt. (Default `60`).
+	BaseBackoffSeconds pulumi.IntPtrInput `pulumi:"baseBackoffSeconds"`
+	// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+	MaxDurationSeconds pulumi.IntPtrInput `pulumi:"maxDurationSeconds"`
+	// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+	MaxRetries pulumi.IntPtrInput `pulumi:"maxRetries"`
+	// Apply the retry strategy only if the defined conditions match.
+	OnlyOn TracerouteMonitorRetryStrategyOnlyOnPtrInput `pulumi:"onlyOn"`
+	// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+	SameRegion pulumi.BoolPtrInput `pulumi:"sameRegion"`
+	// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (TracerouteMonitorRetryStrategyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i TracerouteMonitorRetryStrategyArgs) ToTracerouteMonitorRetryStrategyOutput() TracerouteMonitorRetryStrategyOutput {
+	return i.ToTracerouteMonitorRetryStrategyOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRetryStrategyArgs) ToTracerouteMonitorRetryStrategyOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRetryStrategyOutput)
+}
+
+func (i TracerouteMonitorRetryStrategyArgs) ToTracerouteMonitorRetryStrategyPtrOutput() TracerouteMonitorRetryStrategyPtrOutput {
+	return i.ToTracerouteMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRetryStrategyArgs) ToTracerouteMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRetryStrategyOutput).ToTracerouteMonitorRetryStrategyPtrOutputWithContext(ctx)
+}
+
+// TracerouteMonitorRetryStrategyPtrInput is an input type that accepts TracerouteMonitorRetryStrategyArgs, TracerouteMonitorRetryStrategyPtr and TracerouteMonitorRetryStrategyPtrOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRetryStrategyPtrInput` via:
+//
+//	        TracerouteMonitorRetryStrategyArgs{...}
+//
+//	or:
+//
+//	        nil
+type TracerouteMonitorRetryStrategyPtrInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRetryStrategyPtrOutput() TracerouteMonitorRetryStrategyPtrOutput
+	ToTracerouteMonitorRetryStrategyPtrOutputWithContext(context.Context) TracerouteMonitorRetryStrategyPtrOutput
+}
+
+type tracerouteMonitorRetryStrategyPtrType TracerouteMonitorRetryStrategyArgs
+
+func TracerouteMonitorRetryStrategyPtr(v *TracerouteMonitorRetryStrategyArgs) TracerouteMonitorRetryStrategyPtrInput {
+	return (*tracerouteMonitorRetryStrategyPtrType)(v)
+}
+
+func (*tracerouteMonitorRetryStrategyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (i *tracerouteMonitorRetryStrategyPtrType) ToTracerouteMonitorRetryStrategyPtrOutput() TracerouteMonitorRetryStrategyPtrOutput {
+	return i.ToTracerouteMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (i *tracerouteMonitorRetryStrategyPtrType) ToTracerouteMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRetryStrategyPtrOutput)
+}
+
+type TracerouteMonitorRetryStrategyOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRetryStrategyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRetryStrategyOutput) ToTracerouteMonitorRetryStrategyOutput() TracerouteMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyOutput) ToTracerouteMonitorRetryStrategyOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyOutput) ToTracerouteMonitorRetryStrategyPtrOutput() TracerouteMonitorRetryStrategyPtrOutput {
+	return o.ToTracerouteMonitorRetryStrategyPtrOutputWithContext(context.Background())
+}
+
+func (o TracerouteMonitorRetryStrategyOutput) ToTracerouteMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TracerouteMonitorRetryStrategy) *TracerouteMonitorRetryStrategy {
+		return &v
+	}).(TracerouteMonitorRetryStrategyPtrOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o TracerouteMonitorRetryStrategyOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRetryStrategy) *int { return v.BaseBackoffSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o TracerouteMonitorRetryStrategyOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRetryStrategy) *int { return v.MaxDurationSeconds }).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o TracerouteMonitorRetryStrategyOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRetryStrategy) *int { return v.MaxRetries }).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o TracerouteMonitorRetryStrategyOutput) OnlyOn() TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRetryStrategy) *TracerouteMonitorRetryStrategyOnlyOn { return v.OnlyOn }).(TracerouteMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o TracerouteMonitorRetryStrategyOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TracerouteMonitorRetryStrategy) *bool { return v.SameRegion }).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o TracerouteMonitorRetryStrategyOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorRetryStrategy) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type TracerouteMonitorRetryStrategyPtrOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRetryStrategyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorRetryStrategy)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRetryStrategyPtrOutput) ToTracerouteMonitorRetryStrategyPtrOutput() TracerouteMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyPtrOutput) ToTracerouteMonitorRetryStrategyPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyPtrOutput) Elem() TracerouteMonitorRetryStrategyOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategy) TracerouteMonitorRetryStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret TracerouteMonitorRetryStrategy
+		return ret
+	}).(TracerouteMonitorRetryStrategyOutput)
+}
+
+// The number of seconds to wait before the first retry attempt. (Default `60`).
+func (o TracerouteMonitorRetryStrategyPtrOutput) BaseBackoffSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BaseBackoffSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+func (o TracerouteMonitorRetryStrategyPtrOutput) MaxDurationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxDurationSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+func (o TracerouteMonitorRetryStrategyPtrOutput) MaxRetries() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategy) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxRetries
+	}).(pulumi.IntPtrOutput)
+}
+
+// Apply the retry strategy only if the defined conditions match.
+func (o TracerouteMonitorRetryStrategyPtrOutput) OnlyOn() TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategy) *TracerouteMonitorRetryStrategyOnlyOn {
+		if v == nil {
+			return nil
+		}
+		return v.OnlyOn
+	}).(TracerouteMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+func (o TracerouteMonitorRetryStrategyPtrOutput) SameRegion() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategy) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SameRegion
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+func (o TracerouteMonitorRetryStrategyPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategy) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type TracerouteMonitorRetryStrategyOnlyOn struct {
+}
+
+// TracerouteMonitorRetryStrategyOnlyOnInput is an input type that accepts TracerouteMonitorRetryStrategyOnlyOnArgs and TracerouteMonitorRetryStrategyOnlyOnOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRetryStrategyOnlyOnInput` via:
+//
+//	TracerouteMonitorRetryStrategyOnlyOnArgs{...}
+type TracerouteMonitorRetryStrategyOnlyOnInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRetryStrategyOnlyOnOutput() TracerouteMonitorRetryStrategyOnlyOnOutput
+	ToTracerouteMonitorRetryStrategyOnlyOnOutputWithContext(context.Context) TracerouteMonitorRetryStrategyOnlyOnOutput
+}
+
+type TracerouteMonitorRetryStrategyOnlyOnArgs struct {
+}
+
+func (TracerouteMonitorRetryStrategyOnlyOnArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i TracerouteMonitorRetryStrategyOnlyOnArgs) ToTracerouteMonitorRetryStrategyOnlyOnOutput() TracerouteMonitorRetryStrategyOnlyOnOutput {
+	return i.ToTracerouteMonitorRetryStrategyOnlyOnOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRetryStrategyOnlyOnArgs) ToTracerouteMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOnlyOnOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRetryStrategyOnlyOnOutput)
+}
+
+func (i TracerouteMonitorRetryStrategyOnlyOnArgs) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutput() TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorRetryStrategyOnlyOnArgs) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRetryStrategyOnlyOnOutput).ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx)
+}
+
+// TracerouteMonitorRetryStrategyOnlyOnPtrInput is an input type that accepts TracerouteMonitorRetryStrategyOnlyOnArgs, TracerouteMonitorRetryStrategyOnlyOnPtr and TracerouteMonitorRetryStrategyOnlyOnPtrOutput values.
+// You can construct a concrete instance of `TracerouteMonitorRetryStrategyOnlyOnPtrInput` via:
+//
+//	        TracerouteMonitorRetryStrategyOnlyOnArgs{...}
+//
+//	or:
+//
+//	        nil
+type TracerouteMonitorRetryStrategyOnlyOnPtrInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorRetryStrategyOnlyOnPtrOutput() TracerouteMonitorRetryStrategyOnlyOnPtrOutput
+	ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Context) TracerouteMonitorRetryStrategyOnlyOnPtrOutput
+}
+
+type tracerouteMonitorRetryStrategyOnlyOnPtrType TracerouteMonitorRetryStrategyOnlyOnArgs
+
+func TracerouteMonitorRetryStrategyOnlyOnPtr(v *TracerouteMonitorRetryStrategyOnlyOnArgs) TracerouteMonitorRetryStrategyOnlyOnPtrInput {
+	return (*tracerouteMonitorRetryStrategyOnlyOnPtrType)(v)
+}
+
+func (*tracerouteMonitorRetryStrategyOnlyOnPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (i *tracerouteMonitorRetryStrategyOnlyOnPtrType) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutput() TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return i.ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (i *tracerouteMonitorRetryStrategyOnlyOnPtrType) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type TracerouteMonitorRetryStrategyOnlyOnOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRetryStrategyOnlyOnOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRetryStrategyOnlyOnOutput) ToTracerouteMonitorRetryStrategyOnlyOnOutput() TracerouteMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyOnlyOnOutput) ToTracerouteMonitorRetryStrategyOnlyOnOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOnlyOnOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyOnlyOnOutput) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutput() TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(context.Background())
+}
+
+func (o TracerouteMonitorRetryStrategyOnlyOnOutput) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TracerouteMonitorRetryStrategyOnlyOn) *TracerouteMonitorRetryStrategyOnlyOn {
+		return &v
+	}).(TracerouteMonitorRetryStrategyOnlyOnPtrOutput)
+}
+
+type TracerouteMonitorRetryStrategyOnlyOnPtrOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorRetryStrategyOnlyOnPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorRetryStrategyOnlyOn)(nil)).Elem()
+}
+
+func (o TracerouteMonitorRetryStrategyOnlyOnPtrOutput) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutput() TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyOnlyOnPtrOutput) ToTracerouteMonitorRetryStrategyOnlyOnPtrOutputWithContext(ctx context.Context) TracerouteMonitorRetryStrategyOnlyOnPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorRetryStrategyOnlyOnPtrOutput) Elem() TracerouteMonitorRetryStrategyOnlyOnOutput {
+	return o.ApplyT(func(v *TracerouteMonitorRetryStrategyOnlyOn) TracerouteMonitorRetryStrategyOnlyOn {
+		if v != nil {
+			return *v
+		}
+		var ret TracerouteMonitorRetryStrategyOnlyOn
+		return ret
+	}).(TracerouteMonitorRetryStrategyOnlyOnOutput)
+}
+
+type TracerouteMonitorTriggerIncident struct {
+	// A detailed description of the incident.
+	Description string `pulumi:"description"`
+	// The name of the incident.
+	Name string `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers bool `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId string `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity string `pulumi:"severity"`
+}
+
+// TracerouteMonitorTriggerIncidentInput is an input type that accepts TracerouteMonitorTriggerIncidentArgs and TracerouteMonitorTriggerIncidentOutput values.
+// You can construct a concrete instance of `TracerouteMonitorTriggerIncidentInput` via:
+//
+//	TracerouteMonitorTriggerIncidentArgs{...}
+type TracerouteMonitorTriggerIncidentInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorTriggerIncidentOutput() TracerouteMonitorTriggerIncidentOutput
+	ToTracerouteMonitorTriggerIncidentOutputWithContext(context.Context) TracerouteMonitorTriggerIncidentOutput
+}
+
+type TracerouteMonitorTriggerIncidentArgs struct {
+	// A detailed description of the incident.
+	Description pulumi.StringInput `pulumi:"description"`
+	// The name of the incident.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Whether to notify subscribers when the incident is triggered.
+	NotifySubscribers pulumi.BoolInput `pulumi:"notifySubscribers"`
+	// The status page service that this incident will be associated with.
+	ServiceId pulumi.StringInput `pulumi:"serviceId"`
+	// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+	Severity pulumi.StringInput `pulumi:"severity"`
+}
+
+func (TracerouteMonitorTriggerIncidentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i TracerouteMonitorTriggerIncidentArgs) ToTracerouteMonitorTriggerIncidentOutput() TracerouteMonitorTriggerIncidentOutput {
+	return i.ToTracerouteMonitorTriggerIncidentOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorTriggerIncidentArgs) ToTracerouteMonitorTriggerIncidentOutputWithContext(ctx context.Context) TracerouteMonitorTriggerIncidentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorTriggerIncidentOutput)
+}
+
+func (i TracerouteMonitorTriggerIncidentArgs) ToTracerouteMonitorTriggerIncidentPtrOutput() TracerouteMonitorTriggerIncidentPtrOutput {
+	return i.ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i TracerouteMonitorTriggerIncidentArgs) ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TracerouteMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorTriggerIncidentOutput).ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(ctx)
+}
+
+// TracerouteMonitorTriggerIncidentPtrInput is an input type that accepts TracerouteMonitorTriggerIncidentArgs, TracerouteMonitorTriggerIncidentPtr and TracerouteMonitorTriggerIncidentPtrOutput values.
+// You can construct a concrete instance of `TracerouteMonitorTriggerIncidentPtrInput` via:
+//
+//	        TracerouteMonitorTriggerIncidentArgs{...}
+//
+//	or:
+//
+//	        nil
+type TracerouteMonitorTriggerIncidentPtrInput interface {
+	pulumi.Input
+
+	ToTracerouteMonitorTriggerIncidentPtrOutput() TracerouteMonitorTriggerIncidentPtrOutput
+	ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(context.Context) TracerouteMonitorTriggerIncidentPtrOutput
+}
+
+type tracerouteMonitorTriggerIncidentPtrType TracerouteMonitorTriggerIncidentArgs
+
+func TracerouteMonitorTriggerIncidentPtr(v *TracerouteMonitorTriggerIncidentArgs) TracerouteMonitorTriggerIncidentPtrInput {
+	return (*tracerouteMonitorTriggerIncidentPtrType)(v)
+}
+
+func (*tracerouteMonitorTriggerIncidentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (i *tracerouteMonitorTriggerIncidentPtrType) ToTracerouteMonitorTriggerIncidentPtrOutput() TracerouteMonitorTriggerIncidentPtrOutput {
+	return i.ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (i *tracerouteMonitorTriggerIncidentPtrType) ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TracerouteMonitorTriggerIncidentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TracerouteMonitorTriggerIncidentPtrOutput)
+}
+
+type TracerouteMonitorTriggerIncidentOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorTriggerIncidentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TracerouteMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o TracerouteMonitorTriggerIncidentOutput) ToTracerouteMonitorTriggerIncidentOutput() TracerouteMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o TracerouteMonitorTriggerIncidentOutput) ToTracerouteMonitorTriggerIncidentOutputWithContext(ctx context.Context) TracerouteMonitorTriggerIncidentOutput {
+	return o
+}
+
+func (o TracerouteMonitorTriggerIncidentOutput) ToTracerouteMonitorTriggerIncidentPtrOutput() TracerouteMonitorTriggerIncidentPtrOutput {
+	return o.ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(context.Background())
+}
+
+func (o TracerouteMonitorTriggerIncidentOutput) ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TracerouteMonitorTriggerIncidentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TracerouteMonitorTriggerIncident) *TracerouteMonitorTriggerIncident {
+		return &v
+	}).(TracerouteMonitorTriggerIncidentPtrOutput)
+}
+
+// A detailed description of the incident.
+func (o TracerouteMonitorTriggerIncidentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorTriggerIncident) string { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the incident.
+func (o TracerouteMonitorTriggerIncidentOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorTriggerIncident) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o TracerouteMonitorTriggerIncidentOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v TracerouteMonitorTriggerIncident) bool { return v.NotifySubscribers }).(pulumi.BoolOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o TracerouteMonitorTriggerIncidentOutput) ServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorTriggerIncident) string { return v.ServiceId }).(pulumi.StringOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o TracerouteMonitorTriggerIncidentOutput) Severity() pulumi.StringOutput {
+	return o.ApplyT(func(v TracerouteMonitorTriggerIncident) string { return v.Severity }).(pulumi.StringOutput)
+}
+
+type TracerouteMonitorTriggerIncidentPtrOutput struct{ *pulumi.OutputState }
+
+func (TracerouteMonitorTriggerIncidentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TracerouteMonitorTriggerIncident)(nil)).Elem()
+}
+
+func (o TracerouteMonitorTriggerIncidentPtrOutput) ToTracerouteMonitorTriggerIncidentPtrOutput() TracerouteMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorTriggerIncidentPtrOutput) ToTracerouteMonitorTriggerIncidentPtrOutputWithContext(ctx context.Context) TracerouteMonitorTriggerIncidentPtrOutput {
+	return o
+}
+
+func (o TracerouteMonitorTriggerIncidentPtrOutput) Elem() TracerouteMonitorTriggerIncidentOutput {
+	return o.ApplyT(func(v *TracerouteMonitorTriggerIncident) TracerouteMonitorTriggerIncident {
+		if v != nil {
+			return *v
+		}
+		var ret TracerouteMonitorTriggerIncident
+		return ret
+	}).(TracerouteMonitorTriggerIncidentOutput)
+}
+
+// A detailed description of the incident.
+func (o TracerouteMonitorTriggerIncidentPtrOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Description
+	}).(pulumi.StringPtrOutput)
+}
+
+// The name of the incident.
+func (o TracerouteMonitorTriggerIncidentPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to notify subscribers when the incident is triggered.
+func (o TracerouteMonitorTriggerIncidentPtrOutput) NotifySubscribers() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorTriggerIncident) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.NotifySubscribers
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The status page service that this incident will be associated with.
+func (o TracerouteMonitorTriggerIncidentPtrOutput) ServiceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ServiceId
+	}).(pulumi.StringPtrOutput)
+}
+
+// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+func (o TracerouteMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TracerouteMonitorTriggerIncident) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
 type UrlMonitorAlertChannelSubscription struct {
 	// Whether an alert should be sent to this channel.
 	Activated bool `pulumi:"activated"`
@@ -21909,6 +29038,30 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsMonitorRetryStrategyOnlyOnPtrInput)(nil)).Elem(), DnsMonitorRetryStrategyOnlyOnArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsMonitorTriggerIncidentInput)(nil)).Elem(), DnsMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DnsMonitorTriggerIncidentPtrInput)(nil)).Elem(), DnsMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertChannelSubscriptionInput)(nil)).Elem(), GrpcMonitorAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), GrpcMonitorAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsInput)(nil)).Elem(), GrpcMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsPtrInput)(nil)).Elem(), GrpcMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), GrpcMonitorAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), GrpcMonitorAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsReminderInput)(nil)).Elem(), GrpcMonitorAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsReminderArrayInput)(nil)).Elem(), GrpcMonitorAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsRunBasedEscalationInput)(nil)).Elem(), GrpcMonitorAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), GrpcMonitorAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), GrpcMonitorAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), GrpcMonitorAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRequestInput)(nil)).Elem(), GrpcMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRequestPtrInput)(nil)).Elem(), GrpcMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRequestAssertionInput)(nil)).Elem(), GrpcMonitorRequestAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRequestAssertionArrayInput)(nil)).Elem(), GrpcMonitorRequestAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRequestMetadataInput)(nil)).Elem(), GrpcMonitorRequestMetadataArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRequestMetadataArrayInput)(nil)).Elem(), GrpcMonitorRequestMetadataArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRetryStrategyInput)(nil)).Elem(), GrpcMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRetryStrategyPtrInput)(nil)).Elem(), GrpcMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRetryStrategyOnlyOnInput)(nil)).Elem(), GrpcMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorRetryStrategyOnlyOnPtrInput)(nil)).Elem(), GrpcMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorTriggerIncidentInput)(nil)).Elem(), GrpcMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GrpcMonitorTriggerIncidentPtrInput)(nil)).Elem(), GrpcMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertChannelSubscriptionInput)(nil)).Elem(), HeartbeatCheckAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertChannelSubscriptionArrayInput)(nil)).Elem(), HeartbeatCheckAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HeartbeatCheckAlertSettingsInput)(nil)).Elem(), HeartbeatCheckAlertSettingsArgs{})
@@ -22001,6 +29154,50 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteTriggerIncidentPtrInput)(nil)).Elem(), PlaywrightCheckSuiteTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCodeBundlePrebuiltArchiveInput)(nil)).Elem(), PlaywrightCodeBundlePrebuiltArchiveArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCodeBundlePrebuiltArchivePtrInput)(nil)).Elem(), PlaywrightCodeBundlePrebuiltArchiveArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertChannelSubscriptionInput)(nil)).Elem(), SslMonitorAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), SslMonitorAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsInput)(nil)).Elem(), SslMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsPtrInput)(nil)).Elem(), SslMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), SslMonitorAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), SslMonitorAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsReminderInput)(nil)).Elem(), SslMonitorAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsReminderArrayInput)(nil)).Elem(), SslMonitorAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsRunBasedEscalationInput)(nil)).Elem(), SslMonitorAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), SslMonitorAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), SslMonitorAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), SslMonitorAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestInput)(nil)).Elem(), SslMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestPtrInput)(nil)).Elem(), SslMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestAssertionInput)(nil)).Elem(), SslMonitorRequestAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestAssertionArrayInput)(nil)).Elem(), SslMonitorRequestAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestClientCertificateInput)(nil)).Elem(), SslMonitorRequestClientCertificateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestClientCertificatePtrInput)(nil)).Elem(), SslMonitorRequestClientCertificateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselinePtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineKnownBadCaInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineKnownBadCaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineKnownBadCaPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineKnownBadCaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinKeySizeBitsInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineMinKeySizeBitsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinTlsVersionInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineMinTlsVersionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineMinTlsVersionPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineMinTlsVersionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineOcspMustStapleRespectedInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineOcspMustStapleRespectedArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedTlsVersionInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineSctPresentInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineSctPresentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineSctPresentPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineSctPresentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakCipherSuiteInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakCipherSuitePtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineWeakCipherSuiteArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrInput)(nil)).Elem(), SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRetryStrategyInput)(nil)).Elem(), SslMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRetryStrategyPtrInput)(nil)).Elem(), SslMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRetryStrategyOnlyOnInput)(nil)).Elem(), SslMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorRetryStrategyOnlyOnPtrInput)(nil)).Elem(), SslMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorTriggerIncidentInput)(nil)).Elem(), SslMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SslMonitorTriggerIncidentPtrInput)(nil)).Elem(), SslMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardInput)(nil)).Elem(), StatusPageCardArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardArrayInput)(nil)).Elem(), StatusPageCardArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentInput)(nil)).Elem(), StatusPageCardServiceAttachmentArgs{})
@@ -22049,6 +29246,28 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorRetryStrategyOnlyOnPtrInput)(nil)).Elem(), TcpMonitorRetryStrategyOnlyOnArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorTriggerIncidentInput)(nil)).Elem(), TcpMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpMonitorTriggerIncidentPtrInput)(nil)).Elem(), TcpMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertChannelSubscriptionInput)(nil)).Elem(), TracerouteMonitorAlertChannelSubscriptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), TracerouteMonitorAlertChannelSubscriptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsInput)(nil)).Elem(), TracerouteMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsPtrInput)(nil)).Elem(), TracerouteMonitorAlertSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsParallelRunFailureThresholdInput)(nil)).Elem(), TracerouteMonitorAlertSettingsParallelRunFailureThresholdArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayInput)(nil)).Elem(), TracerouteMonitorAlertSettingsParallelRunFailureThresholdArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsReminderInput)(nil)).Elem(), TracerouteMonitorAlertSettingsReminderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsReminderArrayInput)(nil)).Elem(), TracerouteMonitorAlertSettingsReminderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsRunBasedEscalationInput)(nil)).Elem(), TracerouteMonitorAlertSettingsRunBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsRunBasedEscalationArrayInput)(nil)).Elem(), TracerouteMonitorAlertSettingsRunBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsTimeBasedEscalationInput)(nil)).Elem(), TracerouteMonitorAlertSettingsTimeBasedEscalationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorAlertSettingsTimeBasedEscalationArrayInput)(nil)).Elem(), TracerouteMonitorAlertSettingsTimeBasedEscalationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRequestInput)(nil)).Elem(), TracerouteMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRequestPtrInput)(nil)).Elem(), TracerouteMonitorRequestArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRequestAssertionInput)(nil)).Elem(), TracerouteMonitorRequestAssertionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRequestAssertionArrayInput)(nil)).Elem(), TracerouteMonitorRequestAssertionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRetryStrategyInput)(nil)).Elem(), TracerouteMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRetryStrategyPtrInput)(nil)).Elem(), TracerouteMonitorRetryStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRetryStrategyOnlyOnInput)(nil)).Elem(), TracerouteMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorRetryStrategyOnlyOnPtrInput)(nil)).Elem(), TracerouteMonitorRetryStrategyOnlyOnArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorTriggerIncidentInput)(nil)).Elem(), TracerouteMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TracerouteMonitorTriggerIncidentPtrInput)(nil)).Elem(), TracerouteMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertChannelSubscriptionInput)(nil)).Elem(), UrlMonitorAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertChannelSubscriptionArrayInput)(nil)).Elem(), UrlMonitorAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UrlMonitorAlertSettingsInput)(nil)).Elem(), UrlMonitorAlertSettingsArgs{})
@@ -22205,6 +29424,30 @@ func init() {
 	pulumi.RegisterOutputType(DnsMonitorRetryStrategyOnlyOnPtrOutput{})
 	pulumi.RegisterOutputType(DnsMonitorTriggerIncidentOutput{})
 	pulumi.RegisterOutputType(DnsMonitorTriggerIncidentPtrOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRequestOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRequestPtrOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRequestAssertionOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRequestAssertionArrayOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRequestMetadataOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRequestMetadataArrayOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRetryStrategyOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRetryStrategyOnlyOnOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorRetryStrategyOnlyOnPtrOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(GrpcMonitorTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(HeartbeatCheckAlertSettingsOutput{})
@@ -22297,6 +29540,50 @@ func init() {
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(PlaywrightCodeBundlePrebuiltArchiveOutput{})
 	pulumi.RegisterOutputType(PlaywrightCodeBundlePrebuiltArchivePtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(SslMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestAssertionOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestAssertionArrayOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestClientCertificateOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestClientCertificatePtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselinePtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineKnownBadCaOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineKnownBadCaPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineMinKeySizeBitsOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineMinKeySizeBitsPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineMinTlsVersionOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineMinTlsVersionPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineOcspMustStapleRespectedPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineRecommendedTlsVersionOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineRecommendedTlsVersionPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineSctPresentOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineSctPresentPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineWeakCipherSuiteOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineWeakCipherSuitePtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmOutput{})
+	pulumi.RegisterOutputType(SslMonitorRequestSecurityBaselineWeakSignatureAlgorithmPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRetryStrategyOutput{})
+	pulumi.RegisterOutputType(SslMonitorRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorRetryStrategyOnlyOnOutput{})
+	pulumi.RegisterOutputType(SslMonitorRetryStrategyOnlyOnPtrOutput{})
+	pulumi.RegisterOutputType(SslMonitorTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(SslMonitorTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(StatusPageCardOutput{})
 	pulumi.RegisterOutputType(StatusPageCardArrayOutput{})
 	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentOutput{})
@@ -22345,6 +29632,28 @@ func init() {
 	pulumi.RegisterOutputType(TcpMonitorRetryStrategyOnlyOnPtrOutput{})
 	pulumi.RegisterOutputType(TcpMonitorTriggerIncidentOutput{})
 	pulumi.RegisterOutputType(TcpMonitorTriggerIncidentPtrOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertChannelSubscriptionOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertChannelSubscriptionArrayOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsPtrOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsParallelRunFailureThresholdOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsParallelRunFailureThresholdArrayOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsReminderOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsReminderArrayOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsRunBasedEscalationOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsRunBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsTimeBasedEscalationOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorAlertSettingsTimeBasedEscalationArrayOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRequestOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRequestPtrOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRequestAssertionOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRequestAssertionArrayOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRetryStrategyOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRetryStrategyPtrOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRetryStrategyOnlyOnOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorRetryStrategyOnlyOnPtrOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorTriggerIncidentOutput{})
+	pulumi.RegisterOutputType(TracerouteMonitorTriggerIncidentPtrOutput{})
 	pulumi.RegisterOutputType(UrlMonitorAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(UrlMonitorAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(UrlMonitorAlertSettingsOutput{})
