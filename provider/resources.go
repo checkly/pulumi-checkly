@@ -276,6 +276,18 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_playwright_code_bundle": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PlaywrightCodeBundle"),
 			},
+			"checkly_client_certificate": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "ClientCertificate"),
+			},
+			"checkly_grpc_monitor": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "GrpcMonitor"),
+			},
+			"checkly_ssl_monitor": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "SslMonitor"),
+			},
+			"checkly_traceroute_monitor": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TracerouteMonitor"),
+			},
 		},
 		// If extra types are needed for configuration, they can be added here.
 		ExtraTypes: map[string]schema.ComplexTypeSpec{},

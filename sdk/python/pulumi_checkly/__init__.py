@@ -15,6 +15,7 @@ from .dashboard import *
 from .dns_monitor import *
 from .environment_variable import *
 from .get_static_ips import *
+from .grpc_monitor import *
 from .heartbeat_check import *
 from .heartbeat_monitor import *
 from .icmp_monitor import *
@@ -24,10 +25,12 @@ from .playwright_code_bundle import *
 from .private_location import *
 from .provider import *
 from .snippet import *
+from .ssl_monitor import *
 from .status_page import *
 from .status_page_service import *
 from .tcp_check import *
 from .tcp_monitor import *
+from .traceroute_monitor import *
 from .trigger_check import *
 from .trigger_check_group import *
 from .url_monitor import *
@@ -110,6 +113,14 @@ _utilities.register(
  },
  {
   "pkg": "checkly",
+  "mod": "index/grpcMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/grpcMonitor:GrpcMonitor": "GrpcMonitor"
+  }
+ },
+ {
+  "pkg": "checkly",
   "mod": "index/heartbeatCheck",
   "fqn": "pulumi_checkly",
   "classes": {
@@ -174,6 +185,14 @@ _utilities.register(
  },
  {
   "pkg": "checkly",
+  "mod": "index/sslMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/sslMonitor:SslMonitor": "SslMonitor"
+  }
+ },
+ {
+  "pkg": "checkly",
   "mod": "index/statusPage",
   "fqn": "pulumi_checkly",
   "classes": {
@@ -202,6 +221,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/tcpMonitor:TcpMonitor": "TcpMonitor"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/tracerouteMonitor",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/tracerouteMonitor:TracerouteMonitor": "TracerouteMonitor"
   }
  },
  {

@@ -19,7 +19,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<bool>? AutoDetect { get; set; }
 
         /// <summary>
-        /// The JavaScript engine used to run the Playwright tests.
+        /// The JavaScript engine used to run the Playwright tests. When `auto_detect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.
         /// </summary>
         [Input("engine")]
         public Input<Inputs.PlaywrightCheckSuiteRuntimeEngineArgs>? Engine { get; set; }

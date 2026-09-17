@@ -905,6 +905,218 @@ export interface DnsMonitorTriggerIncident {
     severity: pulumi.Input<string>;
 }
 
+export interface GrpcMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: pulumi.Input<boolean>;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: pulumi.Input<number>;
+}
+
+export interface GrpcMonitorAlertSettings {
+    /**
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+     */
+    escalationType?: pulumi.Input<string>;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorAlertSettingsParallelRunFailureThreshold>[]>;
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorAlertSettingsReminder>[]>;
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface GrpcMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface GrpcMonitorAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface GrpcMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface GrpcMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface GrpcMonitorRequest {
+    /**
+     * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+     */
+    assertions?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestAssertion>[]>;
+    /**
+     * The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
+     */
+    grpcMode?: pulumi.Input<string>;
+    /**
+     * The host to connect to. Do not include a scheme or a port in this value.
+     */
+    host: pulumi.Input<string>;
+    /**
+     * The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+     */
+    ipFamily?: pulumi.Input<string>;
+    /**
+     * The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.
+     */
+    message?: pulumi.Input<string>;
+    /**
+     * gRPC metadata (request headers) sent with the call.
+     */
+    metadatas?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestMetadata>[]>;
+    /**
+     * The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.
+     */
+    method?: pulumi.Input<string>;
+    /**
+     * The port number to connect to. Possible values are between 1 and 65535.
+     */
+    port: pulumi.Input<number>;
+    /**
+     * The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+     */
+    protoContent?: pulumi.Input<string>;
+    /**
+     * The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
+     */
+    service?: pulumi.Input<string>;
+    /**
+     * How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+     */
+    serviceDefinition?: pulumi.Input<string>;
+    /**
+     * Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
+     */
+    skipSsl?: pulumi.Input<boolean>;
+    /**
+     * The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
+     */
+    timeout?: pulumi.Input<number>;
+    /**
+     * Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
+     */
+    tls?: pulumi.Input<boolean>;
+}
+
+export interface GrpcMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. For `GRPC_RESPONSE`, `TEXT_BODY` and `GRPC_METADATA`, possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. For `RESPONSE_TIME` and `GRPC_STATUS_CODE`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `GRPC_HEALTHCHECK_STATUS`, possible values are `EQUALS` and `NOT_EQUALS`.
+     */
+    comparison: pulumi.Input<string>;
+    /**
+     * The property selecting the asserted value within the source, e.g. a JSONPath expression for `GRPC_RESPONSE` or a metadata key for `GRPC_METADATA`.
+     */
+    property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. Possible values are `RESPONSE_TIME`, `GRPC_RESPONSE`, `TEXT_BODY`, `GRPC_METADATA`, `GRPC_HEALTHCHECK_STATUS`, and `GRPC_STATUS_CODE`.
+     */
+    source: pulumi.Input<string>;
+    /**
+     * The value to compare against. Must be numeric for `RESPONSE_TIME` (milliseconds), `GRPC_STATUS_CODE` (0-16), and `GRPC_HEALTHCHECK_STATUS` (0-3, where 0=UNKNOWN, 1=SERVING, 2=NOT*SERVING, 3=SERVICE*UNKNOWN).
+     */
+    target?: pulumi.Input<string>;
+}
+
+export interface GrpcMonitorRequestMetadata {
+    /**
+     * The gRPC metadata (header) key.
+     */
+    key: pulumi.Input<string>;
+    /**
+     * The gRPC metadata (header) value.
+     */
+    value?: pulumi.Input<string>;
+}
+
+export interface GrpcMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Apply the retry strategy only if the defined conditions match.
+     */
+    onlyOn?: pulumi.Input<inputs.GrpcMonitorRetryStrategyOnlyOn>;
+    /**
+     * Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface GrpcMonitorRetryStrategyOnlyOn {
+}
+
+export interface GrpcMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
+}
+
 export interface HeartbeatCheckAlertChannelSubscription {
     /**
      * Whether an alert should be sent to this channel.
@@ -1434,7 +1646,7 @@ export interface PlaywrightCheckSuiteRuntime {
      */
     autoDetect?: pulumi.Input<boolean>;
     /**
-     * The JavaScript engine used to run the Playwright tests.
+     * The JavaScript engine used to run the Playwright tests. When `autoDetect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.
      */
     engine?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeEngine>;
     /**
@@ -1533,6 +1745,321 @@ export interface PlaywrightCodeBundlePrebuiltArchive {
      * Path to the archive file.
      */
     file: pulumi.Input<string>;
+}
+
+export interface SslMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: pulumi.Input<boolean>;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: pulumi.Input<number>;
+}
+
+export interface SslMonitorAlertSettings {
+    /**
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+     */
+    escalationType?: pulumi.Input<string>;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.SslMonitorAlertSettingsParallelRunFailureThreshold>[]>;
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders?: pulumi.Input<pulumi.Input<inputs.SslMonitorAlertSettingsReminder>[]>;
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.SslMonitorAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.SslMonitorAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface SslMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface SslMonitorAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface SslMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface SslMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface SslMonitorRequest {
+    /**
+     * Raise an alert when the certificate is within this many days of expiry. Possible values are between 1 and 365. (Default `20`).
+     */
+    alertDaysBeforeExpiry?: pulumi.Input<number>;
+    /**
+     * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+     */
+    assertions?: pulumi.Input<pulumi.Input<inputs.SslMonitorRequestAssertion>[]>;
+    /**
+     * The mutual-TLS client certificate configuration.
+     */
+    clientCertificate?: pulumi.Input<inputs.SslMonitorRequestClientCertificate>;
+    /**
+     * The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between 1000 and 30000. (Default `10000`).
+     */
+    handshakeTimeoutMs?: pulumi.Input<number>;
+    /**
+     * The hostname to connect to and validate the TLS certificate of. Do not include a scheme or a port in this value.
+     */
+    hostname: pulumi.Input<string>;
+    /**
+     * The IP family to use when executing the check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+     */
+    ipFamily?: pulumi.Input<string>;
+    /**
+     * The port number to connect to. Possible values are between 1 and 65535. (Default `443`).
+     */
+    port?: pulumi.Input<number>;
+    /**
+     * The SSL security baseline — a set of enforceable and advisory rules. Omit the block to inherit the account default baseline. Rules that are not listed keep their server defaults; removing a rule (or the whole block) resets it to its default on the next apply. Only listed rules are drift-checked: an external change to an unlisted rule is not shown by `pulumi preview` and is reset on the next apply.
+     */
+    securityBaseline?: pulumi.Input<inputs.SslMonitorRequestSecurityBaseline>;
+    /**
+     * An optional SNI server name to send in the TLS handshake. Defaults to `hostname` when unset.
+     */
+    serverName?: pulumi.Input<string>;
+    /**
+     * When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). (Default `false`).
+     */
+    skipChainValidation?: pulumi.Input<boolean>;
+}
+
+export interface SslMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`. The allowed set depends on the asserted `source` and `property`; for example, boolean properties such as `chainTrusted` only allow `EQUALS`.
+     */
+    comparison: pulumi.Input<string>;
+    /**
+     * The property selecting the asserted value within the source. For `CERTIFICATE`: `daysUntilExpiry`, `keySizeBits`, `subjectCN`, `issuerCN`, `serialNumber`, `fingerprintSha256`, `issuerFingerprintSha256`, `keyAlgorithm`, `signatureAlgorithm`, `sans`, `selfSigned`, or `isCA`. For `CONNECTION`: `tlsVersion`, `cipherSuite`, `hostnameVerified`, `chainTrusted`, `ocspStapled`, `ocspStatus`, or `resolvedIp`. For `JSON_RESPONSE`: a JSONPath expression. For `TEXT_RESPONSE`: a regular expression applied to the serialized response.
+     */
+    property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. Possible values are `CERTIFICATE`, `CONNECTION`, `RESPONSE_TIME`, `JSON_RESPONSE`, and `TEXT_RESPONSE`.
+     */
+    source: pulumi.Input<string>;
+    target?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestClientCertificate {
+    /**
+     * The ID of the stored client certificate to present. Required when `mode = "explicit"`.
+     */
+    clientCertificateId?: pulumi.Input<string>;
+    /**
+     * The mutual-TLS client-certificate mode. `accountDefault` inherits the account setting (no certificate sent), `auto` lets Checkly select a stored certificate, `explicit` uses the certificate referenced by `clientCertificateId`. (Default `accountDefault`).
+     */
+    mode?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestSecurityBaseline {
+    /**
+     * Whether the security baseline is enforced. (Default `true`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Enforceable rule: the certificate chain must not include a known-bad CA.
+     */
+    knownBadCa?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineKnownBadCa>;
+    /**
+     * Enforceable rule: the minimum public key size in bits.
+     */
+    minKeySizeBits?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineMinKeySizeBits>;
+    /**
+     * Enforceable rule: the minimum TLS version the server must accept.
+     */
+    minTlsVersion?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineMinTlsVersion>;
+    /**
+     * Advisory rule: an OCSP Must-Staple extension, when present, must be respected.
+     */
+    ocspMustStapleRespected?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineOcspMustStapleRespected>;
+    /**
+     * Advisory rule: the recommended public key size in bits.
+     */
+    recommendedKeySizeBits?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineRecommendedKeySizeBits>;
+    /**
+     * Advisory rule: the recommended TLS version.
+     */
+    recommendedTlsVersion?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineRecommendedTlsVersion>;
+    /**
+     * Advisory rule: the certificate should carry a Signed Certificate Timestamp.
+     */
+    sctPresent?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineSctPresent>;
+    /**
+     * Enforceable rule: the connection must not negotiate a weak cipher suite.
+     */
+    weakCipherSuite?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineWeakCipherSuite>;
+    /**
+     * Enforceable rule: the certificate must not use a weak signature algorithm.
+     */
+    weakSignatureAlgorithm?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm>;
+}
+
+export interface SslMonitorRequestSecurityBaselineKnownBadCa {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+     */
+    severity?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestSecurityBaselineMinKeySizeBits {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+     */
+    severity?: pulumi.Input<string>;
+    /**
+     * The key size in bits. Possible values are between 1024 and 16384. (Default `2048`).
+     */
+    value?: pulumi.Input<number>;
+}
+
+export interface SslMonitorRequestSecurityBaselineMinTlsVersion {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+     */
+    severity?: pulumi.Input<string>;
+    /**
+     * The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.2`).
+     */
+    value?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestSecurityBaselineOcspMustStapleRespected {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+     */
+    severity?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestSecurityBaselineRecommendedKeySizeBits {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+     */
+    severity?: pulumi.Input<string>;
+    /**
+     * The key size in bits. Possible values are between 1024 and 16384. (Default `3072`).
+     */
+    value?: pulumi.Input<number>;
+}
+
+export interface SslMonitorRequestSecurityBaselineRecommendedTlsVersion {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+     */
+    severity?: pulumi.Input<string>;
+    /**
+     * The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).
+     */
+    value?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestSecurityBaselineSctPresent {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+     */
+    severity?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestSecurityBaselineWeakCipherSuite {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+     */
+    severity?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm {
+    /**
+     * What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+     */
+    severity?: pulumi.Input<string>;
+}
+
+export interface SslMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Apply the retry strategy only if the defined conditions match.
+     */
+    onlyOn?: pulumi.Input<inputs.SslMonitorRetryStrategyOnlyOn>;
+    /**
+     * Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface SslMonitorRetryStrategyOnlyOn {
+}
+
+export interface SslMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
 }
 
 export interface StatusPageCard {
@@ -1849,6 +2376,187 @@ export interface TcpMonitorRetryStrategyOnlyOn {
 }
 
 export interface TcpMonitorTriggerIncident {
+    /**
+     * A detailed description of the incident.
+     */
+    description: pulumi.Input<string>;
+    /**
+     * The name of the incident.
+     */
+    name: pulumi.Input<string>;
+    /**
+     * Whether to notify subscribers when the incident is triggered.
+     */
+    notifySubscribers: pulumi.Input<boolean>;
+    /**
+     * The status page service that this incident will be associated with.
+     */
+    serviceId: pulumi.Input<string>;
+    /**
+     * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+     */
+    severity: pulumi.Input<string>;
+}
+
+export interface TracerouteMonitorAlertChannelSubscription {
+    /**
+     * Whether an alert should be sent to this channel.
+     */
+    activated: pulumi.Input<boolean>;
+    /**
+     * The ID of the alert channel.
+     */
+    channelId: pulumi.Input<number>;
+}
+
+export interface TracerouteMonitorAlertSettings {
+    /**
+     * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+     */
+    escalationType?: pulumi.Input<string>;
+    /**
+     * Configuration for parallel run failure threshold.
+     */
+    parallelRunFailureThresholds?: pulumi.Input<pulumi.Input<inputs.TracerouteMonitorAlertSettingsParallelRunFailureThreshold>[]>;
+    /**
+     * Defines how often to send reminder notifications after initial alert.
+     */
+    reminders?: pulumi.Input<pulumi.Input<inputs.TracerouteMonitorAlertSettingsReminder>[]>;
+    /**
+     * Configuration for run-based escalation.
+     */
+    runBasedEscalations?: pulumi.Input<pulumi.Input<inputs.TracerouteMonitorAlertSettingsRunBasedEscalation>[]>;
+    /**
+     * Configuration for time-based escalation.
+     */
+    timeBasedEscalations?: pulumi.Input<pulumi.Input<inputs.TracerouteMonitorAlertSettingsTimeBasedEscalation>[]>;
+}
+
+export interface TracerouteMonitorAlertSettingsParallelRunFailureThreshold {
+    /**
+     * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+     */
+    percentage?: pulumi.Input<number>;
+}
+
+export interface TracerouteMonitorAlertSettingsReminder {
+    /**
+     * Number of reminder notifications to send. Possible values are `0`, `1`, `2`, `3`, `4`, `5`, and `100000` (`0` to disable, `100000` for unlimited). (Default `0`).
+     */
+    amount?: pulumi.Input<number>;
+    /**
+     * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    interval?: pulumi.Input<number>;
+}
+
+export interface TracerouteMonitorAlertSettingsRunBasedEscalation {
+    /**
+     * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. (Default `1`).
+     */
+    failedRunThreshold?: pulumi.Input<number>;
+}
+
+export interface TracerouteMonitorAlertSettingsTimeBasedEscalation {
+    /**
+     * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+     */
+    minutesFailingThreshold?: pulumi.Input<number>;
+}
+
+export interface TracerouteMonitorRequest {
+    /**
+     * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+     */
+    assertions?: pulumi.Input<pulumi.Input<inputs.TracerouteMonitorRequestAssertion>[]>;
+    /**
+     * The IP family to use when executing the traceroute. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+     */
+    ipFamily?: pulumi.Input<string>;
+    /**
+     * The maximum number of network hops to probe before stopping. Possible values are between 1 and 64. (Default `30`).
+     */
+    maxHops?: pulumi.Input<number>;
+    /**
+     * The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between 1 and 30, and the value must not exceed `maxHops`. (Default `min(15, max_hops)`).
+     */
+    maxUnknownHops?: pulumi.Input<number>;
+    /**
+     * The destination port for TCP/UDP/SCTP probes. Possible values are between 1 and 65535. Ignored (and not sent) when `protocol = "ICMP"`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`.
+     */
+    port?: pulumi.Input<number>;
+    /**
+     * The probe protocol. `TCP` sends SYN probes (default), `UDP` sends datagrams to a high port, `ICMP` sends Echo Requests, `SCTP` sends INIT chunks. (Default `TCP`).
+     */
+    protocol?: pulumi.Input<string>;
+    /**
+     * Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. (Default `true`).
+     */
+    ptrLookup?: pulumi.Input<boolean>;
+    /**
+     * The number of seconds to wait for the traceroute to complete before timing out. Possible values are between 1 and 30. (Default `10`).
+     */
+    timeout?: pulumi.Input<number>;
+    /**
+     * The host to trace the network path to. Do not include a scheme or a port in this value.
+     */
+    url: pulumi.Input<string>;
+}
+
+export interface TracerouteMonitorRequestAssertion {
+    /**
+     * The type of comparison to be executed between expected and actual value of the assertion. For `RESPONSE_TIME`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, and `LESS_THAN`. For `HOP_COUNT` and `PACKET_LOSS`, possible values are `EQUALS`, `GREATER_THAN`, and `LESS_THAN`.
+     */
+    comparison: pulumi.Input<string>;
+    /**
+     * The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max`, and `stdDev`. Must be empty for `HOP_COUNT` and `PACKET_LOSS`.
+     */
+    property?: pulumi.Input<string>;
+    /**
+     * The source of the asserted value. Possible values are `RESPONSE_TIME`, `HOP_COUNT`, and `PACKET_LOSS`.
+     */
+    source: pulumi.Input<string>;
+    /**
+     * The value to compare against. Must be numeric: a non-negative number of milliseconds for `RESPONSE_TIME`, a non-negative integer for `HOP_COUNT`, or a number between 0 and 100 for `PACKET_LOSS`.
+     */
+    target?: pulumi.Input<string>;
+}
+
+export interface TracerouteMonitorRetryStrategy {
+    /**
+     * The number of seconds to wait before the first retry attempt. (Default `60`).
+     */
+    baseBackoffSeconds?: pulumi.Input<number>;
+    /**
+     * The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+     */
+    maxDurationSeconds?: pulumi.Input<number>;
+    /**
+     * The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+     */
+    maxRetries?: pulumi.Input<number>;
+    /**
+     * Apply the retry strategy only if the defined conditions match.
+     */
+    onlyOn?: pulumi.Input<inputs.TracerouteMonitorRetryStrategyOnlyOn>;
+    /**
+     * Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+     */
+    sameRegion?: pulumi.Input<boolean>;
+    /**
+     * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+     */
+    type: pulumi.Input<string>;
+}
+
+export interface TracerouteMonitorRetryStrategyOnlyOn {
+}
+
+export interface TracerouteMonitorTriggerIncident {
     /**
      * A detailed description of the incident.
      */

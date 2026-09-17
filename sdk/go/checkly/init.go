@@ -37,6 +37,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &DnsMonitor{}
 	case "checkly:index/environmentVariable:EnvironmentVariable":
 		r = &EnvironmentVariable{}
+	case "checkly:index/grpcMonitor:GrpcMonitor":
+		r = &GrpcMonitor{}
 	case "checkly:index/heartbeatCheck:HeartbeatCheck":
 		r = &HeartbeatCheck{}
 	case "checkly:index/heartbeatMonitor:HeartbeatMonitor":
@@ -53,6 +55,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PrivateLocation{}
 	case "checkly:index/snippet:Snippet":
 		r = &Snippet{}
+	case "checkly:index/sslMonitor:SslMonitor":
+		r = &SslMonitor{}
 	case "checkly:index/statusPage:StatusPage":
 		r = &StatusPage{}
 	case "checkly:index/statusPageService:StatusPageService":
@@ -61,6 +65,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TcpCheck{}
 	case "checkly:index/tcpMonitor:TcpMonitor":
 		r = &TcpMonitor{}
+	case "checkly:index/tracerouteMonitor:TracerouteMonitor":
+		r = &TracerouteMonitor{}
 	case "checkly:index/triggerCheck:TriggerCheck":
 		r = &TriggerCheck{}
 	case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
@@ -140,6 +146,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
+		"index/grpcMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
 		"index/heartbeatCheck",
 		&module{version},
 	)
@@ -180,6 +191,11 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"checkly",
+		"index/sslMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
 		"index/statusPage",
 		&module{version},
 	)
@@ -196,6 +212,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/tcpMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/tracerouteMonitor",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

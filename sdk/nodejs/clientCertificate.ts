@@ -7,7 +7,7 @@ import * as utilities from "./utilities";
 /**
  * Use client certificates to authenticate your API checks to APIs that require mutual TLS (mTLS) authentication, or any other authentication scheme where the requester needs to provide a certificate.
  *
- * Each client certificate is specific to a domain name, e.g. `acme.com` and will be used automatically by any API checks targeting that domain.
+ * Each client certificate is specific to a host name, e.g. `acme.com` or a wildcard such as `*.acme.com`, and will be used automatically by any API checks targeting that host. Set `path` to limit the certificate to requests under a URL path prefix.
  *
  * Changing the value of any attribute forces a new resource to be created.
  */
@@ -44,13 +44,17 @@ export class ClientCertificate extends pulumi.CustomResource {
      */
     declare public readonly certificate: pulumi.Output<string>;
     /**
-     * The host domain that the certificate should be used for.
+     * The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
      */
     declare public readonly host: pulumi.Output<string>;
     /**
      * Passphrase for the private key.
      */
     declare public readonly passphrase: pulumi.Output<string | undefined>;
+    /**
+     * Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+     */
+    declare public readonly path: pulumi.Output<string | undefined>;
     /**
      * The private key for the certificate in PEM format.
      */
@@ -76,6 +80,7 @@ export class ClientCertificate extends pulumi.CustomResource {
             resourceInputs["certificate"] = state?.certificate;
             resourceInputs["host"] = state?.host;
             resourceInputs["passphrase"] = state?.passphrase;
+            resourceInputs["path"] = state?.path;
             resourceInputs["privateKey"] = state?.privateKey;
             resourceInputs["trustedCa"] = state?.trustedCa;
         } else {
@@ -92,6 +97,7 @@ export class ClientCertificate extends pulumi.CustomResource {
             resourceInputs["certificate"] = args?.certificate;
             resourceInputs["host"] = args?.host;
             resourceInputs["passphrase"] = args?.passphrase ? pulumi.secret(args.passphrase) : undefined;
+            resourceInputs["path"] = args?.path;
             resourceInputs["privateKey"] = args?.privateKey;
             resourceInputs["trustedCa"] = args?.trustedCa;
         }
@@ -111,13 +117,17 @@ export interface ClientCertificateState {
      */
     certificate?: pulumi.Input<string>;
     /**
-     * The host domain that the certificate should be used for.
+     * The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
      */
     host?: pulumi.Input<string>;
     /**
      * Passphrase for the private key.
      */
     passphrase?: pulumi.Input<string>;
+    /**
+     * Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+     */
+    path?: pulumi.Input<string>;
     /**
      * The private key for the certificate in PEM format.
      */
@@ -137,13 +147,17 @@ export interface ClientCertificateArgs {
      */
     certificate: pulumi.Input<string>;
     /**
-     * The host domain that the certificate should be used for.
+     * The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
      */
     host: pulumi.Input<string>;
     /**
      * Passphrase for the private key.
      */
     passphrase?: pulumi.Input<string>;
+    /**
+     * Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+     */
+    path?: pulumi.Input<string>;
     /**
      * The private key for the certificate in PEM format.
      */
