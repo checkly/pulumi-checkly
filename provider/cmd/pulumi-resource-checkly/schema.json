@@ -60,7 +60,8 @@
                 "type": "string"
             },
             "apiKey": {
-                "type": "string"
+                "type": "string",
+                "secret": true
             },
             "apiUrl": {
                 "type": "string"
@@ -1613,6 +1614,13 @@
                     },
                     "description": "A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.\n"
                 },
+                "bfbsContent": {
+                    "type": "string"
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": "The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).\n"
+                },
                 "grpcMode": {
                     "type": "string",
                     "description": "The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).\n"
@@ -1646,7 +1654,7 @@
                 },
                 "protoContent": {
                     "type": "string",
-                    "description": "The inline `.proto` file source used when `service_definition = \"PROTO_FILE\"` in `BEHAVIOR` mode.\n"
+                    "description": "The inline `.proto` file source used when `service_definition = \"PROTO_FILE\"` in `BEHAVIOR` mode. Forbidden when `encoding = \"FLATBUFFERS\"`.\n"
                 },
                 "service": {
                     "type": "string",
@@ -1654,7 +1662,7 @@
                 },
                 "serviceDefinition": {
                     "type": "string",
-                    "description": "How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. (Default `REFLECTION`).\n"
+                    "description": "How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. Forbidden when `encoding = \"FLATBUFFERS\"`. (Default `REFLECTION`).\n"
                 },
                 "skipSsl": {
                     "type": "boolean",
@@ -1673,17 +1681,7 @@
             "required": [
                 "host",
                 "port"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "host",
-                        "port",
-                        "serviceDefinition",
-                        "timeout"
-                    ]
-                }
-            }
+            ]
         },
         "checkly:index/GrpcMonitorRequestAssertion:GrpcMonitorRequestAssertion": {
             "properties": {
@@ -2424,6 +2422,68 @@
                 "serviceId",
                 "severity"
             ]
+        },
+        "checkly:index/MaintenanceWindowStatusPageVisibility:MaintenanceWindowStatusPageVisibility": {
+            "properties": {
+                "affectAllServices": {
+                    "type": "boolean",
+                    "description": "Mark every service on the linked status pages as affected. Can't be combined with `service_ids`. (Default `false`).\n"
+                },
+                "autoEnd": {
+                    "type": "boolean",
+                    "description": "Complete the maintenance automatically at the scheduled end time. (Default `true`).\n"
+                },
+                "autoStart": {
+                    "type": "boolean",
+                    "description": "Start the maintenance automatically at the scheduled time. (Default `true`).\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).\n"
+                },
+                "notifyOnEnd": {
+                    "type": "boolean",
+                    "description": "Email status page subscribers when the maintenance ends. (Default `false`).\n"
+                },
+                "notifyOnStart": {
+                    "type": "boolean",
+                    "description": "Email status page subscribers when the maintenance starts. (Default `false`).\n"
+                },
+                "reminderMinutesBefores": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "description": "Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.\n"
+                },
+                "serviceIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of the affected status page services (`checkly.StatusPageService`). Each service must be on one of the linked status pages.\n"
+                },
+                "severity": {
+                    "type": "string",
+                    "description": "The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.\n"
+                },
+                "showAffectedServices": {
+                    "type": "boolean",
+                    "description": "Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).\n"
+                },
+                "statusPageIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of the status pages (`checkly.StatusPage`) to show the maintenance window on. Requires `service_ids` or `affect_all_services`.\n"
+                },
+                "suppressAutoIncidents": {
+                    "type": "boolean",
+                    "description": "Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).\n"
+                }
+            },
+            "type": "object"
         },
         "checkly:index/PlaywrightCheckSuiteAlertChannelSubscription:PlaywrightCheckSuiteAlertChannelSubscription": {
             "properties": {
@@ -3196,6 +3256,174 @@
             "type": "object",
             "required": [
                 "serviceId"
+            ]
+        },
+        "checkly:index/StatusPageV3AutomationRuleComponent:StatusPageV3AutomationRuleComponent": {
+            "properties": {
+                "componentId": {
+                    "type": "string",
+                    "description": "The ID of the impacted component. Must be on the same status page.\n"
+                },
+                "targetImpact": {
+                    "type": "string",
+                    "description": "The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "componentId",
+                "targetImpact"
+            ]
+        },
+        "checkly:index/StatusPageV3ThemeColors:StatusPageV3ThemeColors": {
+            "properties": {
+                "dark": {
+                    "$ref": "#/types/checkly:index/StatusPageV3ThemeColorsDark:StatusPageV3ThemeColorsDark",
+                    "description": "The colors used when the page renders in dark mode.\n"
+                },
+                "light": {
+                    "$ref": "#/types/checkly:index/StatusPageV3ThemeColorsLight:StatusPageV3ThemeColorsLight",
+                    "description": "The colors used when the page renders in light mode.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "dark",
+                "light"
+            ]
+        },
+        "checkly:index/StatusPageV3ThemeColorsDark:StatusPageV3ThemeColorsDark": {
+            "properties": {
+                "bodyBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of the page. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "bodyFontColor": {
+                    "type": "string",
+                    "description": "The color of regular body text. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "bodyFontColorMuted": {
+                    "type": "string",
+                    "description": "The color of de-emphasized body text, such as timestamps. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "borderColor": {
+                    "type": "string",
+                    "description": "The color of borders and dividers. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "cardBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of component and incident cards. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "headerBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of the page header. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "headerFontColor": {
+                    "type": "string",
+                    "description": "The color of text in the page header. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "linkFontColor": {
+                    "type": "string",
+                    "description": "The color of links in the page content. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "navigationFontColor": {
+                    "type": "string",
+                    "description": "The color of navigation links. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "primaryButtonBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of primary buttons, such as \"Subscribe\". A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "primaryButtonFontColor": {
+                    "type": "string",
+                    "description": "The color of text on primary buttons. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "titleFontColor": {
+                    "type": "string",
+                    "description": "The color of titles and headings. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "bodyBackgroundColor",
+                "bodyFontColor",
+                "bodyFontColorMuted",
+                "borderColor",
+                "cardBackgroundColor",
+                "headerBackgroundColor",
+                "headerFontColor",
+                "linkFontColor",
+                "navigationFontColor",
+                "primaryButtonBackgroundColor",
+                "primaryButtonFontColor",
+                "titleFontColor"
+            ]
+        },
+        "checkly:index/StatusPageV3ThemeColorsLight:StatusPageV3ThemeColorsLight": {
+            "properties": {
+                "bodyBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of the page. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "bodyFontColor": {
+                    "type": "string",
+                    "description": "The color of regular body text. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "bodyFontColorMuted": {
+                    "type": "string",
+                    "description": "The color of de-emphasized body text, such as timestamps. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "borderColor": {
+                    "type": "string",
+                    "description": "The color of borders and dividers. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "cardBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of component and incident cards. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "headerBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of the page header. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "headerFontColor": {
+                    "type": "string",
+                    "description": "The color of text in the page header. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "linkFontColor": {
+                    "type": "string",
+                    "description": "The color of links in the page content. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "navigationFontColor": {
+                    "type": "string",
+                    "description": "The color of navigation links. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "primaryButtonBackgroundColor": {
+                    "type": "string",
+                    "description": "The background of primary buttons, such as \"Subscribe\". A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "primaryButtonFontColor": {
+                    "type": "string",
+                    "description": "The color of text on primary buttons. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                },
+                "titleFontColor": {
+                    "type": "string",
+                    "description": "The color of titles and headings. A hex color such as \"#FF0000\" or \"#F00\".\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "bodyBackgroundColor",
+                "bodyFontColor",
+                "bodyFontColorMuted",
+                "borderColor",
+                "cardBackgroundColor",
+                "headerBackgroundColor",
+                "headerFontColor",
+                "linkFontColor",
+                "navigationFontColor",
+                "primaryButtonBackgroundColor",
+                "primaryButtonFontColor",
+                "titleFontColor"
             ]
         },
         "checkly:index/TcpCheckAlertChannelSubscription:TcpCheckAlertChannelSubscription": {
@@ -4160,7 +4388,8 @@
                 "type": "string"
             },
             "apiKey": {
-                "type": "string"
+                "type": "string",
+                "secret": true
             },
             "apiUrl": {
                 "type": "string"
@@ -4171,7 +4400,8 @@
                 "type": "string"
             },
             "apiKey": {
-                "type": "string"
+                "type": "string",
+                "secret": true
             },
             "apiUrl": {
                 "type": "string"
@@ -5375,7 +5605,8 @@
                 },
                 "privateKey": {
                     "type": "string",
-                    "description": "The private key for the certificate in PEM format.\n"
+                    "description": "The private key for the certificate in PEM format.\n",
+                    "secret": true
                 },
                 "trustedCa": {
                     "type": "string",
@@ -5412,6 +5643,7 @@
                 "privateKey": {
                     "type": "string",
                     "description": "The private key for the certificate in PEM format.\n",
+                    "secret": true,
                     "willReplaceOnChanges": true
                 },
                 "trustedCa": {
@@ -5452,6 +5684,7 @@
                     "privateKey": {
                         "type": "string",
                         "description": "The private key for the certificate in PEM format.\n",
+                        "secret": true,
                         "willReplaceOnChanges": true
                     },
                     "trustedCa": {
@@ -6119,7 +6352,7 @@
             }
         },
         "checkly:index/grpcMonitor:GrpcMonitor": {
-            "description": "gRPC monitors allow you to monitor gRPC services, either via a health check (HEALTH mode) or by invoking a unary method (BEHAVIOR mode).\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\n// Basic gRPC monitor using a health check (HEALTH mode)\nconst example_grpc_monitor = new checkly.GrpcMonitor(\"example-grpc-monitor\", {\n    name: \"Example gRPC monitor\",\n    activated: true,\n    shouldFail: false,\n    frequency: 1,\n    useGlobalAlertSettings: true,\n    locations: [\"us-west-1\"],\n    request: {\n        host: \"grpcb.in\",\n        port: 9000,\n        grpcMode: \"HEALTH\",\n        service: \"grpcbin.GRPCBin\",\n    },\n});\n// A more complex example invoking a unary method (BEHAVIOR mode) with\n// metadata, assertions and an alert/retry policy\nconst example_grpc_monitor_2 = new checkly.GrpcMonitor(\"example-grpc-monitor-2\", {\n    name: \"Example gRPC monitor 2\",\n    activated: true,\n    shouldFail: false,\n    frequency: 5,\n    locations: [\n        \"us-west-1\",\n        \"eu-central-1\",\n    ],\n    alertSettings: {\n        escalationType: \"RUN_BASED\",\n        runBasedEscalations: [{\n            failedRunThreshold: 1,\n        }],\n        reminders: [{\n            amount: 1,\n        }],\n    },\n    retryStrategy: {\n        type: \"FIXED\",\n        baseBackoffSeconds: 60,\n        maxDurationSeconds: 600,\n        maxRetries: 3,\n        sameRegion: false,\n    },\n    request: {\n        host: \"grpcb.in\",\n        port: 9000,\n        grpcMode: \"BEHAVIOR\",\n        tls: true,\n        timeout: 30,\n        serviceDefinition: \"REFLECTION\",\n        method: \"grpcbin.GRPCBin/DummyUnary\",\n        message: JSON.stringify({\n            f_string: \"hello\",\n        }),\n        metadatas: [{\n            key: \"x-api-key\",\n            value: \"supersecret\",\n        }],\n        assertions: [\n            {\n                source: \"GRPC_STATUS_CODE\",\n                property: \"\",\n                comparison: \"EQUALS\",\n                target: \"0\",\n            },\n            {\n                source: \"RESPONSE_TIME\",\n                property: \"\",\n                comparison: \"LESS_THAN\",\n                target: \"1000\",\n            },\n        ],\n    },\n});\n```\n```python\nimport pulumi\nimport json\nimport pulumi_checkly as checkly\n\n# Basic gRPC monitor using a health check (HEALTH mode)\nexample_grpc_monitor = checkly.GrpcMonitor(\"example-grpc-monitor\",\n    name=\"Example gRPC monitor\",\n    activated=True,\n    should_fail=False,\n    frequency=1,\n    use_global_alert_settings=True,\n    locations=[\"us-west-1\"],\n    request={\n        \"host\": \"grpcb.in\",\n        \"port\": 9000,\n        \"grpc_mode\": \"HEALTH\",\n        \"service\": \"grpcbin.GRPCBin\",\n    })\n# A more complex example invoking a unary method (BEHAVIOR mode) with\n# metadata, assertions and an alert/retry policy\nexample_grpc_monitor_2 = checkly.GrpcMonitor(\"example-grpc-monitor-2\",\n    name=\"Example gRPC monitor 2\",\n    activated=True,\n    should_fail=False,\n    frequency=5,\n    locations=[\n        \"us-west-1\",\n        \"eu-central-1\",\n    ],\n    alert_settings={\n        \"escalation_type\": \"RUN_BASED\",\n        \"run_based_escalations\": [{\n            \"failed_run_threshold\": 1,\n        }],\n        \"reminders\": [{\n            \"amount\": 1,\n        }],\n    },\n    retry_strategy={\n        \"type\": \"FIXED\",\n        \"base_backoff_seconds\": 60,\n        \"max_duration_seconds\": 600,\n        \"max_retries\": 3,\n        \"same_region\": False,\n    },\n    request={\n        \"host\": \"grpcb.in\",\n        \"port\": 9000,\n        \"grpc_mode\": \"BEHAVIOR\",\n        \"tls\": True,\n        \"timeout\": 30,\n        \"service_definition\": \"REFLECTION\",\n        \"method\": \"grpcbin.GRPCBin/DummyUnary\",\n        \"message\": json.dumps({\n            \"f_string\": \"hello\",\n        }),\n        \"metadatas\": [{\n            \"key\": \"x-api-key\",\n            \"value\": \"supersecret\",\n        }],\n        \"assertions\": [\n            {\n                \"source\": \"GRPC_STATUS_CODE\",\n                \"property\": \"\",\n                \"comparison\": \"EQUALS\",\n                \"target\": \"0\",\n            },\n            {\n                \"source\": \"RESPONSE_TIME\",\n                \"property\": \"\",\n                \"comparison\": \"LESS_THAN\",\n                \"target\": \"1000\",\n            },\n        ],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Text.Json;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    // Basic gRPC monitor using a health check (HEALTH mode)\n    var example_grpc_monitor = new Checkly.GrpcMonitor(\"example-grpc-monitor\", new()\n    {\n        Name = \"Example gRPC monitor\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 1,\n        UseGlobalAlertSettings = true,\n        Locations = new[]\n        {\n            \"us-west-1\",\n        },\n        Request = new Checkly.Inputs.GrpcMonitorRequestArgs\n        {\n            Host = \"grpcb.in\",\n            Port = 9000,\n            GrpcMode = \"HEALTH\",\n            Service = \"grpcbin.GRPCBin\",\n        },\n    });\n\n    // A more complex example invoking a unary method (BEHAVIOR mode) with\n    // metadata, assertions and an alert/retry policy\n    var example_grpc_monitor_2 = new Checkly.GrpcMonitor(\"example-grpc-monitor-2\", new()\n    {\n        Name = \"Example gRPC monitor 2\",\n        Activated = true,\n        ShouldFail = false,\n        Frequency = 5,\n        Locations = new[]\n        {\n            \"us-west-1\",\n            \"eu-central-1\",\n        },\n        AlertSettings = new Checkly.Inputs.GrpcMonitorAlertSettingsArgs\n        {\n            EscalationType = \"RUN_BASED\",\n            RunBasedEscalations = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorAlertSettingsRunBasedEscalationArgs\n                {\n                    FailedRunThreshold = 1,\n                },\n            },\n            Reminders = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorAlertSettingsReminderArgs\n                {\n                    Amount = 1,\n                },\n            },\n        },\n        RetryStrategy = new Checkly.Inputs.GrpcMonitorRetryStrategyArgs\n        {\n            Type = \"FIXED\",\n            BaseBackoffSeconds = 60,\n            MaxDurationSeconds = 600,\n            MaxRetries = 3,\n            SameRegion = false,\n        },\n        Request = new Checkly.Inputs.GrpcMonitorRequestArgs\n        {\n            Host = \"grpcb.in\",\n            Port = 9000,\n            GrpcMode = \"BEHAVIOR\",\n            Tls = true,\n            Timeout = 30,\n            ServiceDefinition = \"REFLECTION\",\n            Method = \"grpcbin.GRPCBin/DummyUnary\",\n            Message = JsonSerializer.Serialize(new Dictionary\u003cstring, object?\u003e\n            {\n                [\"f_string\"] = \"hello\",\n            }),\n            Metadatas = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorRequestMetadataArgs\n                {\n                    Key = \"x-api-key\",\n                    Value = \"supersecret\",\n                },\n            },\n            Assertions = new[]\n            {\n                new Checkly.Inputs.GrpcMonitorRequestAssertionArgs\n                {\n                    Source = \"GRPC_STATUS_CODE\",\n                    Property = \"\",\n                    Comparison = \"EQUALS\",\n                    Target = \"0\",\n                },\n                new Checkly.Inputs.GrpcMonitorRequestAssertionArgs\n                {\n                    Source = \"RESPONSE_TIME\",\n                    Property = \"\",\n                    Comparison = \"LESS_THAN\",\n                    Target = \"1000\",\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"encoding/json\"\n\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t// Basic gRPC monitor using a health check (HEALTH mode)\n\t\t_, err := checkly.NewGrpcMonitor(ctx, \"example-grpc-monitor\", \u0026checkly.GrpcMonitorArgs{\n\t\t\tName:                   pulumi.String(\"Example gRPC monitor\"),\n\t\t\tActivated:              pulumi.Bool(true),\n\t\t\tShouldFail:             pulumi.Bool(false),\n\t\t\tFrequency:              pulumi.Int(1),\n\t\t\tUseGlobalAlertSettings: pulumi.Bool(true),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.GrpcMonitorRequestArgs{\n\t\t\t\tHost:     pulumi.String(\"grpcb.in\"),\n\t\t\t\tPort:     pulumi.Int(9000),\n\t\t\t\tGrpcMode: pulumi.String(\"HEALTH\"),\n\t\t\t\tService:  pulumi.String(\"grpcbin.GRPCBin\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\ttmpJSON0, err := json.Marshal(map[string]interface{}{\n\t\t\t\"f_string\": \"hello\",\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tjson0 := string(tmpJSON0)\n\t\t// A more complex example invoking a unary method (BEHAVIOR mode) with\n\t\t// metadata, assertions and an alert/retry policy\n\t\t_, err = checkly.NewGrpcMonitor(ctx, \"example-grpc-monitor-2\", \u0026checkly.GrpcMonitorArgs{\n\t\t\tName:       pulumi.String(\"Example gRPC monitor 2\"),\n\t\t\tActivated:  pulumi.Bool(true),\n\t\t\tShouldFail: pulumi.Bool(false),\n\t\t\tFrequency:  pulumi.Int(5),\n\t\t\tLocations: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"us-west-1\"),\n\t\t\t\tpulumi.String(\"eu-central-1\"),\n\t\t\t},\n\t\t\tAlertSettings: \u0026checkly.GrpcMonitorAlertSettingsArgs{\n\t\t\t\tEscalationType: pulumi.String(\"RUN_BASED\"),\n\t\t\t\tRunBasedEscalations: checkly.GrpcMonitorAlertSettingsRunBasedEscalationArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorAlertSettingsRunBasedEscalationArgs{\n\t\t\t\t\t\tFailedRunThreshold: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tReminders: checkly.GrpcMonitorAlertSettingsReminderArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorAlertSettingsReminderArgs{\n\t\t\t\t\t\tAmount: pulumi.Int(1),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t\tRetryStrategy: \u0026checkly.GrpcMonitorRetryStrategyArgs{\n\t\t\t\tType:               pulumi.String(\"FIXED\"),\n\t\t\t\tBaseBackoffSeconds: pulumi.Int(60),\n\t\t\t\tMaxDurationSeconds: pulumi.Int(600),\n\t\t\t\tMaxRetries:         pulumi.Int(3),\n\t\t\t\tSameRegion:         pulumi.Bool(false),\n\t\t\t},\n\t\t\tRequest: \u0026checkly.GrpcMonitorRequestArgs{\n\t\t\t\tHost:              pulumi.String(\"grpcb.in\"),\n\t\t\t\tPort:              pulumi.Int(9000),\n\t\t\t\tGrpcMode:          pulumi.String(\"BEHAVIOR\"),\n\t\t\t\tTls:               pulumi.Bool(true),\n\t\t\t\tTimeout:           pulumi.Int(30),\n\t\t\t\tServiceDefinition: pulumi.String(\"REFLECTION\"),\n\t\t\t\tMethod:            pulumi.String(\"grpcbin.GRPCBin/DummyUnary\"),\n\t\t\t\tMessage:           pulumi.String(json0),\n\t\t\t\tMetadatas: checkly.GrpcMonitorRequestMetadataArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorRequestMetadataArgs{\n\t\t\t\t\t\tKey:   pulumi.String(\"x-api-key\"),\n\t\t\t\t\t\tValue: pulumi.String(\"supersecret\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\tAssertions: checkly.GrpcMonitorRequestAssertionArray{\n\t\t\t\t\t\u0026checkly.GrpcMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"GRPC_STATUS_CODE\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"EQUALS\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"0\"),\n\t\t\t\t\t},\n\t\t\t\t\t\u0026checkly.GrpcMonitorRequestAssertionArgs{\n\t\t\t\t\t\tSource:     pulumi.String(\"RESPONSE_TIME\"),\n\t\t\t\t\t\tProperty:   pulumi.String(\"\"),\n\t\t\t\t\t\tComparison: pulumi.String(\"LESS_THAN\"),\n\t\t\t\t\t\tTarget:     pulumi.String(\"1000\"),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.GrpcMonitor;\nimport com.pulumi.checkly.GrpcMonitorArgs;\nimport com.pulumi.checkly.inputs.GrpcMonitorRequestArgs;\nimport com.pulumi.checkly.inputs.GrpcMonitorAlertSettingsArgs;\nimport com.pulumi.checkly.inputs.GrpcMonitorRetryStrategyArgs;\nimport static com.pulumi.codegen.internal.Serialization.*;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        // Basic gRPC monitor using a health check (HEALTH mode)\n        var example_grpc_monitor = new GrpcMonitor(\"example-grpc-monitor\", GrpcMonitorArgs.builder()\n            .name(\"Example gRPC monitor\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(1)\n            .useGlobalAlertSettings(true)\n            .locations(\"us-west-1\")\n            .request(GrpcMonitorRequestArgs.builder()\n                .host(\"grpcb.in\")\n                .port(9000)\n                .grpcMode(\"HEALTH\")\n                .service(\"grpcbin.GRPCBin\")\n                .build())\n            .build());\n\n        // A more complex example invoking a unary method (BEHAVIOR mode) with\n        // metadata, assertions and an alert/retry policy\n        var example_grpc_monitor_2 = new GrpcMonitor(\"example-grpc-monitor-2\", GrpcMonitorArgs.builder()\n            .name(\"Example gRPC monitor 2\")\n            .activated(true)\n            .shouldFail(false)\n            .frequency(5)\n            .locations(            \n                \"us-west-1\",\n                \"eu-central-1\")\n            .alertSettings(GrpcMonitorAlertSettingsArgs.builder()\n                .escalationType(\"RUN_BASED\")\n                .runBasedEscalations(GrpcMonitorAlertSettingsRunBasedEscalationArgs.builder()\n                    .failedRunThreshold(1)\n                    .build())\n                .reminders(GrpcMonitorAlertSettingsReminderArgs.builder()\n                    .amount(1)\n                    .build())\n                .build())\n            .retryStrategy(GrpcMonitorRetryStrategyArgs.builder()\n                .type(\"FIXED\")\n                .baseBackoffSeconds(60)\n                .maxDurationSeconds(600)\n                .maxRetries(3)\n                .sameRegion(false)\n                .build())\n            .request(GrpcMonitorRequestArgs.builder()\n                .host(\"grpcb.in\")\n                .port(9000)\n                .grpcMode(\"BEHAVIOR\")\n                .tls(true)\n                .timeout(30)\n                .serviceDefinition(\"REFLECTION\")\n                .method(\"grpcbin.GRPCBin/DummyUnary\")\n                .message(serializeJson(\n                    jsonObject(\n                        jsonProperty(\"f_string\", \"hello\")\n                    )))\n                .metadatas(GrpcMonitorRequestMetadataArgs.builder()\n                    .key(\"x-api-key\")\n                    .value(\"supersecret\")\n                    .build())\n                .assertions(                \n                    GrpcMonitorRequestAssertionArgs.builder()\n                        .source(\"GRPC_STATUS_CODE\")\n                        .property(\"\")\n                        .comparison(\"EQUALS\")\n                        .target(\"0\")\n                        .build(),\n                    GrpcMonitorRequestAssertionArgs.builder()\n                        .source(\"RESPONSE_TIME\")\n                        .property(\"\")\n                        .comparison(\"LESS_THAN\")\n                        .target(\"1000\")\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  # Basic gRPC monitor using a health check (HEALTH mode)\n  example-grpc-monitor:\n    type: checkly:GrpcMonitor\n    properties:\n      name: Example gRPC monitor\n      activated: true\n      shouldFail: false\n      frequency: 1\n      useGlobalAlertSettings: true\n      locations:\n        - us-west-1\n      request:\n        host: grpcb.in\n        port: 9000\n        grpcMode: HEALTH\n        service: grpcbin.GRPCBin\n  # A more complex example invoking a unary method (BEHAVIOR mode) with\n  # metadata, assertions and an alert/retry policy\n  example-grpc-monitor-2:\n    type: checkly:GrpcMonitor\n    properties:\n      name: Example gRPC monitor 2\n      activated: true\n      shouldFail: false\n      frequency: 5\n      locations:\n        - us-west-1\n        - eu-central-1\n      alertSettings:\n        escalationType: RUN_BASED\n        runBasedEscalations:\n          - failedRunThreshold: 1\n        reminders:\n          - amount: 1\n      retryStrategy:\n        type: FIXED\n        baseBackoffSeconds: 60\n        maxDurationSeconds: 600\n        maxRetries: 3\n        sameRegion: false\n      request:\n        host: grpcb.in\n        port: 9000\n        grpcMode: BEHAVIOR\n        tls: true\n        timeout: 30\n        serviceDefinition: REFLECTION\n        method: grpcbin.GRPCBin/DummyUnary\n        message:\n          fn::toJSON:\n            f_string: hello\n        metadatas:\n          - key: x-api-key\n            value: supersecret\n        assertions:\n          - source: GRPC_STATUS_CODE\n            property: \"\"\n            comparison: EQUALS\n            target: '0'\n          - source: RESPONSE_TIME\n            property: \"\"\n            comparison: LESS_THAN\n            target: '1000'\n```\n\u003c!--End PulumiCodeChooser --\u003e\n\n\n## Assertion Reference\n\nEach `assertion` block has the shape `{ source, property, comparison, target }`. Which comparisons are allowed, and what `target` must contain, depend on `source`. The `comparison` and `target` rules are enforced by the Checkly API at apply time; where `property` is marked as ignored, the API accepts any value but does not use it.\n\n| `source` | `property` | Allowed `comparison` values | `target` |\n|---|---|---|---|\n| `RESPONSE_TIME` | Leave empty (ignored for this source). | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Milliseconds, ≥ 0. |\n| `GRPC_STATUS_CODE` | Leave empty (ignored for this source). | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Integer 0–16 (standard gRPC status codes; `0` = OK). |\n| `GRPC_HEALTHCHECK_STATUS` | Leave empty (ignored for this source). | `EQUALS`, `NOT_EQUALS` | Integer 0–3: `0` = UNKNOWN, `1` = SERVING, `2` = NOT_SERVING, `3` = SERVICE_UNKNOWN. Numeric only — labels are not accepted. |\n| `GRPC_RESPONSE` | A JSONPath expression into the response message (e.g. `$.user.id`). | `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, `NOT_NULL` | Free-form string. |\n| `TEXT_BODY` | Optional; selects within the serialized response body. | Same set as `GRPC_RESPONSE`. | Free-form string. |\n| `GRPC_METADATA` | A response metadata (header) key. | Same set as `GRPC_RESPONSE`. | Free-form string. |\n\n",
+            "description": "gRPC monitors allow you to monitor gRPC services, either via a health check (HEALTH mode) or by invoking a unary method (BEHAVIOR mode).\n\n",
             "properties": {
                 "activated": {
                     "type": "boolean",
@@ -7047,8 +7280,12 @@
             }
         },
         "checkly:index/maintenanceWindow:MaintenanceWindow": {
-            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst maintenance_1 = new checkly.MaintenanceWindow(\"maintenance-1\", {\n    name: \"Maintenance Windows\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatUnit: \"MONTH\",\n    repeatEndsAt: \"2014-08-24T00:00:00.000Z\",\n    repeatInterval: 1,\n    tags: [\"production\"],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindow(\"maintenance-1\",\n    name=\"Maintenance Windows\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_unit=\"MONTH\",\n    repeat_ends_at=\"2014-08-24T00:00:00.000Z\",\n    repeat_interval=1,\n    tags=[\"production\"])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var maintenance_1 = new Checkly.MaintenanceWindow(\"maintenance-1\", new()\n    {\n        Name = \"Maintenance Windows\",\n        StartsAt = \"2014-08-24T00:00:00.000Z\",\n        EndsAt = \"2014-08-25T00:00:00.000Z\",\n        RepeatUnit = \"MONTH\",\n        RepeatEndsAt = \"2014-08-24T00:00:00.000Z\",\n        RepeatInterval = 1,\n        Tags = new[]\n        {\n            \"production\",\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindow(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tName:           pulumi.String(\"Maintenance Windows\"),\n\t\t\tStartsAt:       pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tEndsAt:         pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatUnit:     pulumi.String(\"MONTH\"),\n\t\t\tRepeatEndsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tRepeatInterval: pulumi.Int(1),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.MaintenanceWindow;\nimport com.pulumi.checkly.MaintenanceWindowArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var maintenance_1 = new MaintenanceWindow(\"maintenance-1\", MaintenanceWindowArgs.builder()\n            .name(\"Maintenance Windows\")\n            .startsAt(\"2014-08-24T00:00:00.000Z\")\n            .endsAt(\"2014-08-25T00:00:00.000Z\")\n            .repeatUnit(\"MONTH\")\n            .repeatEndsAt(\"2014-08-24T00:00:00.000Z\")\n            .repeatInterval(1)\n            .tags(\"production\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  maintenance-1:\n    type: checkly:MaintenanceWindow\n    properties:\n      name: Maintenance Windows\n      startsAt: 2014-08-24T00:00:00.000Z\n      endsAt: 2014-08-25T00:00:00.000Z\n      repeatUnit: MONTH\n      repeatEndsAt: 2014-08-24T00:00:00.000Z\n      repeatInterval: 1\n      tags:\n        - production\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst maintenance_1 = new checkly.MaintenanceWindow(\"maintenance-1\", {\n    name: \"Maintenance Windows\",\n    startsAt: \"2014-08-24T00:00:00.000Z\",\n    endsAt: \"2014-08-25T00:00:00.000Z\",\n    repeatUnit: \"MONTH\",\n    repeatEndsAt: \"2014-08-24T00:00:00.000Z\",\n    repeatInterval: 1,\n    tags: [\"production\"],\n    timezone: \"America/New_York\",\n    description: \"Monthly database maintenance\",\n    silenceAlertsTags: [\"production\"],\n});\n// Show a maintenance window on a status page\nconst api = new checkly.StatusPageService(\"api\", {name: \"API\"});\nconst example = new checkly.StatusPage(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n    cards: [{\n        name: \"Services\",\n        serviceAttachments: [{\n            serviceId: api.id,\n        }],\n    }],\n});\nconst maintenance_2 = new checkly.MaintenanceWindow(\"maintenance-2\", {\n    name: \"Status page maintenance\",\n    startsAt: \"2028-08-24T00:00:00.000Z\",\n    endsAt: \"2028-08-24T02:00:00.000Z\",\n    tags: [\"api\"],\n    description: \"We're upgrading our API servers.\",\n    statusPageVisibility: {\n        enabled: true,\n        severity: \"MINOR\",\n        notifyOnStart: true,\n        statusPageIds: [example.id],\n        serviceIds: [api.id],\n    },\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nmaintenance_1 = checkly.MaintenanceWindow(\"maintenance-1\",\n    name=\"Maintenance Windows\",\n    starts_at=\"2014-08-24T00:00:00.000Z\",\n    ends_at=\"2014-08-25T00:00:00.000Z\",\n    repeat_unit=\"MONTH\",\n    repeat_ends_at=\"2014-08-24T00:00:00.000Z\",\n    repeat_interval=1,\n    tags=[\"production\"],\n    timezone=\"America/New_York\",\n    description=\"Monthly database maintenance\",\n    silence_alerts_tags=[\"production\"])\n# Show a maintenance window on a status page\napi = checkly.StatusPageService(\"api\", name=\"API\")\nexample = checkly.StatusPage(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\",\n    cards=[{\n        \"name\": \"Services\",\n        \"service_attachments\": [{\n            \"service_id\": api.id,\n        }],\n    }])\nmaintenance_2 = checkly.MaintenanceWindow(\"maintenance-2\",\n    name=\"Status page maintenance\",\n    starts_at=\"2028-08-24T00:00:00.000Z\",\n    ends_at=\"2028-08-24T02:00:00.000Z\",\n    tags=[\"api\"],\n    description=\"We're upgrading our API servers.\",\n    status_page_visibility={\n        \"enabled\": True,\n        \"severity\": \"MINOR\",\n        \"notify_on_start\": True,\n        \"status_page_ids\": [example.id],\n        \"service_ids\": [api.id],\n    })\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var maintenance_1 = new Checkly.MaintenanceWindow(\"maintenance-1\", new()\n    {\n        Name = \"Maintenance Windows\",\n        StartsAt = \"2014-08-24T00:00:00.000Z\",\n        EndsAt = \"2014-08-25T00:00:00.000Z\",\n        RepeatUnit = \"MONTH\",\n        RepeatEndsAt = \"2014-08-24T00:00:00.000Z\",\n        RepeatInterval = 1,\n        Tags = new[]\n        {\n            \"production\",\n        },\n        Timezone = \"America/New_York\",\n        Description = \"Monthly database maintenance\",\n        SilenceAlertsTags = new[]\n        {\n            \"production\",\n        },\n    });\n\n    // Show a maintenance window on a status page\n    var api = new Checkly.StatusPageService(\"api\", new()\n    {\n        Name = \"API\",\n    });\n\n    var example = new Checkly.StatusPage(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n        Cards = new[]\n        {\n            new Checkly.Inputs.StatusPageCardArgs\n            {\n                Name = \"Services\",\n                ServiceAttachments = new[]\n                {\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = api.Id,\n                    },\n                },\n            },\n        },\n    });\n\n    var maintenance_2 = new Checkly.MaintenanceWindow(\"maintenance-2\", new()\n    {\n        Name = \"Status page maintenance\",\n        StartsAt = \"2028-08-24T00:00:00.000Z\",\n        EndsAt = \"2028-08-24T02:00:00.000Z\",\n        Tags = new[]\n        {\n            \"api\",\n        },\n        Description = \"We're upgrading our API servers.\",\n        StatusPageVisibility = new Checkly.Inputs.MaintenanceWindowStatusPageVisibilityArgs\n        {\n            Enabled = true,\n            Severity = \"MINOR\",\n            NotifyOnStart = true,\n            StatusPageIds = new[]\n            {\n                example.Id,\n            },\n            ServiceIds = new[]\n            {\n                api.Id,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewMaintenanceWindow(ctx, \"maintenance-1\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tName:           pulumi.String(\"Maintenance Windows\"),\n\t\t\tStartsAt:       pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tEndsAt:         pulumi.String(\"2014-08-25T00:00:00.000Z\"),\n\t\t\tRepeatUnit:     pulumi.String(\"MONTH\"),\n\t\t\tRepeatEndsAt:   pulumi.String(\"2014-08-24T00:00:00.000Z\"),\n\t\t\tRepeatInterval: pulumi.Int(1),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t\tTimezone:    pulumi.String(\"America/New_York\"),\n\t\t\tDescription: pulumi.String(\"Monthly database maintenance\"),\n\t\t\tSilenceAlertsTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"production\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// Show a maintenance window on a status page\n\t\tapi, err := checkly.NewStatusPageService(ctx, \"api\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"API\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\texample, err := checkly.NewStatusPage(ctx, \"example\", \u0026checkly.StatusPageArgs{\n\t\t\tName: pulumi.String(\"Example Application\"),\n\t\t\tUrl:  pulumi.String(\"my-example-status-page\"),\n\t\t\tCards: checkly.StatusPageCardArray{\n\t\t\t\t\u0026checkly.StatusPageCardArgs{\n\t\t\t\t\tName: pulumi.String(\"Services\"),\n\t\t\t\t\tServiceAttachments: checkly.StatusPageCardServiceAttachmentArray{\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: api.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewMaintenanceWindow(ctx, \"maintenance-2\", \u0026checkly.MaintenanceWindowArgs{\n\t\t\tName:     pulumi.String(\"Status page maintenance\"),\n\t\t\tStartsAt: pulumi.String(\"2028-08-24T00:00:00.000Z\"),\n\t\t\tEndsAt:   pulumi.String(\"2028-08-24T02:00:00.000Z\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"api\"),\n\t\t\t},\n\t\t\tDescription: pulumi.String(\"We're upgrading our API servers.\"),\n\t\t\tStatusPageVisibility: \u0026checkly.MaintenanceWindowStatusPageVisibilityArgs{\n\t\t\t\tEnabled:       pulumi.Bool(true),\n\t\t\t\tSeverity:      pulumi.String(\"MINOR\"),\n\t\t\t\tNotifyOnStart: pulumi.Bool(true),\n\t\t\t\tStatusPageIds: pulumi.StringArray{\n\t\t\t\t\texample.ID(),\n\t\t\t\t},\n\t\t\t\tServiceIds: pulumi.StringArray{\n\t\t\t\t\tapi.ID(),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.MaintenanceWindow;\nimport com.pulumi.checkly.MaintenanceWindowArgs;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport com.pulumi.checkly.StatusPage;\nimport com.pulumi.checkly.StatusPageArgs;\nimport com.pulumi.checkly.inputs.StatusPageCardArgs;\nimport com.pulumi.checkly.inputs.MaintenanceWindowStatusPageVisibilityArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var maintenance_1 = new MaintenanceWindow(\"maintenance-1\", MaintenanceWindowArgs.builder()\n            .name(\"Maintenance Windows\")\n            .startsAt(\"2014-08-24T00:00:00.000Z\")\n            .endsAt(\"2014-08-25T00:00:00.000Z\")\n            .repeatUnit(\"MONTH\")\n            .repeatEndsAt(\"2014-08-24T00:00:00.000Z\")\n            .repeatInterval(1)\n            .tags(\"production\")\n            .timezone(\"America/New_York\")\n            .description(\"Monthly database maintenance\")\n            .silenceAlertsTags(\"production\")\n            .build());\n\n        // Show a maintenance window on a status page\n        var api = new StatusPageService(\"api\", StatusPageServiceArgs.builder()\n            .name(\"API\")\n            .build());\n\n        var example = new StatusPage(\"example\", StatusPageArgs.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .cards(StatusPageCardArgs.builder()\n                .name(\"Services\")\n                .serviceAttachments(StatusPageCardServiceAttachmentArgs.builder()\n                    .serviceId(api.id())\n                    .build())\n                .build())\n            .build());\n\n        var maintenance_2 = new MaintenanceWindow(\"maintenance-2\", MaintenanceWindowArgs.builder()\n            .name(\"Status page maintenance\")\n            .startsAt(\"2028-08-24T00:00:00.000Z\")\n            .endsAt(\"2028-08-24T02:00:00.000Z\")\n            .tags(\"api\")\n            .description(\"We're upgrading our API servers.\")\n            .statusPageVisibility(MaintenanceWindowStatusPageVisibilityArgs.builder()\n                .enabled(true)\n                .severity(\"MINOR\")\n                .notifyOnStart(true)\n                .statusPageIds(example.id())\n                .serviceIds(api.id())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  maintenance-1:\n    type: checkly:MaintenanceWindow\n    properties:\n      name: Maintenance Windows\n      startsAt: 2014-08-24T00:00:00.000Z\n      endsAt: 2014-08-25T00:00:00.000Z\n      repeatUnit: MONTH\n      repeatEndsAt: 2014-08-24T00:00:00.000Z\n      repeatInterval: 1\n      tags:\n        - production\n      timezone: America/New_York\n      description: Monthly database maintenance\n      silenceAlertsTags:\n        - production\n  # Show a maintenance window on a status page\n  api:\n    type: checkly:StatusPageService\n    properties:\n      name: API\n  example:\n    type: checkly:StatusPage\n    properties:\n      name: Example Application\n      url: my-example-status-page\n      cards:\n        - name: Services\n          serviceAttachments:\n            - serviceId: ${api.id}\n  maintenance-2:\n    type: checkly:MaintenanceWindow\n    properties:\n      name: Status page maintenance\n      startsAt: 2028-08-24T00:00:00.000Z\n      endsAt: 2028-08-24T02:00:00.000Z\n      tags:\n        - api\n      description: We're upgrading our API servers.\n      statusPageVisibility:\n        enabled: true\n        severity: MINOR\n        notifyOnStart: true\n        statusPageIds:\n          - ${example.id}\n        serviceIds:\n          - ${api.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "A description of the maintenance window. When the window is visible on status pages, the description is shown there too.\n"
+                },
                 "endsAt": {
                     "type": "string",
                     "description": "The end date of the maintenance window.\n"
@@ -7057,9 +7294,13 @@
                     "type": "string",
                     "description": "The maintenance window name.\n"
                 },
+                "pauseAllChecks": {
+                    "type": "boolean",
+                    "description": "Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.\n"
+                },
                 "repeatEndsAt": {
                     "type": "string",
-                    "description": "The date on which the maintenance window should stop repeating.\n"
+                    "description": "The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.\n"
                 },
                 "repeatInterval": {
                     "type": "integer",
@@ -7069,16 +7310,35 @@
                     "type": "string",
                     "description": "The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.\n"
                 },
+                "silenceAlertsTags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.\n"
+                },
+                "silenceAllAlerts": {
+                    "type": "boolean",
+                    "description": "Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.\n"
+                },
                 "startsAt": {
                     "type": "string",
                     "description": "The start date of the maintenance window.\n"
+                },
+                "statusPageVisibility": {
+                    "$ref": "#/types/checkly:index/MaintenanceWindowStatusPageVisibility:MaintenanceWindowStatusPageVisibility",
+                    "description": "Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.\n"
                 },
                 "tags": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "The names of the checks and groups maintenance window should apply to.\n"
+                    "description": "The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.\n"
                 }
             },
             "required": [
@@ -7087,6 +7347,10 @@
                 "startsAt"
             ],
             "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "A description of the maintenance window. When the window is visible on status pages, the description is shown there too.\n"
+                },
                 "endsAt": {
                     "type": "string",
                     "description": "The end date of the maintenance window.\n"
@@ -7095,9 +7359,13 @@
                     "type": "string",
                     "description": "The maintenance window name.\n"
                 },
+                "pauseAllChecks": {
+                    "type": "boolean",
+                    "description": "Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.\n"
+                },
                 "repeatEndsAt": {
                     "type": "string",
-                    "description": "The date on which the maintenance window should stop repeating.\n"
+                    "description": "The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.\n"
                 },
                 "repeatInterval": {
                     "type": "integer",
@@ -7107,16 +7375,35 @@
                     "type": "string",
                     "description": "The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.\n"
                 },
+                "silenceAlertsTags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.\n"
+                },
+                "silenceAllAlerts": {
+                    "type": "boolean",
+                    "description": "Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.\n"
+                },
                 "startsAt": {
                     "type": "string",
                     "description": "The start date of the maintenance window.\n"
+                },
+                "statusPageVisibility": {
+                    "$ref": "#/types/checkly:index/MaintenanceWindowStatusPageVisibility:MaintenanceWindowStatusPageVisibility",
+                    "description": "Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.\n"
                 },
                 "tags": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "The names of the checks and groups maintenance window should apply to.\n"
+                    "description": "The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.\n"
+                },
+                "timezone": {
+                    "type": "string",
+                    "description": "The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.\n"
                 }
             },
             "requiredInputs": [
@@ -7126,6 +7413,10 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering MaintenanceWindow resources.\n",
                 "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "A description of the maintenance window. When the window is visible on status pages, the description is shown there too.\n"
+                    },
                     "endsAt": {
                         "type": "string",
                         "description": "The end date of the maintenance window.\n"
@@ -7134,9 +7425,13 @@
                         "type": "string",
                         "description": "The maintenance window name.\n"
                     },
+                    "pauseAllChecks": {
+                        "type": "boolean",
+                        "description": "Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.\n"
+                    },
                     "repeatEndsAt": {
                         "type": "string",
-                        "description": "The date on which the maintenance window should stop repeating.\n"
+                        "description": "The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.\n"
                     },
                     "repeatInterval": {
                         "type": "integer",
@@ -7146,16 +7441,35 @@
                         "type": "string",
                         "description": "The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.\n"
                     },
+                    "silenceAlertsTags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.\n"
+                    },
+                    "silenceAllAlerts": {
+                        "type": "boolean",
+                        "description": "Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.\n"
+                    },
                     "startsAt": {
                         "type": "string",
                         "description": "The start date of the maintenance window.\n"
+                    },
+                    "statusPageVisibility": {
+                        "$ref": "#/types/checkly:index/MaintenanceWindowStatusPageVisibility:MaintenanceWindowStatusPageVisibility",
+                        "description": "Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.\n"
                     },
                     "tags": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "The names of the checks and groups maintenance window should apply to.\n"
+                        "description": "The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.\n"
+                    },
+                    "timezone": {
+                        "type": "string",
+                        "description": "The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.\n"
                     }
                 },
                 "type": "object"
@@ -7935,7 +8249,7 @@
             }
         },
         "checkly:index/statusPage:StatusPage": {
-            "description": "Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst api = new checkly.StatusPageService(\"api\", {name: \"API\"});\nconst database = new checkly.StatusPageService(\"database\", {name: \"Database\"});\nconst example = new checkly.StatusPage(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n    defaultTheme: \"DARK\",\n    cards: [{\n        name: \"Services\",\n        serviceAttachments: [\n            {\n                serviceId: api.id,\n            },\n            {\n                serviceId: database.id,\n            },\n        ],\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\napi = checkly.StatusPageService(\"api\", name=\"API\")\ndatabase = checkly.StatusPageService(\"database\", name=\"Database\")\nexample = checkly.StatusPage(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\",\n    default_theme=\"DARK\",\n    cards=[{\n        \"name\": \"Services\",\n        \"service_attachments\": [\n            {\n                \"service_id\": api.id,\n            },\n            {\n                \"service_id\": database.id,\n            },\n        ],\n    }])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var api = new Checkly.StatusPageService(\"api\", new()\n    {\n        Name = \"API\",\n    });\n\n    var database = new Checkly.StatusPageService(\"database\", new()\n    {\n        Name = \"Database\",\n    });\n\n    var example = new Checkly.StatusPage(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n        DefaultTheme = \"DARK\",\n        Cards = new[]\n        {\n            new Checkly.Inputs.StatusPageCardArgs\n            {\n                Name = \"Services\",\n                ServiceAttachments = new[]\n                {\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = api.Id,\n                    },\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = database.Id,\n                    },\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tapi, err := checkly.NewStatusPageService(ctx, \"api\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"API\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tdatabase, err := checkly.NewStatusPageService(ctx, \"database\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Database\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPage(ctx, \"example\", \u0026checkly.StatusPageArgs{\n\t\t\tName:         pulumi.String(\"Example Application\"),\n\t\t\tUrl:          pulumi.String(\"my-example-status-page\"),\n\t\t\tDefaultTheme: pulumi.String(\"DARK\"),\n\t\t\tCards: checkly.StatusPageCardArray{\n\t\t\t\t\u0026checkly.StatusPageCardArgs{\n\t\t\t\t\tName: pulumi.String(\"Services\"),\n\t\t\t\t\tServiceAttachments: checkly.StatusPageCardServiceAttachmentArray{\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: api.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: database.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport com.pulumi.checkly.StatusPage;\nimport com.pulumi.checkly.StatusPageArgs;\nimport com.pulumi.checkly.inputs.StatusPageCardArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var api = new StatusPageService(\"api\", StatusPageServiceArgs.builder()\n            .name(\"API\")\n            .build());\n\n        var database = new StatusPageService(\"database\", StatusPageServiceArgs.builder()\n            .name(\"Database\")\n            .build());\n\n        var example = new StatusPage(\"example\", StatusPageArgs.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .defaultTheme(\"DARK\")\n            .cards(StatusPageCardArgs.builder()\n                .name(\"Services\")\n                .serviceAttachments(                \n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(api.id())\n                        .build(),\n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(database.id())\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  api:\n    type: checkly:StatusPageService\n    properties:\n      name: API\n  database:\n    type: checkly:StatusPageService\n    properties:\n      name: Database\n  example:\n    type: checkly:StatusPage\n    properties:\n      name: Example Application\n      url: my-example-status-page\n      defaultTheme: DARK\n      cards:\n        - name: Services\n          serviceAttachments:\n            - serviceId: ${api.id}\n            - serviceId: ${database.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page: the new `checkly.StatusPageV3` resource should always be preferred for new pages.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst api = new checkly.StatusPageService(\"api\", {name: \"API\"});\nconst database = new checkly.StatusPageService(\"database\", {name: \"Database\"});\nconst example = new checkly.StatusPage(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n    defaultTheme: \"DARK\",\n    cards: [{\n        name: \"Services\",\n        serviceAttachments: [\n            {\n                serviceId: api.id,\n            },\n            {\n                serviceId: database.id,\n            },\n        ],\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\napi = checkly.StatusPageService(\"api\", name=\"API\")\ndatabase = checkly.StatusPageService(\"database\", name=\"Database\")\nexample = checkly.StatusPage(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\",\n    default_theme=\"DARK\",\n    cards=[{\n        \"name\": \"Services\",\n        \"service_attachments\": [\n            {\n                \"service_id\": api.id,\n            },\n            {\n                \"service_id\": database.id,\n            },\n        ],\n    }])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var api = new Checkly.StatusPageService(\"api\", new()\n    {\n        Name = \"API\",\n    });\n\n    var database = new Checkly.StatusPageService(\"database\", new()\n    {\n        Name = \"Database\",\n    });\n\n    var example = new Checkly.StatusPage(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n        DefaultTheme = \"DARK\",\n        Cards = new[]\n        {\n            new Checkly.Inputs.StatusPageCardArgs\n            {\n                Name = \"Services\",\n                ServiceAttachments = new[]\n                {\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = api.Id,\n                    },\n                    new Checkly.Inputs.StatusPageCardServiceAttachmentArgs\n                    {\n                        ServiceId = database.Id,\n                    },\n                },\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tapi, err := checkly.NewStatusPageService(ctx, \"api\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"API\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tdatabase, err := checkly.NewStatusPageService(ctx, \"database\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Database\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPage(ctx, \"example\", \u0026checkly.StatusPageArgs{\n\t\t\tName:         pulumi.String(\"Example Application\"),\n\t\t\tUrl:          pulumi.String(\"my-example-status-page\"),\n\t\t\tDefaultTheme: pulumi.String(\"DARK\"),\n\t\t\tCards: checkly.StatusPageCardArray{\n\t\t\t\t\u0026checkly.StatusPageCardArgs{\n\t\t\t\t\tName: pulumi.String(\"Services\"),\n\t\t\t\t\tServiceAttachments: checkly.StatusPageCardServiceAttachmentArray{\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: api.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\u0026checkly.StatusPageCardServiceAttachmentArgs{\n\t\t\t\t\t\t\tServiceId: database.ID(),\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport com.pulumi.checkly.StatusPage;\nimport com.pulumi.checkly.StatusPageArgs;\nimport com.pulumi.checkly.inputs.StatusPageCardArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var api = new StatusPageService(\"api\", StatusPageServiceArgs.builder()\n            .name(\"API\")\n            .build());\n\n        var database = new StatusPageService(\"database\", StatusPageServiceArgs.builder()\n            .name(\"Database\")\n            .build());\n\n        var example = new StatusPage(\"example\", StatusPageArgs.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .defaultTheme(\"DARK\")\n            .cards(StatusPageCardArgs.builder()\n                .name(\"Services\")\n                .serviceAttachments(                \n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(api.id())\n                        .build(),\n                    StatusPageCardServiceAttachmentArgs.builder()\n                        .serviceId(database.id())\n                        .build())\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  api:\n    type: checkly:StatusPageService\n    properties:\n      name: API\n  database:\n    type: checkly:StatusPageService\n    properties:\n      name: Database\n  example:\n    type: checkly:StatusPage\n    properties:\n      name: Example Application\n      url: my-example-status-page\n      defaultTheme: DARK\n      cards:\n        - name: Services\n          serviceAttachments:\n            - serviceId: ${api.id}\n            - serviceId: ${database.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "cards": {
                     "type": "array",
@@ -8062,7 +8376,7 @@
             }
         },
         "checkly:index/statusPageService:StatusPageService": {
-            "description": "Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst backend = new checkly.StatusPageService(\"backend\", {name: \"Backend\"});\nconst frontend = new checkly.StatusPageService(\"frontend\", {name: \"Frontend\"});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nbackend = checkly.StatusPageService(\"backend\", name=\"Backend\")\nfrontend = checkly.StatusPageService(\"frontend\", name=\"Frontend\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var backend = new Checkly.StatusPageService(\"backend\", new()\n    {\n        Name = \"Backend\",\n    });\n\n    var frontend = new Checkly.StatusPageService(\"frontend\", new()\n    {\n        Name = \"Frontend\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewStatusPageService(ctx, \"backend\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Backend\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPageService(ctx, \"frontend\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Frontend\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var backend = new StatusPageService(\"backend\", StatusPageServiceArgs.builder()\n            .name(\"Backend\")\n            .build());\n\n        var frontend = new StatusPageService(\"frontend\", StatusPageServiceArgs.builder()\n            .name(\"Frontend\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  backend:\n    type: checkly:StatusPageService\n    properties:\n      name: Backend\n  frontend:\n    type: checkly:StatusPageService\n    properties:\n      name: Frontend\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "description": "Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `checkly.StatusPageV3Component` instead.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst backend = new checkly.StatusPageService(\"backend\", {name: \"Backend\"});\nconst frontend = new checkly.StatusPageService(\"frontend\", {name: \"Frontend\"});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nbackend = checkly.StatusPageService(\"backend\", name=\"Backend\")\nfrontend = checkly.StatusPageService(\"frontend\", name=\"Frontend\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var backend = new Checkly.StatusPageService(\"backend\", new()\n    {\n        Name = \"Backend\",\n    });\n\n    var frontend = new Checkly.StatusPageService(\"frontend\", new()\n    {\n        Name = \"Frontend\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := checkly.NewStatusPageService(ctx, \"backend\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Backend\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPageService(ctx, \"frontend\", \u0026checkly.StatusPageServiceArgs{\n\t\t\tName: pulumi.String(\"Frontend\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageService;\nimport com.pulumi.checkly.StatusPageServiceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var backend = new StatusPageService(\"backend\", StatusPageServiceArgs.builder()\n            .name(\"Backend\")\n            .build());\n\n        var frontend = new StatusPageService(\"frontend\", StatusPageServiceArgs.builder()\n            .name(\"Frontend\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  backend:\n    type: checkly:StatusPageService\n    properties:\n      name: Backend\n  frontend:\n    type: checkly:StatusPageService\n    properties:\n      name: Frontend\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
             "properties": {
                 "name": {
                     "type": "string",
@@ -8084,6 +8398,504 @@
                     "name": {
                         "type": "string",
                         "description": "The name of the service.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/statusPageV3:StatusPageV3": {
+            "description": "Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. A v3 status page has no cards or services: its structure is managed with `checkly.StatusPageV3Component` resources, and incidents can be automated with `checkly.StatusPageV3AutomationRule` resources. The `checkly.StatusPageV3` resource should always be preferred over the old `checkly.StatusPage` resource.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst example = new checkly.StatusPageV3(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n    defaultTheme: \"DARK\",\n    supportLink: \"mailto:support@example.com\",\n    themeColors: {\n        light: {\n            bodyBackgroundColor: \"#F9FAFB\",\n            headerBackgroundColor: \"#FFFFFF\",\n            headerFontColor: \"#151A1E\",\n            titleFontColor: \"#212930\",\n            bodyFontColor: \"#475766\",\n            bodyFontColorMuted: \"#60758A\",\n            navigationFontColor: \"#151A1E\",\n            linkFontColor: \"#FF0000\",\n            cardBackgroundColor: \"#FFFFFF\",\n            borderColor: \"#E0E5EB\",\n            primaryButtonBackgroundColor: \"#151A1E\",\n            primaryButtonFontColor: \"#FFFFFF\",\n        },\n        dark: {\n            bodyBackgroundColor: \"#14171C\",\n            headerBackgroundColor: \"#171B21\",\n            headerFontColor: \"#FFFFFF\",\n            titleFontColor: \"#ECEEF2\",\n            bodyFontColor: \"#C6CDD7\",\n            bodyFontColorMuted: \"#A3B3C2\",\n            navigationFontColor: \"#FFFFFF\",\n            linkFontColor: \"#248AFF\",\n            cardBackgroundColor: \"#171B21\",\n            borderColor: \"#242B34\",\n            primaryButtonBackgroundColor: \"#242B34\",\n            primaryButtonFontColor: \"#FFFFFF\",\n        },\n    },\n});\n// The page structure is declared with components: GROUPs contain SERVICEs.\nconst services = new checkly.StatusPageV3Component(\"services\", {\n    statusPageId: example.id,\n    type: \"GROUP\",\n    name: \"Services\",\n    displayOrder: 0,\n});\nconst api = new checkly.StatusPageV3Component(\"api\", {\n    statusPageId: example.id,\n    name: \"API\",\n    displayOrder: 1,\n    parentId: services.id,\n});\nconst database = new checkly.StatusPageV3Component(\"database\", {\n    statusPageId: example.id,\n    name: \"Database\",\n    displayOrder: 2,\n    parentId: services.id,\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nexample = checkly.StatusPageV3(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\",\n    default_theme=\"DARK\",\n    support_link=\"mailto:support@example.com\",\n    theme_colors={\n        \"light\": {\n            \"body_background_color\": \"#F9FAFB\",\n            \"header_background_color\": \"#FFFFFF\",\n            \"header_font_color\": \"#151A1E\",\n            \"title_font_color\": \"#212930\",\n            \"body_font_color\": \"#475766\",\n            \"body_font_color_muted\": \"#60758A\",\n            \"navigation_font_color\": \"#151A1E\",\n            \"link_font_color\": \"#FF0000\",\n            \"card_background_color\": \"#FFFFFF\",\n            \"border_color\": \"#E0E5EB\",\n            \"primary_button_background_color\": \"#151A1E\",\n            \"primary_button_font_color\": \"#FFFFFF\",\n        },\n        \"dark\": {\n            \"body_background_color\": \"#14171C\",\n            \"header_background_color\": \"#171B21\",\n            \"header_font_color\": \"#FFFFFF\",\n            \"title_font_color\": \"#ECEEF2\",\n            \"body_font_color\": \"#C6CDD7\",\n            \"body_font_color_muted\": \"#A3B3C2\",\n            \"navigation_font_color\": \"#FFFFFF\",\n            \"link_font_color\": \"#248AFF\",\n            \"card_background_color\": \"#171B21\",\n            \"border_color\": \"#242B34\",\n            \"primary_button_background_color\": \"#242B34\",\n            \"primary_button_font_color\": \"#FFFFFF\",\n        },\n    })\n# The page structure is declared with components: GROUPs contain SERVICEs.\nservices = checkly.StatusPageV3Component(\"services\",\n    status_page_id=example.id,\n    type=\"GROUP\",\n    name=\"Services\",\n    display_order=0)\napi = checkly.StatusPageV3Component(\"api\",\n    status_page_id=example.id,\n    name=\"API\",\n    display_order=1,\n    parent_id=services.id)\ndatabase = checkly.StatusPageV3Component(\"database\",\n    status_page_id=example.id,\n    name=\"Database\",\n    display_order=2,\n    parent_id=services.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Checkly.StatusPageV3(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n        DefaultTheme = \"DARK\",\n        SupportLink = \"mailto:support@example.com\",\n        ThemeColors = new Checkly.Inputs.StatusPageV3ThemeColorsArgs\n        {\n            Light = new Checkly.Inputs.StatusPageV3ThemeColorsLightArgs\n            {\n                BodyBackgroundColor = \"#F9FAFB\",\n                HeaderBackgroundColor = \"#FFFFFF\",\n                HeaderFontColor = \"#151A1E\",\n                TitleFontColor = \"#212930\",\n                BodyFontColor = \"#475766\",\n                BodyFontColorMuted = \"#60758A\",\n                NavigationFontColor = \"#151A1E\",\n                LinkFontColor = \"#FF0000\",\n                CardBackgroundColor = \"#FFFFFF\",\n                BorderColor = \"#E0E5EB\",\n                PrimaryButtonBackgroundColor = \"#151A1E\",\n                PrimaryButtonFontColor = \"#FFFFFF\",\n            },\n            Dark = new Checkly.Inputs.StatusPageV3ThemeColorsDarkArgs\n            {\n                BodyBackgroundColor = \"#14171C\",\n                HeaderBackgroundColor = \"#171B21\",\n                HeaderFontColor = \"#FFFFFF\",\n                TitleFontColor = \"#ECEEF2\",\n                BodyFontColor = \"#C6CDD7\",\n                BodyFontColorMuted = \"#A3B3C2\",\n                NavigationFontColor = \"#FFFFFF\",\n                LinkFontColor = \"#248AFF\",\n                CardBackgroundColor = \"#171B21\",\n                BorderColor = \"#242B34\",\n                PrimaryButtonBackgroundColor = \"#242B34\",\n                PrimaryButtonFontColor = \"#FFFFFF\",\n            },\n        },\n    });\n\n    // The page structure is declared with components: GROUPs contain SERVICEs.\n    var services = new Checkly.StatusPageV3Component(\"services\", new()\n    {\n        StatusPageId = example.Id,\n        Type = \"GROUP\",\n        Name = \"Services\",\n        DisplayOrder = 0,\n    });\n\n    var api = new Checkly.StatusPageV3Component(\"api\", new()\n    {\n        StatusPageId = example.Id,\n        Name = \"API\",\n        DisplayOrder = 1,\n        ParentId = services.Id,\n    });\n\n    var database = new Checkly.StatusPageV3Component(\"database\", new()\n    {\n        StatusPageId = example.Id,\n        Name = \"Database\",\n        DisplayOrder = 2,\n        ParentId = services.Id,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := checkly.NewStatusPageV3(ctx, \"example\", \u0026checkly.StatusPageV3Args{\n\t\t\tName:         pulumi.String(\"Example Application\"),\n\t\t\tUrl:          pulumi.String(\"my-example-status-page\"),\n\t\t\tDefaultTheme: pulumi.String(\"DARK\"),\n\t\t\tSupportLink:  pulumi.String(\"mailto:support@example.com\"),\n\t\t\tThemeColors: \u0026checkly.StatusPageV3ThemeColorsArgs{\n\t\t\t\tLight: \u0026checkly.StatusPageV3ThemeColorsLightArgs{\n\t\t\t\t\tBodyBackgroundColor:          pulumi.String(\"#F9FAFB\"),\n\t\t\t\t\tHeaderBackgroundColor:        pulumi.String(\"#FFFFFF\"),\n\t\t\t\t\tHeaderFontColor:              pulumi.String(\"#151A1E\"),\n\t\t\t\t\tTitleFontColor:               pulumi.String(\"#212930\"),\n\t\t\t\t\tBodyFontColor:                pulumi.String(\"#475766\"),\n\t\t\t\t\tBodyFontColorMuted:           pulumi.String(\"#60758A\"),\n\t\t\t\t\tNavigationFontColor:          pulumi.String(\"#151A1E\"),\n\t\t\t\t\tLinkFontColor:                pulumi.String(\"#FF0000\"),\n\t\t\t\t\tCardBackgroundColor:          pulumi.String(\"#FFFFFF\"),\n\t\t\t\t\tBorderColor:                  pulumi.String(\"#E0E5EB\"),\n\t\t\t\t\tPrimaryButtonBackgroundColor: pulumi.String(\"#151A1E\"),\n\t\t\t\t\tPrimaryButtonFontColor:       pulumi.String(\"#FFFFFF\"),\n\t\t\t\t},\n\t\t\t\tDark: \u0026checkly.StatusPageV3ThemeColorsDarkArgs{\n\t\t\t\t\tBodyBackgroundColor:          pulumi.String(\"#14171C\"),\n\t\t\t\t\tHeaderBackgroundColor:        pulumi.String(\"#171B21\"),\n\t\t\t\t\tHeaderFontColor:              pulumi.String(\"#FFFFFF\"),\n\t\t\t\t\tTitleFontColor:               pulumi.String(\"#ECEEF2\"),\n\t\t\t\t\tBodyFontColor:                pulumi.String(\"#C6CDD7\"),\n\t\t\t\t\tBodyFontColorMuted:           pulumi.String(\"#A3B3C2\"),\n\t\t\t\t\tNavigationFontColor:          pulumi.String(\"#FFFFFF\"),\n\t\t\t\t\tLinkFontColor:                pulumi.String(\"#248AFF\"),\n\t\t\t\t\tCardBackgroundColor:          pulumi.String(\"#171B21\"),\n\t\t\t\t\tBorderColor:                  pulumi.String(\"#242B34\"),\n\t\t\t\t\tPrimaryButtonBackgroundColor: pulumi.String(\"#242B34\"),\n\t\t\t\t\tPrimaryButtonFontColor:       pulumi.String(\"#FFFFFF\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// The page structure is declared with components: GROUPs contain SERVICEs.\n\t\tservices, err := checkly.NewStatusPageV3Component(ctx, \"services\", \u0026checkly.StatusPageV3ComponentArgs{\n\t\t\tStatusPageId: example.ID(),\n\t\t\tType:         pulumi.String(\"GROUP\"),\n\t\t\tName:         pulumi.String(\"Services\"),\n\t\t\tDisplayOrder: pulumi.Int(0),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPageV3Component(ctx, \"api\", \u0026checkly.StatusPageV3ComponentArgs{\n\t\t\tStatusPageId: example.ID(),\n\t\t\tName:         pulumi.String(\"API\"),\n\t\t\tDisplayOrder: pulumi.Int(1),\n\t\t\tParentId:     services.ID(),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPageV3Component(ctx, \"database\", \u0026checkly.StatusPageV3ComponentArgs{\n\t\t\tStatusPageId: example.ID(),\n\t\t\tName:         pulumi.String(\"Database\"),\n\t\t\tDisplayOrder: pulumi.Int(2),\n\t\t\tParentId:     services.ID(),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageV3;\nimport com.pulumi.checkly.StatusPageV3Args;\nimport com.pulumi.checkly.inputs.StatusPageV3ThemeColorsArgs;\nimport com.pulumi.checkly.inputs.StatusPageV3ThemeColorsLightArgs;\nimport com.pulumi.checkly.inputs.StatusPageV3ThemeColorsDarkArgs;\nimport com.pulumi.checkly.StatusPageV3Component;\nimport com.pulumi.checkly.StatusPageV3ComponentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new StatusPageV3(\"example\", StatusPageV3Args.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .defaultTheme(\"DARK\")\n            .supportLink(\"mailto:support@example.com\")\n            .themeColors(StatusPageV3ThemeColorsArgs.builder()\n                .light(StatusPageV3ThemeColorsLightArgs.builder()\n                    .bodyBackgroundColor(\"#F9FAFB\")\n                    .headerBackgroundColor(\"#FFFFFF\")\n                    .headerFontColor(\"#151A1E\")\n                    .titleFontColor(\"#212930\")\n                    .bodyFontColor(\"#475766\")\n                    .bodyFontColorMuted(\"#60758A\")\n                    .navigationFontColor(\"#151A1E\")\n                    .linkFontColor(\"#FF0000\")\n                    .cardBackgroundColor(\"#FFFFFF\")\n                    .borderColor(\"#E0E5EB\")\n                    .primaryButtonBackgroundColor(\"#151A1E\")\n                    .primaryButtonFontColor(\"#FFFFFF\")\n                    .build())\n                .dark(StatusPageV3ThemeColorsDarkArgs.builder()\n                    .bodyBackgroundColor(\"#14171C\")\n                    .headerBackgroundColor(\"#171B21\")\n                    .headerFontColor(\"#FFFFFF\")\n                    .titleFontColor(\"#ECEEF2\")\n                    .bodyFontColor(\"#C6CDD7\")\n                    .bodyFontColorMuted(\"#A3B3C2\")\n                    .navigationFontColor(\"#FFFFFF\")\n                    .linkFontColor(\"#248AFF\")\n                    .cardBackgroundColor(\"#171B21\")\n                    .borderColor(\"#242B34\")\n                    .primaryButtonBackgroundColor(\"#242B34\")\n                    .primaryButtonFontColor(\"#FFFFFF\")\n                    .build())\n                .build())\n            .build());\n\n        // The page structure is declared with components: GROUPs contain SERVICEs.\n        var services = new StatusPageV3Component(\"services\", StatusPageV3ComponentArgs.builder()\n            .statusPageId(example.id())\n            .type(\"GROUP\")\n            .name(\"Services\")\n            .displayOrder(0)\n            .build());\n\n        var api = new StatusPageV3Component(\"api\", StatusPageV3ComponentArgs.builder()\n            .statusPageId(example.id())\n            .name(\"API\")\n            .displayOrder(1)\n            .parentId(services.id())\n            .build());\n\n        var database = new StatusPageV3Component(\"database\", StatusPageV3ComponentArgs.builder()\n            .statusPageId(example.id())\n            .name(\"Database\")\n            .displayOrder(2)\n            .parentId(services.id())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: checkly:StatusPageV3\n    properties:\n      name: Example Application\n      url: my-example-status-page\n      defaultTheme: DARK\n      supportLink: mailto:support@example.com\n      themeColors:\n        light:\n          bodyBackgroundColor: '#F9FAFB'\n          headerBackgroundColor: '#FFFFFF'\n          headerFontColor: '#151A1E'\n          titleFontColor: '#212930'\n          bodyFontColor: '#475766'\n          bodyFontColorMuted: '#60758A'\n          navigationFontColor: '#151A1E'\n          linkFontColor: '#FF0000'\n          cardBackgroundColor: '#FFFFFF'\n          borderColor: '#E0E5EB'\n          primaryButtonBackgroundColor: '#151A1E'\n          primaryButtonFontColor: '#FFFFFF'\n        dark:\n          bodyBackgroundColor: '#14171C'\n          headerBackgroundColor: '#171B21'\n          headerFontColor: '#FFFFFF'\n          titleFontColor: '#ECEEF2'\n          bodyFontColor: '#C6CDD7'\n          bodyFontColorMuted: '#A3B3C2'\n          navigationFontColor: '#FFFFFF'\n          linkFontColor: '#248AFF'\n          cardBackgroundColor: '#171B21'\n          borderColor: '#242B34'\n          primaryButtonBackgroundColor: '#242B34'\n          primaryButtonFontColor: '#FFFFFF'\n  # The page structure is declared with components: GROUPs contain SERVICEs.\n  services:\n    type: checkly:StatusPageV3Component\n    properties:\n      statusPageId: ${example.id}\n      type: GROUP\n      name: Services\n      displayOrder: 0\n  api:\n    type: checkly:StatusPageV3Component\n    properties:\n      statusPageId: ${example.id}\n      name: API\n      displayOrder: 1\n      parentId: ${services.id}\n  database:\n    type: checkly:StatusPageV3Component\n    properties:\n      statusPageId: ${example.id}\n      name: Database\n      displayOrder: 2\n      parentId: ${services.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "allowIndexing": {
+                    "type": "boolean",
+                    "description": "Whether search engines may index the public page. (Default `true`).\n"
+                },
+                "customDomain": {
+                    "type": "string",
+                    "description": "A custom user domain, e.g. \"status.example.com\": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.\n"
+                },
+                "defaultTheme": {
+                    "type": "string",
+                    "description": "The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A short description shown on the status page.\n"
+                },
+                "favicon": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the favicon of the status page.\n"
+                },
+                "footerText": {
+                    "type": "string",
+                    "description": "Free-form footer text.\n"
+                },
+                "googleAnalyticsTag": {
+                    "type": "string",
+                    "description": "A Google Analytics tag ID (e.g. \"G-XXXXXXXXXX\") to embed on the public page.\n"
+                },
+                "logo": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the logo for the status page.\n"
+                },
+                "logoDark": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the logo in dark mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the status page.\n"
+                },
+                "privacyPolicyLink": {
+                    "type": "string",
+                    "description": "A link to your privacy policy, shown in the page footer.\n"
+                },
+                "redirectTo": {
+                    "type": "string",
+                    "description": "The URL the user should be redirected to when clicking the logo.\n"
+                },
+                "supportLink": {
+                    "type": "string",
+                    "description": "A support contact link (http, https or mailto), shown in the page footer.\n"
+                },
+                "termsOfServiceLink": {
+                    "type": "string",
+                    "description": "A link to your terms of service, shown in the page footer.\n"
+                },
+                "themeColors": {
+                    "$ref": "#/types/checkly:index/StatusPageV3ThemeColors:StatusPageV3ThemeColors",
+                    "description": "Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.\n"
+                }
+            },
+            "required": [
+                "name",
+                "url"
+            ],
+            "inputProperties": {
+                "allowIndexing": {
+                    "type": "boolean",
+                    "description": "Whether search engines may index the public page. (Default `true`).\n"
+                },
+                "customDomain": {
+                    "type": "string",
+                    "description": "A custom user domain, e.g. \"status.example.com\": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.\n"
+                },
+                "defaultTheme": {
+                    "type": "string",
+                    "description": "The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "A short description shown on the status page.\n"
+                },
+                "favicon": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the favicon of the status page.\n"
+                },
+                "footerText": {
+                    "type": "string",
+                    "description": "Free-form footer text.\n"
+                },
+                "googleAnalyticsTag": {
+                    "type": "string",
+                    "description": "A Google Analytics tag ID (e.g. \"G-XXXXXXXXXX\") to embed on the public page.\n"
+                },
+                "logo": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the logo for the status page.\n"
+                },
+                "logoDark": {
+                    "type": "string",
+                    "description": "A URL to an image file to use as the logo in dark mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the status page.\n"
+                },
+                "privacyPolicyLink": {
+                    "type": "string",
+                    "description": "A link to your privacy policy, shown in the page footer.\n"
+                },
+                "redirectTo": {
+                    "type": "string",
+                    "description": "The URL the user should be redirected to when clicking the logo.\n"
+                },
+                "supportLink": {
+                    "type": "string",
+                    "description": "A support contact link (http, https or mailto), shown in the page footer.\n"
+                },
+                "termsOfServiceLink": {
+                    "type": "string",
+                    "description": "A link to your terms of service, shown in the page footer.\n"
+                },
+                "themeColors": {
+                    "$ref": "#/types/checkly:index/StatusPageV3ThemeColors:StatusPageV3ThemeColors",
+                    "description": "Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.\n"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.\n"
+                }
+            },
+            "requiredInputs": [
+                "url"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering StatusPageV3 resources.\n",
+                "properties": {
+                    "allowIndexing": {
+                        "type": "boolean",
+                        "description": "Whether search engines may index the public page. (Default `true`).\n"
+                    },
+                    "customDomain": {
+                        "type": "string",
+                        "description": "A custom user domain, e.g. \"status.example.com\": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.\n"
+                    },
+                    "defaultTheme": {
+                        "type": "string",
+                        "description": "The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A short description shown on the status page.\n"
+                    },
+                    "favicon": {
+                        "type": "string",
+                        "description": "A URL to an image file to use as the favicon of the status page.\n"
+                    },
+                    "footerText": {
+                        "type": "string",
+                        "description": "Free-form footer text.\n"
+                    },
+                    "googleAnalyticsTag": {
+                        "type": "string",
+                        "description": "A Google Analytics tag ID (e.g. \"G-XXXXXXXXXX\") to embed on the public page.\n"
+                    },
+                    "logo": {
+                        "type": "string",
+                        "description": "A URL to an image file to use as the logo for the status page.\n"
+                    },
+                    "logoDark": {
+                        "type": "string",
+                        "description": "A URL to an image file to use as the logo in dark mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the status page.\n"
+                    },
+                    "privacyPolicyLink": {
+                        "type": "string",
+                        "description": "A link to your privacy policy, shown in the page footer.\n"
+                    },
+                    "redirectTo": {
+                        "type": "string",
+                        "description": "The URL the user should be redirected to when clicking the logo.\n"
+                    },
+                    "supportLink": {
+                        "type": "string",
+                        "description": "A support contact link (http, https or mailto), shown in the page footer.\n"
+                    },
+                    "termsOfServiceLink": {
+                        "type": "string",
+                        "description": "A link to your terms of service, shown in the page footer.\n"
+                    },
+                    "themeColors": {
+                        "$ref": "#/types/checkly:index/StatusPageV3ThemeColors:StatusPageV3ThemeColors",
+                        "description": "Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.\n"
+                    },
+                    "url": {
+                        "type": "string",
+                        "description": "The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule": {
+            "description": "An automation rule of a v3 status page. When a check whose tags overlap with the rule's tags fails, Checkly opens one incident on the page impacting the listed components, and resolves it when the check recovers. Import uses the composite ID `\u003cstatus_page_id\u003e/\u003crule_id\u003e`.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst example = new checkly.StatusPageV3(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n});\nconst api = new checkly.StatusPageV3Component(\"api\", {\n    statusPageId: example.id,\n    name: \"API\",\n    displayOrder: 0,\n});\n// When a check tagged \"api\" fails, an incident is opened on the page marking\n// the API component as a major outage, and resolved when the check recovers.\nconst apiOutage = new checkly.StatusPageV3AutomationRule(\"api_outage\", {\n    statusPageId: example.id,\n    name: \"API outage\",\n    firstUpdate: \"We are investigating an issue with the API.\",\n    lastUpdate: \"The issue has been resolved.\",\n    tags: [\"api\"],\n    components: [{\n        componentId: api.id,\n        targetImpact: \"MAJOR_OUTAGE\",\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nexample = checkly.StatusPageV3(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\")\napi = checkly.StatusPageV3Component(\"api\",\n    status_page_id=example.id,\n    name=\"API\",\n    display_order=0)\n# When a check tagged \"api\" fails, an incident is opened on the page marking\n# the API component as a major outage, and resolved when the check recovers.\napi_outage = checkly.StatusPageV3AutomationRule(\"api_outage\",\n    status_page_id=example.id,\n    name=\"API outage\",\n    first_update=\"We are investigating an issue with the API.\",\n    last_update=\"The issue has been resolved.\",\n    tags=[\"api\"],\n    components=[{\n        \"component_id\": api.id,\n        \"target_impact\": \"MAJOR_OUTAGE\",\n    }])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Checkly.StatusPageV3(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n    });\n\n    var api = new Checkly.StatusPageV3Component(\"api\", new()\n    {\n        StatusPageId = example.Id,\n        Name = \"API\",\n        DisplayOrder = 0,\n    });\n\n    // When a check tagged \"api\" fails, an incident is opened on the page marking\n    // the API component as a major outage, and resolved when the check recovers.\n    var apiOutage = new Checkly.StatusPageV3AutomationRule(\"api_outage\", new()\n    {\n        StatusPageId = example.Id,\n        Name = \"API outage\",\n        FirstUpdate = \"We are investigating an issue with the API.\",\n        LastUpdate = \"The issue has been resolved.\",\n        Tags = new[]\n        {\n            \"api\",\n        },\n        Components = new[]\n        {\n            new Checkly.Inputs.StatusPageV3AutomationRuleComponentArgs\n            {\n                ComponentId = api.Id,\n                TargetImpact = \"MAJOR_OUTAGE\",\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := checkly.NewStatusPageV3(ctx, \"example\", \u0026checkly.StatusPageV3Args{\n\t\t\tName: pulumi.String(\"Example Application\"),\n\t\t\tUrl:  pulumi.String(\"my-example-status-page\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tapi, err := checkly.NewStatusPageV3Component(ctx, \"api\", \u0026checkly.StatusPageV3ComponentArgs{\n\t\t\tStatusPageId: example.ID(),\n\t\t\tName:         pulumi.String(\"API\"),\n\t\t\tDisplayOrder: pulumi.Int(0),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t// When a check tagged \"api\" fails, an incident is opened on the page marking\n\t\t// the API component as a major outage, and resolved when the check recovers.\n\t\t_, err = checkly.NewStatusPageV3AutomationRule(ctx, \"api_outage\", \u0026checkly.StatusPageV3AutomationRuleArgs{\n\t\t\tStatusPageId: example.ID(),\n\t\t\tName:         pulumi.String(\"API outage\"),\n\t\t\tFirstUpdate:  pulumi.String(\"We are investigating an issue with the API.\"),\n\t\t\tLastUpdate:   pulumi.String(\"The issue has been resolved.\"),\n\t\t\tTags: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"api\"),\n\t\t\t},\n\t\t\tComponents: checkly.StatusPageV3AutomationRuleComponentArray{\n\t\t\t\t\u0026checkly.StatusPageV3AutomationRuleComponentArgs{\n\t\t\t\t\tComponentId:  api.ID(),\n\t\t\t\t\tTargetImpact: pulumi.String(\"MAJOR_OUTAGE\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageV3;\nimport com.pulumi.checkly.StatusPageV3Args;\nimport com.pulumi.checkly.StatusPageV3Component;\nimport com.pulumi.checkly.StatusPageV3ComponentArgs;\nimport com.pulumi.checkly.StatusPageV3AutomationRule;\nimport com.pulumi.checkly.StatusPageV3AutomationRuleArgs;\nimport com.pulumi.checkly.inputs.StatusPageV3AutomationRuleComponentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new StatusPageV3(\"example\", StatusPageV3Args.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .build());\n\n        var api = new StatusPageV3Component(\"api\", StatusPageV3ComponentArgs.builder()\n            .statusPageId(example.id())\n            .name(\"API\")\n            .displayOrder(0)\n            .build());\n\n        // When a check tagged \"api\" fails, an incident is opened on the page marking\n        // the API component as a major outage, and resolved when the check recovers.\n        var apiOutage = new StatusPageV3AutomationRule(\"apiOutage\", StatusPageV3AutomationRuleArgs.builder()\n            .statusPageId(example.id())\n            .name(\"API outage\")\n            .firstUpdate(\"We are investigating an issue with the API.\")\n            .lastUpdate(\"The issue has been resolved.\")\n            .tags(\"api\")\n            .components(StatusPageV3AutomationRuleComponentArgs.builder()\n                .componentId(api.id())\n                .targetImpact(\"MAJOR_OUTAGE\")\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: checkly:StatusPageV3\n    properties:\n      name: Example Application\n      url: my-example-status-page\n  api:\n    type: checkly:StatusPageV3Component\n    properties:\n      statusPageId: ${example.id}\n      name: API\n      displayOrder: 0\n  # When a check tagged \"api\" fails, an incident is opened on the page marking\n  # the API component as a major outage, and resolved when the check recovers.\n  apiOutage:\n    type: checkly:StatusPageV3AutomationRule\n    name: api_outage\n    properties:\n      statusPageId: ${example.id}\n      name: API outage\n      firstUpdate: We are investigating an issue with the API.\n      lastUpdate: The issue has been resolved.\n      tags:\n        - api\n      components:\n        - componentId: ${api.id}\n          targetImpact: MAJOR_OUTAGE\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/StatusPageV3AutomationRuleComponent:StatusPageV3AutomationRuleComponent"
+                    },
+                    "description": "The components an automated incident impacts, with the impact each gets.\n"
+                },
+                "coolDownWindowMinutes": {
+                    "type": "integer",
+                    "description": "Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "A disabled rule never opens incidents. (Default `true`).\n"
+                },
+                "firstUpdate": {
+                    "type": "string",
+                    "description": "Body of the status update that opens the incident.\n"
+                },
+                "lastUpdate": {
+                    "type": "string",
+                    "description": "Body of the status update that resolves the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the rule.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether subscribers are notified of the automated updates. (Default `true`).\n"
+                },
+                "statusPageId": {
+                    "type": "string",
+                    "description": "The ID of the v3 status page the rule belongs to.\n"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.\n"
+                }
+            },
+            "required": [
+                "firstUpdate",
+                "lastUpdate",
+                "name",
+                "statusPageId",
+                "tags"
+            ],
+            "inputProperties": {
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/checkly:index/StatusPageV3AutomationRuleComponent:StatusPageV3AutomationRuleComponent"
+                    },
+                    "description": "The components an automated incident impacts, with the impact each gets.\n"
+                },
+                "coolDownWindowMinutes": {
+                    "type": "integer",
+                    "description": "Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "A disabled rule never opens incidents. (Default `true`).\n"
+                },
+                "firstUpdate": {
+                    "type": "string",
+                    "description": "Body of the status update that opens the incident.\n"
+                },
+                "lastUpdate": {
+                    "type": "string",
+                    "description": "Body of the status update that resolves the incident.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the rule.\n"
+                },
+                "notifySubscribers": {
+                    "type": "boolean",
+                    "description": "Whether subscribers are notified of the automated updates. (Default `true`).\n"
+                },
+                "statusPageId": {
+                    "type": "string",
+                    "description": "The ID of the v3 status page the rule belongs to.\n",
+                    "willReplaceOnChanges": true
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.\n"
+                }
+            },
+            "requiredInputs": [
+                "firstUpdate",
+                "lastUpdate",
+                "statusPageId",
+                "tags"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering StatusPageV3AutomationRule resources.\n",
+                "properties": {
+                    "components": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/checkly:index/StatusPageV3AutomationRuleComponent:StatusPageV3AutomationRuleComponent"
+                        },
+                        "description": "The components an automated incident impacts, with the impact each gets.\n"
+                    },
+                    "coolDownWindowMinutes": {
+                        "type": "integer",
+                        "description": "Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).\n"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "A disabled rule never opens incidents. (Default `true`).\n"
+                    },
+                    "firstUpdate": {
+                        "type": "string",
+                        "description": "Body of the status update that opens the incident.\n"
+                    },
+                    "lastUpdate": {
+                        "type": "string",
+                        "description": "Body of the status update that resolves the incident.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the rule.\n"
+                    },
+                    "notifySubscribers": {
+                        "type": "boolean",
+                        "description": "Whether subscribers are notified of the automated updates. (Default `true`).\n"
+                    },
+                    "statusPageId": {
+                        "type": "string",
+                        "description": "The ID of the v3 status page the rule belongs to.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "checkly:index/statusPageV3Component:StatusPageV3Component": {
+            "description": "A component of a v3 status page: either a SERVICE (a monitored thing with its own status) or a GROUP (a container for other components). Import uses the composite ID `\u003cstatus_page_id\u003e/\u003ccomponent_id\u003e`.\n\n## Example Usage\n\n\u003c!--Start PulumiCodeChooser --\u003e\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as checkly from \"@checkly/pulumi\";\n\nconst example = new checkly.StatusPageV3(\"example\", {\n    name: \"Example Application\",\n    url: \"my-example-status-page\",\n});\nconst services = new checkly.StatusPageV3Component(\"services\", {\n    statusPageId: example.id,\n    type: \"GROUP\",\n    name: \"Services\",\n    displayOrder: 0,\n    expandedByDefault: true,\n});\nconst api = new checkly.StatusPageV3Component(\"api\", {\n    statusPageId: example.id,\n    name: \"API\",\n    description: \"The public API\",\n    displayOrder: 1,\n    parentId: services.id,\n});\n```\n```python\nimport pulumi\nimport pulumi_checkly as checkly\n\nexample = checkly.StatusPageV3(\"example\",\n    name=\"Example Application\",\n    url=\"my-example-status-page\")\nservices = checkly.StatusPageV3Component(\"services\",\n    status_page_id=example.id,\n    type=\"GROUP\",\n    name=\"Services\",\n    display_order=0,\n    expanded_by_default=True)\napi = checkly.StatusPageV3Component(\"api\",\n    status_page_id=example.id,\n    name=\"API\",\n    description=\"The public API\",\n    display_order=1,\n    parent_id=services.id)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Checkly = Pulumi.Checkly;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var example = new Checkly.StatusPageV3(\"example\", new()\n    {\n        Name = \"Example Application\",\n        Url = \"my-example-status-page\",\n    });\n\n    var services = new Checkly.StatusPageV3Component(\"services\", new()\n    {\n        StatusPageId = example.Id,\n        Type = \"GROUP\",\n        Name = \"Services\",\n        DisplayOrder = 0,\n        ExpandedByDefault = true,\n    });\n\n    var api = new Checkly.StatusPageV3Component(\"api\", new()\n    {\n        StatusPageId = example.Id,\n        Name = \"API\",\n        Description = \"The public API\",\n        DisplayOrder = 1,\n        ParentId = services.Id,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\texample, err := checkly.NewStatusPageV3(ctx, \"example\", \u0026checkly.StatusPageV3Args{\n\t\t\tName: pulumi.String(\"Example Application\"),\n\t\t\tUrl:  pulumi.String(\"my-example-status-page\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tservices, err := checkly.NewStatusPageV3Component(ctx, \"services\", \u0026checkly.StatusPageV3ComponentArgs{\n\t\t\tStatusPageId:      example.ID(),\n\t\t\tType:              pulumi.String(\"GROUP\"),\n\t\t\tName:              pulumi.String(\"Services\"),\n\t\t\tDisplayOrder:      pulumi.Int(0),\n\t\t\tExpandedByDefault: pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = checkly.NewStatusPageV3Component(ctx, \"api\", \u0026checkly.StatusPageV3ComponentArgs{\n\t\t\tStatusPageId: example.ID(),\n\t\t\tName:         pulumi.String(\"API\"),\n\t\t\tDescription:  pulumi.String(\"The public API\"),\n\t\t\tDisplayOrder: pulumi.Int(1),\n\t\t\tParentId:     services.ID(),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.checkly.StatusPageV3;\nimport com.pulumi.checkly.StatusPageV3Args;\nimport com.pulumi.checkly.StatusPageV3Component;\nimport com.pulumi.checkly.StatusPageV3ComponentArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var example = new StatusPageV3(\"example\", StatusPageV3Args.builder()\n            .name(\"Example Application\")\n            .url(\"my-example-status-page\")\n            .build());\n\n        var services = new StatusPageV3Component(\"services\", StatusPageV3ComponentArgs.builder()\n            .statusPageId(example.id())\n            .type(\"GROUP\")\n            .name(\"Services\")\n            .displayOrder(0)\n            .expandedByDefault(true)\n            .build());\n\n        var api = new StatusPageV3Component(\"api\", StatusPageV3ComponentArgs.builder()\n            .statusPageId(example.id())\n            .name(\"API\")\n            .description(\"The public API\")\n            .displayOrder(1)\n            .parentId(services.id())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  example:\n    type: checkly:StatusPageV3\n    properties:\n      name: Example Application\n      url: my-example-status-page\n  services:\n    type: checkly:StatusPageV3Component\n    properties:\n      statusPageId: ${example.id}\n      type: GROUP\n      name: Services\n      displayOrder: 0\n      expandedByDefault: true\n  api:\n    type: checkly:StatusPageV3Component\n    properties:\n      statusPageId: ${example.id}\n      name: API\n      description: The public API\n      displayOrder: 1\n      parentId: ${services.id}\n```\n\u003c!--End PulumiCodeChooser --\u003e\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description shown next to the name.\n"
+                },
+                "displayOrder": {
+                    "type": "integer",
+                    "description": "The position among siblings; lower comes first.\n"
+                },
+                "expandedByDefault": {
+                    "type": "boolean",
+                    "description": "Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).\n"
+                },
+                "hidden": {
+                    "type": "boolean",
+                    "description": "Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name shown on the status page.\n"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "The ID of the GROUP component to nest this component under. Must be on the same status page.\n"
+                },
+                "showHistoricalData": {
+                    "type": "boolean",
+                    "description": "Show the historical status (the uptime bar) of the component on the status page. (Default `true`).\n"
+                },
+                "statusPageId": {
+                    "type": "string",
+                    "description": "The ID of the v3 status page the component belongs to. A component cannot be moved to another page.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).\n"
+                }
+            },
+            "required": [
+                "displayOrder",
+                "name",
+                "statusPageId"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description shown next to the name.\n"
+                },
+                "displayOrder": {
+                    "type": "integer",
+                    "description": "The position among siblings; lower comes first.\n"
+                },
+                "expandedByDefault": {
+                    "type": "boolean",
+                    "description": "Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).\n"
+                },
+                "hidden": {
+                    "type": "boolean",
+                    "description": "Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name shown on the status page.\n"
+                },
+                "parentId": {
+                    "type": "string",
+                    "description": "The ID of the GROUP component to nest this component under. Must be on the same status page.\n"
+                },
+                "showHistoricalData": {
+                    "type": "boolean",
+                    "description": "Show the historical status (the uptime bar) of the component on the status page. (Default `true`).\n"
+                },
+                "statusPageId": {
+                    "type": "string",
+                    "description": "The ID of the v3 status page the component belongs to. A component cannot be moved to another page.\n",
+                    "willReplaceOnChanges": true
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).\n"
+                }
+            },
+            "requiredInputs": [
+                "displayOrder",
+                "statusPageId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering StatusPageV3Component resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "An optional description shown next to the name.\n"
+                    },
+                    "displayOrder": {
+                        "type": "integer",
+                        "description": "The position among siblings; lower comes first.\n"
+                    },
+                    "expandedByDefault": {
+                        "type": "boolean",
+                        "description": "Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).\n"
+                    },
+                    "hidden": {
+                        "type": "boolean",
+                        "description": "Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name shown on the status page.\n"
+                    },
+                    "parentId": {
+                        "type": "string",
+                        "description": "The ID of the GROUP component to nest this component under. Must be on the same status page.\n"
+                    },
+                    "showHistoricalData": {
+                        "type": "boolean",
+                        "description": "Show the historical status (the uptime bar) of the component on the status page. (Default `true`).\n"
+                    },
+                    "statusPageId": {
+                        "type": "string",
+                        "description": "The ID of the v3 status page the component belongs to. A component cannot be moved to another page.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).\n"
                     }
                 },
                 "type": "object"
@@ -9055,11 +9867,13 @@
                 },
                 "token": {
                     "type": "string",
-                    "description": "The token value created to trigger the check\n"
+                    "description": "The token value created to trigger the check\n",
+                    "secret": true
                 },
                 "url": {
                     "type": "string",
-                    "description": "The request URL to trigger the check run.\n"
+                    "description": "The request URL to trigger the check run.\n",
+                    "secret": true
                 }
             },
             "required": [
@@ -9074,11 +9888,13 @@
                 },
                 "token": {
                     "type": "string",
-                    "description": "The token value created to trigger the check\n"
+                    "description": "The token value created to trigger the check\n",
+                    "secret": true
                 },
                 "url": {
                     "type": "string",
-                    "description": "The request URL to trigger the check run.\n"
+                    "description": "The request URL to trigger the check run.\n",
+                    "secret": true
                 }
             },
             "requiredInputs": [
@@ -9093,11 +9909,13 @@
                     },
                     "token": {
                         "type": "string",
-                        "description": "The token value created to trigger the check\n"
+                        "description": "The token value created to trigger the check\n",
+                        "secret": true
                     },
                     "url": {
                         "type": "string",
-                        "description": "The request URL to trigger the check run.\n"
+                        "description": "The request URL to trigger the check run.\n",
+                        "secret": true
                     }
                 },
                 "type": "object"
@@ -9112,11 +9930,13 @@
                 },
                 "token": {
                     "type": "string",
-                    "description": "The token value created to trigger the group\n"
+                    "description": "The token value created to trigger the group\n",
+                    "secret": true
                 },
                 "url": {
                     "type": "string",
-                    "description": "The request URL to trigger the group run.\n"
+                    "description": "The request URL to trigger the group run.\n",
+                    "secret": true
                 }
             },
             "required": [
@@ -9131,11 +9951,13 @@
                 },
                 "token": {
                     "type": "string",
-                    "description": "The token value created to trigger the group\n"
+                    "description": "The token value created to trigger the group\n",
+                    "secret": true
                 },
                 "url": {
                     "type": "string",
-                    "description": "The request URL to trigger the group run.\n"
+                    "description": "The request URL to trigger the group run.\n",
+                    "secret": true
                 }
             },
             "requiredInputs": [
@@ -9150,11 +9972,13 @@
                     },
                     "token": {
                         "type": "string",
-                        "description": "The token value created to trigger the group\n"
+                        "description": "The token value created to trigger the group\n",
+                        "secret": true
                     },
                     "url": {
                         "type": "string",
-                        "description": "The request URL to trigger the group run.\n"
+                        "description": "The request URL to trigger the group run.\n",
+                        "secret": true
                     }
                 },
                 "type": "object"

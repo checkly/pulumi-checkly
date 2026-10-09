@@ -119,8 +119,10 @@ class Provider(pulumi.ProviderResource):
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
             __props__.__dict__["account_id"] = account_id
-            __props__.__dict__["api_key"] = api_key
+            __props__.__dict__["api_key"] = None if api_key is None else pulumi.Output.secret(api_key)
             __props__.__dict__["api_url"] = api_url
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["apiKey"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
             'checkly',
             resource_name,

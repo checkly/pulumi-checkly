@@ -77,6 +77,11 @@ namespace Pulumi.Checkly
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/checkly",
+                AdditionalSecretOutputs =
+                {
+                    "token",
+                    "url",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -106,17 +111,37 @@ namespace Pulumi.Checkly
         [Input("groupId", required: true)]
         public Input<int> GroupId { get; set; } = null!;
 
+        [Input("token")]
+        private Input<string>? _token;
+
         /// <summary>
         /// The token value created to trigger the group
         /// </summary>
-        [Input("token")]
-        public Input<string>? Token { get; set; }
+        public Input<string>? Token
+        {
+            get => _token;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _token = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("url")]
+        private Input<string>? _url;
 
         /// <summary>
         /// The request URL to trigger the group run.
         /// </summary>
-        [Input("url")]
-        public Input<string>? Url { get; set; }
+        public Input<string>? Url
+        {
+            get => _url;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _url = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public TriggerCheckGroupArgs()
         {
@@ -132,17 +157,37 @@ namespace Pulumi.Checkly
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
+        [Input("token")]
+        private Input<string>? _token;
+
         /// <summary>
         /// The token value created to trigger the group
         /// </summary>
-        [Input("token")]
-        public Input<string>? Token { get; set; }
+        public Input<string>? Token
+        {
+            get => _token;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _token = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("url")]
+        private Input<string>? _url;
 
         /// <summary>
         /// The request URL to trigger the group run.
         /// </summary>
-        [Input("url")]
-        public Input<string>? Url { get; set; }
+        public Input<string>? Url
+        {
+            get => _url;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _url = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public TriggerCheckGroupState()
         {

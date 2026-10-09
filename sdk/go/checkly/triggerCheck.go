@@ -59,6 +59,17 @@ func NewTriggerCheck(ctx *pulumi.Context,
 	if args.CheckId == nil {
 		return nil, errors.New("invalid value for required argument 'CheckId'")
 	}
+	if args.Token != nil {
+		args.Token = pulumi.ToSecret(args.Token).(pulumi.StringPtrInput)
+	}
+	if args.Url != nil {
+		args.Url = pulumi.ToSecret(args.Url).(pulumi.StringPtrInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"token",
+		"url",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource TriggerCheck
 	err := ctx.RegisterResource("checkly:index/triggerCheck:TriggerCheck", name, args, &resource, opts...)

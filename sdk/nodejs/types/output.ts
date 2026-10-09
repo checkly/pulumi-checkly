@@ -980,6 +980,11 @@ export interface GrpcMonitorRequest {
      * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
      */
     assertions?: outputs.GrpcMonitorRequestAssertion[];
+    bfbsContent?: string;
+    /**
+     * The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+     */
+    encoding?: string;
     /**
      * The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
      */
@@ -1009,7 +1014,7 @@ export interface GrpcMonitorRequest {
      */
     port: number;
     /**
-     * The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+     * The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
      */
     protoContent?: string;
     /**
@@ -1017,9 +1022,9 @@ export interface GrpcMonitorRequest {
      */
     service?: string;
     /**
-     * How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+     * How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
      */
-    serviceDefinition: string;
+    serviceDefinition?: string;
     /**
      * Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
      */
@@ -1027,7 +1032,7 @@ export interface GrpcMonitorRequest {
     /**
      * The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
      */
-    timeout: number;
+    timeout?: number;
     /**
      * Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
      */
@@ -1538,6 +1543,57 @@ export interface IcmpMonitorTriggerIncident {
      * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
      */
     severity: string;
+}
+
+export interface MaintenanceWindowStatusPageVisibility {
+    /**
+     * Mark every service on the linked status pages as affected. Can't be combined with `serviceIds`. (Default `false`).
+     */
+    affectAllServices?: boolean;
+    /**
+     * Complete the maintenance automatically at the scheduled end time. (Default `true`).
+     */
+    autoEnd?: boolean;
+    /**
+     * Start the maintenance automatically at the scheduled time. (Default `true`).
+     */
+    autoStart?: boolean;
+    /**
+     * Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+     */
+    enabled?: boolean;
+    /**
+     * Email status page subscribers when the maintenance ends. (Default `false`).
+     */
+    notifyOnEnd?: boolean;
+    /**
+     * Email status page subscribers when the maintenance starts. (Default `false`).
+     */
+    notifyOnStart?: boolean;
+    /**
+     * Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+     */
+    reminderMinutesBefores?: number[];
+    /**
+     * The IDs of the affected status page services (`checkly.StatusPageService`). Each service must be on one of the linked status pages.
+     */
+    serviceIds?: string[];
+    /**
+     * The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+     */
+    severity?: string;
+    /**
+     * Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+     */
+    showAffectedServices?: boolean;
+    /**
+     * The IDs of the status pages (`checkly.StatusPage`) to show the maintenance window on. Requires `serviceIds` or `affectAllServices`.
+     */
+    statusPageIds?: string[];
+    /**
+     * Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+     */
+    suppressAutoIncidents?: boolean;
 }
 
 export interface PlaywrightCheckSuiteAlertChannelSubscription {
@@ -2078,6 +2134,130 @@ export interface StatusPageCardServiceAttachment {
      * The ID of the service.
      */
     serviceId: string;
+}
+
+export interface StatusPageV3AutomationRuleComponent {
+    /**
+     * The ID of the impacted component. Must be on the same status page.
+     */
+    componentId: string;
+    /**
+     * The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+     */
+    targetImpact: string;
+}
+
+export interface StatusPageV3ThemeColors {
+    /**
+     * The colors used when the page renders in dark mode.
+     */
+    dark: outputs.StatusPageV3ThemeColorsDark;
+    /**
+     * The colors used when the page renders in light mode.
+     */
+    light: outputs.StatusPageV3ThemeColorsLight;
+}
+
+export interface StatusPageV3ThemeColorsDark {
+    /**
+     * The background of the page. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyBackgroundColor: string;
+    /**
+     * The color of regular body text. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColor: string;
+    /**
+     * The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColorMuted: string;
+    /**
+     * The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+     */
+    borderColor: string;
+    /**
+     * The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+     */
+    cardBackgroundColor: string;
+    /**
+     * The background of the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerBackgroundColor: string;
+    /**
+     * The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerFontColor: string;
+    /**
+     * The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+     */
+    linkFontColor: string;
+    /**
+     * The color of navigation links. A hex color such as "#FF0000" or "#F00".
+     */
+    navigationFontColor: string;
+    /**
+     * The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonBackgroundColor: string;
+    /**
+     * The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonFontColor: string;
+    /**
+     * The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+     */
+    titleFontColor: string;
+}
+
+export interface StatusPageV3ThemeColorsLight {
+    /**
+     * The background of the page. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyBackgroundColor: string;
+    /**
+     * The color of regular body text. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColor: string;
+    /**
+     * The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColorMuted: string;
+    /**
+     * The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+     */
+    borderColor: string;
+    /**
+     * The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+     */
+    cardBackgroundColor: string;
+    /**
+     * The background of the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerBackgroundColor: string;
+    /**
+     * The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerFontColor: string;
+    /**
+     * The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+     */
+    linkFontColor: string;
+    /**
+     * The color of navigation links. A hex color such as "#FF0000" or "#F00".
+     */
+    navigationFontColor: string;
+    /**
+     * The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonBackgroundColor: string;
+    /**
+     * The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonFontColor: string;
+    /**
+     * The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+     */
+    titleFontColor: string;
 }
 
 export interface TcpCheckAlertChannelSubscription {

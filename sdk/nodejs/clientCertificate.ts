@@ -98,11 +98,11 @@ export class ClientCertificate extends pulumi.CustomResource {
             resourceInputs["host"] = args?.host;
             resourceInputs["passphrase"] = args?.passphrase ? pulumi.secret(args.passphrase) : undefined;
             resourceInputs["path"] = args?.path;
-            resourceInputs["privateKey"] = args?.privateKey;
+            resourceInputs["privateKey"] = args?.privateKey ? pulumi.secret(args.privateKey) : undefined;
             resourceInputs["trustedCa"] = args?.trustedCa;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["passphrase"] };
+        const secretOpts = { additionalSecretOutputs: ["passphrase", "privateKey"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(ClientCertificate.__pulumiType, name, resourceInputs, opts);
     }

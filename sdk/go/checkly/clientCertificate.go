@@ -53,8 +53,12 @@ func NewClientCertificate(ctx *pulumi.Context,
 	if args.Passphrase != nil {
 		args.Passphrase = pulumi.ToSecret(args.Passphrase).(pulumi.StringPtrInput)
 	}
+	if args.PrivateKey != nil {
+		args.PrivateKey = pulumi.ToSecret(args.PrivateKey).(pulumi.StringInput)
+	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"passphrase",
+		"privateKey",
 	})
 	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)

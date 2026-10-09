@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
@@ -19,6 +21,35 @@ import * as utilities from "./utilities";
  *     repeatEndsAt: "2014-08-24T00:00:00.000Z",
  *     repeatInterval: 1,
  *     tags: ["production"],
+ *     timezone: "America/New_York",
+ *     description: "Monthly database maintenance",
+ *     silenceAlertsTags: ["production"],
+ * });
+ * // Show a maintenance window on a status page
+ * const api = new checkly.StatusPageService("api", {name: "API"});
+ * const example = new checkly.StatusPage("example", {
+ *     name: "Example Application",
+ *     url: "my-example-status-page",
+ *     cards: [{
+ *         name: "Services",
+ *         serviceAttachments: [{
+ *             serviceId: api.id,
+ *         }],
+ *     }],
+ * });
+ * const maintenance_2 = new checkly.MaintenanceWindow("maintenance-2", {
+ *     name: "Status page maintenance",
+ *     startsAt: "2028-08-24T00:00:00.000Z",
+ *     endsAt: "2028-08-24T02:00:00.000Z",
+ *     tags: ["api"],
+ *     description: "We're upgrading our API servers.",
+ *     statusPageVisibility: {
+ *         enabled: true,
+ *         severity: "MINOR",
+ *         notifyOnStart: true,
+ *         statusPageIds: [example.id],
+ *         serviceIds: [api.id],
+ *     },
  * });
  * ```
  */
@@ -51,6 +82,10 @@ export class MaintenanceWindow extends pulumi.CustomResource {
     }
 
     /**
+     * A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+     */
+    declare public readonly description: pulumi.Output<string | undefined>;
+    /**
      * The end date of the maintenance window.
      */
     declare public readonly endsAt: pulumi.Output<string>;
@@ -59,7 +94,11 @@ export class MaintenanceWindow extends pulumi.CustomResource {
      */
     declare public readonly name: pulumi.Output<string>;
     /**
-     * The date on which the maintenance window should stop repeating.
+     * Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+     */
+    declare public readonly pauseAllChecks: pulumi.Output<boolean | undefined>;
+    /**
+     * The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
      */
     declare public readonly repeatEndsAt: pulumi.Output<string | undefined>;
     /**
@@ -71,13 +110,29 @@ export class MaintenanceWindow extends pulumi.CustomResource {
      */
     declare public readonly repeatUnit: pulumi.Output<string | undefined>;
     /**
+     * The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+     */
+    declare public readonly silenceAlertsTags: pulumi.Output<string[] | undefined>;
+    /**
+     * Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+     */
+    declare public readonly silenceAllAlerts: pulumi.Output<boolean | undefined>;
+    /**
      * The start date of the maintenance window.
      */
     declare public readonly startsAt: pulumi.Output<string>;
     /**
-     * The names of the checks and groups maintenance window should apply to.
+     * Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+     */
+    declare public readonly statusPageVisibility: pulumi.Output<outputs.MaintenanceWindowStatusPageVisibility | undefined>;
+    /**
+     * The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
      */
     declare public readonly tags: pulumi.Output<string[] | undefined>;
+    /**
+     * The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+     */
+    declare public readonly timezone: pulumi.Output<string | undefined>;
 
     /**
      * Create a MaintenanceWindow resource with the given unique name, arguments, and options.
@@ -92,13 +147,19 @@ export class MaintenanceWindow extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as MaintenanceWindowState | undefined;
+            resourceInputs["description"] = state?.description;
             resourceInputs["endsAt"] = state?.endsAt;
             resourceInputs["name"] = state?.name;
+            resourceInputs["pauseAllChecks"] = state?.pauseAllChecks;
             resourceInputs["repeatEndsAt"] = state?.repeatEndsAt;
             resourceInputs["repeatInterval"] = state?.repeatInterval;
             resourceInputs["repeatUnit"] = state?.repeatUnit;
+            resourceInputs["silenceAlertsTags"] = state?.silenceAlertsTags;
+            resourceInputs["silenceAllAlerts"] = state?.silenceAllAlerts;
             resourceInputs["startsAt"] = state?.startsAt;
+            resourceInputs["statusPageVisibility"] = state?.statusPageVisibility;
             resourceInputs["tags"] = state?.tags;
+            resourceInputs["timezone"] = state?.timezone;
         } else {
             const args = argsOrState as MaintenanceWindowArgs | undefined;
             if (args?.endsAt === undefined && !opts.urn) {
@@ -107,13 +168,19 @@ export class MaintenanceWindow extends pulumi.CustomResource {
             if (args?.startsAt === undefined && !opts.urn) {
                 throw new Error("Missing required property 'startsAt'");
             }
+            resourceInputs["description"] = args?.description;
             resourceInputs["endsAt"] = args?.endsAt;
             resourceInputs["name"] = args?.name;
+            resourceInputs["pauseAllChecks"] = args?.pauseAllChecks;
             resourceInputs["repeatEndsAt"] = args?.repeatEndsAt;
             resourceInputs["repeatInterval"] = args?.repeatInterval;
             resourceInputs["repeatUnit"] = args?.repeatUnit;
+            resourceInputs["silenceAlertsTags"] = args?.silenceAlertsTags;
+            resourceInputs["silenceAllAlerts"] = args?.silenceAllAlerts;
             resourceInputs["startsAt"] = args?.startsAt;
+            resourceInputs["statusPageVisibility"] = args?.statusPageVisibility;
             resourceInputs["tags"] = args?.tags;
+            resourceInputs["timezone"] = args?.timezone;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(MaintenanceWindow.__pulumiType, name, resourceInputs, opts);
@@ -125,6 +192,10 @@ export class MaintenanceWindow extends pulumi.CustomResource {
  */
 export interface MaintenanceWindowState {
     /**
+     * A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+     */
+    description?: pulumi.Input<string>;
+    /**
      * The end date of the maintenance window.
      */
     endsAt?: pulumi.Input<string>;
@@ -133,7 +204,11 @@ export interface MaintenanceWindowState {
      */
     name?: pulumi.Input<string>;
     /**
-     * The date on which the maintenance window should stop repeating.
+     * Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+     */
+    pauseAllChecks?: pulumi.Input<boolean>;
+    /**
+     * The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
      */
     repeatEndsAt?: pulumi.Input<string>;
     /**
@@ -145,19 +220,39 @@ export interface MaintenanceWindowState {
      */
     repeatUnit?: pulumi.Input<string>;
     /**
+     * The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+     */
+    silenceAlertsTags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+     */
+    silenceAllAlerts?: pulumi.Input<boolean>;
+    /**
      * The start date of the maintenance window.
      */
     startsAt?: pulumi.Input<string>;
     /**
-     * The names of the checks and groups maintenance window should apply to.
+     * Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+     */
+    statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility>;
+    /**
+     * The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+     */
+    timezone?: pulumi.Input<string>;
 }
 
 /**
  * The set of arguments for constructing a MaintenanceWindow resource.
  */
 export interface MaintenanceWindowArgs {
+    /**
+     * A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+     */
+    description?: pulumi.Input<string>;
     /**
      * The end date of the maintenance window.
      */
@@ -167,7 +262,11 @@ export interface MaintenanceWindowArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * The date on which the maintenance window should stop repeating.
+     * Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+     */
+    pauseAllChecks?: pulumi.Input<boolean>;
+    /**
+     * The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
      */
     repeatEndsAt?: pulumi.Input<string>;
     /**
@@ -179,11 +278,27 @@ export interface MaintenanceWindowArgs {
      */
     repeatUnit?: pulumi.Input<string>;
     /**
+     * The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+     */
+    silenceAlertsTags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+     */
+    silenceAllAlerts?: pulumi.Input<boolean>;
+    /**
      * The start date of the maintenance window.
      */
     startsAt: pulumi.Input<string>;
     /**
-     * The names of the checks and groups maintenance window should apply to.
+     * Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+     */
+    statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility>;
+    /**
+     * The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+     */
+    timezone?: pulumi.Input<string>;
 }

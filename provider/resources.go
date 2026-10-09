@@ -249,6 +249,15 @@ func Provider() tfbridge.ProviderInfo {
 			"checkly_status_page_service": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageService"),
 			},
+			"checkly_status_page_v3": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageV3"),
+			},
+			"checkly_status_page_v3_automation_rule": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageV3AutomationRule"),
+			},
+			"checkly_status_page_v3_component": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageV3Component"),
+			},
 			"checkly_tcp_check": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TcpCheck"),
 			},

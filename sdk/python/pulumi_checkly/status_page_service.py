@@ -73,7 +73,7 @@ class StatusPageService(pulumi.CustomResource):
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc.
+        Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
 
         ## Example Usage
 
@@ -96,7 +96,7 @@ class StatusPageService(pulumi.CustomResource):
                  args: Optional[StatusPageServiceArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc.
+        Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
 
         ## Example Usage
 

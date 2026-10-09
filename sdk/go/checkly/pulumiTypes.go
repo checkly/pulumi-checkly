@@ -10812,7 +10812,10 @@ func (o GrpcMonitorAlertSettingsTimeBasedEscalationArrayOutput) Index(i pulumi.I
 
 type GrpcMonitorRequest struct {
 	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
-	Assertions []GrpcMonitorRequestAssertion `pulumi:"assertions"`
+	Assertions  []GrpcMonitorRequestAssertion `pulumi:"assertions"`
+	BfbsContent *string                       `pulumi:"bfbsContent"`
+	// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+	Encoding *string `pulumi:"encoding"`
 	// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
 	GrpcMode *string `pulumi:"grpcMode"`
 	// The host to connect to. Do not include a scheme or a port in this value.
@@ -10827,11 +10830,11 @@ type GrpcMonitorRequest struct {
 	Method *string `pulumi:"method"`
 	// The port number to connect to. Possible values are between 1 and 65535.
 	Port int `pulumi:"port"`
-	// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+	// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
 	ProtoContent *string `pulumi:"protoContent"`
 	// The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
 	Service *string `pulumi:"service"`
-	// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+	// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
 	ServiceDefinition *string `pulumi:"serviceDefinition"`
 	// Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
 	SkipSsl *bool `pulumi:"skipSsl"`
@@ -10854,7 +10857,10 @@ type GrpcMonitorRequestInput interface {
 
 type GrpcMonitorRequestArgs struct {
 	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
-	Assertions GrpcMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	Assertions  GrpcMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	BfbsContent pulumi.StringPtrInput                 `pulumi:"bfbsContent"`
+	// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+	Encoding pulumi.StringPtrInput `pulumi:"encoding"`
 	// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
 	GrpcMode pulumi.StringPtrInput `pulumi:"grpcMode"`
 	// The host to connect to. Do not include a scheme or a port in this value.
@@ -10869,11 +10875,11 @@ type GrpcMonitorRequestArgs struct {
 	Method pulumi.StringPtrInput `pulumi:"method"`
 	// The port number to connect to. Possible values are between 1 and 65535.
 	Port pulumi.IntInput `pulumi:"port"`
-	// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+	// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
 	ProtoContent pulumi.StringPtrInput `pulumi:"protoContent"`
 	// The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
 	Service pulumi.StringPtrInput `pulumi:"service"`
-	// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+	// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
 	ServiceDefinition pulumi.StringPtrInput `pulumi:"serviceDefinition"`
 	// Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
 	SkipSsl pulumi.BoolPtrInput `pulumi:"skipSsl"`
@@ -10965,6 +10971,15 @@ func (o GrpcMonitorRequestOutput) Assertions() GrpcMonitorRequestAssertionArrayO
 	return o.ApplyT(func(v GrpcMonitorRequest) []GrpcMonitorRequestAssertion { return v.Assertions }).(GrpcMonitorRequestAssertionArrayOutput)
 }
 
+func (o GrpcMonitorRequestOutput) BfbsContent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.BfbsContent }).(pulumi.StringPtrOutput)
+}
+
+// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+func (o GrpcMonitorRequestOutput) Encoding() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.Encoding }).(pulumi.StringPtrOutput)
+}
+
 // The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
 func (o GrpcMonitorRequestOutput) GrpcMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.GrpcMode }).(pulumi.StringPtrOutput)
@@ -11000,7 +11015,7 @@ func (o GrpcMonitorRequestOutput) Port() pulumi.IntOutput {
 	return o.ApplyT(func(v GrpcMonitorRequest) int { return v.Port }).(pulumi.IntOutput)
 }
 
-// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
 func (o GrpcMonitorRequestOutput) ProtoContent() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.ProtoContent }).(pulumi.StringPtrOutput)
 }
@@ -11010,7 +11025,7 @@ func (o GrpcMonitorRequestOutput) Service() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.Service }).(pulumi.StringPtrOutput)
 }
 
-// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
 func (o GrpcMonitorRequestOutput) ServiceDefinition() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.ServiceDefinition }).(pulumi.StringPtrOutput)
 }
@@ -11062,6 +11077,25 @@ func (o GrpcMonitorRequestPtrOutput) Assertions() GrpcMonitorRequestAssertionArr
 		}
 		return v.Assertions
 	}).(GrpcMonitorRequestAssertionArrayOutput)
+}
+
+func (o GrpcMonitorRequestPtrOutput) BfbsContent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BfbsContent
+	}).(pulumi.StringPtrOutput)
+}
+
+// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+func (o GrpcMonitorRequestPtrOutput) Encoding() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Encoding
+	}).(pulumi.StringPtrOutput)
 }
 
 // The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
@@ -11134,7 +11168,7 @@ func (o GrpcMonitorRequestPtrOutput) Port() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+// The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
 func (o GrpcMonitorRequestPtrOutput) ProtoContent() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
 		if v == nil {
@@ -11154,7 +11188,7 @@ func (o GrpcMonitorRequestPtrOutput) Service() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
 func (o GrpcMonitorRequestPtrOutput) ServiceDefinition() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
 		if v == nil {
@@ -16165,6 +16199,352 @@ func (o IcmpMonitorTriggerIncidentPtrOutput) Severity() pulumi.StringPtrOutput {
 		}
 		return &v.Severity
 	}).(pulumi.StringPtrOutput)
+}
+
+type MaintenanceWindowStatusPageVisibility struct {
+	// Mark every service on the linked status pages as affected. Can't be combined with `serviceIds`. (Default `false`).
+	AffectAllServices *bool `pulumi:"affectAllServices"`
+	// Complete the maintenance automatically at the scheduled end time. (Default `true`).
+	AutoEnd *bool `pulumi:"autoEnd"`
+	// Start the maintenance automatically at the scheduled time. (Default `true`).
+	AutoStart *bool `pulumi:"autoStart"`
+	// Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+	Enabled *bool `pulumi:"enabled"`
+	// Email status page subscribers when the maintenance ends. (Default `false`).
+	NotifyOnEnd *bool `pulumi:"notifyOnEnd"`
+	// Email status page subscribers when the maintenance starts. (Default `false`).
+	NotifyOnStart *bool `pulumi:"notifyOnStart"`
+	// Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+	ReminderMinutesBefores []int `pulumi:"reminderMinutesBefores"`
+	// The IDs of the affected status page services (`StatusPageService`). Each service must be on one of the linked status pages.
+	ServiceIds []string `pulumi:"serviceIds"`
+	// The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+	Severity *string `pulumi:"severity"`
+	// Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+	ShowAffectedServices *bool `pulumi:"showAffectedServices"`
+	// The IDs of the status pages (`StatusPage`) to show the maintenance window on. Requires `serviceIds` or `affectAllServices`.
+	StatusPageIds []string `pulumi:"statusPageIds"`
+	// Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+	SuppressAutoIncidents *bool `pulumi:"suppressAutoIncidents"`
+}
+
+// MaintenanceWindowStatusPageVisibilityInput is an input type that accepts MaintenanceWindowStatusPageVisibilityArgs and MaintenanceWindowStatusPageVisibilityOutput values.
+// You can construct a concrete instance of `MaintenanceWindowStatusPageVisibilityInput` via:
+//
+//	MaintenanceWindowStatusPageVisibilityArgs{...}
+type MaintenanceWindowStatusPageVisibilityInput interface {
+	pulumi.Input
+
+	ToMaintenanceWindowStatusPageVisibilityOutput() MaintenanceWindowStatusPageVisibilityOutput
+	ToMaintenanceWindowStatusPageVisibilityOutputWithContext(context.Context) MaintenanceWindowStatusPageVisibilityOutput
+}
+
+type MaintenanceWindowStatusPageVisibilityArgs struct {
+	// Mark every service on the linked status pages as affected. Can't be combined with `serviceIds`. (Default `false`).
+	AffectAllServices pulumi.BoolPtrInput `pulumi:"affectAllServices"`
+	// Complete the maintenance automatically at the scheduled end time. (Default `true`).
+	AutoEnd pulumi.BoolPtrInput `pulumi:"autoEnd"`
+	// Start the maintenance automatically at the scheduled time. (Default `true`).
+	AutoStart pulumi.BoolPtrInput `pulumi:"autoStart"`
+	// Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	// Email status page subscribers when the maintenance ends. (Default `false`).
+	NotifyOnEnd pulumi.BoolPtrInput `pulumi:"notifyOnEnd"`
+	// Email status page subscribers when the maintenance starts. (Default `false`).
+	NotifyOnStart pulumi.BoolPtrInput `pulumi:"notifyOnStart"`
+	// Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+	ReminderMinutesBefores pulumi.IntArrayInput `pulumi:"reminderMinutesBefores"`
+	// The IDs of the affected status page services (`StatusPageService`). Each service must be on one of the linked status pages.
+	ServiceIds pulumi.StringArrayInput `pulumi:"serviceIds"`
+	// The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+	Severity pulumi.StringPtrInput `pulumi:"severity"`
+	// Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+	ShowAffectedServices pulumi.BoolPtrInput `pulumi:"showAffectedServices"`
+	// The IDs of the status pages (`StatusPage`) to show the maintenance window on. Requires `serviceIds` or `affectAllServices`.
+	StatusPageIds pulumi.StringArrayInput `pulumi:"statusPageIds"`
+	// Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+	SuppressAutoIncidents pulumi.BoolPtrInput `pulumi:"suppressAutoIncidents"`
+}
+
+func (MaintenanceWindowStatusPageVisibilityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MaintenanceWindowStatusPageVisibility)(nil)).Elem()
+}
+
+func (i MaintenanceWindowStatusPageVisibilityArgs) ToMaintenanceWindowStatusPageVisibilityOutput() MaintenanceWindowStatusPageVisibilityOutput {
+	return i.ToMaintenanceWindowStatusPageVisibilityOutputWithContext(context.Background())
+}
+
+func (i MaintenanceWindowStatusPageVisibilityArgs) ToMaintenanceWindowStatusPageVisibilityOutputWithContext(ctx context.Context) MaintenanceWindowStatusPageVisibilityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MaintenanceWindowStatusPageVisibilityOutput)
+}
+
+func (i MaintenanceWindowStatusPageVisibilityArgs) ToMaintenanceWindowStatusPageVisibilityPtrOutput() MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return i.ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(context.Background())
+}
+
+func (i MaintenanceWindowStatusPageVisibilityArgs) ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(ctx context.Context) MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MaintenanceWindowStatusPageVisibilityOutput).ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(ctx)
+}
+
+// MaintenanceWindowStatusPageVisibilityPtrInput is an input type that accepts MaintenanceWindowStatusPageVisibilityArgs, MaintenanceWindowStatusPageVisibilityPtr and MaintenanceWindowStatusPageVisibilityPtrOutput values.
+// You can construct a concrete instance of `MaintenanceWindowStatusPageVisibilityPtrInput` via:
+//
+//	        MaintenanceWindowStatusPageVisibilityArgs{...}
+//
+//	or:
+//
+//	        nil
+type MaintenanceWindowStatusPageVisibilityPtrInput interface {
+	pulumi.Input
+
+	ToMaintenanceWindowStatusPageVisibilityPtrOutput() MaintenanceWindowStatusPageVisibilityPtrOutput
+	ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(context.Context) MaintenanceWindowStatusPageVisibilityPtrOutput
+}
+
+type maintenanceWindowStatusPageVisibilityPtrType MaintenanceWindowStatusPageVisibilityArgs
+
+func MaintenanceWindowStatusPageVisibilityPtr(v *MaintenanceWindowStatusPageVisibilityArgs) MaintenanceWindowStatusPageVisibilityPtrInput {
+	return (*maintenanceWindowStatusPageVisibilityPtrType)(v)
+}
+
+func (*maintenanceWindowStatusPageVisibilityPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**MaintenanceWindowStatusPageVisibility)(nil)).Elem()
+}
+
+func (i *maintenanceWindowStatusPageVisibilityPtrType) ToMaintenanceWindowStatusPageVisibilityPtrOutput() MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return i.ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(context.Background())
+}
+
+func (i *maintenanceWindowStatusPageVisibilityPtrType) ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(ctx context.Context) MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MaintenanceWindowStatusPageVisibilityPtrOutput)
+}
+
+type MaintenanceWindowStatusPageVisibilityOutput struct{ *pulumi.OutputState }
+
+func (MaintenanceWindowStatusPageVisibilityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MaintenanceWindowStatusPageVisibility)(nil)).Elem()
+}
+
+func (o MaintenanceWindowStatusPageVisibilityOutput) ToMaintenanceWindowStatusPageVisibilityOutput() MaintenanceWindowStatusPageVisibilityOutput {
+	return o
+}
+
+func (o MaintenanceWindowStatusPageVisibilityOutput) ToMaintenanceWindowStatusPageVisibilityOutputWithContext(ctx context.Context) MaintenanceWindowStatusPageVisibilityOutput {
+	return o
+}
+
+func (o MaintenanceWindowStatusPageVisibilityOutput) ToMaintenanceWindowStatusPageVisibilityPtrOutput() MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return o.ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(context.Background())
+}
+
+func (o MaintenanceWindowStatusPageVisibilityOutput) ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(ctx context.Context) MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MaintenanceWindowStatusPageVisibility) *MaintenanceWindowStatusPageVisibility {
+		return &v
+	}).(MaintenanceWindowStatusPageVisibilityPtrOutput)
+}
+
+// Mark every service on the linked status pages as affected. Can't be combined with `serviceIds`. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) AffectAllServices() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.AffectAllServices }).(pulumi.BoolPtrOutput)
+}
+
+// Complete the maintenance automatically at the scheduled end time. (Default `true`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) AutoEnd() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.AutoEnd }).(pulumi.BoolPtrOutput)
+}
+
+// Start the maintenance automatically at the scheduled time. (Default `true`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) AutoStart() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.AutoStart }).(pulumi.BoolPtrOutput)
+}
+
+// Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Email status page subscribers when the maintenance ends. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) NotifyOnEnd() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.NotifyOnEnd }).(pulumi.BoolPtrOutput)
+}
+
+// Email status page subscribers when the maintenance starts. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) NotifyOnStart() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.NotifyOnStart }).(pulumi.BoolPtrOutput)
+}
+
+// Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+func (o MaintenanceWindowStatusPageVisibilityOutput) ReminderMinutesBefores() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) []int { return v.ReminderMinutesBefores }).(pulumi.IntArrayOutput)
+}
+
+// The IDs of the affected status page services (`StatusPageService`). Each service must be on one of the linked status pages.
+func (o MaintenanceWindowStatusPageVisibilityOutput) ServiceIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) []string { return v.ServiceIds }).(pulumi.StringArrayOutput)
+}
+
+// The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+func (o MaintenanceWindowStatusPageVisibilityOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *string { return v.Severity }).(pulumi.StringPtrOutput)
+}
+
+// Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) ShowAffectedServices() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.ShowAffectedServices }).(pulumi.BoolPtrOutput)
+}
+
+// The IDs of the status pages (`StatusPage`) to show the maintenance window on. Requires `serviceIds` or `affectAllServices`.
+func (o MaintenanceWindowStatusPageVisibilityOutput) StatusPageIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) []string { return v.StatusPageIds }).(pulumi.StringArrayOutput)
+}
+
+// Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityOutput) SuppressAutoIncidents() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v MaintenanceWindowStatusPageVisibility) *bool { return v.SuppressAutoIncidents }).(pulumi.BoolPtrOutput)
+}
+
+type MaintenanceWindowStatusPageVisibilityPtrOutput struct{ *pulumi.OutputState }
+
+func (MaintenanceWindowStatusPageVisibilityPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**MaintenanceWindowStatusPageVisibility)(nil)).Elem()
+}
+
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) ToMaintenanceWindowStatusPageVisibilityPtrOutput() MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return o
+}
+
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) ToMaintenanceWindowStatusPageVisibilityPtrOutputWithContext(ctx context.Context) MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return o
+}
+
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) Elem() MaintenanceWindowStatusPageVisibilityOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) MaintenanceWindowStatusPageVisibility {
+		if v != nil {
+			return *v
+		}
+		var ret MaintenanceWindowStatusPageVisibility
+		return ret
+	}).(MaintenanceWindowStatusPageVisibilityOutput)
+}
+
+// Mark every service on the linked status pages as affected. Can't be combined with `serviceIds`. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) AffectAllServices() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AffectAllServices
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Complete the maintenance automatically at the scheduled end time. (Default `true`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) AutoEnd() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoEnd
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Start the maintenance automatically at the scheduled time. (Default `true`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) AutoStart() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoStart
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Enabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Email status page subscribers when the maintenance ends. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) NotifyOnEnd() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.NotifyOnEnd
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Email status page subscribers when the maintenance starts. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) NotifyOnStart() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.NotifyOnStart
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) ReminderMinutesBefores() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) []int {
+		if v == nil {
+			return nil
+		}
+		return v.ReminderMinutesBefores
+	}).(pulumi.IntArrayOutput)
+}
+
+// The IDs of the affected status page services (`StatusPageService`). Each service must be on one of the linked status pages.
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) ServiceIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ServiceIds
+	}).(pulumi.StringArrayOutput)
+}
+
+// The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) Severity() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Severity
+	}).(pulumi.StringPtrOutput)
+}
+
+// Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) ShowAffectedServices() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ShowAffectedServices
+	}).(pulumi.BoolPtrOutput)
+}
+
+// The IDs of the status pages (`StatusPage`) to show the maintenance window on. Requires `serviceIds` or `affectAllServices`.
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) StatusPageIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) []string {
+		if v == nil {
+			return nil
+		}
+		return v.StatusPageIds
+	}).(pulumi.StringArrayOutput)
+}
+
+// Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+func (o MaintenanceWindowStatusPageVisibilityPtrOutput) SuppressAutoIncidents() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindowStatusPageVisibility) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SuppressAutoIncidents
+	}).(pulumi.BoolPtrOutput)
 }
 
 type PlaywrightCheckSuiteAlertChannelSubscription struct {
@@ -22299,6 +22679,960 @@ func (o StatusPageCardServiceAttachmentArrayOutput) Index(i pulumi.IntInput) Sta
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StatusPageCardServiceAttachment {
 		return vs[0].([]StatusPageCardServiceAttachment)[vs[1].(int)]
 	}).(StatusPageCardServiceAttachmentOutput)
+}
+
+type StatusPageV3AutomationRuleComponent struct {
+	// The ID of the impacted component. Must be on the same status page.
+	ComponentId string `pulumi:"componentId"`
+	// The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+	TargetImpact string `pulumi:"targetImpact"`
+}
+
+// StatusPageV3AutomationRuleComponentInput is an input type that accepts StatusPageV3AutomationRuleComponentArgs and StatusPageV3AutomationRuleComponentOutput values.
+// You can construct a concrete instance of `StatusPageV3AutomationRuleComponentInput` via:
+//
+//	StatusPageV3AutomationRuleComponentArgs{...}
+type StatusPageV3AutomationRuleComponentInput interface {
+	pulumi.Input
+
+	ToStatusPageV3AutomationRuleComponentOutput() StatusPageV3AutomationRuleComponentOutput
+	ToStatusPageV3AutomationRuleComponentOutputWithContext(context.Context) StatusPageV3AutomationRuleComponentOutput
+}
+
+type StatusPageV3AutomationRuleComponentArgs struct {
+	// The ID of the impacted component. Must be on the same status page.
+	ComponentId pulumi.StringInput `pulumi:"componentId"`
+	// The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+	TargetImpact pulumi.StringInput `pulumi:"targetImpact"`
+}
+
+func (StatusPageV3AutomationRuleComponentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3AutomationRuleComponent)(nil)).Elem()
+}
+
+func (i StatusPageV3AutomationRuleComponentArgs) ToStatusPageV3AutomationRuleComponentOutput() StatusPageV3AutomationRuleComponentOutput {
+	return i.ToStatusPageV3AutomationRuleComponentOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3AutomationRuleComponentArgs) ToStatusPageV3AutomationRuleComponentOutputWithContext(ctx context.Context) StatusPageV3AutomationRuleComponentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3AutomationRuleComponentOutput)
+}
+
+// StatusPageV3AutomationRuleComponentArrayInput is an input type that accepts StatusPageV3AutomationRuleComponentArray and StatusPageV3AutomationRuleComponentArrayOutput values.
+// You can construct a concrete instance of `StatusPageV3AutomationRuleComponentArrayInput` via:
+//
+//	StatusPageV3AutomationRuleComponentArray{ StatusPageV3AutomationRuleComponentArgs{...} }
+type StatusPageV3AutomationRuleComponentArrayInput interface {
+	pulumi.Input
+
+	ToStatusPageV3AutomationRuleComponentArrayOutput() StatusPageV3AutomationRuleComponentArrayOutput
+	ToStatusPageV3AutomationRuleComponentArrayOutputWithContext(context.Context) StatusPageV3AutomationRuleComponentArrayOutput
+}
+
+type StatusPageV3AutomationRuleComponentArray []StatusPageV3AutomationRuleComponentInput
+
+func (StatusPageV3AutomationRuleComponentArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StatusPageV3AutomationRuleComponent)(nil)).Elem()
+}
+
+func (i StatusPageV3AutomationRuleComponentArray) ToStatusPageV3AutomationRuleComponentArrayOutput() StatusPageV3AutomationRuleComponentArrayOutput {
+	return i.ToStatusPageV3AutomationRuleComponentArrayOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3AutomationRuleComponentArray) ToStatusPageV3AutomationRuleComponentArrayOutputWithContext(ctx context.Context) StatusPageV3AutomationRuleComponentArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3AutomationRuleComponentArrayOutput)
+}
+
+type StatusPageV3AutomationRuleComponentOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3AutomationRuleComponentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3AutomationRuleComponent)(nil)).Elem()
+}
+
+func (o StatusPageV3AutomationRuleComponentOutput) ToStatusPageV3AutomationRuleComponentOutput() StatusPageV3AutomationRuleComponentOutput {
+	return o
+}
+
+func (o StatusPageV3AutomationRuleComponentOutput) ToStatusPageV3AutomationRuleComponentOutputWithContext(ctx context.Context) StatusPageV3AutomationRuleComponentOutput {
+	return o
+}
+
+// The ID of the impacted component. Must be on the same status page.
+func (o StatusPageV3AutomationRuleComponentOutput) ComponentId() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3AutomationRuleComponent) string { return v.ComponentId }).(pulumi.StringOutput)
+}
+
+// The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+func (o StatusPageV3AutomationRuleComponentOutput) TargetImpact() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3AutomationRuleComponent) string { return v.TargetImpact }).(pulumi.StringOutput)
+}
+
+type StatusPageV3AutomationRuleComponentArrayOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3AutomationRuleComponentArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]StatusPageV3AutomationRuleComponent)(nil)).Elem()
+}
+
+func (o StatusPageV3AutomationRuleComponentArrayOutput) ToStatusPageV3AutomationRuleComponentArrayOutput() StatusPageV3AutomationRuleComponentArrayOutput {
+	return o
+}
+
+func (o StatusPageV3AutomationRuleComponentArrayOutput) ToStatusPageV3AutomationRuleComponentArrayOutputWithContext(ctx context.Context) StatusPageV3AutomationRuleComponentArrayOutput {
+	return o
+}
+
+func (o StatusPageV3AutomationRuleComponentArrayOutput) Index(i pulumi.IntInput) StatusPageV3AutomationRuleComponentOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StatusPageV3AutomationRuleComponent {
+		return vs[0].([]StatusPageV3AutomationRuleComponent)[vs[1].(int)]
+	}).(StatusPageV3AutomationRuleComponentOutput)
+}
+
+type StatusPageV3ThemeColors struct {
+	// The colors used when the page renders in dark mode.
+	Dark StatusPageV3ThemeColorsDark `pulumi:"dark"`
+	// The colors used when the page renders in light mode.
+	Light StatusPageV3ThemeColorsLight `pulumi:"light"`
+}
+
+// StatusPageV3ThemeColorsInput is an input type that accepts StatusPageV3ThemeColorsArgs and StatusPageV3ThemeColorsOutput values.
+// You can construct a concrete instance of `StatusPageV3ThemeColorsInput` via:
+//
+//	StatusPageV3ThemeColorsArgs{...}
+type StatusPageV3ThemeColorsInput interface {
+	pulumi.Input
+
+	ToStatusPageV3ThemeColorsOutput() StatusPageV3ThemeColorsOutput
+	ToStatusPageV3ThemeColorsOutputWithContext(context.Context) StatusPageV3ThemeColorsOutput
+}
+
+type StatusPageV3ThemeColorsArgs struct {
+	// The colors used when the page renders in dark mode.
+	Dark StatusPageV3ThemeColorsDarkInput `pulumi:"dark"`
+	// The colors used when the page renders in light mode.
+	Light StatusPageV3ThemeColorsLightInput `pulumi:"light"`
+}
+
+func (StatusPageV3ThemeColorsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3ThemeColors)(nil)).Elem()
+}
+
+func (i StatusPageV3ThemeColorsArgs) ToStatusPageV3ThemeColorsOutput() StatusPageV3ThemeColorsOutput {
+	return i.ToStatusPageV3ThemeColorsOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3ThemeColorsArgs) ToStatusPageV3ThemeColorsOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsOutput)
+}
+
+func (i StatusPageV3ThemeColorsArgs) ToStatusPageV3ThemeColorsPtrOutput() StatusPageV3ThemeColorsPtrOutput {
+	return i.ToStatusPageV3ThemeColorsPtrOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3ThemeColorsArgs) ToStatusPageV3ThemeColorsPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsOutput).ToStatusPageV3ThemeColorsPtrOutputWithContext(ctx)
+}
+
+// StatusPageV3ThemeColorsPtrInput is an input type that accepts StatusPageV3ThemeColorsArgs, StatusPageV3ThemeColorsPtr and StatusPageV3ThemeColorsPtrOutput values.
+// You can construct a concrete instance of `StatusPageV3ThemeColorsPtrInput` via:
+//
+//	        StatusPageV3ThemeColorsArgs{...}
+//
+//	or:
+//
+//	        nil
+type StatusPageV3ThemeColorsPtrInput interface {
+	pulumi.Input
+
+	ToStatusPageV3ThemeColorsPtrOutput() StatusPageV3ThemeColorsPtrOutput
+	ToStatusPageV3ThemeColorsPtrOutputWithContext(context.Context) StatusPageV3ThemeColorsPtrOutput
+}
+
+type statusPageV3ThemeColorsPtrType StatusPageV3ThemeColorsArgs
+
+func StatusPageV3ThemeColorsPtr(v *StatusPageV3ThemeColorsArgs) StatusPageV3ThemeColorsPtrInput {
+	return (*statusPageV3ThemeColorsPtrType)(v)
+}
+
+func (*statusPageV3ThemeColorsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatusPageV3ThemeColors)(nil)).Elem()
+}
+
+func (i *statusPageV3ThemeColorsPtrType) ToStatusPageV3ThemeColorsPtrOutput() StatusPageV3ThemeColorsPtrOutput {
+	return i.ToStatusPageV3ThemeColorsPtrOutputWithContext(context.Background())
+}
+
+func (i *statusPageV3ThemeColorsPtrType) ToStatusPageV3ThemeColorsPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsPtrOutput)
+}
+
+type StatusPageV3ThemeColorsOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3ThemeColorsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3ThemeColors)(nil)).Elem()
+}
+
+func (o StatusPageV3ThemeColorsOutput) ToStatusPageV3ThemeColorsOutput() StatusPageV3ThemeColorsOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsOutput) ToStatusPageV3ThemeColorsOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsOutput) ToStatusPageV3ThemeColorsPtrOutput() StatusPageV3ThemeColorsPtrOutput {
+	return o.ToStatusPageV3ThemeColorsPtrOutputWithContext(context.Background())
+}
+
+func (o StatusPageV3ThemeColorsOutput) ToStatusPageV3ThemeColorsPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatusPageV3ThemeColors) *StatusPageV3ThemeColors {
+		return &v
+	}).(StatusPageV3ThemeColorsPtrOutput)
+}
+
+// The colors used when the page renders in dark mode.
+func (o StatusPageV3ThemeColorsOutput) Dark() StatusPageV3ThemeColorsDarkOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColors) StatusPageV3ThemeColorsDark { return v.Dark }).(StatusPageV3ThemeColorsDarkOutput)
+}
+
+// The colors used when the page renders in light mode.
+func (o StatusPageV3ThemeColorsOutput) Light() StatusPageV3ThemeColorsLightOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColors) StatusPageV3ThemeColorsLight { return v.Light }).(StatusPageV3ThemeColorsLightOutput)
+}
+
+type StatusPageV3ThemeColorsPtrOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3ThemeColorsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatusPageV3ThemeColors)(nil)).Elem()
+}
+
+func (o StatusPageV3ThemeColorsPtrOutput) ToStatusPageV3ThemeColorsPtrOutput() StatusPageV3ThemeColorsPtrOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsPtrOutput) ToStatusPageV3ThemeColorsPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsPtrOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsPtrOutput) Elem() StatusPageV3ThemeColorsOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColors) StatusPageV3ThemeColors {
+		if v != nil {
+			return *v
+		}
+		var ret StatusPageV3ThemeColors
+		return ret
+	}).(StatusPageV3ThemeColorsOutput)
+}
+
+// The colors used when the page renders in dark mode.
+func (o StatusPageV3ThemeColorsPtrOutput) Dark() StatusPageV3ThemeColorsDarkPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColors) *StatusPageV3ThemeColorsDark {
+		if v == nil {
+			return nil
+		}
+		return &v.Dark
+	}).(StatusPageV3ThemeColorsDarkPtrOutput)
+}
+
+// The colors used when the page renders in light mode.
+func (o StatusPageV3ThemeColorsPtrOutput) Light() StatusPageV3ThemeColorsLightPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColors) *StatusPageV3ThemeColorsLight {
+		if v == nil {
+			return nil
+		}
+		return &v.Light
+	}).(StatusPageV3ThemeColorsLightPtrOutput)
+}
+
+type StatusPageV3ThemeColorsDark struct {
+	// The background of the page. A hex color such as "#FF0000" or "#F00".
+	BodyBackgroundColor string `pulumi:"bodyBackgroundColor"`
+	// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+	BodyFontColor string `pulumi:"bodyFontColor"`
+	// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+	BodyFontColorMuted string `pulumi:"bodyFontColorMuted"`
+	// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+	BorderColor string `pulumi:"borderColor"`
+	// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+	CardBackgroundColor string `pulumi:"cardBackgroundColor"`
+	// The background of the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderBackgroundColor string `pulumi:"headerBackgroundColor"`
+	// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderFontColor string `pulumi:"headerFontColor"`
+	// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+	LinkFontColor string `pulumi:"linkFontColor"`
+	// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+	NavigationFontColor string `pulumi:"navigationFontColor"`
+	// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonBackgroundColor string `pulumi:"primaryButtonBackgroundColor"`
+	// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonFontColor string `pulumi:"primaryButtonFontColor"`
+	// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+	TitleFontColor string `pulumi:"titleFontColor"`
+}
+
+// StatusPageV3ThemeColorsDarkInput is an input type that accepts StatusPageV3ThemeColorsDarkArgs and StatusPageV3ThemeColorsDarkOutput values.
+// You can construct a concrete instance of `StatusPageV3ThemeColorsDarkInput` via:
+//
+//	StatusPageV3ThemeColorsDarkArgs{...}
+type StatusPageV3ThemeColorsDarkInput interface {
+	pulumi.Input
+
+	ToStatusPageV3ThemeColorsDarkOutput() StatusPageV3ThemeColorsDarkOutput
+	ToStatusPageV3ThemeColorsDarkOutputWithContext(context.Context) StatusPageV3ThemeColorsDarkOutput
+}
+
+type StatusPageV3ThemeColorsDarkArgs struct {
+	// The background of the page. A hex color such as "#FF0000" or "#F00".
+	BodyBackgroundColor pulumi.StringInput `pulumi:"bodyBackgroundColor"`
+	// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+	BodyFontColor pulumi.StringInput `pulumi:"bodyFontColor"`
+	// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+	BodyFontColorMuted pulumi.StringInput `pulumi:"bodyFontColorMuted"`
+	// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+	BorderColor pulumi.StringInput `pulumi:"borderColor"`
+	// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+	CardBackgroundColor pulumi.StringInput `pulumi:"cardBackgroundColor"`
+	// The background of the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderBackgroundColor pulumi.StringInput `pulumi:"headerBackgroundColor"`
+	// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderFontColor pulumi.StringInput `pulumi:"headerFontColor"`
+	// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+	LinkFontColor pulumi.StringInput `pulumi:"linkFontColor"`
+	// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+	NavigationFontColor pulumi.StringInput `pulumi:"navigationFontColor"`
+	// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonBackgroundColor pulumi.StringInput `pulumi:"primaryButtonBackgroundColor"`
+	// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonFontColor pulumi.StringInput `pulumi:"primaryButtonFontColor"`
+	// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+	TitleFontColor pulumi.StringInput `pulumi:"titleFontColor"`
+}
+
+func (StatusPageV3ThemeColorsDarkArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3ThemeColorsDark)(nil)).Elem()
+}
+
+func (i StatusPageV3ThemeColorsDarkArgs) ToStatusPageV3ThemeColorsDarkOutput() StatusPageV3ThemeColorsDarkOutput {
+	return i.ToStatusPageV3ThemeColorsDarkOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3ThemeColorsDarkArgs) ToStatusPageV3ThemeColorsDarkOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsDarkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsDarkOutput)
+}
+
+func (i StatusPageV3ThemeColorsDarkArgs) ToStatusPageV3ThemeColorsDarkPtrOutput() StatusPageV3ThemeColorsDarkPtrOutput {
+	return i.ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3ThemeColorsDarkArgs) ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsDarkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsDarkOutput).ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(ctx)
+}
+
+// StatusPageV3ThemeColorsDarkPtrInput is an input type that accepts StatusPageV3ThemeColorsDarkArgs, StatusPageV3ThemeColorsDarkPtr and StatusPageV3ThemeColorsDarkPtrOutput values.
+// You can construct a concrete instance of `StatusPageV3ThemeColorsDarkPtrInput` via:
+//
+//	        StatusPageV3ThemeColorsDarkArgs{...}
+//
+//	or:
+//
+//	        nil
+type StatusPageV3ThemeColorsDarkPtrInput interface {
+	pulumi.Input
+
+	ToStatusPageV3ThemeColorsDarkPtrOutput() StatusPageV3ThemeColorsDarkPtrOutput
+	ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(context.Context) StatusPageV3ThemeColorsDarkPtrOutput
+}
+
+type statusPageV3ThemeColorsDarkPtrType StatusPageV3ThemeColorsDarkArgs
+
+func StatusPageV3ThemeColorsDarkPtr(v *StatusPageV3ThemeColorsDarkArgs) StatusPageV3ThemeColorsDarkPtrInput {
+	return (*statusPageV3ThemeColorsDarkPtrType)(v)
+}
+
+func (*statusPageV3ThemeColorsDarkPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatusPageV3ThemeColorsDark)(nil)).Elem()
+}
+
+func (i *statusPageV3ThemeColorsDarkPtrType) ToStatusPageV3ThemeColorsDarkPtrOutput() StatusPageV3ThemeColorsDarkPtrOutput {
+	return i.ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(context.Background())
+}
+
+func (i *statusPageV3ThemeColorsDarkPtrType) ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsDarkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsDarkPtrOutput)
+}
+
+type StatusPageV3ThemeColorsDarkOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3ThemeColorsDarkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3ThemeColorsDark)(nil)).Elem()
+}
+
+func (o StatusPageV3ThemeColorsDarkOutput) ToStatusPageV3ThemeColorsDarkOutput() StatusPageV3ThemeColorsDarkOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsDarkOutput) ToStatusPageV3ThemeColorsDarkOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsDarkOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsDarkOutput) ToStatusPageV3ThemeColorsDarkPtrOutput() StatusPageV3ThemeColorsDarkPtrOutput {
+	return o.ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(context.Background())
+}
+
+func (o StatusPageV3ThemeColorsDarkOutput) ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsDarkPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatusPageV3ThemeColorsDark) *StatusPageV3ThemeColorsDark {
+		return &v
+	}).(StatusPageV3ThemeColorsDarkPtrOutput)
+}
+
+// The background of the page. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) BodyBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.BodyBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) BodyFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.BodyFontColor }).(pulumi.StringOutput)
+}
+
+// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) BodyFontColorMuted() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.BodyFontColorMuted }).(pulumi.StringOutput)
+}
+
+// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) BorderColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.BorderColor }).(pulumi.StringOutput)
+}
+
+// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) CardBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.CardBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The background of the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) HeaderBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.HeaderBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) HeaderFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.HeaderFontColor }).(pulumi.StringOutput)
+}
+
+// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) LinkFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.LinkFontColor }).(pulumi.StringOutput)
+}
+
+// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) NavigationFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.NavigationFontColor }).(pulumi.StringOutput)
+}
+
+// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) PrimaryButtonBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.PrimaryButtonBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) PrimaryButtonFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.PrimaryButtonFontColor }).(pulumi.StringOutput)
+}
+
+// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkOutput) TitleFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsDark) string { return v.TitleFontColor }).(pulumi.StringOutput)
+}
+
+type StatusPageV3ThemeColorsDarkPtrOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3ThemeColorsDarkPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatusPageV3ThemeColorsDark)(nil)).Elem()
+}
+
+func (o StatusPageV3ThemeColorsDarkPtrOutput) ToStatusPageV3ThemeColorsDarkPtrOutput() StatusPageV3ThemeColorsDarkPtrOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsDarkPtrOutput) ToStatusPageV3ThemeColorsDarkPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsDarkPtrOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsDarkPtrOutput) Elem() StatusPageV3ThemeColorsDarkOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) StatusPageV3ThemeColorsDark {
+		if v != nil {
+			return *v
+		}
+		var ret StatusPageV3ThemeColorsDark
+		return ret
+	}).(StatusPageV3ThemeColorsDarkOutput)
+}
+
+// The background of the page. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) BodyBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BodyBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) BodyFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BodyFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) BodyFontColorMuted() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BodyFontColorMuted
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) BorderColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BorderColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) CardBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.CardBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The background of the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) HeaderBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.HeaderBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) HeaderFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.HeaderFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) LinkFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.LinkFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) NavigationFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.NavigationFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) PrimaryButtonBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.PrimaryButtonBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) PrimaryButtonFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.PrimaryButtonFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsDarkPtrOutput) TitleFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsDark) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TitleFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+type StatusPageV3ThemeColorsLight struct {
+	// The background of the page. A hex color such as "#FF0000" or "#F00".
+	BodyBackgroundColor string `pulumi:"bodyBackgroundColor"`
+	// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+	BodyFontColor string `pulumi:"bodyFontColor"`
+	// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+	BodyFontColorMuted string `pulumi:"bodyFontColorMuted"`
+	// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+	BorderColor string `pulumi:"borderColor"`
+	// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+	CardBackgroundColor string `pulumi:"cardBackgroundColor"`
+	// The background of the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderBackgroundColor string `pulumi:"headerBackgroundColor"`
+	// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderFontColor string `pulumi:"headerFontColor"`
+	// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+	LinkFontColor string `pulumi:"linkFontColor"`
+	// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+	NavigationFontColor string `pulumi:"navigationFontColor"`
+	// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonBackgroundColor string `pulumi:"primaryButtonBackgroundColor"`
+	// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonFontColor string `pulumi:"primaryButtonFontColor"`
+	// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+	TitleFontColor string `pulumi:"titleFontColor"`
+}
+
+// StatusPageV3ThemeColorsLightInput is an input type that accepts StatusPageV3ThemeColorsLightArgs and StatusPageV3ThemeColorsLightOutput values.
+// You can construct a concrete instance of `StatusPageV3ThemeColorsLightInput` via:
+//
+//	StatusPageV3ThemeColorsLightArgs{...}
+type StatusPageV3ThemeColorsLightInput interface {
+	pulumi.Input
+
+	ToStatusPageV3ThemeColorsLightOutput() StatusPageV3ThemeColorsLightOutput
+	ToStatusPageV3ThemeColorsLightOutputWithContext(context.Context) StatusPageV3ThemeColorsLightOutput
+}
+
+type StatusPageV3ThemeColorsLightArgs struct {
+	// The background of the page. A hex color such as "#FF0000" or "#F00".
+	BodyBackgroundColor pulumi.StringInput `pulumi:"bodyBackgroundColor"`
+	// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+	BodyFontColor pulumi.StringInput `pulumi:"bodyFontColor"`
+	// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+	BodyFontColorMuted pulumi.StringInput `pulumi:"bodyFontColorMuted"`
+	// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+	BorderColor pulumi.StringInput `pulumi:"borderColor"`
+	// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+	CardBackgroundColor pulumi.StringInput `pulumi:"cardBackgroundColor"`
+	// The background of the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderBackgroundColor pulumi.StringInput `pulumi:"headerBackgroundColor"`
+	// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+	HeaderFontColor pulumi.StringInput `pulumi:"headerFontColor"`
+	// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+	LinkFontColor pulumi.StringInput `pulumi:"linkFontColor"`
+	// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+	NavigationFontColor pulumi.StringInput `pulumi:"navigationFontColor"`
+	// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonBackgroundColor pulumi.StringInput `pulumi:"primaryButtonBackgroundColor"`
+	// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+	PrimaryButtonFontColor pulumi.StringInput `pulumi:"primaryButtonFontColor"`
+	// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+	TitleFontColor pulumi.StringInput `pulumi:"titleFontColor"`
+}
+
+func (StatusPageV3ThemeColorsLightArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3ThemeColorsLight)(nil)).Elem()
+}
+
+func (i StatusPageV3ThemeColorsLightArgs) ToStatusPageV3ThemeColorsLightOutput() StatusPageV3ThemeColorsLightOutput {
+	return i.ToStatusPageV3ThemeColorsLightOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3ThemeColorsLightArgs) ToStatusPageV3ThemeColorsLightOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsLightOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsLightOutput)
+}
+
+func (i StatusPageV3ThemeColorsLightArgs) ToStatusPageV3ThemeColorsLightPtrOutput() StatusPageV3ThemeColorsLightPtrOutput {
+	return i.ToStatusPageV3ThemeColorsLightPtrOutputWithContext(context.Background())
+}
+
+func (i StatusPageV3ThemeColorsLightArgs) ToStatusPageV3ThemeColorsLightPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsLightPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsLightOutput).ToStatusPageV3ThemeColorsLightPtrOutputWithContext(ctx)
+}
+
+// StatusPageV3ThemeColorsLightPtrInput is an input type that accepts StatusPageV3ThemeColorsLightArgs, StatusPageV3ThemeColorsLightPtr and StatusPageV3ThemeColorsLightPtrOutput values.
+// You can construct a concrete instance of `StatusPageV3ThemeColorsLightPtrInput` via:
+//
+//	        StatusPageV3ThemeColorsLightArgs{...}
+//
+//	or:
+//
+//	        nil
+type StatusPageV3ThemeColorsLightPtrInput interface {
+	pulumi.Input
+
+	ToStatusPageV3ThemeColorsLightPtrOutput() StatusPageV3ThemeColorsLightPtrOutput
+	ToStatusPageV3ThemeColorsLightPtrOutputWithContext(context.Context) StatusPageV3ThemeColorsLightPtrOutput
+}
+
+type statusPageV3ThemeColorsLightPtrType StatusPageV3ThemeColorsLightArgs
+
+func StatusPageV3ThemeColorsLightPtr(v *StatusPageV3ThemeColorsLightArgs) StatusPageV3ThemeColorsLightPtrInput {
+	return (*statusPageV3ThemeColorsLightPtrType)(v)
+}
+
+func (*statusPageV3ThemeColorsLightPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatusPageV3ThemeColorsLight)(nil)).Elem()
+}
+
+func (i *statusPageV3ThemeColorsLightPtrType) ToStatusPageV3ThemeColorsLightPtrOutput() StatusPageV3ThemeColorsLightPtrOutput {
+	return i.ToStatusPageV3ThemeColorsLightPtrOutputWithContext(context.Background())
+}
+
+func (i *statusPageV3ThemeColorsLightPtrType) ToStatusPageV3ThemeColorsLightPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsLightPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatusPageV3ThemeColorsLightPtrOutput)
+}
+
+type StatusPageV3ThemeColorsLightOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3ThemeColorsLightOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatusPageV3ThemeColorsLight)(nil)).Elem()
+}
+
+func (o StatusPageV3ThemeColorsLightOutput) ToStatusPageV3ThemeColorsLightOutput() StatusPageV3ThemeColorsLightOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsLightOutput) ToStatusPageV3ThemeColorsLightOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsLightOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsLightOutput) ToStatusPageV3ThemeColorsLightPtrOutput() StatusPageV3ThemeColorsLightPtrOutput {
+	return o.ToStatusPageV3ThemeColorsLightPtrOutputWithContext(context.Background())
+}
+
+func (o StatusPageV3ThemeColorsLightOutput) ToStatusPageV3ThemeColorsLightPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsLightPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatusPageV3ThemeColorsLight) *StatusPageV3ThemeColorsLight {
+		return &v
+	}).(StatusPageV3ThemeColorsLightPtrOutput)
+}
+
+// The background of the page. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) BodyBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.BodyBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) BodyFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.BodyFontColor }).(pulumi.StringOutput)
+}
+
+// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) BodyFontColorMuted() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.BodyFontColorMuted }).(pulumi.StringOutput)
+}
+
+// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) BorderColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.BorderColor }).(pulumi.StringOutput)
+}
+
+// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) CardBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.CardBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The background of the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) HeaderBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.HeaderBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) HeaderFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.HeaderFontColor }).(pulumi.StringOutput)
+}
+
+// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) LinkFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.LinkFontColor }).(pulumi.StringOutput)
+}
+
+// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) NavigationFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.NavigationFontColor }).(pulumi.StringOutput)
+}
+
+// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) PrimaryButtonBackgroundColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.PrimaryButtonBackgroundColor }).(pulumi.StringOutput)
+}
+
+// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) PrimaryButtonFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.PrimaryButtonFontColor }).(pulumi.StringOutput)
+}
+
+// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightOutput) TitleFontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v StatusPageV3ThemeColorsLight) string { return v.TitleFontColor }).(pulumi.StringOutput)
+}
+
+type StatusPageV3ThemeColorsLightPtrOutput struct{ *pulumi.OutputState }
+
+func (StatusPageV3ThemeColorsLightPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatusPageV3ThemeColorsLight)(nil)).Elem()
+}
+
+func (o StatusPageV3ThemeColorsLightPtrOutput) ToStatusPageV3ThemeColorsLightPtrOutput() StatusPageV3ThemeColorsLightPtrOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsLightPtrOutput) ToStatusPageV3ThemeColorsLightPtrOutputWithContext(ctx context.Context) StatusPageV3ThemeColorsLightPtrOutput {
+	return o
+}
+
+func (o StatusPageV3ThemeColorsLightPtrOutput) Elem() StatusPageV3ThemeColorsLightOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) StatusPageV3ThemeColorsLight {
+		if v != nil {
+			return *v
+		}
+		var ret StatusPageV3ThemeColorsLight
+		return ret
+	}).(StatusPageV3ThemeColorsLightOutput)
+}
+
+// The background of the page. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) BodyBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BodyBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of regular body text. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) BodyFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BodyFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) BodyFontColorMuted() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BodyFontColorMuted
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) BorderColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.BorderColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) CardBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.CardBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The background of the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) HeaderBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.HeaderBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) HeaderFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.HeaderFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) LinkFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.LinkFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of navigation links. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) NavigationFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.NavigationFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) PrimaryButtonBackgroundColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.PrimaryButtonBackgroundColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) PrimaryButtonFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.PrimaryButtonFontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+func (o StatusPageV3ThemeColorsLightPtrOutput) TitleFontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatusPageV3ThemeColorsLight) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TitleFontColor
+	}).(pulumi.StringPtrOutput)
 }
 
 type TcpCheckAlertChannelSubscription struct {
@@ -29120,6 +30454,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorRetryStrategyOnlyOnPtrInput)(nil)).Elem(), IcmpMonitorRetryStrategyOnlyOnArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorTriggerIncidentInput)(nil)).Elem(), IcmpMonitorTriggerIncidentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IcmpMonitorTriggerIncidentPtrInput)(nil)).Elem(), IcmpMonitorTriggerIncidentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MaintenanceWindowStatusPageVisibilityInput)(nil)).Elem(), MaintenanceWindowStatusPageVisibilityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MaintenanceWindowStatusPageVisibilityPtrInput)(nil)).Elem(), MaintenanceWindowStatusPageVisibilityArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertChannelSubscriptionInput)(nil)).Elem(), PlaywrightCheckSuiteAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput)(nil)).Elem(), PlaywrightCheckSuiteAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PlaywrightCheckSuiteAlertSettingsInput)(nil)).Elem(), PlaywrightCheckSuiteAlertSettingsArgs{})
@@ -29202,6 +30538,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardArrayInput)(nil)).Elem(), StatusPageCardArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentInput)(nil)).Elem(), StatusPageCardServiceAttachmentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageCardServiceAttachmentArrayInput)(nil)).Elem(), StatusPageCardServiceAttachmentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3AutomationRuleComponentInput)(nil)).Elem(), StatusPageV3AutomationRuleComponentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3AutomationRuleComponentArrayInput)(nil)).Elem(), StatusPageV3AutomationRuleComponentArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3ThemeColorsInput)(nil)).Elem(), StatusPageV3ThemeColorsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3ThemeColorsPtrInput)(nil)).Elem(), StatusPageV3ThemeColorsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3ThemeColorsDarkInput)(nil)).Elem(), StatusPageV3ThemeColorsDarkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3ThemeColorsDarkPtrInput)(nil)).Elem(), StatusPageV3ThemeColorsDarkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3ThemeColorsLightInput)(nil)).Elem(), StatusPageV3ThemeColorsLightArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPageV3ThemeColorsLightPtrInput)(nil)).Elem(), StatusPageV3ThemeColorsLightArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertChannelSubscriptionInput)(nil)).Elem(), TcpCheckAlertChannelSubscriptionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertChannelSubscriptionArrayInput)(nil)).Elem(), TcpCheckAlertChannelSubscriptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TcpCheckAlertSettingsInput)(nil)).Elem(), TcpCheckAlertSettingsArgs{})
@@ -29506,6 +30850,8 @@ func init() {
 	pulumi.RegisterOutputType(IcmpMonitorRetryStrategyOnlyOnPtrOutput{})
 	pulumi.RegisterOutputType(IcmpMonitorTriggerIncidentOutput{})
 	pulumi.RegisterOutputType(IcmpMonitorTriggerIncidentPtrOutput{})
+	pulumi.RegisterOutputType(MaintenanceWindowStatusPageVisibilityOutput{})
+	pulumi.RegisterOutputType(MaintenanceWindowStatusPageVisibilityPtrOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(PlaywrightCheckSuiteAlertSettingsOutput{})
@@ -29588,6 +30934,14 @@ func init() {
 	pulumi.RegisterOutputType(StatusPageCardArrayOutput{})
 	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentOutput{})
 	pulumi.RegisterOutputType(StatusPageCardServiceAttachmentArrayOutput{})
+	pulumi.RegisterOutputType(StatusPageV3AutomationRuleComponentOutput{})
+	pulumi.RegisterOutputType(StatusPageV3AutomationRuleComponentArrayOutput{})
+	pulumi.RegisterOutputType(StatusPageV3ThemeColorsOutput{})
+	pulumi.RegisterOutputType(StatusPageV3ThemeColorsPtrOutput{})
+	pulumi.RegisterOutputType(StatusPageV3ThemeColorsDarkOutput{})
+	pulumi.RegisterOutputType(StatusPageV3ThemeColorsDarkPtrOutput{})
+	pulumi.RegisterOutputType(StatusPageV3ThemeColorsLightOutput{})
+	pulumi.RegisterOutputType(StatusPageV3ThemeColorsLightPtrOutput{})
 	pulumi.RegisterOutputType(TcpCheckAlertChannelSubscriptionOutput{})
 	pulumi.RegisterOutputType(TcpCheckAlertChannelSubscriptionArrayOutput{})
 	pulumi.RegisterOutputType(TcpCheckAlertSettingsOutput{})

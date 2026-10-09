@@ -46,6 +46,10 @@ namespace Pulumi.Checkly
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/checkly",
+                AdditionalSecretOutputs =
+                {
+                    "apiKey",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -66,7 +70,16 @@ namespace Pulumi.Checkly
         public Input<string>? AccountId { get; set; }
 
         [Input("apiKey")]
-        public Input<string>? ApiKey { get; set; }
+        private Input<string>? _apiKey;
+        public Input<string>? ApiKey
+        {
+            get => _apiKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _apiKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         [Input("apiUrl")]
         public Input<string>? ApiUrl { get; set; }

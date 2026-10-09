@@ -303,9 +303,9 @@ class ClientCertificate(pulumi.CustomResource):
             __props__.__dict__["path"] = path
             if private_key is None and not opts.urn:
                 raise TypeError("Missing required property 'private_key'")
-            __props__.__dict__["private_key"] = private_key
+            __props__.__dict__["private_key"] = None if private_key is None else pulumi.Output.secret(private_key)
             __props__.__dict__["trusted_ca"] = trusted_ca
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["passphrase"])
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["passphrase", "privateKey"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(ClientCertificate, __self__).__init__(
             'checkly:index/clientCertificate:ClientCertificate',

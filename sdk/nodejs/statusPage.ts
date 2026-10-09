@@ -7,7 +7,7 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers.
+ * Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page: the new `checkly.StatusPageV3` resource should always be preferred for new pages.
  *
  * ## Example Usage
  *

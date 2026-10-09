@@ -113,6 +113,21 @@ export type StatusPageService = import("./statusPageService").StatusPageService;
 export const StatusPageService: typeof import("./statusPageService").StatusPageService = null as any;
 utilities.lazyLoad(exports, ["StatusPageService"], () => require("./statusPageService"));
 
+export { StatusPageV3Args, StatusPageV3State } from "./statusPageV3";
+export type StatusPageV3 = import("./statusPageV3").StatusPageV3;
+export const StatusPageV3: typeof import("./statusPageV3").StatusPageV3 = null as any;
+utilities.lazyLoad(exports, ["StatusPageV3"], () => require("./statusPageV3"));
+
+export { StatusPageV3AutomationRuleArgs, StatusPageV3AutomationRuleState } from "./statusPageV3AutomationRule";
+export type StatusPageV3AutomationRule = import("./statusPageV3AutomationRule").StatusPageV3AutomationRule;
+export const StatusPageV3AutomationRule: typeof import("./statusPageV3AutomationRule").StatusPageV3AutomationRule = null as any;
+utilities.lazyLoad(exports, ["StatusPageV3AutomationRule"], () => require("./statusPageV3AutomationRule"));
+
+export { StatusPageV3ComponentArgs, StatusPageV3ComponentState } from "./statusPageV3Component";
+export type StatusPageV3Component = import("./statusPageV3Component").StatusPageV3Component;
+export const StatusPageV3Component: typeof import("./statusPageV3Component").StatusPageV3Component = null as any;
+utilities.lazyLoad(exports, ["StatusPageV3Component"], () => require("./statusPageV3Component"));
+
 export { TcpCheckArgs, TcpCheckState } from "./tcpCheck";
 export type TcpCheck = import("./tcpCheck").TcpCheck;
 export const TcpCheck: typeof import("./tcpCheck").TcpCheck = null as any;
@@ -197,6 +212,12 @@ const _module = {
                 return new StatusPage(name, <any>undefined, { urn })
             case "checkly:index/statusPageService:StatusPageService":
                 return new StatusPageService(name, <any>undefined, { urn })
+            case "checkly:index/statusPageV3:StatusPageV3":
+                return new StatusPageV3(name, <any>undefined, { urn })
+            case "checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule":
+                return new StatusPageV3AutomationRule(name, <any>undefined, { urn })
+            case "checkly:index/statusPageV3Component:StatusPageV3Component":
+                return new StatusPageV3Component(name, <any>undefined, { urn })
             case "checkly:index/tcpCheck:TcpCheck":
                 return new TcpCheck(name, <any>undefined, { urn })
             case "checkly:index/tcpMonitor:TcpMonitor":
@@ -234,6 +255,9 @@ pulumi.runtime.registerResourceModule("checkly", "index/snippet", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/sslMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/statusPage", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/statusPageService", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/statusPageV3", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/statusPageV3AutomationRule", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/statusPageV3Component", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tcpCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tcpMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tracerouteMonitor", _module)

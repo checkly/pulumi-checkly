@@ -59,6 +59,17 @@ func NewTriggerCheckGroup(ctx *pulumi.Context,
 	if args.GroupId == nil {
 		return nil, errors.New("invalid value for required argument 'GroupId'")
 	}
+	if args.Token != nil {
+		args.Token = pulumi.ToSecret(args.Token).(pulumi.StringPtrInput)
+	}
+	if args.Url != nil {
+		args.Url = pulumi.ToSecret(args.Url).(pulumi.StringPtrInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"token",
+		"url",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource TriggerCheckGroup
 	err := ctx.RegisterResource("checkly:index/triggerCheckGroup:TriggerCheckGroup", name, args, &resource, opts...)
