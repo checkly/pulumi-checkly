@@ -24,6 +24,15 @@ namespace Pulumi.Checkly.Inputs
             set => _assertions = value;
         }
 
+        [Input("bfbsContent")]
+        public Input<string>? BfbsContent { get; set; }
+
+        /// <summary>
+        /// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+        /// </summary>
+        [Input("encoding")]
+        public Input<string>? Encoding { get; set; }
+
         /// <summary>
         /// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
         /// </summary>
@@ -73,7 +82,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<int> Port { get; set; } = null!;
 
         /// <summary>
-        /// The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode.
+        /// The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
         /// </summary>
         [Input("protoContent")]
         public Input<string>? ProtoContent { get; set; }
@@ -85,7 +94,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string>? Service { get; set; }
 
         /// <summary>
-        /// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. (Default `REFLECTION`).
+        /// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
         /// </summary>
         [Input("serviceDefinition")]
         public Input<string>? ServiceDefinition { get; set; }

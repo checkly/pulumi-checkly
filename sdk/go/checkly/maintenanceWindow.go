@@ -36,6 +36,58 @@ import (
 //				Tags: pulumi.StringArray{
 //					pulumi.String("production"),
 //				},
+//				Timezone:    pulumi.String("America/New_York"),
+//				Description: pulumi.String("Monthly database maintenance"),
+//				SilenceAlertsTags: pulumi.StringArray{
+//					pulumi.String("production"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Show a maintenance window on a status page
+//			api, err := checkly.NewStatusPageService(ctx, "api", &checkly.StatusPageServiceArgs{
+//				Name: pulumi.String("API"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			example, err := checkly.NewStatusPage(ctx, "example", &checkly.StatusPageArgs{
+//				Name: pulumi.String("Example Application"),
+//				Url:  pulumi.String("my-example-status-page"),
+//				Cards: checkly.StatusPageCardArray{
+//					&checkly.StatusPageCardArgs{
+//						Name: pulumi.String("Services"),
+//						ServiceAttachments: checkly.StatusPageCardServiceAttachmentArray{
+//							&checkly.StatusPageCardServiceAttachmentArgs{
+//								ServiceId: api.ID(),
+//							},
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = checkly.NewMaintenanceWindow(ctx, "maintenance-2", &checkly.MaintenanceWindowArgs{
+//				Name:     pulumi.String("Status page maintenance"),
+//				StartsAt: pulumi.String("2028-08-24T00:00:00.000Z"),
+//				EndsAt:   pulumi.String("2028-08-24T02:00:00.000Z"),
+//				Tags: pulumi.StringArray{
+//					pulumi.String("api"),
+//				},
+//				Description: pulumi.String("We're upgrading our API servers."),
+//				StatusPageVisibility: &checkly.MaintenanceWindowStatusPageVisibilityArgs{
+//					Enabled:       pulumi.Bool(true),
+//					Severity:      pulumi.String("MINOR"),
+//					NotifyOnStart: pulumi.Bool(true),
+//					StatusPageIds: pulumi.StringArray{
+//						example.ID(),
+//					},
+//					ServiceIds: pulumi.StringArray{
+//						api.ID(),
+//					},
+//				},
 //			})
 //			if err != nil {
 //				return err
@@ -48,20 +100,32 @@ import (
 type MaintenanceWindow struct {
 	pulumi.CustomResourceState
 
+	// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// The end date of the maintenance window.
 	EndsAt pulumi.StringOutput `pulumi:"endsAt"`
 	// The maintenance window name.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The date on which the maintenance window should stop repeating.
+	// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+	PauseAllChecks pulumi.BoolPtrOutput `pulumi:"pauseAllChecks"`
+	// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
 	RepeatEndsAt pulumi.StringPtrOutput `pulumi:"repeatEndsAt"`
 	// The repeat interval of the maintenance window from the first occurrence.
 	RepeatInterval pulumi.IntPtrOutput `pulumi:"repeatInterval"`
 	// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
 	RepeatUnit pulumi.StringPtrOutput `pulumi:"repeatUnit"`
+	// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+	SilenceAlertsTags pulumi.StringArrayOutput `pulumi:"silenceAlertsTags"`
+	// Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+	SilenceAllAlerts pulumi.BoolPtrOutput `pulumi:"silenceAllAlerts"`
 	// The start date of the maintenance window.
 	StartsAt pulumi.StringOutput `pulumi:"startsAt"`
-	// The names of the checks and groups maintenance window should apply to.
+	// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+	StatusPageVisibility MaintenanceWindowStatusPageVisibilityPtrOutput `pulumi:"statusPageVisibility"`
+	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	Timezone pulumi.StringPtrOutput `pulumi:"timezone"`
 }
 
 // NewMaintenanceWindow registers a new resource with the given unique name, arguments, and options.
@@ -100,37 +164,61 @@ func GetMaintenanceWindow(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering MaintenanceWindow resources.
 type maintenanceWindowState struct {
+	// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+	Description *string `pulumi:"description"`
 	// The end date of the maintenance window.
 	EndsAt *string `pulumi:"endsAt"`
 	// The maintenance window name.
 	Name *string `pulumi:"name"`
-	// The date on which the maintenance window should stop repeating.
+	// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+	PauseAllChecks *bool `pulumi:"pauseAllChecks"`
+	// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
 	RepeatEndsAt *string `pulumi:"repeatEndsAt"`
 	// The repeat interval of the maintenance window from the first occurrence.
 	RepeatInterval *int `pulumi:"repeatInterval"`
 	// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
 	RepeatUnit *string `pulumi:"repeatUnit"`
+	// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+	SilenceAlertsTags []string `pulumi:"silenceAlertsTags"`
+	// Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+	SilenceAllAlerts *bool `pulumi:"silenceAllAlerts"`
 	// The start date of the maintenance window.
 	StartsAt *string `pulumi:"startsAt"`
-	// The names of the checks and groups maintenance window should apply to.
+	// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+	StatusPageVisibility *MaintenanceWindowStatusPageVisibility `pulumi:"statusPageVisibility"`
+	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags []string `pulumi:"tags"`
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	Timezone *string `pulumi:"timezone"`
 }
 
 type MaintenanceWindowState struct {
+	// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+	Description pulumi.StringPtrInput
 	// The end date of the maintenance window.
 	EndsAt pulumi.StringPtrInput
 	// The maintenance window name.
 	Name pulumi.StringPtrInput
-	// The date on which the maintenance window should stop repeating.
+	// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+	PauseAllChecks pulumi.BoolPtrInput
+	// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
 	RepeatEndsAt pulumi.StringPtrInput
 	// The repeat interval of the maintenance window from the first occurrence.
 	RepeatInterval pulumi.IntPtrInput
 	// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
 	RepeatUnit pulumi.StringPtrInput
+	// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+	SilenceAlertsTags pulumi.StringArrayInput
+	// Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+	SilenceAllAlerts pulumi.BoolPtrInput
 	// The start date of the maintenance window.
 	StartsAt pulumi.StringPtrInput
-	// The names of the checks and groups maintenance window should apply to.
+	// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+	StatusPageVisibility MaintenanceWindowStatusPageVisibilityPtrInput
+	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags pulumi.StringArrayInput
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	Timezone pulumi.StringPtrInput
 }
 
 func (MaintenanceWindowState) ElementType() reflect.Type {
@@ -138,38 +226,62 @@ func (MaintenanceWindowState) ElementType() reflect.Type {
 }
 
 type maintenanceWindowArgs struct {
+	// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+	Description *string `pulumi:"description"`
 	// The end date of the maintenance window.
 	EndsAt string `pulumi:"endsAt"`
 	// The maintenance window name.
 	Name *string `pulumi:"name"`
-	// The date on which the maintenance window should stop repeating.
+	// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+	PauseAllChecks *bool `pulumi:"pauseAllChecks"`
+	// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
 	RepeatEndsAt *string `pulumi:"repeatEndsAt"`
 	// The repeat interval of the maintenance window from the first occurrence.
 	RepeatInterval *int `pulumi:"repeatInterval"`
 	// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
 	RepeatUnit *string `pulumi:"repeatUnit"`
+	// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+	SilenceAlertsTags []string `pulumi:"silenceAlertsTags"`
+	// Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+	SilenceAllAlerts *bool `pulumi:"silenceAllAlerts"`
 	// The start date of the maintenance window.
 	StartsAt string `pulumi:"startsAt"`
-	// The names of the checks and groups maintenance window should apply to.
+	// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+	StatusPageVisibility *MaintenanceWindowStatusPageVisibility `pulumi:"statusPageVisibility"`
+	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags []string `pulumi:"tags"`
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	Timezone *string `pulumi:"timezone"`
 }
 
 // The set of arguments for constructing a MaintenanceWindow resource.
 type MaintenanceWindowArgs struct {
+	// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+	Description pulumi.StringPtrInput
 	// The end date of the maintenance window.
 	EndsAt pulumi.StringInput
 	// The maintenance window name.
 	Name pulumi.StringPtrInput
-	// The date on which the maintenance window should stop repeating.
+	// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+	PauseAllChecks pulumi.BoolPtrInput
+	// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
 	RepeatEndsAt pulumi.StringPtrInput
 	// The repeat interval of the maintenance window from the first occurrence.
 	RepeatInterval pulumi.IntPtrInput
 	// The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
 	RepeatUnit pulumi.StringPtrInput
+	// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+	SilenceAlertsTags pulumi.StringArrayInput
+	// Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+	SilenceAllAlerts pulumi.BoolPtrInput
 	// The start date of the maintenance window.
 	StartsAt pulumi.StringInput
-	// The names of the checks and groups maintenance window should apply to.
+	// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+	StatusPageVisibility MaintenanceWindowStatusPageVisibilityPtrInput
+	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags pulumi.StringArrayInput
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	Timezone pulumi.StringPtrInput
 }
 
 func (MaintenanceWindowArgs) ElementType() reflect.Type {
@@ -259,6 +371,11 @@ func (o MaintenanceWindowOutput) ToMaintenanceWindowOutputWithContext(ctx contex
 	return o
 }
 
+// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+func (o MaintenanceWindowOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+}
+
 // The end date of the maintenance window.
 func (o MaintenanceWindowOutput) EndsAt() pulumi.StringOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringOutput { return v.EndsAt }).(pulumi.StringOutput)
@@ -269,7 +386,12 @@ func (o MaintenanceWindowOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The date on which the maintenance window should stop repeating.
+// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+func (o MaintenanceWindowOutput) PauseAllChecks() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindow) pulumi.BoolPtrOutput { return v.PauseAllChecks }).(pulumi.BoolPtrOutput)
+}
+
+// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
 func (o MaintenanceWindowOutput) RepeatEndsAt() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringPtrOutput { return v.RepeatEndsAt }).(pulumi.StringPtrOutput)
 }
@@ -284,14 +406,36 @@ func (o MaintenanceWindowOutput) RepeatUnit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringPtrOutput { return v.RepeatUnit }).(pulumi.StringPtrOutput)
 }
 
+// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
+func (o MaintenanceWindowOutput) SilenceAlertsTags() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringArrayOutput { return v.SilenceAlertsTags }).(pulumi.StringArrayOutput)
+}
+
+// Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
+func (o MaintenanceWindowOutput) SilenceAllAlerts() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindow) pulumi.BoolPtrOutput { return v.SilenceAllAlerts }).(pulumi.BoolPtrOutput)
+}
+
 // The start date of the maintenance window.
 func (o MaintenanceWindowOutput) StartsAt() pulumi.StringOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringOutput { return v.StartsAt }).(pulumi.StringOutput)
 }
 
-// The names of the checks and groups maintenance window should apply to.
+// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+func (o MaintenanceWindowOutput) StatusPageVisibility() MaintenanceWindowStatusPageVisibilityPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindow) MaintenanceWindowStatusPageVisibilityPtrOutput {
+		return v.StatusPageVisibility
+	}).(MaintenanceWindowStatusPageVisibilityPtrOutput)
+}
+
+// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 func (o MaintenanceWindowOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
+}
+
+// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+func (o MaintenanceWindowOutput) Timezone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringPtrOutput { return v.Timezone }).(pulumi.StringPtrOutput)
 }
 
 type MaintenanceWindowArrayOutput struct{ *pulumi.OutputState }

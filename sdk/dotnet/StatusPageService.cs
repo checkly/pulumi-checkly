@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc.
+    /// Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `checkly.StatusPageV3Component` instead.
     /// 
     /// ## Example Usage
     /// 

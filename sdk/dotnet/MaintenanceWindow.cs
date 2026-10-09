@@ -32,6 +32,64 @@ namespace Pulumi.Checkly
     ///         {
     ///             "production",
     ///         },
+    ///         Timezone = "America/New_York",
+    ///         Description = "Monthly database maintenance",
+    ///         SilenceAlertsTags = new[]
+    ///         {
+    ///             "production",
+    ///         },
+    ///     });
+    /// 
+    ///     // Show a maintenance window on a status page
+    ///     var api = new Checkly.StatusPageService("api", new()
+    ///     {
+    ///         Name = "API",
+    ///     });
+    /// 
+    ///     var example = new Checkly.StatusPage("example", new()
+    ///     {
+    ///         Name = "Example Application",
+    ///         Url = "my-example-status-page",
+    ///         Cards = new[]
+    ///         {
+    ///             new Checkly.Inputs.StatusPageCardArgs
+    ///             {
+    ///                 Name = "Services",
+    ///                 ServiceAttachments = new[]
+    ///                 {
+    ///                     new Checkly.Inputs.StatusPageCardServiceAttachmentArgs
+    ///                     {
+    ///                         ServiceId = api.Id,
+    ///                     },
+    ///                 },
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    ///     var maintenance_2 = new Checkly.MaintenanceWindow("maintenance-2", new()
+    ///     {
+    ///         Name = "Status page maintenance",
+    ///         StartsAt = "2028-08-24T00:00:00.000Z",
+    ///         EndsAt = "2028-08-24T02:00:00.000Z",
+    ///         Tags = new[]
+    ///         {
+    ///             "api",
+    ///         },
+    ///         Description = "We're upgrading our API servers.",
+    ///         StatusPageVisibility = new Checkly.Inputs.MaintenanceWindowStatusPageVisibilityArgs
+    ///         {
+    ///             Enabled = true,
+    ///             Severity = "MINOR",
+    ///             NotifyOnStart = true,
+    ///             StatusPageIds = new[]
+    ///             {
+    ///                 example.Id,
+    ///             },
+    ///             ServiceIds = new[]
+    ///             {
+    ///                 api.Id,
+    ///             },
+    ///         },
     ///     });
     /// 
     /// });
@@ -40,6 +98,12 @@ namespace Pulumi.Checkly
     [ChecklyResourceType("checkly:index/maintenanceWindow:MaintenanceWindow")]
     public partial class MaintenanceWindow : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+        /// </summary>
+        [Output("description")]
+        public Output<string?> Description { get; private set; } = null!;
+
         /// <summary>
         /// The end date of the maintenance window.
         /// </summary>
@@ -53,7 +117,13 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The date on which the maintenance window should stop repeating.
+        /// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+        /// </summary>
+        [Output("pauseAllChecks")]
+        public Output<bool?> PauseAllChecks { get; private set; } = null!;
+
+        /// <summary>
+        /// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
         /// </summary>
         [Output("repeatEndsAt")]
         public Output<string?> RepeatEndsAt { get; private set; } = null!;
@@ -71,16 +141,40 @@ namespace Pulumi.Checkly
         public Output<string?> RepeatUnit { get; private set; } = null!;
 
         /// <summary>
+        /// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
+        /// </summary>
+        [Output("silenceAlertsTags")]
+        public Output<ImmutableArray<string>> SilenceAlertsTags { get; private set; } = null!;
+
+        /// <summary>
+        /// Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
+        /// </summary>
+        [Output("silenceAllAlerts")]
+        public Output<bool?> SilenceAllAlerts { get; private set; } = null!;
+
+        /// <summary>
         /// The start date of the maintenance window.
         /// </summary>
         [Output("startsAt")]
         public Output<string> StartsAt { get; private set; } = null!;
 
         /// <summary>
-        /// The names of the checks and groups maintenance window should apply to.
+        /// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        /// </summary>
+        [Output("statusPageVisibility")]
+        public Output<Outputs.MaintenanceWindowStatusPageVisibility?> StatusPageVisibility { get; private set; } = null!;
+
+        /// <summary>
+        /// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
+
+        /// <summary>
+        /// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+        /// </summary>
+        [Output("timezone")]
+        public Output<string?> Timezone { get; private set; } = null!;
 
 
         /// <summary>
@@ -130,6 +224,12 @@ namespace Pulumi.Checkly
     public sealed class MaintenanceWindowArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
+        /// <summary>
         /// The end date of the maintenance window.
         /// </summary>
         [Input("endsAt", required: true)]
@@ -142,7 +242,13 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The date on which the maintenance window should stop repeating.
+        /// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+        /// </summary>
+        [Input("pauseAllChecks")]
+        public Input<bool>? PauseAllChecks { get; set; }
+
+        /// <summary>
+        /// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
         /// </summary>
         [Input("repeatEndsAt")]
         public Input<string>? RepeatEndsAt { get; set; }
@@ -159,23 +265,53 @@ namespace Pulumi.Checkly
         [Input("repeatUnit")]
         public Input<string>? RepeatUnit { get; set; }
 
+        [Input("silenceAlertsTags")]
+        private InputList<string>? _silenceAlertsTags;
+
+        /// <summary>
+        /// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
+        /// </summary>
+        public InputList<string> SilenceAlertsTags
+        {
+            get => _silenceAlertsTags ?? (_silenceAlertsTags = new InputList<string>());
+            set => _silenceAlertsTags = value;
+        }
+
+        /// <summary>
+        /// Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
+        /// </summary>
+        [Input("silenceAllAlerts")]
+        public Input<bool>? SilenceAllAlerts { get; set; }
+
         /// <summary>
         /// The start date of the maintenance window.
         /// </summary>
         [Input("startsAt", required: true)]
         public Input<string> StartsAt { get; set; } = null!;
 
+        /// <summary>
+        /// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        /// </summary>
+        [Input("statusPageVisibility")]
+        public Input<Inputs.MaintenanceWindowStatusPageVisibilityArgs>? StatusPageVisibility { get; set; }
+
         [Input("tags")]
         private InputList<string>? _tags;
 
         /// <summary>
-        /// The names of the checks and groups maintenance window should apply to.
+        /// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
+
+        /// <summary>
+        /// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+        /// </summary>
+        [Input("timezone")]
+        public Input<string>? Timezone { get; set; }
 
         public MaintenanceWindowArgs()
         {
@@ -185,6 +321,12 @@ namespace Pulumi.Checkly
 
     public sealed class MaintenanceWindowState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
         /// <summary>
         /// The end date of the maintenance window.
         /// </summary>
@@ -198,7 +340,13 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The date on which the maintenance window should stop repeating.
+        /// Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
+        /// </summary>
+        [Input("pauseAllChecks")]
+        public Input<bool>? PauseAllChecks { get; set; }
+
+        /// <summary>
+        /// The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
         /// </summary>
         [Input("repeatEndsAt")]
         public Input<string>? RepeatEndsAt { get; set; }
@@ -215,23 +363,53 @@ namespace Pulumi.Checkly
         [Input("repeatUnit")]
         public Input<string>? RepeatUnit { get; set; }
 
+        [Input("silenceAlertsTags")]
+        private InputList<string>? _silenceAlertsTags;
+
+        /// <summary>
+        /// The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
+        /// </summary>
+        public InputList<string> SilenceAlertsTags
+        {
+            get => _silenceAlertsTags ?? (_silenceAlertsTags = new InputList<string>());
+            set => _silenceAlertsTags = value;
+        }
+
+        /// <summary>
+        /// Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
+        /// </summary>
+        [Input("silenceAllAlerts")]
+        public Input<bool>? SilenceAllAlerts { get; set; }
+
         /// <summary>
         /// The start date of the maintenance window.
         /// </summary>
         [Input("startsAt")]
         public Input<string>? StartsAt { get; set; }
 
+        /// <summary>
+        /// Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        /// </summary>
+        [Input("statusPageVisibility")]
+        public Input<Inputs.MaintenanceWindowStatusPageVisibilityGetArgs>? StatusPageVisibility { get; set; }
+
         [Input("tags")]
         private InputList<string>? _tags;
 
         /// <summary>
-        /// The names of the checks and groups maintenance window should apply to.
+        /// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         /// </summary>
         public InputList<string> Tags
         {
             get => _tags ?? (_tags = new InputList<string>());
             set => _tags = value;
         }
+
+        /// <summary>
+        /// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+        /// </summary>
+        [Input("timezone")]
+        public Input<string>? Timezone { get; set; }
 
         public MaintenanceWindowState()
         {

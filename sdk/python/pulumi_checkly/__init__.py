@@ -28,6 +28,9 @@ from .snippet import *
 from .ssl_monitor import *
 from .status_page import *
 from .status_page_service import *
+from .status_page_v3 import *
+from .status_page_v3_automation_rule import *
+from .status_page_v3_component import *
 from .tcp_check import *
 from .tcp_monitor import *
 from .traceroute_monitor import *
@@ -205,6 +208,30 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/statusPageService:StatusPageService": "StatusPageService"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/statusPageV3",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/statusPageV3:StatusPageV3": "StatusPageV3"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/statusPageV3AutomationRule",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule": "StatusPageV3AutomationRule"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/statusPageV3Component",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/statusPageV3Component:StatusPageV3Component": "StatusPageV3Component"
   }
  },
  {

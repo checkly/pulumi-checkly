@@ -980,6 +980,11 @@ export interface GrpcMonitorRequest {
      * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
      */
     assertions?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestAssertion>[]>;
+    bfbsContent?: pulumi.Input<string>;
+    /**
+     * The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+     */
+    encoding?: pulumi.Input<string>;
     /**
      * The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
      */
@@ -1009,7 +1014,7 @@ export interface GrpcMonitorRequest {
      */
     port: pulumi.Input<number>;
     /**
-     * The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode.
+     * The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
      */
     protoContent?: pulumi.Input<string>;
     /**
@@ -1017,7 +1022,7 @@ export interface GrpcMonitorRequest {
      */
     service?: pulumi.Input<string>;
     /**
-     * How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. (Default `REFLECTION`).
+     * How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `protoContent`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
      */
     serviceDefinition?: pulumi.Input<string>;
     /**
@@ -1538,6 +1543,57 @@ export interface IcmpMonitorTriggerIncident {
      * The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
      */
     severity: pulumi.Input<string>;
+}
+
+export interface MaintenanceWindowStatusPageVisibility {
+    /**
+     * Mark every service on the linked status pages as affected. Can't be combined with `serviceIds`. (Default `false`).
+     */
+    affectAllServices?: pulumi.Input<boolean>;
+    /**
+     * Complete the maintenance automatically at the scheduled end time. (Default `true`).
+     */
+    autoEnd?: pulumi.Input<boolean>;
+    /**
+     * Start the maintenance automatically at the scheduled time. (Default `true`).
+     */
+    autoStart?: pulumi.Input<boolean>;
+    /**
+     * Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+     */
+    enabled?: pulumi.Input<boolean>;
+    /**
+     * Email status page subscribers when the maintenance ends. (Default `false`).
+     */
+    notifyOnEnd?: pulumi.Input<boolean>;
+    /**
+     * Email status page subscribers when the maintenance starts. (Default `false`).
+     */
+    notifyOnStart?: pulumi.Input<boolean>;
+    /**
+     * Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+     */
+    reminderMinutesBefores?: pulumi.Input<pulumi.Input<number>[]>;
+    /**
+     * The IDs of the affected status page services (`checkly.StatusPageService`). Each service must be on one of the linked status pages.
+     */
+    serviceIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+     */
+    severity?: pulumi.Input<string>;
+    /**
+     * Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+     */
+    showAffectedServices?: pulumi.Input<boolean>;
+    /**
+     * The IDs of the status pages (`checkly.StatusPage`) to show the maintenance window on. Requires `serviceIds` or `affectAllServices`.
+     */
+    statusPageIds?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+     */
+    suppressAutoIncidents?: pulumi.Input<boolean>;
 }
 
 export interface PlaywrightCheckSuiteAlertChannelSubscription {
@@ -2078,6 +2134,130 @@ export interface StatusPageCardServiceAttachment {
      * The ID of the service.
      */
     serviceId: pulumi.Input<string>;
+}
+
+export interface StatusPageV3AutomationRuleComponent {
+    /**
+     * The ID of the impacted component. Must be on the same status page.
+     */
+    componentId: pulumi.Input<string>;
+    /**
+     * The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+     */
+    targetImpact: pulumi.Input<string>;
+}
+
+export interface StatusPageV3ThemeColors {
+    /**
+     * The colors used when the page renders in dark mode.
+     */
+    dark: pulumi.Input<inputs.StatusPageV3ThemeColorsDark>;
+    /**
+     * The colors used when the page renders in light mode.
+     */
+    light: pulumi.Input<inputs.StatusPageV3ThemeColorsLight>;
+}
+
+export interface StatusPageV3ThemeColorsDark {
+    /**
+     * The background of the page. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyBackgroundColor: pulumi.Input<string>;
+    /**
+     * The color of regular body text. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColor: pulumi.Input<string>;
+    /**
+     * The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColorMuted: pulumi.Input<string>;
+    /**
+     * The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+     */
+    borderColor: pulumi.Input<string>;
+    /**
+     * The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+     */
+    cardBackgroundColor: pulumi.Input<string>;
+    /**
+     * The background of the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerBackgroundColor: pulumi.Input<string>;
+    /**
+     * The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerFontColor: pulumi.Input<string>;
+    /**
+     * The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+     */
+    linkFontColor: pulumi.Input<string>;
+    /**
+     * The color of navigation links. A hex color such as "#FF0000" or "#F00".
+     */
+    navigationFontColor: pulumi.Input<string>;
+    /**
+     * The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonBackgroundColor: pulumi.Input<string>;
+    /**
+     * The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonFontColor: pulumi.Input<string>;
+    /**
+     * The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+     */
+    titleFontColor: pulumi.Input<string>;
+}
+
+export interface StatusPageV3ThemeColorsLight {
+    /**
+     * The background of the page. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyBackgroundColor: pulumi.Input<string>;
+    /**
+     * The color of regular body text. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColor: pulumi.Input<string>;
+    /**
+     * The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+     */
+    bodyFontColorMuted: pulumi.Input<string>;
+    /**
+     * The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+     */
+    borderColor: pulumi.Input<string>;
+    /**
+     * The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+     */
+    cardBackgroundColor: pulumi.Input<string>;
+    /**
+     * The background of the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerBackgroundColor: pulumi.Input<string>;
+    /**
+     * The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+     */
+    headerFontColor: pulumi.Input<string>;
+    /**
+     * The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+     */
+    linkFontColor: pulumi.Input<string>;
+    /**
+     * The color of navigation links. A hex color such as "#FF0000" or "#F00".
+     */
+    navigationFontColor: pulumi.Input<string>;
+    /**
+     * The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonBackgroundColor: pulumi.Input<string>;
+    /**
+     * The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+     */
+    primaryButtonFontColor: pulumi.Input<string>;
+    /**
+     * The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+     */
+    titleFontColor: pulumi.Input<string>;
 }
 
 export interface TcpCheckAlertChannelSubscription {

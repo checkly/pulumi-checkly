@@ -17,6 +17,11 @@ namespace Pulumi.Checkly.Outputs
         /// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
         /// </summary>
         public readonly ImmutableArray<Outputs.GrpcMonitorRequestAssertion> Assertions;
+        public readonly string? BfbsContent;
+        /// <summary>
+        /// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+        /// </summary>
+        public readonly string? Encoding;
         /// <summary>
         /// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
         /// </summary>
@@ -46,7 +51,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly int Port;
         /// <summary>
-        /// The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode.
+        /// The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
         /// </summary>
         public readonly string? ProtoContent;
         /// <summary>
@@ -54,7 +59,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string? Service;
         /// <summary>
-        /// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. (Default `REFLECTION`).
+        /// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
         /// </summary>
         public readonly string? ServiceDefinition;
         /// <summary>
@@ -73,6 +78,10 @@ namespace Pulumi.Checkly.Outputs
         [OutputConstructor]
         private GrpcMonitorRequest(
             ImmutableArray<Outputs.GrpcMonitorRequestAssertion> assertions,
+
+            string? bfbsContent,
+
+            string? encoding,
 
             string? grpcMode,
 
@@ -101,6 +110,8 @@ namespace Pulumi.Checkly.Outputs
             bool? tls)
         {
             Assertions = assertions;
+            BfbsContent = bfbsContent;
+            Encoding = encoding;
             GrpcMode = grpcMode;
             Host = host;
             IpFamily = ipFamily;

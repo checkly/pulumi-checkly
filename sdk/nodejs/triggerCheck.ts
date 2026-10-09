@@ -78,10 +78,12 @@ export class TriggerCheck extends pulumi.CustomResource {
                 throw new Error("Missing required property 'checkId'");
             }
             resourceInputs["checkId"] = args?.checkId;
-            resourceInputs["token"] = args?.token;
-            resourceInputs["url"] = args?.url;
+            resourceInputs["token"] = args?.token ? pulumi.secret(args.token) : undefined;
+            resourceInputs["url"] = args?.url ? pulumi.secret(args.url) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["token", "url"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(TriggerCheck.__pulumiType, name, resourceInputs, opts);
     }
 }

@@ -82,6 +82,7 @@ namespace Pulumi.Checkly
                 AdditionalSecretOutputs =
                 {
                     "passphrase",
+                    "privateKey",
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -140,11 +141,21 @@ namespace Pulumi.Checkly
         [Input("path")]
         public Input<string>? Path { get; set; }
 
+        [Input("privateKey", required: true)]
+        private Input<string>? _privateKey;
+
         /// <summary>
         /// The private key for the certificate in PEM format.
         /// </summary>
-        [Input("privateKey", required: true)]
-        public Input<string> PrivateKey { get; set; } = null!;
+        public Input<string>? PrivateKey
+        {
+            get => _privateKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _privateKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
@@ -194,11 +205,21 @@ namespace Pulumi.Checkly
         [Input("path")]
         public Input<string>? Path { get; set; }
 
+        [Input("privateKey")]
+        private Input<string>? _privateKey;
+
         /// <summary>
         /// The private key for the certificate in PEM format.
         /// </summary>
-        [Input("privateKey")]
-        public Input<string>? PrivateKey { get; set; }
+        public Input<string>? PrivateKey
+        {
+            get => _privateKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _privateKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.

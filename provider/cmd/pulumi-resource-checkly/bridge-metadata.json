@@ -553,6 +553,25 @@
                 "current": "checkly:index/maintenanceWindow:MaintenanceWindow",
                 "majorVersion": 2,
                 "fields": {
+                    "silence_alerts_tags": {
+                        "maxItemsOne": false
+                    },
+                    "status_page_visibility": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "reminder_minutes_before": {
+                                    "maxItemsOne": false
+                                },
+                                "service_ids": {
+                                    "maxItemsOne": false
+                                },
+                                "status_page_ids": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
                     "tags": {
                         "maxItemsOne": false
                     }
@@ -774,6 +793,41 @@
             },
             "checkly_status_page_service": {
                 "current": "checkly:index/statusPageService:StatusPageService",
+                "majorVersion": 2
+            },
+            "checkly_status_page_v3": {
+                "current": "checkly:index/statusPageV3:StatusPageV3",
+                "majorVersion": 2,
+                "fields": {
+                    "theme_colors": {
+                        "maxItemsOne": true,
+                        "elem": {
+                            "fields": {
+                                "dark": {
+                                    "maxItemsOne": true
+                                },
+                                "light": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "checkly_status_page_v3_automation_rule": {
+                "current": "checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule",
+                "majorVersion": 2,
+                "fields": {
+                    "component": {
+                        "maxItemsOne": false
+                    },
+                    "tags": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "checkly_status_page_v3_component": {
+                "current": "checkly:index/statusPageV3Component:StatusPageV3Component",
                 "majorVersion": 2
             },
             "checkly_tcp_check": {

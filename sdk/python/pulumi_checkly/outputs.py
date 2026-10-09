@@ -124,6 +124,7 @@ __all__ = [
     'IcmpMonitorRetryStrategy',
     'IcmpMonitorRetryStrategyOnlyOn',
     'IcmpMonitorTriggerIncident',
+    'MaintenanceWindowStatusPageVisibility',
     'PlaywrightCheckSuiteAlertChannelSubscription',
     'PlaywrightCheckSuiteAlertSettings',
     'PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold',
@@ -165,6 +166,10 @@ __all__ = [
     'SslMonitorTriggerIncident',
     'StatusPageCard',
     'StatusPageCardServiceAttachment',
+    'StatusPageV3AutomationRuleComponent',
+    'StatusPageV3ThemeColors',
+    'StatusPageV3ThemeColorsDark',
+    'StatusPageV3ThemeColorsLight',
     'TcpCheckAlertChannelSubscription',
     'TcpCheckAlertSettings',
     'TcpCheckAlertSettingsParallelRunFailureThreshold',
@@ -3928,7 +3933,9 @@ class GrpcMonitorRequest(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "grpcMode":
+        if key == "bfbsContent":
+            suggest = "bfbs_content"
+        elif key == "grpcMode":
             suggest = "grpc_mode"
         elif key == "ipFamily":
             suggest = "ip_family"
@@ -3954,6 +3961,8 @@ class GrpcMonitorRequest(dict):
                  host: _builtins.str,
                  port: _builtins.int,
                  assertions: Optional[Sequence['outputs.GrpcMonitorRequestAssertion']] = None,
+                 bfbs_content: Optional[_builtins.str] = None,
+                 encoding: Optional[_builtins.str] = None,
                  grpc_mode: Optional[_builtins.str] = None,
                  ip_family: Optional[_builtins.str] = None,
                  message: Optional[_builtins.str] = None,
@@ -3969,14 +3978,15 @@ class GrpcMonitorRequest(dict):
         :param _builtins.str host: The host to connect to. Do not include a scheme or a port in this value.
         :param _builtins.int port: The port number to connect to. Possible values are between 1 and 65535.
         :param Sequence['GrpcMonitorRequestAssertionArgs'] assertions: A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+        :param _builtins.str encoding: The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
         :param _builtins.str grpc_mode: The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
         :param _builtins.str ip_family: The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
         :param _builtins.str message: The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.
         :param Sequence['GrpcMonitorRequestMetadataArgs'] metadatas: gRPC metadata (request headers) sent with the call.
         :param _builtins.str method: The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.
-        :param _builtins.str proto_content: The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode.
+        :param _builtins.str proto_content: The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
         :param _builtins.str service: The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
-        :param _builtins.str service_definition: How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. (Default `REFLECTION`).
+        :param _builtins.str service_definition: How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
         :param _builtins.bool skip_ssl: Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
         :param _builtins.int timeout: The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
         :param _builtins.bool tls: Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
@@ -3985,6 +3995,10 @@ class GrpcMonitorRequest(dict):
         pulumi.set(__self__, "port", port)
         if assertions is not None:
             pulumi.set(__self__, "assertions", assertions)
+        if bfbs_content is not None:
+            pulumi.set(__self__, "bfbs_content", bfbs_content)
+        if encoding is not None:
+            pulumi.set(__self__, "encoding", encoding)
         if grpc_mode is not None:
             pulumi.set(__self__, "grpc_mode", grpc_mode)
         if ip_family is not None:
@@ -4033,6 +4047,19 @@ class GrpcMonitorRequest(dict):
         return pulumi.get(self, "assertions")
 
     @_builtins.property
+    @pulumi.getter(name="bfbsContent")
+    def bfbs_content(self) -> Optional[_builtins.str]:
+        return pulumi.get(self, "bfbs_content")
+
+    @_builtins.property
+    @pulumi.getter
+    def encoding(self) -> Optional[_builtins.str]:
+        """
+        The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+        """
+        return pulumi.get(self, "encoding")
+
+    @_builtins.property
     @pulumi.getter(name="grpcMode")
     def grpc_mode(self) -> Optional[_builtins.str]:
         """
@@ -4076,7 +4103,7 @@ class GrpcMonitorRequest(dict):
     @pulumi.getter(name="protoContent")
     def proto_content(self) -> Optional[_builtins.str]:
         """
-        The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode.
+        The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
         """
         return pulumi.get(self, "proto_content")
 
@@ -4092,7 +4119,7 @@ class GrpcMonitorRequest(dict):
     @pulumi.getter(name="serviceDefinition")
     def service_definition(self) -> Optional[_builtins.str]:
         """
-        How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. (Default `REFLECTION`).
+        How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
         """
         return pulumi.get(self, "service_definition")
 
@@ -5968,6 +5995,192 @@ class IcmpMonitorTriggerIncident(dict):
 
 
 @pulumi.output_type
+class MaintenanceWindowStatusPageVisibility(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "affectAllServices":
+            suggest = "affect_all_services"
+        elif key == "autoEnd":
+            suggest = "auto_end"
+        elif key == "autoStart":
+            suggest = "auto_start"
+        elif key == "notifyOnEnd":
+            suggest = "notify_on_end"
+        elif key == "notifyOnStart":
+            suggest = "notify_on_start"
+        elif key == "reminderMinutesBefores":
+            suggest = "reminder_minutes_befores"
+        elif key == "serviceIds":
+            suggest = "service_ids"
+        elif key == "showAffectedServices":
+            suggest = "show_affected_services"
+        elif key == "statusPageIds":
+            suggest = "status_page_ids"
+        elif key == "suppressAutoIncidents":
+            suggest = "suppress_auto_incidents"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MaintenanceWindowStatusPageVisibility. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MaintenanceWindowStatusPageVisibility.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MaintenanceWindowStatusPageVisibility.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 affect_all_services: Optional[_builtins.bool] = None,
+                 auto_end: Optional[_builtins.bool] = None,
+                 auto_start: Optional[_builtins.bool] = None,
+                 enabled: Optional[_builtins.bool] = None,
+                 notify_on_end: Optional[_builtins.bool] = None,
+                 notify_on_start: Optional[_builtins.bool] = None,
+                 reminder_minutes_befores: Optional[Sequence[_builtins.int]] = None,
+                 service_ids: Optional[Sequence[_builtins.str]] = None,
+                 severity: Optional[_builtins.str] = None,
+                 show_affected_services: Optional[_builtins.bool] = None,
+                 status_page_ids: Optional[Sequence[_builtins.str]] = None,
+                 suppress_auto_incidents: Optional[_builtins.bool] = None):
+        """
+        :param _builtins.bool affect_all_services: Mark every service on the linked status pages as affected. Can't be combined with `service_ids`. (Default `false`).
+        :param _builtins.bool auto_end: Complete the maintenance automatically at the scheduled end time. (Default `true`).
+        :param _builtins.bool auto_start: Start the maintenance automatically at the scheduled time. (Default `true`).
+        :param _builtins.bool enabled: Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+        :param _builtins.bool notify_on_end: Email status page subscribers when the maintenance ends. (Default `false`).
+        :param _builtins.bool notify_on_start: Email status page subscribers when the maintenance starts. (Default `false`).
+        :param Sequence[_builtins.int] reminder_minutes_befores: Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+        :param Sequence[_builtins.str] service_ids: The IDs of the affected status page services (`StatusPageService`). Each service must be on one of the linked status pages.
+        :param _builtins.str severity: The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+        :param _builtins.bool show_affected_services: Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+        :param Sequence[_builtins.str] status_page_ids: The IDs of the status pages (`StatusPage`) to show the maintenance window on. Requires `service_ids` or `affect_all_services`.
+        :param _builtins.bool suppress_auto_incidents: Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+        """
+        if affect_all_services is not None:
+            pulumi.set(__self__, "affect_all_services", affect_all_services)
+        if auto_end is not None:
+            pulumi.set(__self__, "auto_end", auto_end)
+        if auto_start is not None:
+            pulumi.set(__self__, "auto_start", auto_start)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+        if notify_on_end is not None:
+            pulumi.set(__self__, "notify_on_end", notify_on_end)
+        if notify_on_start is not None:
+            pulumi.set(__self__, "notify_on_start", notify_on_start)
+        if reminder_minutes_befores is not None:
+            pulumi.set(__self__, "reminder_minutes_befores", reminder_minutes_befores)
+        if service_ids is not None:
+            pulumi.set(__self__, "service_ids", service_ids)
+        if severity is not None:
+            pulumi.set(__self__, "severity", severity)
+        if show_affected_services is not None:
+            pulumi.set(__self__, "show_affected_services", show_affected_services)
+        if status_page_ids is not None:
+            pulumi.set(__self__, "status_page_ids", status_page_ids)
+        if suppress_auto_incidents is not None:
+            pulumi.set(__self__, "suppress_auto_incidents", suppress_auto_incidents)
+
+    @_builtins.property
+    @pulumi.getter(name="affectAllServices")
+    def affect_all_services(self) -> Optional[_builtins.bool]:
+        """
+        Mark every service on the linked status pages as affected. Can't be combined with `service_ids`. (Default `false`).
+        """
+        return pulumi.get(self, "affect_all_services")
+
+    @_builtins.property
+    @pulumi.getter(name="autoEnd")
+    def auto_end(self) -> Optional[_builtins.bool]:
+        """
+        Complete the maintenance automatically at the scheduled end time. (Default `true`).
+        """
+        return pulumi.get(self, "auto_end")
+
+    @_builtins.property
+    @pulumi.getter(name="autoStart")
+    def auto_start(self) -> Optional[_builtins.bool]:
+        """
+        Start the maintenance automatically at the scheduled time. (Default `true`).
+        """
+        return pulumi.get(self, "auto_start")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[_builtins.bool]:
+        """
+        Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+        """
+        return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="notifyOnEnd")
+    def notify_on_end(self) -> Optional[_builtins.bool]:
+        """
+        Email status page subscribers when the maintenance ends. (Default `false`).
+        """
+        return pulumi.get(self, "notify_on_end")
+
+    @_builtins.property
+    @pulumi.getter(name="notifyOnStart")
+    def notify_on_start(self) -> Optional[_builtins.bool]:
+        """
+        Email status page subscribers when the maintenance starts. (Default `false`).
+        """
+        return pulumi.get(self, "notify_on_start")
+
+    @_builtins.property
+    @pulumi.getter(name="reminderMinutesBefores")
+    def reminder_minutes_befores(self) -> Optional[Sequence[_builtins.int]]:
+        """
+        Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+        """
+        return pulumi.get(self, "reminder_minutes_befores")
+
+    @_builtins.property
+    @pulumi.getter(name="serviceIds")
+    def service_ids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        The IDs of the affected status page services (`StatusPageService`). Each service must be on one of the linked status pages.
+        """
+        return pulumi.get(self, "service_ids")
+
+    @_builtins.property
+    @pulumi.getter
+    def severity(self) -> Optional[_builtins.str]:
+        """
+        The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
+        """
+        return pulumi.get(self, "severity")
+
+    @_builtins.property
+    @pulumi.getter(name="showAffectedServices")
+    def show_affected_services(self) -> Optional[_builtins.bool]:
+        """
+        Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+        """
+        return pulumi.get(self, "show_affected_services")
+
+    @_builtins.property
+    @pulumi.getter(name="statusPageIds")
+    def status_page_ids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        The IDs of the status pages (`StatusPage`) to show the maintenance window on. Requires `service_ids` or `affect_all_services`.
+        """
+        return pulumi.get(self, "status_page_ids")
+
+    @_builtins.property
+    @pulumi.getter(name="suppressAutoIncidents")
+    def suppress_auto_incidents(self) -> Optional[_builtins.bool]:
+        """
+        Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+        """
+        return pulumi.get(self, "suppress_auto_incidents")
+
+
+@pulumi.output_type
 class PlaywrightCheckSuiteAlertChannelSubscription(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -7821,6 +8034,439 @@ class StatusPageCardServiceAttachment(dict):
         The ID of the service.
         """
         return pulumi.get(self, "service_id")
+
+
+@pulumi.output_type
+class StatusPageV3AutomationRuleComponent(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "componentId":
+            suggest = "component_id"
+        elif key == "targetImpact":
+            suggest = "target_impact"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatusPageV3AutomationRuleComponent. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatusPageV3AutomationRuleComponent.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatusPageV3AutomationRuleComponent.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 component_id: _builtins.str,
+                 target_impact: _builtins.str):
+        """
+        :param _builtins.str component_id: The ID of the impacted component. Must be on the same status page.
+        :param _builtins.str target_impact: The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+        """
+        pulumi.set(__self__, "component_id", component_id)
+        pulumi.set(__self__, "target_impact", target_impact)
+
+    @_builtins.property
+    @pulumi.getter(name="componentId")
+    def component_id(self) -> _builtins.str:
+        """
+        The ID of the impacted component. Must be on the same status page.
+        """
+        return pulumi.get(self, "component_id")
+
+    @_builtins.property
+    @pulumi.getter(name="targetImpact")
+    def target_impact(self) -> _builtins.str:
+        """
+        The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+        """
+        return pulumi.get(self, "target_impact")
+
+
+@pulumi.output_type
+class StatusPageV3ThemeColors(dict):
+    def __init__(__self__, *,
+                 dark: 'outputs.StatusPageV3ThemeColorsDark',
+                 light: 'outputs.StatusPageV3ThemeColorsLight'):
+        """
+        :param 'StatusPageV3ThemeColorsDarkArgs' dark: The colors used when the page renders in dark mode.
+        :param 'StatusPageV3ThemeColorsLightArgs' light: The colors used when the page renders in light mode.
+        """
+        pulumi.set(__self__, "dark", dark)
+        pulumi.set(__self__, "light", light)
+
+    @_builtins.property
+    @pulumi.getter
+    def dark(self) -> 'outputs.StatusPageV3ThemeColorsDark':
+        """
+        The colors used when the page renders in dark mode.
+        """
+        return pulumi.get(self, "dark")
+
+    @_builtins.property
+    @pulumi.getter
+    def light(self) -> 'outputs.StatusPageV3ThemeColorsLight':
+        """
+        The colors used when the page renders in light mode.
+        """
+        return pulumi.get(self, "light")
+
+
+@pulumi.output_type
+class StatusPageV3ThemeColorsDark(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "bodyBackgroundColor":
+            suggest = "body_background_color"
+        elif key == "bodyFontColor":
+            suggest = "body_font_color"
+        elif key == "bodyFontColorMuted":
+            suggest = "body_font_color_muted"
+        elif key == "borderColor":
+            suggest = "border_color"
+        elif key == "cardBackgroundColor":
+            suggest = "card_background_color"
+        elif key == "headerBackgroundColor":
+            suggest = "header_background_color"
+        elif key == "headerFontColor":
+            suggest = "header_font_color"
+        elif key == "linkFontColor":
+            suggest = "link_font_color"
+        elif key == "navigationFontColor":
+            suggest = "navigation_font_color"
+        elif key == "primaryButtonBackgroundColor":
+            suggest = "primary_button_background_color"
+        elif key == "primaryButtonFontColor":
+            suggest = "primary_button_font_color"
+        elif key == "titleFontColor":
+            suggest = "title_font_color"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatusPageV3ThemeColorsDark. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatusPageV3ThemeColorsDark.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatusPageV3ThemeColorsDark.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 body_background_color: _builtins.str,
+                 body_font_color: _builtins.str,
+                 body_font_color_muted: _builtins.str,
+                 border_color: _builtins.str,
+                 card_background_color: _builtins.str,
+                 header_background_color: _builtins.str,
+                 header_font_color: _builtins.str,
+                 link_font_color: _builtins.str,
+                 navigation_font_color: _builtins.str,
+                 primary_button_background_color: _builtins.str,
+                 primary_button_font_color: _builtins.str,
+                 title_font_color: _builtins.str):
+        """
+        :param _builtins.str body_background_color: The background of the page. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str body_font_color: The color of regular body text. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str body_font_color_muted: The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str border_color: The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str card_background_color: The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str header_background_color: The background of the page header. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str header_font_color: The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str link_font_color: The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str navigation_font_color: The color of navigation links. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str primary_button_background_color: The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str primary_button_font_color: The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str title_font_color: The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+        """
+        pulumi.set(__self__, "body_background_color", body_background_color)
+        pulumi.set(__self__, "body_font_color", body_font_color)
+        pulumi.set(__self__, "body_font_color_muted", body_font_color_muted)
+        pulumi.set(__self__, "border_color", border_color)
+        pulumi.set(__self__, "card_background_color", card_background_color)
+        pulumi.set(__self__, "header_background_color", header_background_color)
+        pulumi.set(__self__, "header_font_color", header_font_color)
+        pulumi.set(__self__, "link_font_color", link_font_color)
+        pulumi.set(__self__, "navigation_font_color", navigation_font_color)
+        pulumi.set(__self__, "primary_button_background_color", primary_button_background_color)
+        pulumi.set(__self__, "primary_button_font_color", primary_button_font_color)
+        pulumi.set(__self__, "title_font_color", title_font_color)
+
+    @_builtins.property
+    @pulumi.getter(name="bodyBackgroundColor")
+    def body_background_color(self) -> _builtins.str:
+        """
+        The background of the page. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "body_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="bodyFontColor")
+    def body_font_color(self) -> _builtins.str:
+        """
+        The color of regular body text. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "body_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="bodyFontColorMuted")
+    def body_font_color_muted(self) -> _builtins.str:
+        """
+        The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "body_font_color_muted")
+
+    @_builtins.property
+    @pulumi.getter(name="borderColor")
+    def border_color(self) -> _builtins.str:
+        """
+        The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "border_color")
+
+    @_builtins.property
+    @pulumi.getter(name="cardBackgroundColor")
+    def card_background_color(self) -> _builtins.str:
+        """
+        The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "card_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="headerBackgroundColor")
+    def header_background_color(self) -> _builtins.str:
+        """
+        The background of the page header. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "header_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="headerFontColor")
+    def header_font_color(self) -> _builtins.str:
+        """
+        The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "header_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="linkFontColor")
+    def link_font_color(self) -> _builtins.str:
+        """
+        The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "link_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="navigationFontColor")
+    def navigation_font_color(self) -> _builtins.str:
+        """
+        The color of navigation links. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "navigation_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="primaryButtonBackgroundColor")
+    def primary_button_background_color(self) -> _builtins.str:
+        """
+        The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "primary_button_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="primaryButtonFontColor")
+    def primary_button_font_color(self) -> _builtins.str:
+        """
+        The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "primary_button_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="titleFontColor")
+    def title_font_color(self) -> _builtins.str:
+        """
+        The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "title_font_color")
+
+
+@pulumi.output_type
+class StatusPageV3ThemeColorsLight(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "bodyBackgroundColor":
+            suggest = "body_background_color"
+        elif key == "bodyFontColor":
+            suggest = "body_font_color"
+        elif key == "bodyFontColorMuted":
+            suggest = "body_font_color_muted"
+        elif key == "borderColor":
+            suggest = "border_color"
+        elif key == "cardBackgroundColor":
+            suggest = "card_background_color"
+        elif key == "headerBackgroundColor":
+            suggest = "header_background_color"
+        elif key == "headerFontColor":
+            suggest = "header_font_color"
+        elif key == "linkFontColor":
+            suggest = "link_font_color"
+        elif key == "navigationFontColor":
+            suggest = "navigation_font_color"
+        elif key == "primaryButtonBackgroundColor":
+            suggest = "primary_button_background_color"
+        elif key == "primaryButtonFontColor":
+            suggest = "primary_button_font_color"
+        elif key == "titleFontColor":
+            suggest = "title_font_color"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatusPageV3ThemeColorsLight. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatusPageV3ThemeColorsLight.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatusPageV3ThemeColorsLight.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 body_background_color: _builtins.str,
+                 body_font_color: _builtins.str,
+                 body_font_color_muted: _builtins.str,
+                 border_color: _builtins.str,
+                 card_background_color: _builtins.str,
+                 header_background_color: _builtins.str,
+                 header_font_color: _builtins.str,
+                 link_font_color: _builtins.str,
+                 navigation_font_color: _builtins.str,
+                 primary_button_background_color: _builtins.str,
+                 primary_button_font_color: _builtins.str,
+                 title_font_color: _builtins.str):
+        """
+        :param _builtins.str body_background_color: The background of the page. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str body_font_color: The color of regular body text. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str body_font_color_muted: The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str border_color: The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str card_background_color: The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str header_background_color: The background of the page header. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str header_font_color: The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str link_font_color: The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str navigation_font_color: The color of navigation links. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str primary_button_background_color: The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str primary_button_font_color: The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+        :param _builtins.str title_font_color: The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+        """
+        pulumi.set(__self__, "body_background_color", body_background_color)
+        pulumi.set(__self__, "body_font_color", body_font_color)
+        pulumi.set(__self__, "body_font_color_muted", body_font_color_muted)
+        pulumi.set(__self__, "border_color", border_color)
+        pulumi.set(__self__, "card_background_color", card_background_color)
+        pulumi.set(__self__, "header_background_color", header_background_color)
+        pulumi.set(__self__, "header_font_color", header_font_color)
+        pulumi.set(__self__, "link_font_color", link_font_color)
+        pulumi.set(__self__, "navigation_font_color", navigation_font_color)
+        pulumi.set(__self__, "primary_button_background_color", primary_button_background_color)
+        pulumi.set(__self__, "primary_button_font_color", primary_button_font_color)
+        pulumi.set(__self__, "title_font_color", title_font_color)
+
+    @_builtins.property
+    @pulumi.getter(name="bodyBackgroundColor")
+    def body_background_color(self) -> _builtins.str:
+        """
+        The background of the page. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "body_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="bodyFontColor")
+    def body_font_color(self) -> _builtins.str:
+        """
+        The color of regular body text. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "body_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="bodyFontColorMuted")
+    def body_font_color_muted(self) -> _builtins.str:
+        """
+        The color of de-emphasized body text, such as timestamps. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "body_font_color_muted")
+
+    @_builtins.property
+    @pulumi.getter(name="borderColor")
+    def border_color(self) -> _builtins.str:
+        """
+        The color of borders and dividers. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "border_color")
+
+    @_builtins.property
+    @pulumi.getter(name="cardBackgroundColor")
+    def card_background_color(self) -> _builtins.str:
+        """
+        The background of component and incident cards. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "card_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="headerBackgroundColor")
+    def header_background_color(self) -> _builtins.str:
+        """
+        The background of the page header. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "header_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="headerFontColor")
+    def header_font_color(self) -> _builtins.str:
+        """
+        The color of text in the page header. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "header_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="linkFontColor")
+    def link_font_color(self) -> _builtins.str:
+        """
+        The color of links in the page content. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "link_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="navigationFontColor")
+    def navigation_font_color(self) -> _builtins.str:
+        """
+        The color of navigation links. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "navigation_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="primaryButtonBackgroundColor")
+    def primary_button_background_color(self) -> _builtins.str:
+        """
+        The background of primary buttons, such as "Subscribe". A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "primary_button_background_color")
+
+    @_builtins.property
+    @pulumi.getter(name="primaryButtonFontColor")
+    def primary_button_font_color(self) -> _builtins.str:
+        """
+        The color of text on primary buttons. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "primary_button_font_color")
+
+    @_builtins.property
+    @pulumi.getter(name="titleFontColor")
+    def title_font_color(self) -> _builtins.str:
+        """
+        The color of titles and headings. A hex color such as "#FF0000" or "#F00".
+        """
+        return pulumi.get(self, "title_font_color")
 
 
 @pulumi.output_type

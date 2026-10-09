@@ -201,8 +201,10 @@ class TriggerCheckGroup(pulumi.CustomResource):
             if group_id is None and not opts.urn:
                 raise TypeError("Missing required property 'group_id'")
             __props__.__dict__["group_id"] = group_id
-            __props__.__dict__["token"] = token
-            __props__.__dict__["url"] = url
+            __props__.__dict__["token"] = None if token is None else pulumi.Output.secret(token)
+            __props__.__dict__["url"] = None if url is None else pulumi.Output.secret(url)
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["token", "url"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(TriggerCheckGroup, __self__).__init__(
             'checkly:index/triggerCheckGroup:TriggerCheckGroup',
             resource_name,
