@@ -22,9 +22,6 @@ on:
 env:
   IS_PRERELEASE: ${{ inputs.isPrerelease }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
   PUBLISH_REPO_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
   PUBLISH_REPO_USERNAME: ${{ secrets.OSSRH_USERNAME }}
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
@@ -42,6 +39,10 @@ jobs:
   publish:
     name: publish
     runs-on: ubuntu-latest
+    # Only publish_sdk may mint OIDC tokens, which npm and NuGet accept for publishing.
+    permissions:
+      # Creates the GitHub release.
+      contents: write
     steps:
     - name: Validate prerelease
       if: inputs.isPrerelease == false && (contains(inputs.version, '-') || contains(inputs.version, '+'))
@@ -100,6 +101,11 @@ jobs:
     name: publish_sdk
     needs: publish
     runs-on: ubuntu-latest
+    permissions:
+      # Pushes the Go SDK tag.
+      contents: write
+      # npm and NuGet trusted publishing authenticate with a GitHub OIDC token.
+      id-token: write
     outputs:
       python_version: ${{ steps.python_version.outputs.version }}
     steps:
@@ -112,18 +118,39 @@ jobs:
       uses: ./.github/actions/setup-tools
       with:
         tools: pulumictl, pulumicli, dotnet, go, nodejs, python
+    # Trusted publishing: exchanges the job's OIDC token for a NuGet API key that
+    # is valid for one hour, so no long-lived key is stored in the repository.
+    # ci-mgmt has no NuGet trusted publishing option, so regenerating this file
+    # drops this step and the NuGet publish then fails.
+    - name: Log in to NuGet
+      id: nuget-login
+      uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+      with:
+        user: ${{ secrets.NUGET_USER }}
     - name: Publish SDKs (except Java)
       if: inputs.skipJavaSdk == false
-      uses: pulumi/pulumi-package-publisher@c1672c7928591d563dccb12729e05e315c21f8c2 # v0.0.22
+      uses: pulumi/pulumi-package-publisher@aed8501bbe740c32879bd38ecec6fc34e2be2c06 # v0.1.0
       with:
         sdk: all,!java
         version: ${{ inputs.version }}
+        npmTrustedPublishing: true
+      env:
+        # setup-node exports a placeholder NODE_AUTH_TOKEN, which npm trusted
+        # publishing refuses; an empty value makes npm authenticate with OIDC.
+        NODE_AUTH_TOKEN: ""
+        NUGET_PUBLISH_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
     - name: Publish SDKs (except Java)
       if: inputs.skipJavaSdk == true
-      uses: pulumi/pulumi-package-publisher@c1672c7928591d563dccb12729e05e315c21f8c2 # v0.0.22
+      uses: pulumi/pulumi-package-publisher@aed8501bbe740c32879bd38ecec6fc34e2be2c06 # v0.1.0
       with:
         sdk: all,!java,!java
         version: ${{ inputs.version }}
+        npmTrustedPublishing: true
+      env:
+        # setup-node exports a placeholder NODE_AUTH_TOKEN, which npm trusted
+        # publishing refuses; an empty value makes npm authenticate with OIDC.
+        NODE_AUTH_TOKEN: ""
+        NUGET_PUBLISH_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
     - name: Download Go SDK
       uses: ./.github/actions/download-sdk
       with:
@@ -157,6 +184,12 @@ jobs:
     
     needs: publish_sdk
     runs-on: ubuntu-latest
+    # Only publish_sdk may mint OIDC tokens, which npm and NuGet accept for publishing.
+    permissions:
+      contents: read
+      # Removes release labels from pull requests. Every calling workflow must
+      # grant this on its publish job, or GitHub refuses to start the workflow.
+      pull-requests: write
     steps:
     - name: Checkout Repo
       uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -174,6 +207,9 @@ jobs:
   verify_release:
     name: verify_release
     needs: publish_sdk
+    # Only publish_sdk may mint OIDC tokens, which npm and NuGet accept for publishing.
+    permissions:
+      contents: read
     uses: ./.github/workflows/verify-release.yml
     secrets: inherit
     with:
