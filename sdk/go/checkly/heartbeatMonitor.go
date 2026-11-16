@@ -53,7 +53,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing heartbeat monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -164,6 +163,12 @@ type HeartbeatMonitorState struct {
 
 func (HeartbeatMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*heartbeatMonitorState)(nil)).Elem()
+}
+
+// HeartbeatMonitorExists checks whether an existing HeartbeatMonitor resource with the given ID exists.
+func HeartbeatMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *HeartbeatMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/heartbeatMonitor:HeartbeatMonitor", id, state, "", opts...)
 }
 
 type heartbeatMonitorArgs struct {

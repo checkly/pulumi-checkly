@@ -84,7 +84,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing DNS monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -255,6 +254,12 @@ type DnsMonitorState struct {
 
 func (DnsMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*dnsMonitorState)(nil)).Elem()
+}
+
+// DnsMonitorExists checks whether an existing DnsMonitor resource with the given ID exists.
+func DnsMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DnsMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/dnsMonitor:DnsMonitor", id, state, "", opts...)
 }
 
 type dnsMonitorArgs struct {

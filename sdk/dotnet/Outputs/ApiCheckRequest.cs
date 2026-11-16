@@ -30,7 +30,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string? BodyType;
         /// <summary>
-        /// Whether to follow HTTP redirects. Defaults to `true`.
+        /// Whether to follow HTTP redirects. Defaults to `True`.
         /// </summary>
         public readonly bool? FollowRedirects;
         /// <summary>
@@ -50,7 +50,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly ImmutableDictionary<string, string>? QueryParameters;
         /// <summary>
-        /// Whether to skip TLS certificate validation of the request. Defaults to `false`.
+        /// Whether to skip TLS certificate validation of the request. Defaults to `False`.
         /// </summary>
         public readonly bool? SkipSsl;
         /// <summary>

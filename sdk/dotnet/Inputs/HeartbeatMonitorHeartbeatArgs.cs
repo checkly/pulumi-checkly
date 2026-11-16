@@ -13,25 +13,25 @@ namespace Pulumi.Checkly.Inputs
     public sealed class HeartbeatMonitorHeartbeatArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period. Must be at least `0`, and the combination of `grace` and `grace_unit` must be at most 365 days.
+        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period. Must be at least `0`, and the combination of `Grace` and `GraceUnit` must be at most 365 days.
         /// </summary>
         [Input("grace", required: true)]
         public Input<int> Grace { get; set; } = null!;
 
         /// <summary>
-        /// The unit of `grace`. Possible values are `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `Grace`. Possible values are `Seconds`, `Minutes`, `Hours` and `Days`.
         /// </summary>
         [Input("graceUnit", required: true)]
         public Input<string> GraceUnit { get; set; } = null!;
 
         /// <summary>
-        /// How often you expect a ping to the ping URL. The combination of `period` and `period_unit` must be between 30 seconds and 365 days.
+        /// How often you expect a ping to the ping URL. The combination of `Period` and `PeriodUnit` must be between 30 seconds and 365 days.
         /// </summary>
         [Input("period", required: true)]
         public Input<int> Period { get; set; } = null!;
 
         /// <summary>
-        /// The unit of `period`. Possible values are `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `Period`. Possible values are `Seconds`, `Minutes`, `Hours` and `Days`.
         /// </summary>
         [Input("periodUnit", required: true)]
         public Input<string> PeriodUnit { get; set; } = null!;

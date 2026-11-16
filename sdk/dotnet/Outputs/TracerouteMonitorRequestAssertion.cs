@@ -18,7 +18,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string Comparison;
         /// <summary>
-        /// The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max` and `stdDev`. Not used for `HOP_COUNT` and `PACKET_LOSS`.
+        /// The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `Avg`, `Min`, `Max` and `stdDev`. Not used for `HOP_COUNT` and `PACKET_LOSS`.
         /// </summary>
         public readonly string? Property;
         /// <summary>

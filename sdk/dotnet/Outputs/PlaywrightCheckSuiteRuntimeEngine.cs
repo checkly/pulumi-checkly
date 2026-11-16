@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntimeEngine
     {
         /// <summary>
-        /// The engine name. Possible values are `node` and `bun`.
+        /// The engine name. Possible values are `Node` and `Bun`.
         /// </summary>
         public readonly string Name;
         /// <summary>

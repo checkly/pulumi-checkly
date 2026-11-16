@@ -19,7 +19,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> Comparison { get; set; } = null!;
 
         /// <summary>
-        /// The property of the source to assert. Required for `LATENCY`, where possible values are `avg`, `min`, `max` and `stdDev`. For `JSON_RESPONSE`, a JSONPath expression selecting the asserted value.
+        /// The property of the source to assert. Required for `LATENCY`, where possible values are `Avg`, `Min`, `Max` and `stdDev`. For `JSON_RESPONSE`, a JSONPath expression selecting the asserted value.
         /// </summary>
         [Input("property")]
         public Input<string>? Property { get; set; }

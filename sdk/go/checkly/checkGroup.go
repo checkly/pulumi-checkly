@@ -12,16 +12,185 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Check groups allow you to group together a set of related checks, which can also share default settings for various attributes.
+//
+// The `CheckGroup` resource type is deprecated in favor of `CheckGroupV2`, which does not impose implicit defaults on its checks, and will be removed in a future version of the provider. Both resource types manage the same check groups, so an existing group can be switched over with a `moved` block to a `CheckGroupV2` resource. See Check groups in the v2 upgrade guide for how its configuration translates.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"strconv"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			testGroup1, err := checkly.NewCheckGroup(ctx, "test_group1", &checkly.CheckGroupArgs{
+//				Name:      pulumi.String("My test group 1"),
+//				Activated: pulumi.Bool(true),
+//				Muted:     pulumi.Bool(false),
+//				Tags: pulumi.StringArray{
+//					pulumi.String("auto"),
+//				},
+//				Locations: pulumi.StringArray{
+//					pulumi.String("eu-west-1"),
+//				},
+//				Concurrency: pulumi.Int(3),
+//				ApiCheckDefaults: &checkly.CheckGroupApiCheckDefaultsArgs{
+//					Url: pulumi.String("http://example.com/"),
+//					Headers: pulumi.StringMap{
+//						"X-Test": pulumi.String("foo"),
+//					},
+//					QueryParameters: pulumi.StringMap{
+//						"query": pulumi.String("foo"),
+//					},
+//					Assertions: checkly.CheckGroupApiCheckDefaultsAssertionArray{
+//						&checkly.CheckGroupApiCheckDefaultsAssertionArgs{
+//							Source:     pulumi.String("STATUS_CODE"),
+//							Property:   pulumi.String(""),
+//							Comparison: pulumi.String("EQUALS"),
+//							Target:     pulumi.String("200"),
+//						},
+//						&checkly.CheckGroupApiCheckDefaultsAssertionArgs{
+//							Source:     pulumi.String("TEXT_BODY"),
+//							Property:   pulumi.String(""),
+//							Comparison: pulumi.String("CONTAINS"),
+//							Target:     pulumi.String("welcome"),
+//						},
+//					},
+//					BasicAuth: &checkly.CheckGroupApiCheckDefaultsBasicAuthArgs{
+//						Username: pulumi.String("user"),
+//						Password: pulumi.String("pass"),
+//					},
+//				},
+//				EnvironmentVariables: checkly.CheckGroupEnvironmentVariableArray{
+//					&checkly.CheckGroupEnvironmentVariableArgs{
+//						Key:    pulumi.String("TEST_ENV_VAR"),
+//						Value:  pulumi.String("Hello world"),
+//						Locked: pulumi.Bool(false),
+//					},
+//					&checkly.CheckGroupEnvironmentVariableArgs{
+//						Key:    pulumi.String("ADDITIONAL_ENV_VAR"),
+//						Value:  pulumi.String("test value"),
+//						Locked: pulumi.Bool(true),
+//					},
+//				},
+//				UseGlobalAlertSettings: pulumi.Bool(false),
+//				AlertSettings: &checkly.CheckGroupAlertSettingsArgs{
+//					EscalationType: pulumi.String("RUN_BASED"),
+//					RunBasedEscalation: &checkly.CheckGroupAlertSettingsRunBasedEscalationArgs{
+//						FailedRunThreshold: pulumi.Int(1),
+//					},
+//					Reminders: &checkly.CheckGroupAlertSettingsRemindersArgs{
+//						Amount:   pulumi.Int(2),
+//						Interval: pulumi.Int(5),
+//					},
+//				},
+//				LocalSetupScript:    pulumi.String("setup-test"),
+//				LocalTeardownScript: pulumi.String("teardown-test"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Add a check to a group
+//			_, err = checkly.NewCheck(ctx, "test_check1", &checkly.CheckArgs{
+//				Name:      pulumi.String("My test check 1"),
+//				Type:      pulumi.String("API"),
+//				Activated: pulumi.Bool(true),
+//				Frequency: pulumi.Int(1),
+//				Locations: pulumi.StringArray{
+//					pulumi.String("us-west-1"),
+//				},
+//				Request: &checkly.CheckRequestArgs{
+//					Url: pulumi.String("https://api.example.com/"),
+//				},
+//				GroupId:    testGroup1.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
+//				GroupOrder: pulumi.Int(1),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Using with alert channels
+//			emailAc1, err := checkly.NewAlertChannel(ctx, "email_ac1", &checkly.AlertChannelArgs{
+//				Email: &checkly.AlertChannelEmailArgs{
+//					Address: pulumi.String("info@example.com"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			emailAc2, err := checkly.NewAlertChannel(ctx, "email_ac2", &checkly.AlertChannelArgs{
+//				Email: &checkly.AlertChannelEmailArgs{
+//					Address: pulumi.String("info2@example.com"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Connect the check group to the alert channels
+//			_, err = checkly.NewCheckGroup(ctx, "test_group_with_alerts", &checkly.CheckGroupArgs{
+//				Name:        pulumi.String("My test group with alerts"),
+//				Concurrency: pulumi.Int(3),
+//				AlertChannelSubscriptions: checkly.CheckGroupAlertChannelSubscriptionArray{
+//					&checkly.CheckGroupAlertChannelSubscriptionArgs{
+//						ChannelId: emailAc1.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
+//						Activated: pulumi.Bool(true),
+//					},
+//					&checkly.CheckGroupAlertChannelSubscriptionArgs{
+//						ChannelId: emailAc2.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
+//						Activated: pulumi.Bool(true),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Moving to `CheckGroupV2`
+//
+// Terraform 1.8 or later can switch a group to `CheckGroupV2` with a `moved` block, without recreating it or its checks. Its attributes have to be translated; see Check groups in the v2 upgrade guide.
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := checkly.NewCheckGroupV2(ctx, "example", nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Import
 //
 // The `pulumi import` command can be used, for example:
 //
-// checkly_check_group is deprecated; to start managing an existing resource, import it as checkly_check_group_v2 instead.
-//
-// A group already managed as checkly_check_group switches to checkly_check_group_v2 with a moved block; see the v2 upgrade guide.
-//
+// CheckGroup is deprecated; to start managing an existing resource, import it as CheckGroupV2 instead.
+// A group already managed as CheckGroup switches to CheckGroupV2 with a moved block; see the v2 upgrade guide.
 // Import an existing check group using its numeric ID.
-//
 // The ID is returned by the Checkly API at GET /v1/check-groups.
 //
 // ```sh
@@ -200,6 +369,12 @@ type CheckGroupState struct {
 
 func (CheckGroupState) ElementType() reflect.Type {
 	return reflect.TypeOf((*checkGroupState)(nil)).Elem()
+}
+
+// CheckGroupExists checks whether an existing CheckGroup resource with the given ID exists.
+func CheckGroupExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CheckGroupState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/checkGroup:CheckGroup", id, state, "", opts...)
 }
 
 type checkGroupArgs struct {

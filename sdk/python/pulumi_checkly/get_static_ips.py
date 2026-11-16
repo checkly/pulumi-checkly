@@ -108,7 +108,7 @@ def get_static_ips(ip_family: Optional[_builtins.str] = None,
         ip_family="IPv4")
     # Allow traffic from those runners to a service behind an AWS security group.
     # The addresses are already in CIDR notation, such as "3.64.0.1/32".
-    checkly_ingress = aws.index.SecurityGroupRule("checkly_ingress",
+    checkly_ingress = aws.SecurityGroupRule("checkly_ingress",
         type=ingress,
         from_port=443,
         to_port=443,
@@ -132,8 +132,8 @@ def get_static_ips(ip_family: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         ip_family=pulumi.get(__ret__, 'ip_family'),
         locations=pulumi.get(__ret__, 'locations'))
-def get_static_ips_output(ip_family: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                          locations: Optional[pulumi.Input[Optional[Sequence[_builtins.str]]]] = None,
+def get_static_ips_output(ip_family: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                          locations: pulumi.Input[Optional[Optional[Sequence[_builtins.str]]]] = None,
                           opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetStaticIpsResult]:
     """
     Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
@@ -155,7 +155,7 @@ def get_static_ips_output(ip_family: Optional[pulumi.Input[Optional[_builtins.st
         ip_family="IPv4")
     # Allow traffic from those runners to a service behind an AWS security group.
     # The addresses are already in CIDR notation, such as "3.64.0.1/32".
-    checkly_ingress = aws.index.SecurityGroupRule("checkly_ingress",
+    checkly_ingress = aws.SecurityGroupRule("checkly_ingress",
         type=ingress,
         from_port=443,
         to_port=443,

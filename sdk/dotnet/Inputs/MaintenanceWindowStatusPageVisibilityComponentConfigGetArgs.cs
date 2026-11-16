@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class MaintenanceWindowStatusPageVisibilityComponentConfigGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Mark every component of the status page as affected, including components added later. Defaults to `false`. Can't be combined with `components`.
+        /// Mark every component of the status page as affected, including components added later. Defaults to `False`. Can't be combined with `Components`.
         /// </summary>
         [Input("affectAllComponents")]
         public Input<bool>? AffectAllComponents { get; set; }
@@ -22,7 +22,7 @@ namespace Pulumi.Checkly.Inputs
         private InputList<Inputs.MaintenanceWindowStatusPageVisibilityComponentConfigComponentGetArgs>? _components;
 
         /// <summary>
-        /// The affected components of the status page, each with the status it shows while the maintenance is in progress. Required unless `affect_all_components` is `true`; an empty set means the same as leaving it out.
+        /// The affected components of the status page, each with the status it shows while the maintenance is in progress. Required unless `AffectAllComponents` is `True`; an empty set means the same as leaving it out.
         /// </summary>
         public InputList<Inputs.MaintenanceWindowStatusPageVisibilityComponentConfigComponentGetArgs> Components
         {
@@ -31,7 +31,7 @@ namespace Pulumi.Checkly.Inputs
         }
 
         /// <summary>
-        /// The ID of a v3 status page (`checkly.StatusPageV3`). The page must also be listed in `status_page_ids`.
+        /// The ID of a v3 status page (`checkly.StatusPageV3`). The page must also be listed in `StatusPageIds`.
         /// </summary>
         [Input("statusPageId", required: true)]
         public Input<string> StatusPageId { get; set; } = null!;

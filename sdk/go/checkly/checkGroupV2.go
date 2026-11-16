@@ -24,6 +24,8 @@ import (
 //
 // import (
 //
+//	"strconv"
+//
 //	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
@@ -234,11 +236,11 @@ import (
 //					},
 //					AlertChannelSubscriptions: checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray{
 //						&checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{
-//							ChannelId: email.ID(),
+//							ChannelId: email.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //							Activated: pulumi.Bool(true),
 //						},
 //						&checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{
-//							ChannelId: slack.ID(),
+//							ChannelId: slack.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //							Activated: pulumi.Bool(true),
 //						},
 //					},
@@ -286,7 +288,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing check group using its numeric ID.
-//
 // The ID is returned by the Checkly API at GET /v1/check-groups.
 //
 // ```sh
@@ -418,6 +419,12 @@ type CheckGroupV2State struct {
 
 func (CheckGroupV2State) ElementType() reflect.Type {
 	return reflect.TypeOf((*checkGroupV2State)(nil)).Elem()
+}
+
+// CheckGroupV2Exists checks whether an existing CheckGroupV2 resource with the given ID exists.
+func CheckGroupV2Exists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CheckGroupV2State, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/checkGroupV2:CheckGroupV2", id, state, "", opts...)
 }
 
 type checkGroupV2Args struct {

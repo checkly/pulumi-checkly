@@ -430,6 +430,9 @@ export interface BrowserCheckEnvironmentVariable {
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
     locked: boolean;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
     secret: boolean;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
@@ -588,6 +591,9 @@ export interface CheckEnvironmentVariable {
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
     locked: boolean;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
     secret: boolean;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
@@ -727,6 +733,9 @@ export interface CheckGroupEnvironmentVariable {
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
     locked: boolean;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
     secret: boolean;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
@@ -997,6 +1006,9 @@ export interface CheckGroupV2EnvironmentVariable {
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
     locked: boolean;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
     secret: boolean;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
@@ -1419,6 +1431,9 @@ export interface GrpcMonitorRequest {
      * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
      */
     assertions: outputs.GrpcMonitorRequestAssertion[];
+    /**
+     * A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+     */
     bfbsContent: string;
     /**
      * The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
@@ -2111,6 +2126,9 @@ export interface MultistepCheckEnvironmentVariable {
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
     locked: boolean;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
     secret: boolean;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
@@ -2280,6 +2298,9 @@ export interface PlaywrightCheckSuiteEnvironmentVariable {
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
     locked: boolean;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
     secret: boolean;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.

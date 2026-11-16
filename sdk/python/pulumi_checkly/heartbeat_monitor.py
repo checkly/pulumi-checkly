@@ -22,17 +22,18 @@ __all__ = ['HeartbeatMonitorArgs', 'HeartbeatMonitor']
 class HeartbeatMonitorArgs:
     def __init__(__self__, *,
                  heartbeat: pulumi.Input['HeartbeatMonitorHeartbeatArgs'],
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['HeartbeatMonitorAlertSettingsArgs']] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['HeartbeatMonitorAlertSettingsArgs']] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['HeartbeatMonitorTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a HeartbeatMonitor resource.
+
         :param pulumi.Input['HeartbeatMonitorHeartbeatArgs'] heartbeat: The heartbeat schedule and grace period.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
         :param pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
@@ -78,128 +79,129 @@ class HeartbeatMonitorArgs:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]:
         """
         A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['HeartbeatMonitorAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['HeartbeatMonitorAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the monitor.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['HeartbeatMonitorAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['HeartbeatMonitorAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the monitor.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the monitor.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['HeartbeatMonitorTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['HeartbeatMonitorTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
 @pulumi.input_type
 class _HeartbeatMonitorState:
     def __init__(__self__, *,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['HeartbeatMonitorAlertSettingsArgs']] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 heartbeat: Optional[pulumi.Input['HeartbeatMonitorHeartbeatArgs']] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['HeartbeatMonitorAlertSettingsArgs']] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 heartbeat: pulumi.Input[Optional['HeartbeatMonitorHeartbeatArgs']] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['HeartbeatMonitorTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering HeartbeatMonitor resources.
+
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
         :param pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['HeartbeatMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
@@ -234,122 +236,122 @@ class _HeartbeatMonitorState:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]:
         """
         A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['HeartbeatMonitorAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['HeartbeatMonitorAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['HeartbeatMonitorAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the monitor.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['HeartbeatMonitorAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['HeartbeatMonitorAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the monitor.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def heartbeat(self) -> Optional[pulumi.Input['HeartbeatMonitorHeartbeatArgs']]:
+    def heartbeat(self) -> pulumi.Input[Optional['HeartbeatMonitorHeartbeatArgs']]:
         """
         The heartbeat schedule and grace period.
         """
         return pulumi.get(self, "heartbeat")
 
     @heartbeat.setter
-    def heartbeat(self, value: Optional[pulumi.Input['HeartbeatMonitorHeartbeatArgs']]):
+    def heartbeat(self, value: pulumi.Input[Optional['HeartbeatMonitorHeartbeatArgs']]):
         pulumi.set(self, "heartbeat", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the monitor.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['HeartbeatMonitorTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['HeartbeatMonitorTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['HeartbeatMonitorTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
@@ -359,16 +361,16 @@ class HeartbeatMonitor(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict']]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 heartbeat: Optional[pulumi.Input[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict']]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict', 'outputs.HeartbeatMonitorAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict', 'outputs.HeartbeatMonitorAlertSettings']]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 heartbeat: pulumi.Input[Optional[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict', 'outputs.HeartbeatMonitorHeartbeat']]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict', 'outputs.HeartbeatMonitorTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Heartbeats allows you to monitor your cron jobs and set up alerting, so you get a notification when things break or slow down.
@@ -396,24 +398,24 @@ class HeartbeatMonitor(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing heartbeat monitor using its check ID.
-
         You can find the ID in the check's URL in the Checkly dashboard.
 
         ```sh
         $ pulumi import checkly:index/heartbeatMonitor:HeartbeatMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict', 'outputs.HeartbeatMonitorAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict', 'outputs.HeartbeatMonitorAlertSettings']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict']] heartbeat: The heartbeat schedule and grace period.
+        :param pulumi.Input[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict', 'outputs.HeartbeatMonitorHeartbeat']] heartbeat: The heartbeat schedule and grace period.
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict', 'outputs.HeartbeatMonitorTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         ...
@@ -448,12 +450,12 @@ class HeartbeatMonitor(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing heartbeat monitor using its check ID.
-
         You can find the ID in the check's URL in the Checkly dashboard.
 
         ```sh
         $ pulumi import checkly:index/heartbeatMonitor:HeartbeatMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
         ```
+
 
         :param str resource_name: The name of the resource.
         :param HeartbeatMonitorArgs args: The arguments to use to populate this resource's properties.
@@ -470,16 +472,16 @@ class HeartbeatMonitor(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict']]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 heartbeat: Optional[pulumi.Input[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict']]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict', 'outputs.HeartbeatMonitorAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict', 'outputs.HeartbeatMonitorAlertSettings']]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 heartbeat: pulumi.Input[Optional[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict', 'outputs.HeartbeatMonitorHeartbeat']]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict', 'outputs.HeartbeatMonitorTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -511,16 +513,16 @@ class HeartbeatMonitor(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            activated: Optional[pulumi.Input[_builtins.bool]] = None,
-            alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-            alert_settings: Optional[pulumi.Input[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict']]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            heartbeat: Optional[pulumi.Input[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict']]] = None,
-            muted: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            trigger_incident: Optional[pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']]] = None,
-            use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None) -> 'HeartbeatMonitor':
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict', 'outputs.HeartbeatMonitorAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict', 'outputs.HeartbeatMonitorAlertSettings']]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            heartbeat: pulumi.Input[Optional[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict', 'outputs.HeartbeatMonitorHeartbeat']]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict', 'outputs.HeartbeatMonitorTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> 'HeartbeatMonitor':
         """
         Get an existing HeartbeatMonitor resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -529,14 +531,14 @@ class HeartbeatMonitor(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict', 'outputs.HeartbeatMonitorAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict', 'outputs.HeartbeatMonitorAlertSettings']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict']] heartbeat: The heartbeat schedule and grace period.
+        :param pulumi.Input[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict', 'outputs.HeartbeatMonitorHeartbeat']] heartbeat: The heartbeat schedule and grace period.
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict', 'outputs.HeartbeatMonitorTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -554,6 +556,32 @@ class HeartbeatMonitor(pulumi.CustomResource):
         __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return HeartbeatMonitor(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['HeartbeatMonitorAlertChannelSubscriptionArgs', 'HeartbeatMonitorAlertChannelSubscriptionArgsDict', 'outputs.HeartbeatMonitorAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['HeartbeatMonitorAlertSettingsArgs', 'HeartbeatMonitorAlertSettingsArgsDict', 'outputs.HeartbeatMonitorAlertSettings']]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            heartbeat: pulumi.Input[Optional[Union['HeartbeatMonitorHeartbeatArgs', 'HeartbeatMonitorHeartbeatArgsDict', 'outputs.HeartbeatMonitorHeartbeat']]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['HeartbeatMonitorTriggerIncidentArgs', 'HeartbeatMonitorTriggerIncidentArgsDict', 'outputs.HeartbeatMonitorTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["activated"] = activated
+        __props__["alertChannelSubscriptions"] = alert_channel_subscriptions
+        __props__["alertSettings"] = alert_settings
+        __props__["description"] = description
+        __props__["heartbeat"] = heartbeat
+        __props__["muted"] = muted
+        __props__["name"] = name
+        __props__["tags"] = tags
+        __props__["triggerIncident"] = trigger_incident
+        __props__["useGlobalAlertSettings"] = use_global_alert_settings
+        return pulumi.runtime.exists_resource(None, 'checkly:index/heartbeatMonitor:HeartbeatMonitor', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

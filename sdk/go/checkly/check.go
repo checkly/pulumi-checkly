@@ -12,14 +12,235 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+//
+// The `Check` resource type is deprecated in favor of `ApiCheck`, `BrowserCheck` and `MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be switched over to its per-type resource with a `moved` block, without recreating it. Before moving a check, see Deprecated resource types in the v2 upgrade guide for what to change: `ApiCheck` has lower default `degradedResponseTime` and `maxResponseTime` values and follows redirects by default, and the per-type resources have no `doubleCheck`.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"strconv"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// Basic API Check
+//			_, err := checkly.NewCheck(ctx, "example_check", &checkly.CheckArgs{
+//				Name:                   pulumi.String("Example check"),
+//				Type:                   pulumi.String("API"),
+//				Activated:              pulumi.Bool(true),
+//				ShouldFail:             pulumi.Bool(false),
+//				Frequency:              pulumi.Int(1),
+//				UseGlobalAlertSettings: pulumi.Bool(true),
+//				Locations: pulumi.StringArray{
+//					pulumi.String("us-west-1"),
+//				},
+//				Request: &checkly.CheckRequestArgs{
+//					Url:             pulumi.String("https://api.example.com/"),
+//					FollowRedirects: pulumi.Bool(true),
+//					SkipSsl:         pulumi.Bool(false),
+//					Assertions: checkly.CheckRequestAssertionArray{
+//						&checkly.CheckRequestAssertionArgs{
+//							Source:     pulumi.String("STATUS_CODE"),
+//							Comparison: pulumi.String("EQUALS"),
+//							Target:     pulumi.String("200"),
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// A more complex example using more assertions and setting alerts
+//			_, err = checkly.NewCheck(ctx, "example_check_2", &checkly.CheckArgs{
+//				Name:                 pulumi.String("Example API check 2"),
+//				Type:                 pulumi.String("API"),
+//				Activated:            pulumi.Bool(true),
+//				ShouldFail:           pulumi.Bool(true),
+//				Frequency:            pulumi.Int(1),
+//				DegradedResponseTime: pulumi.Int(5000),
+//				MaxResponseTime:      pulumi.Int(10000),
+//				Locations: pulumi.StringArray{
+//					pulumi.String("us-west-1"),
+//					pulumi.String("ap-northeast-1"),
+//					pulumi.String("ap-south-1"),
+//				},
+//				AlertSettings: &checkly.CheckAlertSettingsArgs{
+//					EscalationType: pulumi.String("RUN_BASED"),
+//					RunBasedEscalation: &checkly.CheckAlertSettingsRunBasedEscalationArgs{
+//						FailedRunThreshold: pulumi.Int(1),
+//					},
+//					Reminders: &checkly.CheckAlertSettingsRemindersArgs{
+//						Amount: pulumi.Int(1),
+//					},
+//				},
+//				RetryStrategy: &checkly.CheckRetryStrategyArgs{
+//					Type:               pulumi.String("FIXED"),
+//					BaseBackoffSeconds: pulumi.Int(60),
+//					MaxDurationSeconds: pulumi.Int(600),
+//					MaxRetries:         pulumi.Int(3),
+//					SameRegion:         pulumi.Bool(false),
+//				},
+//				Request: &checkly.CheckRequestArgs{
+//					FollowRedirects: pulumi.Bool(true),
+//					SkipSsl:         pulumi.Bool(false),
+//					Url:             pulumi.String("http://api.example.com/"),
+//					QueryParameters: pulumi.StringMap{
+//						"search": pulumi.String("foo"),
+//					},
+//					Headers: pulumi.StringMap{
+//						"X-Bogus": pulumi.String("bogus"),
+//					},
+//					Assertions: checkly.CheckRequestAssertionArray{
+//						&checkly.CheckRequestAssertionArgs{
+//							Source:     pulumi.String("JSON_BODY"),
+//							Property:   pulumi.String("code"),
+//							Comparison: pulumi.String("HAS_VALUE"),
+//							Target:     pulumi.String("authentication.failed"),
+//						},
+//						&checkly.CheckRequestAssertionArgs{
+//							Source:     pulumi.String("STATUS_CODE"),
+//							Property:   pulumi.String(""),
+//							Comparison: pulumi.String("EQUALS"),
+//							Target:     pulumi.String("401"),
+//						},
+//					},
+//					BasicAuth: &checkly.CheckRequestBasicAuthArgs{
+//						Username: pulumi.String(""),
+//						Password: pulumi.String(""),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Basic Browser  Check
+//			_, err = checkly.NewCheck(ctx, "browser_check_1", &checkly.CheckArgs{
+//				Name:                   pulumi.String("Example check"),
+//				Type:                   pulumi.String("BROWSER"),
+//				Activated:              pulumi.Bool(true),
+//				Frequency:              pulumi.Int(10),
+//				UseGlobalAlertSettings: pulumi.Bool(true),
+//				Locations: pulumi.StringArray{
+//					pulumi.String("us-west-1"),
+//				},
+//				RuntimeId: pulumi.String("2023.02"),
+//				Script: pulumi.String(`const { expect, test } = require('@playwright/test')
+//
+// test.use({ actionTimeout: 10000 })
+//
+//	test('visit page and take screenshot', async ({ page }) => {
+//	    const response = await page.goto(process.env.ENVIRONMENT_URL || 'https://checklyhq.com')
+//	    await page.screenshot({ path: 'screenshot.jpg' })
+//	    expect(response.status(), 'should respond with correct status code').toBeLessThan(400)
+//	})
+//
+// `),
+//
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Connection checks with alert channels
+//			emailAc1, err := checkly.NewAlertChannel(ctx, "email_ac1", &checkly.AlertChannelArgs{
+//				Email: &checkly.AlertChannelEmailArgs{
+//					Address: pulumi.String("info1@example.com"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			emailAc2, err := checkly.NewAlertChannel(ctx, "email_ac2", &checkly.AlertChannelArgs{
+//				Email: &checkly.AlertChannelEmailArgs{
+//					Address: pulumi.String("info2@example.com"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = checkly.NewCheck(ctx, "example_check_with_alerts", &checkly.CheckArgs{
+//				Name:      pulumi.String("Example check with alerts"),
+//				Type:      pulumi.String("API"),
+//				Frequency: pulumi.Int(1),
+//				Locations: pulumi.StringArray{
+//					pulumi.String("us-west-1"),
+//				},
+//				Request: &checkly.CheckRequestArgs{
+//					Url: pulumi.String("https://api.example.com/"),
+//				},
+//				AlertChannelSubscriptions: checkly.CheckAlertChannelSubscriptionArray{
+//					&checkly.CheckAlertChannelSubscriptionArgs{
+//						ChannelId: emailAc1.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
+//						Activated: pulumi.Bool(true),
+//					},
+//					&checkly.CheckAlertChannelSubscriptionArgs{
+//						ChannelId: emailAc2.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
+//						Activated: pulumi.Bool(true),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Moving to the per-type resources
+//
+// Terraform 1.8 or later can switch each check to the resource of its type with a `moved` block, without recreating it. Before moving a check, read Deprecated resource types in the v2 upgrade guide.
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// Each check moves to the resource of its type. Change the resource type,
+//			// remove the attributes the new type doesn't have, and add a moved block.
+//			// A check with type = "API".
+//			_, err := checkly.NewApiCheck(ctx, "api", nil)
+//			if err != nil {
+//				return err
+//			}
+//			// A check with type = "BROWSER".
+//			_, err = checkly.NewBrowserCheck(ctx, "browser", nil)
+//			if err != nil {
+//				return err
+//			}
+//			// A check with type = "MULTI_STEP".
+//			_, err = checkly.NewMultistepCheck(ctx, "multistep", nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Import
 //
 // The `pulumi import` command can be used, for example:
 //
-// checkly_check is deprecated; to start managing an existing resource, import it as checkly_api_check, checkly_browser_check or checkly_multistep_check instead.
-//
+// Check is deprecated; to start managing an existing resource, import it as checkly_api_check, BrowserCheck or MultistepCheck instead.
 // Import an existing check using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -276,6 +497,12 @@ type CheckState struct {
 
 func (CheckState) ElementType() reflect.Type {
 	return reflect.TypeOf((*checkState)(nil)).Elem()
+}
+
+// CheckExists checks whether an existing Check resource with the given ID exists.
+func CheckExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CheckState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/check:Check", id, state, "", opts...)
 }
 
 type checkArgs struct {

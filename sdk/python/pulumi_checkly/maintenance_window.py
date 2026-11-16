@@ -23,19 +23,20 @@ class MaintenanceWindowArgs:
     def __init__(__self__, *,
                  ends_at: pulumi.Input[_builtins.str],
                  starts_at: pulumi.Input[_builtins.str],
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pause_all_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 repeat_ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 repeat_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 repeat_unit: Optional[pulumi.Input[_builtins.str]] = None,
-                 silence_alerts_tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 silence_all_alerts: Optional[pulumi.Input[_builtins.bool]] = None,
-                 status_page_visibility: Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 timezone: Optional[pulumi.Input[_builtins.str]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pause_all_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 repeat_ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 repeat_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 repeat_unit: pulumi.Input[Optional[_builtins.str]] = None,
+                 silence_alerts_tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 silence_all_alerts: pulumi.Input[Optional[_builtins.bool]] = None,
+                 status_page_visibility: pulumi.Input[Optional['MaintenanceWindowStatusPageVisibilityArgs']] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 timezone: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a MaintenanceWindow resource.
+
         :param pulumi.Input[_builtins.str] ends_at: The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
         :param pulumi.Input[_builtins.str] starts_at: The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
         :param pulumi.Input[_builtins.str] description: A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
@@ -101,155 +102,156 @@ class MaintenanceWindowArgs:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The maintenance window name. Must be between `1` and `200` characters.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="pauseAllChecks")
-    def pause_all_checks(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def pause_all_checks(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
         """
         return pulumi.get(self, "pause_all_checks")
 
     @pause_all_checks.setter
-    def pause_all_checks(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def pause_all_checks(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "pause_all_checks", value)
 
     @_builtins.property
     @pulumi.getter(name="repeatEndsAt")
-    def repeat_ends_at(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def repeat_ends_at(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
         """
         return pulumi.get(self, "repeat_ends_at")
 
     @repeat_ends_at.setter
-    def repeat_ends_at(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def repeat_ends_at(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "repeat_ends_at", value)
 
     @_builtins.property
     @pulumi.getter(name="repeatInterval")
-    def repeat_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def repeat_interval(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
         """
         return pulumi.get(self, "repeat_interval")
 
     @repeat_interval.setter
-    def repeat_interval(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def repeat_interval(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "repeat_interval", value)
 
     @_builtins.property
     @pulumi.getter(name="repeatUnit")
-    def repeat_unit(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def repeat_unit(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         """
         return pulumi.get(self, "repeat_unit")
 
     @repeat_unit.setter
-    def repeat_unit(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def repeat_unit(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "repeat_unit", value)
 
     @_builtins.property
     @pulumi.getter(name="silenceAlertsTags")
-    def silence_alerts_tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def silence_alerts_tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         """
         return pulumi.get(self, "silence_alerts_tags")
 
     @silence_alerts_tags.setter
-    def silence_alerts_tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def silence_alerts_tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "silence_alerts_tags", value)
 
     @_builtins.property
     @pulumi.getter(name="silenceAllAlerts")
-    def silence_all_alerts(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def silence_all_alerts(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
         """
         return pulumi.get(self, "silence_all_alerts")
 
     @silence_all_alerts.setter
-    def silence_all_alerts(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def silence_all_alerts(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "silence_all_alerts", value)
 
     @_builtins.property
     @pulumi.getter(name="statusPageVisibility")
-    def status_page_visibility(self) -> Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']]:
+    def status_page_visibility(self) -> pulumi.Input[Optional['MaintenanceWindowStatusPageVisibilityArgs']]:
         """
         Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         """
         return pulumi.get(self, "status_page_visibility")
 
     @status_page_visibility.setter
-    def status_page_visibility(self, value: Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']]):
+    def status_page_visibility(self, value: pulumi.Input[Optional['MaintenanceWindowStatusPageVisibilityArgs']]):
         pulumi.set(self, "status_page_visibility", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter
-    def timezone(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def timezone(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
         return pulumi.get(self, "timezone")
 
     @timezone.setter
-    def timezone(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def timezone(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "timezone", value)
 
 
 @pulumi.input_type
 class _MaintenanceWindowState:
     def __init__(__self__, *,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pause_all_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 repeat_ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 repeat_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 repeat_unit: Optional[pulumi.Input[_builtins.str]] = None,
-                 silence_alerts_tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 silence_all_alerts: Optional[pulumi.Input[_builtins.bool]] = None,
-                 starts_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 status_page_visibility: Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 timezone: Optional[pulumi.Input[_builtins.str]] = None):
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pause_all_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 repeat_ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 repeat_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 repeat_unit: pulumi.Input[Optional[_builtins.str]] = None,
+                 silence_alerts_tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 silence_all_alerts: pulumi.Input[Optional[_builtins.bool]] = None,
+                 starts_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 status_page_visibility: pulumi.Input[Optional['MaintenanceWindowStatusPageVisibilityArgs']] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 timezone: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering MaintenanceWindow resources.
+
         :param pulumi.Input[_builtins.str] description: A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
         :param pulumi.Input[_builtins.str] ends_at: The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
         :param pulumi.Input[_builtins.str] name: The maintenance window name. Must be between `1` and `200` characters.
@@ -293,158 +295,158 @@ class _MaintenanceWindowState:
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="endsAt")
-    def ends_at(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ends_at(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
         """
         return pulumi.get(self, "ends_at")
 
     @ends_at.setter
-    def ends_at(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ends_at(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ends_at", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The maintenance window name. Must be between `1` and `200` characters.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="pauseAllChecks")
-    def pause_all_checks(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def pause_all_checks(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
         """
         return pulumi.get(self, "pause_all_checks")
 
     @pause_all_checks.setter
-    def pause_all_checks(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def pause_all_checks(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "pause_all_checks", value)
 
     @_builtins.property
     @pulumi.getter(name="repeatEndsAt")
-    def repeat_ends_at(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def repeat_ends_at(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
         """
         return pulumi.get(self, "repeat_ends_at")
 
     @repeat_ends_at.setter
-    def repeat_ends_at(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def repeat_ends_at(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "repeat_ends_at", value)
 
     @_builtins.property
     @pulumi.getter(name="repeatInterval")
-    def repeat_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def repeat_interval(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
         """
         return pulumi.get(self, "repeat_interval")
 
     @repeat_interval.setter
-    def repeat_interval(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def repeat_interval(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "repeat_interval", value)
 
     @_builtins.property
     @pulumi.getter(name="repeatUnit")
-    def repeat_unit(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def repeat_unit(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         """
         return pulumi.get(self, "repeat_unit")
 
     @repeat_unit.setter
-    def repeat_unit(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def repeat_unit(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "repeat_unit", value)
 
     @_builtins.property
     @pulumi.getter(name="silenceAlertsTags")
-    def silence_alerts_tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def silence_alerts_tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         """
         return pulumi.get(self, "silence_alerts_tags")
 
     @silence_alerts_tags.setter
-    def silence_alerts_tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def silence_alerts_tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "silence_alerts_tags", value)
 
     @_builtins.property
     @pulumi.getter(name="silenceAllAlerts")
-    def silence_all_alerts(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def silence_all_alerts(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
         """
         return pulumi.get(self, "silence_all_alerts")
 
     @silence_all_alerts.setter
-    def silence_all_alerts(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def silence_all_alerts(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "silence_all_alerts", value)
 
     @_builtins.property
     @pulumi.getter(name="startsAt")
-    def starts_at(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def starts_at(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
         """
         return pulumi.get(self, "starts_at")
 
     @starts_at.setter
-    def starts_at(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def starts_at(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "starts_at", value)
 
     @_builtins.property
     @pulumi.getter(name="statusPageVisibility")
-    def status_page_visibility(self) -> Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']]:
+    def status_page_visibility(self) -> pulumi.Input[Optional['MaintenanceWindowStatusPageVisibilityArgs']]:
         """
         Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         """
         return pulumi.get(self, "status_page_visibility")
 
     @status_page_visibility.setter
-    def status_page_visibility(self, value: Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']]):
+    def status_page_visibility(self, value: pulumi.Input[Optional['MaintenanceWindowStatusPageVisibilityArgs']]):
         pulumi.set(self, "status_page_visibility", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter
-    def timezone(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def timezone(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
         return pulumi.get(self, "timezone")
 
     @timezone.setter
-    def timezone(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def timezone(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "timezone", value)
 
 
@@ -454,19 +456,19 @@ class MaintenanceWindow(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pause_all_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 repeat_ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 repeat_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 repeat_unit: Optional[pulumi.Input[_builtins.str]] = None,
-                 silence_alerts_tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 silence_all_alerts: Optional[pulumi.Input[_builtins.bool]] = None,
-                 starts_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 status_page_visibility: Optional[pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 timezone: Optional[pulumi.Input[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pause_all_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 repeat_ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 repeat_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 repeat_unit: pulumi.Input[Optional[_builtins.str]] = None,
+                 silence_alerts_tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 silence_all_alerts: pulumi.Input[Optional[_builtins.bool]] = None,
+                 starts_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 status_page_visibility: pulumi.Input[Optional[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict', 'outputs.MaintenanceWindowStatusPageVisibility']]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 timezone: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Maintenance windows pause alerting during scheduled maintenance for the checks and groups they apply to.
@@ -554,12 +556,12 @@ class MaintenanceWindow(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing maintenance window using its numeric ID.
-
         The ID is returned by the Checkly API at GET /v1/maintenance-windows.
 
         ```sh
         $ pulumi import checkly:index/maintenanceWindow:MaintenanceWindow example 12345
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -573,7 +575,7 @@ class MaintenanceWindow(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] silence_alerts_tags: The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         :param pulumi.Input[_builtins.bool] silence_all_alerts: Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] starts_at: The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
-        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
+        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict', 'outputs.MaintenanceWindowStatusPageVisibility']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         :param pulumi.Input[_builtins.str] timezone: The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
@@ -669,12 +671,12 @@ class MaintenanceWindow(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing maintenance window using its numeric ID.
-
         The ID is returned by the Checkly API at GET /v1/maintenance-windows.
 
         ```sh
         $ pulumi import checkly:index/maintenanceWindow:MaintenanceWindow example 12345
         ```
+
 
         :param str resource_name: The name of the resource.
         :param MaintenanceWindowArgs args: The arguments to use to populate this resource's properties.
@@ -691,19 +693,19 @@ class MaintenanceWindow(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 pause_all_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 repeat_ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 repeat_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 repeat_unit: Optional[pulumi.Input[_builtins.str]] = None,
-                 silence_alerts_tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 silence_all_alerts: Optional[pulumi.Input[_builtins.bool]] = None,
-                 starts_at: Optional[pulumi.Input[_builtins.str]] = None,
-                 status_page_visibility: Optional[pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 timezone: Optional[pulumi.Input[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 pause_all_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 repeat_ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 repeat_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 repeat_unit: pulumi.Input[Optional[_builtins.str]] = None,
+                 silence_alerts_tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 silence_all_alerts: pulumi.Input[Optional[_builtins.bool]] = None,
+                 starts_at: pulumi.Input[Optional[_builtins.str]] = None,
+                 status_page_visibility: pulumi.Input[Optional[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict', 'outputs.MaintenanceWindowStatusPageVisibility']]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 timezone: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -740,19 +742,19 @@ class MaintenanceWindow(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            pause_all_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-            repeat_ends_at: Optional[pulumi.Input[_builtins.str]] = None,
-            repeat_interval: Optional[pulumi.Input[_builtins.int]] = None,
-            repeat_unit: Optional[pulumi.Input[_builtins.str]] = None,
-            silence_alerts_tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            silence_all_alerts: Optional[pulumi.Input[_builtins.bool]] = None,
-            starts_at: Optional[pulumi.Input[_builtins.str]] = None,
-            status_page_visibility: Optional[pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            timezone: Optional[pulumi.Input[_builtins.str]] = None) -> 'MaintenanceWindow':
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            pause_all_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+            repeat_ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+            repeat_interval: pulumi.Input[Optional[_builtins.int]] = None,
+            repeat_unit: pulumi.Input[Optional[_builtins.str]] = None,
+            silence_alerts_tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            silence_all_alerts: pulumi.Input[Optional[_builtins.bool]] = None,
+            starts_at: pulumi.Input[Optional[_builtins.str]] = None,
+            status_page_visibility: pulumi.Input[Optional[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict', 'outputs.MaintenanceWindowStatusPageVisibility']]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            timezone: pulumi.Input[Optional[_builtins.str]] = None) -> 'MaintenanceWindow':
         """
         Get an existing MaintenanceWindow resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -770,7 +772,7 @@ class MaintenanceWindow(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] silence_alerts_tags: The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         :param pulumi.Input[_builtins.bool] silence_all_alerts: Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] starts_at: The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
-        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
+        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict', 'outputs.MaintenanceWindowStatusPageVisibility']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         :param pulumi.Input[_builtins.str] timezone: The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
@@ -792,6 +794,38 @@ class MaintenanceWindow(pulumi.CustomResource):
         __props__.__dict__["tags"] = tags
         __props__.__dict__["timezone"] = timezone
         return MaintenanceWindow(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            pause_all_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+            repeat_ends_at: pulumi.Input[Optional[_builtins.str]] = None,
+            repeat_interval: pulumi.Input[Optional[_builtins.int]] = None,
+            repeat_unit: pulumi.Input[Optional[_builtins.str]] = None,
+            silence_alerts_tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            silence_all_alerts: pulumi.Input[Optional[_builtins.bool]] = None,
+            starts_at: pulumi.Input[Optional[_builtins.str]] = None,
+            status_page_visibility: pulumi.Input[Optional[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict', 'outputs.MaintenanceWindowStatusPageVisibility']]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            timezone: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["description"] = description
+        __props__["endsAt"] = ends_at
+        __props__["name"] = name
+        __props__["pauseAllChecks"] = pause_all_checks
+        __props__["repeatEndsAt"] = repeat_ends_at
+        __props__["repeatInterval"] = repeat_interval
+        __props__["repeatUnit"] = repeat_unit
+        __props__["silenceAlertsTags"] = silence_alerts_tags
+        __props__["silenceAllAlerts"] = silence_all_alerts
+        __props__["startsAt"] = starts_at
+        __props__["statusPageVisibility"] = status_page_visibility
+        __props__["tags"] = tags
+        __props__["timezone"] = timezone
+        return pulumi.runtime.exists_resource(None, 'checkly:index/maintenanceWindow:MaintenanceWindow', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

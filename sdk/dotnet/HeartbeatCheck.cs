@@ -10,14 +10,63 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
+    /// The `checkly.HeartbeatCheck` resource has been renamed to `checkly.HeartbeatMonitor` to better reflect its position in the Checkly product lineup. The `checkly.HeartbeatCheck` resource type is deprecated and will be removed in a future version of the provider.
+    /// 
+    /// The schemas of both resource types are identical, and existing `checkly.HeartbeatCheck` resources can be migrated to `checkly.HeartbeatMonitor` using a `Moved` block; see Deprecated resource types in the v2 upgrade guide.
+    /// 
+    /// We recommend using the `checkly.HeartbeatMonitor` resource type for any new resources.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var example_heartbeat = new Checkly.HeartbeatCheck("example-heartbeat", new()
+    ///     {
+    ///         Name = "Example heartbeat",
+    ///         Activated = true,
+    ///         Heartbeat = new Checkly.Inputs.HeartbeatCheckHeartbeatArgs
+    ///         {
+    ///             Period = 7,
+    ///             PeriodUnit = "days",
+    ///             Grace = 1,
+    ///             GraceUnit = "days",
+    ///         },
+    ///         UseGlobalAlertSettings = true,
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Moving to `checkly.HeartbeatMonitor`
+    /// 
+    /// Terraform 1.8 or later can switch a `checkly.HeartbeatCheck` resource to `checkly.HeartbeatMonitor` with a `Moved` block, without recreating it:
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     // The attributes stay the same; only the resource type changes.
+    ///     var example = new Checkly.HeartbeatMonitor("example");
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// The `pulumi import` command can be used, for example:
     /// 
-    /// checkly_heartbeat is deprecated; to start managing an existing resource, import it as checkly_heartbeat_monitor instead.
-    /// 
+    /// checkly.HeartbeatCheck is deprecated; to start managing an existing resource, import it as checkly.HeartbeatMonitor instead.
     /// Import an existing heartbeat monitor using its check ID.
-    /// 
     /// You can find the ID in the check's URL in the Checkly dashboard.
     /// 
     /// ```sh
@@ -29,7 +78,7 @@ namespace Pulumi.Checkly
     public partial class HeartbeatCheck : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
@@ -59,7 +108,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.HeartbeatCheckHeartbeat> Heartbeat { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `False`.
         /// </summary>
         [Output("muted")]
         public Output<bool> Muted { get; private set; } = null!;
@@ -83,7 +132,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.HeartbeatCheckTriggerIncident?> TriggerIncident { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
         public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
@@ -136,7 +185,7 @@ namespace Pulumi.Checkly
     public sealed class HeartbeatCheckArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -172,7 +221,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.HeartbeatCheckHeartbeatArgs> Heartbeat { get; set; } = null!;
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -202,7 +251,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.HeartbeatCheckTriggerIncidentArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -216,7 +265,7 @@ namespace Pulumi.Checkly
     public sealed class HeartbeatCheckState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -252,7 +301,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.HeartbeatCheckHeartbeatGetArgs>? Heartbeat { get; set; }
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -282,7 +331,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.HeartbeatCheckTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

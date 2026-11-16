@@ -19,7 +19,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing gRPC monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -196,6 +195,12 @@ type GrpcMonitorState struct {
 
 func (GrpcMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*grpcMonitorState)(nil)).Elem()
+}
+
+// GrpcMonitorExists checks whether an existing GrpcMonitor resource with the given ID exists.
+func GrpcMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *GrpcMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/grpcMonitor:GrpcMonitor", id, state, "", opts...)
 }
 
 type grpcMonitorArgs struct {

@@ -24,6 +24,7 @@ class PlaywrightCodeBundleArgs:
                  prebuilt_archive: pulumi.Input['PlaywrightCodeBundlePrebuiltArchiveArgs']):
         """
         The set of arguments for constructing a PlaywrightCodeBundle resource.
+
         :param pulumi.Input['PlaywrightCodeBundlePrebuiltArchiveArgs'] prebuilt_archive: A prebuilt archive containing the code bundle.
         """
         pulumi.set(__self__, "prebuilt_archive", prebuilt_archive)
@@ -44,10 +45,11 @@ class PlaywrightCodeBundleArgs:
 @pulumi.input_type
 class _PlaywrightCodeBundleState:
     def __init__(__self__, *,
-                 metadata: Optional[pulumi.Input[_builtins.str]] = None,
-                 prebuilt_archive: Optional[pulumi.Input['PlaywrightCodeBundlePrebuiltArchiveArgs']] = None):
+                 metadata: pulumi.Input[Optional[_builtins.str]] = None,
+                 prebuilt_archive: pulumi.Input[Optional['PlaywrightCodeBundlePrebuiltArchiveArgs']] = None):
         """
         Input properties used for looking up and filtering PlaywrightCodeBundle resources.
+
         :param pulumi.Input[_builtins.str] metadata: An opaque blob of generated metadata. The value is not intended to be user-consumable and should be passed as-is to a Playwright check resource.
         :param pulumi.Input['PlaywrightCodeBundlePrebuiltArchiveArgs'] prebuilt_archive: A prebuilt archive containing the code bundle.
         """
@@ -58,26 +60,26 @@ class _PlaywrightCodeBundleState:
 
     @_builtins.property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def metadata(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         An opaque blob of generated metadata. The value is not intended to be user-consumable and should be passed as-is to a Playwright check resource.
         """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def metadata(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "metadata", value)
 
     @_builtins.property
     @pulumi.getter(name="prebuiltArchive")
-    def prebuilt_archive(self) -> Optional[pulumi.Input['PlaywrightCodeBundlePrebuiltArchiveArgs']]:
+    def prebuilt_archive(self) -> pulumi.Input[Optional['PlaywrightCodeBundlePrebuiltArchiveArgs']]:
         """
         A prebuilt archive containing the code bundle.
         """
         return pulumi.get(self, "prebuilt_archive")
 
     @prebuilt_archive.setter
-    def prebuilt_archive(self, value: Optional[pulumi.Input['PlaywrightCodeBundlePrebuiltArchiveArgs']]):
+    def prebuilt_archive(self, value: pulumi.Input[Optional['PlaywrightCodeBundlePrebuiltArchiveArgs']]):
         pulumi.set(self, "prebuilt_archive", value)
 
 
@@ -87,14 +89,15 @@ class PlaywrightCodeBundle(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 prebuilt_archive: Optional[pulumi.Input[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict']]] = None,
+                 prebuilt_archive: pulumi.Input[Optional[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict', 'outputs.PlaywrightCodeBundlePrebuiltArchive']]] = None,
                  __props__=None):
         """
         A managed code bundle which can be used in Playwright Check Suite resources.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict']] prebuilt_archive: A prebuilt archive containing the code bundle.
+        :param pulumi.Input[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict', 'outputs.PlaywrightCodeBundlePrebuiltArchive']] prebuilt_archive: A prebuilt archive containing the code bundle.
         """
         ...
     @overload
@@ -104,6 +107,7 @@ class PlaywrightCodeBundle(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         A managed code bundle which can be used in Playwright Check Suite resources.
+
 
         :param str resource_name: The name of the resource.
         :param PlaywrightCodeBundleArgs args: The arguments to use to populate this resource's properties.
@@ -120,7 +124,7 @@ class PlaywrightCodeBundle(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 prebuilt_archive: Optional[pulumi.Input[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict']]] = None,
+                 prebuilt_archive: pulumi.Input[Optional[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict', 'outputs.PlaywrightCodeBundlePrebuiltArchive']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -144,8 +148,8 @@ class PlaywrightCodeBundle(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            metadata: Optional[pulumi.Input[_builtins.str]] = None,
-            prebuilt_archive: Optional[pulumi.Input[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict']]] = None) -> 'PlaywrightCodeBundle':
+            metadata: pulumi.Input[Optional[_builtins.str]] = None,
+            prebuilt_archive: pulumi.Input[Optional[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict', 'outputs.PlaywrightCodeBundlePrebuiltArchive']]] = None) -> 'PlaywrightCodeBundle':
         """
         Get an existing PlaywrightCodeBundle resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -154,7 +158,7 @@ class PlaywrightCodeBundle(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] metadata: An opaque blob of generated metadata. The value is not intended to be user-consumable and should be passed as-is to a Playwright check resource.
-        :param pulumi.Input[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict']] prebuilt_archive: A prebuilt archive containing the code bundle.
+        :param pulumi.Input[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict', 'outputs.PlaywrightCodeBundlePrebuiltArchive']] prebuilt_archive: A prebuilt archive containing the code bundle.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -163,6 +167,16 @@ class PlaywrightCodeBundle(pulumi.CustomResource):
         __props__.__dict__["metadata"] = metadata
         __props__.__dict__["prebuilt_archive"] = prebuilt_archive
         return PlaywrightCodeBundle(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            metadata: pulumi.Input[Optional[_builtins.str]] = None,
+            prebuilt_archive: pulumi.Input[Optional[Union['PlaywrightCodeBundlePrebuiltArchiveArgs', 'PlaywrightCodeBundlePrebuiltArchiveArgsDict', 'outputs.PlaywrightCodeBundlePrebuiltArchive']]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["metadata"] = metadata
+        __props__["prebuiltArchive"] = prebuilt_archive
+        return pulumi.runtime.exists_resource(None, 'checkly:index/playwrightCodeBundle:PlaywrightCodeBundle', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

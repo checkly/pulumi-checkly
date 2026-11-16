@@ -110,7 +110,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing traceroute monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -287,6 +286,12 @@ type TracerouteMonitorState struct {
 
 func (TracerouteMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*tracerouteMonitorState)(nil)).Elem()
+}
+
+// TracerouteMonitorExists checks whether an existing TracerouteMonitor resource with the given ID exists.
+func TracerouteMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TracerouteMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/tracerouteMonitor:TracerouteMonitor", id, state, "", opts...)
 }
 
 type tracerouteMonitorArgs struct {

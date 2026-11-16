@@ -65,7 +65,6 @@ namespace Pulumi.Checkly
     /// The `pulumi import` command can be used, for example:
     /// 
     /// Import an existing status page automation rule using "&lt;status_page_id&gt;/&lt;rule_id&gt;".
-    /// 
     /// Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/automation-rules.
     /// 
     /// ```sh
@@ -88,7 +87,7 @@ namespace Pulumi.Checkly
         public Output<int> CoolDownWindowMinutes { get; private set; } = null!;
 
         /// <summary>
-        /// A disabled rule never opens incidents. Defaults to `true`.
+        /// A disabled rule never opens incidents. Defaults to `True`.
         /// </summary>
         [Output("enabled")]
         public Output<bool> Enabled { get; private set; } = null!;
@@ -112,7 +111,7 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// Whether subscribers are notified of the automated updates. Defaults to `true`.
+        /// Whether subscribers are notified of the automated updates. Defaults to `True`.
         /// </summary>
         [Output("notifySubscribers")]
         public Output<bool> NotifySubscribers { get; private set; } = null!;
@@ -195,7 +194,7 @@ namespace Pulumi.Checkly
         public Input<int>? CoolDownWindowMinutes { get; set; }
 
         /// <summary>
-        /// A disabled rule never opens incidents. Defaults to `true`.
+        /// A disabled rule never opens incidents. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -219,7 +218,7 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Whether subscribers are notified of the automated updates. Defaults to `true`.
+        /// Whether subscribers are notified of the automated updates. Defaults to `True`.
         /// </summary>
         [Input("notifySubscribers")]
         public Input<bool>? NotifySubscribers { get; set; }
@@ -269,7 +268,7 @@ namespace Pulumi.Checkly
         public Input<int>? CoolDownWindowMinutes { get; set; }
 
         /// <summary>
-        /// A disabled rule never opens incidents. Defaults to `true`.
+        /// A disabled rule never opens incidents. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -293,7 +292,7 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Whether subscribers are notified of the automated updates. Defaults to `true`.
+        /// Whether subscribers are notified of the automated updates. Defaults to `True`.
         /// </summary>
         [Input("notifySubscribers")]
         public Input<bool>? NotifySubscribers { get; set; }

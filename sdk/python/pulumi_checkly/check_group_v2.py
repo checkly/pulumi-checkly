@@ -21,22 +21,23 @@ __all__ = ['CheckGroupV2Args', 'CheckGroupV2']
 @pulumi.input_type
 class CheckGroupV2Args:
     def __init__(__self__, *,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 api_check_defaults: Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']] = None,
-                 concurrency: Optional[pulumi.Input[_builtins.int]] = None,
-                 default_runtime: Optional[pulumi.Input['CheckGroupV2DefaultRuntimeArgs']] = None,
-                 enforce_alert_settings: Optional[pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs']] = None,
-                 enforce_locations: Optional[pulumi.Input['CheckGroupV2EnforceLocationsArgs']] = None,
-                 enforce_retry_strategy: Optional[pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs']] = None,
-                 enforce_scheduling_strategy: Optional[pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs']] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_script: Optional[pulumi.Input['CheckGroupV2SetupScriptArgs']] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_script: Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 api_check_defaults: pulumi.Input[Optional['CheckGroupV2ApiCheckDefaultsArgs']] = None,
+                 concurrency: pulumi.Input[Optional[_builtins.int]] = None,
+                 default_runtime: pulumi.Input[Optional['CheckGroupV2DefaultRuntimeArgs']] = None,
+                 enforce_alert_settings: pulumi.Input[Optional['CheckGroupV2EnforceAlertSettingsArgs']] = None,
+                 enforce_locations: pulumi.Input[Optional['CheckGroupV2EnforceLocationsArgs']] = None,
+                 enforce_retry_strategy: pulumi.Input[Optional['CheckGroupV2EnforceRetryStrategyArgs']] = None,
+                 enforce_scheduling_strategy: pulumi.Input[Optional['CheckGroupV2EnforceSchedulingStrategyArgs']] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_script: pulumi.Input[Optional['CheckGroupV2SetupScriptArgs']] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_script: pulumi.Input[Optional['CheckGroupV2TeardownScriptArgs']] = None):
         """
         The set of arguments for constructing a CheckGroupV2 resource.
+
         :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
         :param pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs'] api_check_defaults: Default settings for API checks in this group.
         :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
@@ -83,192 +84,193 @@ class CheckGroupV2Args:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="apiCheckDefaults")
-    def api_check_defaults(self) -> Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']]:
+    def api_check_defaults(self) -> pulumi.Input[Optional['CheckGroupV2ApiCheckDefaultsArgs']]:
         """
         Default settings for API checks in this group.
         """
         return pulumi.get(self, "api_check_defaults")
 
     @api_check_defaults.setter
-    def api_check_defaults(self, value: Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']]):
+    def api_check_defaults(self, value: pulumi.Input[Optional['CheckGroupV2ApiCheckDefaultsArgs']]):
         pulumi.set(self, "api_check_defaults", value)
 
     @_builtins.property
     @pulumi.getter
-    def concurrency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def concurrency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         """
         return pulumi.get(self, "concurrency")
 
     @concurrency.setter
-    def concurrency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def concurrency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "concurrency", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultRuntime")
-    def default_runtime(self) -> Optional[pulumi.Input['CheckGroupV2DefaultRuntimeArgs']]:
+    def default_runtime(self) -> pulumi.Input[Optional['CheckGroupV2DefaultRuntimeArgs']]:
         """
         Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
         """
         return pulumi.get(self, "default_runtime")
 
     @default_runtime.setter
-    def default_runtime(self, value: Optional[pulumi.Input['CheckGroupV2DefaultRuntimeArgs']]):
+    def default_runtime(self, value: pulumi.Input[Optional['CheckGroupV2DefaultRuntimeArgs']]):
         pulumi.set(self, "default_runtime", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceAlertSettings")
-    def enforce_alert_settings(self) -> Optional[pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs']]:
+    def enforce_alert_settings(self) -> pulumi.Input[Optional['CheckGroupV2EnforceAlertSettingsArgs']]:
         """
         Enforces alert settings for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_alert_settings")
 
     @enforce_alert_settings.setter
-    def enforce_alert_settings(self, value: Optional[pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs']]):
+    def enforce_alert_settings(self, value: pulumi.Input[Optional['CheckGroupV2EnforceAlertSettingsArgs']]):
         pulumi.set(self, "enforce_alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceLocations")
-    def enforce_locations(self) -> Optional[pulumi.Input['CheckGroupV2EnforceLocationsArgs']]:
+    def enforce_locations(self) -> pulumi.Input[Optional['CheckGroupV2EnforceLocationsArgs']]:
         """
         Enforces public and private locations for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_locations")
 
     @enforce_locations.setter
-    def enforce_locations(self, value: Optional[pulumi.Input['CheckGroupV2EnforceLocationsArgs']]):
+    def enforce_locations(self, value: pulumi.Input[Optional['CheckGroupV2EnforceLocationsArgs']]):
         pulumi.set(self, "enforce_locations", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceRetryStrategy")
-    def enforce_retry_strategy(self) -> Optional[pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs']]:
+    def enforce_retry_strategy(self) -> pulumi.Input[Optional['CheckGroupV2EnforceRetryStrategyArgs']]:
         """
         Enforces a retry strategy for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_retry_strategy")
 
     @enforce_retry_strategy.setter
-    def enforce_retry_strategy(self, value: Optional[pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs']]):
+    def enforce_retry_strategy(self, value: pulumi.Input[Optional['CheckGroupV2EnforceRetryStrategyArgs']]):
         pulumi.set(self, "enforce_retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceSchedulingStrategy")
-    def enforce_scheduling_strategy(self) -> Optional[pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs']]:
+    def enforce_scheduling_strategy(self) -> pulumi.Input[Optional['CheckGroupV2EnforceSchedulingStrategyArgs']]:
         """
         Enforces a scheduling strategy for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_scheduling_strategy")
 
     @enforce_scheduling_strategy.setter
-    def enforce_scheduling_strategy(self, value: Optional[pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs']]):
+    def enforce_scheduling_strategy(self, value: pulumi.Input[Optional['CheckGroupV2EnforceSchedulingStrategyArgs']]):
         pulumi.set(self, "enforce_scheduling_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    def environment_variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]:
+    def environment_variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]:
         """
         Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
     @environment_variables.setter
-    def environment_variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]):
+    def environment_variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]):
         pulumi.set(self, "environment_variables", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the check group.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="setupScript")
-    def setup_script(self) -> Optional[pulumi.Input['CheckGroupV2SetupScriptArgs']]:
+    def setup_script(self) -> pulumi.Input[Optional['CheckGroupV2SetupScriptArgs']]:
         """
         A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
         """
         return pulumi.get(self, "setup_script")
 
     @setup_script.setter
-    def setup_script(self, value: Optional[pulumi.Input['CheckGroupV2SetupScriptArgs']]):
+    def setup_script(self, value: pulumi.Input[Optional['CheckGroupV2SetupScriptArgs']]):
         pulumi.set(self, "setup_script", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="teardownScript")
-    def teardown_script(self) -> Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']]:
+    def teardown_script(self) -> pulumi.Input[Optional['CheckGroupV2TeardownScriptArgs']]:
         """
         A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         return pulumi.get(self, "teardown_script")
 
     @teardown_script.setter
-    def teardown_script(self, value: Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']]):
+    def teardown_script(self, value: pulumi.Input[Optional['CheckGroupV2TeardownScriptArgs']]):
         pulumi.set(self, "teardown_script", value)
 
 
 @pulumi.input_type
 class _CheckGroupV2State:
     def __init__(__self__, *,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 api_check_defaults: Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']] = None,
-                 concurrency: Optional[pulumi.Input[_builtins.int]] = None,
-                 default_runtime: Optional[pulumi.Input['CheckGroupV2DefaultRuntimeArgs']] = None,
-                 enforce_alert_settings: Optional[pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs']] = None,
-                 enforce_locations: Optional[pulumi.Input['CheckGroupV2EnforceLocationsArgs']] = None,
-                 enforce_retry_strategy: Optional[pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs']] = None,
-                 enforce_scheduling_strategy: Optional[pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs']] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_script: Optional[pulumi.Input['CheckGroupV2SetupScriptArgs']] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_script: Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 api_check_defaults: pulumi.Input[Optional['CheckGroupV2ApiCheckDefaultsArgs']] = None,
+                 concurrency: pulumi.Input[Optional[_builtins.int]] = None,
+                 default_runtime: pulumi.Input[Optional['CheckGroupV2DefaultRuntimeArgs']] = None,
+                 enforce_alert_settings: pulumi.Input[Optional['CheckGroupV2EnforceAlertSettingsArgs']] = None,
+                 enforce_locations: pulumi.Input[Optional['CheckGroupV2EnforceLocationsArgs']] = None,
+                 enforce_retry_strategy: pulumi.Input[Optional['CheckGroupV2EnforceRetryStrategyArgs']] = None,
+                 enforce_scheduling_strategy: pulumi.Input[Optional['CheckGroupV2EnforceSchedulingStrategyArgs']] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_script: pulumi.Input[Optional['CheckGroupV2SetupScriptArgs']] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_script: pulumi.Input[Optional['CheckGroupV2TeardownScriptArgs']] = None):
         """
         Input properties used for looking up and filtering CheckGroupV2 resources.
+
         :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
         :param pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs'] api_check_defaults: Default settings for API checks in this group.
         :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
@@ -315,170 +317,170 @@ class _CheckGroupV2State:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="apiCheckDefaults")
-    def api_check_defaults(self) -> Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']]:
+    def api_check_defaults(self) -> pulumi.Input[Optional['CheckGroupV2ApiCheckDefaultsArgs']]:
         """
         Default settings for API checks in this group.
         """
         return pulumi.get(self, "api_check_defaults")
 
     @api_check_defaults.setter
-    def api_check_defaults(self, value: Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']]):
+    def api_check_defaults(self, value: pulumi.Input[Optional['CheckGroupV2ApiCheckDefaultsArgs']]):
         pulumi.set(self, "api_check_defaults", value)
 
     @_builtins.property
     @pulumi.getter
-    def concurrency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def concurrency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         """
         return pulumi.get(self, "concurrency")
 
     @concurrency.setter
-    def concurrency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def concurrency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "concurrency", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultRuntime")
-    def default_runtime(self) -> Optional[pulumi.Input['CheckGroupV2DefaultRuntimeArgs']]:
+    def default_runtime(self) -> pulumi.Input[Optional['CheckGroupV2DefaultRuntimeArgs']]:
         """
         Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
         """
         return pulumi.get(self, "default_runtime")
 
     @default_runtime.setter
-    def default_runtime(self, value: Optional[pulumi.Input['CheckGroupV2DefaultRuntimeArgs']]):
+    def default_runtime(self, value: pulumi.Input[Optional['CheckGroupV2DefaultRuntimeArgs']]):
         pulumi.set(self, "default_runtime", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceAlertSettings")
-    def enforce_alert_settings(self) -> Optional[pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs']]:
+    def enforce_alert_settings(self) -> pulumi.Input[Optional['CheckGroupV2EnforceAlertSettingsArgs']]:
         """
         Enforces alert settings for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_alert_settings")
 
     @enforce_alert_settings.setter
-    def enforce_alert_settings(self, value: Optional[pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs']]):
+    def enforce_alert_settings(self, value: pulumi.Input[Optional['CheckGroupV2EnforceAlertSettingsArgs']]):
         pulumi.set(self, "enforce_alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceLocations")
-    def enforce_locations(self) -> Optional[pulumi.Input['CheckGroupV2EnforceLocationsArgs']]:
+    def enforce_locations(self) -> pulumi.Input[Optional['CheckGroupV2EnforceLocationsArgs']]:
         """
         Enforces public and private locations for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_locations")
 
     @enforce_locations.setter
-    def enforce_locations(self, value: Optional[pulumi.Input['CheckGroupV2EnforceLocationsArgs']]):
+    def enforce_locations(self, value: pulumi.Input[Optional['CheckGroupV2EnforceLocationsArgs']]):
         pulumi.set(self, "enforce_locations", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceRetryStrategy")
-    def enforce_retry_strategy(self) -> Optional[pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs']]:
+    def enforce_retry_strategy(self) -> pulumi.Input[Optional['CheckGroupV2EnforceRetryStrategyArgs']]:
         """
         Enforces a retry strategy for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_retry_strategy")
 
     @enforce_retry_strategy.setter
-    def enforce_retry_strategy(self, value: Optional[pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs']]):
+    def enforce_retry_strategy(self, value: pulumi.Input[Optional['CheckGroupV2EnforceRetryStrategyArgs']]):
         pulumi.set(self, "enforce_retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="enforceSchedulingStrategy")
-    def enforce_scheduling_strategy(self) -> Optional[pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs']]:
+    def enforce_scheduling_strategy(self) -> pulumi.Input[Optional['CheckGroupV2EnforceSchedulingStrategyArgs']]:
         """
         Enforces a scheduling strategy for the whole group. Overrides check configuration.
         """
         return pulumi.get(self, "enforce_scheduling_strategy")
 
     @enforce_scheduling_strategy.setter
-    def enforce_scheduling_strategy(self, value: Optional[pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs']]):
+    def enforce_scheduling_strategy(self, value: pulumi.Input[Optional['CheckGroupV2EnforceSchedulingStrategyArgs']]):
         pulumi.set(self, "enforce_scheduling_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    def environment_variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]:
+    def environment_variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]:
         """
         Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
     @environment_variables.setter
-    def environment_variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]):
+    def environment_variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]):
         pulumi.set(self, "environment_variables", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the check group.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="setupScript")
-    def setup_script(self) -> Optional[pulumi.Input['CheckGroupV2SetupScriptArgs']]:
+    def setup_script(self) -> pulumi.Input[Optional['CheckGroupV2SetupScriptArgs']]:
         """
         A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
         """
         return pulumi.get(self, "setup_script")
 
     @setup_script.setter
-    def setup_script(self, value: Optional[pulumi.Input['CheckGroupV2SetupScriptArgs']]):
+    def setup_script(self, value: pulumi.Input[Optional['CheckGroupV2SetupScriptArgs']]):
         pulumi.set(self, "setup_script", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="teardownScript")
-    def teardown_script(self) -> Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']]:
+    def teardown_script(self) -> pulumi.Input[Optional['CheckGroupV2TeardownScriptArgs']]:
         """
         A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         return pulumi.get(self, "teardown_script")
 
     @teardown_script.setter
-    def teardown_script(self, value: Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']]):
+    def teardown_script(self, value: pulumi.Input[Optional['CheckGroupV2TeardownScriptArgs']]):
         pulumi.set(self, "teardown_script", value)
 
 
@@ -488,20 +490,20 @@ class CheckGroupV2(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 api_check_defaults: Optional[pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict']]] = None,
-                 concurrency: Optional[pulumi.Input[_builtins.int]] = None,
-                 default_runtime: Optional[pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict']]] = None,
-                 enforce_alert_settings: Optional[pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict']]] = None,
-                 enforce_locations: Optional[pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict']]] = None,
-                 enforce_retry_strategy: Optional[pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict']]] = None,
-                 enforce_scheduling_strategy: Optional[pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict']]] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_script: Optional[pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict']]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_script: Optional[pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict']]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 api_check_defaults: pulumi.Input[Optional[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict', 'outputs.CheckGroupV2ApiCheckDefaults']]] = None,
+                 concurrency: pulumi.Input[Optional[_builtins.int]] = None,
+                 default_runtime: pulumi.Input[Optional[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict', 'outputs.CheckGroupV2DefaultRuntime']]] = None,
+                 enforce_alert_settings: pulumi.Input[Optional[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict', 'outputs.CheckGroupV2EnforceAlertSettings']]] = None,
+                 enforce_locations: pulumi.Input[Optional[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict', 'outputs.CheckGroupV2EnforceLocations']]] = None,
+                 enforce_retry_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict', 'outputs.CheckGroupV2EnforceRetryStrategy']]] = None,
+                 enforce_scheduling_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict', 'outputs.CheckGroupV2EnforceSchedulingStrategy']]] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict', 'outputs.CheckGroupV2EnvironmentVariable']]]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_script: pulumi.Input[Optional[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict', 'outputs.CheckGroupV2SetupScript']]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_script: pulumi.Input[Optional[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict', 'outputs.CheckGroupV2TeardownScript']]] = None,
                  __props__=None):
         """
         Check groups organize related checks together and allow optional shared configuration.
@@ -686,11 +688,11 @@ class CheckGroupV2(pulumi.CustomResource):
                 },
                 "alert_channel_subscriptions": [
                     {
-                        "channel_id": email.id,
+                        "channel_id": email.id.apply(lambda x: int(x)),
                         "activated": True,
                     },
                     {
-                        "channel_id": slack.id,
+                        "channel_id": slack.id.apply(lambda x: int(x)),
                         "activated": True,
                     },
                 ],
@@ -722,29 +724,29 @@ class CheckGroupV2(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing check group using its numeric ID.
-
         The ID is returned by the Checkly API at GET /v1/check-groups.
 
         ```sh
         $ pulumi import checkly:index/checkGroupV2:CheckGroupV2 example 12345
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
-        :param pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict']] api_check_defaults: Default settings for API checks in this group.
+        :param pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict', 'outputs.CheckGroupV2ApiCheckDefaults']] api_check_defaults: Default settings for API checks in this group.
         :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
-        :param pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict']] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
-        :param pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict']] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
-        :param pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict']] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
-        :param pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict']] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict']] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
+        :param pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict', 'outputs.CheckGroupV2DefaultRuntime']] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
+        :param pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict', 'outputs.CheckGroupV2EnforceAlertSettings']] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
+        :param pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict', 'outputs.CheckGroupV2EnforceLocations']] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
+        :param pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict', 'outputs.CheckGroupV2EnforceRetryStrategy']] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
+        :param pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict', 'outputs.CheckGroupV2EnforceSchedulingStrategy']] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict', 'outputs.CheckGroupV2EnvironmentVariable']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check group.
-        :param pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict']] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
+        :param pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict', 'outputs.CheckGroupV2SetupScript']] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
-        :param pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict']] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
+        :param pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict', 'outputs.CheckGroupV2TeardownScript']] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         ...
     @overload
@@ -935,11 +937,11 @@ class CheckGroupV2(pulumi.CustomResource):
                 },
                 "alert_channel_subscriptions": [
                     {
-                        "channel_id": email.id,
+                        "channel_id": email.id.apply(lambda x: int(x)),
                         "activated": True,
                     },
                     {
-                        "channel_id": slack.id,
+                        "channel_id": slack.id.apply(lambda x: int(x)),
                         "activated": True,
                     },
                 ],
@@ -971,12 +973,12 @@ class CheckGroupV2(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing check group using its numeric ID.
-
         The ID is returned by the Checkly API at GET /v1/check-groups.
 
         ```sh
         $ pulumi import checkly:index/checkGroupV2:CheckGroupV2 example 12345
         ```
+
 
         :param str resource_name: The name of the resource.
         :param CheckGroupV2Args args: The arguments to use to populate this resource's properties.
@@ -993,20 +995,20 @@ class CheckGroupV2(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 api_check_defaults: Optional[pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict']]] = None,
-                 concurrency: Optional[pulumi.Input[_builtins.int]] = None,
-                 default_runtime: Optional[pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict']]] = None,
-                 enforce_alert_settings: Optional[pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict']]] = None,
-                 enforce_locations: Optional[pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict']]] = None,
-                 enforce_retry_strategy: Optional[pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict']]] = None,
-                 enforce_scheduling_strategy: Optional[pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict']]] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_script: Optional[pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict']]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_script: Optional[pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict']]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 api_check_defaults: pulumi.Input[Optional[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict', 'outputs.CheckGroupV2ApiCheckDefaults']]] = None,
+                 concurrency: pulumi.Input[Optional[_builtins.int]] = None,
+                 default_runtime: pulumi.Input[Optional[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict', 'outputs.CheckGroupV2DefaultRuntime']]] = None,
+                 enforce_alert_settings: pulumi.Input[Optional[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict', 'outputs.CheckGroupV2EnforceAlertSettings']]] = None,
+                 enforce_locations: pulumi.Input[Optional[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict', 'outputs.CheckGroupV2EnforceLocations']]] = None,
+                 enforce_retry_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict', 'outputs.CheckGroupV2EnforceRetryStrategy']]] = None,
+                 enforce_scheduling_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict', 'outputs.CheckGroupV2EnforceSchedulingStrategy']]] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict', 'outputs.CheckGroupV2EnvironmentVariable']]]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_script: pulumi.Input[Optional[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict', 'outputs.CheckGroupV2SetupScript']]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_script: pulumi.Input[Optional[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict', 'outputs.CheckGroupV2TeardownScript']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1040,20 +1042,20 @@ class CheckGroupV2(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            activated: Optional[pulumi.Input[_builtins.bool]] = None,
-            api_check_defaults: Optional[pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict']]] = None,
-            concurrency: Optional[pulumi.Input[_builtins.int]] = None,
-            default_runtime: Optional[pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict']]] = None,
-            enforce_alert_settings: Optional[pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict']]] = None,
-            enforce_locations: Optional[pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict']]] = None,
-            enforce_retry_strategy: Optional[pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict']]] = None,
-            enforce_scheduling_strategy: Optional[pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict']]] = None,
-            environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]]] = None,
-            muted: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            setup_script: Optional[pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict']]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            teardown_script: Optional[pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict']]] = None) -> 'CheckGroupV2':
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            api_check_defaults: pulumi.Input[Optional[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict', 'outputs.CheckGroupV2ApiCheckDefaults']]] = None,
+            concurrency: pulumi.Input[Optional[_builtins.int]] = None,
+            default_runtime: pulumi.Input[Optional[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict', 'outputs.CheckGroupV2DefaultRuntime']]] = None,
+            enforce_alert_settings: pulumi.Input[Optional[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict', 'outputs.CheckGroupV2EnforceAlertSettings']]] = None,
+            enforce_locations: pulumi.Input[Optional[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict', 'outputs.CheckGroupV2EnforceLocations']]] = None,
+            enforce_retry_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict', 'outputs.CheckGroupV2EnforceRetryStrategy']]] = None,
+            enforce_scheduling_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict', 'outputs.CheckGroupV2EnforceSchedulingStrategy']]] = None,
+            environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict', 'outputs.CheckGroupV2EnvironmentVariable']]]]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            setup_script: pulumi.Input[Optional[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict', 'outputs.CheckGroupV2SetupScript']]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            teardown_script: pulumi.Input[Optional[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict', 'outputs.CheckGroupV2TeardownScript']]] = None) -> 'CheckGroupV2':
         """
         Get an existing CheckGroupV2 resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1062,19 +1064,19 @@ class CheckGroupV2(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
-        :param pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict']] api_check_defaults: Default settings for API checks in this group.
+        :param pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict', 'outputs.CheckGroupV2ApiCheckDefaults']] api_check_defaults: Default settings for API checks in this group.
         :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
-        :param pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict']] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
-        :param pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict']] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
-        :param pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict']] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
-        :param pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict']] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict']] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
+        :param pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict', 'outputs.CheckGroupV2DefaultRuntime']] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
+        :param pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict', 'outputs.CheckGroupV2EnforceAlertSettings']] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
+        :param pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict', 'outputs.CheckGroupV2EnforceLocations']] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
+        :param pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict', 'outputs.CheckGroupV2EnforceRetryStrategy']] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
+        :param pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict', 'outputs.CheckGroupV2EnforceSchedulingStrategy']] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict', 'outputs.CheckGroupV2EnvironmentVariable']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check group.
-        :param pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict']] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
+        :param pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict', 'outputs.CheckGroupV2SetupScript']] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
-        :param pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict']] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
+        :param pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict', 'outputs.CheckGroupV2TeardownScript']] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1095,6 +1097,40 @@ class CheckGroupV2(pulumi.CustomResource):
         __props__.__dict__["tags"] = tags
         __props__.__dict__["teardown_script"] = teardown_script
         return CheckGroupV2(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            api_check_defaults: pulumi.Input[Optional[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict', 'outputs.CheckGroupV2ApiCheckDefaults']]] = None,
+            concurrency: pulumi.Input[Optional[_builtins.int]] = None,
+            default_runtime: pulumi.Input[Optional[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict', 'outputs.CheckGroupV2DefaultRuntime']]] = None,
+            enforce_alert_settings: pulumi.Input[Optional[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict', 'outputs.CheckGroupV2EnforceAlertSettings']]] = None,
+            enforce_locations: pulumi.Input[Optional[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict', 'outputs.CheckGroupV2EnforceLocations']]] = None,
+            enforce_retry_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict', 'outputs.CheckGroupV2EnforceRetryStrategy']]] = None,
+            enforce_scheduling_strategy: pulumi.Input[Optional[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict', 'outputs.CheckGroupV2EnforceSchedulingStrategy']]] = None,
+            environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict', 'outputs.CheckGroupV2EnvironmentVariable']]]]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            setup_script: pulumi.Input[Optional[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict', 'outputs.CheckGroupV2SetupScript']]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            teardown_script: pulumi.Input[Optional[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict', 'outputs.CheckGroupV2TeardownScript']]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["activated"] = activated
+        __props__["apiCheckDefaults"] = api_check_defaults
+        __props__["concurrency"] = concurrency
+        __props__["defaultRuntime"] = default_runtime
+        __props__["enforceAlertSettings"] = enforce_alert_settings
+        __props__["enforceLocations"] = enforce_locations
+        __props__["enforceRetryStrategy"] = enforce_retry_strategy
+        __props__["enforceSchedulingStrategy"] = enforce_scheduling_strategy
+        __props__["environmentVariables"] = environment_variables
+        __props__["muted"] = muted
+        __props__["name"] = name
+        __props__["setupScript"] = setup_script
+        __props__["tags"] = tags
+        __props__["teardownScript"] = teardown_script
+        return pulumi.runtime.exists_resource(None, 'checkly:index/checkGroupV2:CheckGroupV2', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

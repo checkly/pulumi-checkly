@@ -72,6 +72,12 @@ func (PlaywrightCodeBundleState) ElementType() reflect.Type {
 	return reflect.TypeOf((*playwrightCodeBundleState)(nil)).Elem()
 }
 
+// PlaywrightCodeBundleExists checks whether an existing PlaywrightCodeBundle resource with the given ID exists.
+func PlaywrightCodeBundleExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PlaywrightCodeBundleState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/playwrightCodeBundle:PlaywrightCodeBundle", id, state, "", opts...)
+}
+
 type playwrightCodeBundleArgs struct {
 	// A prebuilt archive containing the code bundle.
 	PrebuiltArchive PlaywrightCodeBundlePrebuiltArchive `pulumi:"prebuiltArchive"`

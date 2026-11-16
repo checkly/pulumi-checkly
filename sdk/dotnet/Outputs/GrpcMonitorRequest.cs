@@ -17,13 +17,16 @@ namespace Pulumi.Checkly.Outputs
         /// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
         /// </summary>
         public readonly ImmutableArray<Outputs.GrpcMonitorRequestAssertion> Assertions;
+        /// <summary>
+        /// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+        /// </summary>
         public readonly string? BfbsContent;
         /// <summary>
         /// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
         /// </summary>
         public readonly string? Encoding;
         /// <summary>
-        /// The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `method`) and `HEALTH` (queries the standard gRPC health-check service, allows `service`). Defaults to `BEHAVIOR`.
+        /// The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `Method`) and `HEALTH` (queries the standard gRPC health-check service, allows `Service`). Defaults to `BEHAVIOR`.
         /// </summary>
         public readonly string? GrpcMode;
         /// <summary>
@@ -51,7 +54,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly int Port;
         /// <summary>
-        /// The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode, where it is required. Must be at most `102400` characters. Must not be set in `HEALTH` mode or when `encoding = "FLATBUFFERS"`.
+        /// The inline `.proto` file source used when `ServiceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode, where it is required. Must be at most `102400` characters. Must not be set in `HEALTH` mode or when `encoding = "FLATBUFFERS"`.
         /// </summary>
         public readonly string? ProtoContent;
         /// <summary>
@@ -59,11 +62,11 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string? Service;
         /// <summary>
-        /// How the service definition is resolved in `BEHAVIOR` mode. Possible values are `REFLECTION` (uses server reflection) and `PROTO_FILE` (uses the inline `proto_content`, which it requires). Defaults to `REFLECTION`. Must not be set when `encoding = "FLATBUFFERS"`, and must not be `PROTO_FILE` in `HEALTH` mode.
+        /// How the service definition is resolved in `BEHAVIOR` mode. Possible values are `REFLECTION` (uses server reflection) and `PROTO_FILE` (uses the inline `ProtoContent`, which it requires). Defaults to `REFLECTION`. Must not be set when `encoding = "FLATBUFFERS"`, and must not be `PROTO_FILE` in `HEALTH` mode.
         /// </summary>
         public readonly string? ServiceDefinition;
         /// <summary>
-        /// Whether to skip SSL certificate validation when `tls` is enabled. Defaults to `false`.
+        /// Whether to skip SSL certificate validation when `Tls` is enabled. Defaults to `False`.
         /// </summary>
         public readonly bool? SkipSsl;
         /// <summary>
@@ -71,7 +74,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly int? Timeout;
         /// <summary>
-        /// Whether to use a TLS-encrypted connection to the gRPC server. Defaults to `true`.
+        /// Whether to use a TLS-encrypted connection to the gRPC server. Defaults to `True`.
         /// </summary>
         public readonly bool? Tls;
 

@@ -67,13 +67,13 @@ namespace Pulumi.Checkly.Inputs
         public Input<Inputs.SslMonitorRequestSecurityBaselineGetArgs>? SecurityBaseline { get; set; }
 
         /// <summary>
-        /// An optional SNI server name to send in the TLS handshake. Must be at most `2048` characters. If not set, the value of `hostname` is used.
+        /// An optional SNI server name to send in the TLS handshake. Must be at most `2048` characters. If not set, the value of `Hostname` is used.
         /// </summary>
         [Input("serverName")]
         public Input<string>? ServerName { get; set; }
 
         /// <summary>
-        /// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). Defaults to `false`.
+        /// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). Defaults to `False`.
         /// </summary>
         [Input("skipChainValidation")]
         public Input<bool>? SkipChainValidation { get; set; }

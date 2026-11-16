@@ -613,5 +613,39 @@
             }
         }
     },
-    "auto-settings": {}
+    "auto-settings": {},
+    "default-resource-schema-fixups": {
+        "resources": {
+            "checkly_alert_channel": {},
+            "checkly_api_check": {},
+            "checkly_browser_check": {},
+            "checkly_check": {},
+            "checkly_check_group": {},
+            "checkly_check_group_v2": {},
+            "checkly_client_certificate": {},
+            "checkly_dashboard": {},
+            "checkly_dns_monitor": {},
+            "checkly_environment_variable": {},
+            "checkly_grpc_monitor": {},
+            "checkly_heartbeat": {},
+            "checkly_heartbeat_monitor": {},
+            "checkly_icmp_monitor": {},
+            "checkly_maintenance_window": {},
+            "checkly_multistep_check": {},
+            "checkly_playwright_check_suite": {},
+            "checkly_playwright_code_bundle": {},
+            "checkly_private_location": {},
+            "checkly_snippet": {},
+            "checkly_ssl_monitor": {},
+            "checkly_status_page": {},
+            "checkly_status_page_service": {},
+            "checkly_status_page_v3": {},
+            "checkly_status_page_v3_automation_rule": {},
+            "checkly_status_page_v3_component": {},
+            "checkly_tcp_check": {},
+            "checkly_tcp_monitor": {},
+            "checkly_traceroute_monitor": {},
+            "checkly_url_monitor": {}
+        }
+    }
 }

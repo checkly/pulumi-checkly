@@ -37,7 +37,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<bool> Enabled { get; set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this check group. Defaults to `true` when `alert_settings` is not set, and to `false` when it is. The value is derived only while `enabled` is `true`. While the enforcement stays disabled, the stored value is kept and has no effect; disabling an enabled enforcement resets it to null.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check group. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is. The value is derived only while `Enabled` is `True`. While the enforcement stays disabled, the stored value is kept and has no effect; disabling an enabled enforcement resets it to null.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

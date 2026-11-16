@@ -61,7 +61,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing URL monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -238,6 +237,12 @@ type UrlMonitorState struct {
 
 func (UrlMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*urlMonitorState)(nil)).Elem()
+}
+
+// UrlMonitorExists checks whether an existing UrlMonitor resource with the given ID exists.
+func UrlMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *UrlMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/urlMonitor:UrlMonitor", id, state, "", opts...)
 }
 
 type urlMonitorArgs struct {

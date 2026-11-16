@@ -4687,6 +4687,7 @@ type BrowserCheckEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -4708,6 +4709,7 @@ type BrowserCheckEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -4774,6 +4776,7 @@ func (o BrowserCheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v BrowserCheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 func (o BrowserCheckEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v BrowserCheckEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -6472,6 +6475,7 @@ type CheckEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -6493,6 +6497,7 @@ type CheckEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -6559,6 +6564,7 @@ func (o CheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 func (o CheckEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -7997,6 +8003,7 @@ type CheckGroupEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -8018,6 +8025,7 @@ type CheckGroupEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -8084,6 +8092,7 @@ func (o CheckGroupEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 func (o CheckGroupEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -11096,6 +11105,7 @@ type CheckGroupV2EnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -11117,6 +11127,7 @@ type CheckGroupV2EnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -11183,6 +11194,7 @@ func (o CheckGroupV2EnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 func (o CheckGroupV2EnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -15631,8 +15643,9 @@ func (o GrpcMonitorAlertSettingsTimeBasedEscalationPtrOutput) MinutesFailingThre
 
 type GrpcMonitorRequest struct {
 	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
-	Assertions  []GrpcMonitorRequestAssertion `pulumi:"assertions"`
-	BfbsContent *string                       `pulumi:"bfbsContent"`
+	Assertions []GrpcMonitorRequestAssertion `pulumi:"assertions"`
+	// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+	BfbsContent *string `pulumi:"bfbsContent"`
 	// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
 	Encoding *string `pulumi:"encoding"`
 	// The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `method`) and `HEALTH` (queries the standard gRPC health-check service, allows `service`). Defaults to `BEHAVIOR`.
@@ -15676,8 +15689,9 @@ type GrpcMonitorRequestInput interface {
 
 type GrpcMonitorRequestArgs struct {
 	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
-	Assertions  GrpcMonitorRequestAssertionArrayInput `pulumi:"assertions"`
-	BfbsContent pulumi.StringPtrInput                 `pulumi:"bfbsContent"`
+	Assertions GrpcMonitorRequestAssertionArrayInput `pulumi:"assertions"`
+	// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+	BfbsContent pulumi.StringPtrInput `pulumi:"bfbsContent"`
 	// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
 	Encoding pulumi.StringPtrInput `pulumi:"encoding"`
 	// The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `method`) and `HEALTH` (queries the standard gRPC health-check service, allows `service`). Defaults to `BEHAVIOR`.
@@ -15790,6 +15804,7 @@ func (o GrpcMonitorRequestOutput) Assertions() GrpcMonitorRequestAssertionArrayO
 	return o.ApplyT(func(v GrpcMonitorRequest) []GrpcMonitorRequestAssertion { return v.Assertions }).(GrpcMonitorRequestAssertionArrayOutput)
 }
 
+// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
 func (o GrpcMonitorRequestOutput) BfbsContent() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.BfbsContent }).(pulumi.StringPtrOutput)
 }
@@ -15898,6 +15913,7 @@ func (o GrpcMonitorRequestPtrOutput) Assertions() GrpcMonitorRequestAssertionArr
 	}).(GrpcMonitorRequestAssertionArrayOutput)
 }
 
+// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
 func (o GrpcMonitorRequestPtrOutput) BfbsContent() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
 		if v == nil {
@@ -22644,6 +22660,7 @@ type MultistepCheckEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -22665,6 +22682,7 @@ type MultistepCheckEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -22731,6 +22749,7 @@ func (o MultistepCheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MultistepCheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 func (o MultistepCheckEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MultistepCheckEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -24591,6 +24610,7 @@ type PlaywrightCheckSuiteEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -24612,6 +24632,7 @@ type PlaywrightCheckSuiteEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
+	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -24678,6 +24699,7 @@ func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Locked() pulumi.BoolPtrOu
 	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
+// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
 func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }

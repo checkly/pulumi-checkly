@@ -41,7 +41,7 @@ namespace Pulumi.Checkly
         /// 
         ///     // Allow traffic from those runners to a service behind an AWS security group.
         ///     // The addresses are already in CIDR notation, such as "3.64.0.1/32".
-        ///     var checklyIngress = new Aws.Index.SecurityGroupRule("checkly_ingress", new()
+        ///     var checklyIngress = new Aws.SecurityGroupRule("checkly_ingress", new()
         ///     {
         ///         Type = "ingress",
         ///         FromPort = 443,
@@ -87,7 +87,7 @@ namespace Pulumi.Checkly
         /// 
         ///     // Allow traffic from those runners to a service behind an AWS security group.
         ///     // The addresses are already in CIDR notation, such as "3.64.0.1/32".
-        ///     var checklyIngress = new Aws.Index.SecurityGroupRule("checkly_ingress", new()
+        ///     var checklyIngress = new Aws.SecurityGroupRule("checkly_ingress", new()
         ///     {
         ///         Type = "ingress",
         ///         FromPort = 443,
@@ -133,7 +133,7 @@ namespace Pulumi.Checkly
         /// 
         ///     // Allow traffic from those runners to a service behind an AWS security group.
         ///     // The addresses are already in CIDR notation, such as "3.64.0.1/32".
-        ///     var checklyIngress = new Aws.Index.SecurityGroupRule("checkly_ingress", new()
+        ///     var checklyIngress = new Aws.SecurityGroupRule("checkly_ingress", new()
         ///     {
         ///         Type = "ingress",
         ///         FromPort = 443,
@@ -154,7 +154,7 @@ namespace Pulumi.Checkly
     public sealed class GetStaticIpsArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
+        /// Specify the IP family you want to get static IPs for. Possible values are `All` (both families), `IPv4` and `IPv6`. Defaults to `All`.
         /// </summary>
         [Input("ipFamily")]
         public string? IpFamily { get; set; }
@@ -180,7 +180,7 @@ namespace Pulumi.Checkly
     public sealed class GetStaticIpsInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
+        /// Specify the IP family you want to get static IPs for. Possible values are `All` (both families), `IPv4` and `IPv6`. Defaults to `All`.
         /// </summary>
         [Input("ipFamily")]
         public Input<string>? IpFamily { get; set; }
@@ -216,7 +216,7 @@ namespace Pulumi.Checkly
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
+        /// Specify the IP family you want to get static IPs for. Possible values are `All` (both families), `IPv4` and `IPv6`. Defaults to `All`.
         /// </summary>
         public readonly string IpFamily;
         /// <summary>

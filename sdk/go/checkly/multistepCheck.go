@@ -293,6 +293,12 @@ func (MultistepCheckState) ElementType() reflect.Type {
 	return reflect.TypeOf((*multistepCheckState)(nil)).Elem()
 }
 
+// MultistepCheckExists checks whether an existing MultistepCheck resource with the given ID exists.
+func MultistepCheckExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MultistepCheckState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/multistepCheck:MultistepCheck", id, state, "", opts...)
+}
+
 type multistepCheckArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`

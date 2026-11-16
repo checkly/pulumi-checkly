@@ -109,7 +109,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing TCP monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -292,6 +291,12 @@ type TcpMonitorState struct {
 
 func (TcpMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*tcpMonitorState)(nil)).Elem()
+}
+
+// TcpMonitorExists checks whether an existing TcpMonitor resource with the given ID exists.
+func TcpMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TcpMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/tcpMonitor:TcpMonitor", id, state, "", opts...)
 }
 
 type tcpMonitorArgs struct {

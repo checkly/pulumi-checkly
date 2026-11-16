@@ -93,12 +93,8 @@ type GetStaticIpsResult struct {
 }
 
 func GetStaticIpsOutput(ctx *pulumi.Context, args GetStaticIpsOutputArgs, opts ...pulumi.InvokeOption) GetStaticIpsResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (GetStaticIpsResultOutput, error) {
-			args := v.(GetStaticIpsArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("checkly:index/getStaticIps:getStaticIps", args, GetStaticIpsResultOutput{}, options).(GetStaticIpsResultOutput), nil
-		}).(GetStaticIpsResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("checkly:index/getStaticIps:getStaticIps", args, GetStaticIpsResultOutput{}, options).(GetStaticIpsResultOutput)
 }
 
 // A collection of arguments for invoking getStaticIps.

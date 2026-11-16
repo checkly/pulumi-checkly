@@ -19,7 +19,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> Comparison { get; set; } = null!;
 
         /// <summary>
-        /// The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max` and `stdDev`. Not used for `HOP_COUNT` and `PACKET_LOSS`.
+        /// The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `Avg`, `Min`, `Max` and `stdDev`. Not used for `HOP_COUNT` and `PACKET_LOSS`.
         /// </summary>
         [Input("property")]
         public Input<string>? Property { get; set; }

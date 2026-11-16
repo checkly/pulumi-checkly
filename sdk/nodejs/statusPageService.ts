@@ -23,10 +23,8 @@ import * as utilities from "./utilities";
  *
  * The `pulumi import` command can be used, for example:
  *
- * checkly_status_page_service is deprecated together with checkly_status_page; services of v3 status pages are checkly_status_page_v3_component resources.
- *
+ * checkly.StatusPageService is deprecated together with checkly_status_page; services of v3 status pages are checkly.StatusPageV3Component resources.
  * Import an existing status page service using its ID.
- *
  * The ID is returned by the Checkly API at GET /v1/status-pages/services.
  *
  * ```sh
@@ -48,6 +46,17 @@ export class StatusPageService extends pulumi.CustomResource {
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: StatusPageServiceState, opts?: pulumi.CustomResourceOptions): StatusPageService {
         pulumi.log.warn("StatusPageService is deprecated: Use StatusPageV3Component resources on a StatusPageV3 page instead.")
         return new StatusPageService(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing StatusPageService resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: StatusPageServiceState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/statusPageService:StatusPageService", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -102,7 +111,7 @@ export interface StatusPageServiceState {
     /**
      * The name of the service.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -112,5 +121,5 @@ export interface StatusPageServiceArgs {
     /**
      * The name of the service.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
 }

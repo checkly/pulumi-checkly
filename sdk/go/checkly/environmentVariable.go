@@ -67,8 +67,9 @@ type EnvironmentVariable struct {
 	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
 	Locked pulumi.BoolOutput `pulumi:"locked"`
 	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
-	Secret pulumi.BoolOutput   `pulumi:"secret"`
-	Value  pulumi.StringOutput `pulumi:"value"`
+	Secret pulumi.BoolOutput `pulumi:"secret"`
+	// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+	Value pulumi.StringOutput `pulumi:"value"`
 }
 
 // NewEnvironmentVariable registers a new resource with the given unique name, arguments, and options.
@@ -119,8 +120,9 @@ type environmentVariableState struct {
 	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
 	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
-	Secret *bool   `pulumi:"secret"`
-	Value  *string `pulumi:"value"`
+	Secret *bool `pulumi:"secret"`
+	// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+	Value *string `pulumi:"value"`
 }
 
 type EnvironmentVariableState struct {
@@ -130,11 +132,18 @@ type EnvironmentVariableState struct {
 	Locked pulumi.BoolPtrInput
 	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
 	Secret pulumi.BoolPtrInput
-	Value  pulumi.StringPtrInput
+	// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+	Value pulumi.StringPtrInput
 }
 
 func (EnvironmentVariableState) ElementType() reflect.Type {
 	return reflect.TypeOf((*environmentVariableState)(nil)).Elem()
+}
+
+// EnvironmentVariableExists checks whether an existing EnvironmentVariable resource with the given ID exists.
+func EnvironmentVariableExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *EnvironmentVariableState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/environmentVariable:EnvironmentVariable", id, state, "", opts...)
 }
 
 type environmentVariableArgs struct {
@@ -143,8 +152,9 @@ type environmentVariableArgs struct {
 	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
 	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
-	Secret *bool  `pulumi:"secret"`
-	Value  string `pulumi:"value"`
+	Secret *bool `pulumi:"secret"`
+	// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+	Value string `pulumi:"value"`
 }
 
 // The set of arguments for constructing a EnvironmentVariable resource.
@@ -155,7 +165,8 @@ type EnvironmentVariableArgs struct {
 	Locked pulumi.BoolPtrInput
 	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
 	Secret pulumi.BoolPtrInput
-	Value  pulumi.StringInput
+	// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+	Value pulumi.StringInput
 }
 
 func (EnvironmentVariableArgs) ElementType() reflect.Type {
@@ -260,6 +271,7 @@ func (o EnvironmentVariableOutput) Secret() pulumi.BoolOutput {
 	return o.ApplyT(func(v *EnvironmentVariable) pulumi.BoolOutput { return v.Secret }).(pulumi.BoolOutput)
 }
 
+// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
 func (o EnvironmentVariableOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v *EnvironmentVariable) pulumi.StringOutput { return v.Value }).(pulumi.StringOutput)
 }

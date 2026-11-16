@@ -26,13 +26,13 @@ namespace Pulumi.Checkly
     public partial class BrowserCheck : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines whether the check runs on its schedule. Defaults to `true`.
+        /// Determines whether the check runs on its schedule. Defaults to `True`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `Script` to `IgnoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `AiAutoRepairEnabled` to `IgnoreChanges`.
         /// </summary>
         [Output("aiAutoRepairEnabled")]
         public Output<bool?> AiAutoRepairEnabled { get; private set; } = null!;
@@ -50,7 +50,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.BrowserCheckAlertSettings> AlertSettings { get; private set; } = null!;
 
         /// <summary>
-        /// Script dependency files for editor-style multi-file scripts. Use together with `script_path` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+        /// Script dependency files for editor-style multi-file scripts. Use together with `ScriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
         /// </summary>
         [Output("dependencies")]
         public Output<ImmutableArray<Outputs.BrowserCheckDependency>> Dependencies { get; private set; } = null!;
@@ -86,19 +86,19 @@ namespace Pulumi.Checkly
         public Output<int?> GroupOrder { get; private set; } = null!;
 
         /// <summary>
-        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `Intent` to `IgnoreChanges`.
         /// </summary>
         [Output("intent")]
         public Output<Outputs.BrowserCheckIntent?> Intent { get; private set; } = null!;
 
         /// <summary>
-        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Output("muted")]
         public Output<bool> Muted { get; private set; } = null!;
@@ -122,7 +122,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.BrowserCheckRetryStrategy> RetryStrategy { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Output("runParallel")]
         public Output<bool> RunParallel { get; private set; } = null!;
@@ -164,7 +164,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.BrowserCheckTriggerIncident?> TriggerIncident { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
         public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
@@ -217,13 +217,13 @@ namespace Pulumi.Checkly
     public sealed class BrowserCheckArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the check runs on its schedule. Defaults to `true`.
+        /// Determines whether the check runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
 
         /// <summary>
-        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `Script` to `IgnoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `AiAutoRepairEnabled` to `IgnoreChanges`.
         /// </summary>
         [Input("aiAutoRepairEnabled")]
         public Input<bool>? AiAutoRepairEnabled { get; set; }
@@ -250,7 +250,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.BrowserCheckDependencyArgs>? _dependencies;
 
         /// <summary>
-        /// Script dependency files for editor-style multi-file scripts. Use together with `script_path` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+        /// Script dependency files for editor-style multi-file scripts. Use together with `ScriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
         /// </summary>
         public InputList<Inputs.BrowserCheckDependencyArgs> Dependencies
         {
@@ -295,7 +295,7 @@ namespace Pulumi.Checkly
         public Input<int>? GroupOrder { get; set; }
 
         /// <summary>
-        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `Intent` to `IgnoreChanges`.
         /// </summary>
         [Input("intent")]
         public Input<Inputs.BrowserCheckIntentArgs>? Intent { get; set; }
@@ -304,7 +304,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -313,7 +313,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -343,7 +343,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.BrowserCheckRetryStrategyArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
@@ -391,7 +391,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.BrowserCheckTriggerIncidentArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -405,13 +405,13 @@ namespace Pulumi.Checkly
     public sealed class BrowserCheckState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the check runs on its schedule. Defaults to `true`.
+        /// Determines whether the check runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
 
         /// <summary>
-        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `Script` to `IgnoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `AiAutoRepairEnabled` to `IgnoreChanges`.
         /// </summary>
         [Input("aiAutoRepairEnabled")]
         public Input<bool>? AiAutoRepairEnabled { get; set; }
@@ -438,7 +438,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.BrowserCheckDependencyGetArgs>? _dependencies;
 
         /// <summary>
-        /// Script dependency files for editor-style multi-file scripts. Use together with `script_path` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+        /// Script dependency files for editor-style multi-file scripts. Use together with `ScriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
         /// </summary>
         public InputList<Inputs.BrowserCheckDependencyGetArgs> Dependencies
         {
@@ -483,7 +483,7 @@ namespace Pulumi.Checkly
         public Input<int>? GroupOrder { get; set; }
 
         /// <summary>
-        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `Intent` to `IgnoreChanges`.
         /// </summary>
         [Input("intent")]
         public Input<Inputs.BrowserCheckIntentGetArgs>? Intent { get; set; }
@@ -492,7 +492,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -501,7 +501,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -531,7 +531,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.BrowserCheckRetryStrategyGetArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
@@ -579,7 +579,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.BrowserCheckTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

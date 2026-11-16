@@ -14,19 +14,19 @@ namespace Pulumi.Checkly.Outputs
     public sealed class HeartbeatCheckHeartbeat
     {
         /// <summary>
-        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period. Must be at least `0`, and the combination of `grace` and `grace_unit` must be at most 365 days.
+        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period. Must be at least `0`, and the combination of `Grace` and `GraceUnit` must be at most 365 days.
         /// </summary>
         public readonly int Grace;
         /// <summary>
-        /// The unit of `grace`. Possible values are `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `Grace`. Possible values are `Seconds`, `Minutes`, `Hours` and `Days`.
         /// </summary>
         public readonly string GraceUnit;
         /// <summary>
-        /// How often you expect a ping to the ping URL. The combination of `period` and `period_unit` must be between 30 seconds and 365 days.
+        /// How often you expect a ping to the ping URL. The combination of `Period` and `PeriodUnit` must be between 30 seconds and 365 days.
         /// </summary>
         public readonly int Period;
         /// <summary>
-        /// The unit of `period`. Possible values are `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `Period`. Possible values are `Seconds`, `Minutes`, `Hours` and `Days`.
         /// </summary>
         public readonly string PeriodUnit;
         /// <summary>

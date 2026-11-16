@@ -41,10 +41,8 @@ import * as utilities from "./utilities";
  *
  * The `pulumi import` command can be used, for example:
  *
- * checkly_status_page is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
- *
+ * checkly.StatusPage is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
  * Import an existing status page using its ID.
- *
  * The ID is returned by the Checkly API at GET /v1/status-pages.
  *
  * ```sh
@@ -66,6 +64,17 @@ export class StatusPage extends pulumi.CustomResource {
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: StatusPageState, opts?: pulumi.CustomResourceOptions): StatusPage {
         pulumi.log.warn("StatusPage is deprecated: Use the StatusPageV3 resource instead. v3 status pages are separate objects, so an existing page cannot be converted.")
         return new StatusPage(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing StatusPage resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: StatusPageState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/statusPage:StatusPage", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -168,35 +177,35 @@ export interface StatusPageState {
     /**
      * A list of cards to include on the status page.
      */
-    cards?: pulumi.Input<pulumi.Input<inputs.StatusPageCard>[]>;
+    cards?: pulumi.Input<pulumi.Input<inputs.StatusPageCard>[] | undefined>;
     /**
      * A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
      */
-    customDomain?: pulumi.Input<string>;
+    customDomain?: pulumi.Input<string | undefined>;
     /**
      * The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
      */
-    defaultTheme?: pulumi.Input<string>;
+    defaultTheme?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the favicon of the status page.
      */
-    favicon?: pulumi.Input<string>;
+    favicon?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the logo for the status page.
      */
-    logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string | undefined>;
     /**
      * The name of the status page.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The http or https URL the user should be redirected to when clicking the logo.
      */
-    redirectTo?: pulumi.Input<string>;
+    redirectTo?: pulumi.Input<string | undefined>;
     /**
      * The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
      */
-    url?: pulumi.Input<string>;
+    url?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -210,27 +219,27 @@ export interface StatusPageArgs {
     /**
      * A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
      */
-    customDomain?: pulumi.Input<string>;
+    customDomain?: pulumi.Input<string | undefined>;
     /**
      * The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
      */
-    defaultTheme?: pulumi.Input<string>;
+    defaultTheme?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the favicon of the status page.
      */
-    favicon?: pulumi.Input<string>;
+    favicon?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the logo for the status page.
      */
-    logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string | undefined>;
     /**
      * The name of the status page.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The http or https URL the user should be redirected to when clicking the logo.
      */
-    redirectTo?: pulumi.Input<string>;
+    redirectTo?: pulumi.Input<string | undefined>;
     /**
      * The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
      */

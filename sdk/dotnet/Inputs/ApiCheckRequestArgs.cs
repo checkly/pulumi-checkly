@@ -43,7 +43,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string>? BodyType { get; set; }
 
         /// <summary>
-        /// Whether to follow HTTP redirects. Defaults to `true`.
+        /// Whether to follow HTTP redirects. Defaults to `True`.
         /// </summary>
         [Input("followRedirects")]
         public Input<bool>? FollowRedirects { get; set; }
@@ -85,7 +85,7 @@ namespace Pulumi.Checkly.Inputs
         }
 
         /// <summary>
-        /// Whether to skip TLS certificate validation of the request. Defaults to `false`.
+        /// Whether to skip TLS certificate validation of the request. Defaults to `False`.
         /// </summary>
         [Input("skipSsl")]
         public Input<bool>? SkipSsl { get; set; }

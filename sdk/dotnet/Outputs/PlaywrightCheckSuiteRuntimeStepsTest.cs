@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntimeStepsTest
     {
         /// <summary>
-        /// The command used to run Playwright. Can't be empty. If not set, the exec command of your package manager is used, for example `npx playwright test` for `npm`.
+        /// The command used to run Playwright. Can't be empty. If not set, the exec command of your package manager is used, for example `npx playwright test` for `Npm`.
         /// </summary>
         public readonly string? Command;
 

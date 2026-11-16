@@ -44,7 +44,6 @@ import * as utilities from "./utilities";
  * The `pulumi import` command can be used, for example:
  *
  * Import an existing status page automation rule using "<status_page_id>/<rule_id>".
- *
  * Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/automation-rules.
  *
  * ```sh
@@ -63,6 +62,17 @@ export class StatusPageV3AutomationRule extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: StatusPageV3AutomationRuleState, opts?: pulumi.CustomResourceOptions): StatusPageV3AutomationRule {
         return new StatusPageV3AutomationRule(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing StatusPageV3AutomationRule resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: StatusPageV3AutomationRuleState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -174,39 +184,39 @@ export interface StatusPageV3AutomationRuleState {
     /**
      * The components an automated incident impacts, with the impact each gets.
      */
-    components?: pulumi.Input<pulumi.Input<inputs.StatusPageV3AutomationRuleComponent>[]>;
+    components?: pulumi.Input<pulumi.Input<inputs.StatusPageV3AutomationRuleComponent>[] | undefined>;
     /**
      * Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
      */
-    coolDownWindowMinutes?: pulumi.Input<number>;
+    coolDownWindowMinutes?: pulumi.Input<number | undefined>;
     /**
      * A disabled rule never opens incidents. Defaults to `true`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Body of the status update that opens the incident. Must not be empty.
      */
-    firstUpdate?: pulumi.Input<string>;
+    firstUpdate?: pulumi.Input<string | undefined>;
     /**
      * Body of the status update that resolves the incident. Must not be empty.
      */
-    lastUpdate?: pulumi.Input<string>;
+    lastUpdate?: pulumi.Input<string | undefined>;
     /**
      * The name of the rule. Must be between `1` and `255` characters.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Whether subscribers are notified of the automated updates. Defaults to `true`.
      */
-    notifySubscribers?: pulumi.Input<boolean>;
+    notifySubscribers?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the v3 status page the rule belongs to.
      */
-    statusPageId?: pulumi.Input<string>;
+    statusPageId?: pulumi.Input<string | undefined>;
     /**
      * A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 /**
@@ -216,15 +226,15 @@ export interface StatusPageV3AutomationRuleArgs {
     /**
      * The components an automated incident impacts, with the impact each gets.
      */
-    components?: pulumi.Input<pulumi.Input<inputs.StatusPageV3AutomationRuleComponent>[]>;
+    components?: pulumi.Input<pulumi.Input<inputs.StatusPageV3AutomationRuleComponent>[] | undefined>;
     /**
      * Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
      */
-    coolDownWindowMinutes?: pulumi.Input<number>;
+    coolDownWindowMinutes?: pulumi.Input<number | undefined>;
     /**
      * A disabled rule never opens incidents. Defaults to `true`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Body of the status update that opens the incident. Must not be empty.
      */
@@ -236,11 +246,11 @@ export interface StatusPageV3AutomationRuleArgs {
     /**
      * The name of the rule. Must be between `1` and `255` characters.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Whether subscribers are notified of the automated updates. Defaults to `true`.
      */
-    notifySubscribers?: pulumi.Input<boolean>;
+    notifySubscribers?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the v3 status page the rule belongs to.
      */

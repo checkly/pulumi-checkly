@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntimeStepsInstall
     {
         /// <summary>
-        /// The command used to install dependencies prior to running Playwright. Can't be empty. If not set, the install command of your package manager is used, for example `npm install` for `npm`.
+        /// The command used to install dependencies prior to running Playwright. Can't be empty. If not set, the install command of your package manager is used, for example `npm install` for `Npm`.
         /// </summary>
         public readonly string? Command;
 

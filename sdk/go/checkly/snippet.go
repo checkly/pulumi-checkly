@@ -54,7 +54,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing snippet using its numeric ID.
-//
 // The ID is returned by the Checkly API at GET /v1/snippets.
 //
 // ```sh
@@ -117,6 +116,12 @@ type SnippetState struct {
 
 func (SnippetState) ElementType() reflect.Type {
 	return reflect.TypeOf((*snippetState)(nil)).Elem()
+}
+
+// SnippetExists checks whether an existing Snippet resource with the given ID exists.
+func SnippetExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SnippetState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/snippet:Snippet", id, state, "", opts...)
 }
 
 type snippetArgs struct {

@@ -193,11 +193,11 @@ import * as utilities from "./utilities";
  *         },
  *         alertChannelSubscriptions: [
  *             {
- *                 channelId: email.id,
+ *                 channelId: email.id.apply(x =>Number(x)),
  *                 activated: true,
  *             },
  *             {
- *                 channelId: slack.id,
+ *                 channelId: slack.id.apply(x =>Number(x)),
  *                 activated: true,
  *             },
  *         ],
@@ -232,7 +232,6 @@ import * as utilities from "./utilities";
  * The `pulumi import` command can be used, for example:
  *
  * Import an existing check group using its numeric ID.
- *
  * The ID is returned by the Checkly API at GET /v1/check-groups.
  *
  * ```sh
@@ -251,6 +250,17 @@ export class CheckGroupV2 extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: CheckGroupV2State, opts?: pulumi.CustomResourceOptions): CheckGroupV2 {
         return new CheckGroupV2(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing CheckGroupV2 resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: CheckGroupV2State, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/checkGroupV2:CheckGroupV2", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -380,59 +390,59 @@ export interface CheckGroupV2State {
     /**
      * Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
      */
-    activated?: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
      * Default settings for API checks in this group.
      */
-    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupV2ApiCheckDefaults>;
+    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupV2ApiCheckDefaults | undefined>;
     /**
      * Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
      */
-    concurrency?: pulumi.Input<number>;
+    concurrency?: pulumi.Input<number | undefined>;
     /**
      * Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
      */
-    defaultRuntime?: pulumi.Input<inputs.CheckGroupV2DefaultRuntime>;
+    defaultRuntime?: pulumi.Input<inputs.CheckGroupV2DefaultRuntime | undefined>;
     /**
      * Enforces alert settings for the whole group. Overrides check configuration.
      */
-    enforceAlertSettings?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettings>;
+    enforceAlertSettings?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettings | undefined>;
     /**
      * Enforces public and private locations for the whole group. Overrides check configuration.
      */
-    enforceLocations?: pulumi.Input<inputs.CheckGroupV2EnforceLocations>;
+    enforceLocations?: pulumi.Input<inputs.CheckGroupV2EnforceLocations | undefined>;
     /**
      * Enforces a retry strategy for the whole group. Overrides check configuration.
      */
-    enforceRetryStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceRetryStrategy>;
+    enforceRetryStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceRetryStrategy | undefined>;
     /**
      * Enforces a scheduling strategy for the whole group. Overrides check configuration.
      */
-    enforceSchedulingStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceSchedulingStrategy>;
+    enforceSchedulingStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceSchedulingStrategy | undefined>;
     /**
      * Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
      */
-    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2EnvironmentVariable>[]>;
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2EnvironmentVariable>[] | undefined>;
     /**
      * Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
      */
-    muted?: pulumi.Input<boolean>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the check group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
      */
-    setupScript?: pulumi.Input<inputs.CheckGroupV2SetupScript>;
+    setupScript?: pulumi.Input<inputs.CheckGroupV2SetupScript | undefined>;
     /**
      * Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
      */
-    teardownScript?: pulumi.Input<inputs.CheckGroupV2TeardownScript>;
+    teardownScript?: pulumi.Input<inputs.CheckGroupV2TeardownScript | undefined>;
 }
 
 /**
@@ -442,57 +452,57 @@ export interface CheckGroupV2Args {
     /**
      * Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
      */
-    activated?: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
      * Default settings for API checks in this group.
      */
-    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupV2ApiCheckDefaults>;
+    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupV2ApiCheckDefaults | undefined>;
     /**
      * Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
      */
-    concurrency?: pulumi.Input<number>;
+    concurrency?: pulumi.Input<number | undefined>;
     /**
      * Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
      */
-    defaultRuntime?: pulumi.Input<inputs.CheckGroupV2DefaultRuntime>;
+    defaultRuntime?: pulumi.Input<inputs.CheckGroupV2DefaultRuntime | undefined>;
     /**
      * Enforces alert settings for the whole group. Overrides check configuration.
      */
-    enforceAlertSettings?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettings>;
+    enforceAlertSettings?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettings | undefined>;
     /**
      * Enforces public and private locations for the whole group. Overrides check configuration.
      */
-    enforceLocations?: pulumi.Input<inputs.CheckGroupV2EnforceLocations>;
+    enforceLocations?: pulumi.Input<inputs.CheckGroupV2EnforceLocations | undefined>;
     /**
      * Enforces a retry strategy for the whole group. Overrides check configuration.
      */
-    enforceRetryStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceRetryStrategy>;
+    enforceRetryStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceRetryStrategy | undefined>;
     /**
      * Enforces a scheduling strategy for the whole group. Overrides check configuration.
      */
-    enforceSchedulingStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceSchedulingStrategy>;
+    enforceSchedulingStrategy?: pulumi.Input<inputs.CheckGroupV2EnforceSchedulingStrategy | undefined>;
     /**
      * Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
      */
-    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2EnvironmentVariable>[]>;
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2EnvironmentVariable>[] | undefined>;
     /**
      * Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
      */
-    muted?: pulumi.Input<boolean>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the check group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
      */
-    setupScript?: pulumi.Input<inputs.CheckGroupV2SetupScript>;
+    setupScript?: pulumi.Input<inputs.CheckGroupV2SetupScript | undefined>;
     /**
      * Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
      */
-    teardownScript?: pulumi.Input<inputs.CheckGroupV2TeardownScript>;
+    teardownScript?: pulumi.Input<inputs.CheckGroupV2TeardownScript | undefined>;
 }

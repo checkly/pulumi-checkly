@@ -106,7 +106,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing status page using its ID.
-//
 // The ID is returned by the Checkly API at GET /v3/status-pages.
 //
 // ```sh
@@ -253,6 +252,12 @@ type StatusPageV3State struct {
 
 func (StatusPageV3State) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageV3State)(nil)).Elem()
+}
+
+// StatusPageV3Exists checks whether an existing StatusPageV3 resource with the given ID exists.
+func StatusPageV3Exists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageV3State, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPageV3:StatusPageV3", id, state, "", opts...)
 }
 
 type statusPageV3Args struct {

@@ -14,15 +14,15 @@ namespace Pulumi.Checkly.Outputs
     public sealed class MaintenanceWindowStatusPageVisibilityComponentConfig
     {
         /// <summary>
-        /// Mark every component of the status page as affected, including components added later. Defaults to `false`. Can't be combined with `components`.
+        /// Mark every component of the status page as affected, including components added later. Defaults to `False`. Can't be combined with `Components`.
         /// </summary>
         public readonly bool? AffectAllComponents;
         /// <summary>
-        /// The affected components of the status page, each with the status it shows while the maintenance is in progress. Required unless `affect_all_components` is `true`; an empty set means the same as leaving it out.
+        /// The affected components of the status page, each with the status it shows while the maintenance is in progress. Required unless `AffectAllComponents` is `True`; an empty set means the same as leaving it out.
         /// </summary>
         public readonly ImmutableArray<Outputs.MaintenanceWindowStatusPageVisibilityComponentConfigComponent> Components;
         /// <summary>
-        /// The ID of a v3 status page (`checkly.StatusPageV3`). The page must also be listed in `status_page_ids`.
+        /// The ID of a v3 status page (`checkly.StatusPageV3`). The page must also be listed in `StatusPageIds`.
         /// </summary>
         public readonly string StatusPageId;
 

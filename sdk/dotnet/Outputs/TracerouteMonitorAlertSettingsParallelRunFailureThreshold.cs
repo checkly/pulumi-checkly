@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class TracerouteMonitorAlertSettingsParallelRunFailureThreshold
     {
         /// <summary>
-        /// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
+        /// Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `False`.
         /// </summary>
         public readonly bool? Enabled;
         /// <summary>

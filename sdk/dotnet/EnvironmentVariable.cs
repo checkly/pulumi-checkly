@@ -59,17 +59,20 @@ namespace Pulumi.Checkly
         public Output<string> Key { get; private set; } = null!;
 
         /// <summary>
-        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `False`.
         /// </summary>
         [Output("locked")]
         public Output<bool> Locked { get; private set; } = null!;
 
         /// <summary>
-        /// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        /// If true, the value can never be revealed after creation, and the API never returns it; see `Value`. Defaults to `False`. The API can't turn a secret variable back into a regular one, so changing `Secret` from `True` to `False` forces the environment variable to be replaced.
         /// </summary>
         [Output("secret")]
         public Output<bool> Secret { get; private set; } = null!;
 
+        /// <summary>
+        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+        /// </summary>
         [Output("value")]
         public Output<string> Value { get; private set; } = null!;
 
@@ -131,19 +134,23 @@ namespace Pulumi.Checkly
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `False`.
         /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
         /// <summary>
-        /// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        /// If true, the value can never be revealed after creation, and the API never returns it; see `Value`. Defaults to `False`. The API can't turn a secret variable back into a regular one, so changing `Secret` from `True` to `False` forces the environment variable to be replaced.
         /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }
 
         [Input("value", required: true)]
         private Input<string>? _value;
+
+        /// <summary>
+        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+        /// </summary>
         public Input<string>? Value
         {
             get => _value;
@@ -169,19 +176,23 @@ namespace Pulumi.Checkly
         public Input<string>? Key { get; set; }
 
         /// <summary>
-        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `False`.
         /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
         /// <summary>
-        /// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        /// If true, the value can never be revealed after creation, and the API never returns it; see `Value`. Defaults to `False`. The API can't turn a secret variable back into a regular one, so changing `Secret` from `True` to `False` forces the environment variable to be replaced.
         /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }
 
         [Input("value")]
         private Input<string>? _value;
+
+        /// <summary>
+        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+        /// </summary>
         public Input<string>? Value
         {
             get => _value;

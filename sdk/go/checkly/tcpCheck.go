@@ -12,14 +12,135 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// The `TcpCheck` resource has been renamed to `TcpMonitor` to better reflect its position in the Checkly product lineup. The `TcpCheck` resource type is deprecated and will be removed in a future version of the provider.
+//
+// The schemas of both resource types are identical, and existing `TcpCheck` resources can be migrated to `TcpMonitor` using a `moved` block; see Deprecated resource types in the v2 upgrade guide.
+//
+// We recommend using the `TcpMonitor` resource type for any new resources.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// Basic TCP Check
+//			_, err := checkly.NewTcpCheck(ctx, "example-tcp-check", &checkly.TcpCheckArgs{
+//				Name:                   pulumi.String("Example TCP check"),
+//				Activated:              pulumi.Bool(true),
+//				ShouldFail:             pulumi.Bool(false),
+//				Frequency:              pulumi.Int(1),
+//				UseGlobalAlertSettings: pulumi.Bool(true),
+//				Locations: pulumi.StringArray{
+//					pulumi.String("us-west-1"),
+//				},
+//				Request: &checkly.TcpCheckRequestArgs{
+//					Hostname: pulumi.String("api.checklyhq.com"),
+//					Port:     pulumi.Int(80),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// A more complex example using assertions and setting alerts
+//			_, err = checkly.NewTcpCheck(ctx, "example-tcp-check-2", &checkly.TcpCheckArgs{
+//				Name:                 pulumi.String("Example TCP check 2"),
+//				Activated:            pulumi.Bool(true),
+//				ShouldFail:           pulumi.Bool(true),
+//				Frequency:            pulumi.Int(1),
+//				DegradedResponseTime: pulumi.Int(4000),
+//				MaxResponseTime:      pulumi.Int(5000),
+//				Locations: pulumi.StringArray{
+//					pulumi.String("us-west-1"),
+//					pulumi.String("ap-northeast-1"),
+//					pulumi.String("ap-south-1"),
+//				},
+//				AlertSettings: &checkly.TcpCheckAlertSettingsArgs{
+//					EscalationType: pulumi.String("RUN_BASED"),
+//					RunBasedEscalation: &checkly.TcpCheckAlertSettingsRunBasedEscalationArgs{
+//						FailedRunThreshold: pulumi.Int(1),
+//					},
+//					Reminders: &checkly.TcpCheckAlertSettingsRemindersArgs{
+//						Amount: pulumi.Int(1),
+//					},
+//				},
+//				RetryStrategy: &checkly.TcpCheckRetryStrategyArgs{
+//					Type:               pulumi.String("FIXED"),
+//					BaseBackoffSeconds: pulumi.Int(60),
+//					MaxDurationSeconds: pulumi.Int(600),
+//					MaxRetries:         pulumi.Int(3),
+//					SameRegion:         pulumi.Bool(false),
+//				},
+//				Request: &checkly.TcpCheckRequestArgs{
+//					Hostname: pulumi.String("api.checklyhq.com"),
+//					Port:     pulumi.Int(80),
+//					Data:     pulumi.String("hello"),
+//					Assertions: checkly.TcpCheckRequestAssertionArray{
+//						&checkly.TcpCheckRequestAssertionArgs{
+//							Source:     pulumi.String("RESPONSE_DATA"),
+//							Property:   pulumi.String(""),
+//							Comparison: pulumi.String("CONTAINS"),
+//							Target:     pulumi.String("welcome"),
+//						},
+//						&checkly.TcpCheckRequestAssertionArgs{
+//							Source:     pulumi.String("RESPONSE_TIME"),
+//							Property:   pulumi.String(""),
+//							Comparison: pulumi.String("LESS_THAN"),
+//							Target:     pulumi.String("2000"),
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Moving to `TcpMonitor`
+//
+// Terraform 1.8 or later can switch a `TcpCheck` resource to `TcpMonitor` with a `moved` block, without recreating it:
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// The attributes stay the same; only the resource type changes.
+//			_, err := checkly.NewTcpMonitor(ctx, "example", nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Import
 //
 // The `pulumi import` command can be used, for example:
 //
-// checkly_tcp_check is deprecated; to start managing an existing resource, import it as checkly_tcp_monitor instead.
-//
+// TcpCheck is deprecated; to start managing an existing resource, import it as TcpMonitor instead.
 // Import an existing TCP monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -204,6 +325,12 @@ type TcpCheckState struct {
 
 func (TcpCheckState) ElementType() reflect.Type {
 	return reflect.TypeOf((*tcpCheckState)(nil)).Elem()
+}
+
+// TcpCheckExists checks whether an existing TcpCheck resource with the given ID exists.
+func TcpCheckExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TcpCheckState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/tcpCheck:TcpCheck", id, state, "", opts...)
 }
 
 type tcpCheckArgs struct {

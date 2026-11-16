@@ -196,12 +196,12 @@ namespace Pulumi.Checkly
     ///         {
     ///             new Checkly.Inputs.ApiCheckAlertChannelSubscriptionArgs
     ///             {
-    ///                 ChannelId = emailAc.Id,
+    ///                 ChannelId = emailAc.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
     ///                 Activated = true,
     ///             },
     ///             new Checkly.Inputs.ApiCheckAlertChannelSubscriptionArgs
     ///             {
-    ///                 ChannelId = smsAc.Id,
+    ///                 ChannelId = smsAc.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
     ///                 Activated = true,
     ///             },
     ///         },
@@ -215,7 +215,6 @@ namespace Pulumi.Checkly
     /// The `pulumi import` command can be used, for example:
     /// 
     /// Import an existing alert channel using its numeric ID.
-    /// 
     /// The ID is returned by the Checkly API at GET /v1/alert-channels.
     /// 
     /// ```sh
@@ -225,6 +224,9 @@ namespace Pulumi.Checkly
     [ChecklyResourceType("checkly:index/alertChannel:AlertChannel")]
     public partial class AlertChannel : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// </summary>
         [Output("autoSubscribe")]
         public Output<bool> AutoSubscribe { get; private set; } = null!;
 
@@ -253,19 +255,19 @@ namespace Pulumi.Checkly
         public Output<Outputs.AlertChannelPagerduty?> Pagerduty { get; private set; } = null!;
 
         /// <summary>
-        /// Whether to send an alert when a check is degraded. Defaults to `false`.
+        /// Whether to send an alert when a check is degraded. Defaults to `False`.
         /// </summary>
         [Output("sendDegraded")]
         public Output<bool> SendDegraded { get; private set; } = null!;
 
         /// <summary>
-        /// Whether to send an alert when a check fails. Defaults to `true`.
+        /// Whether to send an alert when a check fails. Defaults to `True`.
         /// </summary>
         [Output("sendFailure")]
         public Output<bool> SendFailure { get; private set; } = null!;
 
         /// <summary>
-        /// Whether to send an alert when a check recovers. Defaults to `true`.
+        /// Whether to send an alert when a check recovers. Defaults to `True`.
         /// </summary>
         [Output("sendRecovery")]
         public Output<bool> SendRecovery { get; private set; } = null!;
@@ -274,6 +276,7 @@ namespace Pulumi.Checkly
         /// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
         /// </summary>
         [Output("slack")]
+        [Obsolete(@"The `Slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `SlackApp` instead.")]
         public Output<Outputs.AlertChannelSlack?> Slack { get; private set; } = null!;
 
         /// <summary>
@@ -289,13 +292,13 @@ namespace Pulumi.Checkly
         public Output<Outputs.AlertChannelSms?> Sms { get; private set; } = null!;
 
         /// <summary>
-        /// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+        /// Whether to send an alert for expiring SSL certificates. Defaults to `False`.
         /// </summary>
         [Output("sslExpiry")]
         public Output<bool> SslExpiry { get; private set; } = null!;
 
         /// <summary>
-        /// How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+        /// How many days before an SSL certificate expires to start sending alerts, when `SslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         /// </summary>
         [Output("sslExpiryThreshold")]
         public Output<int> SslExpiryThreshold { get; private set; } = null!;
@@ -353,6 +356,9 @@ namespace Pulumi.Checkly
 
     public sealed class AlertChannelArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// </summary>
         [Input("autoSubscribe")]
         public Input<bool>? AutoSubscribe { get; set; }
 
@@ -381,19 +387,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.AlertChannelPagerdutyArgs>? Pagerduty { get; set; }
 
         /// <summary>
-        /// Whether to send an alert when a check is degraded. Defaults to `false`.
+        /// Whether to send an alert when a check is degraded. Defaults to `False`.
         /// </summary>
         [Input("sendDegraded")]
         public Input<bool>? SendDegraded { get; set; }
 
         /// <summary>
-        /// Whether to send an alert when a check fails. Defaults to `true`.
+        /// Whether to send an alert when a check fails. Defaults to `True`.
         /// </summary>
         [Input("sendFailure")]
         public Input<bool>? SendFailure { get; set; }
 
         /// <summary>
-        /// Whether to send an alert when a check recovers. Defaults to `true`.
+        /// Whether to send an alert when a check recovers. Defaults to `True`.
         /// </summary>
         [Input("sendRecovery")]
         public Input<bool>? SendRecovery { get; set; }
@@ -402,6 +408,7 @@ namespace Pulumi.Checkly
         /// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
         /// </summary>
         [Input("slack")]
+        [Obsolete(@"The `Slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `SlackApp` instead.")]
         public Input<Inputs.AlertChannelSlackArgs>? Slack { get; set; }
 
         /// <summary>
@@ -417,13 +424,13 @@ namespace Pulumi.Checkly
         public Input<Inputs.AlertChannelSmsArgs>? Sms { get; set; }
 
         /// <summary>
-        /// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+        /// Whether to send an alert for expiring SSL certificates. Defaults to `False`.
         /// </summary>
         [Input("sslExpiry")]
         public Input<bool>? SslExpiry { get; set; }
 
         /// <summary>
-        /// How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+        /// How many days before an SSL certificate expires to start sending alerts, when `SslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         /// </summary>
         [Input("sslExpiryThreshold")]
         public Input<int>? SslExpiryThreshold { get; set; }
@@ -442,6 +449,9 @@ namespace Pulumi.Checkly
 
     public sealed class AlertChannelState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// </summary>
         [Input("autoSubscribe")]
         public Input<bool>? AutoSubscribe { get; set; }
 
@@ -470,19 +480,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.AlertChannelPagerdutyGetArgs>? Pagerduty { get; set; }
 
         /// <summary>
-        /// Whether to send an alert when a check is degraded. Defaults to `false`.
+        /// Whether to send an alert when a check is degraded. Defaults to `False`.
         /// </summary>
         [Input("sendDegraded")]
         public Input<bool>? SendDegraded { get; set; }
 
         /// <summary>
-        /// Whether to send an alert when a check fails. Defaults to `true`.
+        /// Whether to send an alert when a check fails. Defaults to `True`.
         /// </summary>
         [Input("sendFailure")]
         public Input<bool>? SendFailure { get; set; }
 
         /// <summary>
-        /// Whether to send an alert when a check recovers. Defaults to `true`.
+        /// Whether to send an alert when a check recovers. Defaults to `True`.
         /// </summary>
         [Input("sendRecovery")]
         public Input<bool>? SendRecovery { get; set; }
@@ -491,6 +501,7 @@ namespace Pulumi.Checkly
         /// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
         /// </summary>
         [Input("slack")]
+        [Obsolete(@"The `Slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `SlackApp` instead.")]
         public Input<Inputs.AlertChannelSlackGetArgs>? Slack { get; set; }
 
         /// <summary>
@@ -506,13 +517,13 @@ namespace Pulumi.Checkly
         public Input<Inputs.AlertChannelSmsGetArgs>? Sms { get; set; }
 
         /// <summary>
-        /// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+        /// Whether to send an alert for expiring SSL certificates. Defaults to `False`.
         /// </summary>
         [Input("sslExpiry")]
         public Input<bool>? SslExpiry { get; set; }
 
         /// <summary>
-        /// How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+        /// How many days before an SSL certificate expires to start sending alerts, when `SslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         /// </summary>
         [Input("sslExpiryThreshold")]
         public Input<int>? SslExpiryThreshold { get; set; }

@@ -160,7 +160,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing maintenance window using its numeric ID.
-//
 // The ID is returned by the Checkly API at GET /v1/maintenance-windows.
 //
 // ```sh
@@ -292,6 +291,12 @@ type MaintenanceWindowState struct {
 
 func (MaintenanceWindowState) ElementType() reflect.Type {
 	return reflect.TypeOf((*maintenanceWindowState)(nil)).Elem()
+}
+
+// MaintenanceWindowExists checks whether an existing MaintenanceWindow resource with the given ID exists.
+func MaintenanceWindowExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MaintenanceWindowState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/maintenanceWindow:MaintenanceWindow", id, state, "", opts...)
 }
 
 type maintenanceWindowArgs struct {

@@ -18,9 +18,12 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string Key;
         /// <summary>
-        /// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        /// If true, the value is not shown by default, but it can be accessed. Defaults to `False`.
         /// </summary>
         public readonly bool? Locked;
+        /// <summary>
+        /// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `False`.
+        /// </summary>
         public readonly bool? Secret;
         /// <summary>
         /// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.

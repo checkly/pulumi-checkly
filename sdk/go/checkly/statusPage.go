@@ -73,10 +73,8 @@ import (
 //
 // The `pulumi import` command can be used, for example:
 //
-// checkly_status_page is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
-//
+// StatusPage is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
 // Import an existing status page using its ID.
-//
 // The ID is returned by the Checkly API at GET /v1/status-pages.
 //
 // ```sh
@@ -180,6 +178,12 @@ type StatusPageState struct {
 
 func (StatusPageState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageState)(nil)).Elem()
+}
+
+// StatusPageExists checks whether an existing StatusPage resource with the given ID exists.
+func StatusPageExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPage:StatusPage", id, state, "", opts...)
 }
 
 type statusPageArgs struct {

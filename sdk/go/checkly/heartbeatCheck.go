@@ -12,14 +12,79 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// The `HeartbeatCheck` resource has been renamed to `HeartbeatMonitor` to better reflect its position in the Checkly product lineup. The `HeartbeatCheck` resource type is deprecated and will be removed in a future version of the provider.
+//
+// The schemas of both resource types are identical, and existing `HeartbeatCheck` resources can be migrated to `HeartbeatMonitor` using a `moved` block; see Deprecated resource types in the v2 upgrade guide.
+//
+// We recommend using the `HeartbeatMonitor` resource type for any new resources.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := checkly.NewHeartbeatCheck(ctx, "example-heartbeat", &checkly.HeartbeatCheckArgs{
+//				Name:      pulumi.String("Example heartbeat"),
+//				Activated: pulumi.Bool(true),
+//				Heartbeat: &checkly.HeartbeatCheckHeartbeatArgs{
+//					Period:     pulumi.Int(7),
+//					PeriodUnit: pulumi.String("days"),
+//					Grace:      pulumi.Int(1),
+//					GraceUnit:  pulumi.String("days"),
+//				},
+//				UseGlobalAlertSettings: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Moving to `HeartbeatMonitor`
+//
+// Terraform 1.8 or later can switch a `HeartbeatCheck` resource to `HeartbeatMonitor` with a `moved` block, without recreating it:
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// The attributes stay the same; only the resource type changes.
+//			_, err := checkly.NewHeartbeatMonitor(ctx, "example", nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Import
 //
 // The `pulumi import` command can be used, for example:
 //
-// checkly_heartbeat is deprecated; to start managing an existing resource, import it as checkly_heartbeat_monitor instead.
-//
+// HeartbeatCheck is deprecated; to start managing an existing resource, import it as HeartbeatMonitor instead.
 // Import an existing heartbeat monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -132,6 +197,12 @@ type HeartbeatCheckState struct {
 
 func (HeartbeatCheckState) ElementType() reflect.Type {
 	return reflect.TypeOf((*heartbeatCheckState)(nil)).Elem()
+}
+
+// HeartbeatCheckExists checks whether an existing HeartbeatCheck resource with the given ID exists.
+func HeartbeatCheckExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *HeartbeatCheckState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/heartbeatCheck:HeartbeatCheck", id, state, "", opts...)
 }
 
 type heartbeatCheckArgs struct {

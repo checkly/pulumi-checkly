@@ -56,7 +56,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing dashboard using its dashboard ID, a short hexadecimal string.
-//
 // The ID is the dashboardId returned by the Checkly API at GET /v1/dashboards.
 //
 // ```sh
@@ -270,6 +269,12 @@ type DashboardState struct {
 
 func (DashboardState) ElementType() reflect.Type {
 	return reflect.TypeOf((*dashboardState)(nil)).Elem()
+}
+
+// DashboardExists checks whether an existing Dashboard resource with the given ID exists.
+func DashboardExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DashboardState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/dashboard:Dashboard", id, state, "", opts...)
 }
 
 type dashboardArgs struct {

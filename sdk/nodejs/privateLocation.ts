@@ -33,7 +33,6 @@ import * as utilities from "./utilities";
  * The `pulumi import` command can be used, for example:
  *
  * Import an existing private location using its ID.
- *
  * The ID is returned by the Checkly API at GET /v1/private-locations.
  *
  * ```sh
@@ -52,6 +51,17 @@ export class PrivateLocation extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: PrivateLocationState, opts?: pulumi.CustomResourceOptions): PrivateLocation {
         return new PrivateLocation(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing PrivateLocation resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: PrivateLocationState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/privateLocation:PrivateLocation", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -132,23 +142,23 @@ export interface PrivateLocationState {
     /**
      * Icon assigned to the private location. Defaults to `location`.
      */
-    icon?: pulumi.Input<string>;
+    icon?: pulumi.Input<string | undefined>;
     /**
      * The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
      */
-    keys?: pulumi.Input<pulumi.Input<string>[]>;
+    keys?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The private location name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
      */
-    proxyUrl?: pulumi.Input<string>;
+    proxyUrl?: pulumi.Input<string | undefined>;
     /**
      * The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
      */
-    slugName?: pulumi.Input<string>;
+    slugName?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -158,15 +168,15 @@ export interface PrivateLocationArgs {
     /**
      * Icon assigned to the private location. Defaults to `location`.
      */
-    icon?: pulumi.Input<string>;
+    icon?: pulumi.Input<string | undefined>;
     /**
      * The private location name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
      */
-    proxyUrl?: pulumi.Input<string>;
+    proxyUrl?: pulumi.Input<string | undefined>;
     /**
      * The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
      */

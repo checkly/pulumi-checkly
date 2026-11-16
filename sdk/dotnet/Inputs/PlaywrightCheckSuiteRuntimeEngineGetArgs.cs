@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class PlaywrightCheckSuiteRuntimeEngineGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The engine name. Possible values are `node` and `bun`.
+        /// The engine name. Possible values are `Node` and `Bun`.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;

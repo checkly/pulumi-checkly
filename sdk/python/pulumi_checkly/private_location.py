@@ -20,11 +20,12 @@ __all__ = ['PrivateLocationArgs', 'PrivateLocation']
 class PrivateLocationArgs:
     def __init__(__self__, *,
                  slug_name: pulumi.Input[_builtins.str],
-                 icon: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_url: Optional[pulumi.Input[_builtins.str]] = None):
+                 icon: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_url: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a PrivateLocation resource.
+
         :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
         :param pulumi.Input[_builtins.str] icon: Icon assigned to the private location. Defaults to `location`.
         :param pulumi.Input[_builtins.str] name: The private location name.
@@ -52,51 +53,52 @@ class PrivateLocationArgs:
 
     @_builtins.property
     @pulumi.getter
-    def icon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def icon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Icon assigned to the private location. Defaults to `location`.
         """
         return pulumi.get(self, "icon")
 
     @icon.setter
-    def icon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def icon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "icon", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The private location name.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="proxyUrl")
-    def proxy_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def proxy_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
         """
         return pulumi.get(self, "proxy_url")
 
     @proxy_url.setter
-    def proxy_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def proxy_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "proxy_url", value)
 
 
 @pulumi.input_type
 class _PrivateLocationState:
     def __init__(__self__, *,
-                 icon: Optional[pulumi.Input[_builtins.str]] = None,
-                 keys: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug_name: Optional[pulumi.Input[_builtins.str]] = None):
+                 icon: pulumi.Input[Optional[_builtins.str]] = None,
+                 keys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug_name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering PrivateLocation resources.
+
         :param pulumi.Input[_builtins.str] icon: Icon assigned to the private location. Defaults to `location`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] keys: The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
         :param pulumi.Input[_builtins.str] name: The private location name.
@@ -116,62 +118,62 @@ class _PrivateLocationState:
 
     @_builtins.property
     @pulumi.getter
-    def icon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def icon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Icon assigned to the private location. Defaults to `location`.
         """
         return pulumi.get(self, "icon")
 
     @icon.setter
-    def icon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def icon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "icon", value)
 
     @_builtins.property
     @pulumi.getter
-    def keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def keys(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
         """
         return pulumi.get(self, "keys")
 
     @keys.setter
-    def keys(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def keys(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "keys", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The private location name.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="proxyUrl")
-    def proxy_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def proxy_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
         """
         return pulumi.get(self, "proxy_url")
 
     @proxy_url.setter
-    def proxy_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def proxy_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "proxy_url", value)
 
     @_builtins.property
     @pulumi.getter(name="slugName")
-    def slug_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def slug_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
         """
         return pulumi.get(self, "slug_name")
 
     @slug_name.setter
-    def slug_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def slug_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "slug_name", value)
 
 
@@ -181,10 +183,10 @@ class PrivateLocation(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 icon: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 icon: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         A private location runs checks from your own infrastructure: Checkly agents that you deploy, for example as containers in your network, run the checks and monitors assigned to it. The agents authenticate with the location's API keys, which are only available when the location is created; see `keys`.
@@ -213,12 +215,12 @@ class PrivateLocation(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing private location using its ID.
-
         The ID is returned by the Checkly API at GET /v1/private-locations.
 
         ```sh
         $ pulumi import checkly:index/privateLocation:PrivateLocation example 2a48cb5f-415a-4368-bffe-a58533d4b0a8
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -260,12 +262,12 @@ class PrivateLocation(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing private location using its ID.
-
         The ID is returned by the Checkly API at GET /v1/private-locations.
 
         ```sh
         $ pulumi import checkly:index/privateLocation:PrivateLocation example 2a48cb5f-415a-4368-bffe-a58533d4b0a8
         ```
+
 
         :param str resource_name: The name of the resource.
         :param PrivateLocationArgs args: The arguments to use to populate this resource's properties.
@@ -282,10 +284,10 @@ class PrivateLocation(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 icon: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 slug_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 icon: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 slug_name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -314,11 +316,11 @@ class PrivateLocation(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            icon: Optional[pulumi.Input[_builtins.str]] = None,
-            keys: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            proxy_url: Optional[pulumi.Input[_builtins.str]] = None,
-            slug_name: Optional[pulumi.Input[_builtins.str]] = None) -> 'PrivateLocation':
+            icon: pulumi.Input[Optional[_builtins.str]] = None,
+            keys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            proxy_url: pulumi.Input[Optional[_builtins.str]] = None,
+            slug_name: pulumi.Input[Optional[_builtins.str]] = None) -> 'PrivateLocation':
         """
         Get an existing PrivateLocation resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -342,6 +344,22 @@ class PrivateLocation(pulumi.CustomResource):
         __props__.__dict__["proxy_url"] = proxy_url
         __props__.__dict__["slug_name"] = slug_name
         return PrivateLocation(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            icon: pulumi.Input[Optional[_builtins.str]] = None,
+            keys: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            proxy_url: pulumi.Input[Optional[_builtins.str]] = None,
+            slug_name: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["icon"] = icon
+        __props__["keys"] = keys
+        __props__["name"] = name
+        __props__["proxyUrl"] = proxy_url
+        __props__["slugName"] = slug_name
+        return pulumi.runtime.exists_resource(None, 'checkly:index/privateLocation:PrivateLocation', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

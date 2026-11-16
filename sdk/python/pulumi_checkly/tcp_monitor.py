@@ -22,29 +22,30 @@ __all__ = ['TcpMonitorArgs', 'TcpMonitor']
 class TcpMonitorArgs:
     def __init__(__self__, *,
                  request: pulumi.Input['TcpMonitorRequestArgs'],
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['TcpMonitorAlertSettingsArgs']] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 retry_strategy: Optional[pulumi.Input['TcpMonitorRetryStrategyArgs']] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['TcpMonitorAlertSettingsArgs']] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 retry_strategy: pulumi.Input[Optional['TcpMonitorRetryStrategyArgs']] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['TcpMonitorTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a TcpMonitor resource.
+
         :param pulumi.Input['TcpMonitorRequestArgs'] request: The parameters for the TCP connection.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
         :param pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
@@ -126,284 +127,285 @@ class TcpMonitorArgs:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]:
         """
         A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['TcpMonitorAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['TcpMonitorAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the monitor.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['TcpMonitorAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['TcpMonitorAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="degradedResponseTime")
-    def degraded_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def degraded_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
         """
         return pulumi.get(self, "degraded_response_time")
 
     @degraded_response_time.setter
-    def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def degraded_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the monitor.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
     @frequency.setter
-    def frequency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter(name="frequencyOffset")
-    def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency_offset(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
     @frequency_offset.setter
-    def frequency_offset(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency_offset(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency_offset", value)
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter(name="maxResponseTime")
-    def max_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         """
         return pulumi.get(self, "max_response_time")
 
     @max_response_time.setter
-    def max_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the monitor.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The slugs of the private locations to run the monitor from.
         """
         return pulumi.get(self, "private_locations")
 
     @private_locations.setter
-    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "private_locations", value)
 
     @_builtins.property
     @pulumi.getter(name="retryStrategy")
-    def retry_strategy(self) -> Optional[pulumi.Input['TcpMonitorRetryStrategyArgs']]:
+    def retry_strategy(self) -> pulumi.Input[Optional['TcpMonitorRetryStrategyArgs']]:
         """
         A strategy for retrying failed check/monitor runs.
         """
         return pulumi.get(self, "retry_strategy")
 
     @retry_strategy.setter
-    def retry_strategy(self, value: Optional[pulumi.Input['TcpMonitorRetryStrategyArgs']]):
+    def retry_strategy(self, value: pulumi.Input[Optional['TcpMonitorRetryStrategyArgs']]):
         pulumi.set(self, "retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter(name="runtimeId")
-    def runtime_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def runtime_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the runtime to use for the monitor.
         """
         return pulumi.get(self, "runtime_id")
 
     @runtime_id.setter
-    def runtime_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def runtime_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "runtime_id", value)
 
     @_builtins.property
     @pulumi.getter(name="shouldFail")
-    def should_fail(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def should_fail(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Inverts when the monitor is considered to fail. Defaults to `false`.
         """
         return pulumi.get(self, "should_fail")
 
     @should_fail.setter
-    def should_fail(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def should_fail(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "should_fail", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['TcpMonitorTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['TcpMonitorTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
 @pulumi.input_type
 class _TcpMonitorState:
     def __init__(__self__, *,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['TcpMonitorAlertSettingsArgs']] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input['TcpMonitorRequestArgs']] = None,
-                 retry_strategy: Optional[pulumi.Input['TcpMonitorRetryStrategyArgs']] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['TcpMonitorAlertSettingsArgs']] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional['TcpMonitorRequestArgs']] = None,
+                 retry_strategy: pulumi.Input[Optional['TcpMonitorRetryStrategyArgs']] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['TcpMonitorTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering TcpMonitor resources.
+
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
         :param pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['TcpMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
@@ -474,266 +476,266 @@ class _TcpMonitorState:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]:
         """
         A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['TcpMonitorAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['TcpMonitorAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['TcpMonitorAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the monitor.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['TcpMonitorAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['TcpMonitorAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="degradedResponseTime")
-    def degraded_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def degraded_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
         """
         return pulumi.get(self, "degraded_response_time")
 
     @degraded_response_time.setter
-    def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def degraded_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the monitor.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
     @frequency.setter
-    def frequency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter(name="frequencyOffset")
-    def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency_offset(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
     @frequency_offset.setter
-    def frequency_offset(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency_offset(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency_offset", value)
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter(name="maxResponseTime")
-    def max_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         """
         return pulumi.get(self, "max_response_time")
 
     @max_response_time.setter
-    def max_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the monitor.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The slugs of the private locations to run the monitor from.
         """
         return pulumi.get(self, "private_locations")
 
     @private_locations.setter
-    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "private_locations", value)
 
     @_builtins.property
     @pulumi.getter
-    def request(self) -> Optional[pulumi.Input['TcpMonitorRequestArgs']]:
+    def request(self) -> pulumi.Input[Optional['TcpMonitorRequestArgs']]:
         """
         The parameters for the TCP connection.
         """
         return pulumi.get(self, "request")
 
     @request.setter
-    def request(self, value: Optional[pulumi.Input['TcpMonitorRequestArgs']]):
+    def request(self, value: pulumi.Input[Optional['TcpMonitorRequestArgs']]):
         pulumi.set(self, "request", value)
 
     @_builtins.property
     @pulumi.getter(name="retryStrategy")
-    def retry_strategy(self) -> Optional[pulumi.Input['TcpMonitorRetryStrategyArgs']]:
+    def retry_strategy(self) -> pulumi.Input[Optional['TcpMonitorRetryStrategyArgs']]:
         """
         A strategy for retrying failed check/monitor runs.
         """
         return pulumi.get(self, "retry_strategy")
 
     @retry_strategy.setter
-    def retry_strategy(self, value: Optional[pulumi.Input['TcpMonitorRetryStrategyArgs']]):
+    def retry_strategy(self, value: pulumi.Input[Optional['TcpMonitorRetryStrategyArgs']]):
         pulumi.set(self, "retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter(name="runtimeId")
-    def runtime_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def runtime_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the runtime to use for the monitor.
         """
         return pulumi.get(self, "runtime_id")
 
     @runtime_id.setter
-    def runtime_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def runtime_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "runtime_id", value)
 
     @_builtins.property
     @pulumi.getter(name="shouldFail")
-    def should_fail(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def should_fail(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Inverts when the monitor is considered to fail. Defaults to `false`.
         """
         return pulumi.get(self, "should_fail")
 
     @should_fail.setter
-    def should_fail(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def should_fail(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "should_fail", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['TcpMonitorTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['TcpMonitorTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['TcpMonitorTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
@@ -743,28 +745,28 @@ class TcpMonitor(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict']]] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict']]] = None,
-                 retry_strategy: Optional[pulumi.Input[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict']]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict', 'outputs.TcpMonitorAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict', 'outputs.TcpMonitorAlertSettings']]] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict', 'outputs.TcpMonitorRequest']]] = None,
+                 retry_strategy: pulumi.Input[Optional[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict', 'outputs.TcpMonitorRetryStrategy']]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict', 'outputs.TcpMonitorTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         TCP checks allow you to monitor remote endpoints at a lower level.
@@ -842,18 +844,18 @@ class TcpMonitor(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing TCP monitor using its check ID.
-
         You can find the ID in the check's URL in the Checkly dashboard.
 
         ```sh
         $ pulumi import checkly:index/tcpMonitor:TcpMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict', 'outputs.TcpMonitorAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict', 'outputs.TcpMonitorAlertSettings']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
@@ -865,13 +867,13 @@ class TcpMonitor(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from.
-        :param pulumi.Input[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict']] request: The parameters for the TCP connection.
-        :param pulumi.Input[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
+        :param pulumi.Input[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict', 'outputs.TcpMonitorRequest']] request: The parameters for the TCP connection.
+        :param pulumi.Input[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict', 'outputs.TcpMonitorRetryStrategy']] retry_strategy: A strategy for retrying failed check/monitor runs.
         :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the monitor.
         :param pulumi.Input[_builtins.bool] should_fail: Inverts when the monitor is considered to fail. Defaults to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict', 'outputs.TcpMonitorTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         ...
@@ -956,12 +958,12 @@ class TcpMonitor(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing TCP monitor using its check ID.
-
         You can find the ID in the check's URL in the Checkly dashboard.
 
         ```sh
         $ pulumi import checkly:index/tcpMonitor:TcpMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
         ```
+
 
         :param str resource_name: The name of the resource.
         :param TcpMonitorArgs args: The arguments to use to populate this resource's properties.
@@ -978,28 +980,28 @@ class TcpMonitor(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict']]] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict']]] = None,
-                 retry_strategy: Optional[pulumi.Input[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict']]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict', 'outputs.TcpMonitorAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict', 'outputs.TcpMonitorAlertSettings']]] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict', 'outputs.TcpMonitorRequest']]] = None,
+                 retry_strategy: pulumi.Input[Optional[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict', 'outputs.TcpMonitorRetryStrategy']]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict', 'outputs.TcpMonitorTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1043,28 +1045,28 @@ class TcpMonitor(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            activated: Optional[pulumi.Input[_builtins.bool]] = None,
-            alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-            alert_settings: Optional[pulumi.Input[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict']]] = None,
-            degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            frequency: Optional[pulumi.Input[_builtins.int]] = None,
-            frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-            group_id: Optional[pulumi.Input[_builtins.int]] = None,
-            group_order: Optional[pulumi.Input[_builtins.int]] = None,
-            locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-            muted: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            request: Optional[pulumi.Input[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict']]] = None,
-            retry_strategy: Optional[pulumi.Input[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict']]] = None,
-            run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-            runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-            should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            trigger_incident: Optional[pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']]] = None,
-            use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None) -> 'TcpMonitor':
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict', 'outputs.TcpMonitorAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict', 'outputs.TcpMonitorAlertSettings']]] = None,
+            degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            request: pulumi.Input[Optional[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict', 'outputs.TcpMonitorRequest']]] = None,
+            retry_strategy: pulumi.Input[Optional[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict', 'outputs.TcpMonitorRetryStrategy']]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+            should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict', 'outputs.TcpMonitorTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> 'TcpMonitor':
         """
         Get an existing TcpMonitor resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1073,8 +1075,8 @@ class TcpMonitor(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict', 'outputs.TcpMonitorAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict', 'outputs.TcpMonitorAlertSettings']] alert_settings: Determines the alert escalation policy for the monitor.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
@@ -1086,13 +1088,13 @@ class TcpMonitor(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from.
-        :param pulumi.Input[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict']] request: The parameters for the TCP connection.
-        :param pulumi.Input[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
+        :param pulumi.Input[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict', 'outputs.TcpMonitorRequest']] request: The parameters for the TCP connection.
+        :param pulumi.Input[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict', 'outputs.TcpMonitorRetryStrategy']] retry_strategy: A strategy for retrying failed check/monitor runs.
         :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the monitor.
         :param pulumi.Input[_builtins.bool] should_fail: Inverts when the monitor is considered to fail. Defaults to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict', 'outputs.TcpMonitorTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1122,6 +1124,56 @@ class TcpMonitor(pulumi.CustomResource):
         __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return TcpMonitor(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['TcpMonitorAlertChannelSubscriptionArgs', 'TcpMonitorAlertChannelSubscriptionArgsDict', 'outputs.TcpMonitorAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['TcpMonitorAlertSettingsArgs', 'TcpMonitorAlertSettingsArgsDict', 'outputs.TcpMonitorAlertSettings']]] = None,
+            degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            request: pulumi.Input[Optional[Union['TcpMonitorRequestArgs', 'TcpMonitorRequestArgsDict', 'outputs.TcpMonitorRequest']]] = None,
+            retry_strategy: pulumi.Input[Optional[Union['TcpMonitorRetryStrategyArgs', 'TcpMonitorRetryStrategyArgsDict', 'outputs.TcpMonitorRetryStrategy']]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+            should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['TcpMonitorTriggerIncidentArgs', 'TcpMonitorTriggerIncidentArgsDict', 'outputs.TcpMonitorTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["activated"] = activated
+        __props__["alertChannelSubscriptions"] = alert_channel_subscriptions
+        __props__["alertSettings"] = alert_settings
+        __props__["degradedResponseTime"] = degraded_response_time
+        __props__["description"] = description
+        __props__["frequency"] = frequency
+        __props__["frequencyOffset"] = frequency_offset
+        __props__["groupId"] = group_id
+        __props__["groupOrder"] = group_order
+        __props__["locations"] = locations
+        __props__["maxResponseTime"] = max_response_time
+        __props__["muted"] = muted
+        __props__["name"] = name
+        __props__["privateLocations"] = private_locations
+        __props__["request"] = request
+        __props__["retryStrategy"] = retry_strategy
+        __props__["runParallel"] = run_parallel
+        __props__["runtimeId"] = runtime_id
+        __props__["shouldFail"] = should_fail
+        __props__["tags"] = tags
+        __props__["triggerIncident"] = trigger_incident
+        __props__["useGlobalAlertSettings"] = use_global_alert_settings
+        return pulumi.runtime.exists_resource(None, 'checkly:index/tcpMonitor:TcpMonitor', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

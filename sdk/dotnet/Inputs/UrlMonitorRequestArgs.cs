@@ -25,7 +25,7 @@ namespace Pulumi.Checkly.Inputs
         }
 
         /// <summary>
-        /// Whether to follow HTTP redirects automatically. Defaults to `true`.
+        /// Whether to follow HTTP redirects automatically. Defaults to `True`.
         /// </summary>
         [Input("followRedirects")]
         public Input<bool>? FollowRedirects { get; set; }
@@ -37,7 +37,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string>? IpFamily { get; set; }
 
         /// <summary>
-        /// Whether to skip SSL certificate verification. Defaults to `false`.
+        /// Whether to skip SSL certificate verification. Defaults to `False`.
         /// </summary>
         [Input("skipSsl")]
         public Input<bool>? SkipSsl { get; set; }

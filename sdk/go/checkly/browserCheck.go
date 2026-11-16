@@ -214,6 +214,12 @@ func (BrowserCheckState) ElementType() reflect.Type {
 	return reflect.TypeOf((*browserCheckState)(nil)).Elem()
 }
 
+// BrowserCheckExists checks whether an existing BrowserCheck resource with the given ID exists.
+func BrowserCheckExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *BrowserCheckState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/browserCheck:BrowserCheck", id, state, "", opts...)
+}
+
 type browserCheckArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`

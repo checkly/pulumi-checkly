@@ -18,7 +18,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.UrlMonitorRequestAssertion> Assertions;
         /// <summary>
-        /// Whether to follow HTTP redirects automatically. Defaults to `true`.
+        /// Whether to follow HTTP redirects automatically. Defaults to `True`.
         /// </summary>
         public readonly bool? FollowRedirects;
         /// <summary>
@@ -26,7 +26,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string? IpFamily;
         /// <summary>
-        /// Whether to skip SSL certificate verification. Defaults to `false`.
+        /// Whether to skip SSL certificate verification. Defaults to `False`.
         /// </summary>
         public readonly bool? SkipSsl;
         /// <summary>

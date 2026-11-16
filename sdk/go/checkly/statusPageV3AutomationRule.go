@@ -74,7 +74,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing status page automation rule using "<status_page_id>/<rule_id>".
-//
 // Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/automation-rules.
 //
 // ```sh
@@ -188,6 +187,12 @@ type StatusPageV3AutomationRuleState struct {
 
 func (StatusPageV3AutomationRuleState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageV3AutomationRuleState)(nil)).Elem()
+}
+
+// StatusPageV3AutomationRuleExists checks whether an existing StatusPageV3AutomationRule resource with the given ID exists.
+func StatusPageV3AutomationRuleExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageV3AutomationRuleState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule", id, state, "", opts...)
 }
 
 type statusPageV3AutomationRuleArgs struct {

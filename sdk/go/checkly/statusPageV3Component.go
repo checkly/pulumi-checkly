@@ -66,7 +66,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing status page component using "<status_page_id>/<component_id>".
-//
 // Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/components.
 //
 // ```sh
@@ -174,6 +173,12 @@ type StatusPageV3ComponentState struct {
 
 func (StatusPageV3ComponentState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageV3ComponentState)(nil)).Elem()
+}
+
+// StatusPageV3ComponentExists checks whether an existing StatusPageV3Component resource with the given ID exists.
+func StatusPageV3ComponentExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageV3ComponentState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPageV3Component:StatusPageV3Component", id, state, "", opts...)
 }
 
 type statusPageV3ComponentArgs struct {

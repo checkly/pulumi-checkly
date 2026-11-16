@@ -77,7 +77,6 @@ import * as utilities from "./utilities";
  * The `pulumi import` command can be used, for example:
  *
  * Import an existing status page using its ID.
- *
  * The ID is returned by the Checkly API at GET /v3/status-pages.
  *
  * ```sh
@@ -96,6 +95,17 @@ export class StatusPageV3 extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: StatusPageV3State, opts?: pulumi.CustomResourceOptions): StatusPageV3 {
         return new StatusPageV3(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing StatusPageV3 resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: StatusPageV3State, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/statusPageV3:StatusPageV3", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -240,67 +250,67 @@ export interface StatusPageV3State {
     /**
      * Whether search engines may index the public page. Defaults to `true`.
      */
-    allowIndexing?: pulumi.Input<boolean>;
+    allowIndexing?: pulumi.Input<boolean | undefined>;
     /**
      * A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
      */
-    customDomain?: pulumi.Input<string>;
+    customDomain?: pulumi.Input<string | undefined>;
     /**
      * The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
      */
-    defaultTheme?: pulumi.Input<string>;
+    defaultTheme?: pulumi.Input<string | undefined>;
     /**
      * A short description shown on the status page. Must be at most `500` characters.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the favicon of the status page.
      */
-    favicon?: pulumi.Input<string>;
+    favicon?: pulumi.Input<string | undefined>;
     /**
      * Free-form footer text. Must be at most `1000` characters.
      */
-    footerText?: pulumi.Input<string>;
+    footerText?: pulumi.Input<string | undefined>;
     /**
      * A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
      */
-    googleAnalyticsTag?: pulumi.Input<string>;
+    googleAnalyticsTag?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the logo for the status page.
      */
-    logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the logo in dark mode.
      */
-    logoDark?: pulumi.Input<string>;
+    logoDark?: pulumi.Input<string | undefined>;
     /**
      * The name of the status page.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
      */
-    privacyPolicyLink?: pulumi.Input<string>;
+    privacyPolicyLink?: pulumi.Input<string | undefined>;
     /**
      * The http or https URL the user should be redirected to when clicking the logo.
      */
-    redirectTo?: pulumi.Input<string>;
+    redirectTo?: pulumi.Input<string | undefined>;
     /**
      * A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
      */
-    supportLink?: pulumi.Input<string>;
+    supportLink?: pulumi.Input<string | undefined>;
     /**
      * An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
      */
-    termsOfServiceLink?: pulumi.Input<string>;
+    termsOfServiceLink?: pulumi.Input<string | undefined>;
     /**
      * Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
      */
-    themeColors?: pulumi.Input<inputs.StatusPageV3ThemeColors>;
+    themeColors?: pulumi.Input<inputs.StatusPageV3ThemeColors | undefined>;
     /**
      * The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
      */
-    url?: pulumi.Input<string>;
+    url?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -310,63 +320,63 @@ export interface StatusPageV3Args {
     /**
      * Whether search engines may index the public page. Defaults to `true`.
      */
-    allowIndexing?: pulumi.Input<boolean>;
+    allowIndexing?: pulumi.Input<boolean | undefined>;
     /**
      * A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
      */
-    customDomain?: pulumi.Input<string>;
+    customDomain?: pulumi.Input<string | undefined>;
     /**
      * The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
      */
-    defaultTheme?: pulumi.Input<string>;
+    defaultTheme?: pulumi.Input<string | undefined>;
     /**
      * A short description shown on the status page. Must be at most `500` characters.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the favicon of the status page.
      */
-    favicon?: pulumi.Input<string>;
+    favicon?: pulumi.Input<string | undefined>;
     /**
      * Free-form footer text. Must be at most `1000` characters.
      */
-    footerText?: pulumi.Input<string>;
+    footerText?: pulumi.Input<string | undefined>;
     /**
      * A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
      */
-    googleAnalyticsTag?: pulumi.Input<string>;
+    googleAnalyticsTag?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the logo for the status page.
      */
-    logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL to an image file to use as the logo in dark mode.
      */
-    logoDark?: pulumi.Input<string>;
+    logoDark?: pulumi.Input<string | undefined>;
     /**
      * The name of the status page.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
      */
-    privacyPolicyLink?: pulumi.Input<string>;
+    privacyPolicyLink?: pulumi.Input<string | undefined>;
     /**
      * The http or https URL the user should be redirected to when clicking the logo.
      */
-    redirectTo?: pulumi.Input<string>;
+    redirectTo?: pulumi.Input<string | undefined>;
     /**
      * A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
      */
-    supportLink?: pulumi.Input<string>;
+    supportLink?: pulumi.Input<string | undefined>;
     /**
      * An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
      */
-    termsOfServiceLink?: pulumi.Input<string>;
+    termsOfServiceLink?: pulumi.Input<string | undefined>;
     /**
      * Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
      */
-    themeColors?: pulumi.Input<inputs.StatusPageV3ThemeColors>;
+    themeColors?: pulumi.Input<inputs.StatusPageV3ThemeColors | undefined>;
     /**
      * The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
      */

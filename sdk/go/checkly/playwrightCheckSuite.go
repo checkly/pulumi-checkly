@@ -19,13 +19,10 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing Playwright check suite using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // The code bundle is not imported: the API doesn't return the bundle's
-//
 // metadata, so the first plan after the import shows an in-place update of
-//
 // `bundle`, and the apply sends the bundle from the configuration.
 //
 // ```sh
@@ -196,6 +193,12 @@ type PlaywrightCheckSuiteState struct {
 
 func (PlaywrightCheckSuiteState) ElementType() reflect.Type {
 	return reflect.TypeOf((*playwrightCheckSuiteState)(nil)).Elem()
+}
+
+// PlaywrightCheckSuiteExists checks whether an existing PlaywrightCheckSuite resource with the given ID exists.
+func PlaywrightCheckSuiteExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PlaywrightCheckSuiteState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/playwrightCheckSuite:PlaywrightCheckSuite", id, state, "", opts...)
 }
 
 type playwrightCheckSuiteArgs struct {

@@ -1744,6 +1744,7 @@ class BrowserCheckEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -1779,6 +1780,9 @@ class BrowserCheckEnvironmentVariable(dict):
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        """
         return pulumi.get(self, "secret")
 
 
@@ -2344,6 +2348,7 @@ class CheckEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -2379,6 +2384,9 @@ class CheckEnvironmentVariable(dict):
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        """
         return pulumi.get(self, "secret")
 
 
@@ -2829,6 +2837,7 @@ class CheckGroupEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -2864,6 +2873,9 @@ class CheckGroupEnvironmentVariable(dict):
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        """
         return pulumi.get(self, "secret")
 
 
@@ -3853,6 +3865,7 @@ class CheckGroupV2EnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -3888,6 +3901,9 @@ class CheckGroupV2EnvironmentVariable(dict):
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        """
         return pulumi.get(self, "secret")
 
 
@@ -5447,6 +5463,7 @@ class GrpcMonitorRequest(dict):
         :param _builtins.str host: The host to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
         :param _builtins.int port: The port number to connect to. Possible values are between `1` and `65535`.
         :param Sequence['GrpcMonitorRequestAssertionArgs'] assertions: A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
+        :param _builtins.str bfbs_content: A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
         :param _builtins.str encoding: The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
         :param _builtins.str grpc_mode: The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `method`) and `HEALTH` (queries the standard gRPC health-check service, allows `service`). Defaults to `BEHAVIOR`.
         :param _builtins.str ip_family: The IP family to use when executing the gRPC check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
@@ -5518,6 +5535,9 @@ class GrpcMonitorRequest(dict):
     @_builtins.property
     @pulumi.getter(name="bfbsContent")
     def bfbs_content(self) -> Optional[_builtins.str]:
+        """
+        A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+        """
         return pulumi.get(self, "bfbs_content")
 
     @_builtins.property
@@ -7924,6 +7944,7 @@ class MultistepCheckEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -7959,6 +7980,9 @@ class MultistepCheckEnvironmentVariable(dict):
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        """
         return pulumi.get(self, "secret")
 
 
@@ -8553,6 +8577,7 @@ class PlaywrightCheckSuiteEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -8588,6 +8613,9 @@ class PlaywrightCheckSuiteEnvironmentVariable(dict):
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
+        """
+        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        """
         return pulumi.get(self, "secret")
 
 

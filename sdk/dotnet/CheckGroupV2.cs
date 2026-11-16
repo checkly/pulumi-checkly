@@ -271,12 +271,12 @@ namespace Pulumi.Checkly
     ///             {
     ///                 new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs
     ///                 {
-    ///                     ChannelId = email.Id,
+    ///                     ChannelId = email.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
     ///                     Activated = true,
     ///                 },
     ///                 new Checkly.Inputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs
     ///                 {
-    ///                     ChannelId = slack.Id,
+    ///                     ChannelId = slack.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
     ///                     Activated = true,
     ///                 },
     ///             },
@@ -321,7 +321,6 @@ namespace Pulumi.Checkly
     /// The `pulumi import` command can be used, for example:
     /// 
     /// Import an existing check group using its numeric ID.
-    /// 
     /// The ID is returned by the Checkly API at GET /v1/check-groups.
     /// 
     /// ```sh
@@ -332,7 +331,7 @@ namespace Pulumi.Checkly
     public partial class CheckGroupV2 : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `Activated`. Defaults to `True`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
@@ -386,7 +385,7 @@ namespace Pulumi.Checkly
         public Output<ImmutableArray<Outputs.CheckGroupV2EnvironmentVariable>> EnvironmentVariables { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
+        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `Muted`. Defaults to `False`.
         /// </summary>
         [Output("muted")]
         public Output<bool> Muted { get; private set; } = null!;
@@ -463,7 +462,7 @@ namespace Pulumi.Checkly
     public sealed class CheckGroupV2Args : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `Activated`. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -523,7 +522,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
+        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `Muted`. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -567,7 +566,7 @@ namespace Pulumi.Checkly
     public sealed class CheckGroupV2State : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `Activated`. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -627,7 +626,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
+        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `Muted`. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }

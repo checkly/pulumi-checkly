@@ -46,7 +46,7 @@ export interface AlertChannelPagerduty {
     /**
      * The name of the PagerDuty account.
      */
-    account?: pulumi.Input<string>;
+    account?: pulumi.Input<string | undefined>;
     /**
      * The integration key of the PagerDuty service to send alerts to.
      */
@@ -54,7 +54,7 @@ export interface AlertChannelPagerduty {
     /**
      * The name of the PagerDuty service.
      */
-    serviceName?: pulumi.Input<string>;
+    serviceName?: pulumi.Input<string | undefined>;
 }
 
 export interface AlertChannelSlack {
@@ -90,11 +90,11 @@ export interface AlertChannelWebhook {
     /**
      * HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * The HTTP method of the webhook request, such as `GET`, `POST`, `PUT`, `HEAD`, `DELETE` or `PATCH`. Must not be empty. Defaults to `POST`.
      */
-    method?: pulumi.Input<string>;
+    method?: pulumi.Input<string | undefined>;
     /**
      * The name of this alert channel.
      */
@@ -102,11 +102,11 @@ export interface AlertChannelWebhook {
     /**
      * Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * The body of the webhook request, which can contain template variables such as `{{ALERT_TITLE}}` and `{{RESULT_LINK}}`. If not set, Checkly sends its default JSON payload.
      */
-    template?: pulumi.Input<string>;
+    template?: pulumi.Input<string | undefined>;
     /**
      * The URL to send the webhook request to.
      */
@@ -114,11 +114,11 @@ export interface AlertChannelWebhook {
     /**
      * A secret to sign webhook requests with. When set, Checkly sends an HMAC-SHA256 signature of the request body, keyed with this secret, in the `x-checkly-signature` header.
      */
-    webhookSecret?: pulumi.Input<string>;
+    webhookSecret?: pulumi.Input<string | undefined>;
     /**
      * Type of the webhook. Possible values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
      */
-    webhookType?: pulumi.Input<string>;
+    webhookType?: pulumi.Input<string | undefined>;
 }
 
 export interface ApiCheckAlertChannelSubscription {
@@ -136,59 +136,59 @@ export interface ApiCheckAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.ApiCheckAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.ApiCheckAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.ApiCheckAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.ApiCheckAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.ApiCheckAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.ApiCheckAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.ApiCheckAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.ApiCheckAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface ApiCheckAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface ApiCheckAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface ApiCheckAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface ApiCheckAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface ApiCheckIntent {
@@ -199,54 +199,54 @@ export interface ApiCheckIntent {
     /**
      * Guardrails an automatic repair must not weaken or bypass. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    mustPreserves?: pulumi.Input<pulumi.Input<string>[]>;
+    mustPreserves?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Observable outcomes the check must continue to prove. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[]>;
+    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface ApiCheckRequest {
     /**
      * A request can have multiple assertions.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.ApiCheckRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.ApiCheckRequestAssertion>[] | undefined>;
     /**
      * Set up HTTP basic authentication (username & password).
      */
-    basicAuth?: pulumi.Input<inputs.ApiCheckRequestBasicAuth>;
+    basicAuth?: pulumi.Input<inputs.ApiCheckRequestBasicAuth | undefined>;
     /**
      * The body of the request.
      */
-    body?: pulumi.Input<string>;
+    body?: pulumi.Input<string | undefined>;
     /**
      * The `Content-Type` header of the request. Possible values are `NONE`, `JSON`, `FORM`, `RAW` and `GRAPHQL`. Defaults to `NONE`.
      */
-    bodyType?: pulumi.Input<string>;
+    bodyType?: pulumi.Input<string | undefined>;
     /**
      * Whether to follow HTTP redirects. Defaults to `true`.
      */
-    followRedirects?: pulumi.Input<boolean>;
+    followRedirects?: pulumi.Input<boolean | undefined>;
     /**
      * HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
      */
-    method?: pulumi.Input<string>;
+    method?: pulumi.Input<string | undefined>;
     /**
      * Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * Whether to skip TLS certificate validation of the request. Defaults to `false`.
      */
-    skipSsl?: pulumi.Input<boolean>;
+    skipSsl?: pulumi.Input<boolean | undefined>;
     /**
      * The URL to call. Must be between `1` and `2048` characters.
      */
@@ -261,7 +261,7 @@ export interface ApiCheckRequestAssertion {
     /**
      * The property selecting the asserted value within the source: a JSONPath expression for `JSON_BODY`, a header name for `HEADERS`, or a regular expression for `TEXT_BODY` whose first capture group is asserted instead of the whole body. Not used for `STATUS_CODE` and `RESPONSE_TIME`.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY` and `RESPONSE_TIME`.
      */
@@ -269,7 +269,7 @@ export interface ApiCheckRequestAssertion {
     /**
      * The value to compare against, e.g. `200` for `STATUS_CODE` or a number of milliseconds for `RESPONSE_TIME`. Leave empty for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface ApiCheckRequestBasicAuth {
@@ -287,23 +287,23 @@ export interface ApiCheckRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Apply the retry strategy only if the defined conditions match.
      */
-    onlyOn?: pulumi.Input<inputs.ApiCheckRetryStrategyOnlyOn>;
+    onlyOn?: pulumi.Input<inputs.ApiCheckRetryStrategyOnlyOn | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -314,7 +314,7 @@ export interface ApiCheckRetryStrategyOnlyOn {
     /**
      * When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
      */
-    networkError?: pulumi.Input<boolean>;
+    networkError?: pulumi.Input<boolean | undefined>;
 }
 
 export interface ApiCheckTriggerIncident {
@@ -355,59 +355,59 @@ export interface BrowserCheckAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.BrowserCheckAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.BrowserCheckAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.BrowserCheckAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.BrowserCheckAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.BrowserCheckAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.BrowserCheckAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.BrowserCheckAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.BrowserCheckAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface BrowserCheckAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface BrowserCheckAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface BrowserCheckAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface BrowserCheckAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface BrowserCheckDependency {
@@ -429,8 +429,11 @@ export interface BrowserCheckEnvironmentVariable {
     /**
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
      */
@@ -445,34 +448,34 @@ export interface BrowserCheckIntent {
     /**
      * Guardrails an automatic repair must not weaken or bypass. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    mustPreserves?: pulumi.Input<pulumi.Input<string>[]>;
+    mustPreserves?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Observable outcomes the check must continue to prove. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[]>;
+    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface BrowserCheckRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Apply the retry strategy only if the defined conditions match.
      */
-    onlyOn?: pulumi.Input<inputs.BrowserCheckRetryStrategyOnlyOn>;
+    onlyOn?: pulumi.Input<inputs.BrowserCheckRetryStrategyOnlyOn | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -483,7 +486,7 @@ export interface BrowserCheckRetryStrategyOnlyOn {
     /**
      * When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
      */
-    networkError?: pulumi.Input<boolean>;
+    networkError?: pulumi.Input<boolean | undefined>;
 }
 
 export interface BrowserCheckTriggerIncident {
@@ -524,59 +527,59 @@ export interface CheckAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.CheckAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.CheckAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.CheckAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.CheckAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.CheckAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.CheckAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.CheckAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.CheckAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface CheckAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckEnvironmentVariable {
@@ -587,8 +590,11 @@ export interface CheckEnvironmentVariable {
     /**
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
      */
@@ -610,78 +616,78 @@ export interface CheckGroupAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.CheckGroupAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.CheckGroupAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.CheckGroupAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.CheckGroupAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.CheckGroupAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.CheckGroupAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.CheckGroupAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.CheckGroupAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface CheckGroupAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies to the checks and monitors in the group that are scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive runs of a check or monitor in the group have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after a check or monitor in the group has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupApiCheckDefaults {
     /**
      * Default assertions for API checks in this group.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.CheckGroupApiCheckDefaultsAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.CheckGroupApiCheckDefaultsAssertion>[] | undefined>;
     /**
      * Default basic auth credentials for API checks in this group.
      */
-    basicAuth?: pulumi.Input<inputs.CheckGroupApiCheckDefaultsBasicAuth>;
+    basicAuth?: pulumi.Input<inputs.CheckGroupApiCheckDefaultsBasicAuth | undefined>;
     /**
      * Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
      */
@@ -696,7 +702,7 @@ export interface CheckGroupApiCheckDefaultsAssertion {
     /**
      * The property of the asserted value, for example a JSON path or header name.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY` and `RESPONSE_TIME`.
      */
@@ -726,8 +732,11 @@ export interface CheckGroupEnvironmentVariable {
     /**
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
      */
@@ -738,23 +747,23 @@ export interface CheckGroupRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Apply the retry strategy only if the defined conditions match.
      */
-    onlyOn?: pulumi.Input<inputs.CheckGroupRetryStrategyOnlyOn>;
+    onlyOn?: pulumi.Input<inputs.CheckGroupRetryStrategyOnlyOn | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -765,26 +774,26 @@ export interface CheckGroupRetryStrategyOnlyOn {
     /**
      * When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
      */
-    networkError?: pulumi.Input<boolean>;
+    networkError?: pulumi.Input<boolean | undefined>;
 }
 
 export interface CheckGroupV2ApiCheckDefaults {
     /**
      * Default assertions for API checks in this group.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2ApiCheckDefaultsAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2ApiCheckDefaultsAssertion>[] | undefined>;
     /**
      * Default basic auth credentials for API checks in this group.
      */
-    basicAuth?: pulumi.Input<inputs.CheckGroupV2ApiCheckDefaultsBasicAuth>;
+    basicAuth?: pulumi.Input<inputs.CheckGroupV2ApiCheckDefaultsBasicAuth | undefined>;
     /**
      * Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
      */
@@ -799,7 +808,7 @@ export interface CheckGroupV2ApiCheckDefaultsAssertion {
     /**
      * The property of the asserted value, for example a JSON path or header name.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY` and `RESPONSE_TIME`.
      */
@@ -832,11 +841,11 @@ export interface CheckGroupV2EnforceAlertSettings {
     /**
      * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your group, we won't be able to alert you even if a check or monitor in the group starts failing.
      */
-    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscription>[]>;
+    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscription>[] | undefined>;
     /**
      * Determines the alert escalation policy for the checks and monitors in the group.
      */
-    alertSettings?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettings>;
+    alertSettings?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettings | undefined>;
     /**
      * Determines whether the enforced alert settings should be active.
      */
@@ -844,7 +853,7 @@ export interface CheckGroupV2EnforceAlertSettings {
     /**
      * When true, the account level alert settings are used instead of the `alertSettings` of this check group. Defaults to `true` when `alertSettings` is not set, and to `false` when it is. The value is derived only while `enabled` is `true`. While the enforcement stays disabled, the stored value is kept and has no effect; disabling an enabled enforcement resets it to null.
      */
-    useGlobalAlertSettings?: pulumi.Input<boolean>;
+    useGlobalAlertSettings?: pulumi.Input<boolean | undefined>;
 }
 
 export interface CheckGroupV2EnforceAlertSettingsAlertChannelSubscription {
@@ -862,59 +871,59 @@ export interface CheckGroupV2EnforceAlertSettingsAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies to the checks and monitors in the group that are scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupV2EnforceAlertSettingsAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive runs of a check or monitor in the group have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after a check or monitor in the group has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupV2EnforceLocations {
@@ -925,11 +934,11 @@ export interface CheckGroupV2EnforceLocations {
     /**
      * An array of one or more data center locations where to run the checks.
      */
-    locations?: pulumi.Input<pulumi.Input<string>[]>;
+    locations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * An array of one or more private locations slugs.
      */
-    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
+    privateLocations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface CheckGroupV2EnforceRetryStrategy {
@@ -947,23 +956,23 @@ export interface CheckGroupV2EnforceRetryStrategyRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Apply the retry strategy only if the defined conditions match.
      */
-    onlyOn?: pulumi.Input<inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn>;
+    onlyOn?: pulumi.Input<inputs.CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -974,7 +983,7 @@ export interface CheckGroupV2EnforceRetryStrategyRetryStrategyOnlyOn {
     /**
      * When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
      */
-    networkError?: pulumi.Input<boolean>;
+    networkError?: pulumi.Input<boolean | undefined>;
 }
 
 export interface CheckGroupV2EnforceSchedulingStrategy {
@@ -996,8 +1005,11 @@ export interface CheckGroupV2EnvironmentVariable {
     /**
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
      */
@@ -1008,22 +1020,22 @@ export interface CheckGroupV2SetupScript {
     /**
      * A valid piece of Node.js code.
      */
-    inlineScript?: pulumi.Input<string>;
+    inlineScript?: pulumi.Input<string | undefined>;
     /**
      * The ID of a code snippet. Code snippets are not available for new plans.
      */
-    snippetId?: pulumi.Input<number>;
+    snippetId?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckGroupV2TeardownScript {
     /**
      * A valid piece of Node.js code.
      */
-    inlineScript?: pulumi.Input<string>;
+    inlineScript?: pulumi.Input<string | undefined>;
     /**
      * The ID of a code snippet. Code snippets are not available for new plans.
      */
-    snippetId?: pulumi.Input<number>;
+    snippetId?: pulumi.Input<number | undefined>;
 }
 
 export interface CheckIntent {
@@ -1034,54 +1046,54 @@ export interface CheckIntent {
     /**
      * Guardrails an automatic repair must not weaken or bypass. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    mustPreserves?: pulumi.Input<pulumi.Input<string>[]>;
+    mustPreserves?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Observable outcomes the check must continue to prove. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[]>;
+    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface CheckRequest {
     /**
      * A request can have multiple assertions.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.CheckRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.CheckRequestAssertion>[] | undefined>;
     /**
      * Set up HTTP basic authentication (username & password).
      */
-    basicAuth?: pulumi.Input<inputs.CheckRequestBasicAuth>;
+    basicAuth?: pulumi.Input<inputs.CheckRequestBasicAuth | undefined>;
     /**
      * The body of the request.
      */
-    body?: pulumi.Input<string>;
+    body?: pulumi.Input<string | undefined>;
     /**
      * The `Content-Type` header of the request. Possible values are `NONE`, `JSON`, `FORM`, `RAW` and `GRAPHQL`. Defaults to `NONE`.
      */
-    bodyType?: pulumi.Input<string>;
+    bodyType?: pulumi.Input<string | undefined>;
     /**
      * Whether to follow HTTP redirects. Defaults to `false`.
      */
-    followRedirects?: pulumi.Input<boolean>;
+    followRedirects?: pulumi.Input<boolean | undefined>;
     /**
      * HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
      */
-    method?: pulumi.Input<string>;
+    method?: pulumi.Input<string | undefined>;
     /**
      * Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
      * Whether to skip TLS certificate validation of the request. Defaults to `false`.
      */
-    skipSsl?: pulumi.Input<boolean>;
+    skipSsl?: pulumi.Input<boolean | undefined>;
     /**
      * The URL to call. Must be between `1` and `2048` characters.
      */
@@ -1096,7 +1108,7 @@ export interface CheckRequestAssertion {
     /**
      * The property selecting the asserted value within the source: a JSONPath expression for `JSON_BODY`, a header name for `HEADERS`, or a regular expression for `TEXT_BODY` whose first capture group is asserted instead of the whole body. Not used for `STATUS_CODE` and `RESPONSE_TIME`.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY` and `RESPONSE_TIME`.
      */
@@ -1104,7 +1116,7 @@ export interface CheckRequestAssertion {
     /**
      * The value to compare against, e.g. `200` for `STATUS_CODE` or a number of milliseconds for `RESPONSE_TIME`. Leave empty for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface CheckRequestBasicAuth {
@@ -1122,23 +1134,23 @@ export interface CheckRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Apply the retry strategy only if the defined conditions match.
      */
-    onlyOn?: pulumi.Input<inputs.CheckRetryStrategyOnlyOn>;
+    onlyOn?: pulumi.Input<inputs.CheckRetryStrategyOnlyOn | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -1149,7 +1161,7 @@ export interface CheckRetryStrategyOnlyOn {
     /**
      * When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
      */
-    networkError?: pulumi.Input<boolean>;
+    networkError?: pulumi.Input<boolean | undefined>;
 }
 
 export interface CheckTriggerIncident {
@@ -1190,74 +1202,74 @@ export interface DnsMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.DnsMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.DnsMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.DnsMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.DnsMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.DnsMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.DnsMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.DnsMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.DnsMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface DnsMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface DnsMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface DnsMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface DnsMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface DnsMonitorRequest {
     /**
      * Assertions to validate the DNS response.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.DnsMonitorRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.DnsMonitorRequestAssertion>[] | undefined>;
     /**
      * The name server to use.
      */
-    nameServer?: pulumi.Input<inputs.DnsMonitorRequestNameServer>;
+    nameServer?: pulumi.Input<inputs.DnsMonitorRequestNameServer | undefined>;
     /**
      * The protocol used to communicate with the name server. Possible values are `UDP` and `TCP`. Defaults to `UDP`.
      */
-    protocol?: pulumi.Input<string>;
+    protocol?: pulumi.Input<string | undefined>;
     /**
      * The DNS record to query. Must be between `1` and `100` characters.
      */
@@ -1276,7 +1288,7 @@ export interface DnsMonitorRequestAssertion {
     /**
      * The property selecting the asserted value within the source: a regular expression for `TEXT_ANSWER` whose first capture group is asserted instead of the whole answer, or a JSONPath expression for `JSON_ANSWER`. Not used for `RESPONSE_CODE` and `RESPONSE_TIME`.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `RESPONSE_CODE`, `RESPONSE_TIME`, `TEXT_ANSWER` and `JSON_ANSWER`.
      */
@@ -1284,37 +1296,37 @@ export interface DnsMonitorRequestAssertion {
     /**
      * The target value, typically `NOERROR` when the source is `RESPONSE_CODE`. For `RESPONSE_TIME` with `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` or `LESS_THAN`, it is required and must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface DnsMonitorRequestNameServer {
     /**
      * The name server host. Must be between `1` and `100` characters.
      */
-    host?: pulumi.Input<string>;
+    host?: pulumi.Input<string | undefined>;
     /**
      * The name server port. Possible values are between `1` and `65535`.
      */
-    port?: pulumi.Input<number>;
+    port?: pulumi.Input<number | undefined>;
 }
 
 export interface DnsMonitorRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -1359,75 +1371,78 @@ export interface GrpcMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.GrpcMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.GrpcMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.GrpcMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.GrpcMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.GrpcMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.GrpcMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.GrpcMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.GrpcMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface GrpcMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface GrpcMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface GrpcMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface GrpcMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface GrpcMonitorRequest {
     /**
      * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestAssertion>[]>;
-    bfbsContent?: pulumi.Input<string>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestAssertion>[] | undefined>;
+    /**
+     * A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+     */
+    bfbsContent?: pulumi.Input<string | undefined>;
     /**
      * The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
      */
-    encoding?: pulumi.Input<string>;
+    encoding?: pulumi.Input<string | undefined>;
     /**
      * The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `method`) and `HEALTH` (queries the standard gRPC health-check service, allows `service`). Defaults to `BEHAVIOR`.
      */
-    grpcMode?: pulumi.Input<string>;
+    grpcMode?: pulumi.Input<string | undefined>;
     /**
      * The host to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
      */
@@ -1435,19 +1450,19 @@ export interface GrpcMonitorRequest {
     /**
      * The IP family to use when executing the gRPC check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode. Must be at most `65536` characters. Must not be set in `HEALTH` mode.
      */
-    message?: pulumi.Input<string>;
+    message?: pulumi.Input<string | undefined>;
     /**
      * gRPC metadata (request headers) sent with the call. Must contain at most `50` elements.
      */
-    metadatas?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestMetadata>[]>;
+    metadatas?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestMetadata>[] | undefined>;
     /**
      * The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; must not be set in `HEALTH` mode.
      */
-    method?: pulumi.Input<string>;
+    method?: pulumi.Input<string | undefined>;
     /**
      * The port number to connect to. Possible values are between `1` and `65535`.
      */
@@ -1455,27 +1470,27 @@ export interface GrpcMonitorRequest {
     /**
      * The inline `.proto` file source used when `serviceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode, where it is required. Must be at most `102400` characters. Must not be set in `HEALTH` mode or when `encoding = "FLATBUFFERS"`.
      */
-    protoContent?: pulumi.Input<string>;
+    protoContent?: pulumi.Input<string | undefined>;
     /**
      * The service name to query in `HEALTH` mode. An empty value queries overall server health. Must not be set in `BEHAVIOR` mode.
      */
-    service?: pulumi.Input<string>;
+    service?: pulumi.Input<string | undefined>;
     /**
      * How the service definition is resolved in `BEHAVIOR` mode. Possible values are `REFLECTION` (uses server reflection) and `PROTO_FILE` (uses the inline `protoContent`, which it requires). Defaults to `REFLECTION`. Must not be set when `encoding = "FLATBUFFERS"`, and must not be `PROTO_FILE` in `HEALTH` mode.
      */
-    serviceDefinition?: pulumi.Input<string>;
+    serviceDefinition?: pulumi.Input<string | undefined>;
     /**
      * Whether to skip SSL certificate validation when `tls` is enabled. Defaults to `false`.
      */
-    skipSsl?: pulumi.Input<boolean>;
+    skipSsl?: pulumi.Input<boolean | undefined>;
     /**
      * The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between `1` and `180`. Defaults to `60`.
      */
-    timeout?: pulumi.Input<number>;
+    timeout?: pulumi.Input<number | undefined>;
     /**
      * Whether to use a TLS-encrypted connection to the gRPC server. Defaults to `true`.
      */
-    tls?: pulumi.Input<boolean>;
+    tls?: pulumi.Input<boolean | undefined>;
 }
 
 export interface GrpcMonitorRequestAssertion {
@@ -1486,7 +1501,7 @@ export interface GrpcMonitorRequestAssertion {
     /**
      * The property selecting the asserted value within the source, e.g. a JSONPath expression for `GRPC_RESPONSE` or a metadata key for `GRPC_METADATA`.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `RESPONSE_TIME`, `GRPC_RESPONSE`, `TEXT_BODY`, `GRPC_METADATA`, `GRPC_HEALTHCHECK_STATUS` and `GRPC_STATUS_CODE`.
      */
@@ -1494,7 +1509,7 @@ export interface GrpcMonitorRequestAssertion {
     /**
      * The value to compare against. Required, and must be numeric without surrounding whitespace, for `RESPONSE_TIME`, `GRPC_STATUS_CODE` and `GRPC_HEALTHCHECK_STATUS`. For `RESPONSE_TIME`, a number of milliseconds. For `GRPC_STATUS_CODE`, possible values are between `0` and `16`. For `GRPC_HEALTHCHECK_STATUS`, possible values are between `0` and `3`, where `0` is `UNKNOWN`, `1` is `SERVING`, `2` is `NOT_SERVING` and `3` is `SERVICE_UNKNOWN`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface GrpcMonitorRequestMetadata {
@@ -1505,26 +1520,26 @@ export interface GrpcMonitorRequestMetadata {
     /**
      * The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
      */
-    value?: pulumi.Input<string>;
+    value?: pulumi.Input<string | undefined>;
 }
 
 export interface GrpcMonitorRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -1569,59 +1584,59 @@ export interface HeartbeatCheckAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.HeartbeatCheckAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface HeartbeatCheckAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatCheckAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatCheckAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatCheckAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatCheckHeartbeat {
@@ -1644,7 +1659,7 @@ export interface HeartbeatCheckHeartbeat {
     /**
      * A custom lowercase UUID with hyphens to generate your ping URL from, such as `22868839-8450-4010-9241-1ea83a2e425f`. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`. If not set, Checkly generates one.
      */
-    pingToken?: pulumi.Input<string>;
+    pingToken?: pulumi.Input<string | undefined>;
 }
 
 export interface HeartbeatCheckTriggerIncident {
@@ -1685,59 +1700,59 @@ export interface HeartbeatMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface HeartbeatMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface HeartbeatMonitorHeartbeat {
@@ -1760,7 +1775,7 @@ export interface HeartbeatMonitorHeartbeat {
     /**
      * A custom lowercase UUID with hyphens to generate your ping URL from, such as `22868839-8450-4010-9241-1ea83a2e425f`. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`. If not set, Checkly generates one.
      */
-    pingToken?: pulumi.Input<string>;
+    pingToken?: pulumi.Input<string | undefined>;
 }
 
 export interface HeartbeatMonitorTriggerIncident {
@@ -1801,66 +1816,66 @@ export interface IcmpMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.IcmpMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.IcmpMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.IcmpMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.IcmpMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.IcmpMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.IcmpMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface IcmpMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface IcmpMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface IcmpMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface IcmpMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface IcmpMonitorRequest {
     /**
      * Assertions to validate the ICMP response.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.IcmpMonitorRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.IcmpMonitorRequestAssertion>[] | undefined>;
     /**
      * The hostname to ping, without a scheme or a port. Must be between `1` and `2048` characters.
      */
@@ -1868,11 +1883,11 @@ export interface IcmpMonitorRequest {
     /**
      * The IP family to use. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The number of ping packets to send. Defaults to `10`.
      */
-    pingCount?: pulumi.Input<number>;
+    pingCount?: pulumi.Input<number | undefined>;
 }
 
 export interface IcmpMonitorRequestAssertion {
@@ -1883,7 +1898,7 @@ export interface IcmpMonitorRequestAssertion {
     /**
      * The property of the source to assert. Required for `LATENCY`, where possible values are `avg`, `min`, `max` and `stdDev`. For `JSON_RESPONSE`, a JSONPath expression selecting the asserted value.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `LATENCY` and `JSON_RESPONSE`.
      */
@@ -1891,26 +1906,26 @@ export interface IcmpMonitorRequestAssertion {
     /**
      * The target value for the assertion. Required for `LATENCY`, where it must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface IcmpMonitorRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -1944,66 +1959,66 @@ export interface MaintenanceWindowStatusPageVisibility {
     /**
      * Mark every service on the linked v2 status pages (`checkly.StatusPage`) as affected. Defaults to `false`. Can't be combined with `serviceIds`. v3 status pages use `componentConfigs` instead.
      */
-    affectAllServices?: pulumi.Input<boolean>;
+    affectAllServices?: pulumi.Input<boolean | undefined>;
     /**
      * Complete the maintenance automatically at the scheduled end time. Defaults to `true`.
      */
-    autoEnd?: pulumi.Input<boolean>;
+    autoEnd?: pulumi.Input<boolean | undefined>;
     /**
      * Start the maintenance automatically at the scheduled time. Defaults to `true`.
      */
-    autoStart?: pulumi.Input<boolean>;
+    autoStart?: pulumi.Input<boolean | undefined>;
     /**
      * The affected components of each linked v3 status page (`checkly.StatusPageV3`), at most one entry per page. Omitting the attribute removes the window's component links.
      */
-    componentConfigs?: pulumi.Input<pulumi.Input<inputs.MaintenanceWindowStatusPageVisibilityComponentConfig>[]>;
+    componentConfigs?: pulumi.Input<pulumi.Input<inputs.MaintenanceWindowStatusPageVisibilityComponentConfig>[] | undefined>;
     /**
      * Show the maintenance window on the linked status pages. Defaults to `false`. All other settings in this attribute only take effect when this is `true`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Email status page subscribers when the maintenance ends. Defaults to `false`.
      */
-    notifyOnEnd?: pulumi.Input<boolean>;
+    notifyOnEnd?: pulumi.Input<boolean | undefined>;
     /**
      * Email status page subscribers when the maintenance starts. Defaults to `false`.
      */
-    notifyOnStart?: pulumi.Input<boolean>;
+    notifyOnStart?: pulumi.Input<boolean | undefined>;
     /**
      * Up to three reminders, in minutes before the maintenance starts, sent to status page subscribers. Possible values are between `60` and `10080`.
      */
-    reminderMinutesBefores?: pulumi.Input<pulumi.Input<number>[]>;
+    reminderMinutesBefores?: pulumi.Input<pulumi.Input<number>[] | undefined>;
     /**
      * The IDs of the affected status page services (`checkly.StatusPageService`). Each service must be on one of the linked v2 status pages.
      */
-    serviceIds?: pulumi.Input<pulumi.Input<string>[]>;
+    serviceIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The severity shown on the status page. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
     /**
      * Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. Defaults to `true`.
      */
-    showAffectedServices?: pulumi.Input<boolean>;
+    showAffectedServices?: pulumi.Input<boolean | undefined>;
     /**
      * The IDs of the status pages to show the maintenance window on. A v2 status page (`checkly.StatusPage`) requires `serviceIds` or `affectAllServices`, and a v3 status page (`checkly.StatusPageV3`) requires an entry in `componentConfigs`.
      */
-    statusPageIds?: pulumi.Input<pulumi.Input<string>[]>;
+    statusPageIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Suppress automatically created incidents for the linked services during the maintenance. Defaults to `false`.
      */
-    suppressAutoIncidents?: pulumi.Input<boolean>;
+    suppressAutoIncidents?: pulumi.Input<boolean | undefined>;
 }
 
 export interface MaintenanceWindowStatusPageVisibilityComponentConfig {
     /**
      * Mark every component of the status page as affected, including components added later. Defaults to `false`. Can't be combined with `components`.
      */
-    affectAllComponents?: pulumi.Input<boolean>;
+    affectAllComponents?: pulumi.Input<boolean | undefined>;
     /**
      * The affected components of the status page, each with the status it shows while the maintenance is in progress. Required unless `affectAllComponents` is `true`; an empty set means the same as leaving it out.
      */
-    components?: pulumi.Input<pulumi.Input<inputs.MaintenanceWindowStatusPageVisibilityComponentConfigComponent>[]>;
+    components?: pulumi.Input<pulumi.Input<inputs.MaintenanceWindowStatusPageVisibilityComponentConfigComponent>[] | undefined>;
     /**
      * The ID of a v3 status page (`checkly.StatusPageV3`). The page must also be listed in `statusPageIds`.
      */
@@ -2018,7 +2033,7 @@ export interface MaintenanceWindowStatusPageVisibilityComponentConfigComponent {
     /**
      * The status the component shows while the maintenance is in progress. Possible values are `OPERATIONAL`, `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`. Defaults to `UNDER_MAINTENANCE`.
      */
-    status?: pulumi.Input<string>;
+    status?: pulumi.Input<string | undefined>;
 }
 
 export interface MultistepCheckAlertChannelSubscription {
@@ -2036,59 +2051,59 @@ export interface MultistepCheckAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.MultistepCheckAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.MultistepCheckAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.MultistepCheckAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.MultistepCheckAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.MultistepCheckAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.MultistepCheckAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.MultistepCheckAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.MultistepCheckAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface MultistepCheckAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface MultistepCheckAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface MultistepCheckAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface MultistepCheckAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface MultistepCheckDependency {
@@ -2110,8 +2125,11 @@ export interface MultistepCheckEnvironmentVariable {
     /**
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
      */
@@ -2126,34 +2144,34 @@ export interface MultistepCheckIntent {
     /**
      * Guardrails an automatic repair must not weaken or bypass. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    mustPreserves?: pulumi.Input<pulumi.Input<string>[]>;
+    mustPreserves?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Observable outcomes the check must continue to prove. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[]>;
+    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface MultistepCheckRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Apply the retry strategy only if the defined conditions match.
      */
-    onlyOn?: pulumi.Input<inputs.MultistepCheckRetryStrategyOnlyOn>;
+    onlyOn?: pulumi.Input<inputs.MultistepCheckRetryStrategyOnlyOn | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -2164,7 +2182,7 @@ export interface MultistepCheckRetryStrategyOnlyOn {
     /**
      * When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
      */
-    networkError?: pulumi.Input<boolean>;
+    networkError?: pulumi.Input<boolean | undefined>;
 }
 
 export interface MultistepCheckTriggerIncident {
@@ -2205,59 +2223,59 @@ export interface PlaywrightCheckSuiteAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface PlaywrightCheckSuiteAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface PlaywrightCheckSuiteAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive check runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the check has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface PlaywrightCheckSuiteBundle {
@@ -2279,8 +2297,11 @@ export interface PlaywrightCheckSuiteEnvironmentVariable {
     /**
      * If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
      */
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
     /**
      * The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
      */
@@ -2295,34 +2316,34 @@ export interface PlaywrightCheckSuiteIntent {
     /**
      * Guardrails an automatic repair must not weaken or bypass. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    mustPreserves?: pulumi.Input<pulumi.Input<string>[]>;
+    mustPreserves?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Observable outcomes the check must continue to prove. Must contain at most `20` statements, each between `1` and `1000` characters, without leading or trailing whitespace.
      */
-    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[]>;
+    requiredOutcomes?: pulumi.Input<pulumi.Input<string>[] | undefined>;
 }
 
 export interface PlaywrightCheckSuiteRuntime {
     /**
      * Whether to automatically detect appropriate runtime environment configuration from the bundle. Defaults to `true`.
      */
-    autoDetect?: pulumi.Input<boolean>;
+    autoDetect?: pulumi.Input<boolean | undefined>;
     /**
      * The JavaScript engine used to run the Playwright tests. When `autoDetect` is enabled, no engine is set, and the code bundle has a lockfile at its root, the engine is detected from files at the bundle root. Node is taken from the first of `.node-version`, `.nvmrc`, `.tool-versions`, the `volta.node` pin in `package.json`, then `engines.node` in `package.json`; Bun from the first of `.tool-versions`, `.bun-version`, then `engines.bun`. When both are found, the engine matching the lockfile's package manager wins. `volta.extends` is not followed.
      */
-    engine?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeEngine>;
+    engine?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeEngine | undefined>;
     /**
      * Configure the Playwright capabilities that should be made available to the runtime environment.
      */
-    playwright?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywright>;
+    playwright?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywright | undefined>;
     /**
      * Customize the actions taken during test execution.
      */
-    steps?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeSteps>;
+    steps?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeSteps | undefined>;
     /**
      * The working directory in which runtime commands are executed. This is useful for monorepos or workspaces where the Playwright project is in a subdirectory. Use "." to explicitly specify the root.
      */
-    workingDir?: pulumi.Input<string>;
+    workingDir?: pulumi.Input<string | undefined>;
 }
 
 export interface PlaywrightCheckSuiteRuntimeEngine {
@@ -2340,11 +2361,11 @@ export interface PlaywrightCheckSuiteRuntimePlaywright {
     /**
      * The list of devices that should be made available for Playwright. Can't be empty. If not set, `chromium`, `firefox` and `webkit` are used, whether or not `autoDetect` is enabled.
      */
-    devices?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywrightDevice>[]>;
+    devices?: pulumi.Input<pulumi.Input<inputs.PlaywrightCheckSuiteRuntimePlaywrightDevice>[] | undefined>;
     /**
      * The Playwright version to use. If not set, the version detected from the code bundle's lockfile is used.
      */
-    version?: pulumi.Input<string>;
+    version?: pulumi.Input<string | undefined>;
 }
 
 export interface PlaywrightCheckSuiteRuntimePlaywrightDevice {
@@ -2358,25 +2379,25 @@ export interface PlaywrightCheckSuiteRuntimeSteps {
     /**
      * Customize the install step, which is used to initialize the environment prior to starting the test run.
      */
-    install?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeStepsInstall>;
+    install?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeStepsInstall | undefined>;
     /**
      * Customize the test step.
      */
-    test?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeStepsTest>;
+    test?: pulumi.Input<inputs.PlaywrightCheckSuiteRuntimeStepsTest | undefined>;
 }
 
 export interface PlaywrightCheckSuiteRuntimeStepsInstall {
     /**
      * The command used to install dependencies prior to running Playwright. Can't be empty. If not set, the install command of your package manager is used, for example `npm install` for `npm`.
      */
-    command?: pulumi.Input<string>;
+    command?: pulumi.Input<string | undefined>;
 }
 
 export interface PlaywrightCheckSuiteRuntimeStepsTest {
     /**
      * The command used to run Playwright. Can't be empty. If not set, the exec command of your package manager is used, for example `npx playwright test` for `npm`.
      */
-    command?: pulumi.Input<string>;
+    command?: pulumi.Input<string | undefined>;
 }
 
 export interface PlaywrightCheckSuiteTriggerIncident {
@@ -2424,78 +2445,78 @@ export interface SslMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.SslMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.SslMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.SslMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.SslMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.SslMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.SslMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.SslMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.SslMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface SslMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface SslMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface SslMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface SslMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface SslMonitorRequest {
     /**
      * Raise an alert when the certificate is within this many days of expiry. Possible values are between `1` and `365`. Defaults to `20`.
      */
-    alertDaysBeforeExpiry?: pulumi.Input<number>;
+    alertDaysBeforeExpiry?: pulumi.Input<number | undefined>;
     /**
      * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.SslMonitorRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.SslMonitorRequestAssertion>[] | undefined>;
     /**
      * The mutual-TLS client certificate configuration.
      */
-    clientCertificate?: pulumi.Input<inputs.SslMonitorRequestClientCertificate>;
+    clientCertificate?: pulumi.Input<inputs.SslMonitorRequestClientCertificate | undefined>;
     /**
      * The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between `1000` and `30000`. Defaults to `10000`.
      */
-    handshakeTimeoutMs?: pulumi.Input<number>;
+    handshakeTimeoutMs?: pulumi.Input<number | undefined>;
     /**
      * The hostname to connect to and validate the TLS certificate of. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
      */
@@ -2503,23 +2524,23 @@ export interface SslMonitorRequest {
     /**
      * The IP family to use when executing the check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The port number to connect to. Possible values are between `1` and `65535`. Defaults to `443`.
      */
-    port?: pulumi.Input<number>;
+    port?: pulumi.Input<number | undefined>;
     /**
      * The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
      */
-    securityBaseline?: pulumi.Input<inputs.SslMonitorRequestSecurityBaseline>;
+    securityBaseline?: pulumi.Input<inputs.SslMonitorRequestSecurityBaseline | undefined>;
     /**
      * An optional SNI server name to send in the TLS handshake. Must be at most `2048` characters. If not set, the value of `hostname` is used.
      */
-    serverName?: pulumi.Input<string>;
+    serverName?: pulumi.Input<string | undefined>;
     /**
      * When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). Defaults to `false`.
      */
-    skipChainValidation?: pulumi.Input<boolean>;
+    skipChainValidation?: pulumi.Input<boolean | undefined>;
 }
 
 export interface SslMonitorRequestAssertion {
@@ -2530,7 +2551,7 @@ export interface SslMonitorRequestAssertion {
     /**
      * The property selecting the asserted value within the source. For `CERTIFICATE`, possible values are `daysUntilExpiry`, `keySizeBits`, `subjectCN`, `issuerCN`, `serialNumber`, `fingerprintSha256`, `issuerFingerprintSha256`, `keyAlgorithm`, `signatureAlgorithm`, `sans`, `selfSigned` and `isCA`. For `CONNECTION`, possible values are `tlsVersion`, `cipherSuite`, `hostnameVerified`, `chainTrusted`, `ocspStapled`, `ocspStatus` and `resolvedIp`. For `JSON_RESPONSE`, a JSONPath expression. For `TEXT_RESPONSE`, a regular expression applied to the serialized response.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `CERTIFICATE`, `CONNECTION`, `RESPONSE_TIME`, `JSON_RESPONSE` and `TEXT_RESPONSE`.
      */
@@ -2538,159 +2559,159 @@ export interface SslMonitorRequestAssertion {
     /**
      * The value to compare against, e.g. a number of days for the `daysUntilExpiry` property. Leave empty for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestClientCertificate {
     /**
      * The ID of the stored client certificate to present. Required when `mode = "explicit"`.
      */
-    clientCertificateId?: pulumi.Input<string>;
+    clientCertificateId?: pulumi.Input<string | undefined>;
     /**
      * The mutual-TLS client-certificate mode. Possible values are `accountDefault` (inherits the account setting, no certificate sent), `auto` (lets Checkly select a stored certificate) and `explicit` (uses the certificate referenced by `clientCertificateId`). Defaults to `accountDefault`.
      */
-    mode?: pulumi.Input<string>;
+    mode?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaseline {
     /**
      * Whether the security baseline is enforced. Defaults to `true`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Enforceable rule: the certificate chain must not include a known-bad CA.
      */
-    knownBadCa?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineKnownBadCa>;
+    knownBadCa?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineKnownBadCa | undefined>;
     /**
      * Enforceable rule: the minimum public key size in bits.
      */
-    minKeySizeBits?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineMinKeySizeBits>;
+    minKeySizeBits?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineMinKeySizeBits | undefined>;
     /**
      * Enforceable rule: the minimum TLS version the server must accept.
      */
-    minTlsVersion?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineMinTlsVersion>;
+    minTlsVersion?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineMinTlsVersion | undefined>;
     /**
      * Advisory rule: an OCSP Must-Staple extension, when present, must be respected.
      */
-    ocspMustStapleRespected?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineOcspMustStapleRespected>;
+    ocspMustStapleRespected?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineOcspMustStapleRespected | undefined>;
     /**
      * Advisory rule: the recommended public key size in bits.
      */
-    recommendedKeySizeBits?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineRecommendedKeySizeBits>;
+    recommendedKeySizeBits?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineRecommendedKeySizeBits | undefined>;
     /**
      * Advisory rule: the recommended TLS version.
      */
-    recommendedTlsVersion?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineRecommendedTlsVersion>;
+    recommendedTlsVersion?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineRecommendedTlsVersion | undefined>;
     /**
      * Advisory rule: the certificate should carry a Signed Certificate Timestamp.
      */
-    sctPresent?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineSctPresent>;
+    sctPresent?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineSctPresent | undefined>;
     /**
      * Enforceable rule: the connection must not negotiate a weak cipher suite.
      */
-    weakCipherSuite?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineWeakCipherSuite>;
+    weakCipherSuite?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineWeakCipherSuite | undefined>;
     /**
      * Enforceable rule: the certificate must not use a weak signature algorithm.
      */
-    weakSignatureAlgorithm?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm>;
+    weakSignatureAlgorithm?: pulumi.Input<inputs.SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineKnownBadCa {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `fail`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineMinKeySizeBits {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `fail`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
     /**
      * The key size in bits. Possible values are between `1024` and `16384`. Defaults to `2048`.
      */
-    value?: pulumi.Input<number>;
+    value?: pulumi.Input<number | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineMinTlsVersion {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `fail`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
     /**
      * The TLS version. Possible values are `TLS1.2` and `TLS1.3`. Defaults to `TLS1.2`.
      */
-    value?: pulumi.Input<string>;
+    value?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineOcspMustStapleRespected {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineRecommendedKeySizeBits {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
     /**
      * The key size in bits. Possible values are between `1024` and `16384`. Defaults to `3072`.
      */
-    value?: pulumi.Input<number>;
+    value?: pulumi.Input<number | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineRecommendedTlsVersion {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
     /**
      * The TLS version. Possible values are `TLS1.2` and `TLS1.3`. Defaults to `TLS1.3`.
      */
-    value?: pulumi.Input<string>;
+    value?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineSctPresent {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineWeakCipherSuite {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `fail`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRequestSecurityBaselineWeakSignatureAlgorithm {
     /**
      * What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `fail`.
      */
-    severity?: pulumi.Input<string>;
+    severity?: pulumi.Input<string | undefined>;
 }
 
 export interface SslMonitorRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -2877,70 +2898,70 @@ export interface TcpCheckAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.TcpCheckAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.TcpCheckAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.TcpCheckAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.TcpCheckAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.TcpCheckAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.TcpCheckAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.TcpCheckAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.TcpCheckAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface TcpCheckAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpCheckAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpCheckAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpCheckAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpCheckRequest {
     /**
      * A request can have multiple assertions.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.TcpCheckRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.TcpCheckRequestAssertion>[] | undefined>;
     /**
      * The data to send to the target host.
      */
-    data?: pulumi.Input<string>;
+    data?: pulumi.Input<string | undefined>;
     /**
      * The hostname or IP to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
      */
@@ -2948,7 +2969,7 @@ export interface TcpCheckRequest {
     /**
      * The IP family to use when executing the TCP check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The port number to connect to. Possible values are between `1` and `65535`.
      */
@@ -2963,7 +2984,7 @@ export interface TcpCheckRequestAssertion {
     /**
      * A regular expression for `RESPONSE_DATA` whose first capture group is asserted instead of the whole response data. Not used for `RESPONSE_TIME`.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
      */
@@ -2971,26 +2992,26 @@ export interface TcpCheckRequestAssertion {
     /**
      * The value to compare against. Required for `RESPONSE_TIME`, where it must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, `IS_EMPTY` and `NOT_EMPTY`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface TcpCheckRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -3035,70 +3056,70 @@ export interface TcpMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.TcpMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.TcpMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.TcpMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.TcpMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.TcpMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.TcpMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.TcpMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.TcpMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface TcpMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface TcpMonitorRequest {
     /**
      * A request can have multiple assertions.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.TcpMonitorRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.TcpMonitorRequestAssertion>[] | undefined>;
     /**
      * The data to send to the target host.
      */
-    data?: pulumi.Input<string>;
+    data?: pulumi.Input<string | undefined>;
     /**
      * The hostname or IP to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
      */
@@ -3106,7 +3127,7 @@ export interface TcpMonitorRequest {
     /**
      * The IP family to use when executing the TCP check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The port number to connect to. Possible values are between `1` and `65535`.
      */
@@ -3121,7 +3142,7 @@ export interface TcpMonitorRequestAssertion {
     /**
      * A regular expression for `RESPONSE_DATA` whose first capture group is asserted instead of the whole response data. Not used for `RESPONSE_TIME`.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
      */
@@ -3129,26 +3150,26 @@ export interface TcpMonitorRequestAssertion {
     /**
      * The value to compare against. Required for `RESPONSE_TIME`, where it must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, `IS_EMPTY` and `NOT_EMPTY`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface TcpMonitorRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -3193,94 +3214,94 @@ export interface TracerouteMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.TracerouteMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface TracerouteMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface TracerouteMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface TracerouteMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface TracerouteMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface TracerouteMonitorRequest {
     /**
      * A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.TracerouteMonitorRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.TracerouteMonitorRequestAssertion>[] | undefined>;
     /**
      * The IP family to use when executing the traceroute. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * The maximum number of network hops to probe before stopping. Possible values are between `1` and `64`. Defaults to `30`.
      */
-    maxHops?: pulumi.Input<number>;
+    maxHops?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between `1` and `30`, and the value must not exceed `maxHops`. If not set, the smaller of `15` and `maxHops` is used.
      */
-    maxUnknownHops?: pulumi.Input<number>;
+    maxUnknownHops?: pulumi.Input<number | undefined>;
     /**
      * The destination port for TCP/UDP/SCTP probes. Possible values are between `1` and `65535`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`. Must not be set when `protocol = "ICMP"`, which has no port.
      */
-    port?: pulumi.Input<number>;
+    port?: pulumi.Input<number | undefined>;
     /**
      * The probe protocol. Possible values are `TCP` (sends SYN probes), `UDP` (sends datagrams to a high port), `ICMP` (sends Echo Requests) and `SCTP` (sends INIT chunks). Defaults to `TCP`.
      */
-    protocol?: pulumi.Input<string>;
+    protocol?: pulumi.Input<string | undefined>;
     /**
      * Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. Defaults to `true`.
      */
-    ptrLookup?: pulumi.Input<boolean>;
+    ptrLookup?: pulumi.Input<boolean | undefined>;
     /**
      * The number of seconds to wait for the traceroute to complete before timing out. Possible values are between `1` and `30`. Defaults to `10`.
      */
-    timeout?: pulumi.Input<number>;
+    timeout?: pulumi.Input<number | undefined>;
     /**
      * The host to trace the network path to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
      */
@@ -3295,7 +3316,7 @@ export interface TracerouteMonitorRequestAssertion {
     /**
      * The statistic to assert on. Required for `RESPONSE_TIME`, where possible values are `avg`, `min`, `max` and `stdDev`. Not used for `HOP_COUNT` and `PACKET_LOSS`.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. Possible values are `RESPONSE_TIME`, `HOP_COUNT` and `PACKET_LOSS`.
      */
@@ -3303,26 +3324,26 @@ export interface TracerouteMonitorRequestAssertion {
     /**
      * The value to compare against. Required, and must be numeric without surrounding whitespace: a non-negative number of milliseconds for `RESPONSE_TIME`, a non-negative integer for `HOP_COUNT` or a number between `0` and `100` for `PACKET_LOSS`.
      */
-    target?: pulumi.Input<string>;
+    target?: pulumi.Input<string | undefined>;
 }
 
 export interface TracerouteMonitorRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -3367,78 +3388,78 @@ export interface UrlMonitorAlertSettings {
     /**
      * Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
      */
-    escalationType?: pulumi.Input<string>;
+    escalationType?: pulumi.Input<string | undefined>;
     /**
      * Configuration for parallel run failure threshold.
      */
-    parallelRunFailureThreshold?: pulumi.Input<inputs.UrlMonitorAlertSettingsParallelRunFailureThreshold>;
+    parallelRunFailureThreshold?: pulumi.Input<inputs.UrlMonitorAlertSettingsParallelRunFailureThreshold | undefined>;
     /**
      * Defines how often to send reminder notifications after the initial alert.
      */
-    reminders?: pulumi.Input<inputs.UrlMonitorAlertSettingsReminders>;
+    reminders?: pulumi.Input<inputs.UrlMonitorAlertSettingsReminders | undefined>;
     /**
      * Configuration for run-based escalation.
      */
-    runBasedEscalation?: pulumi.Input<inputs.UrlMonitorAlertSettingsRunBasedEscalation>;
+    runBasedEscalation?: pulumi.Input<inputs.UrlMonitorAlertSettingsRunBasedEscalation | undefined>;
     /**
      * Configuration for time-based escalation.
      */
-    timeBasedEscalation?: pulumi.Input<inputs.UrlMonitorAlertSettingsTimeBasedEscalation>;
+    timeBasedEscalation?: pulumi.Input<inputs.UrlMonitorAlertSettingsTimeBasedEscalation | undefined>;
 }
 
 export interface UrlMonitorAlertSettingsParallelRunFailureThreshold {
     /**
      * Whether parallel run failure threshold is enabled. Only applies if the monitor is scheduled for multiple locations in parallel. Defaults to `false`.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
      */
-    percentage?: pulumi.Input<number>;
+    percentage?: pulumi.Input<number | undefined>;
 }
 
 export interface UrlMonitorAlertSettingsReminders {
     /**
      * Number of reminder notifications to send. Possible values are `0` (disabled), `1`, `2`, `3`, `4`, `5` and `100000` (unlimited). Defaults to `0`.
      */
-    amount?: pulumi.Input<number>;
+    amount?: pulumi.Input<number | undefined>;
     /**
      * Interval between reminder notifications in minutes. Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    interval?: pulumi.Input<number>;
+    interval?: pulumi.Input<number | undefined>;
 }
 
 export interface UrlMonitorAlertSettingsRunBasedEscalation {
     /**
      * Send an alert notification after the given number of consecutive monitor runs have failed. Possible values are between `1` and `5`. Defaults to `1`.
      */
-    failedRunThreshold?: pulumi.Input<number>;
+    failedRunThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface UrlMonitorAlertSettingsTimeBasedEscalation {
     /**
      * Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
      */
-    minutesFailingThreshold?: pulumi.Input<number>;
+    minutesFailingThreshold?: pulumi.Input<number | undefined>;
 }
 
 export interface UrlMonitorRequest {
     /**
      * Assertions to validate the HTTP response. URL monitors only support status code assertions.
      */
-    assertions?: pulumi.Input<pulumi.Input<inputs.UrlMonitorRequestAssertion>[]>;
+    assertions?: pulumi.Input<pulumi.Input<inputs.UrlMonitorRequestAssertion>[] | undefined>;
     /**
      * Whether to follow HTTP redirects automatically. Defaults to `true`.
      */
-    followRedirects?: pulumi.Input<boolean>;
+    followRedirects?: pulumi.Input<boolean | undefined>;
     /**
      * IP family version to use for the connection. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
      */
-    ipFamily?: pulumi.Input<string>;
+    ipFamily?: pulumi.Input<string | undefined>;
     /**
      * Whether to skip SSL certificate verification. Defaults to `false`.
      */
-    skipSsl?: pulumi.Input<boolean>;
+    skipSsl?: pulumi.Input<boolean | undefined>;
     /**
      * The URL to monitor. Must be between `1` and `2048` characters. Must be a valid HTTP or HTTPS URL.
      */
@@ -3453,7 +3474,7 @@ export interface UrlMonitorRequestAssertion {
     /**
      * Not used by `STATUS_CODE`, the only allowed source; leave empty.
      */
-    property?: pulumi.Input<string>;
+    property?: pulumi.Input<string | undefined>;
     /**
      * The source of the asserted value. The only possible value is `STATUS_CODE`.
      */
@@ -3468,23 +3489,23 @@ export interface UrlMonitorRetryStrategy {
     /**
      * The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
      */
-    baseBackoffSeconds?: pulumi.Input<number>;
+    baseBackoffSeconds?: pulumi.Input<number | undefined>;
     /**
      * The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxDurationSeconds?: pulumi.Input<number>;
+    maxDurationSeconds?: pulumi.Input<number | undefined>;
     /**
      * The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
      */
-    maxRetries?: pulumi.Input<number>;
+    maxRetries?: pulumi.Input<number | undefined>;
     /**
      * Apply the retry strategy only if the defined conditions match.
      */
-    onlyOn?: pulumi.Input<inputs.UrlMonitorRetryStrategyOnlyOn>;
+    onlyOn?: pulumi.Input<inputs.UrlMonitorRetryStrategyOnlyOn | undefined>;
     /**
      * Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
      */
-    sameRegion?: pulumi.Input<boolean>;
+    sameRegion?: pulumi.Input<boolean | undefined>;
     /**
      * Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
      */
@@ -3495,7 +3516,7 @@ export interface UrlMonitorRetryStrategyOnlyOn {
     /**
      * When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
      */
-    networkError?: pulumi.Input<boolean>;
+    networkError?: pulumi.Input<boolean | undefined>;
 }
 
 export interface UrlMonitorTriggerIncident {

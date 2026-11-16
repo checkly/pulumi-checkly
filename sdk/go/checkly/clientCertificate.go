@@ -12,14 +12,17 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Example Usage
+// Use client certificates to authenticate your API checks to APIs that require mutual TLS (mTLS) authentication, or any other authentication scheme where the requester needs to provide a certificate.
+//
+// Each client certificate is specific to a host name, e.g. `acme.com` or a wildcard such as `*.acme.com`, and will be used automatically by any API checks targeting that host. Set `path` to limit the certificate to requests under a URL path prefix.
+//
+// Changing the value of any attribute forces a new resource to be created, except for adding or removing a trailing `/` of `path`, which the API ignores, and for the first apply after an import. The API never returns `privateKey` or `passphrase`, so the provider cannot check an imported certificate's key against the configured one: that apply records the configured values in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
 //
 // ## Import
 //
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing client certificate using its ID.
-//
 // The ID is returned by the Checkly API at GET /v1/client-certificates.
 //
 // ```sh
@@ -35,8 +38,9 @@ type ClientCertificate struct {
 	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase pulumi.StringPtrOutput `pulumi:"passphrase"`
 	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path       pulumi.StringPtrOutput `pulumi:"path"`
-	PrivateKey pulumi.StringOutput    `pulumi:"privateKey"`
+	Path pulumi.StringPtrOutput `pulumi:"path"`
+	// The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
+	PrivateKey pulumi.StringOutput `pulumi:"privateKey"`
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa pulumi.StringPtrOutput `pulumi:"trustedCa"`
 }
@@ -98,7 +102,8 @@ type clientCertificateState struct {
 	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase *string `pulumi:"passphrase"`
 	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path       *string `pulumi:"path"`
+	Path *string `pulumi:"path"`
+	// The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
 	PrivateKey *string `pulumi:"privateKey"`
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa *string `pulumi:"trustedCa"`
@@ -112,7 +117,8 @@ type ClientCertificateState struct {
 	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase pulumi.StringPtrInput
 	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path       pulumi.StringPtrInput
+	Path pulumi.StringPtrInput
+	// The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
 	PrivateKey pulumi.StringPtrInput
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa pulumi.StringPtrInput
@@ -120,6 +126,12 @@ type ClientCertificateState struct {
 
 func (ClientCertificateState) ElementType() reflect.Type {
 	return reflect.TypeOf((*clientCertificateState)(nil)).Elem()
+}
+
+// ClientCertificateExists checks whether an existing ClientCertificate resource with the given ID exists.
+func ClientCertificateExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ClientCertificateState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/clientCertificate:ClientCertificate", id, state, "", opts...)
 }
 
 type clientCertificateArgs struct {
@@ -130,8 +142,9 @@ type clientCertificateArgs struct {
 	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase *string `pulumi:"passphrase"`
 	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path       *string `pulumi:"path"`
-	PrivateKey string  `pulumi:"privateKey"`
+	Path *string `pulumi:"path"`
+	// The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
+	PrivateKey string `pulumi:"privateKey"`
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa *string `pulumi:"trustedCa"`
 }
@@ -145,7 +158,8 @@ type ClientCertificateArgs struct {
 	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase pulumi.StringPtrInput
 	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path       pulumi.StringPtrInput
+	Path pulumi.StringPtrInput
+	// The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
 	PrivateKey pulumi.StringInput
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa pulumi.StringPtrInput
@@ -258,6 +272,7 @@ func (o ClientCertificateOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClientCertificate) pulumi.StringPtrOutput { return v.Path }).(pulumi.StringPtrOutput)
 }
 
+// The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
 func (o ClientCertificateOutput) PrivateKey() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClientCertificate) pulumi.StringOutput { return v.PrivateKey }).(pulumi.StringOutput)
 }

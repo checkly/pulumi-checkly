@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntimePlaywright
     {
         /// <summary>
-        /// The list of devices that should be made available for Playwright. Can't be empty. If not set, `chromium`, `firefox` and `webkit` are used, whether or not `auto_detect` is enabled.
+        /// The list of devices that should be made available for Playwright. Can't be empty. If not set, `Chromium`, `Firefox` and `Webkit` are used, whether or not `AutoDetect` is enabled.
         /// </summary>
         public readonly ImmutableArray<Outputs.PlaywrightCheckSuiteRuntimePlaywrightDevice> Devices;
         /// <summary>

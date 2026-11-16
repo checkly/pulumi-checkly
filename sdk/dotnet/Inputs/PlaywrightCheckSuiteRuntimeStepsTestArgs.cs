@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class PlaywrightCheckSuiteRuntimeStepsTestArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The command used to run Playwright. Can't be empty. If not set, the exec command of your package manager is used, for example `npx playwright test` for `npm`.
+        /// The command used to run Playwright. Can't be empty. If not set, the exec command of your package manager is used, for example `npx playwright test` for `Npm`.
         /// </summary>
         [Input("command")]
         public Input<string>? Command { get; set; }

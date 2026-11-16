@@ -118,13 +118,13 @@ namespace Pulumi.Checkly
     /// 
     /// ## Assertion Reference
     /// 
-    /// Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. SSL assertions use a property-scoped grammar: for the `CERTIFICATE` and `CONNECTION` sources, `property` selects the fact being asserted, and that property determines which comparisons are allowed. These rules are enforced by the Checkly API at apply time.
+    /// Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. SSL assertions use a property-scoped grammar: for the `CERTIFICATE` and `CONNECTION` sources, `Property` selects the fact being asserted, and that property determines which comparisons are allowed. These rules are enforced by the Checkly API at apply time.
     /// 
     /// ### Source `CERTIFICATE`
     /// 
-    /// `property` is required and must be one of the following.
+    /// `Property` is required and must be one of the following.
     /// 
-    /// | `property` | Value type | Allowed `comparison` values | Notes |
+    /// | `Property` | Value type | Allowed `Comparison` values | Notes |
     /// |---|---|---|---|
     /// | `daysUntilExpiry` | number | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Days until the certificate expires. |
     /// | `keySizeBits` | number | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Public key size in bits. |
@@ -135,27 +135,27 @@ namespace Pulumi.Checkly
     /// | `issuerFingerprintSha256` | string | `EQUALS`, `NOT_EQUALS` | |
     /// | `keyAlgorithm` | string | `EQUALS`, `NOT_EQUALS` | |
     /// | `signatureAlgorithm` | string | `EQUALS`, `NOT_EQUALS` | e.g. `SHA256-RSA`, `ECDSA-SHA256`, `Ed25519`. |
-    /// | `sans` | list of strings | `CONTAINS`, `NOT_CONTAINS` | Subject alternative names. |
-    /// | `selfSigned` | boolean | `EQUALS` only | `target` is `"true"` or `"false"`. |
-    /// | `isCA` | boolean | `EQUALS` only | `target` is `"true"` or `"false"`. |
+    /// | `Sans` | list of strings | `CONTAINS`, `NOT_CONTAINS` | Subject alternative names. |
+    /// | `selfSigned` | boolean | `EQUALS` only | `Target` is `"true"` or `"false"`. |
+    /// | `isCA` | boolean | `EQUALS` only | `Target` is `"true"` or `"false"`. |
     /// 
     /// ### Source `CONNECTION`
     /// 
-    /// `property` is required and must be one of the following.
+    /// `Property` is required and must be one of the following.
     /// 
-    /// | `property` | Value type | Allowed `comparison` values | Notes |
+    /// | `Property` | Value type | Allowed `Comparison` values | Notes |
     /// |---|---|---|---|
     /// | `tlsVersion` | string (ordered) | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | TLS versions compare in protocol order, e.g. `GREATER_THAN` `TLSv1.2` matches TLS 1.3. |
     /// | `cipherSuite` | string | `EQUALS`, `NOT_EQUALS`, `CONTAINS`, `NOT_CONTAINS` | IANA cipher suite name. |
-    /// | `hostnameVerified` | boolean | `EQUALS` only | `target` is `"true"` or `"false"`. |
-    /// | `chainTrusted` | boolean | `EQUALS` only | `target` is `"true"` or `"false"`. |
-    /// | `ocspStapled` | boolean | `EQUALS` only | `target` is `"true"` or `"false"`. |
+    /// | `hostnameVerified` | boolean | `EQUALS` only | `Target` is `"true"` or `"false"`. |
+    /// | `chainTrusted` | boolean | `EQUALS` only | `Target` is `"true"` or `"false"`. |
+    /// | `ocspStapled` | boolean | `EQUALS` only | `Target` is `"true"` or `"false"`. |
     /// | `ocspStatus` | string | `EQUALS`, `NOT_EQUALS` | |
     /// | `resolvedIp` | string | `EQUALS`, `NOT_EQUALS`, `CONTAINS`, `NOT_CONTAINS` | |
     /// 
     /// ### Other sources
     /// 
-    /// | `source` | `property` | Allowed `comparison` values | `target` |
+    /// | `Source` | `Property` | Allowed `Comparison` values | `Target` |
     /// |---|---|---|---|
     /// | `RESPONSE_TIME` | Must be empty. | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Handshake time in milliseconds, ≥ 0. |
     /// | `JSON_RESPONSE` | Required. A JSONPath expression over the check result (e.g. `$.certificate.keySizeBits`). | `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, `NOT_NULL` | Free-form string. |
@@ -166,7 +166,6 @@ namespace Pulumi.Checkly
     /// The `pulumi import` command can be used, for example:
     /// 
     /// Import an existing SSL monitor using its check ID.
-    /// 
     /// You can find the ID in the check's URL in the Checkly dashboard.
     /// 
     /// ```sh
@@ -177,7 +176,7 @@ namespace Pulumi.Checkly
     public partial class SslMonitor : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
@@ -207,13 +206,13 @@ namespace Pulumi.Checkly
         public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
@@ -231,19 +230,19 @@ namespace Pulumi.Checkly
         public Output<int?> GroupOrder { get; private set; } = null!;
 
         /// <summary>
-        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degraded_response_time`. Defaults to `10000`.
+        /// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `DegradedResponseTime`. Defaults to `10000`.
         /// </summary>
         [Output("maxResponseTime")]
         public Output<int> MaxResponseTime { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Output("muted")]
         public Output<bool> Muted { get; private set; } = null!;
@@ -273,7 +272,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.SslMonitorRetryStrategy> RetryStrategy { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Output("runParallel")]
         public Output<bool> RunParallel { get; private set; } = null!;
@@ -297,7 +296,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.SslMonitorTriggerIncident?> TriggerIncident { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
         public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
@@ -350,7 +349,7 @@ namespace Pulumi.Checkly
     public sealed class SslMonitorArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -386,13 +385,13 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
@@ -413,7 +412,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -422,13 +421,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degraded_response_time`. Defaults to `10000`.
+        /// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `DegradedResponseTime`. Defaults to `10000`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -464,7 +463,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.SslMonitorRetryStrategyArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
@@ -494,7 +493,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.SslMonitorTriggerIncidentArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -508,7 +507,7 @@ namespace Pulumi.Checkly
     public sealed class SslMonitorState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -544,13 +543,13 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
@@ -571,7 +570,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -580,13 +579,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degraded_response_time`. Defaults to `10000`.
+        /// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `DegradedResponseTime`. Defaults to `10000`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -622,7 +621,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.SslMonitorRetryStrategyGetArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
@@ -652,7 +651,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.SslMonitorTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

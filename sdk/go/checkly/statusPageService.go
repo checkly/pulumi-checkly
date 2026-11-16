@@ -51,10 +51,8 @@ import (
 //
 // The `pulumi import` command can be used, for example:
 //
-// checkly_status_page_service is deprecated together with checkly_status_page; services of v3 status pages are checkly_status_page_v3_component resources.
-//
+// StatusPageService is deprecated together with checkly_status_page; services of v3 status pages are StatusPageV3Component resources.
 // Import an existing status page service using its ID.
-//
 // The ID is returned by the Checkly API at GET /v1/status-pages/services.
 //
 // ```sh
@@ -110,6 +108,12 @@ type StatusPageServiceState struct {
 
 func (StatusPageServiceState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageServiceState)(nil)).Elem()
+}
+
+// StatusPageServiceExists checks whether an existing StatusPageService resource with the given ID exists.
+func StatusPageServiceExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageServiceState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPageService:StatusPageService", id, state, "", opts...)
 }
 
 type statusPageServiceArgs struct {

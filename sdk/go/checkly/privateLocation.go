@@ -59,7 +59,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing private location using its ID.
-//
 // The ID is returned by the Checkly API at GET /v1/private-locations.
 //
 // ```sh
@@ -148,6 +147,12 @@ type PrivateLocationState struct {
 
 func (PrivateLocationState) ElementType() reflect.Type {
 	return reflect.TypeOf((*privateLocationState)(nil)).Elem()
+}
+
+// PrivateLocationExists checks whether an existing PrivateLocation resource with the given ID exists.
+func PrivateLocationExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PrivateLocationState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/privateLocation:PrivateLocation", id, state, "", opts...)
 }
 
 type privateLocationArgs struct {

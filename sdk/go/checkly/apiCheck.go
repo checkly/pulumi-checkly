@@ -21,6 +21,8 @@ import (
 //
 // import (
 //
+//	"strconv"
+//
 //	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
@@ -163,11 +165,11 @@ import (
 //				},
 //				AlertChannelSubscriptions: checkly.ApiCheckAlertChannelSubscriptionArray{
 //					&checkly.ApiCheckAlertChannelSubscriptionArgs{
-//						ChannelId: emailAc1.ID(),
+//						ChannelId: emailAc1.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //						Activated: pulumi.Bool(true),
 //					},
 //					&checkly.ApiCheckAlertChannelSubscriptionArgs{
-//						ChannelId: emailAc2.ID(),
+//						ChannelId: emailAc2.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //						Activated: pulumi.Bool(true),
 //					},
 //				},
@@ -201,7 +203,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing API check using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -420,6 +421,12 @@ type ApiCheckState struct {
 
 func (ApiCheckState) ElementType() reflect.Type {
 	return reflect.TypeOf((*apiCheckState)(nil)).Elem()
+}
+
+// ApiCheckExists checks whether an existing ApiCheck resource with the given ID exists.
+func ApiCheckExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ApiCheckState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/apiCheck:ApiCheck", id, state, "", opts...)
 }
 
 type apiCheckArgs struct {

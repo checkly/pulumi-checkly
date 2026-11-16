@@ -66,10 +66,8 @@ namespace Pulumi.Checkly
     /// 
     /// The `pulumi import` command can be used, for example:
     /// 
-    /// checkly_status_page is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
-    /// 
+    /// checkly.StatusPage is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
     /// Import an existing status page using its ID.
-    /// 
     /// The ID is returned by the Checkly API at GET /v1/status-pages.
     /// 
     /// ```sh

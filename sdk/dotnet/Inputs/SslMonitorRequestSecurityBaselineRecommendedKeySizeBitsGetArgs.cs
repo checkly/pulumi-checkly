@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class SslMonitorRequestSecurityBaselineRecommendedKeySizeBitsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
+        /// What happens when the rule is violated. Possible values are `Fail` (fails the monitor), `Degrade` (marks it degraded) and `Ignore` (disables the rule). Defaults to `Ignore`.
         /// </summary>
         [Input("severity")]
         public Input<string>? Severity { get; set; }

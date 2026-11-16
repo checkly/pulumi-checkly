@@ -37,7 +37,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<int>? MaxHops { get; set; }
 
         /// <summary>
-        /// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between `1` and `30`, and the value must not exceed `max_hops`. If not set, the smaller of `15` and `max_hops` is used.
+        /// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between `1` and `30`, and the value must not exceed `MaxHops`. If not set, the smaller of `15` and `MaxHops` is used.
         /// </summary>
         [Input("maxUnknownHops")]
         public Input<int>? MaxUnknownHops { get; set; }
@@ -55,7 +55,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string>? Protocol { get; set; }
 
         /// <summary>
-        /// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. Defaults to `true`.
+        /// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. Defaults to `True`.
         /// </summary>
         [Input("ptrLookup")]
         public Input<bool>? PtrLookup { get; set; }

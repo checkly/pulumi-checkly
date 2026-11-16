@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class CheckGroupAlertSettingsParallelRunFailureThresholdArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether parallel run failure threshold is enabled. Only applies to the checks and monitors in the group that are scheduled for multiple locations in parallel. Defaults to `false`.
+        /// Whether parallel run failure threshold is enabled. Only applies to the checks and monitors in the group that are scheduled for multiple locations in parallel. Defaults to `False`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }

@@ -142,11 +142,11 @@ import * as utilities from "./utilities";
  *     },
  *     alertChannelSubscriptions: [
  *         {
- *             channelId: emailAc.id,
+ *             channelId: emailAc.id.apply(x =>Number(x)),
  *             activated: true,
  *         },
  *         {
- *             channelId: smsAc.id,
+ *             channelId: smsAc.id.apply(x =>Number(x)),
  *             activated: true,
  *         },
  *     ],
@@ -158,7 +158,6 @@ import * as utilities from "./utilities";
  * The `pulumi import` command can be used, for example:
  *
  * Import an existing alert channel using its numeric ID.
- *
  * The ID is returned by the Checkly API at GET /v1/alert-channels.
  *
  * ```sh
@@ -179,6 +178,17 @@ export class AlertChannel extends pulumi.CustomResource {
         return new AlertChannel(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing AlertChannel resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: AlertChannelState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/alertChannel:AlertChannel", id, <any>state || {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'checkly:index/alertChannel:AlertChannel';
 
@@ -193,6 +203,9 @@ export class AlertChannel extends pulumi.CustomResource {
         return obj['__pulumiType'] === AlertChannel.__pulumiType;
     }
 
+    /**
+     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+     */
     declare public readonly autoSubscribe: pulumi.Output<boolean>;
     /**
      * Sends alerts as phone calls.
@@ -302,120 +315,126 @@ export class AlertChannel extends pulumi.CustomResource {
  * Input properties used for looking up and filtering AlertChannel resources.
  */
 export interface AlertChannelState {
-    autoSubscribe?: pulumi.Input<boolean>;
+    /**
+     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+     */
+    autoSubscribe?: pulumi.Input<boolean | undefined>;
     /**
      * Sends alerts as phone calls.
      */
-    call?: pulumi.Input<inputs.AlertChannelCall>;
+    call?: pulumi.Input<inputs.AlertChannelCall | undefined>;
     /**
      * Sends alerts by email.
      */
-    email?: pulumi.Input<inputs.AlertChannelEmail>;
+    email?: pulumi.Input<inputs.AlertChannelEmail | undefined>;
     /**
      * Creates alerts in Opsgenie.
      */
-    opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
+    opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie | undefined>;
     /**
      * Sends alerts to a PagerDuty service.
      */
-    pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;
+    pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty | undefined>;
     /**
      * Whether to send an alert when a check is degraded. Defaults to `false`.
      */
-    sendDegraded?: pulumi.Input<boolean>;
+    sendDegraded?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to send an alert when a check fails. Defaults to `true`.
      */
-    sendFailure?: pulumi.Input<boolean>;
+    sendFailure?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to send an alert when a check recovers. Defaults to `true`.
      */
-    sendRecovery?: pulumi.Input<boolean>;
+    sendRecovery?: pulumi.Input<boolean | undefined>;
     /**
      * Sends alerts to a Slack channel through a legacy Slack incoming webhook.
      *
      * @deprecated The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
      */
-    slack?: pulumi.Input<inputs.AlertChannelSlack>;
+    slack?: pulumi.Input<inputs.AlertChannelSlack | undefined>;
     /**
      * Sends alerts to Slack channels or users through the Checkly Slack app.
      */
-    slackApp?: pulumi.Input<inputs.AlertChannelSlackApp>;
+    slackApp?: pulumi.Input<inputs.AlertChannelSlackApp | undefined>;
     /**
      * Sends alerts as SMS messages.
      */
-    sms?: pulumi.Input<inputs.AlertChannelSms>;
+    sms?: pulumi.Input<inputs.AlertChannelSms | undefined>;
     /**
      * Whether to send an alert for expiring SSL certificates. Defaults to `false`.
      */
-    sslExpiry?: pulumi.Input<boolean>;
+    sslExpiry?: pulumi.Input<boolean | undefined>;
     /**
      * How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
      */
-    sslExpiryThreshold?: pulumi.Input<number>;
+    sslExpiryThreshold?: pulumi.Input<number | undefined>;
     /**
      * Sends alerts as HTTP requests to a webhook.
      */
-    webhook?: pulumi.Input<inputs.AlertChannelWebhook>;
+    webhook?: pulumi.Input<inputs.AlertChannelWebhook | undefined>;
 }
 
 /**
  * The set of arguments for constructing a AlertChannel resource.
  */
 export interface AlertChannelArgs {
-    autoSubscribe?: pulumi.Input<boolean>;
+    /**
+     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+     */
+    autoSubscribe?: pulumi.Input<boolean | undefined>;
     /**
      * Sends alerts as phone calls.
      */
-    call?: pulumi.Input<inputs.AlertChannelCall>;
+    call?: pulumi.Input<inputs.AlertChannelCall | undefined>;
     /**
      * Sends alerts by email.
      */
-    email?: pulumi.Input<inputs.AlertChannelEmail>;
+    email?: pulumi.Input<inputs.AlertChannelEmail | undefined>;
     /**
      * Creates alerts in Opsgenie.
      */
-    opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
+    opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie | undefined>;
     /**
      * Sends alerts to a PagerDuty service.
      */
-    pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;
+    pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty | undefined>;
     /**
      * Whether to send an alert when a check is degraded. Defaults to `false`.
      */
-    sendDegraded?: pulumi.Input<boolean>;
+    sendDegraded?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to send an alert when a check fails. Defaults to `true`.
      */
-    sendFailure?: pulumi.Input<boolean>;
+    sendFailure?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to send an alert when a check recovers. Defaults to `true`.
      */
-    sendRecovery?: pulumi.Input<boolean>;
+    sendRecovery?: pulumi.Input<boolean | undefined>;
     /**
      * Sends alerts to a Slack channel through a legacy Slack incoming webhook.
      *
      * @deprecated The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
      */
-    slack?: pulumi.Input<inputs.AlertChannelSlack>;
+    slack?: pulumi.Input<inputs.AlertChannelSlack | undefined>;
     /**
      * Sends alerts to Slack channels or users through the Checkly Slack app.
      */
-    slackApp?: pulumi.Input<inputs.AlertChannelSlackApp>;
+    slackApp?: pulumi.Input<inputs.AlertChannelSlackApp | undefined>;
     /**
      * Sends alerts as SMS messages.
      */
-    sms?: pulumi.Input<inputs.AlertChannelSms>;
+    sms?: pulumi.Input<inputs.AlertChannelSms | undefined>;
     /**
      * Whether to send an alert for expiring SSL certificates. Defaults to `false`.
      */
-    sslExpiry?: pulumi.Input<boolean>;
+    sslExpiry?: pulumi.Input<boolean | undefined>;
     /**
      * How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
      */
-    sslExpiryThreshold?: pulumi.Input<number>;
+    sslExpiryThreshold?: pulumi.Input<number | undefined>;
     /**
      * Sends alerts as HTTP requests to a webhook.
      */
-    webhook?: pulumi.Input<inputs.AlertChannelWebhook>;
+    webhook?: pulumi.Input<inputs.AlertChannelWebhook | undefined>;
 }

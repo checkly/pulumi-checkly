@@ -99,7 +99,6 @@ import * as utilities from "./utilities";
  * The `pulumi import` command can be used, for example:
  *
  * Import an existing maintenance window using its numeric ID.
- *
  * The ID is returned by the Checkly API at GET /v1/maintenance-windows.
  *
  * ```sh
@@ -118,6 +117,17 @@ export class MaintenanceWindow extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: MaintenanceWindowState, opts?: pulumi.CustomResourceOptions): MaintenanceWindow {
         return new MaintenanceWindow(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing MaintenanceWindow resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: MaintenanceWindowState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/maintenanceWindow:MaintenanceWindow", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -247,55 +257,55 @@ export interface MaintenanceWindowState {
     /**
      * A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
      */
-    endsAt?: pulumi.Input<string>;
+    endsAt?: pulumi.Input<string | undefined>;
     /**
      * The maintenance window name. Must be between `1` and `200` characters.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
      */
-    pauseAllChecks?: pulumi.Input<boolean>;
+    pauseAllChecks?: pulumi.Input<boolean | undefined>;
     /**
      * The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeatInterval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
      */
-    repeatEndsAt?: pulumi.Input<string>;
+    repeatEndsAt?: pulumi.Input<string | undefined>;
     /**
      * How many `repeatUnit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeatUnit`.
      */
-    repeatInterval?: pulumi.Input<number>;
+    repeatInterval?: pulumi.Input<number | undefined>;
     /**
      * The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
      */
-    repeatUnit?: pulumi.Input<string>;
+    repeatUnit?: pulumi.Input<string | undefined>;
     /**
      * The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
      */
-    silenceAlertsTags?: pulumi.Input<pulumi.Input<string>[]>;
+    silenceAlertsTags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
      */
-    silenceAllAlerts?: pulumi.Input<boolean>;
+    silenceAllAlerts?: pulumi.Input<boolean | undefined>;
     /**
      * The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
      */
-    startsAt?: pulumi.Input<string>;
+    startsAt?: pulumi.Input<string | undefined>;
     /**
      * Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `componentConfigs`, since removing them is a change it can't make.
      */
-    statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility>;
+    statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility | undefined>;
     /**
      * The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
      */
-    timezone?: pulumi.Input<string>;
+    timezone?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -305,7 +315,7 @@ export interface MaintenanceWindowArgs {
     /**
      * A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
      */
@@ -313,31 +323,31 @@ export interface MaintenanceWindowArgs {
     /**
      * The maintenance window name. Must be between `1` and `200` characters.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
      */
-    pauseAllChecks?: pulumi.Input<boolean>;
+    pauseAllChecks?: pulumi.Input<boolean | undefined>;
     /**
      * The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeatInterval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
      */
-    repeatEndsAt?: pulumi.Input<string>;
+    repeatEndsAt?: pulumi.Input<string | undefined>;
     /**
      * How many `repeatUnit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeatUnit`.
      */
-    repeatInterval?: pulumi.Input<number>;
+    repeatInterval?: pulumi.Input<number | undefined>;
     /**
      * The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
      */
-    repeatUnit?: pulumi.Input<string>;
+    repeatUnit?: pulumi.Input<string | undefined>;
     /**
      * The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
      */
-    silenceAlertsTags?: pulumi.Input<pulumi.Input<string>[]>;
+    silenceAlertsTags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
      */
-    silenceAllAlerts?: pulumi.Input<boolean>;
+    silenceAllAlerts?: pulumi.Input<boolean | undefined>;
     /**
      * The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
      */
@@ -345,13 +355,13 @@ export interface MaintenanceWindowArgs {
     /**
      * Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `componentConfigs`, since removing them is a change it can't make.
      */
-    statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility>;
+    statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility | undefined>;
     /**
      * The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
      */
-    timezone?: pulumi.Input<string>;
+    timezone?: pulumi.Input<string | undefined>;
 }

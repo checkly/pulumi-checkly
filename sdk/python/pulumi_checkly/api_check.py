@@ -22,35 +22,36 @@ __all__ = ['ApiCheckArgs', 'ApiCheck']
 class ApiCheckArgs:
     def __init__(__self__, *,
                  request: pulumi.Input['ApiCheckRequestArgs'],
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ai_auto_repair_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['ApiCheckAlertSettingsArgs']] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 intent: Optional[pulumi.Input['ApiCheckIntentArgs']] = None,
-                 local_setup_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_teardown_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 retry_strategy: Optional[pulumi.Input['ApiCheckRetryStrategyArgs']] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 trigger_incident: Optional[pulumi.Input['ApiCheckTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['ApiCheckAlertSettingsArgs']] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional['ApiCheckIntentArgs']] = None,
+                 local_setup_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_teardown_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 retry_strategy: pulumi.Input[Optional['ApiCheckRetryStrategyArgs']] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 trigger_incident: pulumi.Input[Optional['ApiCheckTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a ApiCheck resource.
+
         :param pulumi.Input['ApiCheckRequestArgs'] request: The parameters of the HTTP request.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
@@ -150,362 +151,363 @@ class ApiCheckArgs:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the check runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="aiAutoRepairEnabled")
-    def ai_auto_repair_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ai_auto_repair_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
         """
         return pulumi.get(self, "ai_auto_repair_enabled")
 
     @ai_auto_repair_enabled.setter
-    def ai_auto_repair_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ai_auto_repair_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ai_auto_repair_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]:
         """
         A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['ApiCheckAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['ApiCheckAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the check.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['ApiCheckAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['ApiCheckAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="degradedResponseTime")
-    def degraded_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def degraded_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         """
         return pulumi.get(self, "degraded_response_time")
 
     @degraded_response_time.setter
-    def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def degraded_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the check.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
     @frequency.setter
-    def frequency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter(name="frequencyOffset")
-    def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency_offset(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
     @frequency_offset.setter
-    def frequency_offset(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency_offset(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency_offset", value)
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def intent(self) -> Optional[pulumi.Input['ApiCheckIntentArgs']]:
+    def intent(self) -> pulumi.Input[Optional['ApiCheckIntentArgs']]:
         """
         Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
         """
         return pulumi.get(self, "intent")
 
     @intent.setter
-    def intent(self, value: Optional[pulumi.Input['ApiCheckIntentArgs']]):
+    def intent(self, value: pulumi.Input[Optional['ApiCheckIntentArgs']]):
         pulumi.set(self, "intent", value)
 
     @_builtins.property
     @pulumi.getter(name="localSetupScript")
-    def local_setup_script(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def local_setup_script(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A valid piece of Node.js code to run in the setup phase.
         """
         return pulumi.get(self, "local_setup_script")
 
     @local_setup_script.setter
-    def local_setup_script(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def local_setup_script(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "local_setup_script", value)
 
     @_builtins.property
     @pulumi.getter(name="localTeardownScript")
-    def local_teardown_script(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def local_teardown_script(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A valid piece of Node.js code to run in the teardown phase.
         """
         return pulumi.get(self, "local_teardown_script")
 
     @local_teardown_script.setter
-    def local_teardown_script(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def local_teardown_script(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "local_teardown_script", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter(name="maxResponseTime")
-    def max_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `20000`.
         """
         return pulumi.get(self, "max_response_time")
 
     @max_response_time.setter
-    def max_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the check.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The slugs of the private locations to run the check from.
         """
         return pulumi.get(self, "private_locations")
 
     @private_locations.setter
-    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "private_locations", value)
 
     @_builtins.property
     @pulumi.getter(name="retryStrategy")
-    def retry_strategy(self) -> Optional[pulumi.Input['ApiCheckRetryStrategyArgs']]:
+    def retry_strategy(self) -> pulumi.Input[Optional['ApiCheckRetryStrategyArgs']]:
         """
         A strategy for retrying failed check/monitor runs.
         """
         return pulumi.get(self, "retry_strategy")
 
     @retry_strategy.setter
-    def retry_strategy(self, value: Optional[pulumi.Input['ApiCheckRetryStrategyArgs']]):
+    def retry_strategy(self, value: pulumi.Input[Optional['ApiCheckRetryStrategyArgs']]):
         pulumi.set(self, "retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter(name="runtimeId")
-    def runtime_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def runtime_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the runtime to use for the check. If not set, the account's default runtime is used.
         """
         return pulumi.get(self, "runtime_id")
 
     @runtime_id.setter
-    def runtime_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def runtime_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "runtime_id", value)
 
     @_builtins.property
     @pulumi.getter(name="setupSnippetId")
-    def setup_snippet_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def setup_snippet_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs.
         """
         return pulumi.get(self, "setup_snippet_id")
 
     @setup_snippet_id.setter
-    def setup_snippet_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def setup_snippet_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "setup_snippet_id", value)
 
     @_builtins.property
     @pulumi.getter(name="shouldFail")
-    def should_fail(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def should_fail(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Inverts when the check is considered to fail. Defaults to `false`. Use it to validate an error status such as 404.
         """
         return pulumi.get(self, "should_fail")
 
     @should_fail.setter
-    def should_fail(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def should_fail(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "should_fail", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="teardownSnippetId")
-    def teardown_snippet_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def teardown_snippet_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs.
         """
         return pulumi.get(self, "teardown_snippet_id")
 
     @teardown_snippet_id.setter
-    def teardown_snippet_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def teardown_snippet_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "teardown_snippet_id", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['ApiCheckTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['ApiCheckTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['ApiCheckTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['ApiCheckTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
 @pulumi.input_type
 class _ApiCheckState:
     def __init__(__self__, *,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ai_auto_repair_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['ApiCheckAlertSettingsArgs']] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 intent: Optional[pulumi.Input['ApiCheckIntentArgs']] = None,
-                 local_setup_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_teardown_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input['ApiCheckRequestArgs']] = None,
-                 retry_strategy: Optional[pulumi.Input['ApiCheckRetryStrategyArgs']] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 trigger_incident: Optional[pulumi.Input['ApiCheckTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['ApiCheckAlertSettingsArgs']] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional['ApiCheckIntentArgs']] = None,
+                 local_setup_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_teardown_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional['ApiCheckRequestArgs']] = None,
+                 retry_strategy: pulumi.Input[Optional['ApiCheckRetryStrategyArgs']] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 trigger_incident: pulumi.Input[Optional['ApiCheckTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering ApiCheck resources.
+
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
         :param pulumi.Input[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
@@ -594,338 +596,338 @@ class _ApiCheckState:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the check runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="aiAutoRepairEnabled")
-    def ai_auto_repair_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ai_auto_repair_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
         """
         return pulumi.get(self, "ai_auto_repair_enabled")
 
     @ai_auto_repair_enabled.setter
-    def ai_auto_repair_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ai_auto_repair_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ai_auto_repair_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]:
         """
         A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['ApiCheckAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['ApiCheckAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['ApiCheckAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the check.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['ApiCheckAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['ApiCheckAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="degradedResponseTime")
-    def degraded_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def degraded_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         """
         return pulumi.get(self, "degraded_response_time")
 
     @degraded_response_time.setter
-    def degraded_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def degraded_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "degraded_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the check.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
     @frequency.setter
-    def frequency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter(name="frequencyOffset")
-    def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency_offset(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
     @frequency_offset.setter
-    def frequency_offset(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency_offset(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency_offset", value)
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def intent(self) -> Optional[pulumi.Input['ApiCheckIntentArgs']]:
+    def intent(self) -> pulumi.Input[Optional['ApiCheckIntentArgs']]:
         """
         Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
         """
         return pulumi.get(self, "intent")
 
     @intent.setter
-    def intent(self, value: Optional[pulumi.Input['ApiCheckIntentArgs']]):
+    def intent(self, value: pulumi.Input[Optional['ApiCheckIntentArgs']]):
         pulumi.set(self, "intent", value)
 
     @_builtins.property
     @pulumi.getter(name="localSetupScript")
-    def local_setup_script(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def local_setup_script(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A valid piece of Node.js code to run in the setup phase.
         """
         return pulumi.get(self, "local_setup_script")
 
     @local_setup_script.setter
-    def local_setup_script(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def local_setup_script(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "local_setup_script", value)
 
     @_builtins.property
     @pulumi.getter(name="localTeardownScript")
-    def local_teardown_script(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def local_teardown_script(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A valid piece of Node.js code to run in the teardown phase.
         """
         return pulumi.get(self, "local_teardown_script")
 
     @local_teardown_script.setter
-    def local_teardown_script(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def local_teardown_script(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "local_teardown_script", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter(name="maxResponseTime")
-    def max_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_response_time(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `20000`.
         """
         return pulumi.get(self, "max_response_time")
 
     @max_response_time.setter
-    def max_response_time(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_response_time(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_response_time", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the check.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         The slugs of the private locations to run the check from.
         """
         return pulumi.get(self, "private_locations")
 
     @private_locations.setter
-    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "private_locations", value)
 
     @_builtins.property
     @pulumi.getter
-    def request(self) -> Optional[pulumi.Input['ApiCheckRequestArgs']]:
+    def request(self) -> pulumi.Input[Optional['ApiCheckRequestArgs']]:
         """
         The parameters of the HTTP request.
         """
         return pulumi.get(self, "request")
 
     @request.setter
-    def request(self, value: Optional[pulumi.Input['ApiCheckRequestArgs']]):
+    def request(self, value: pulumi.Input[Optional['ApiCheckRequestArgs']]):
         pulumi.set(self, "request", value)
 
     @_builtins.property
     @pulumi.getter(name="retryStrategy")
-    def retry_strategy(self) -> Optional[pulumi.Input['ApiCheckRetryStrategyArgs']]:
+    def retry_strategy(self) -> pulumi.Input[Optional['ApiCheckRetryStrategyArgs']]:
         """
         A strategy for retrying failed check/monitor runs.
         """
         return pulumi.get(self, "retry_strategy")
 
     @retry_strategy.setter
-    def retry_strategy(self, value: Optional[pulumi.Input['ApiCheckRetryStrategyArgs']]):
+    def retry_strategy(self, value: pulumi.Input[Optional['ApiCheckRetryStrategyArgs']]):
         pulumi.set(self, "retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter(name="runtimeId")
-    def runtime_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def runtime_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the runtime to use for the check. If not set, the account's default runtime is used.
         """
         return pulumi.get(self, "runtime_id")
 
     @runtime_id.setter
-    def runtime_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def runtime_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "runtime_id", value)
 
     @_builtins.property
     @pulumi.getter(name="setupSnippetId")
-    def setup_snippet_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def setup_snippet_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs.
         """
         return pulumi.get(self, "setup_snippet_id")
 
     @setup_snippet_id.setter
-    def setup_snippet_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def setup_snippet_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "setup_snippet_id", value)
 
     @_builtins.property
     @pulumi.getter(name="shouldFail")
-    def should_fail(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def should_fail(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Inverts when the check is considered to fail. Defaults to `false`. Use it to validate an error status such as 404.
         """
         return pulumi.get(self, "should_fail")
 
     @should_fail.setter
-    def should_fail(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def should_fail(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "should_fail", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="teardownSnippetId")
-    def teardown_snippet_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def teardown_snippet_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs.
         """
         return pulumi.get(self, "teardown_snippet_id")
 
     @teardown_snippet_id.setter
-    def teardown_snippet_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def teardown_snippet_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "teardown_snippet_id", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['ApiCheckTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['ApiCheckTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['ApiCheckTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['ApiCheckTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
@@ -935,34 +937,34 @@ class ApiCheck(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ai_auto_repair_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict']]] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 intent: Optional[pulumi.Input[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict']]] = None,
-                 local_setup_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_teardown_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict']]] = None,
-                 retry_strategy: Optional[pulumi.Input[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict']]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict', 'outputs.ApiCheckAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict', 'outputs.ApiCheckAlertSettings']]] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict', 'outputs.ApiCheckIntent']]] = None,
+                 local_setup_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_teardown_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict', 'outputs.ApiCheckRequest']]] = None,
+                 retry_strategy: pulumi.Input[Optional[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict', 'outputs.ApiCheckRetryStrategy']]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict', 'outputs.ApiCheckTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         API checks allow you to monitor your API endpoints for correctness, performance and availability, and set up alerting, so you get a notification when things break or slow down.
@@ -1078,11 +1080,11 @@ class ApiCheck(pulumi.CustomResource):
             },
             alert_channel_subscriptions=[
                 {
-                    "channel_id": email_ac1.id,
+                    "channel_id": email_ac1.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
                 {
-                    "channel_id": email_ac2.id,
+                    "channel_id": email_ac2.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
             ])
@@ -1102,26 +1104,26 @@ class ApiCheck(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing API check using its check ID.
-
         You can find the ID in the check's URL in the Checkly dashboard.
 
         ```sh
         $ pulumi import checkly:index/apiCheck:ApiCheck example_check 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict', 'outputs.ApiCheckAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict', 'outputs.ApiCheckAlertSettings']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
-        :param pulumi.Input[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        :param pulumi.Input[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict', 'outputs.ApiCheckIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
@@ -1129,15 +1131,15 @@ class ApiCheck(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the check from.
-        :param pulumi.Input[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict']] request: The parameters of the HTTP request.
-        :param pulumi.Input[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
+        :param pulumi.Input[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict', 'outputs.ApiCheckRequest']] request: The parameters of the HTTP request.
+        :param pulumi.Input[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict', 'outputs.ApiCheckRetryStrategy']] retry_strategy: A strategy for retrying failed check/monitor runs.
         :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the check. If not set, the account's default runtime is used.
         :param pulumi.Input[_builtins.int] setup_snippet_id: The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs.
         :param pulumi.Input[_builtins.bool] should_fail: Inverts when the check is considered to fail. Defaults to `false`. Use it to validate an error status such as 404.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input[_builtins.int] teardown_snippet_id: The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs.
-        :param pulumi.Input[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict', 'outputs.ApiCheckTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         ...
@@ -1260,11 +1262,11 @@ class ApiCheck(pulumi.CustomResource):
             },
             alert_channel_subscriptions=[
                 {
-                    "channel_id": email_ac1.id,
+                    "channel_id": email_ac1.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
                 {
-                    "channel_id": email_ac2.id,
+                    "channel_id": email_ac2.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
             ])
@@ -1284,12 +1286,12 @@ class ApiCheck(pulumi.CustomResource):
         The `pulumi import` command can be used, for example:
 
         Import an existing API check using its check ID.
-
         You can find the ID in the check's URL in the Checkly dashboard.
 
         ```sh
         $ pulumi import checkly:index/apiCheck:ApiCheck example_check 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
         ```
+
 
         :param str resource_name: The name of the resource.
         :param ApiCheckArgs args: The arguments to use to populate this resource's properties.
@@ -1306,34 +1308,34 @@ class ApiCheck(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ai_auto_repair_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict']]] = None,
-                 degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 intent: Optional[pulumi.Input[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict']]] = None,
-                 local_setup_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_teardown_script: Optional[pulumi.Input[_builtins.str]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 request: Optional[pulumi.Input[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict']]] = None,
-                 retry_strategy: Optional[pulumi.Input[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict']]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 setup_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 teardown_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict', 'outputs.ApiCheckAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict', 'outputs.ApiCheckAlertSettings']]] = None,
+                 degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict', 'outputs.ApiCheckIntent']]] = None,
+                 local_setup_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_teardown_script: pulumi.Input[Optional[_builtins.str]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict', 'outputs.ApiCheckRequest']]] = None,
+                 retry_strategy: pulumi.Input[Optional[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict', 'outputs.ApiCheckRetryStrategy']]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 setup_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 teardown_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict', 'outputs.ApiCheckTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1383,34 +1385,34 @@ class ApiCheck(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            activated: Optional[pulumi.Input[_builtins.bool]] = None,
-            ai_auto_repair_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict']]]]] = None,
-            alert_settings: Optional[pulumi.Input[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict']]] = None,
-            degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            frequency: Optional[pulumi.Input[_builtins.int]] = None,
-            frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-            group_id: Optional[pulumi.Input[_builtins.int]] = None,
-            group_order: Optional[pulumi.Input[_builtins.int]] = None,
-            intent: Optional[pulumi.Input[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict']]] = None,
-            local_setup_script: Optional[pulumi.Input[_builtins.str]] = None,
-            local_teardown_script: Optional[pulumi.Input[_builtins.str]] = None,
-            locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            max_response_time: Optional[pulumi.Input[_builtins.int]] = None,
-            muted: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            request: Optional[pulumi.Input[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict']]] = None,
-            retry_strategy: Optional[pulumi.Input[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict']]] = None,
-            run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-            runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-            setup_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-            should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            teardown_snippet_id: Optional[pulumi.Input[_builtins.int]] = None,
-            trigger_incident: Optional[pulumi.Input[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict']]] = None,
-            use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None) -> 'ApiCheck':
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict', 'outputs.ApiCheckAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict', 'outputs.ApiCheckAlertSettings']]] = None,
+            degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            intent: pulumi.Input[Optional[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict', 'outputs.ApiCheckIntent']]] = None,
+            local_setup_script: pulumi.Input[Optional[_builtins.str]] = None,
+            local_teardown_script: pulumi.Input[Optional[_builtins.str]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            request: pulumi.Input[Optional[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict', 'outputs.ApiCheckRequest']]] = None,
+            retry_strategy: pulumi.Input[Optional[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict', 'outputs.ApiCheckRetryStrategy']]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+            setup_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+            should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            teardown_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict', 'outputs.ApiCheckTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> 'ApiCheck':
         """
         Get an existing ApiCheck resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1420,15 +1422,15 @@ class ApiCheck(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
         :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict', 'outputs.ApiCheckAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict', 'outputs.ApiCheckAlertSettings']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         :param pulumi.Input[_builtins.str] description: A description of the check.
         :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
-        :param pulumi.Input[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        :param pulumi.Input[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict', 'outputs.ApiCheckIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
@@ -1436,15 +1438,15 @@ class ApiCheck(pulumi.CustomResource):
         :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the check from.
-        :param pulumi.Input[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict']] request: The parameters of the HTTP request.
-        :param pulumi.Input[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
+        :param pulumi.Input[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict', 'outputs.ApiCheckRequest']] request: The parameters of the HTTP request.
+        :param pulumi.Input[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict', 'outputs.ApiCheckRetryStrategy']] retry_strategy: A strategy for retrying failed check/monitor runs.
         :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the check. If not set, the account's default runtime is used.
         :param pulumi.Input[_builtins.int] setup_snippet_id: The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs.
         :param pulumi.Input[_builtins.bool] should_fail: Inverts when the check is considered to fail. Defaults to `false`. Use it to validate an error status such as 404.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input[_builtins.int] teardown_snippet_id: The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs.
-        :param pulumi.Input[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict', 'outputs.ApiCheckTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
         :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1480,6 +1482,68 @@ class ApiCheck(pulumi.CustomResource):
         __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return ApiCheck(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['ApiCheckAlertChannelSubscriptionArgs', 'ApiCheckAlertChannelSubscriptionArgsDict', 'outputs.ApiCheckAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['ApiCheckAlertSettingsArgs', 'ApiCheckAlertSettingsArgsDict', 'outputs.ApiCheckAlertSettings']]] = None,
+            degraded_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            intent: pulumi.Input[Optional[Union['ApiCheckIntentArgs', 'ApiCheckIntentArgsDict', 'outputs.ApiCheckIntent']]] = None,
+            local_setup_script: pulumi.Input[Optional[_builtins.str]] = None,
+            local_teardown_script: pulumi.Input[Optional[_builtins.str]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            max_response_time: pulumi.Input[Optional[_builtins.int]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            request: pulumi.Input[Optional[Union['ApiCheckRequestArgs', 'ApiCheckRequestArgsDict', 'outputs.ApiCheckRequest']]] = None,
+            retry_strategy: pulumi.Input[Optional[Union['ApiCheckRetryStrategyArgs', 'ApiCheckRetryStrategyArgsDict', 'outputs.ApiCheckRetryStrategy']]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            runtime_id: pulumi.Input[Optional[_builtins.str]] = None,
+            setup_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+            should_fail: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            teardown_snippet_id: pulumi.Input[Optional[_builtins.int]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['ApiCheckTriggerIncidentArgs', 'ApiCheckTriggerIncidentArgsDict', 'outputs.ApiCheckTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["activated"] = activated
+        __props__["aiAutoRepairEnabled"] = ai_auto_repair_enabled
+        __props__["alertChannelSubscriptions"] = alert_channel_subscriptions
+        __props__["alertSettings"] = alert_settings
+        __props__["degradedResponseTime"] = degraded_response_time
+        __props__["description"] = description
+        __props__["frequency"] = frequency
+        __props__["frequencyOffset"] = frequency_offset
+        __props__["groupId"] = group_id
+        __props__["groupOrder"] = group_order
+        __props__["intent"] = intent
+        __props__["localSetupScript"] = local_setup_script
+        __props__["localTeardownScript"] = local_teardown_script
+        __props__["locations"] = locations
+        __props__["maxResponseTime"] = max_response_time
+        __props__["muted"] = muted
+        __props__["name"] = name
+        __props__["privateLocations"] = private_locations
+        __props__["request"] = request
+        __props__["retryStrategy"] = retry_strategy
+        __props__["runParallel"] = run_parallel
+        __props__["runtimeId"] = runtime_id
+        __props__["setupSnippetId"] = setup_snippet_id
+        __props__["shouldFail"] = should_fail
+        __props__["tags"] = tags
+        __props__["teardownSnippetId"] = teardown_snippet_id
+        __props__["triggerIncident"] = trigger_incident
+        __props__["useGlobalAlertSettings"] = use_global_alert_settings
+        return pulumi.runtime.exists_resource(None, 'checkly:index/apiCheck:ApiCheck', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

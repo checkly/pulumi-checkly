@@ -7,14 +7,168 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
+ * Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+ *
+ * The `checkly.Check` resource type is deprecated in favor of `checkly.ApiCheck`, `checkly.BrowserCheck` and `checkly.MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be switched over to its per-type resource with a `moved` block, without recreating it. Before moving a check, see Deprecated resource types in the v2 upgrade guide for what to change: `checkly.ApiCheck` has lower default `degradedResponseTime` and `maxResponseTime` values and follows redirects by default, and the per-type resources have no `doubleCheck`.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@checkly/pulumi";
+ *
+ * // Basic API Check
+ * const exampleCheck = new checkly.Check("example_check", {
+ *     name: "Example check",
+ *     type: "API",
+ *     activated: true,
+ *     shouldFail: false,
+ *     frequency: 1,
+ *     useGlobalAlertSettings: true,
+ *     locations: ["us-west-1"],
+ *     request: {
+ *         url: "https://api.example.com/",
+ *         followRedirects: true,
+ *         skipSsl: false,
+ *         assertions: [{
+ *             source: "STATUS_CODE",
+ *             comparison: "EQUALS",
+ *             target: "200",
+ *         }],
+ *     },
+ * });
+ * // A more complex example using more assertions and setting alerts
+ * const exampleCheck2 = new checkly.Check("example_check_2", {
+ *     name: "Example API check 2",
+ *     type: "API",
+ *     activated: true,
+ *     shouldFail: true,
+ *     frequency: 1,
+ *     degradedResponseTime: 5000,
+ *     maxResponseTime: 10000,
+ *     locations: [
+ *         "us-west-1",
+ *         "ap-northeast-1",
+ *         "ap-south-1",
+ *     ],
+ *     alertSettings: {
+ *         escalationType: "RUN_BASED",
+ *         runBasedEscalation: {
+ *             failedRunThreshold: 1,
+ *         },
+ *         reminders: {
+ *             amount: 1,
+ *         },
+ *     },
+ *     retryStrategy: {
+ *         type: "FIXED",
+ *         baseBackoffSeconds: 60,
+ *         maxDurationSeconds: 600,
+ *         maxRetries: 3,
+ *         sameRegion: false,
+ *     },
+ *     request: {
+ *         followRedirects: true,
+ *         skipSsl: false,
+ *         url: "http://api.example.com/",
+ *         queryParameters: {
+ *             search: "foo",
+ *         },
+ *         headers: {
+ *             "X-Bogus": "bogus",
+ *         },
+ *         assertions: [
+ *             {
+ *                 source: "JSON_BODY",
+ *                 property: "code",
+ *                 comparison: "HAS_VALUE",
+ *                 target: "authentication.failed",
+ *             },
+ *             {
+ *                 source: "STATUS_CODE",
+ *                 property: "",
+ *                 comparison: "EQUALS",
+ *                 target: "401",
+ *             },
+ *         ],
+ *         basicAuth: {
+ *             username: "",
+ *             password: "",
+ *         },
+ *     },
+ * });
+ * // Basic Browser  Check
+ * const browserCheck1 = new checkly.Check("browser_check_1", {
+ *     name: "Example check",
+ *     type: "BROWSER",
+ *     activated: true,
+ *     frequency: 10,
+ *     useGlobalAlertSettings: true,
+ *     locations: ["us-west-1"],
+ *     runtimeId: "2023.02",
+ *     script: `const { expect, test } = require('@playwright/test')
+ *
+ * test.use({ actionTimeout: 10000 })
+ *
+ * test('visit page and take screenshot', async ({ page }) => {
+ *     const response = await page.goto(process.env.ENVIRONMENT_URL || 'https://checklyhq.com')
+ *     await page.screenshot({ path: 'screenshot.jpg' })
+ *     expect(response.status(), 'should respond with correct status code').toBeLessThan(400)
+ * })
+ * `,
+ * });
+ * // Connection checks with alert channels
+ * const emailAc1 = new checkly.AlertChannel("email_ac1", {email: {
+ *     address: "info1@example.com",
+ * }});
+ * const emailAc2 = new checkly.AlertChannel("email_ac2", {email: {
+ *     address: "info2@example.com",
+ * }});
+ * const exampleCheckWithAlerts = new checkly.Check("example_check_with_alerts", {
+ *     name: "Example check with alerts",
+ *     type: "API",
+ *     frequency: 1,
+ *     locations: ["us-west-1"],
+ *     request: {
+ *         url: "https://api.example.com/",
+ *     },
+ *     alertChannelSubscriptions: [
+ *         {
+ *             channelId: emailAc1.id.apply(x =>Number(x)),
+ *             activated: true,
+ *         },
+ *         {
+ *             channelId: emailAc2.id.apply(x =>Number(x)),
+ *             activated: true,
+ *         },
+ *     ],
+ * });
+ * ```
+ *
+ * ## Moving to the per-type resources
+ *
+ * Terraform 1.8 or later can switch each check to the resource of its type with a `moved` block, without recreating it. Before moving a check, read Deprecated resource types in the v2 upgrade guide.
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@checkly/pulumi";
+ *
+ * // Each check moves to the resource of its type. Change the resource type,
+ * // remove the attributes the new type doesn't have, and add a moved block.
+ * // A check with type = "API".
+ * const api = new checkly.ApiCheck("api", {});
+ * // A check with type = "BROWSER".
+ * const browser = new checkly.BrowserCheck("browser", {});
+ * // A check with type = "MULTI_STEP".
+ * const multistep = new checkly.MultistepCheck("multistep", {});
+ * ```
+ *
  * ## Import
  *
  * The `pulumi import` command can be used, for example:
  *
- * checkly_check is deprecated; to start managing an existing resource, import it as checkly_api_check, checkly_browser_check or checkly_multistep_check instead.
- *
+ * checkly.Check is deprecated; to start managing an existing resource, import it as checkly_api_check, checkly.BrowserCheck or checkly.MultistepCheck instead.
  * Import an existing check using its check ID.
- *
  * You can find the ID in the check's URL in the Checkly dashboard.
  *
  * ```sh
@@ -36,6 +190,17 @@ export class Check extends pulumi.CustomResource {
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: CheckState, opts?: pulumi.CustomResourceOptions): Check {
         pulumi.log.warn("Check is deprecated: Use the ApiCheck, BrowserCheck or MultistepCheck resource instead, which expose only the properties of their check type. An existing check can be moved to one of them with an alias, without recreating it. When moving an API check, note that ApiCheck defaults degradedResponseTime and maxResponseTime to 5000 and 20000 instead of 15000 and 30000, and request.followRedirects to true instead of false; set them to keep the previous behaviour.")
         return new Check(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing Check resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: CheckState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/check:Check", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -287,137 +452,137 @@ export interface CheckState {
     /**
      * Determines whether the check runs on its schedule. Defaults to `true`.
      */
-    activated?: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
      * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
      */
-    aiAutoRepairEnabled?: pulumi.Input<boolean>;
+    aiAutoRepairEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
-    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
+    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[] | undefined>;
     /**
      * Determines the alert escalation policy for the check.
      */
-    alertSettings?: pulumi.Input<inputs.CheckAlertSettings>;
+    alertSettings?: pulumi.Input<inputs.CheckAlertSettings | undefined>;
     /**
      * The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
      */
-    degradedResponseTime?: pulumi.Input<number>;
+    degradedResponseTime?: pulumi.Input<number | undefined>;
     /**
      * A description of the check.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
      *
      * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
-    doubleCheck?: pulumi.Input<boolean>;
+    doubleCheck?: pulumi.Input<boolean | undefined>;
     /**
      * Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
      */
-    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[]>;
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[] | undefined>;
     /**
      * Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
      */
-    frequency?: pulumi.Input<number>;
+    frequency?: pulumi.Input<number | undefined>;
     /**
      * Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
-    frequencyOffset?: pulumi.Input<number>;
+    frequencyOffset?: pulumi.Input<number | undefined>;
     /**
      * The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
      */
-    groupId?: pulumi.Input<number>;
+    groupId?: pulumi.Input<number | undefined>;
     /**
      * The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
      */
-    groupOrder?: pulumi.Input<number>;
+    groupOrder?: pulumi.Input<number | undefined>;
     /**
      * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
      */
-    intent?: pulumi.Input<inputs.CheckIntent>;
+    intent?: pulumi.Input<inputs.CheckIntent | undefined>;
     /**
      * A valid piece of Node.js code to run in the setup phase of an API check.
      */
-    localSetupScript?: pulumi.Input<string>;
+    localSetupScript?: pulumi.Input<string | undefined>;
     /**
      * A valid piece of Node.js code to run in the teardown phase of an API check.
      */
-    localTeardownScript?: pulumi.Input<string>;
+    localTeardownScript?: pulumi.Input<string | undefined>;
     /**
      * The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
      */
-    locations?: pulumi.Input<pulumi.Input<string>[]>;
+    locations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
      */
-    maxResponseTime?: pulumi.Input<number>;
+    maxResponseTime?: pulumi.Input<number | undefined>;
     /**
      * Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
      */
-    muted?: pulumi.Input<boolean>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the check.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The slugs of the private locations to run the check from.
      */
-    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
+    privateLocations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * An API check might have one request config. Only relevant when `type` is `API`.
      */
-    request?: pulumi.Input<inputs.CheckRequest>;
+    request?: pulumi.Input<inputs.CheckRequest | undefined>;
     /**
      * A strategy for retrying failed check/monitor runs.
      */
-    retryStrategy?: pulumi.Input<inputs.CheckRetryStrategy>;
+    retryStrategy?: pulumi.Input<inputs.CheckRetryStrategy | undefined>;
     /**
      * Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
      */
-    runParallel?: pulumi.Input<boolean>;
+    runParallel?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the runtime to use for the check. If not set, the account's default runtime is used.
      */
-    runtimeId?: pulumi.Input<string>;
+    runtimeId?: pulumi.Input<string | undefined>;
     /**
      * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
      */
-    script?: pulumi.Input<string>;
+    script?: pulumi.Input<string | undefined>;
     /**
      * The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
      */
-    setupSnippetId?: pulumi.Input<number>;
+    setupSnippetId?: pulumi.Input<number | undefined>;
     /**
      * Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
      */
-    shouldFail?: pulumi.Input<boolean>;
+    shouldFail?: pulumi.Input<boolean | undefined>;
     /**
      * A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
      */
-    sslCheckDomain?: pulumi.Input<string>;
+    sslCheckDomain?: pulumi.Input<string | undefined>;
     /**
      * Tags for organizing and filtering checks and monitors.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
      */
-    teardownSnippetId?: pulumi.Input<number>;
+    teardownSnippetId?: pulumi.Input<number | undefined>;
     /**
      * Create and resolve an incident based on the alert configuration. Useful for status page automation.
      */
-    triggerIncident?: pulumi.Input<inputs.CheckTriggerIncident>;
+    triggerIncident?: pulumi.Input<inputs.CheckTriggerIncident | undefined>;
     /**
      * The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
     /**
      * When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    useGlobalAlertSettings?: pulumi.Input<boolean>;
+    useGlobalAlertSettings?: pulumi.Input<boolean | undefined>;
 }
 
 /**
@@ -427,129 +592,129 @@ export interface CheckArgs {
     /**
      * Determines whether the check runs on its schedule. Defaults to `true`.
      */
-    activated?: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
      * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
      */
-    aiAutoRepairEnabled?: pulumi.Input<boolean>;
+    aiAutoRepairEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
      */
-    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[]>;
+    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckAlertChannelSubscription>[] | undefined>;
     /**
      * Determines the alert escalation policy for the check.
      */
-    alertSettings?: pulumi.Input<inputs.CheckAlertSettings>;
+    alertSettings?: pulumi.Input<inputs.CheckAlertSettings | undefined>;
     /**
      * The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
      */
-    degradedResponseTime?: pulumi.Input<number>;
+    degradedResponseTime?: pulumi.Input<number | undefined>;
     /**
      * A description of the check.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
      *
      * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
-    doubleCheck?: pulumi.Input<boolean>;
+    doubleCheck?: pulumi.Input<boolean | undefined>;
     /**
      * Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
      */
-    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[]>;
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckEnvironmentVariable>[] | undefined>;
     /**
      * Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
      */
-    frequency?: pulumi.Input<number>;
+    frequency?: pulumi.Input<number | undefined>;
     /**
      * Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
-    frequencyOffset?: pulumi.Input<number>;
+    frequencyOffset?: pulumi.Input<number | undefined>;
     /**
      * The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
      */
-    groupId?: pulumi.Input<number>;
+    groupId?: pulumi.Input<number | undefined>;
     /**
      * The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
      */
-    groupOrder?: pulumi.Input<number>;
+    groupOrder?: pulumi.Input<number | undefined>;
     /**
      * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
      */
-    intent?: pulumi.Input<inputs.CheckIntent>;
+    intent?: pulumi.Input<inputs.CheckIntent | undefined>;
     /**
      * A valid piece of Node.js code to run in the setup phase of an API check.
      */
-    localSetupScript?: pulumi.Input<string>;
+    localSetupScript?: pulumi.Input<string | undefined>;
     /**
      * A valid piece of Node.js code to run in the teardown phase of an API check.
      */
-    localTeardownScript?: pulumi.Input<string>;
+    localTeardownScript?: pulumi.Input<string | undefined>;
     /**
      * The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
      */
-    locations?: pulumi.Input<pulumi.Input<string>[]>;
+    locations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
      */
-    maxResponseTime?: pulumi.Input<number>;
+    maxResponseTime?: pulumi.Input<number | undefined>;
     /**
      * Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
      */
-    muted?: pulumi.Input<boolean>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the check.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The slugs of the private locations to run the check from.
      */
-    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
+    privateLocations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * An API check might have one request config. Only relevant when `type` is `API`.
      */
-    request?: pulumi.Input<inputs.CheckRequest>;
+    request?: pulumi.Input<inputs.CheckRequest | undefined>;
     /**
      * A strategy for retrying failed check/monitor runs.
      */
-    retryStrategy?: pulumi.Input<inputs.CheckRetryStrategy>;
+    retryStrategy?: pulumi.Input<inputs.CheckRetryStrategy | undefined>;
     /**
      * Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
      */
-    runParallel?: pulumi.Input<boolean>;
+    runParallel?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the runtime to use for the check. If not set, the account's default runtime is used.
      */
-    runtimeId?: pulumi.Input<string>;
+    runtimeId?: pulumi.Input<string | undefined>;
     /**
      * A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
      */
-    script?: pulumi.Input<string>;
+    script?: pulumi.Input<string | undefined>;
     /**
      * The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
      */
-    setupSnippetId?: pulumi.Input<number>;
+    setupSnippetId?: pulumi.Input<number | undefined>;
     /**
      * Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
      */
-    shouldFail?: pulumi.Input<boolean>;
+    shouldFail?: pulumi.Input<boolean | undefined>;
     /**
      * A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
      */
-    sslCheckDomain?: pulumi.Input<string>;
+    sslCheckDomain?: pulumi.Input<string | undefined>;
     /**
      * Tags for organizing and filtering checks and monitors.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
      */
-    teardownSnippetId?: pulumi.Input<number>;
+    teardownSnippetId?: pulumi.Input<number | undefined>;
     /**
      * Create and resolve an incident based on the alert configuration. Useful for status page automation.
      */
-    triggerIncident?: pulumi.Input<inputs.CheckTriggerIncident>;
+    triggerIncident?: pulumi.Input<inputs.CheckTriggerIncident | undefined>;
     /**
      * The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
      */
@@ -557,5 +722,5 @@ export interface CheckArgs {
     /**
      * When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    useGlobalAlertSettings?: pulumi.Input<boolean>;
+    useGlobalAlertSettings?: pulumi.Input<boolean | undefined>;
 }

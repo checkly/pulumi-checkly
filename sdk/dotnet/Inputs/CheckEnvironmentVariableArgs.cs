@@ -19,11 +19,14 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
+        /// If true, the value is not shown by default, but it can be accessed. Defaults to `False`.
         /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
+        /// <summary>
+        /// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `False`.
+        /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }
 

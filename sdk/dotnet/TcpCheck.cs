@@ -10,14 +10,128 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
+    /// The `checkly.TcpCheck` resource has been renamed to `checkly.TcpMonitor` to better reflect its position in the Checkly product lineup. The `checkly.TcpCheck` resource type is deprecated and will be removed in a future version of the provider.
+    /// 
+    /// The schemas of both resource types are identical, and existing `checkly.TcpCheck` resources can be migrated to `checkly.TcpMonitor` using a `Moved` block; see Deprecated resource types in the v2 upgrade guide.
+    /// 
+    /// We recommend using the `checkly.TcpMonitor` resource type for any new resources.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     // Basic TCP Check
+    ///     var example_tcp_check = new Checkly.TcpCheck("example-tcp-check", new()
+    ///     {
+    ///         Name = "Example TCP check",
+    ///         Activated = true,
+    ///         ShouldFail = false,
+    ///         Frequency = 1,
+    ///         UseGlobalAlertSettings = true,
+    ///         Locations = new[]
+    ///         {
+    ///             "us-west-1",
+    ///         },
+    ///         Request = new Checkly.Inputs.TcpCheckRequestArgs
+    ///         {
+    ///             Hostname = "api.checklyhq.com",
+    ///             Port = 80,
+    ///         },
+    ///     });
+    /// 
+    ///     // A more complex example using assertions and setting alerts
+    ///     var example_tcp_check_2 = new Checkly.TcpCheck("example-tcp-check-2", new()
+    ///     {
+    ///         Name = "Example TCP check 2",
+    ///         Activated = true,
+    ///         ShouldFail = true,
+    ///         Frequency = 1,
+    ///         DegradedResponseTime = 4000,
+    ///         MaxResponseTime = 5000,
+    ///         Locations = new[]
+    ///         {
+    ///             "us-west-1",
+    ///             "ap-northeast-1",
+    ///             "ap-south-1",
+    ///         },
+    ///         AlertSettings = new Checkly.Inputs.TcpCheckAlertSettingsArgs
+    ///         {
+    ///             EscalationType = "RUN_BASED",
+    ///             RunBasedEscalation = new Checkly.Inputs.TcpCheckAlertSettingsRunBasedEscalationArgs
+    ///             {
+    ///                 FailedRunThreshold = 1,
+    ///             },
+    ///             Reminders = new Checkly.Inputs.TcpCheckAlertSettingsRemindersArgs
+    ///             {
+    ///                 Amount = 1,
+    ///             },
+    ///         },
+    ///         RetryStrategy = new Checkly.Inputs.TcpCheckRetryStrategyArgs
+    ///         {
+    ///             Type = "FIXED",
+    ///             BaseBackoffSeconds = 60,
+    ///             MaxDurationSeconds = 600,
+    ///             MaxRetries = 3,
+    ///             SameRegion = false,
+    ///         },
+    ///         Request = new Checkly.Inputs.TcpCheckRequestArgs
+    ///         {
+    ///             Hostname = "api.checklyhq.com",
+    ///             Port = 80,
+    ///             Data = "hello",
+    ///             Assertions = new[]
+    ///             {
+    ///                 new Checkly.Inputs.TcpCheckRequestAssertionArgs
+    ///                 {
+    ///                     Source = "RESPONSE_DATA",
+    ///                     Property = "",
+    ///                     Comparison = "CONTAINS",
+    ///                     Target = "welcome",
+    ///                 },
+    ///                 new Checkly.Inputs.TcpCheckRequestAssertionArgs
+    ///                 {
+    ///                     Source = "RESPONSE_TIME",
+    ///                     Property = "",
+    ///                     Comparison = "LESS_THAN",
+    ///                     Target = "2000",
+    ///                 },
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Moving to `checkly.TcpMonitor`
+    /// 
+    /// Terraform 1.8 or later can switch a `checkly.TcpCheck` resource to `checkly.TcpMonitor` with a `Moved` block, without recreating it:
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     // The attributes stay the same; only the resource type changes.
+    ///     var example = new Checkly.TcpMonitor("example");
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// The `pulumi import` command can be used, for example:
     /// 
-    /// checkly_tcp_check is deprecated; to start managing an existing resource, import it as checkly_tcp_monitor instead.
-    /// 
+    /// checkly.TcpCheck is deprecated; to start managing an existing resource, import it as checkly.TcpMonitor instead.
     /// Import an existing TCP monitor using its check ID.
-    /// 
     /// You can find the ID in the check's URL in the Checkly dashboard.
     /// 
     /// ```sh
@@ -29,7 +143,7 @@ namespace Pulumi.Checkly
     public partial class TcpCheck : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
@@ -59,13 +173,13 @@ namespace Pulumi.Checkly
         public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
@@ -83,7 +197,7 @@ namespace Pulumi.Checkly
         public Output<int?> GroupOrder { get; private set; } = null!;
 
         /// <summary>
-        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
@@ -95,7 +209,7 @@ namespace Pulumi.Checkly
         public Output<int> MaxResponseTime { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Output("muted")]
         public Output<bool> Muted { get; private set; } = null!;
@@ -125,7 +239,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.TcpCheckRetryStrategy> RetryStrategy { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Output("runParallel")]
         public Output<bool> RunParallel { get; private set; } = null!;
@@ -137,7 +251,7 @@ namespace Pulumi.Checkly
         public Output<string?> RuntimeId { get; private set; } = null!;
 
         /// <summary>
-        /// Inverts when the monitor is considered to fail. Defaults to `false`.
+        /// Inverts when the monitor is considered to fail. Defaults to `False`.
         /// </summary>
         [Output("shouldFail")]
         public Output<bool> ShouldFail { get; private set; } = null!;
@@ -155,7 +269,7 @@ namespace Pulumi.Checkly
         public Output<Outputs.TcpCheckTriggerIncident?> TriggerIncident { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
         public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
@@ -208,7 +322,7 @@ namespace Pulumi.Checkly
     public sealed class TcpCheckArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -244,13 +358,13 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
@@ -271,7 +385,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -286,7 +400,7 @@ namespace Pulumi.Checkly
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -322,7 +436,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckRetryStrategyArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
@@ -334,7 +448,7 @@ namespace Pulumi.Checkly
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// Inverts when the monitor is considered to fail. Defaults to `false`.
+        /// Inverts when the monitor is considered to fail. Defaults to `False`.
         /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
@@ -358,7 +472,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckTriggerIncidentArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -372,7 +486,7 @@ namespace Pulumi.Checkly
     public sealed class TcpCheckState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -408,13 +522,13 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
@@ -435,7 +549,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -450,7 +564,7 @@ namespace Pulumi.Checkly
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -486,7 +600,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckRetryStrategyGetArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
@@ -498,7 +612,7 @@ namespace Pulumi.Checkly
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// Inverts when the monitor is considered to fail. Defaults to `false`.
+        /// Inverts when the monitor is considered to fail. Defaults to `False`.
         /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
@@ -522,7 +636,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this monitor. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

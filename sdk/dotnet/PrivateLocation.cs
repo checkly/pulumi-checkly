@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// A private location runs checks from your own infrastructure: Checkly agents that you deploy, for example as containers in your network, run the checks and monitors assigned to it. The agents authenticate with the location's API keys, which are only available when the location is created; see `keys`.
+    /// A private location runs checks from your own infrastructure: Checkly agents that you deploy, for example as containers in your network, run the checks and monitors assigned to it. The agents authenticate with the location's API keys, which are only available when the location is created; see `Keys`.
     /// 
     /// ## Example Usage
     /// 
@@ -47,7 +47,6 @@ namespace Pulumi.Checkly
     /// The `pulumi import` command can be used, for example:
     /// 
     /// Import an existing private location using its ID.
-    /// 
     /// The ID is returned by the Checkly API at GET /v1/private-locations.
     /// 
     /// ```sh
@@ -58,7 +57,7 @@ namespace Pulumi.Checkly
     public partial class PrivateLocation : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Icon assigned to the private location. Defaults to `location`.
+        /// Icon assigned to the private location. Defaults to `Location`.
         /// </summary>
         [Output("icon")]
         public Output<string> Icon { get; private set; } = null!;
@@ -82,7 +81,7 @@ namespace Pulumi.Checkly
         public Output<string?> ProxyUrl { get; private set; } = null!;
 
         /// <summary>
-        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `ReplaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
         /// </summary>
         [Output("slugName")]
         public Output<string> SlugName { get; private set; } = null!;
@@ -140,7 +139,7 @@ namespace Pulumi.Checkly
     public sealed class PrivateLocationArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Icon assigned to the private location. Defaults to `location`.
+        /// Icon assigned to the private location. Defaults to `Location`.
         /// </summary>
         [Input("icon")]
         public Input<string>? Icon { get; set; }
@@ -168,7 +167,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `ReplaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
         /// </summary>
         [Input("slugName", required: true)]
         public Input<string> SlugName { get; set; } = null!;
@@ -182,7 +181,7 @@ namespace Pulumi.Checkly
     public sealed class PrivateLocationState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Icon assigned to the private location. Defaults to `location`.
+        /// Icon assigned to the private location. Defaults to `Location`.
         /// </summary>
         [Input("icon")]
         public Input<string>? Icon { get; set; }
@@ -226,7 +225,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `ReplaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
         /// </summary>
         [Input("slugName")]
         public Input<string>? SlugName { get; set; }

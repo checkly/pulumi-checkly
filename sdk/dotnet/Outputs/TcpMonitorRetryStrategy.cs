@@ -14,19 +14,19 @@ namespace Pulumi.Checkly.Outputs
     public sealed class TcpMonitorRetryStrategy
     {
         /// <summary>
-        /// The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `type` is `NO_RETRIES`.
+        /// The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `Type` is `NO_RETRIES`.
         /// </summary>
         public readonly int? BaseBackoffSeconds;
         /// <summary>
-        /// The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
+        /// The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `Type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
         /// </summary>
         public readonly int? MaxDurationSeconds;
         /// <summary>
-        /// The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
+        /// The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `Type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
         /// </summary>
         public readonly int? MaxRetries;
         /// <summary>
-        /// Whether retries should be run in the same region as the initial check/monitor run. Defaults to `true`. Not available when `type` is `NO_RETRIES`.
+        /// Whether retries should be run in the same region as the initial check/monitor run. Defaults to `True`. Not available when `Type` is `NO_RETRIES`.
         /// </summary>
         public readonly bool? SameRegion;
         /// <summary>

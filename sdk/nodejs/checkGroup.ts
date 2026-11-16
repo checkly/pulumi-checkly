@@ -7,16 +7,131 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
+ * Check groups allow you to group together a set of related checks, which can also share default settings for various attributes.
+ *
+ * The `checkly.CheckGroup` resource type is deprecated in favor of `checkly.CheckGroupV2`, which does not impose implicit defaults on its checks, and will be removed in a future version of the provider. Both resource types manage the same check groups, so an existing group can be switched over with a `moved` block to a `checkly.CheckGroupV2` resource. See Check groups in the v2 upgrade guide for how its configuration translates.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@checkly/pulumi";
+ *
+ * const testGroup1 = new checkly.CheckGroup("test_group1", {
+ *     name: "My test group 1",
+ *     activated: true,
+ *     muted: false,
+ *     tags: ["auto"],
+ *     locations: ["eu-west-1"],
+ *     concurrency: 3,
+ *     apiCheckDefaults: {
+ *         url: "http://example.com/",
+ *         headers: {
+ *             "X-Test": "foo",
+ *         },
+ *         queryParameters: {
+ *             query: "foo",
+ *         },
+ *         assertions: [
+ *             {
+ *                 source: "STATUS_CODE",
+ *                 property: "",
+ *                 comparison: "EQUALS",
+ *                 target: "200",
+ *             },
+ *             {
+ *                 source: "TEXT_BODY",
+ *                 property: "",
+ *                 comparison: "CONTAINS",
+ *                 target: "welcome",
+ *             },
+ *         ],
+ *         basicAuth: {
+ *             username: "user",
+ *             password: "pass",
+ *         },
+ *     },
+ *     environmentVariables: [
+ *         {
+ *             key: "TEST_ENV_VAR",
+ *             value: "Hello world",
+ *             locked: false,
+ *         },
+ *         {
+ *             key: "ADDITIONAL_ENV_VAR",
+ *             value: "test value",
+ *             locked: true,
+ *         },
+ *     ],
+ *     useGlobalAlertSettings: false,
+ *     alertSettings: {
+ *         escalationType: "RUN_BASED",
+ *         runBasedEscalation: {
+ *             failedRunThreshold: 1,
+ *         },
+ *         reminders: {
+ *             amount: 2,
+ *             interval: 5,
+ *         },
+ *     },
+ *     localSetupScript: "setup-test",
+ *     localTeardownScript: "teardown-test",
+ * });
+ * // Add a check to a group
+ * const testCheck1 = new checkly.Check("test_check1", {
+ *     name: "My test check 1",
+ *     type: "API",
+ *     activated: true,
+ *     frequency: 1,
+ *     locations: ["us-west-1"],
+ *     request: {
+ *         url: "https://api.example.com/",
+ *     },
+ *     groupId: testGroup1.id.apply(x =>Number(x)),
+ *     groupOrder: 1,
+ * });
+ * // Using with alert channels
+ * const emailAc1 = new checkly.AlertChannel("email_ac1", {email: {
+ *     address: "info@example.com",
+ * }});
+ * const emailAc2 = new checkly.AlertChannel("email_ac2", {email: {
+ *     address: "info2@example.com",
+ * }});
+ * // Connect the check group to the alert channels
+ * const testGroupWithAlerts = new checkly.CheckGroup("test_group_with_alerts", {
+ *     name: "My test group with alerts",
+ *     concurrency: 3,
+ *     alertChannelSubscriptions: [
+ *         {
+ *             channelId: emailAc1.id.apply(x =>Number(x)),
+ *             activated: true,
+ *         },
+ *         {
+ *             channelId: emailAc2.id.apply(x =>Number(x)),
+ *             activated: true,
+ *         },
+ *     ],
+ * });
+ * ```
+ *
+ * ## Moving to `checkly.CheckGroupV2`
+ *
+ * Terraform 1.8 or later can switch a group to `checkly.CheckGroupV2` with a `moved` block, without recreating it or its checks. Its attributes have to be translated; see Check groups in the v2 upgrade guide.
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as checkly from "@checkly/pulumi";
+ *
+ * const example = new checkly.CheckGroupV2("example", {});
+ * ```
+ *
  * ## Import
  *
  * The `pulumi import` command can be used, for example:
  *
- * checkly_check_group is deprecated; to start managing an existing resource, import it as checkly_check_group_v2 instead.
- *
- * A group already managed as checkly_check_group switches to checkly_check_group_v2 with a moved block; see the v2 upgrade guide.
- *
+ * checkly.CheckGroup is deprecated; to start managing an existing resource, import it as checkly.CheckGroupV2 instead.
+ * A group already managed as checkly.CheckGroup switches to checkly.CheckGroupV2 with a moved block; see the v2 upgrade guide.
  * Import an existing check group using its numeric ID.
- *
  * The ID is returned by the Checkly API at GET /v1/check-groups.
  *
  * ```sh
@@ -38,6 +153,17 @@ export class CheckGroup extends pulumi.CustomResource {
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: CheckGroupState, opts?: pulumi.CustomResourceOptions): CheckGroup {
         pulumi.log.warn("CheckGroup is deprecated: Use the CheckGroupV2 resource instead.")
         return new CheckGroup(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing CheckGroup resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: CheckGroupState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/checkGroup:CheckGroup", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -211,85 +337,85 @@ export interface CheckGroupState {
     /**
      * Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
      */
-    activated?: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
      * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your group, we won't be able to alert you even if a check or monitor in the group starts failing.
      */
-    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[]>;
+    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[] | undefined>;
     /**
      * Determines the alert escalation policy for the checks and monitors in the group.
      */
-    alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings>;
+    alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings | undefined>;
     /**
      * Default settings for API checks in this group.
      */
-    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults>;
+    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults | undefined>;
     /**
      * Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
      */
-    concurrency?: pulumi.Input<number>;
+    concurrency?: pulumi.Input<number | undefined>;
     /**
      * Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
      *
      * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
-    doubleCheck?: pulumi.Input<boolean>;
+    doubleCheck?: pulumi.Input<boolean | undefined>;
     /**
      * Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
      */
-    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupEnvironmentVariable>[]>;
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupEnvironmentVariable>[] | undefined>;
     /**
      * A valid piece of Node.js code to run in the setup phase of an API check in this group.
      */
-    localSetupScript?: pulumi.Input<string>;
+    localSetupScript?: pulumi.Input<string | undefined>;
     /**
      * A valid piece of Node.js code to run in the teardown phase of an API check in this group.
      */
-    localTeardownScript?: pulumi.Input<string>;
+    localTeardownScript?: pulumi.Input<string | undefined>;
     /**
      * The data center locations to run the checks and monitors in the group from, such as `us-east-1`.
      */
-    locations?: pulumi.Input<pulumi.Input<string>[]>;
+    locations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
      */
-    muted?: pulumi.Input<boolean>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the check group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The slugs of the private locations to run the checks and monitors in the group from.
      */
-    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
+    privateLocations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * A strategy for retrying failed check/monitor runs.
      */
-    retryStrategy?: pulumi.Input<inputs.CheckGroupRetryStrategy>;
+    retryStrategy?: pulumi.Input<inputs.CheckGroupRetryStrategy | undefined>;
     /**
      * Determines whether the checks and monitors in the group run in all their locations in parallel instead of round-robin. Defaults to `false`.
      */
-    runParallel?: pulumi.Input<boolean>;
+    runParallel?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the runtime to use for the checks in the group. If not set, the account's default runtime is used.
      */
-    runtimeId?: pulumi.Input<string>;
+    runtimeId?: pulumi.Input<string | undefined>;
     /**
      * The ID of the snippet to run in the setup phase of the group's API checks. Must be at least `1`. If not set, no setup snippet runs.
      */
-    setupSnippetId?: pulumi.Input<number>;
+    setupSnippetId?: pulumi.Input<number | undefined>;
     /**
      * Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The ID of the snippet to run in the teardown phase of the group's API checks. Must be at least `1`. If not set, no teardown snippet runs.
      */
-    teardownSnippetId?: pulumi.Input<number>;
+    teardownSnippetId?: pulumi.Input<number | undefined>;
     /**
      * When true, the account level alert settings are used instead of the `alertSettings` of this check group. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    useGlobalAlertSettings?: pulumi.Input<boolean>;
+    useGlobalAlertSettings?: pulumi.Input<boolean | undefined>;
 }
 
 /**
@@ -299,19 +425,19 @@ export interface CheckGroupArgs {
     /**
      * Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
      */
-    activated?: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
      * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your group, we won't be able to alert you even if a check or monitor in the group starts failing.
      */
-    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[]>;
+    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.CheckGroupAlertChannelSubscription>[] | undefined>;
     /**
      * Determines the alert escalation policy for the checks and monitors in the group.
      */
-    alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings>;
+    alertSettings?: pulumi.Input<inputs.CheckGroupAlertSettings | undefined>;
     /**
      * Default settings for API checks in this group.
      */
-    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults>;
+    apiCheckDefaults?: pulumi.Input<inputs.CheckGroupApiCheckDefaults | undefined>;
     /**
      * Determines how many checks are run concurrently when triggering a check group from CI/CD or through the API.
      */
@@ -321,61 +447,61 @@ export interface CheckGroupArgs {
      *
      * @deprecated The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
      */
-    doubleCheck?: pulumi.Input<boolean>;
+    doubleCheck?: pulumi.Input<boolean | undefined>;
     /**
      * Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
      */
-    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupEnvironmentVariable>[]>;
+    environmentVariables?: pulumi.Input<pulumi.Input<inputs.CheckGroupEnvironmentVariable>[] | undefined>;
     /**
      * A valid piece of Node.js code to run in the setup phase of an API check in this group.
      */
-    localSetupScript?: pulumi.Input<string>;
+    localSetupScript?: pulumi.Input<string | undefined>;
     /**
      * A valid piece of Node.js code to run in the teardown phase of an API check in this group.
      */
-    localTeardownScript?: pulumi.Input<string>;
+    localTeardownScript?: pulumi.Input<string | undefined>;
     /**
      * The data center locations to run the checks and monitors in the group from, such as `us-east-1`.
      */
-    locations?: pulumi.Input<pulumi.Input<string>[]>;
+    locations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
      */
-    muted?: pulumi.Input<boolean>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the check group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The slugs of the private locations to run the checks and monitors in the group from.
      */
-    privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
+    privateLocations?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * A strategy for retrying failed check/monitor runs.
      */
-    retryStrategy?: pulumi.Input<inputs.CheckGroupRetryStrategy>;
+    retryStrategy?: pulumi.Input<inputs.CheckGroupRetryStrategy | undefined>;
     /**
      * Determines whether the checks and monitors in the group run in all their locations in parallel instead of round-robin. Defaults to `false`.
      */
-    runParallel?: pulumi.Input<boolean>;
+    runParallel?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the runtime to use for the checks in the group. If not set, the account's default runtime is used.
      */
-    runtimeId?: pulumi.Input<string>;
+    runtimeId?: pulumi.Input<string | undefined>;
     /**
      * The ID of the snippet to run in the setup phase of the group's API checks. Must be at least `1`. If not set, no setup snippet runs.
      */
-    setupSnippetId?: pulumi.Input<number>;
+    setupSnippetId?: pulumi.Input<number | undefined>;
     /**
      * Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The ID of the snippet to run in the teardown phase of the group's API checks. Must be at least `1`. If not set, no teardown snippet runs.
      */
-    teardownSnippetId?: pulumi.Input<number>;
+    teardownSnippetId?: pulumi.Input<number | undefined>;
     /**
      * When true, the account level alert settings are used instead of the `alertSettings` of this check group. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    useGlobalAlertSettings?: pulumi.Input<boolean>;
+    useGlobalAlertSettings?: pulumi.Input<boolean | undefined>;
 }

@@ -54,7 +54,6 @@ namespace Pulumi.Checkly
     /// The `pulumi import` command can be used, for example:
     /// 
     /// Import an existing status page component using "&lt;status_page_id&gt;/&lt;component_id&gt;".
-    /// 
     /// Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/components.
     /// 
     /// ```sh
@@ -77,13 +76,13 @@ namespace Pulumi.Checkly
         public Output<int> DisplayOrder { get; private set; } = null!;
 
         /// <summary>
-        /// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+        /// Render the group expanded when the status page loads. Defaults to `False`. Only available on a `GROUP` component.
         /// </summary>
         [Output("expandedByDefault")]
         public Output<bool> ExpandedByDefault { get; private set; } = null!;
 
         /// <summary>
-        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `False`.
         /// </summary>
         [Output("hidden")]
         public Output<bool> Hidden { get; private set; } = null!;
@@ -101,7 +100,7 @@ namespace Pulumi.Checkly
         public Output<string> ParentId { get; private set; } = null!;
 
         /// <summary>
-        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
+        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `True`.
         /// </summary>
         [Output("showHistoricalData")]
         public Output<bool> ShowHistoricalData { get; private set; } = null!;
@@ -178,13 +177,13 @@ namespace Pulumi.Checkly
         public Input<int> DisplayOrder { get; set; } = null!;
 
         /// <summary>
-        /// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+        /// Render the group expanded when the status page loads. Defaults to `False`. Only available on a `GROUP` component.
         /// </summary>
         [Input("expandedByDefault")]
         public Input<bool>? ExpandedByDefault { get; set; }
 
         /// <summary>
-        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `False`.
         /// </summary>
         [Input("hidden")]
         public Input<bool>? Hidden { get; set; }
@@ -202,7 +201,7 @@ namespace Pulumi.Checkly
         public Input<string>? ParentId { get; set; }
 
         /// <summary>
-        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
+        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `True`.
         /// </summary>
         [Input("showHistoricalData")]
         public Input<bool>? ShowHistoricalData { get; set; }
@@ -240,13 +239,13 @@ namespace Pulumi.Checkly
         public Input<int>? DisplayOrder { get; set; }
 
         /// <summary>
-        /// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+        /// Render the group expanded when the status page loads. Defaults to `False`. Only available on a `GROUP` component.
         /// </summary>
         [Input("expandedByDefault")]
         public Input<bool>? ExpandedByDefault { get; set; }
 
         /// <summary>
-        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `False`.
         /// </summary>
         [Input("hidden")]
         public Input<bool>? Hidden { get; set; }
@@ -264,7 +263,7 @@ namespace Pulumi.Checkly
         public Input<string>? ParentId { get; set; }
 
         /// <summary>
-        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
+        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `True`.
         /// </summary>
         [Input("showHistoricalData")]
         public Input<bool>? ShowHistoricalData { get; set; }

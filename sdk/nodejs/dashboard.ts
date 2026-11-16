@@ -32,7 +32,6 @@ import * as utilities from "./utilities";
  * The `pulumi import` command can be used, for example:
  *
  * Import an existing dashboard using its dashboard ID, a short hexadecimal string.
- *
  * The ID is the dashboardId returned by the Checkly API at GET /v1/dashboards.
  *
  * ```sh
@@ -51,6 +50,17 @@ export class Dashboard extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: DashboardState, opts?: pulumi.CustomResourceOptions): Dashboard {
         return new Dashboard(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing Dashboard resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: DashboardState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/dashboard:Dashboard", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -260,107 +270,107 @@ export interface DashboardState {
     /**
      * Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
      */
-    checksPerPage?: pulumi.Input<number>;
+    checksPerPage?: pulumi.Input<number | undefined>;
     /**
      * Custom CSS to be applied to the dashboard.
      */
-    customCss?: pulumi.Input<string>;
+    customCss?: pulumi.Input<string | undefined>;
     /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
-    customDomain?: pulumi.Input<string>;
+    customDomain?: pulumi.Input<string | undefined>;
     /**
      * A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
      */
-    customUrl?: pulumi.Input<string>;
+    customUrl?: pulumi.Input<string | undefined>;
     /**
      * HTML \n\n description for the dashboard.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Enable incident support for the dashboard. Defaults to `false`.
      */
-    enableIncidents?: pulumi.Input<boolean>;
+    enableIncidents?: pulumi.Input<boolean | undefined>;
     /**
      * Expand or collapse checks on the dashboard. Defaults to `false`.
      */
-    expandChecks?: pulumi.Input<boolean>;
+    expandChecks?: pulumi.Input<boolean | undefined>;
     /**
      * An http or https URL pointing to an image file to use as browser favicon.
      */
-    favicon?: pulumi.Input<string>;
+    favicon?: pulumi.Input<string | undefined>;
     /**
      * A piece of text displayed at the top of your dashboard.
      */
-    header?: pulumi.Input<string>;
+    header?: pulumi.Input<string | undefined>;
     /**
      * Show or hide the tags on the dashboard. Defaults to `false`.
      */
-    hideTags?: pulumi.Input<boolean>;
+    hideTags?: pulumi.Input<boolean | undefined>;
     /**
      * Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
      */
-    isPrivate?: pulumi.Input<boolean>;
+    isPrivate?: pulumi.Input<boolean | undefined>;
     /**
      * The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
      */
-    key?: pulumi.Input<string>;
+    key?: pulumi.Input<string | undefined>;
     /**
      * The http or https URL that clicking the dashboard logo leads to.
      */
-    link?: pulumi.Input<string>;
+    link?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL pointing to an image file to use for the dashboard logo.
      */
-    logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string | undefined>;
     /**
      * Determines if pagination is on or off. Defaults to `true`.
      */
-    paginate?: pulumi.Input<boolean>;
+    paginate?: pulumi.Input<boolean | undefined>;
     /**
      * How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
      */
-    paginationRate?: pulumi.Input<number>;
+    paginationRate?: pulumi.Input<number | undefined>;
     /**
      * How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
      */
-    refreshRate?: pulumi.Input<number>;
+    refreshRate?: pulumi.Input<number | undefined>;
     /**
      * Show or hide check run links on the dashboard. Defaults to `false`.
      */
-    showCheckRunLinks?: pulumi.Input<boolean>;
+    showCheckRunLinks?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
      */
-    showGroupNames?: pulumi.Input<boolean>;
+    showGroupNames?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide header and description on the dashboard. Defaults to `true`.
      */
-    showHeader?: pulumi.Input<boolean>;
+    showHeader?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide the P95 stats on the dashboard. Defaults to `true`.
      */
-    showP95?: pulumi.Input<boolean>;
+    showP95?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide the P99 stats on the dashboard. Defaults to `true`.
      */
-    showP99?: pulumi.Input<boolean>;
+    showP99?: pulumi.Input<boolean | undefined>;
     /**
      * List failing checks first. Defaults to `false`.
      */
-    sortByStatus?: pulumi.Input<boolean>;
+    sortByStatus?: pulumi.Input<boolean | undefined>;
     /**
      * A list of one or more tags that filter which checks to display on the dashboard.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
      */
-    useTagsAndOperator?: pulumi.Input<boolean>;
+    useTagsAndOperator?: pulumi.Input<boolean | undefined>;
     /**
      * Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
      */
-    width?: pulumi.Input<string>;
+    width?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -370,15 +380,15 @@ export interface DashboardArgs {
     /**
      * Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
      */
-    checksPerPage?: pulumi.Input<number>;
+    checksPerPage?: pulumi.Input<number | undefined>;
     /**
      * Custom CSS to be applied to the dashboard.
      */
-    customCss?: pulumi.Input<string>;
+    customCss?: pulumi.Input<string | undefined>;
     /**
      * A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
      */
-    customDomain?: pulumi.Input<string>;
+    customDomain?: pulumi.Input<string | undefined>;
     /**
      * A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
      */
@@ -386,19 +396,19 @@ export interface DashboardArgs {
     /**
      * HTML \n\n description for the dashboard.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * Enable incident support for the dashboard. Defaults to `false`.
      */
-    enableIncidents?: pulumi.Input<boolean>;
+    enableIncidents?: pulumi.Input<boolean | undefined>;
     /**
      * Expand or collapse checks on the dashboard. Defaults to `false`.
      */
-    expandChecks?: pulumi.Input<boolean>;
+    expandChecks?: pulumi.Input<boolean | undefined>;
     /**
      * An http or https URL pointing to an image file to use as browser favicon.
      */
-    favicon?: pulumi.Input<string>;
+    favicon?: pulumi.Input<string | undefined>;
     /**
      * A piece of text displayed at the top of your dashboard.
      */
@@ -406,65 +416,65 @@ export interface DashboardArgs {
     /**
      * Show or hide the tags on the dashboard. Defaults to `false`.
      */
-    hideTags?: pulumi.Input<boolean>;
+    hideTags?: pulumi.Input<boolean | undefined>;
     /**
      * Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
      */
-    isPrivate?: pulumi.Input<boolean>;
+    isPrivate?: pulumi.Input<boolean | undefined>;
     /**
      * The http or https URL that clicking the dashboard logo leads to.
      */
-    link?: pulumi.Input<string>;
+    link?: pulumi.Input<string | undefined>;
     /**
      * An http or https URL pointing to an image file to use for the dashboard logo.
      */
-    logo?: pulumi.Input<string>;
+    logo?: pulumi.Input<string | undefined>;
     /**
      * Determines if pagination is on or off. Defaults to `true`.
      */
-    paginate?: pulumi.Input<boolean>;
+    paginate?: pulumi.Input<boolean | undefined>;
     /**
      * How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
      */
-    paginationRate?: pulumi.Input<number>;
+    paginationRate?: pulumi.Input<number | undefined>;
     /**
      * How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
      */
-    refreshRate?: pulumi.Input<number>;
+    refreshRate?: pulumi.Input<number | undefined>;
     /**
      * Show or hide check run links on the dashboard. Defaults to `false`.
      */
-    showCheckRunLinks?: pulumi.Input<boolean>;
+    showCheckRunLinks?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
      */
-    showGroupNames?: pulumi.Input<boolean>;
+    showGroupNames?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide header and description on the dashboard. Defaults to `true`.
      */
-    showHeader?: pulumi.Input<boolean>;
+    showHeader?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide the P95 stats on the dashboard. Defaults to `true`.
      */
-    showP95?: pulumi.Input<boolean>;
+    showP95?: pulumi.Input<boolean | undefined>;
     /**
      * Show or hide the P99 stats on the dashboard. Defaults to `true`.
      */
-    showP99?: pulumi.Input<boolean>;
+    showP99?: pulumi.Input<boolean | undefined>;
     /**
      * List failing checks first. Defaults to `false`.
      */
-    sortByStatus?: pulumi.Input<boolean>;
+    sortByStatus?: pulumi.Input<boolean | undefined>;
     /**
      * A list of one or more tags that filter which checks to display on the dashboard.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
      */
-    useTagsAndOperator?: pulumi.Input<boolean>;
+    useTagsAndOperator?: pulumi.Input<boolean | undefined>;
     /**
      * Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
      */
-    width?: pulumi.Input<string>;
+    width?: pulumi.Input<string | undefined>;
 }

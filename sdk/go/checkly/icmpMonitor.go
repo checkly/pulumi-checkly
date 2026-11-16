@@ -64,7 +64,6 @@ import (
 // The `pulumi import` command can be used, for example:
 //
 // Import an existing ICMP monitor using its check ID.
-//
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // ```sh
@@ -235,6 +234,12 @@ type IcmpMonitorState struct {
 
 func (IcmpMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*icmpMonitorState)(nil)).Elem()
+}
+
+// IcmpMonitorExists checks whether an existing IcmpMonitor resource with the given ID exists.
+func IcmpMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *IcmpMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/icmpMonitor:IcmpMonitor", id, state, "", opts...)
 }
 
 type icmpMonitorArgs struct {

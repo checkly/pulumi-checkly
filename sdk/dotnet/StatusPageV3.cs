@@ -96,7 +96,6 @@ namespace Pulumi.Checkly
     /// The `pulumi import` command can be used, for example:
     /// 
     /// Import an existing status page using its ID.
-    /// 
     /// The ID is returned by the Checkly API at GET /v3/status-pages.
     /// 
     /// ```sh
@@ -107,7 +106,7 @@ namespace Pulumi.Checkly
     public partial class StatusPageV3 : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Whether search engines may index the public page. Defaults to `true`.
+        /// Whether search engines may index the public page. Defaults to `True`.
         /// </summary>
         [Output("allowIndexing")]
         public Output<bool> AllowIndexing { get; private set; } = null!;
@@ -191,7 +190,7 @@ namespace Pulumi.Checkly
         public Output<string> TermsOfServiceLink { get; private set; } = null!;
 
         /// <summary>
-        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
+        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `Light` and `Dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         /// </summary>
         [Output("themeColors")]
         public Output<Outputs.StatusPageV3ThemeColors?> ThemeColors { get; private set; } = null!;
@@ -250,7 +249,7 @@ namespace Pulumi.Checkly
     public sealed class StatusPageV3Args : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether search engines may index the public page. Defaults to `true`.
+        /// Whether search engines may index the public page. Defaults to `True`.
         /// </summary>
         [Input("allowIndexing")]
         public Input<bool>? AllowIndexing { get; set; }
@@ -334,7 +333,7 @@ namespace Pulumi.Checkly
         public Input<string>? TermsOfServiceLink { get; set; }
 
         /// <summary>
-        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
+        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `Light` and `Dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         /// </summary>
         [Input("themeColors")]
         public Input<Inputs.StatusPageV3ThemeColorsArgs>? ThemeColors { get; set; }
@@ -354,7 +353,7 @@ namespace Pulumi.Checkly
     public sealed class StatusPageV3State : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether search engines may index the public page. Defaults to `true`.
+        /// Whether search engines may index the public page. Defaults to `True`.
         /// </summary>
         [Input("allowIndexing")]
         public Input<bool>? AllowIndexing { get; set; }
@@ -438,7 +437,7 @@ namespace Pulumi.Checkly
         public Input<string>? TermsOfServiceLink { get; set; }
 
         /// <summary>
-        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
+        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `Light` and `Dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         /// </summary>
         [Input("themeColors")]
         public Input<Inputs.StatusPageV3ThemeColorsGetArgs>? ThemeColors { get; set; }
