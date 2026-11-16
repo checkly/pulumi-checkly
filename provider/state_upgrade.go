@@ -1,6 +1,9 @@
 package checkly
 
 import (
+	"context"
+	"encoding/json"
+
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/reservedkeys"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -10,8 +13,14 @@ import (
 // v2. Its stacks store Pulumi properties in the shape of that provider's schema, at Terraform
 // schema version 0, and without a raw Terraform state. The bridge encodes such properties
 // with the current schema before the upstream provider upgrades them, and encoding fails
-// wherever a property kept its name but changed its shape. The hooks below rewrite those
-// properties into the current shape first.
+// wherever a property kept its name but changed its shape.
+//
+// The rewrites below turn those properties into the current shape. They run as the
+// TransformFromState of each resource, which the bridge applies to the stored state before it
+// uses it in Check, Diff, Read, Update and Delete, and before the state upgrade. Check passes
+// the stored inputs instead, which have the same shape. The new inputs of a Diff are not
+// transformed, so a Diff against inputs that v2.x stored, which `pulumi refresh
+// --run-program` runs, still fails.
 //
 // State written by v3 is left alone. State at a newer schema version or with a raw state delta
 // is returned as it is. The per-type check resources, which v2.x did not have, write their
@@ -37,9 +46,11 @@ type v2StateShape struct {
 	// dropping those that the target does not have, which is what reading it as version 0
 	// does.
 	//
-	// A Check whose state still has the v2.x shape, at schema version 0, can be aliased too,
-	// but then skips the upstream normalization of v2.x state, which keeps zero values such
-	// as groupId 0. The upgrade notes therefore require refreshing the stack on v3 first.
+	// The version is mapped by a PreStateUpgradeHook, which the bridge calls with the
+	// schema versions. A Check whose state still has the v2.x shape, at schema version 0,
+	// can be aliased too, but then skips the upstream normalization of v2.x state, which
+	// keeps zero values such as groupId 0. The upgrade notes therefore ask for a refresh on
+	// v3 before an alias is added.
 	aliasedCheckState bool
 }
 
@@ -117,35 +128,41 @@ var v2AlertSettingsRenames = map[resource.PropertyKey]resource.PropertyKey{
 	"parallelRunFailureThresholds": "parallelRunFailureThreshold",
 }
 
-// applyV2StateUpgradeHooks installs a PreStateUpgradeHook on every resource whose v2.x state
-// needs rewriting.
+// applyV2StateUpgradeHooks installs the rewrites on every resource whose v2.x state needs
+// them, and the schema version mapping on the per-type check resources.
 func applyV2StateUpgradeHooks(prov *tfbridge.ProviderInfo) {
 	for name, shape := range v2StateShapes {
 		res, ok := prov.Resources[name]
 		if !ok {
 			continue
 		}
-		res.PreStateUpgradeHook = func(args tfbridge.PreStateUpgradeHookArgs) (int64, resource.PropertyMap, error) {
-			version := args.PriorStateSchemaVersion
-			if shape.aliasedCheckState && version == checkSchemaVersion && args.ResourceSchemaVersion == 0 {
-				version = 0
-			}
-			return version, upgradeV2State(shape, args), nil
+		res.TransformFromState = func(_ context.Context, state resource.PropertyMap) (resource.PropertyMap, error) {
+			return upgradeV2State(shape, state), nil
+		}
+		if shape.aliasedCheckState {
+			res.PreStateUpgradeHook = readCheckStateAsVersion0
 		}
 	}
 }
 
-// upgradeV2State returns the prior state with the properties of shape rewritten from their
-// v2.x shape. State that v2.x cannot have written is returned unchanged.
-func upgradeV2State(shape v2StateShape, args tfbridge.PreStateUpgradeHookArgs) resource.PropertyMap {
-	if args.PriorStateSchemaVersion != 0 {
-		return args.PriorState
+// readCheckStateAsVersion0 reads the state that v3 writes for a Check, at checkSchemaVersion,
+// as version 0 of a per-type check resource; see aliasedCheckState.
+func readCheckStateAsVersion0(args tfbridge.PreStateUpgradeHookArgs) (int64, resource.PropertyMap, error) {
+	version := args.PriorStateSchemaVersion
+	if version == checkSchemaVersion && args.ResourceSchemaVersion == 0 {
+		version = 0
 	}
-	if _, ok := args.PriorState[reservedkeys.RawStateDelta]; ok {
-		return args.PriorState
+	return version, args.PriorState, nil
+}
+
+// upgradeV2State returns state with the properties of shape rewritten from their v2.x shape.
+// State that v2.x cannot have written is returned unchanged.
+func upgradeV2State(shape v2StateShape, state resource.PropertyMap) resource.PropertyMap {
+	if !mayBeV2State(state) {
+		return state
 	}
 
-	state := args.PriorState.Copy()
+	state = state.Copy()
 	if shape.alertSettings != nil {
 		updateAt(state, shape.alertSettings, upgradeV2AlertSettings)
 	}
@@ -156,6 +173,29 @@ func upgradeV2State(shape v2StateShape, args tfbridge.PreStateUpgradeHookArgs) r
 		deleteAt(state, path)
 	}
 	return state
+}
+
+// mayBeV2State reports whether v2.x can have written state: it has no raw state delta, and its
+// __meta property records no schema version or version 0. A __meta that can't be read is left
+// for the bridge to report.
+func mayBeV2State(state resource.PropertyMap) bool {
+	if _, ok := state[reservedkeys.RawStateDelta]; ok {
+		return false
+	}
+	meta, ok := state[reservedkeys.Meta]
+	if !ok {
+		return true
+	}
+	if !meta.IsString() {
+		return false
+	}
+	var parsed struct {
+		SchemaVersion string `json:"schema_version"`
+	}
+	if err := json.Unmarshal([]byte(meta.StringValue()), &parsed); err != nil {
+		return false
+	}
+	return parsed.SchemaVersion == "" || parsed.SchemaVersion == "0"
 }
 
 // upgradeV2AlertSettings unwraps the nested alert settings that v2.x stored as lists and

@@ -9,11 +9,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 )
 
-// v2Args returns hook arguments for state at the schema version v2.x writes.
-func v2Args(state resource.PropertyMap) tfbridge.PreStateUpgradeHookArgs {
-	return tfbridge.PreStateUpgradeHookArgs{PriorState: state, ResourceSchemaVersion: 1}
-}
-
 // v2CheckState returns state of a Check as v2.x stores it.
 func v2CheckState() resource.PropertyMap {
 	return resource.NewPropertyMapFromMap(map[string]any{
@@ -33,7 +28,8 @@ func v2CheckState() resource.PropertyMap {
 }
 
 // TestV2StateUpgradeHooksInstalled checks that every resource with a v2.x state shape exists
-// in the mapping and gets the hook.
+// in the mapping and gets the TransformFromState, and that only the per-type check resources
+// get the PreStateUpgradeHook.
 func TestV2StateUpgradeHooksInstalled(t *testing.T) {
 	setTestVersion()
 	prov := Provider()
@@ -43,8 +39,11 @@ func TestV2StateUpgradeHooksInstalled(t *testing.T) {
 			t.Errorf("%s is not mapped", name)
 			continue
 		}
-		if res.PreStateUpgradeHook == nil {
-			t.Errorf("%s has no PreStateUpgradeHook", name)
+		if res.TransformFromState == nil {
+			t.Errorf("%s has no TransformFromState", name)
+		}
+		if hasHook := res.PreStateUpgradeHook != nil; hasHook != v2StateShapes[name].aliasedCheckState {
+			t.Errorf("%s: PreStateUpgradeHook installed is %v, want %v", name, hasHook, !hasHook)
 		}
 	}
 }
@@ -68,7 +67,7 @@ func TestUpgradeV2State(t *testing.T) {
 	})
 	before := state.Copy()
 
-	got := upgradeV2State(shape, v2Args(state))
+	got := upgradeV2State(shape, state)
 	if !got.DeepEquals(want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
@@ -85,7 +84,7 @@ func TestUpgradeV2StateKeepsEnvironmentVariableList(t *testing.T) {
 	})
 	want := resource.NewPropertyMapFromMap(map[string]any{"environmentVariables": list})
 
-	if got := upgradeV2State(v2StateShapes["checkly_check_group"], v2Args(state)); !got.DeepEquals(want) {
+	if got := upgradeV2State(v2StateShapes["checkly_check_group"], state); !got.DeepEquals(want) {
 		t.Errorf("got %v, want %v", got, want)
 	}
 }
@@ -96,7 +95,7 @@ func TestUpgradeV2StateKeepsSecrets(t *testing.T) {
 			"A": resource.NewStringProperty("1"),
 		})),
 	}
-	got := upgradeV2State(v2StateShapes["checkly_check"], v2Args(state))
+	got := upgradeV2State(v2StateShapes["checkly_check"], state)
 	if v := got["environmentVariables"]; !v.IsSecret() || !v.SecretValue().Element.IsArray() {
 		t.Errorf("got %v, want a secret list", v)
 	}
@@ -124,7 +123,6 @@ func TestUpgradeV2StateKeepsV3State(t *testing.T) {
 		},
 		"retryStrategy": map[string]any{"type": "FIXED", "maxRetries": 2},
 		"shouldFail":    false,
-		"__meta":        `{"schema_version":"1"}`,
 	})
 	for name, shape := range v2StateShapes {
 		// shouldFail is current on resources that do not list it as removed.
@@ -134,7 +132,7 @@ func TestUpgradeV2StateKeepsV3State(t *testing.T) {
 				delete(input, path[0])
 			}
 		}
-		if got := upgradeV2State(shape, v2Args(input)); !got.DeepEquals(input) {
+		if got := upgradeV2State(shape, input); !got.DeepEquals(input) {
 			t.Errorf("%s: got %v, want %v", name, got, input)
 		}
 	}
@@ -146,37 +144,53 @@ func TestUpgradeV2StateKeepsNewerState(t *testing.T) {
 	shape := v2StateShapes["checkly_check"]
 
 	newer := v2CheckState()
-	args := v2Args(newer)
-	args.PriorStateSchemaVersion = 1
-	if got := upgradeV2State(shape, args); !got.DeepEquals(newer) {
+	newer[reservedkeys.Meta] = resource.NewStringProperty(`{"schema_version":"1"}`)
+	if got := upgradeV2State(shape, newer); !got.DeepEquals(newer) {
 		t.Errorf("schema version 1: got %v, want %v", got, newer)
+	}
+
+	unreadable := v2CheckState()
+	unreadable[reservedkeys.Meta] = resource.NewStringProperty(`not json`)
+	if got := upgradeV2State(shape, unreadable); !got.DeepEquals(unreadable) {
+		t.Errorf("unreadable __meta: got %v, want %v", got, unreadable)
+	}
+
+	// v2.x can record version 0 itself, which is rewritten like state without __meta.
+	version0 := v2CheckState()
+	version0[reservedkeys.Meta] = resource.NewStringProperty(`{"schema_version":"0"}`)
+	if got := upgradeV2State(shape, version0); got.DeepEquals(version0) {
+		t.Errorf("schema version 0 was not rewritten")
 	}
 
 	withDelta := v2CheckState()
 	withDelta[reservedkeys.RawStateDelta] = resource.NewObjectProperty(resource.PropertyMap{})
-	if got := upgradeV2State(shape, v2Args(withDelta)); !got.DeepEquals(withDelta) {
+	if got := upgradeV2State(shape, withDelta); !got.DeepEquals(withDelta) {
 		t.Errorf("raw state delta: got %v, want %v", got, withDelta)
 	}
 }
 
 // TestPerTypeCheckHookReadsCheckState checks that the per-type check resources read the state
-// that v3 writes for a Check, at schema version 1, as their own version 0, and that other
-// resources keep the version they are given.
+// that v3 writes for a Check, at schema version 1, as their own version 0, and leave other
+// versions alone.
 func TestPerTypeCheckHookReadsCheckState(t *testing.T) {
 	setTestVersion()
 	prov := Provider()
 	state := resource.PropertyMap{"id": resource.NewStringProperty("1234")}
-	for name, want := range map[string]int64{
-		"checkly_api_check":       0,
-		"checkly_browser_check":   0,
-		"checkly_multistep_check": 0,
-		"checkly_check":           1,
-		"checkly_url_monitor":     1,
+	for _, tc := range []struct {
+		name                   string
+		prior, resource, wantV int64
+	}{
+		{"checkly_api_check", 1, 0, 0},
+		{"checkly_browser_check", 1, 0, 0},
+		{"checkly_multistep_check", 1, 0, 0},
+		{"checkly_api_check", 0, 0, 0},
+		{"checkly_api_check", 2, 0, 2},
 	} {
+		name, want := tc.name, tc.wantV
 		version, got, err := prov.Resources[name].PreStateUpgradeHook(tfbridge.PreStateUpgradeHookArgs{
 			PriorState:              state,
-			PriorStateSchemaVersion: 1,
-			ResourceSchemaVersion:   want,
+			PriorStateSchemaVersion: tc.prior,
+			ResourceSchemaVersion:   tc.resource,
 		})
 		if err != nil {
 			t.Fatalf("%s: %v", name, err)
@@ -204,7 +218,7 @@ func TestUpgradeV2StateRemovesOnlyOn(t *testing.T) {
 		stored["onlyOn"] = onlyOn
 		state := resource.NewPropertyMapFromMap(map[string]any{"retryStrategy": stored})
 
-		if got := upgradeV2State(v2StateShapes["checkly_tcp_monitor"], v2Args(state)); !got.DeepEquals(want) {
+		if got := upgradeV2State(v2StateShapes["checkly_tcp_monitor"], state); !got.DeepEquals(want) {
 			t.Errorf("%s: got %v, want %v", name, got, want)
 		}
 	}
@@ -223,7 +237,7 @@ func TestUpgradeV2StateKeepsSecretAlertSettings(t *testing.T) {
 		})),
 	}
 
-	got := upgradeV2State(v2StateShapes["checkly_url_monitor"], v2Args(state))
+	got := upgradeV2State(v2StateShapes["checkly_url_monitor"], state)
 
 	settings := got["alertSettings"]
 	if !settings.IsSecret() || !settings.SecretValue().Element.IsObject() {

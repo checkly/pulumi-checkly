@@ -95,7 +95,7 @@ const browserCheckJSON = `{
 
 // TestRefreshRewritesV2State refreshes the v2.x state of a Check, as `pulumi refresh` does,
 // against a local API server that returns the check. It then checks that the refreshed state
-// can be deleted, which the bridge does without the state upgrade hooks, and that it moves to
+// can be deleted, and that it moves to
 // its per-type resource with a Pulumi alias without any change.
 func TestRefreshRewritesV2State(t *testing.T) {
 	setTestVersion()

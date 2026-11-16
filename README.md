@@ -47,12 +47,10 @@ v3 bridges version 2 of the Checkly Terraform provider, which moved to the Terra
 
 1. While still on v2.x, run `pulumi up` and apply any pending changes, so that you start from a clean preview.
 1. Delete every `TriggerCheck` and `TriggerCheckGroup` resource while still on v2.x: remove it from your program and run `pulumi up`. To keep the trigger URL working for now, run `pulumi state delete <urn>` instead, which removes the resource from the stack only. If you have already upgraded, use `pulumi state delete <urn>`: v3 doesn't have these resource types and can't delete them.
-1. Back up the stack with `pulumi stack export --file backup.json`. Once v3 has refreshed the stack, v2.x can't read it; to go back, restore the backup with `pulumi stack import --file backup.json`.
+1. Back up the stack with `pulumi stack export --file backup.json`. Once v3 has updated or refreshed the stack, v2.x may not be able to read it; to go back, restore the backup with `pulumi stack import --file backup.json`.
 1. Make sure every API key has an account ID: set `checkly:accountId` or the `CHECKLY_ACCOUNT_ID` environment variable. v2.x only required it for user-scoped keys.
-1. Upgrade the package to v3 and update your program as described in [Changes to your program](#changes-to-your-program). Keep the deprecated resources for now, and don't remove any resource yet.
-1. Run `pulumi preview`. It must show no deletions or replacements. In-place updates are expected where a default changed; see [Expected changes](#expected-changes). Until the refresh in step 8, v3 can't delete checks, check groups, monitors or `PlaywrightCheckSuite` resources whose state v2.x wrote: deleting or replacing one fails with `objectEncoder failed on property "alert_settings"`. Make such changes while still on v2.x, or after step 8.
-1. Run `pulumi up`. This switches the stack to the v3 provider. It doesn't rewrite the stored state of a resource that it leaves unchanged.
-1. Run `pulumi refresh`, which now uses the v3 provider and rewrites the stored state of every resource. Don't refresh before the `pulumi up` in step 7: a plain `pulumi refresh` uses the v2.x provider recorded in the stack and rewrites nothing, and `pulumi refresh --run-program` fails on state that v2.x wrote.
+1. Upgrade the package to v3 and update your program as described in [Changes to your program](#changes-to-your-program).
+1. Run `pulumi preview`, then `pulumi up`. The preview should show only in-place updates, where a default changed; see [Expected changes](#expected-changes). If it shows a deletion or replacement you didn't intend, fix your program before running `pulumi up`. This first `pulumi up` switches the stack to the v3 provider. Don't run `pulumi refresh --run-program` before it: it fails on the inputs that v2.x stored, with `objectEncoder failed on property "alert_settings"`. A plain `pulumi refresh` before it still uses the v2.x provider recorded in the stack.
 1. Optionally, move deprecated resources to their replacements, as described in [Moving to the replacement resources](#moving-to-the-replacement-resources).
 
 ### Changes to your program
@@ -87,7 +85,7 @@ The upstream guide lists every case under [Expected one-time changes](https://re
 
 ### Moving to the replacement resources
 
-You can move a deprecated resource to its replacement without recreating it. Refresh the stack on v3 first, as in the upgrade procedure. Then change the resource in your program, add an alias with the old type, and run `pulumi up`:
+You can move a deprecated resource to its replacement without recreating it. After your first `pulumi up` on v3, run `pulumi refresh` once, so that the stored state of the old resource is in the v3 shape. Then change the resource in your program, add an alias with the old type, and run `pulumi up`:
 
 ```typescript
 new checkly.ApiCheck("my-api-check", {

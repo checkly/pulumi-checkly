@@ -14,6 +14,7 @@ import (
 	_ "embed"
 	"encoding/base64"
 	"encoding/hex"
+	"encoding/json"
 	"encoding/pem"
 	"maps"
 	"math/big"
@@ -62,7 +63,7 @@ type stateCompatCase struct {
 	v3ShapeFrom string
 }
 
-// rewrittenProperties are the properties that the v2.x state upgrade hooks rewrite. When the
+// rewrittenProperties are the properties that the v2.x state rewrites change. When the
 // v2.x state holds one and the program sets the same value, a diff on it would mean the
 // rewrite lost or changed the stored value.
 var rewrittenProperties = []string{"alertSettings", "enforceAlertSettings", "environmentVariables"}
@@ -119,6 +120,200 @@ func TestStateCompatibilityRefresh(t *testing.T) {
 	}
 }
 
+// TestStateCompatibilityDelete deletes v2.x state of every resource, as `pulumi destroy` or a
+// replacement does right after the upgrade, before anything rewrites the state. The local API
+// server accepts deletes only.
+func TestStateCompatibilityDelete(t *testing.T) {
+	setTestVersion()
+	for _, tc := range stateCompatCases(t) {
+		t.Run(tc.name, func(t *testing.T) {
+			if err := deleteV2State(t, Provider(), tc); err != nil {
+				t.Fatalf("Delete: %v", err)
+			}
+		})
+	}
+}
+
+// TestStateCompatibilityDeleteNeedsTransform is the negative control of
+// TestStateCompatibilityDelete: without the TransformFromState of a monitor, deleting its v2.x
+// state fails, so the test above exercises the transform.
+func TestStateCompatibilityDeleteNeedsTransform(t *testing.T) {
+	setTestVersion()
+	providerInfo := Provider()
+	providerInfo.Resources["checkly_url_monitor"].TransformFromState = nil
+	for _, tc := range stateCompatCases(t) {
+		if tc.name != "UrlMonitor" {
+			continue
+		}
+		err := deleteV2State(t, providerInfo, tc)
+		if err == nil || !strings.Contains(err.Error(), `objectEncoder failed on property "alert_settings"`) {
+			t.Fatalf("Delete without the transform returned %v, want an alert_settings encoding error", err)
+		}
+		return
+	}
+	t.Fatal("no UrlMonitor case")
+}
+
+// TestStateCompatibilityUpdate updates a monitor from its v2.x state, as the first `pulumi up`
+// after the upgrade does when the program changes it, before anything rewrites the state.
+func TestStateCompatibilityUpdate(t *testing.T) {
+	setTestVersion()
+	if err := updateV2State(t, Provider(), stateCompatCaseNamed(t, "UrlMonitor")); err != nil {
+		t.Fatalf("Update: %v", err)
+	}
+}
+
+// TestStateCompatibilityUpdateNeedsTransform is the negative control of
+// TestStateCompatibilityUpdate.
+func TestStateCompatibilityUpdateNeedsTransform(t *testing.T) {
+	setTestVersion()
+	providerInfo := Provider()
+	providerInfo.Resources["checkly_url_monitor"].TransformFromState = nil
+	err := updateV2State(t, providerInfo, stateCompatCaseNamed(t, "UrlMonitor"))
+	if err == nil || !strings.Contains(err.Error(), `objectEncoder failed on property "alert_settings"`) {
+		t.Fatalf("Update without the transform returned %v, want an alert_settings encoding error", err)
+	}
+}
+
+// updateV2State updates the v2.x state of tc to its v3 inputs. The local API server accepts
+// the update and returns the monitor it was sent.
+func updateV2State(t *testing.T, providerInfo tfbridge.ProviderInfo, tc stateCompatCase) error {
+	t.Helper()
+	updates := 0
+	srv := newTestProviderServerWithInfo(t, providerInfo, func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPut {
+			t.Errorf("unexpected Checkly API request: %s %s", r.Method, r.URL.Path)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		updates++
+		var body map[string]any
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Errorf("decoding the update: %v", err)
+		}
+		body["id"] = "1234"
+		w.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(w).Encode(body)
+	})
+	ctx := context.Background()
+	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	check, err := srv.Check(ctx, &pulumirpc.CheckRequest{
+		Urn:        string(urn),
+		Type:       tc.token,
+		Name:       tc.name,
+		Olds:       marshal(t, tc.v2Inputs),
+		News:       marshal(t, tc.v3Inputs),
+		RandomSeed: []byte("statecompat"),
+	})
+	if err != nil {
+		t.Fatalf("Check: %v", err)
+	}
+	_, err = srv.Update(ctx, &pulumirpc.UpdateRequest{
+		Id:            "1234",
+		Urn:           string(urn),
+		Type:          tc.token,
+		Name:          tc.name,
+		Olds:          marshal(t, tc.v2State()),
+		News:          check.GetInputs(),
+		OldInputs:     marshal(t, tc.v2Inputs),
+		IgnoreChanges: []string{"alertSettings"},
+	})
+	if err == nil && updates == 0 {
+		t.Errorf("Update did not call the API")
+	}
+	return err
+}
+
+// TestDiffOfStoredV2InputsFails pins a limitation that the "Upgrade procedure" in README.md
+// documents: `pulumi refresh --run-program` before the first `pulumi up` diffs the refreshed
+// state against the inputs that v2.x stored, with `__defaults` entries and list-shaped alert
+// settings. The bridge passes those new inputs to the provider untransformed, so the Diff
+// fails. If this test starts failing after a bridge upgrade, the bridge transforms such inputs
+// now: revisit the README rule and remove it if `refresh --run-program` works.
+func TestDiffOfStoredV2InputsFails(t *testing.T) {
+	setTestVersion()
+	tc := stateCompatCaseNamed(t, "UrlMonitor")
+	srv := newTestProviderServer(t, func(w http.ResponseWriter, r *http.Request) {
+		t.Errorf("unexpected Checkly API request: %s %s", r.Method, r.URL.Path)
+		w.WriteHeader(http.StatusInternalServerError)
+	})
+
+	// The inputs as v2.x stored them, with the __defaults entries its Check added.
+	storedInputs := resource.NewPropertyMapFromMap(map[string]any{
+		"__defaults": []any{},
+		"name":       "url",
+		"activated":  true,
+		"frequency":  10,
+		"locations":  []any{"eu-west-1"},
+		"request":    map[string]any{"__defaults": []any{}, "url": "https://example.com"},
+		"alertSettings": map[string]any{
+			"__defaults":          []any{},
+			"escalationType":      "RUN_BASED",
+			"reminders":           []any{map[string]any{"__defaults": []any{}, "amount": 0, "interval": 5}},
+			"runBasedEscalations": []any{map[string]any{"__defaults": []any{}, "failedRunThreshold": 1}},
+		},
+	})
+	news, err := plugin.MarshalProperties(storedInputs, plugin.MarshalOptions{KeepUnknowns: true, KeepSecrets: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	_, err = srv.Diff(context.Background(), &pulumirpc.DiffRequest{
+		Id:        "1234",
+		Urn:       string(urn),
+		Type:      tc.token,
+		Name:      tc.name,
+		Olds:      marshal(t, tc.v2State()),
+		News:      news,
+		OldInputs: news,
+	})
+	if err == nil || !strings.Contains(err.Error(), `objectEncoder failed on property "alert_settings"`) {
+		t.Fatalf("Diff against the stored v2.x inputs returned %v, want an alert_settings encoding error", err)
+	}
+}
+
+// stateCompatCaseNamed returns the case with the given name.
+func stateCompatCaseNamed(t *testing.T, name string) stateCompatCase {
+	t.Helper()
+	for _, c := range stateCompatCases(t) {
+		if c.name == name {
+			return c
+		}
+	}
+	t.Fatalf("no case %s", name)
+	return stateCompatCase{}
+}
+
+// deleteV2State deletes the v2.x state of tc. It fails the test if the provider sends anything
+// but deletes to the API, or fails to send one when the state could be read.
+func deleteV2State(t *testing.T, providerInfo tfbridge.ProviderInfo, tc stateCompatCase) error {
+	t.Helper()
+	deletes := 0
+	srv := newTestProviderServerWithInfo(t, providerInfo, func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodDelete {
+			t.Errorf("unexpected Checkly API request: %s %s", r.Method, r.URL.Path)
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		deletes++
+		w.WriteHeader(http.StatusNoContent)
+	})
+	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	_, err := srv.Delete(context.Background(), &pulumirpc.DeleteRequest{
+		Id:         "1234",
+		Urn:        string(urn),
+		Type:       tc.token,
+		Name:       tc.name,
+		Properties: marshal(t, tc.v2State()),
+		OldInputs:  marshal(t, tc.v2Inputs),
+	})
+	// Upstream never deletes a code bundle: the API cleans it up once nothing uses it.
+	if err == nil && deletes == 0 && tc.token != "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle" {
+		t.Errorf("Delete did not call the API")
+	}
+	return err
+}
+
 // setTestVersion sets the provider version, which only the linker sets otherwise. Provider
 // derives the Go SDK import path from it.
 func setTestVersion() {
@@ -135,8 +330,7 @@ func (tc stateCompatCase) v2State() map[string]any {
 	if tc.v3ShapeFrom == "" {
 		return state
 	}
-	upgraded := upgradeV2State(v2StateShapes[tc.v3ShapeFrom],
-		tfbridge.PreStateUpgradeHookArgs{PriorState: resource.NewPropertyMapFromMap(state)})
+	upgraded := upgradeV2State(v2StateShapes[tc.v3ShapeFrom], resource.NewPropertyMapFromMap(state))
 	upgraded["__meta"] = resource.NewStringProperty(`{"schema_version":"1"}`)
 	return upgraded.Mappable()
 }
@@ -144,6 +338,14 @@ func (tc stateCompatCase) v2State() map[string]any {
 // newTestProviderServer returns a configured provider server whose API URL points at a
 // local server with the given handler. The provider gets dummy credentials.
 func newTestProviderServer(t *testing.T, handler http.HandlerFunc) pulumirpc.ResourceProviderServer {
+	t.Helper()
+	return newTestProviderServerWithInfo(t, Provider(), handler)
+}
+
+// newTestProviderServerWithInfo is newTestProviderServer for the given provider mapping.
+func newTestProviderServerWithInfo(
+	t *testing.T, providerInfo tfbridge.ProviderInfo, handler http.HandlerFunc,
+) pulumirpc.ResourceProviderServer {
 	t.Helper()
 	api := httptest.NewServer(handler)
 	t.Cleanup(api.Close)
@@ -155,7 +357,7 @@ func newTestProviderServer(t *testing.T, handler http.HandlerFunc) pulumirpc.Res
 	t.Setenv("CHECKLY_ACCOUNT_ID", "")
 
 	ctx := context.Background()
-	srv, err := pfbridge.NewProviderServer(ctx, testLogSink{t}, Provider(),
+	srv, err := pfbridge.NewProviderServer(ctx, testLogSink{t}, providerInfo,
 		pfbridge.ProviderMetadata{PackageSchema: testPackageSchema})
 	if err != nil {
 		t.Fatalf("creating provider server: %v", err)
@@ -1130,7 +1332,7 @@ func aliasCases(t *testing.T, cases []stateCompatCase) []stateCompatCase {
 			byName["TcpCheck"].v3Inputs),
 	}
 
-	// The same moves for state that v3 has already rewritten, approximated by the hook's output
+	// The same moves for state that v3 has already rewritten, approximated by the output of the v2.x state rewrites
 	// at schema version 1. TestRefreshRewritesV2State moves checks from state that a refresh
 	// has actually rewritten.
 	sources := map[string]string{
