@@ -14,7 +14,7 @@ import (
 
 // The `TcpCheck` resource has been renamed to `TcpMonitor` to better reflect its position in the Checkly product lineup. The `TcpCheck` resource type is deprecated and will be removed in a future version of the provider.
 //
-// The schemas of both resource types are identical, and existing `TcpCheck` resources can be migrated to `TcpMonitor` using a `moved` block; see Deprecated resource types in the v2 upgrade guide.
+// The schemas of both resource types are identical, and existing `TcpCheck` resources can be moved to `TcpMonitor` with a Pulumi alias; see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 //
 // We recommend using the `TcpMonitor` resource type for any new resources.
 //
@@ -110,30 +110,7 @@ import (
 //
 // ## Moving to `TcpMonitor`
 //
-// Terraform 1.8 or later can switch a `TcpCheck` resource to `TcpMonitor` with a `moved` block, without recreating it:
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			// The attributes stay the same; only the resource type changes.
-//			_, err := checkly.NewTcpMonitor(ctx, "example", nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
+// An existing `TcpCheck` resource can be moved to `TcpMonitor` without recreating it: declare the new resource with the same properties and an alias to the old type, `checkly:index/tcpCheck:TcpCheck`, and run `pulumi up`. Refresh the stack on v3 before you add the alias; see [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 //
 // ## Import
 //

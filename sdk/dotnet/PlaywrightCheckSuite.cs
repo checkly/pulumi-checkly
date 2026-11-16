@@ -20,8 +20,8 @@ namespace Pulumi.Checkly
     /// You can find the ID in the check's URL in the Checkly dashboard.
     /// 
     /// The code bundle is not imported: the API doesn't return the bundle's
-    /// metadata, so the first plan after the import shows an in-place update of
-    /// `Bundle`, and the apply sends the bundle from the configuration.
+    /// metadata, so the first preview after the import shows an in-place update of
+    /// `Bundle`, and the update sends the bundle from your program.
     /// 
     /// ```sh
     /// $ pulumi import checkly:index/playwrightCheckSuite:PlaywrightCheckSuite example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
@@ -37,7 +37,7 @@ namespace Pulumi.Checkly
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `Script` to `IgnoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `AiAutoRepairEnabled` to `IgnoreChanges`.
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next update restores the configured script unless you copy the repaired script into your program or add `Script` to the `IgnoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `AiAutoRepairEnabled` to the `IgnoreChanges` resource option.
         /// </summary>
         [Output("aiAutoRepairEnabled")]
         public Output<bool?> AiAutoRepairEnabled { get; private set; } = null!;
@@ -91,7 +91,7 @@ namespace Pulumi.Checkly
         public Output<int?> GroupOrder { get; private set; } = null!;
 
         /// <summary>
-        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `Intent` to `IgnoreChanges`.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `Intent` to the `IgnoreChanges` resource option.
         /// </summary>
         [Output("intent")]
         public Output<Outputs.PlaywrightCheckSuiteIntent?> Intent { get; private set; } = null!;
@@ -204,7 +204,7 @@ namespace Pulumi.Checkly
         public Input<bool>? Activated { get; set; }
 
         /// <summary>
-        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `Script` to `IgnoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `AiAutoRepairEnabled` to `IgnoreChanges`.
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next update restores the configured script unless you copy the repaired script into your program or add `Script` to the `IgnoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `AiAutoRepairEnabled` to the `IgnoreChanges` resource option.
         /// </summary>
         [Input("aiAutoRepairEnabled")]
         public Input<bool>? AiAutoRepairEnabled { get; set; }
@@ -270,7 +270,7 @@ namespace Pulumi.Checkly
         public Input<int>? GroupOrder { get; set; }
 
         /// <summary>
-        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `Intent` to `IgnoreChanges`.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `Intent` to the `IgnoreChanges` resource option.
         /// </summary>
         [Input("intent")]
         public Input<Inputs.PlaywrightCheckSuiteIntentArgs>? Intent { get; set; }
@@ -362,7 +362,7 @@ namespace Pulumi.Checkly
         public Input<bool>? Activated { get; set; }
 
         /// <summary>
-        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `Script` to `IgnoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `AiAutoRepairEnabled` to `IgnoreChanges`.
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next update restores the configured script unless you copy the repaired script into your program or add `Script` to the `IgnoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `AiAutoRepairEnabled` to the `IgnoreChanges` resource option.
         /// </summary>
         [Input("aiAutoRepairEnabled")]
         public Input<bool>? AiAutoRepairEnabled { get; set; }
@@ -428,7 +428,7 @@ namespace Pulumi.Checkly
         public Input<int>? GroupOrder { get; set; }
 
         /// <summary>
-        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `Intent` to `IgnoreChanges`.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `Intent` to the `IgnoreChanges` resource option.
         /// </summary>
         [Input("intent")]
         public Input<Inputs.PlaywrightCheckSuiteIntentGetArgs>? Intent { get; set; }

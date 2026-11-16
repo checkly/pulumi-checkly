@@ -22,8 +22,8 @@ import (
 // You can find the ID in the check's URL in the Checkly dashboard.
 //
 // The code bundle is not imported: the API doesn't return the bundle's
-// metadata, so the first plan after the import shows an in-place update of
-// `bundle`, and the apply sends the bundle from the configuration.
+// metadata, so the first preview after the import shows an in-place update of
+// `bundle`, and the update sends the bundle from your program.
 //
 // ```sh
 // $ pulumi import checkly:index/playwrightCheckSuite:PlaywrightCheckSuite example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
@@ -33,7 +33,7 @@ type PlaywrightCheckSuite struct {
 
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrOutput `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
@@ -51,7 +51,7 @@ type PlaywrightCheckSuite struct {
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent PlaywrightCheckSuiteIntentPtrOutput `pulumi:"intent"`
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
@@ -108,7 +108,7 @@ func GetPlaywrightCheckSuite(ctx *pulumi.Context,
 type playwrightCheckSuiteState struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []PlaywrightCheckSuiteAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
@@ -126,7 +126,7 @@ type playwrightCheckSuiteState struct {
 	GroupId *int `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent *PlaywrightCheckSuiteIntent `pulumi:"intent"`
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
@@ -151,7 +151,7 @@ type playwrightCheckSuiteState struct {
 type PlaywrightCheckSuiteState struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrInput
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput
@@ -169,7 +169,7 @@ type PlaywrightCheckSuiteState struct {
 	GroupId pulumi.IntPtrInput
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent PlaywrightCheckSuiteIntentPtrInput
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
@@ -204,7 +204,7 @@ func PlaywrightCheckSuiteExists(ctx *pulumi.Context,
 type playwrightCheckSuiteArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []PlaywrightCheckSuiteAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
@@ -222,7 +222,7 @@ type playwrightCheckSuiteArgs struct {
 	GroupId *int `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent *PlaywrightCheckSuiteIntent `pulumi:"intent"`
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
@@ -248,7 +248,7 @@ type playwrightCheckSuiteArgs struct {
 type PlaywrightCheckSuiteArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrInput
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput
@@ -266,7 +266,7 @@ type PlaywrightCheckSuiteArgs struct {
 	GroupId pulumi.IntPtrInput
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent PlaywrightCheckSuiteIntentPtrInput
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
@@ -380,7 +380,7 @@ func (o PlaywrightCheckSuiteOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 func (o PlaywrightCheckSuiteOutput) AiAutoRepairEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolPtrOutput { return v.AiAutoRepairEnabled }).(pulumi.BoolPtrOutput)
 }
@@ -429,7 +429,7 @@ func (o PlaywrightCheckSuiteOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 func (o PlaywrightCheckSuiteOutput) Intent() PlaywrightCheckSuiteIntentPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteIntentPtrOutput { return v.Intent }).(PlaywrightCheckSuiteIntentPtrOutput)
 }

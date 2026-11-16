@@ -204,7 +204,7 @@ export class AlertChannel extends pulumi.CustomResource {
     }
 
     /**
-     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
      */
     declare public readonly autoSubscribe: pulumi.Output<boolean>;
     /**
@@ -316,7 +316,7 @@ export class AlertChannel extends pulumi.CustomResource {
  */
 export interface AlertChannelState {
     /**
-     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
      */
     autoSubscribe?: pulumi.Input<boolean | undefined>;
     /**
@@ -380,7 +380,7 @@ export interface AlertChannelState {
  */
 export interface AlertChannelArgs {
     /**
-     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+     * Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
      */
     autoSubscribe?: pulumi.Input<boolean | undefined>;
     /**

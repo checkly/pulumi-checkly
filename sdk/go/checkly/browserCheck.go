@@ -28,13 +28,13 @@ type BrowserCheck struct {
 
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrOutput `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions BrowserCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings BrowserCheckAlertSettingsOutput `pulumi:"alertSettings"`
-	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
 	Dependencies BrowserCheckDependencyArrayOutput `pulumi:"dependencies"`
 	// A description of the check.
 	Description pulumi.StringOutput `pulumi:"description"`
@@ -46,7 +46,7 @@ type BrowserCheck struct {
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent BrowserCheckIntentPtrOutput `pulumi:"intent"`
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
@@ -111,13 +111,13 @@ func GetBrowserCheck(ctx *pulumi.Context,
 type browserCheckState struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []BrowserCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *BrowserCheckAlertSettings `pulumi:"alertSettings"`
-	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
 	Dependencies []BrowserCheckDependency `pulumi:"dependencies"`
 	// A description of the check.
 	Description *string `pulumi:"description"`
@@ -129,7 +129,7 @@ type browserCheckState struct {
 	GroupId *int `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent *BrowserCheckIntent `pulumi:"intent"`
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
@@ -162,13 +162,13 @@ type browserCheckState struct {
 type BrowserCheckState struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrInput
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions BrowserCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings BrowserCheckAlertSettingsPtrInput
-	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
 	Dependencies BrowserCheckDependencyArrayInput
 	// A description of the check.
 	Description pulumi.StringPtrInput
@@ -180,7 +180,7 @@ type BrowserCheckState struct {
 	GroupId pulumi.IntPtrInput
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent BrowserCheckIntentPtrInput
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
@@ -223,13 +223,13 @@ func BrowserCheckExists(ctx *pulumi.Context,
 type browserCheckArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []BrowserCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *BrowserCheckAlertSettings `pulumi:"alertSettings"`
-	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
 	Dependencies []BrowserCheckDependency `pulumi:"dependencies"`
 	// A description of the check.
 	Description *string `pulumi:"description"`
@@ -241,7 +241,7 @@ type browserCheckArgs struct {
 	GroupId *int `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent *BrowserCheckIntent `pulumi:"intent"`
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
@@ -275,13 +275,13 @@ type browserCheckArgs struct {
 type BrowserCheckArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrInput
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions BrowserCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings BrowserCheckAlertSettingsPtrInput
-	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+	// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
 	Dependencies BrowserCheckDependencyArrayInput
 	// A description of the check.
 	Description pulumi.StringPtrInput
@@ -293,7 +293,7 @@ type BrowserCheckArgs struct {
 	GroupId pulumi.IntPtrInput
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent BrowserCheckIntentPtrInput
 	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
@@ -415,7 +415,7 @@ func (o BrowserCheckOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *BrowserCheck) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 func (o BrowserCheckOutput) AiAutoRepairEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *BrowserCheck) pulumi.BoolPtrOutput { return v.AiAutoRepairEnabled }).(pulumi.BoolPtrOutput)
 }
@@ -432,7 +432,7 @@ func (o BrowserCheckOutput) AlertSettings() BrowserCheckAlertSettingsOutput {
 	return o.ApplyT(func(v *BrowserCheck) BrowserCheckAlertSettingsOutput { return v.AlertSettings }).(BrowserCheckAlertSettingsOutput)
 }
 
-// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+// Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
 func (o BrowserCheckOutput) Dependencies() BrowserCheckDependencyArrayOutput {
 	return o.ApplyT(func(v *BrowserCheck) BrowserCheckDependencyArrayOutput { return v.Dependencies }).(BrowserCheckDependencyArrayOutput)
 }
@@ -462,7 +462,7 @@ func (o BrowserCheckOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *BrowserCheck) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 func (o BrowserCheckOutput) Intent() BrowserCheckIntentPtrOutput {
 	return o.ApplyT(func(v *BrowserCheck) BrowserCheckIntentPtrOutput { return v.Intent }).(BrowserCheckIntentPtrOutput)
 }

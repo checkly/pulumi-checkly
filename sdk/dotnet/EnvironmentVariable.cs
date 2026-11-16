@@ -71,7 +71,7 @@ namespace Pulumi.Checkly
         public Output<bool> Secret { get; private set; } = null!;
 
         /// <summary>
-        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Pulumi, for example in the web app, doesn't show in the preview. An imported secret variable has a null value, so the first preview after the import shows an update, and running it overwrites the value in Checkly with the configured one.
         /// </summary>
         [Output("value")]
         public Output<string> Value { get; private set; } = null!;
@@ -149,7 +149,7 @@ namespace Pulumi.Checkly
         private Input<string>? _value;
 
         /// <summary>
-        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Pulumi, for example in the web app, doesn't show in the preview. An imported secret variable has a null value, so the first preview after the import shows an update, and running it overwrites the value in Checkly with the configured one.
         /// </summary>
         public Input<string>? Value
         {
@@ -191,7 +191,7 @@ namespace Pulumi.Checkly
         private Input<string>? _value;
 
         /// <summary>
-        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Terraform, for example in the web app, doesn't show in the plan. An imported secret variable has a null value, so the first plan after the import shows an update, and applying it overwrites the value in Checkly with the configured one.
+        /// The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Pulumi, for example in the web app, doesn't show in the preview. An imported secret variable has a null value, so the first preview after the import shows an update, and running it overwrites the value in Checkly with the configured one.
         /// </summary>
         public Input<string>? Value
         {

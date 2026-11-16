@@ -9,7 +9,7 @@ import * as utilities from "./utilities";
 /**
  * The `checkly.HeartbeatCheck` resource has been renamed to `checkly.HeartbeatMonitor` to better reflect its position in the Checkly product lineup. The `checkly.HeartbeatCheck` resource type is deprecated and will be removed in a future version of the provider.
  *
- * The schemas of both resource types are identical, and existing `checkly.HeartbeatCheck` resources can be migrated to `checkly.HeartbeatMonitor` using a `moved` block; see Deprecated resource types in the v2 upgrade guide.
+ * The schemas of both resource types are identical, and existing `checkly.HeartbeatCheck` resources can be moved to `checkly.HeartbeatMonitor` with a Pulumi alias; see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
  *
  * We recommend using the `checkly.HeartbeatMonitor` resource type for any new resources.
  *
@@ -34,15 +34,7 @@ import * as utilities from "./utilities";
  *
  * ## Moving to `checkly.HeartbeatMonitor`
  *
- * Terraform 1.8 or later can switch a `checkly.HeartbeatCheck` resource to `checkly.HeartbeatMonitor` with a `moved` block, without recreating it:
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@checkly/pulumi";
- *
- * // The attributes stay the same; only the resource type changes.
- * const example = new checkly.HeartbeatMonitor("example", {});
- * ```
+ * An existing `checkly.HeartbeatCheck` resource can be moved to `checkly.HeartbeatMonitor` without recreating it: declare the new resource with the same properties and an alias to the old type, `checkly:index/heartbeatCheck:HeartbeatCheck`, and run `pulumi up`. Refresh the stack on v3 before you add the alias; see [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
  *
  * ## Import
  *

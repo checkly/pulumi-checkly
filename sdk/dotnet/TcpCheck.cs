@@ -12,7 +12,7 @@ namespace Pulumi.Checkly
     /// <summary>
     /// The `checkly.TcpCheck` resource has been renamed to `checkly.TcpMonitor` to better reflect its position in the Checkly product lineup. The `checkly.TcpCheck` resource type is deprecated and will be removed in a future version of the provider.
     /// 
-    /// The schemas of both resource types are identical, and existing `checkly.TcpCheck` resources can be migrated to `checkly.TcpMonitor` using a `Moved` block; see Deprecated resource types in the v2 upgrade guide.
+    /// The schemas of both resource types are identical, and existing `checkly.TcpCheck` resources can be moved to `checkly.TcpMonitor` with a Pulumi alias; see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
     /// 
     /// We recommend using the `checkly.TcpMonitor` resource type for any new resources.
     /// 
@@ -110,21 +110,7 @@ namespace Pulumi.Checkly
     /// 
     /// ## Moving to `checkly.TcpMonitor`
     /// 
-    /// Terraform 1.8 or later can switch a `checkly.TcpCheck` resource to `checkly.TcpMonitor` with a `Moved` block, without recreating it:
-    /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
-    /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     // The attributes stay the same; only the resource type changes.
-    ///     var example = new Checkly.TcpMonitor("example");
-    /// 
-    /// });
-    /// ```
+    /// An existing `checkly.TcpCheck` resource can be moved to `checkly.TcpMonitor` without recreating it: declare the new resource with the same properties and an alias to the old type, `checkly:index/tcpCheck:TcpCheck`, and run `pulumi up`. Refresh the stack on v3 before you add the alias; see [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
     /// 
     /// ## Import
     /// 

@@ -52,7 +52,7 @@ namespace Pulumi.Checkly.Inputs
         private InputMap<string>? _headers;
 
         /// <summary>
-        /// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         /// </summary>
         public InputMap<string> Headers
         {
@@ -76,7 +76,7 @@ namespace Pulumi.Checkly.Inputs
         private InputMap<string>? _queryParameters;
 
         /// <summary>
-        /// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         /// </summary>
         public InputMap<string> QueryParameters
         {

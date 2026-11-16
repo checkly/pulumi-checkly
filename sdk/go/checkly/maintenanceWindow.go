@@ -192,7 +192,7 @@ type MaintenanceWindow struct {
 	StatusPageVisibility MaintenanceWindowStatusPageVisibilityPtrOutput `pulumi:"statusPageVisibility"`
 	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
-	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change in every preview. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
 	Timezone pulumi.StringPtrOutput `pulumi:"timezone"`
 }
 
@@ -256,7 +256,7 @@ type maintenanceWindowState struct {
 	StatusPageVisibility *MaintenanceWindowStatusPageVisibility `pulumi:"statusPageVisibility"`
 	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags []string `pulumi:"tags"`
-	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change in every preview. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
 	Timezone *string `pulumi:"timezone"`
 }
 
@@ -285,7 +285,7 @@ type MaintenanceWindowState struct {
 	StatusPageVisibility MaintenanceWindowStatusPageVisibilityPtrInput
 	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags pulumi.StringArrayInput
-	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change in every preview. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
 	Timezone pulumi.StringPtrInput
 }
 
@@ -324,7 +324,7 @@ type maintenanceWindowArgs struct {
 	StatusPageVisibility *MaintenanceWindowStatusPageVisibility `pulumi:"statusPageVisibility"`
 	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags []string `pulumi:"tags"`
-	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change in every preview. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
 	Timezone *string `pulumi:"timezone"`
 }
 
@@ -354,7 +354,7 @@ type MaintenanceWindowArgs struct {
 	StatusPageVisibility MaintenanceWindowStatusPageVisibilityPtrInput
 	// The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
 	Tags pulumi.StringArrayInput
-	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+	// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change in every preview. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
 	Timezone pulumi.StringPtrInput
 }
 
@@ -507,7 +507,7 @@ func (o MaintenanceWindowOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
 
-// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
+// The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change in every preview. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
 func (o MaintenanceWindowOutput) Timezone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *MaintenanceWindow) pulumi.StringPtrOutput { return v.Timezone }).(pulumi.StringPtrOutput)
 }

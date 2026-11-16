@@ -59,7 +59,7 @@ class CheckArgs:
 
         :param pulumi.Input[_builtins.str] type: The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
         :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
@@ -70,7 +70,7 @@ class CheckArgs:
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
-        :param pulumi.Input['CheckIntentArgs'] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        :param pulumi.Input['CheckIntentArgs'] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
@@ -188,7 +188,7 @@ class CheckArgs:
     @pulumi.getter(name="aiAutoRepairEnabled")
     def ai_auto_repair_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
         """
         return pulumi.get(self, "ai_auto_repair_enabled")
 
@@ -321,7 +321,7 @@ class CheckArgs:
     @pulumi.getter
     def intent(self) -> pulumi.Input[Optional['CheckIntentArgs']]:
         """
-        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
         """
         return pulumi.get(self, "intent")
 
@@ -598,7 +598,7 @@ class _CheckState:
         Input properties used for looking up and filtering Check resources.
 
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
         :param pulumi.Input[Sequence[pulumi.Input['CheckAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['CheckAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
@@ -609,7 +609,7 @@ class _CheckState:
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
-        :param pulumi.Input['CheckIntentArgs'] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        :param pulumi.Input['CheckIntentArgs'] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
@@ -717,7 +717,7 @@ class _CheckState:
     @pulumi.getter(name="aiAutoRepairEnabled")
     def ai_auto_repair_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
         """
         return pulumi.get(self, "ai_auto_repair_enabled")
 
@@ -850,7 +850,7 @@ class _CheckState:
     @pulumi.getter
     def intent(self) -> pulumi.Input[Optional['CheckIntentArgs']]:
         """
-        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
         """
         return pulumi.get(self, "intent")
 
@@ -1147,7 +1147,7 @@ class Check(pulumi.CustomResource):
         """
         Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
 
-        The `Check` resource type is deprecated in favor of `ApiCheck`, `BrowserCheck` and `MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be switched over to its per-type resource with a `moved` block, without recreating it. Before moving a check, see Deprecated resource types in the v2 upgrade guide for what to change: `ApiCheck` has lower default `degraded_response_time` and `max_response_time` values and follows redirects by default, and the per-type resources have no `double_check`.
+        The `Check` resource type is deprecated in favor of `ApiCheck`, `BrowserCheck` and `MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be moved to its per-type resource with a Pulumi alias, without recreating it. Before moving a check, see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for what to change: `ApiCheck` has lower default `degraded_response_time` and `max_response_time` values and follows redirects by default, and the per-type resources have no `double_check`.
 
         ## Example Usage
 
@@ -1281,21 +1281,7 @@ class Check(pulumi.CustomResource):
 
         ## Moving to the per-type resources
 
-        Terraform 1.8 or later can switch each check to the resource of its type with a `moved` block, without recreating it. Before moving a check, read Deprecated resource types in the v2 upgrade guide.
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        # Each check moves to the resource of its type. Change the resource type,
-        # remove the attributes the new type doesn't have, and add a moved block.
-        # A check with type = "API".
-        api = checkly.ApiCheck("api")
-        # A check with type = "BROWSER".
-        browser = checkly.BrowserCheck("browser")
-        # A check with type = "MULTI_STEP".
-        multistep = checkly.MultistepCheck("multistep")
-        ```
+        An existing check can be moved to the resource of its type, `ApiCheck`, `BrowserCheck` or `MultistepCheck`, without recreating it: declare the new resource with an alias to the old type, `checkly:index/check:Check`, and run `pulumi up`. Refresh the stack on v3 before you add the alias. The provider can't verify the check type during the move, so pick the resource that matches the check's `type`. The per-type resources have no `double_check`, so replace it with the equivalent `retry_strategy` first. For a browser or multi-step check whose `should_fail` is `true`, remove `should_fail` and run `pulumi up` before the move, which sets it to `false`. See "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for the details.
 
         ## Import
 
@@ -1313,7 +1299,7 @@ class Check(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict', 'outputs.CheckAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict', 'outputs.CheckAlertSettings']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
@@ -1324,7 +1310,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
-        :param pulumi.Input[Union['CheckIntentArgs', 'CheckIntentArgsDict', 'outputs.CheckIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        :param pulumi.Input[Union['CheckIntentArgs', 'CheckIntentArgsDict', 'outputs.CheckIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
@@ -1355,7 +1341,7 @@ class Check(pulumi.CustomResource):
         """
         Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
 
-        The `Check` resource type is deprecated in favor of `ApiCheck`, `BrowserCheck` and `MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be switched over to its per-type resource with a `moved` block, without recreating it. Before moving a check, see Deprecated resource types in the v2 upgrade guide for what to change: `ApiCheck` has lower default `degraded_response_time` and `max_response_time` values and follows redirects by default, and the per-type resources have no `double_check`.
+        The `Check` resource type is deprecated in favor of `ApiCheck`, `BrowserCheck` and `MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be moved to its per-type resource with a Pulumi alias, without recreating it. Before moving a check, see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for what to change: `ApiCheck` has lower default `degraded_response_time` and `max_response_time` values and follows redirects by default, and the per-type resources have no `double_check`.
 
         ## Example Usage
 
@@ -1489,21 +1475,7 @@ class Check(pulumi.CustomResource):
 
         ## Moving to the per-type resources
 
-        Terraform 1.8 or later can switch each check to the resource of its type with a `moved` block, without recreating it. Before moving a check, read Deprecated resource types in the v2 upgrade guide.
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        # Each check moves to the resource of its type. Change the resource type,
-        # remove the attributes the new type doesn't have, and add a moved block.
-        # A check with type = "API".
-        api = checkly.ApiCheck("api")
-        # A check with type = "BROWSER".
-        browser = checkly.BrowserCheck("browser")
-        # A check with type = "MULTI_STEP".
-        multistep = checkly.MultistepCheck("multistep")
-        ```
+        An existing check can be moved to the resource of its type, `ApiCheck`, `BrowserCheck` or `MultistepCheck`, without recreating it: declare the new resource with an alias to the old type, `checkly:index/check:Check`, and run `pulumi up`. Refresh the stack on v3 before you add the alias. The provider can't verify the check type during the move, so pick the resource that matches the check's `type`. The per-type resources have no `double_check`, so replace it with the equivalent `retry_strategy` first. For a browser or multi-step check whose `should_fail` is `true`, remove `should_fail` and run `pulumi up` before the move, which sets it to `false`. See "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for the details.
 
         ## Import
 
@@ -1662,7 +1634,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
         :param pulumi.Input[Sequence[pulumi.Input[Union['CheckAlertChannelSubscriptionArgs', 'CheckAlertChannelSubscriptionArgsDict', 'outputs.CheckAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['CheckAlertSettingsArgs', 'CheckAlertSettingsArgsDict', 'outputs.CheckAlertSettings']] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
@@ -1673,7 +1645,7 @@ class Check(pulumi.CustomResource):
         :param pulumi.Input[_builtins.int] frequency_offset: Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
-        :param pulumi.Input[Union['CheckIntentArgs', 'CheckIntentArgsDict', 'outputs.CheckIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        :param pulumi.Input[Union['CheckIntentArgs', 'CheckIntentArgsDict', 'outputs.CheckIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
         :param pulumi.Input[_builtins.str] local_setup_script: A valid piece of Node.js code to run in the setup phase of an API check.
         :param pulumi.Input[_builtins.str] local_teardown_script: A valid piece of Node.js code to run in the teardown phase of an API check.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
@@ -1818,7 +1790,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter(name="aiAutoRepairEnabled")
     def ai_auto_repair_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignore_changes`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `ai_auto_repair_enabled` to `ignore_changes`.
+        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
         """
         return pulumi.get(self, "ai_auto_repair_enabled")
 
@@ -1907,7 +1879,7 @@ class Check(pulumi.CustomResource):
     @pulumi.getter
     def intent(self) -> pulumi.Output[Optional['outputs.CheckIntent']]:
         """
-        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignore_changes`.
+        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
         """
         return pulumi.get(self, "intent")
 

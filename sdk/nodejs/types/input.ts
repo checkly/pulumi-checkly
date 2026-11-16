@@ -88,7 +88,7 @@ export interface AlertChannelSms {
 
 export interface AlertChannelWebhook {
     /**
-     * HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -100,7 +100,7 @@ export interface AlertChannelWebhook {
      */
     name: pulumi.Input<string>;
     /**
-     * Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -228,7 +228,7 @@ export interface ApiCheckRequest {
      */
     followRedirects?: pulumi.Input<boolean | undefined>;
     /**
-     * HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -240,7 +240,7 @@ export interface ApiCheckRequest {
      */
     method?: pulumi.Input<string | undefined>;
     /**
-     * Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -431,7 +431,7 @@ export interface BrowserCheckEnvironmentVariable {
      */
     locked?: pulumi.Input<boolean | undefined>;
     /**
-     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     * If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
      */
     secret?: pulumi.Input<boolean | undefined>;
     /**
@@ -592,7 +592,7 @@ export interface CheckEnvironmentVariable {
      */
     locked?: pulumi.Input<boolean | undefined>;
     /**
-     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     * If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
      */
     secret?: pulumi.Input<boolean | undefined>;
     /**
@@ -681,11 +681,11 @@ export interface CheckGroupApiCheckDefaults {
      */
     basicAuth?: pulumi.Input<inputs.CheckGroupApiCheckDefaultsBasicAuth | undefined>;
     /**
-     * Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
-     * Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -734,7 +734,7 @@ export interface CheckGroupEnvironmentVariable {
      */
     locked?: pulumi.Input<boolean | undefined>;
     /**
-     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     * If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
      */
     secret?: pulumi.Input<boolean | undefined>;
     /**
@@ -787,11 +787,11 @@ export interface CheckGroupV2ApiCheckDefaults {
      */
     basicAuth?: pulumi.Input<inputs.CheckGroupV2ApiCheckDefaultsBasicAuth | undefined>;
     /**
-     * Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
-     * Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -1007,7 +1007,7 @@ export interface CheckGroupV2EnvironmentVariable {
      */
     locked?: pulumi.Input<boolean | undefined>;
     /**
-     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     * If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
      */
     secret?: pulumi.Input<boolean | undefined>;
     /**
@@ -1075,7 +1075,7 @@ export interface CheckRequest {
      */
     followRedirects?: pulumi.Input<boolean | undefined>;
     /**
-     * HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     headers?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -1087,7 +1087,7 @@ export interface CheckRequest {
      */
     method?: pulumi.Input<string | undefined>;
     /**
-     * Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     queryParameters?: pulumi.Input<{[key: string]: pulumi.Input<string>} | undefined>;
     /**
@@ -1432,7 +1432,7 @@ export interface GrpcMonitorRequest {
      */
     assertions?: pulumi.Input<pulumi.Input<inputs.GrpcMonitorRequestAssertion>[] | undefined>;
     /**
-     * A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+     * A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
      */
     bfbsContent?: pulumi.Input<string | undefined>;
     /**
@@ -1518,7 +1518,7 @@ export interface GrpcMonitorRequestMetadata {
      */
     key: pulumi.Input<string>;
     /**
-     * The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+     * The gRPC metadata (header) value. Must be at most `8192` characters. The value is not secret by default: it shows in preview output and is stored unencrypted in the state. To keep a credential secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
      */
     value?: pulumi.Input<string | undefined>;
 }
@@ -2127,7 +2127,7 @@ export interface MultistepCheckEnvironmentVariable {
      */
     locked?: pulumi.Input<boolean | undefined>;
     /**
-     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     * If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
      */
     secret?: pulumi.Input<boolean | undefined>;
     /**
@@ -2299,7 +2299,7 @@ export interface PlaywrightCheckSuiteEnvironmentVariable {
      */
     locked?: pulumi.Input<boolean | undefined>;
     /**
-     * If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+     * If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
      */
     secret?: pulumi.Input<boolean | undefined>;
     /**
@@ -2530,7 +2530,7 @@ export interface SslMonitorRequest {
      */
     port?: pulumi.Input<number | undefined>;
     /**
-     * The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+     * The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
      */
     securityBaseline?: pulumi.Input<inputs.SslMonitorRequestSecurityBaseline | undefined>;
     /**

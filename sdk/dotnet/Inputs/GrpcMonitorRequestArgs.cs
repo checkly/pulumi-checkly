@@ -25,7 +25,7 @@ namespace Pulumi.Checkly.Inputs
         }
 
         /// <summary>
-        /// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+        /// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
         /// </summary>
         [Input("bfbsContent")]
         public Input<string>? BfbsContent { get; set; }

@@ -235,7 +235,7 @@ import (
 type AlertChannel struct {
 	pulumi.CustomResourceState
 
-	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
 	AutoSubscribe pulumi.BoolOutput `pulumi:"autoSubscribe"`
 	// Sends alerts as phone calls.
 	Call AlertChannelCallPtrOutput `pulumi:"call"`
@@ -297,7 +297,7 @@ func GetAlertChannel(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering AlertChannel resources.
 type alertChannelState struct {
-	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
 	AutoSubscribe *bool `pulumi:"autoSubscribe"`
 	// Sends alerts as phone calls.
 	Call *AlertChannelCall `pulumi:"call"`
@@ -330,7 +330,7 @@ type alertChannelState struct {
 }
 
 type AlertChannelState struct {
-	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
 	AutoSubscribe pulumi.BoolPtrInput
 	// Sends alerts as phone calls.
 	Call AlertChannelCallPtrInput
@@ -373,7 +373,7 @@ func AlertChannelExists(ctx *pulumi.Context,
 }
 
 type alertChannelArgs struct {
-	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
 	AutoSubscribe *bool `pulumi:"autoSubscribe"`
 	// Sends alerts as phone calls.
 	Call *AlertChannelCall `pulumi:"call"`
@@ -407,7 +407,7 @@ type alertChannelArgs struct {
 
 // The set of arguments for constructing a AlertChannel resource.
 type AlertChannelArgs struct {
-	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
 	AutoSubscribe pulumi.BoolPtrInput
 	// Sends alerts as phone calls.
 	Call AlertChannelCallPtrInput
@@ -526,7 +526,7 @@ func (o AlertChannelOutput) ToAlertChannelOutputWithContext(ctx context.Context)
 	return o
 }
 
-// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
 func (o AlertChannelOutput) AutoSubscribe() pulumi.BoolOutput {
 	return o.ApplyT(func(v *AlertChannel) pulumi.BoolOutput { return v.AutoSubscribe }).(pulumi.BoolOutput)
 }

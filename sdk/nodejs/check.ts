@@ -9,7 +9,7 @@ import * as utilities from "./utilities";
 /**
  * Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
  *
- * The `checkly.Check` resource type is deprecated in favor of `checkly.ApiCheck`, `checkly.BrowserCheck` and `checkly.MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be switched over to its per-type resource with a `moved` block, without recreating it. Before moving a check, see Deprecated resource types in the v2 upgrade guide for what to change: `checkly.ApiCheck` has lower default `degradedResponseTime` and `maxResponseTime` values and follows redirects by default, and the per-type resources have no `doubleCheck`.
+ * The `checkly.Check` resource type is deprecated in favor of `checkly.ApiCheck`, `checkly.BrowserCheck` and `checkly.MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be moved to its per-type resource with a Pulumi alias, without recreating it. Before moving a check, see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for what to change: `checkly.ApiCheck` has lower default `degradedResponseTime` and `maxResponseTime` values and follows redirects by default, and the per-type resources have no `doubleCheck`.
  *
  * ## Example Usage
  *
@@ -147,21 +147,7 @@ import * as utilities from "./utilities";
  *
  * ## Moving to the per-type resources
  *
- * Terraform 1.8 or later can switch each check to the resource of its type with a `moved` block, without recreating it. Before moving a check, read Deprecated resource types in the v2 upgrade guide.
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as checkly from "@checkly/pulumi";
- *
- * // Each check moves to the resource of its type. Change the resource type,
- * // remove the attributes the new type doesn't have, and add a moved block.
- * // A check with type = "API".
- * const api = new checkly.ApiCheck("api", {});
- * // A check with type = "BROWSER".
- * const browser = new checkly.BrowserCheck("browser", {});
- * // A check with type = "MULTI_STEP".
- * const multistep = new checkly.MultistepCheck("multistep", {});
- * ```
+ * An existing check can be moved to the resource of its type, `checkly.ApiCheck`, `checkly.BrowserCheck` or `checkly.MultistepCheck`, without recreating it: declare the new resource with an alias to the old type, `checkly:index/check:Check`, and run `pulumi up`. Refresh the stack on v3 before you add the alias. The provider can't verify the check type during the move, so pick the resource that matches the check's `type`. The per-type resources have no `doubleCheck`, so replace it with the equivalent `retryStrategy` first. For a browser or multi-step check whose `shouldFail` is `true`, remove `shouldFail` and run `pulumi up` before the move, which sets it to `false`. See "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for the details.
  *
  * ## Import
  *
@@ -222,7 +208,7 @@ export class Check extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
      */
     declare public readonly aiAutoRepairEnabled: pulumi.Output<boolean | undefined>;
     /**
@@ -268,7 +254,7 @@ export class Check extends pulumi.CustomResource {
      */
     declare public readonly groupOrder: pulumi.Output<number | undefined>;
     /**
-     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
      */
     declare public readonly intent: pulumi.Output<outputs.CheckIntent | undefined>;
     /**
@@ -454,7 +440,7 @@ export interface CheckState {
      */
     activated?: pulumi.Input<boolean | undefined>;
     /**
-     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
      */
     aiAutoRepairEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -500,7 +486,7 @@ export interface CheckState {
      */
     groupOrder?: pulumi.Input<number | undefined>;
     /**
-     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
      */
     intent?: pulumi.Input<inputs.CheckIntent | undefined>;
     /**
@@ -594,7 +580,7 @@ export interface CheckArgs {
      */
     activated?: pulumi.Input<boolean | undefined>;
     /**
-     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
      */
     aiAutoRepairEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -640,7 +626,7 @@ export interface CheckArgs {
      */
     groupOrder?: pulumi.Input<number | undefined>;
     /**
-     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
      */
     intent?: pulumi.Input<inputs.CheckIntent | undefined>;
     /**

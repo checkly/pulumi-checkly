@@ -42,7 +42,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly int? Port;
         /// <summary>
-        /// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+        /// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
         /// </summary>
         public readonly Outputs.SslMonitorRequestSecurityBaseline? SecurityBaseline;
         /// <summary>

@@ -18,7 +18,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.GrpcMonitorRequestAssertion> Assertions;
         /// <summary>
-        /// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+        /// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
         /// </summary>
         public readonly string? BfbsContent;
         /// <summary>

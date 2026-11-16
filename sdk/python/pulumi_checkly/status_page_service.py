@@ -82,7 +82,7 @@ class StatusPageService(pulumi.CustomResource):
         """
         Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
 
-        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the v2 upgrade guide.
+        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         ## Example Usage
 
@@ -120,7 +120,7 @@ class StatusPageService(pulumi.CustomResource):
         """
         Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
 
-        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the v2 upgrade guide.
+        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         ## Example Usage
 

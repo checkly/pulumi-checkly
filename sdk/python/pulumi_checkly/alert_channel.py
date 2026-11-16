@@ -38,7 +38,7 @@ class AlertChannelArgs:
         """
         The set of arguments for constructing a AlertChannel resource.
 
-        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
         :param pulumi.Input['AlertChannelCallArgs'] call: Sends alerts as phone calls.
         :param pulumi.Input['AlertChannelEmailArgs'] email: Sends alerts by email.
         :param pulumi.Input['AlertChannelOpsgenieArgs'] opsgenie: Creates alerts in Opsgenie.
@@ -89,7 +89,7 @@ class AlertChannelArgs:
     @pulumi.getter(name="autoSubscribe")
     def auto_subscribe(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
         """
         return pulumi.get(self, "auto_subscribe")
 
@@ -275,7 +275,7 @@ class _AlertChannelState:
         """
         Input properties used for looking up and filtering AlertChannel resources.
 
-        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
         :param pulumi.Input['AlertChannelCallArgs'] call: Sends alerts as phone calls.
         :param pulumi.Input['AlertChannelEmailArgs'] email: Sends alerts by email.
         :param pulumi.Input['AlertChannelOpsgenieArgs'] opsgenie: Creates alerts in Opsgenie.
@@ -326,7 +326,7 @@ class _AlertChannelState:
     @pulumi.getter(name="autoSubscribe")
     def auto_subscribe(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
         """
         return pulumi.get(self, "auto_subscribe")
 
@@ -669,7 +669,7 @@ class AlertChannel(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
         :param pulumi.Input[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']] call: Sends alerts as phone calls.
         :param pulumi.Input[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']] email: Sends alerts by email.
         :param pulumi.Input[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']] opsgenie: Creates alerts in Opsgenie.
@@ -927,7 +927,7 @@ class AlertChannel(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
         :param pulumi.Input[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']] call: Sends alerts as phone calls.
         :param pulumi.Input[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']] email: Sends alerts by email.
         :param pulumi.Input[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']] opsgenie: Creates alerts in Opsgenie.
@@ -1000,7 +1000,7 @@ class AlertChannel(pulumi.CustomResource):
     @pulumi.getter(name="autoSubscribe")
     def auto_subscribe(self) -> pulumi.Output[_builtins.bool]:
         """
-        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
         """
         return pulumi.get(self, "auto_subscribe")
 

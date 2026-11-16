@@ -549,9 +549,9 @@ class AlertChannelWebhook(dict):
         """
         :param _builtins.str name: The name of this alert channel.
         :param _builtins.str url: The URL to send the webhook request to.
-        :param Mapping[str, _builtins.str] headers: HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] headers: HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         :param _builtins.str method: The HTTP method of the webhook request, such as `GET`, `POST`, `PUT`, `HEAD`, `DELETE` or `PATCH`. Must not be empty. Defaults to `POST`.
-        :param Mapping[str, _builtins.str] query_parameters: Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] query_parameters: Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         :param _builtins.str template: The body of the webhook request, which can contain template variables such as `{{ALERT_TITLE}}` and `{{RESULT_LINK}}`. If not set, Checkly sends its default JSON payload.
         :param _builtins.str webhook_secret: A secret to sign webhook requests with. When set, Checkly sends an HMAC-SHA256 signature of the request body, keyed with this secret, in the `x-checkly-signature` header.
         :param _builtins.str webhook_type: Type of the webhook. Possible values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
@@ -591,7 +591,7 @@ class AlertChannelWebhook(dict):
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "headers")
 
@@ -607,7 +607,7 @@ class AlertChannelWebhook(dict):
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "query_parameters")
 
@@ -1015,10 +1015,10 @@ class ApiCheckRequest(dict):
         :param _builtins.str body: The body of the request.
         :param _builtins.str body_type: The `Content-Type` header of the request. Possible values are `NONE`, `JSON`, `FORM`, `RAW` and `GRAPHQL`. Defaults to `NONE`.
         :param _builtins.bool follow_redirects: Whether to follow HTTP redirects. Defaults to `true`.
-        :param Mapping[str, _builtins.str] headers: HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] headers: HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         :param _builtins.str ip_family: IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         :param _builtins.str method: The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
-        :param Mapping[str, _builtins.str] query_parameters: Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] query_parameters: Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         :param _builtins.bool skip_ssl: Whether to skip TLS certificate validation of the request. Defaults to `false`.
         """
         pulumi.set(__self__, "url", url)
@@ -1095,7 +1095,7 @@ class ApiCheckRequest(dict):
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "headers")
 
@@ -1119,7 +1119,7 @@ class ApiCheckRequest(dict):
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "query_parameters")
 
@@ -1744,7 +1744,7 @@ class BrowserCheckEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
-        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -1781,7 +1781,7 @@ class BrowserCheckEnvironmentVariable(dict):
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
         """
-        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         return pulumi.get(self, "secret")
 
@@ -2348,7 +2348,7 @@ class CheckEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
-        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -2385,7 +2385,7 @@ class CheckEnvironmentVariable(dict):
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
         """
-        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         return pulumi.get(self, "secret")
 
@@ -2691,8 +2691,8 @@ class CheckGroupApiCheckDefaults(dict):
         :param _builtins.str url: The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
         :param Sequence['CheckGroupApiCheckDefaultsAssertionArgs'] assertions: Default assertions for API checks in this group.
         :param 'CheckGroupApiCheckDefaultsBasicAuthArgs' basic_auth: Default basic auth credentials for API checks in this group.
-        :param Mapping[str, _builtins.str] headers: Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
-        :param Mapping[str, _builtins.str] query_parameters: Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] headers: Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        :param Mapping[str, _builtins.str] query_parameters: Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         pulumi.set(__self__, "url", url)
         if assertions is not None:
@@ -2732,7 +2732,7 @@ class CheckGroupApiCheckDefaults(dict):
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "headers")
 
@@ -2740,7 +2740,7 @@ class CheckGroupApiCheckDefaults(dict):
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "query_parameters")
 
@@ -2837,7 +2837,7 @@ class CheckGroupEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
-        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -2874,7 +2874,7 @@ class CheckGroupEnvironmentVariable(dict):
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
         """
-        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         return pulumi.get(self, "secret")
 
@@ -3049,8 +3049,8 @@ class CheckGroupV2ApiCheckDefaults(dict):
         :param _builtins.str url: The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
         :param Sequence['CheckGroupV2ApiCheckDefaultsAssertionArgs'] assertions: Default assertions for API checks in this group.
         :param 'CheckGroupV2ApiCheckDefaultsBasicAuthArgs' basic_auth: Default basic auth credentials for API checks in this group.
-        :param Mapping[str, _builtins.str] headers: Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
-        :param Mapping[str, _builtins.str] query_parameters: Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] headers: Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        :param Mapping[str, _builtins.str] query_parameters: Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         pulumi.set(__self__, "url", url)
         if assertions is not None:
@@ -3090,7 +3090,7 @@ class CheckGroupV2ApiCheckDefaults(dict):
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "headers")
 
@@ -3098,7 +3098,7 @@ class CheckGroupV2ApiCheckDefaults(dict):
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "query_parameters")
 
@@ -3865,7 +3865,7 @@ class CheckGroupV2EnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
-        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -3902,7 +3902,7 @@ class CheckGroupV2EnvironmentVariable(dict):
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
         """
-        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         return pulumi.get(self, "secret")
 
@@ -4116,10 +4116,10 @@ class CheckRequest(dict):
         :param _builtins.str body: The body of the request.
         :param _builtins.str body_type: The `Content-Type` header of the request. Possible values are `NONE`, `JSON`, `FORM`, `RAW` and `GRAPHQL`. Defaults to `NONE`.
         :param _builtins.bool follow_redirects: Whether to follow HTTP redirects. Defaults to `false`.
-        :param Mapping[str, _builtins.str] headers: HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] headers: HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         :param _builtins.str ip_family: IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         :param _builtins.str method: The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
-        :param Mapping[str, _builtins.str] query_parameters: Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param Mapping[str, _builtins.str] query_parameters: Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         :param _builtins.bool skip_ssl: Whether to skip TLS certificate validation of the request. Defaults to `false`.
         """
         pulumi.set(__self__, "url", url)
@@ -4196,7 +4196,7 @@ class CheckRequest(dict):
     @pulumi.getter
     def headers(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "headers")
 
@@ -4220,7 +4220,7 @@ class CheckRequest(dict):
     @pulumi.getter(name="queryParameters")
     def query_parameters(self) -> Optional[Mapping[str, _builtins.str]]:
         """
-        Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "query_parameters")
 
@@ -5463,7 +5463,7 @@ class GrpcMonitorRequest(dict):
         :param _builtins.str host: The host to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
         :param _builtins.int port: The port number to connect to. Possible values are between `1` and `65535`.
         :param Sequence['GrpcMonitorRequestAssertionArgs'] assertions: A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
-        :param _builtins.str bfbs_content: A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+        :param _builtins.str bfbs_content: A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
         :param _builtins.str encoding: The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
         :param _builtins.str grpc_mode: The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `method`) and `HEALTH` (queries the standard gRPC health-check service, allows `service`). Defaults to `BEHAVIOR`.
         :param _builtins.str ip_family: The IP family to use when executing the gRPC check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
@@ -5536,7 +5536,7 @@ class GrpcMonitorRequest(dict):
     @pulumi.getter(name="bfbsContent")
     def bfbs_content(self) -> Optional[_builtins.str]:
         """
-        A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+        A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
         """
         return pulumi.get(self, "bfbs_content")
 
@@ -5697,7 +5697,7 @@ class GrpcMonitorRequestMetadata(dict):
                  value: Optional[_builtins.str] = None):
         """
         :param _builtins.str key: The gRPC metadata (header) key. Must be between `1` and `256` characters.
-        :param _builtins.str value: The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        :param _builtins.str value: The gRPC metadata (header) value. Must be at most `8192` characters. The value is not secret by default: it shows in preview output and is stored unencrypted in the state. To keep a credential secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         pulumi.set(__self__, "key", key)
         if value is not None:
@@ -5715,7 +5715,7 @@ class GrpcMonitorRequestMetadata(dict):
     @pulumi.getter
     def value(self) -> Optional[_builtins.str]:
         """
-        The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        The gRPC metadata (header) value. Must be at most `8192` characters. The value is not secret by default: it shows in preview output and is stored unencrypted in the state. To keep a credential secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         """
         return pulumi.get(self, "value")
 
@@ -7944,7 +7944,7 @@ class MultistepCheckEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
-        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -7981,7 +7981,7 @@ class MultistepCheckEnvironmentVariable(dict):
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
         """
-        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         return pulumi.get(self, "secret")
 
@@ -8577,7 +8577,7 @@ class PlaywrightCheckSuiteEnvironmentVariable(dict):
         :param _builtins.str key: The name of the environment variable or secret.
         :param _builtins.str value: The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
         :param _builtins.bool locked: If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
-        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        :param _builtins.bool secret: If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -8614,7 +8614,7 @@ class PlaywrightCheckSuiteEnvironmentVariable(dict):
     @pulumi.getter
     def secret(self) -> Optional[_builtins.bool]:
         """
-        If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+        If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
         """
         return pulumi.get(self, "secret")
 
@@ -9332,7 +9332,7 @@ class SslMonitorRequest(dict):
         :param _builtins.int handshake_timeout_ms: The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between `1000` and `30000`. Defaults to `10000`.
         :param _builtins.str ip_family: The IP family to use when executing the check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         :param _builtins.int port: The port number to connect to. Possible values are between `1` and `65535`. Defaults to `443`.
-        :param 'SslMonitorRequestSecurityBaselineArgs' security_baseline: The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+        :param 'SslMonitorRequestSecurityBaselineArgs' security_baseline: The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
         :param _builtins.str server_name: An optional SNI server name to send in the TLS handshake. Must be at most `2048` characters. If not set, the value of `hostname` is used.
         :param _builtins.bool skip_chain_validation: When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). Defaults to `false`.
         """
@@ -9416,7 +9416,7 @@ class SslMonitorRequest(dict):
     @pulumi.getter(name="securityBaseline")
     def security_baseline(self) -> Optional['outputs.SslMonitorRequestSecurityBaseline']:
         """
-        The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+        The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
         """
         return pulumi.get(self, "security_baseline")
 

@@ -1125,13 +1125,13 @@ func (o AlertChannelSmsPtrOutput) Number() pulumi.StringPtrOutput {
 }
 
 type AlertChannelWebhook struct {
-	// HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers map[string]string `pulumi:"headers"`
 	// The HTTP method of the webhook request, such as `GET`, `POST`, `PUT`, `HEAD`, `DELETE` or `PATCH`. Must not be empty. Defaults to `POST`.
 	Method *string `pulumi:"method"`
 	// The name of this alert channel.
 	Name string `pulumi:"name"`
-	// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters map[string]string `pulumi:"queryParameters"`
 	// The body of the webhook request, which can contain template variables such as `{{ALERT_TITLE}}` and `{{RESULT_LINK}}`. If not set, Checkly sends its default JSON payload.
 	Template *string `pulumi:"template"`
@@ -1155,13 +1155,13 @@ type AlertChannelWebhookInput interface {
 }
 
 type AlertChannelWebhookArgs struct {
-	// HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers pulumi.StringMapInput `pulumi:"headers"`
 	// The HTTP method of the webhook request, such as `GET`, `POST`, `PUT`, `HEAD`, `DELETE` or `PATCH`. Must not be empty. Defaults to `POST`.
 	Method pulumi.StringPtrInput `pulumi:"method"`
 	// The name of this alert channel.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters pulumi.StringMapInput `pulumi:"queryParameters"`
 	// The body of the webhook request, which can contain template variables such as `{{ALERT_TITLE}}` and `{{RESULT_LINK}}`. If not set, Checkly sends its default JSON payload.
 	Template pulumi.StringPtrInput `pulumi:"template"`
@@ -1250,7 +1250,7 @@ func (o AlertChannelWebhookOutput) ToAlertChannelWebhookPtrOutputWithContext(ctx
 	}).(AlertChannelWebhookPtrOutput)
 }
 
-// HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o AlertChannelWebhookOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
 }
@@ -1265,7 +1265,7 @@ func (o AlertChannelWebhookOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o AlertChannelWebhookOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v AlertChannelWebhook) map[string]string { return v.QueryParameters }).(pulumi.StringMapOutput)
 }
@@ -1314,7 +1314,7 @@ func (o AlertChannelWebhookPtrOutput) Elem() AlertChannelWebhookOutput {
 	}).(AlertChannelWebhookOutput)
 }
 
-// HTTP headers to send with the webhook request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o AlertChannelWebhookPtrOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) map[string]string {
 		if v == nil {
@@ -1344,7 +1344,7 @@ func (o AlertChannelWebhookPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o AlertChannelWebhookPtrOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *AlertChannelWebhook) map[string]string {
 		if v == nil {
@@ -2487,13 +2487,13 @@ type ApiCheckRequest struct {
 	BodyType *string `pulumi:"bodyType"`
 	// Whether to follow HTTP redirects. Defaults to `true`.
 	FollowRedirects *bool `pulumi:"followRedirects"`
-	// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers map[string]string `pulumi:"headers"`
 	// IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
 	IpFamily *string `pulumi:"ipFamily"`
 	// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
 	Method *string `pulumi:"method"`
-	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters map[string]string `pulumi:"queryParameters"`
 	// Whether to skip TLS certificate validation of the request. Defaults to `false`.
 	SkipSsl *bool `pulumi:"skipSsl"`
@@ -2523,13 +2523,13 @@ type ApiCheckRequestArgs struct {
 	BodyType pulumi.StringPtrInput `pulumi:"bodyType"`
 	// Whether to follow HTTP redirects. Defaults to `true`.
 	FollowRedirects pulumi.BoolPtrInput `pulumi:"followRedirects"`
-	// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers pulumi.StringMapInput `pulumi:"headers"`
 	// IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
 	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
 	// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
 	Method pulumi.StringPtrInput `pulumi:"method"`
-	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters pulumi.StringMapInput `pulumi:"queryParameters"`
 	// Whether to skip TLS certificate validation of the request. Defaults to `false`.
 	SkipSsl pulumi.BoolPtrInput `pulumi:"skipSsl"`
@@ -2639,7 +2639,7 @@ func (o ApiCheckRequestOutput) FollowRedirects() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ApiCheckRequest) *bool { return v.FollowRedirects }).(pulumi.BoolPtrOutput)
 }
 
-// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o ApiCheckRequestOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ApiCheckRequest) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
 }
@@ -2654,7 +2654,7 @@ func (o ApiCheckRequestOutput) Method() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ApiCheckRequest) *string { return v.Method }).(pulumi.StringPtrOutput)
 }
 
-// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o ApiCheckRequestOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ApiCheckRequest) map[string]string { return v.QueryParameters }).(pulumi.StringMapOutput)
 }
@@ -2743,7 +2743,7 @@ func (o ApiCheckRequestPtrOutput) FollowRedirects() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o ApiCheckRequestPtrOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *ApiCheckRequest) map[string]string {
 		if v == nil {
@@ -2773,7 +2773,7 @@ func (o ApiCheckRequestPtrOutput) Method() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o ApiCheckRequestPtrOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *ApiCheckRequest) map[string]string {
 		if v == nil {
@@ -4687,7 +4687,7 @@ type BrowserCheckEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -4709,7 +4709,7 @@ type BrowserCheckEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -4776,7 +4776,7 @@ func (o BrowserCheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v BrowserCheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
-// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 func (o BrowserCheckEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v BrowserCheckEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -6475,7 +6475,7 @@ type CheckEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -6497,7 +6497,7 @@ type CheckEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -6564,7 +6564,7 @@ func (o CheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
-// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 func (o CheckEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -7510,9 +7510,9 @@ type CheckGroupApiCheckDefaults struct {
 	Assertions []CheckGroupApiCheckDefaultsAssertion `pulumi:"assertions"`
 	// Default basic auth credentials for API checks in this group.
 	BasicAuth *CheckGroupApiCheckDefaultsBasicAuth `pulumi:"basicAuth"`
-	// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers map[string]string `pulumi:"headers"`
-	// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters map[string]string `pulumi:"queryParameters"`
 	// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
 	Url string `pulumi:"url"`
@@ -7534,9 +7534,9 @@ type CheckGroupApiCheckDefaultsArgs struct {
 	Assertions CheckGroupApiCheckDefaultsAssertionArrayInput `pulumi:"assertions"`
 	// Default basic auth credentials for API checks in this group.
 	BasicAuth CheckGroupApiCheckDefaultsBasicAuthPtrInput `pulumi:"basicAuth"`
-	// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers pulumi.StringMapInput `pulumi:"headers"`
-	// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters pulumi.StringMapInput `pulumi:"queryParameters"`
 	// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
 	Url pulumi.StringInput `pulumi:"url"`
@@ -7629,12 +7629,12 @@ func (o CheckGroupApiCheckDefaultsOutput) BasicAuth() CheckGroupApiCheckDefaults
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) *CheckGroupApiCheckDefaultsBasicAuth { return v.BasicAuth }).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
 }
 
-// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupApiCheckDefaultsOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
 }
 
-// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupApiCheckDefaultsOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CheckGroupApiCheckDefaults) map[string]string { return v.QueryParameters }).(pulumi.StringMapOutput)
 }
@@ -7688,7 +7688,7 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) BasicAuth() CheckGroupApiCheckDefau
 	}).(CheckGroupApiCheckDefaultsBasicAuthPtrOutput)
 }
 
-// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupApiCheckDefaultsPtrOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) map[string]string {
 		if v == nil {
@@ -7698,7 +7698,7 @@ func (o CheckGroupApiCheckDefaultsPtrOutput) Headers() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupApiCheckDefaultsPtrOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CheckGroupApiCheckDefaults) map[string]string {
 		if v == nil {
@@ -8003,7 +8003,7 @@ type CheckGroupEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -8025,7 +8025,7 @@ type CheckGroupEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -8092,7 +8092,7 @@ func (o CheckGroupEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
-// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 func (o CheckGroupEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -8496,9 +8496,9 @@ type CheckGroupV2ApiCheckDefaults struct {
 	Assertions []CheckGroupV2ApiCheckDefaultsAssertion `pulumi:"assertions"`
 	// Default basic auth credentials for API checks in this group.
 	BasicAuth *CheckGroupV2ApiCheckDefaultsBasicAuth `pulumi:"basicAuth"`
-	// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers map[string]string `pulumi:"headers"`
-	// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters map[string]string `pulumi:"queryParameters"`
 	// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
 	Url string `pulumi:"url"`
@@ -8520,9 +8520,9 @@ type CheckGroupV2ApiCheckDefaultsArgs struct {
 	Assertions CheckGroupV2ApiCheckDefaultsAssertionArrayInput `pulumi:"assertions"`
 	// Default basic auth credentials for API checks in this group.
 	BasicAuth CheckGroupV2ApiCheckDefaultsBasicAuthPtrInput `pulumi:"basicAuth"`
-	// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers pulumi.StringMapInput `pulumi:"headers"`
-	// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters pulumi.StringMapInput `pulumi:"queryParameters"`
 	// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
 	Url pulumi.StringInput `pulumi:"url"`
@@ -8615,12 +8615,12 @@ func (o CheckGroupV2ApiCheckDefaultsOutput) BasicAuth() CheckGroupV2ApiCheckDefa
 	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) *CheckGroupV2ApiCheckDefaultsBasicAuth { return v.BasicAuth }).(CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput)
 }
 
-// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupV2ApiCheckDefaultsOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
 }
 
-// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupV2ApiCheckDefaultsOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CheckGroupV2ApiCheckDefaults) map[string]string { return v.QueryParameters }).(pulumi.StringMapOutput)
 }
@@ -8674,7 +8674,7 @@ func (o CheckGroupV2ApiCheckDefaultsPtrOutput) BasicAuth() CheckGroupV2ApiCheckD
 	}).(CheckGroupV2ApiCheckDefaultsBasicAuthPtrOutput)
 }
 
-// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupV2ApiCheckDefaultsPtrOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) map[string]string {
 		if v == nil {
@@ -8684,7 +8684,7 @@ func (o CheckGroupV2ApiCheckDefaultsPtrOutput) Headers() pulumi.StringMapOutput 
 	}).(pulumi.StringMapOutput)
 }
 
-// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckGroupV2ApiCheckDefaultsPtrOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CheckGroupV2ApiCheckDefaults) map[string]string {
 		if v == nil {
@@ -11105,7 +11105,7 @@ type CheckGroupV2EnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -11127,7 +11127,7 @@ type CheckGroupV2EnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -11194,7 +11194,7 @@ func (o CheckGroupV2EnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
-// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 func (o CheckGroupV2EnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckGroupV2EnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -11722,13 +11722,13 @@ type CheckRequest struct {
 	BodyType *string `pulumi:"bodyType"`
 	// Whether to follow HTTP redirects. Defaults to `false`.
 	FollowRedirects *bool `pulumi:"followRedirects"`
-	// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers map[string]string `pulumi:"headers"`
 	// IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
 	IpFamily *string `pulumi:"ipFamily"`
 	// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
 	Method *string `pulumi:"method"`
-	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters map[string]string `pulumi:"queryParameters"`
 	// Whether to skip TLS certificate validation of the request. Defaults to `false`.
 	SkipSsl *bool `pulumi:"skipSsl"`
@@ -11758,13 +11758,13 @@ type CheckRequestArgs struct {
 	BodyType pulumi.StringPtrInput `pulumi:"bodyType"`
 	// Whether to follow HTTP redirects. Defaults to `false`.
 	FollowRedirects pulumi.BoolPtrInput `pulumi:"followRedirects"`
-	// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Headers pulumi.StringMapInput `pulumi:"headers"`
 	// IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
 	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
 	// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
 	Method pulumi.StringPtrInput `pulumi:"method"`
-	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	QueryParameters pulumi.StringMapInput `pulumi:"queryParameters"`
 	// Whether to skip TLS certificate validation of the request. Defaults to `false`.
 	SkipSsl pulumi.BoolPtrInput `pulumi:"skipSsl"`
@@ -11874,7 +11874,7 @@ func (o CheckRequestOutput) FollowRedirects() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *bool { return v.FollowRedirects }).(pulumi.BoolPtrOutput)
 }
 
-// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckRequestOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CheckRequest) map[string]string { return v.Headers }).(pulumi.StringMapOutput)
 }
@@ -11889,7 +11889,7 @@ func (o CheckRequestOutput) Method() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CheckRequest) *string { return v.Method }).(pulumi.StringPtrOutput)
 }
 
-// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckRequestOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CheckRequest) map[string]string { return v.QueryParameters }).(pulumi.StringMapOutput)
 }
@@ -11978,7 +11978,7 @@ func (o CheckRequestPtrOutput) FollowRedirects() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// HTTP headers to send with the request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckRequestPtrOutput) Headers() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CheckRequest) map[string]string {
 		if v == nil {
@@ -12008,7 +12008,7 @@ func (o CheckRequestPtrOutput) Method() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// Query parameters to add to the request URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o CheckRequestPtrOutput) QueryParameters() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CheckRequest) map[string]string {
 		if v == nil {
@@ -15644,7 +15644,7 @@ func (o GrpcMonitorAlertSettingsTimeBasedEscalationPtrOutput) MinutesFailingThre
 type GrpcMonitorRequest struct {
 	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
 	Assertions []GrpcMonitorRequestAssertion `pulumi:"assertions"`
-	// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+	// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
 	BfbsContent *string `pulumi:"bfbsContent"`
 	// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
 	Encoding *string `pulumi:"encoding"`
@@ -15690,7 +15690,7 @@ type GrpcMonitorRequestInput interface {
 type GrpcMonitorRequestArgs struct {
 	// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
 	Assertions GrpcMonitorRequestAssertionArrayInput `pulumi:"assertions"`
-	// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+	// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
 	BfbsContent pulumi.StringPtrInput `pulumi:"bfbsContent"`
 	// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
 	Encoding pulumi.StringPtrInput `pulumi:"encoding"`
@@ -15804,7 +15804,7 @@ func (o GrpcMonitorRequestOutput) Assertions() GrpcMonitorRequestAssertionArrayO
 	return o.ApplyT(func(v GrpcMonitorRequest) []GrpcMonitorRequestAssertion { return v.Assertions }).(GrpcMonitorRequestAssertionArrayOutput)
 }
 
-// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
 func (o GrpcMonitorRequestOutput) BfbsContent() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GrpcMonitorRequest) *string { return v.BfbsContent }).(pulumi.StringPtrOutput)
 }
@@ -15913,7 +15913,7 @@ func (o GrpcMonitorRequestPtrOutput) Assertions() GrpcMonitorRequestAssertionArr
 	}).(GrpcMonitorRequestAssertionArrayOutput)
 }
 
-// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and load it with Terraform's `filebase64()` function.
+// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
 func (o GrpcMonitorRequestPtrOutput) BfbsContent() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GrpcMonitorRequest) *string {
 		if v == nil {
@@ -16190,7 +16190,7 @@ func (o GrpcMonitorRequestAssertionArrayOutput) Index(i pulumi.IntInput) GrpcMon
 type GrpcMonitorRequestMetadata struct {
 	// The gRPC metadata (header) key. Must be between `1` and `256` characters.
 	Key string `pulumi:"key"`
-	// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not secret by default: it shows in preview output and is stored unencrypted in the state. To keep a credential secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Value *string `pulumi:"value"`
 }
 
@@ -16208,7 +16208,7 @@ type GrpcMonitorRequestMetadataInput interface {
 type GrpcMonitorRequestMetadataArgs struct {
 	// The gRPC metadata (header) key. Must be between `1` and `256` characters.
 	Key pulumi.StringInput `pulumi:"key"`
-	// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+	// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not secret by default: it shows in preview output and is stored unencrypted in the state. To keep a credential secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 	Value pulumi.StringPtrInput `pulumi:"value"`
 }
 
@@ -16268,7 +16268,7 @@ func (o GrpcMonitorRequestMetadataOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v GrpcMonitorRequestMetadata) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not secret by default: it shows in preview output and is stored unencrypted in the state. To keep a credential secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
 func (o GrpcMonitorRequestMetadataOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GrpcMonitorRequestMetadata) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
@@ -22660,7 +22660,7 @@ type MultistepCheckEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -22682,7 +22682,7 @@ type MultistepCheckEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -22749,7 +22749,7 @@ func (o MultistepCheckEnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MultistepCheckEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
-// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 func (o MultistepCheckEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MultistepCheckEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -24610,7 +24610,7 @@ type PlaywrightCheckSuiteEnvironmentVariable struct {
 	Key string `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked *bool `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret *bool `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value string `pulumi:"value"`
@@ -24632,7 +24632,7 @@ type PlaywrightCheckSuiteEnvironmentVariableArgs struct {
 	Key pulumi.StringInput `pulumi:"key"`
 	// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput `pulumi:"locked"`
-	// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+	// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 	Secret pulumi.BoolPtrInput `pulumi:"secret"`
 	// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
 	Value pulumi.StringInput `pulumi:"value"`
@@ -24699,7 +24699,7 @@ func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Locked() pulumi.BoolPtrOu
 	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) *bool { return v.Locked }).(pulumi.BoolPtrOutput)
 }
 
-// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `false`.
+// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `false`.
 func (o PlaywrightCheckSuiteEnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PlaywrightCheckSuiteEnvironmentVariable) *bool { return v.Secret }).(pulumi.BoolPtrOutput)
 }
@@ -27234,7 +27234,7 @@ type SslMonitorRequest struct {
 	IpFamily *string `pulumi:"ipFamily"`
 	// The port number to connect to. Possible values are between `1` and `65535`. Defaults to `443`.
 	Port *int `pulumi:"port"`
-	// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+	// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
 	SecurityBaseline *SslMonitorRequestSecurityBaseline `pulumi:"securityBaseline"`
 	// An optional SNI server name to send in the TLS handshake. Must be at most `2048` characters. If not set, the value of `hostname` is used.
 	ServerName *string `pulumi:"serverName"`
@@ -27268,7 +27268,7 @@ type SslMonitorRequestArgs struct {
 	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
 	// The port number to connect to. Possible values are between `1` and `65535`. Defaults to `443`.
 	Port pulumi.IntPtrInput `pulumi:"port"`
-	// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+	// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
 	SecurityBaseline SslMonitorRequestSecurityBaselinePtrInput `pulumi:"securityBaseline"`
 	// An optional SNI server name to send in the TLS handshake. Must be at most `2048` characters. If not set, the value of `hostname` is used.
 	ServerName pulumi.StringPtrInput `pulumi:"serverName"`
@@ -27388,7 +27388,7 @@ func (o SslMonitorRequestOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v SslMonitorRequest) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
 func (o SslMonitorRequestOutput) SecurityBaseline() SslMonitorRequestSecurityBaselinePtrOutput {
 	return o.ApplyT(func(v SslMonitorRequest) *SslMonitorRequestSecurityBaseline { return v.SecurityBaseline }).(SslMonitorRequestSecurityBaselinePtrOutput)
 }
@@ -27497,7 +27497,7 @@ func (o SslMonitorRequestPtrOutput) Port() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
 func (o SslMonitorRequestPtrOutput) SecurityBaseline() SslMonitorRequestSecurityBaselinePtrOutput {
 	return o.ApplyT(func(v *SslMonitorRequest) *SslMonitorRequestSecurityBaseline {
 		if v == nil {

@@ -225,7 +225,7 @@ namespace Pulumi.Checkly
     public partial class AlertChannel : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
         /// </summary>
         [Output("autoSubscribe")]
         public Output<bool> AutoSubscribe { get; private set; } = null!;
@@ -357,7 +357,7 @@ namespace Pulumi.Checkly
     public sealed class AlertChannelArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
         /// </summary>
         [Input("autoSubscribe")]
         public Input<bool>? AutoSubscribe { get; set; }
@@ -450,7 +450,7 @@ namespace Pulumi.Checkly
     public sealed class AlertChannelState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Terraform are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
         /// </summary>
         [Input("autoSubscribe")]
         public Input<bool>? AutoSubscribe { get; set; }

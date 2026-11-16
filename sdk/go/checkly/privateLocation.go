@@ -75,7 +75,7 @@ type PrivateLocation struct {
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
 	ProxyUrl pulumi.StringPtrOutput `pulumi:"proxyUrl"`
-	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
 	SlugName pulumi.StringOutput `pulumi:"slugName"`
 }
 
@@ -128,7 +128,7 @@ type privateLocationState struct {
 	Name *string `pulumi:"name"`
 	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
 	ProxyUrl *string `pulumi:"proxyUrl"`
-	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
 	SlugName *string `pulumi:"slugName"`
 }
 
@@ -141,7 +141,7 @@ type PrivateLocationState struct {
 	Name pulumi.StringPtrInput
 	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
 	ProxyUrl pulumi.StringPtrInput
-	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
 	SlugName pulumi.StringPtrInput
 }
 
@@ -162,7 +162,7 @@ type privateLocationArgs struct {
 	Name *string `pulumi:"name"`
 	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
 	ProxyUrl *string `pulumi:"proxyUrl"`
-	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
 	SlugName string `pulumi:"slugName"`
 }
 
@@ -174,7 +174,7 @@ type PrivateLocationArgs struct {
 	Name pulumi.StringPtrInput
 	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
 	ProxyUrl pulumi.StringPtrInput
-	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
 	SlugName pulumi.StringInput
 }
 
@@ -285,7 +285,7 @@ func (o PrivateLocationOutput) ProxyUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PrivateLocation) pulumi.StringPtrOutput { return v.ProxyUrl }).(pulumi.StringPtrOutput)
 }
 
-// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
 func (o PrivateLocationOutput) SlugName() pulumi.StringOutput {
 	return o.ApplyT(func(v *PrivateLocation) pulumi.StringOutput { return v.SlugName }).(pulumi.StringOutput)
 }

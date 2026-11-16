@@ -9,7 +9,7 @@ import * as utilities from "./utilities";
 /**
  * Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page.
  *
- * The `checkly.StatusPage` resource type is deprecated in favor of `checkly.StatusPageV3` and will be removed in a future version of the provider. v3 status pages are separate objects, so an existing page cannot be converted: create a v3 page alongside it instead. A maintenance window shown on the page links to a v3 page through `status_page_visibility.component_configs` on `checkly.MaintenanceWindow`. See Status pages in the v2 upgrade guide.
+ * The `checkly.StatusPage` resource type is deprecated in favor of `checkly.StatusPageV3` and will be removed in a future version of the provider. v3 status pages are separate objects, so an existing page cannot be converted: create a v3 page alongside it instead. A maintenance window shown on the page links to a v3 page through `status_page_visibility.component_configs` on `checkly.MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
  *
  * ## Example Usage
  *

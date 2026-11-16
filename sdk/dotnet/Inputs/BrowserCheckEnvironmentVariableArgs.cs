@@ -25,7 +25,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<bool>? Locked { get; set; }
 
         /// <summary>
-        /// If true, the value will never be visible. The API never returns secret values, so Terraform keeps the last applied value and does not detect changes made outside Terraform. Defaults to `False`.
+        /// If true, the value will never be visible. The API never returns secret values, so Pulumi keeps the last applied value and does not detect changes made outside Pulumi. Defaults to `False`.
         /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }

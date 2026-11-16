@@ -22,11 +22,11 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly Outputs.CheckGroupApiCheckDefaultsBasicAuth? BasicAuth;
         /// <summary>
-        /// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         /// </summary>
         public readonly ImmutableDictionary<string, string>? Headers;
         /// <summary>
-        /// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         /// </summary>
         public readonly ImmutableDictionary<string, string>? QueryParameters;
         /// <summary>

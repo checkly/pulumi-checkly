@@ -380,7 +380,7 @@ class HeartbeatCheck(pulumi.CustomResource):
         """
         The `HeartbeatCheck` resource has been renamed to `HeartbeatMonitor` to better reflect its position in the Checkly product lineup. The `HeartbeatCheck` resource type is deprecated and will be removed in a future version of the provider.
 
-        The schemas of both resource types are identical, and existing `HeartbeatCheck` resources can be migrated to `HeartbeatMonitor` using a `moved` block; see Deprecated resource types in the v2 upgrade guide.
+        The schemas of both resource types are identical, and existing `HeartbeatCheck` resources can be moved to `HeartbeatMonitor` with a Pulumi alias; see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         We recommend using the `HeartbeatMonitor` resource type for any new resources.
 
@@ -404,15 +404,7 @@ class HeartbeatCheck(pulumi.CustomResource):
 
         ## Moving to `HeartbeatMonitor`
 
-        Terraform 1.8 or later can switch a `HeartbeatCheck` resource to `HeartbeatMonitor` with a `moved` block, without recreating it:
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        # The attributes stay the same; only the resource type changes.
-        example = checkly.HeartbeatMonitor("example")
-        ```
+        An existing `HeartbeatCheck` resource can be moved to `HeartbeatMonitor` without recreating it: declare the new resource with the same properties and an alias to the old type, `checkly:index/heartbeatCheck:HeartbeatCheck`, and run `pulumi up`. Refresh the stack on v3 before you add the alias; see [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         ## Import
 
@@ -449,7 +441,7 @@ class HeartbeatCheck(pulumi.CustomResource):
         """
         The `HeartbeatCheck` resource has been renamed to `HeartbeatMonitor` to better reflect its position in the Checkly product lineup. The `HeartbeatCheck` resource type is deprecated and will be removed in a future version of the provider.
 
-        The schemas of both resource types are identical, and existing `HeartbeatCheck` resources can be migrated to `HeartbeatMonitor` using a `moved` block; see Deprecated resource types in the v2 upgrade guide.
+        The schemas of both resource types are identical, and existing `HeartbeatCheck` resources can be moved to `HeartbeatMonitor` with a Pulumi alias; see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         We recommend using the `HeartbeatMonitor` resource type for any new resources.
 
@@ -473,15 +465,7 @@ class HeartbeatCheck(pulumi.CustomResource):
 
         ## Moving to `HeartbeatMonitor`
 
-        Terraform 1.8 or later can switch a `HeartbeatCheck` resource to `HeartbeatMonitor` with a `moved` block, without recreating it:
-
-        ```python
-        import pulumi
-        import pulumi_checkly as checkly
-
-        # The attributes stay the same; only the resource type changes.
-        example = checkly.HeartbeatMonitor("example")
-        ```
+        An existing `HeartbeatCheck` resource can be moved to `HeartbeatMonitor` without recreating it: declare the new resource with the same properties and an alias to the old type, `checkly:index/heartbeatCheck:HeartbeatCheck`, and run `pulumi up`. Refresh the stack on v3 before you add the alias; see [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         ## Import
 

@@ -61,7 +61,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<int>? Port { get; set; }
 
         /// <summary>
-        /// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
+        /// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next update.
         /// </summary>
         [Input("securityBaseline")]
         public Input<Inputs.SslMonitorRequestSecurityBaselineArgs>? SecurityBaseline { get; set; }

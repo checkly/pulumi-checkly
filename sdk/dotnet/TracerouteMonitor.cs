@@ -96,7 +96,7 @@ namespace Pulumi.Checkly
     /// 
     /// ## Assertion Reference
     /// 
-    /// Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. Which comparisons are allowed, and what `Target` must contain, depend on `Source`. The `Comparison`, `Target`, and `RESPONSE_TIME` `Property` rules are checked at plan time; where `Property` is marked as ignored, the API accepts any value but does not use it. All traceroute assertion targets are numeric, are required, and must not have leading or trailing whitespace.
+    /// Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. Which comparisons are allowed, and what `Target` must contain, depend on `Source`. The `Comparison`, `Target`, and `RESPONSE_TIME` `Property` rules are checked during preview; where `Property` is marked as ignored, the API accepts any value but does not use it. All traceroute assertion targets are numeric, are required, and must not have leading or trailing whitespace.
     /// 
     /// | `Source` | `Property` | Allowed `Comparison` values | `Target` |
     /// |---|---|---|---|

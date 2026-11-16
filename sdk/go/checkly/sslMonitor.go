@@ -115,7 +115,7 @@ import (
 //
 // ## Assertion Reference
 //
-// Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. SSL assertions use a property-scoped grammar: for the `CERTIFICATE` and `CONNECTION` sources, `property` selects the fact being asserted, and that property determines which comparisons are allowed. These rules are enforced by the Checkly API at apply time.
+// Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. SSL assertions use a property-scoped grammar: for the `CERTIFICATE` and `CONNECTION` sources, `property` selects the fact being asserted, and that property determines which comparisons are allowed. These rules are enforced by the Checkly API when the resource is created or updated.
 //
 // ### Source `CERTIFICATE`
 //

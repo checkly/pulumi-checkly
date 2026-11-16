@@ -26,7 +26,7 @@ class PrivateLocationArgs:
         """
         The set of arguments for constructing a PrivateLocation resource.
 
-        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         :param pulumi.Input[_builtins.str] icon: Icon assigned to the private location. Defaults to `location`.
         :param pulumi.Input[_builtins.str] name: The private location name.
         :param pulumi.Input[_builtins.str] proxy_url: The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
@@ -43,7 +43,7 @@ class PrivateLocationArgs:
     @pulumi.getter(name="slugName")
     def slug_name(self) -> pulumi.Input[_builtins.str]:
         """
-        The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         """
         return pulumi.get(self, "slug_name")
 
@@ -103,7 +103,7 @@ class _PrivateLocationState:
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] keys: The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
         :param pulumi.Input[_builtins.str] name: The private location name.
         :param pulumi.Input[_builtins.str] proxy_url: The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
-        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         """
         if icon is not None:
             pulumi.set(__self__, "icon", icon)
@@ -168,7 +168,7 @@ class _PrivateLocationState:
     @pulumi.getter(name="slugName")
     def slug_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         """
         return pulumi.get(self, "slug_name")
 
@@ -227,7 +227,7 @@ class PrivateLocation(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] icon: Icon assigned to the private location. Defaults to `location`.
         :param pulumi.Input[_builtins.str] name: The private location name.
         :param pulumi.Input[_builtins.str] proxy_url: The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
-        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         """
         ...
     @overload
@@ -332,7 +332,7 @@ class PrivateLocation(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] keys: The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
         :param pulumi.Input[_builtins.str] name: The private location name.
         :param pulumi.Input[_builtins.str] proxy_url: The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
-        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        :param pulumi.Input[_builtins.str] slug_name: The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -397,7 +397,7 @@ class PrivateLocation(pulumi.CustomResource):
     @pulumi.getter(name="slugName")
     def slug_name(self) -> pulumi.Output[_builtins.str]:
         """
-        The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replace_triggered_by`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         """
         return pulumi.get(self, "slug_name")
 

@@ -87,7 +87,9 @@ func Provider() tfbridge.ProviderInfo {
 		// UpstreamRepoPath overrides where tfgen reads the upstream docs. When it is empty,
 		// tfgen locates them in the Go module cache.
 		UpstreamRepoPath: os.Getenv("CHECKLY_UPSTREAM_REPO_PATH"),
-		MetadataInfo:     tfbridge.NewProviderMetadata(metadata),
+		// Rewrite Terraform-specific wording in the upstream docs for Pulumi users.
+		DocRules:     &info.DocRule{EditRules: docsEditRules},
+		MetadataInfo: tfbridge.NewProviderMetadata(metadata),
 		// checkly_maintenance_windows is a deprecated alias of checkly_maintenance_window, with
 		// the same schema. Up to v2.x, MaintenanceWindow mapped checkly_maintenance_windows;
 		// it now maps checkly_maintenance_window, so existing programs and stacks keep working,

@@ -72,7 +72,7 @@ import * as utilities from "./utilities";
  *
  * ## Assertion Reference
  *
- * Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. Which comparisons are allowed, and what `target` must contain, depend on `source`. The `comparison`, `target`, and `RESPONSE_TIME` `property` rules are checked at plan time; where `property` is marked as ignored, the API accepts any value but does not use it. All traceroute assertion targets are numeric, are required, and must not have leading or trailing whitespace.
+ * Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. Which comparisons are allowed, and what `target` must contain, depend on `source`. The `comparison`, `target`, and `RESPONSE_TIME` `property` rules are checked during preview; where `property` is marked as ignored, the API accepts any value but does not use it. All traceroute assertion targets are numeric, are required, and must not have leading or trailing whitespace.
  *
  * | `source` | `property` | Allowed `comparison` values | `target` |
  * |---|---|---|---|

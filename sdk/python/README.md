@@ -58,6 +58,7 @@ v3 bridges version 2 of the Checkly Terraform provider, which moved to the Terra
 ### Changes to your program
 
 - Go: the import path is now `github.com/checkly/pulumi-checkly/sdk/v3/go/checkly`.
+- Go: the SDK needs Go 1.26.6 or later and `github.com/pulumi/pulumi/sdk/v3` v3.276.0 or later.
 - `TriggerCheck` and `TriggerCheckGroup` are gone. Checkly has deprecated command line trigger URLs; run checks on demand with the [Checkly CLI](https://www.checklyhq.com/docs/cli/) instead.
 - New resources: `ApiCheck`, `BrowserCheck` and `MultistepCheck`, one per check type, which expose only the properties of their type. They replace `Check`.
 - `MaintenanceWindow` now manages the upstream `checkly_maintenance_window` resource. Your code keeps working unchanged.

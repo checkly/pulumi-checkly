@@ -9,7 +9,7 @@ import * as utilities from "./utilities";
  *
  * Each client certificate is specific to a host name, e.g. `acme.com` or a wildcard such as `*.acme.com`, and will be used automatically by any API checks targeting that host. Set `path` to limit the certificate to requests under a URL path prefix.
  *
- * Changing the value of any attribute forces a new resource to be created, except for adding or removing a trailing `/` of `path`, which the API ignores, and for the first apply after an import. The API never returns `privateKey` or `passphrase`, so the provider cannot check an imported certificate's key against the configured one: that apply records the configured values in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
+ * Changing the value of any attribute forces a new resource to be created, except for adding or removing a trailing `/` of `path`, which the API ignores, and for the first update after an import. The API never returns `privateKey` or `passphrase`, so the provider cannot check an imported certificate's key against the configured one: that update records the configured values in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
  *
  * ## Import
  *
@@ -78,7 +78,7 @@ export class ClientCertificate extends pulumi.CustomResource {
      */
     declare public readonly path: pulumi.Output<string | undefined>;
     /**
-     * The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
+     * The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
      */
     declare public readonly privateKey: pulumi.Output<string>;
     /**
@@ -151,7 +151,7 @@ export interface ClientCertificateState {
      */
     path?: pulumi.Input<string | undefined>;
     /**
-     * The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
+     * The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
      */
     privateKey?: pulumi.Input<string | undefined>;
     /**
@@ -181,7 +181,7 @@ export interface ClientCertificateArgs {
      */
     path?: pulumi.Input<string | undefined>;
     /**
-     * The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first apply after an import records the configured key and passphrase in Terraform state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up -replace`.
+     * The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
      */
     privateKey: pulumi.Input<string>;
     /**

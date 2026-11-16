@@ -177,21 +177,6 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			// Migrating an existing checkly_check resource with type = "API" without
-//			// recreating the underlying check
-//			_, err = checkly.NewApiCheck(ctx, "migrated_check", &checkly.ApiCheckArgs{
-//				Name:      pulumi.String("Migrated check"),
-//				Frequency: pulumi.Int(10),
-//				Locations: pulumi.StringArray{
-//					pulumi.String("us-west-1"),
-//				},
-//				Request: &checkly.ApiCheckRequestArgs{
-//					Url: pulumi.String("https://api.example.com/"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
 //			return nil
 //		})
 //	}
@@ -213,7 +198,7 @@ type ApiCheck struct {
 
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrOutput `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions ApiCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
@@ -231,7 +216,7 @@ type ApiCheck struct {
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent ApiCheckIntentPtrOutput `pulumi:"intent"`
 	// A valid piece of Node.js code to run in the setup phase.
 	LocalSetupScript pulumi.StringOutput `pulumi:"localSetupScript"`
@@ -304,7 +289,7 @@ func GetApiCheck(ctx *pulumi.Context,
 type apiCheckState struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []ApiCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
@@ -322,7 +307,7 @@ type apiCheckState struct {
 	GroupId *int `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent *ApiCheckIntent `pulumi:"intent"`
 	// A valid piece of Node.js code to run in the setup phase.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -363,7 +348,7 @@ type apiCheckState struct {
 type ApiCheckState struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrInput
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions ApiCheckAlertChannelSubscriptionArrayInput
@@ -381,7 +366,7 @@ type ApiCheckState struct {
 	GroupId pulumi.IntPtrInput
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent ApiCheckIntentPtrInput
 	// A valid piece of Node.js code to run in the setup phase.
 	LocalSetupScript pulumi.StringPtrInput
@@ -432,7 +417,7 @@ func ApiCheckExists(ctx *pulumi.Context,
 type apiCheckArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []ApiCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
@@ -450,7 +435,7 @@ type apiCheckArgs struct {
 	GroupId *int `pulumi:"groupId"`
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent *ApiCheckIntent `pulumi:"intent"`
 	// A valid piece of Node.js code to run in the setup phase.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
@@ -492,7 +477,7 @@ type apiCheckArgs struct {
 type ApiCheckArgs struct {
 	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 	AiAutoRepairEnabled pulumi.BoolPtrInput
 	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions ApiCheckAlertChannelSubscriptionArrayInput
@@ -510,7 +495,7 @@ type ApiCheckArgs struct {
 	GroupId pulumi.IntPtrInput
 	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 	Intent ApiCheckIntentPtrInput
 	// A valid piece of Node.js code to run in the setup phase.
 	LocalSetupScript pulumi.StringPtrInput
@@ -640,7 +625,7 @@ func (o ApiCheckOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *ApiCheck) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
 func (o ApiCheckOutput) AiAutoRepairEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ApiCheck) pulumi.BoolPtrOutput { return v.AiAutoRepairEnabled }).(pulumi.BoolPtrOutput)
 }
@@ -685,7 +670,7 @@ func (o ApiCheckOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ApiCheck) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
 func (o ApiCheckOutput) Intent() ApiCheckIntentPtrOutput {
 	return o.ApplyT(func(v *ApiCheck) ApiCheckIntentPtrOutput { return v.Intent }).(ApiCheckIntentPtrOutput)
 }

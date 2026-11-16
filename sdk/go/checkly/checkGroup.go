@@ -14,7 +14,7 @@ import (
 
 // Check groups allow you to group together a set of related checks, which can also share default settings for various attributes.
 //
-// The `CheckGroup` resource type is deprecated in favor of `CheckGroupV2`, which does not impose implicit defaults on its checks, and will be removed in a future version of the provider. Both resource types manage the same check groups, so an existing group can be switched over with a `moved` block to a `CheckGroupV2` resource. See Check groups in the v2 upgrade guide for how its configuration translates.
+// The `CheckGroup` resource type is deprecated in favor of `CheckGroupV2`, which does not impose implicit defaults on its checks, and will be removed in a future version of the provider. Both resource types manage the same check groups, so an existing group can be moved to a `CheckGroupV2` resource with a Pulumi alias. See Check groups in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for how its configuration translates.
 //
 // ## Example Usage
 //
@@ -160,36 +160,14 @@ import (
 //
 // ## Moving to `CheckGroupV2`
 //
-// Terraform 1.8 or later can switch a group to `CheckGroupV2` with a `moved` block, without recreating it or its checks. Its attributes have to be translated; see Check groups in the v2 upgrade guide.
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := checkly.NewCheckGroupV2(ctx, "example", nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
+// An existing group can be moved to `CheckGroupV2` without recreating it or its checks: declare the new resource with an alias to the old type, `checkly:index/checkGroup:CheckGroup`, and run `pulumi up`. Refresh the stack on v3 before you add the alias. Its properties have to be translated; see [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 //
 // ## Import
 //
 // The `pulumi import` command can be used, for example:
 //
 // CheckGroup is deprecated; to start managing an existing resource, import it as CheckGroupV2 instead.
-// A group already managed as CheckGroup switches to CheckGroupV2 with a moved block; see the v2 upgrade guide.
+// A group already managed as CheckGroup moves to CheckGroupV2 with a Pulumi alias; see Upgrading to v3 in the pulumi-checkly README.
 // Import an existing check group using its numeric ID.
 // The ID is returned by the Checkly API at GET /v1/check-groups.
 //

@@ -65,14 +65,6 @@ import * as utilities from "./utilities";
  * `,
  *     }],
  * });
- * // Migrating an existing checkly_check of type MULTI_STEP without recreating it
- * const example3 = new checkly.MultistepCheck("example_3", {
- *     name: "Example multi-step check 3",
- *     frequency: 10,
- *     locations: ["us-west-1"],
- *     runtimeId: "2025.04",
- *     script: "console.log('test')",
- * });
  * ```
  *
  * ## Import
@@ -129,7 +121,7 @@ export class MultistepCheck extends pulumi.CustomResource {
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
      */
     declare public readonly aiAutoRepairEnabled: pulumi.Output<boolean | undefined>;
     /**
@@ -141,7 +133,7 @@ export class MultistepCheck extends pulumi.CustomResource {
      */
     declare public readonly alertSettings: pulumi.Output<outputs.MultistepCheckAlertSettings>;
     /**
-     * Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+     * Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
      */
     declare public readonly dependencies: pulumi.Output<outputs.MultistepCheckDependency[]>;
     /**
@@ -165,7 +157,7 @@ export class MultistepCheck extends pulumi.CustomResource {
      */
     declare public readonly groupOrder: pulumi.Output<number | undefined>;
     /**
-     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
      */
     declare public readonly intent: pulumi.Output<outputs.MultistepCheckIntent | undefined>;
     /**
@@ -296,7 +288,7 @@ export interface MultistepCheckState {
      */
     activated?: pulumi.Input<boolean | undefined>;
     /**
-     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
      */
     aiAutoRepairEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -308,7 +300,7 @@ export interface MultistepCheckState {
      */
     alertSettings?: pulumi.Input<inputs.MultistepCheckAlertSettings | undefined>;
     /**
-     * Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+     * Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
      */
     dependencies?: pulumi.Input<pulumi.Input<inputs.MultistepCheckDependency>[] | undefined>;
     /**
@@ -332,7 +324,7 @@ export interface MultistepCheckState {
      */
     groupOrder?: pulumi.Input<number | undefined>;
     /**
-     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
      */
     intent?: pulumi.Input<inputs.MultistepCheckIntent | undefined>;
     /**
@@ -394,7 +386,7 @@ export interface MultistepCheckArgs {
      */
     activated?: pulumi.Input<boolean | undefined>;
     /**
-     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+     * Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `aiAutoRepairEnabled` to the `ignoreChanges` resource option.
      */
     aiAutoRepairEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -406,7 +398,7 @@ export interface MultistepCheckArgs {
      */
     alertSettings?: pulumi.Input<inputs.MultistepCheckAlertSettings | undefined>;
     /**
-     * Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first plan can show the dependencies reordered to match the configuration; applying it once settles the order.
+     * Script dependency files for editor-style multi-file scripts. Use together with `scriptPath` to mirror a multi-file layout. The Checkly API does not preserve the configured order, so after an import the first preview can show the dependencies reordered to match your program; running that update once settles the order.
      */
     dependencies?: pulumi.Input<pulumi.Input<inputs.MultistepCheckDependency>[] | undefined>;
     /**
@@ -430,7 +422,7 @@ export interface MultistepCheckArgs {
      */
     groupOrder?: pulumi.Input<number | undefined>;
     /**
-     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+     * Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignoreChanges` resource option.
      */
     intent?: pulumi.Input<inputs.MultistepCheckIntent | undefined>;
     /**

@@ -81,7 +81,7 @@ namespace Pulumi.Checkly
         public Output<string?> ProxyUrl { get; private set; } = null!;
 
         /// <summary>
-        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `ReplaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `checkly.PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         /// </summary>
         [Output("slugName")]
         public Output<string> SlugName { get; private set; } = null!;
@@ -167,7 +167,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `ReplaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `checkly.PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         /// </summary>
         [Input("slugName", required: true)]
         public Input<string> SlugName { get; set; } = null!;
@@ -225,7 +225,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `ReplaceTriggeredBy`. To use a different slug, add a new `checkly.PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
+        /// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `checkly.PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
         /// </summary>
         [Input("slugName")]
         public Input<string>? SlugName { get; set; }
