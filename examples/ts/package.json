@@ -1,9 +1,0 @@
-{
-  "name": "checkly-pulumi-demo-ts",
-  "devDependencies": {
-    "@types/node": "^18"
-  },
-  "dependencies": {
-    "@pulumi/pulumi": "^3.0.0"
-  }
-}
