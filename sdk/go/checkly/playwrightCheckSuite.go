@@ -8,50 +8,72 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Creates a Playwright check from a code bundle.
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing Playwright check suite using its check ID.
+//
+// You can find the ID in the check's URL in the Checkly dashboard.
+//
+// The code bundle is not imported: the API doesn't return the bundle's
+//
+// metadata, so the first plan after the import shows an in-place update of
+//
+// `bundle`, and the apply sends the bundle from the configuration.
+//
+// ```sh
+// $ pulumi import checkly:index/playwrightCheckSuite:PlaywrightCheckSuite example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+// ```
 type PlaywrightCheckSuite struct {
 	pulumi.CustomResourceState
 
-	// Determines whether the check will run periodically or not after being deployed.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled pulumi.BoolPtrOutput `pulumi:"aiAutoRepairEnabled"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings PlaywrightCheckSuiteAlertSettingsOutput `pulumi:"alertSettings"`
 	// Attaches a code bundle to the check.
 	Bundle PlaywrightCheckSuiteBundleOutput `pulumi:"bundle"`
 	// A description of the check.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Insert environment variables into the execution environment.
+	Description pulumi.StringOutput `pulumi:"description"`
+	// Insert environment variables into the execution environment. Must contain at most `200` variables.
 	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayOutput `pulumi:"environmentVariables"`
-	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
-	// The ID of the check group that this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
-	// The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this check.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent PlaywrightCheckSuiteIntentPtrOutput `pulumi:"intent"`
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
+	// Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
 	// The name of the check.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
-	// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
-	RunParallel pulumi.BoolPtrOutput `pulumi:"runParallel"`
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+	RunParallel pulumi.BoolOutput `pulumi:"runParallel"`
 	// Configure the runtime environment of the Playwright check.
 	Runtime PlaywrightCheckSuiteRuntimeOutput `pulumi:"runtime"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident PlaywrightCheckSuiteTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
-	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+	UseGlobalAlertSettings pulumi.BoolOutput `pulumi:"useGlobalAlertSettings"`
 }
 
 // NewPlaywrightCheckSuite registers a new resource with the given unique name, arguments, and options.
@@ -61,14 +83,8 @@ func NewPlaywrightCheckSuite(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Activated == nil {
-		return nil, errors.New("invalid value for required argument 'Activated'")
-	}
 	if args.Bundle == nil {
 		return nil, errors.New("invalid value for required argument 'Bundle'")
-	}
-	if args.Frequency == nil {
-		return nil, errors.New("invalid value for required argument 'Frequency'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource PlaywrightCheckSuite
@@ -93,9 +109,11 @@ func GetPlaywrightCheckSuite(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering PlaywrightCheckSuite resources.
 type playwrightCheckSuiteState struct {
-	// Determines whether the check will run periodically or not after being deployed.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []PlaywrightCheckSuiteAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
@@ -103,38 +121,42 @@ type playwrightCheckSuiteState struct {
 	Bundle *PlaywrightCheckSuiteBundle `pulumi:"bundle"`
 	// A description of the check.
 	Description *string `pulumi:"description"`
-	// Insert environment variables into the execution environment.
+	// Insert environment variables into the execution environment. Must contain at most `200` variables.
 	EnvironmentVariables []PlaywrightCheckSuiteEnvironmentVariable `pulumi:"environmentVariables"`
-	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency *int `pulumi:"frequency"`
-	// The ID of the check group that this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this check.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent *PlaywrightCheckSuiteIntent `pulumi:"intent"`
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations []string `pulumi:"privateLocations"`
-	// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
 	// Configure the runtime environment of the Playwright check.
 	Runtime *PlaywrightCheckSuiteRuntime `pulumi:"runtime"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *PlaywrightCheckSuiteTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 type PlaywrightCheckSuiteState struct {
-	// Determines whether the check will run periodically or not after being deployed.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
@@ -142,31 +164,33 @@ type PlaywrightCheckSuiteState struct {
 	Bundle PlaywrightCheckSuiteBundlePtrInput
 	// A description of the check.
 	Description pulumi.StringPtrInput
-	// Insert environment variables into the execution environment.
+	// Insert environment variables into the execution environment. Must contain at most `200` variables.
 	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayInput
-	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntPtrInput
-	// The ID of the check group that this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run the this check.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent PlaywrightCheckSuiteIntentPtrInput
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations pulumi.StringArrayInput
-	// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
 	// Configure the runtime environment of the Playwright check.
 	Runtime PlaywrightCheckSuiteRuntimePtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident PlaywrightCheckSuiteTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -175,9 +199,11 @@ func (PlaywrightCheckSuiteState) ElementType() reflect.Type {
 }
 
 type playwrightCheckSuiteArgs struct {
-	// Determines whether the check will run periodically or not after being deployed.
-	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []PlaywrightCheckSuiteAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *PlaywrightCheckSuiteAlertSettings `pulumi:"alertSettings"`
@@ -185,39 +211,43 @@ type playwrightCheckSuiteArgs struct {
 	Bundle PlaywrightCheckSuiteBundle `pulumi:"bundle"`
 	// A description of the check.
 	Description *string `pulumi:"description"`
-	// Insert environment variables into the execution environment.
+	// Insert environment variables into the execution environment. Must contain at most `200` variables.
 	EnvironmentVariables []PlaywrightCheckSuiteEnvironmentVariable `pulumi:"environmentVariables"`
-	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency int `pulumi:"frequency"`
-	// The ID of the check group that this check is part of.
+	// Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency *int `pulumi:"frequency"`
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this check.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent *PlaywrightCheckSuiteIntent `pulumi:"intent"`
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations []string `pulumi:"privateLocations"`
-	// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
 	// Configure the runtime environment of the Playwright check.
 	Runtime *PlaywrightCheckSuiteRuntime `pulumi:"runtime"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *PlaywrightCheckSuiteTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 // The set of arguments for constructing a PlaywrightCheckSuite resource.
 type PlaywrightCheckSuiteArgs struct {
-	// Determines whether the check will run periodically or not after being deployed.
-	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions PlaywrightCheckSuiteAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings PlaywrightCheckSuiteAlertSettingsPtrInput
@@ -225,31 +255,33 @@ type PlaywrightCheckSuiteArgs struct {
 	Bundle PlaywrightCheckSuiteBundleInput
 	// A description of the check.
 	Description pulumi.StringPtrInput
-	// Insert environment variables into the execution environment.
+	// Insert environment variables into the execution environment. Must contain at most `200` variables.
 	EnvironmentVariables PlaywrightCheckSuiteEnvironmentVariableArrayInput
-	// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency pulumi.IntInput
-	// The ID of the check group that this check is part of.
+	// Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency pulumi.IntPtrInput
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run the this check.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent PlaywrightCheckSuiteIntentPtrInput
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations pulumi.StringArrayInput
-	// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
 	// Configure the runtime environment of the Playwright check.
 	Runtime PlaywrightCheckSuiteRuntimePtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident PlaywrightCheckSuiteTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -340,12 +372,17 @@ func (o PlaywrightCheckSuiteOutput) ToPlaywrightCheckSuiteOutputWithContext(ctx 
 	return o
 }
 
-// Determines whether the check will run periodically or not after being deployed.
+// Determines whether the check runs on its schedule. Defaults to `true`.
 func (o PlaywrightCheckSuiteOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+func (o PlaywrightCheckSuiteOutput) AiAutoRepairEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolPtrOutput { return v.AiAutoRepairEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 func (o PlaywrightCheckSuiteOutput) AlertChannelSubscriptions() PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteAlertChannelSubscriptionArrayOutput {
 		return v.AlertChannelSubscriptions
@@ -363,40 +400,45 @@ func (o PlaywrightCheckSuiteOutput) Bundle() PlaywrightCheckSuiteBundleOutput {
 }
 
 // A description of the check.
-func (o PlaywrightCheckSuiteOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o PlaywrightCheckSuiteOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Insert environment variables into the execution environment.
+// Insert environment variables into the execution environment. Must contain at most `200` variables.
 func (o PlaywrightCheckSuiteOutput) EnvironmentVariables() PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteEnvironmentVariableArrayOutput {
 		return v.EnvironmentVariables
 	}).(PlaywrightCheckSuiteEnvironmentVariableArrayOutput)
 }
 
-// Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+// Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 func (o PlaywrightCheckSuiteOutput) Frequency() pulumi.IntOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.IntOutput { return v.Frequency }).(pulumi.IntOutput)
 }
 
-// The ID of the check group that this check is part of.
+// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 func (o PlaywrightCheckSuiteOutput) GroupId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.IntPtrOutput { return v.GroupId }).(pulumi.IntPtrOutput)
 }
 
-// The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 func (o PlaywrightCheckSuiteOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// An array of one or more data center locations where to run the this check.
+// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+func (o PlaywrightCheckSuiteOutput) Intent() PlaywrightCheckSuiteIntentPtrOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteIntentPtrOutput { return v.Intent }).(PlaywrightCheckSuiteIntentPtrOutput)
+}
+
+// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 func (o PlaywrightCheckSuiteOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.StringArrayOutput { return v.Locations }).(pulumi.StringArrayOutput)
 }
 
-// Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
-func (o PlaywrightCheckSuiteOutput) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
+func (o PlaywrightCheckSuiteOutput) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
 // The name of the check.
@@ -404,14 +446,14 @@ func (o PlaywrightCheckSuiteOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// An array of one or more private locations slugs.
+// The slugs of the private locations to run the check from.
 func (o PlaywrightCheckSuiteOutput) PrivateLocations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.StringArrayOutput { return v.PrivateLocations }).(pulumi.StringArrayOutput)
 }
 
-// Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
-func (o PlaywrightCheckSuiteOutput) RunParallel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolPtrOutput { return v.RunParallel }).(pulumi.BoolPtrOutput)
+// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+func (o PlaywrightCheckSuiteOutput) RunParallel() pulumi.BoolOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolOutput { return v.RunParallel }).(pulumi.BoolOutput)
 }
 
 // Configure the runtime environment of the Playwright check.
@@ -419,7 +461,7 @@ func (o PlaywrightCheckSuiteOutput) Runtime() PlaywrightCheckSuiteRuntimeOutput 
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteRuntimeOutput { return v.Runtime }).(PlaywrightCheckSuiteRuntimeOutput)
 }
 
-// A list of tags for organizing and filtering checks and monitors.
+// Tags for organizing and filtering checks and monitors.
 func (o PlaywrightCheckSuiteOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
@@ -429,9 +471,9 @@ func (o PlaywrightCheckSuiteOutput) TriggerIncident() PlaywrightCheckSuiteTrigge
 	return o.ApplyT(func(v *PlaywrightCheckSuite) PlaywrightCheckSuiteTriggerIncidentPtrOutput { return v.TriggerIncident }).(PlaywrightCheckSuiteTriggerIncidentPtrOutput)
 }
 
-// When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
-func (o PlaywrightCheckSuiteOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolPtrOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+func (o PlaywrightCheckSuiteOutput) UseGlobalAlertSettings() pulumi.BoolOutput {
+	return o.ApplyT(func(v *PlaywrightCheckSuite) pulumi.BoolOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolOutput)
 }
 
 type PlaywrightCheckSuiteArrayOutput struct{ *pulumi.OutputState }

@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class SslMonitorRequestGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Raise an alert when the certificate is within this many days of expiry. Possible values are between 1 and 365. (Default `20`).
+        /// Raise an alert when the certificate is within this many days of expiry. Possible values are between `1` and `365`. Defaults to `20`.
         /// </summary>
         [Input("alertDaysBeforeExpiry")]
         public Input<int>? AlertDaysBeforeExpiry { get; set; }
@@ -37,43 +37,43 @@ namespace Pulumi.Checkly.Inputs
         public Input<Inputs.SslMonitorRequestClientCertificateGetArgs>? ClientCertificate { get; set; }
 
         /// <summary>
-        /// The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between 1000 and 30000. (Default `10000`).
+        /// The number of milliseconds to wait for the TLS handshake to complete before timing out. Possible values are between `1000` and `30000`. Defaults to `10000`.
         /// </summary>
         [Input("handshakeTimeoutMs")]
         public Input<int>? HandshakeTimeoutMs { get; set; }
 
         /// <summary>
-        /// The hostname to connect to and validate the TLS certificate of. Do not include a scheme or a port in this value.
+        /// The hostname to connect to and validate the TLS certificate of. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
         /// </summary>
         [Input("hostname", required: true)]
         public Input<string> Hostname { get; set; } = null!;
 
         /// <summary>
-        /// The IP family to use when executing the check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+        /// The IP family to use when executing the check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         [Input("ipFamily")]
         public Input<string>? IpFamily { get; set; }
 
         /// <summary>
-        /// The port number to connect to. Possible values are between 1 and 65535. (Default `443`).
+        /// The port number to connect to. Possible values are between `1` and `65535`. Defaults to `443`.
         /// </summary>
         [Input("port")]
         public Input<int>? Port { get; set; }
 
         /// <summary>
-        /// The SSL security baseline — a set of enforceable and advisory rules. Omit the block to inherit the account default baseline. Rules that are not listed keep their server defaults; removing a rule (or the whole block) resets it to its default on the next apply. Only listed rules are drift-checked: an external change to an unlisted rule is not shown by `pulumi preview` and is reset on the next apply.
+        /// The SSL security baseline — a set of enforceable and advisory rules. Omit the attribute, or a rule, to use its default. Removing a rule (or the whole attribute) resets it to its default on the next apply.
         /// </summary>
         [Input("securityBaseline")]
         public Input<Inputs.SslMonitorRequestSecurityBaselineGetArgs>? SecurityBaseline { get; set; }
 
         /// <summary>
-        /// An optional SNI server name to send in the TLS handshake. Defaults to `hostname` when unset.
+        /// An optional SNI server name to send in the TLS handshake. Must be at most `2048` characters. If not set, the value of `hostname` is used.
         /// </summary>
         [Input("serverName")]
         public Input<string>? ServerName { get; set; }
 
         /// <summary>
-        /// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). (Default `false`).
+        /// When true, the certificate chain is not validated against trusted roots (the certificate is still inspected for expiry and the security baseline). Defaults to `false`.
         /// </summary>
         [Input("skipChainValidation")]
         public Input<bool>? SkipChainValidation { get; set; }

@@ -13,11 +13,14 @@ namespace Pulumi.Checkly.Inputs
     public sealed class DnsMonitorRequestAssertionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL` and `NOT_NULL`.
         /// </summary>
         [Input("comparison", required: true)]
         public Input<string> Comparison { get; set; } = null!;
 
+        /// <summary>
+        /// The property selecting the asserted value within the source: a regular expression for `TEXT_ANSWER` whose first capture group is asserted instead of the whole answer, or a JSONPath expression for `JSON_ANSWER`. Not used for `RESPONSE_CODE` and `RESPONSE_TIME`.
+        /// </summary>
         [Input("property")]
         public Input<string>? Property { get; set; }
 
@@ -28,10 +31,10 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> Source { get; set; } = null!;
 
         /// <summary>
-        /// The target value. Typically `NOERROR` when the source is `RESPONSE_CODE`.
+        /// The target value, typically `NOERROR` when the source is `RESPONSE_CODE`. For `RESPONSE_TIME` with `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` or `LESS_THAN`, it is required and must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
         /// </summary>
-        [Input("target", required: true)]
-        public Input<string> Target { get; set; } = null!;
+        [Input("target")]
+        public Input<string>? Target { get; set; }
 
         public DnsMonitorRequestAssertionArgs()
         {

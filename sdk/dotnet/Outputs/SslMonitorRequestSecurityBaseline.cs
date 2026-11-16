@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class SslMonitorRequestSecurityBaseline
     {
         /// <summary>
-        /// Whether the security baseline is enforced. (Default `true`).
+        /// Whether the security baseline is enforced. Defaults to `true`.
         /// </summary>
         public readonly bool? Enabled;
         /// <summary>

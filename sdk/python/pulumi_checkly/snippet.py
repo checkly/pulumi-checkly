@@ -24,7 +24,7 @@ class SnippetArgs:
         """
         The set of arguments for constructing a Snippet resource.
         :param pulumi.Input[_builtins.str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
-        :param pulumi.Input[_builtins.str] name: The name of the snippet
+        :param pulumi.Input[_builtins.str] name: The name of the snippet.
         """
         pulumi.set(__self__, "script", script)
         if name is not None:
@@ -46,7 +46,7 @@ class SnippetArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the snippet
+        The name of the snippet.
         """
         return pulumi.get(self, "name")
 
@@ -62,7 +62,7 @@ class _SnippetState:
                  script: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Snippet resources.
-        :param pulumi.Input[_builtins.str] name: The name of the snippet
+        :param pulumi.Input[_builtins.str] name: The name of the snippet.
         :param pulumi.Input[_builtins.str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
         """
         if name is not None:
@@ -74,7 +74,7 @@ class _SnippetState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the snippet
+        The name of the snippet.
         """
         return pulumi.get(self, "name")
 
@@ -105,6 +105,8 @@ class Snippet(pulumi.CustomResource):
                  script: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
+        Snippets are reusable pieces of code that can be referenced from setup & teardown scripts of API checks, or used as partials in browser checks.
+
         ## Example Usage
 
         ```python
@@ -122,9 +124,21 @@ class Snippet(pulumi.CustomResource):
         \"\"\")
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing snippet using its numeric ID.
+
+        The ID is returned by the Checkly API at GET /v1/snippets.
+
+        ```sh
+        $ pulumi import checkly:index/snippet:Snippet example 12345
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] name: The name of the snippet
+        :param pulumi.Input[_builtins.str] name: The name of the snippet.
         :param pulumi.Input[_builtins.str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
         """
         ...
@@ -134,6 +148,8 @@ class Snippet(pulumi.CustomResource):
                  args: SnippetArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Snippets are reusable pieces of code that can be referenced from setup & teardown scripts of API checks, or used as partials in browser checks.
+
         ## Example Usage
 
         ```python
@@ -149,6 +165,18 @@ class Snippet(pulumi.CustomResource):
             script=\"\"\"    console.log('test1');
             console.log('test2');
         \"\"\")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing snippet using its numeric ID.
+
+        The ID is returned by the Checkly API at GET /v1/snippets.
+
+        ```sh
+        $ pulumi import checkly:index/snippet:Snippet example 12345
         ```
 
         :param str resource_name: The name of the resource.
@@ -200,7 +228,7 @@ class Snippet(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] name: The name of the snippet
+        :param pulumi.Input[_builtins.str] name: The name of the snippet.
         :param pulumi.Input[_builtins.str] script: Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -215,7 +243,7 @@ class Snippet(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the snippet
+        The name of the snippet.
         """
         return pulumi.get(self, "name")
 

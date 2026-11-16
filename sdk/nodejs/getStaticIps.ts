@@ -4,6 +4,38 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as aws from "@pulumi/aws";
+ * import * as checkly from "@checkly/pulumi";
+ *
+ * // All static IP addresses that Checkly's runners use.
+ * const all = checkly.getStaticIps({});
+ * // Only the IPv4 addresses of two locations.
+ * const euIpv4 = checkly.getStaticIps({
+ *     locations: [
+ *         "eu-central-1",
+ *         "eu-west-1",
+ *     ],
+ *     ipFamily: "IPv4",
+ * });
+ * // Allow traffic from those runners to a service behind an AWS security group.
+ * // The addresses are already in CIDR notation, such as "3.64.0.1/32".
+ * const checklyIngress = new aws.index.SecurityGroupRule("checkly_ingress", {
+ *     type: "ingress",
+ *     fromPort: 443,
+ *     toPort: 443,
+ *     protocol: "tcp",
+ *     cidrBlocks: euIpv4.addresses,
+ *     securityGroupId: "sg-0123456789abcdef0",
+ * });
+ * ```
+ */
 export function getStaticIps(args?: GetStaticIpsArgs, opts?: pulumi.InvokeOptions): Promise<GetStaticIpsResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -18,11 +50,11 @@ export function getStaticIps(args?: GetStaticIpsArgs, opts?: pulumi.InvokeOption
  */
 export interface GetStaticIpsArgs {
     /**
-     * Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+     * Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
      */
     ipFamily?: string;
     /**
-     * Specify the locations you want to get static IPs for.
+     * Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
      */
     locations?: string[];
 }
@@ -32,7 +64,7 @@ export interface GetStaticIpsArgs {
  */
 export interface GetStaticIpsResult {
     /**
-     * Static IP addresses for Checkly's runner infrastructure.
+     * Static IP addresses for Checkly's runner infrastructure, in CIDR notation (for example `3.64.0.1/32`).
      */
     readonly addresses: string[];
     /**
@@ -40,14 +72,46 @@ export interface GetStaticIpsResult {
      */
     readonly id: string;
     /**
-     * Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+     * Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
      */
-    readonly ipFamily?: string;
+    readonly ipFamily: string;
     /**
-     * Specify the locations you want to get static IPs for.
+     * Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
      */
     readonly locations?: string[];
 }
+/**
+ * Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as aws from "@pulumi/aws";
+ * import * as checkly from "@checkly/pulumi";
+ *
+ * // All static IP addresses that Checkly's runners use.
+ * const all = checkly.getStaticIps({});
+ * // Only the IPv4 addresses of two locations.
+ * const euIpv4 = checkly.getStaticIps({
+ *     locations: [
+ *         "eu-central-1",
+ *         "eu-west-1",
+ *     ],
+ *     ipFamily: "IPv4",
+ * });
+ * // Allow traffic from those runners to a service behind an AWS security group.
+ * // The addresses are already in CIDR notation, such as "3.64.0.1/32".
+ * const checklyIngress = new aws.index.SecurityGroupRule("checkly_ingress", {
+ *     type: "ingress",
+ *     fromPort: 443,
+ *     toPort: 443,
+ *     protocol: "tcp",
+ *     cidrBlocks: euIpv4.addresses,
+ *     securityGroupId: "sg-0123456789abcdef0",
+ * });
+ * ```
+ */
 export function getStaticIpsOutput(args?: GetStaticIpsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetStaticIpsResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -62,11 +126,11 @@ export function getStaticIpsOutput(args?: GetStaticIpsOutputArgs, opts?: pulumi.
  */
 export interface GetStaticIpsOutputArgs {
     /**
-     * Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+     * Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
      */
     ipFamily?: pulumi.Input<string>;
     /**
-     * Specify the locations you want to get static IPs for.
+     * Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
 }

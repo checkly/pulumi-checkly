@@ -14,47 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class HeartbeatMonitorAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsReminder> Reminders;
+        public readonly Outputs.HeartbeatMonitorAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation> RunBasedEscalations;
-        public readonly ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsSslCertificate> SslCertificates;
+        public readonly Outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private HeartbeatMonitorAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.HeartbeatMonitorAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsReminder> reminders,
+            Outputs.HeartbeatMonitorAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.HeartbeatMonitorAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsSslCertificate> sslCertificates,
-
-            ImmutableArray<Outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.HeartbeatMonitorAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            SslCertificates = sslCertificates;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class PlaywrightCheckSuiteRuntimePlaywrightDeviceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The type of the device.
+        /// The type of the device. Possible values are `chromium`, `firefox` and `webkit`, which run the browsers Playwright downloads, and `chrome` and `msedge`, which run the branded Google Chrome and Microsoft Edge browsers.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

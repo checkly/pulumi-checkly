@@ -16,7 +16,7 @@ namespace Pulumi.Checkly.Inputs
         private InputList<Inputs.DnsMonitorRequestAssertionGetArgs>? _assertions;
 
         /// <summary>
-        /// Assertions to validate the HTTP response. DNS monitors only support status code assertions.
+        /// Assertions to validate the DNS response.
         /// </summary>
         public InputList<Inputs.DnsMonitorRequestAssertionGetArgs> Assertions
         {
@@ -31,19 +31,19 @@ namespace Pulumi.Checkly.Inputs
         public Input<Inputs.DnsMonitorRequestNameServerGetArgs>? NameServer { get; set; }
 
         /// <summary>
-        /// The protocol used to communicate with the name server. Possible values are `UDP` and `TCP`. (Default `UDP`).
+        /// The protocol used to communicate with the name server. Possible values are `UDP` and `TCP`. Defaults to `UDP`.
         /// </summary>
         [Input("protocol")]
         public Input<string>? Protocol { get; set; }
 
         /// <summary>
-        /// The DNS record to query.
+        /// The DNS record to query. Must be between `1` and `100` characters.
         /// </summary>
         [Input("query", required: true)]
         public Input<string> Query { get; set; } = null!;
 
         /// <summary>
-        /// The DNS record type. Possible values are `A`, `AAAA`, `CNAME`, `MX`, `NS`, `TXT` and `SOA`.
+        /// The DNS record type. Possible values are `A`, `AAAA`, `CNAME`, `MX`, `NS`, `TXT`, `SOA` and `HTTPS`.
         /// </summary>
         [Input("recordType", required: true)]
         public Input<string> RecordType { get; set; } = null!;

@@ -19,22 +19,29 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// If true, the value is not shown by default, but it can be accessed. (Default `false`).
+        /// If true, the value is not shown by default, but it can be accessed. Defaults to `false`.
         /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
-        /// <summary>
-        /// If true, the value will never be visible. (Default `false`).
-        /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }
 
-        /// <summary>
-        /// The value of the environment variable or secret.
-        /// </summary>
         [Input("value", required: true)]
-        public Input<string> Value { get; set; } = null!;
+        private Input<string>? _value;
+
+        /// <summary>
+        /// The value of the environment variable or secret. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters.
+        /// </summary>
+        public Input<string>? Value
+        {
+            get => _value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public CheckGroupEnvironmentVariableArgs()
         {

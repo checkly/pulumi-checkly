@@ -13,58 +13,34 @@ namespace Pulumi.Checkly.Inputs
     public sealed class IcmpMonitorAlertSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
-        [Input("parallelRunFailureThresholds")]
-        private InputList<Inputs.IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs>? _parallelRunFailureThresholds;
-
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public InputList<Inputs.IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs> ParallelRunFailureThresholds
-        {
-            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs>());
-            set => _parallelRunFailureThresholds = value;
-        }
-
-        [Input("reminders")]
-        private InputList<Inputs.IcmpMonitorAlertSettingsReminderArgs>? _reminders;
+        [Input("parallelRunFailureThreshold")]
+        public Input<Inputs.IcmpMonitorAlertSettingsParallelRunFailureThresholdArgs>? ParallelRunFailureThreshold { get; set; }
 
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public InputList<Inputs.IcmpMonitorAlertSettingsReminderArgs> Reminders
-        {
-            get => _reminders ?? (_reminders = new InputList<Inputs.IcmpMonitorAlertSettingsReminderArgs>());
-            set => _reminders = value;
-        }
-
-        [Input("runBasedEscalations")]
-        private InputList<Inputs.IcmpMonitorAlertSettingsRunBasedEscalationArgs>? _runBasedEscalations;
+        [Input("reminders")]
+        public Input<Inputs.IcmpMonitorAlertSettingsRemindersArgs>? Reminders { get; set; }
 
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public InputList<Inputs.IcmpMonitorAlertSettingsRunBasedEscalationArgs> RunBasedEscalations
-        {
-            get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.IcmpMonitorAlertSettingsRunBasedEscalationArgs>());
-            set => _runBasedEscalations = value;
-        }
-
-        [Input("timeBasedEscalations")]
-        private InputList<Inputs.IcmpMonitorAlertSettingsTimeBasedEscalationArgs>? _timeBasedEscalations;
+        [Input("runBasedEscalation")]
+        public Input<Inputs.IcmpMonitorAlertSettingsRunBasedEscalationArgs>? RunBasedEscalation { get; set; }
 
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public InputList<Inputs.IcmpMonitorAlertSettingsTimeBasedEscalationArgs> TimeBasedEscalations
-        {
-            get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.IcmpMonitorAlertSettingsTimeBasedEscalationArgs>());
-            set => _timeBasedEscalations = value;
-        }
+        [Input("timeBasedEscalation")]
+        public Input<Inputs.IcmpMonitorAlertSettingsTimeBasedEscalationArgs>? TimeBasedEscalation { get; set; }
 
         public IcmpMonitorAlertSettingsArgs()
         {

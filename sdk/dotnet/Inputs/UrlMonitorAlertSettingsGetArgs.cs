@@ -13,58 +13,34 @@ namespace Pulumi.Checkly.Inputs
     public sealed class UrlMonitorAlertSettingsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
-        [Input("parallelRunFailureThresholds")]
-        private InputList<Inputs.UrlMonitorAlertSettingsParallelRunFailureThresholdGetArgs>? _parallelRunFailureThresholds;
-
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public InputList<Inputs.UrlMonitorAlertSettingsParallelRunFailureThresholdGetArgs> ParallelRunFailureThresholds
-        {
-            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.UrlMonitorAlertSettingsParallelRunFailureThresholdGetArgs>());
-            set => _parallelRunFailureThresholds = value;
-        }
-
-        [Input("reminders")]
-        private InputList<Inputs.UrlMonitorAlertSettingsReminderGetArgs>? _reminders;
+        [Input("parallelRunFailureThreshold")]
+        public Input<Inputs.UrlMonitorAlertSettingsParallelRunFailureThresholdGetArgs>? ParallelRunFailureThreshold { get; set; }
 
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public InputList<Inputs.UrlMonitorAlertSettingsReminderGetArgs> Reminders
-        {
-            get => _reminders ?? (_reminders = new InputList<Inputs.UrlMonitorAlertSettingsReminderGetArgs>());
-            set => _reminders = value;
-        }
-
-        [Input("runBasedEscalations")]
-        private InputList<Inputs.UrlMonitorAlertSettingsRunBasedEscalationGetArgs>? _runBasedEscalations;
+        [Input("reminders")]
+        public Input<Inputs.UrlMonitorAlertSettingsRemindersGetArgs>? Reminders { get; set; }
 
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public InputList<Inputs.UrlMonitorAlertSettingsRunBasedEscalationGetArgs> RunBasedEscalations
-        {
-            get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.UrlMonitorAlertSettingsRunBasedEscalationGetArgs>());
-            set => _runBasedEscalations = value;
-        }
-
-        [Input("timeBasedEscalations")]
-        private InputList<Inputs.UrlMonitorAlertSettingsTimeBasedEscalationGetArgs>? _timeBasedEscalations;
+        [Input("runBasedEscalation")]
+        public Input<Inputs.UrlMonitorAlertSettingsRunBasedEscalationGetArgs>? RunBasedEscalation { get; set; }
 
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public InputList<Inputs.UrlMonitorAlertSettingsTimeBasedEscalationGetArgs> TimeBasedEscalations
-        {
-            get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.UrlMonitorAlertSettingsTimeBasedEscalationGetArgs>());
-            set => _timeBasedEscalations = value;
-        }
+        [Input("timeBasedEscalation")]
+        public Input<Inputs.UrlMonitorAlertSettingsTimeBasedEscalationGetArgs>? TimeBasedEscalation { get; set; }
 
         public UrlMonitorAlertSettingsGetArgs()
         {

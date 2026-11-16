@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class SslMonitorRequestSecurityBaselineGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether the security baseline is enforced. (Default `true`).
+        /// Whether the security baseline is enforced. Defaults to `true`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }

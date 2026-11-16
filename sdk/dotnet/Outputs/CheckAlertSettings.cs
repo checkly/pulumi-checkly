@@ -14,47 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.CheckAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckAlertSettingsReminder> Reminders;
+        public readonly Outputs.CheckAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckAlertSettingsRunBasedEscalation> RunBasedEscalations;
-        public readonly ImmutableArray<Outputs.CheckAlertSettingsSslCertificate> SslCertificates;
+        public readonly Outputs.CheckAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.CheckAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private CheckAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.CheckAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.CheckAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.CheckAlertSettingsReminder> reminders,
+            Outputs.CheckAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.CheckAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.CheckAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.CheckAlertSettingsSslCertificate> sslCertificates,
-
-            ImmutableArray<Outputs.CheckAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.CheckAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            SslCertificates = sslCertificates;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

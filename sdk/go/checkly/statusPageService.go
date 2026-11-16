@@ -7,11 +7,13 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
+//
+// The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the v2 upgrade guide.
 //
 // ## Example Usage
 //
@@ -20,7 +22,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -44,6 +46,22 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// checkly_status_page_service is deprecated together with checkly_status_page; services of v3 status pages are checkly_status_page_v3_component resources.
+//
+// Import an existing status page service using its ID.
+//
+// The ID is returned by the Checkly API at GET /v1/status-pages/services.
+//
+// ```sh
+// $ pulumi import checkly:index/statusPageService:StatusPageService example 8a894b49-467f-4af6-9230-cd4d3bd452f4
+// ```
+//
+// Deprecated: Use StatusPageV3Component resources on a StatusPageV3 page instead.
 type StatusPageService struct {
 	pulumi.CustomResourceState
 

@@ -33,6 +33,9 @@ namespace Pulumi.Checkly
         private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("checkly");
 
         private static readonly __Value<string?> _accountId = new __Value<string?>(() => __config.Get("accountId"));
+        /// <summary>
+        /// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        /// </summary>
         public static string? AccountId
         {
             get => _accountId.Get();
@@ -40,6 +43,9 @@ namespace Pulumi.Checkly
         }
 
         private static readonly __Value<string?> _apiKey = new __Value<string?>(() => __config.Get("apiKey"));
+        /// <summary>
+        /// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        /// </summary>
         public static string? ApiKey
         {
             get => _apiKey.Get();
@@ -47,6 +53,9 @@ namespace Pulumi.Checkly
         }
 
         private static readonly __Value<string?> _apiUrl = new __Value<string?>(() => __config.Get("apiUrl"));
+        /// <summary>
+        /// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+        /// </summary>
         public static string? ApiUrl
         {
             get => _apiUrl.Get();

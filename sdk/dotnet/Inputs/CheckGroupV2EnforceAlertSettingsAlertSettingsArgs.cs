@@ -13,67 +13,34 @@ namespace Pulumi.Checkly.Inputs
     public sealed class CheckGroupV2EnforceAlertSettingsAlertSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
-        [Input("parallelRunFailureThresholds")]
-        private InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs>? _parallelRunFailureThresholds;
-
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs> ParallelRunFailureThresholds
-        {
-            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs>());
-            set => _parallelRunFailureThresholds = value;
-        }
-
-        [Input("reminders")]
-        private InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs>? _reminders;
+        [Input("parallelRunFailureThreshold")]
+        public Input<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs>? ParallelRunFailureThreshold { get; set; }
 
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs> Reminders
-        {
-            get => _reminders ?? (_reminders = new InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs>());
-            set => _reminders = value;
-        }
-
-        [Input("runBasedEscalations")]
-        private InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs>? _runBasedEscalations;
+        [Input("reminders")]
+        public Input<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRemindersArgs>? Reminders { get; set; }
 
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs> RunBasedEscalations
-        {
-            get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs>());
-            set => _runBasedEscalations = value;
-        }
-
-        [Input("sslCertificates")]
-        private InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs>? _sslCertificates;
-        [Obsolete(@"This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.")]
-        public InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs> SslCertificates
-        {
-            get => _sslCertificates ?? (_sslCertificates = new InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificateArgs>());
-            set => _sslCertificates = value;
-        }
-
-        [Input("timeBasedEscalations")]
-        private InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs>? _timeBasedEscalations;
+        [Input("runBasedEscalation")]
+        public Input<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs>? RunBasedEscalation { get; set; }
 
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs> TimeBasedEscalations
-        {
-            get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs>());
-            set => _timeBasedEscalations = value;
-        }
+        [Input("timeBasedEscalation")]
+        public Input<Inputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs>? TimeBasedEscalation { get; set; }
 
         public CheckGroupV2EnforceAlertSettingsAlertSettingsArgs()
         {

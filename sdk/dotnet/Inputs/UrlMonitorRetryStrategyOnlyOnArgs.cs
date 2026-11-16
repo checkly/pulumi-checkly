@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class UrlMonitorRetryStrategyOnlyOnArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+        /// When `true`, retry only if the cause of the failure is a network error. Defaults to `false`.
         /// </summary>
         [Input("networkError")]
         public Input<bool>? NetworkError { get; set; }

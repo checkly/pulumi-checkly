@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -58,47 +58,61 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing ICMP monitor using its check ID.
+//
+// You can find the ID in the check's URL in the Checkly dashboard.
+//
+// ```sh
+// $ pulumi import checkly:index/icmpMonitor:IcmpMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+// ```
 type IcmpMonitor struct {
 	pulumi.CustomResourceState
 
-	// Determines whether the monitor will run periodically or not after being deployed.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions IcmpMonitorAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings IcmpMonitorAlertSettingsOutput `pulumi:"alertSettings"`
-	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
-	DegradedPacketLossThreshold pulumi.IntPtrOutput `pulumi:"degradedPacketLossThreshold"`
+	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
+	DegradedPacketLossThreshold pulumi.IntOutput `pulumi:"degradedPacketLossThreshold"`
 	// A description of the monitor.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	Description pulumi.StringOutput `pulumi:"description"`
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrOutput `pulumi:"frequencyOffset"`
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
-	MaxPacketLossThreshold pulumi.IntPtrOutput `pulumi:"maxPacketLossThreshold"`
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
+	// The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degradedPacketLossThreshold`. Defaults to `20`.
+	MaxPacketLossThreshold pulumi.IntOutput `pulumi:"maxPacketLossThreshold"`
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
 	// The name of the monitor.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
 	// The parameters of the ICMP request.
 	Request IcmpMonitorRequestOutput `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy IcmpMonitorRetryStrategyOutput `pulumi:"retryStrategy"`
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-	RunParallel pulumi.BoolPtrOutput `pulumi:"runParallel"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+	RunParallel pulumi.BoolOutput `pulumi:"runParallel"`
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident IcmpMonitorTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
-	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+	UseGlobalAlertSettings pulumi.BoolOutput `pulumi:"useGlobalAlertSettings"`
 }
 
 // NewIcmpMonitor registers a new resource with the given unique name, arguments, and options.
@@ -108,12 +122,6 @@ func NewIcmpMonitor(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Activated == nil {
-		return nil, errors.New("invalid value for required argument 'Activated'")
-	}
-	if args.Frequency == nil {
-		return nil, errors.New("invalid value for required argument 'Frequency'")
-	}
 	if args.Request == nil {
 		return nil, errors.New("invalid value for required argument 'Request'")
 	}
@@ -140,84 +148,88 @@ func GetIcmpMonitor(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering IcmpMonitor resources.
 type icmpMonitorState struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []IcmpMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *IcmpMonitorAlertSettings `pulumi:"alertSettings"`
-	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
 	DegradedPacketLossThreshold *int `pulumi:"degradedPacketLossThreshold"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency *int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
+	// The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degradedPacketLossThreshold`. Defaults to `20`.
 	MaxPacketLossThreshold *int `pulumi:"maxPacketLossThreshold"`
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the monitor.
 	Name *string `pulumi:"name"`
+	// The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+	PrivateLocations []string `pulumi:"privateLocations"`
 	// The parameters of the ICMP request.
 	Request *IcmpMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *IcmpMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *IcmpMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 type IcmpMonitorState struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions IcmpMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings IcmpMonitorAlertSettingsPtrInput
-	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
 	DegradedPacketLossThreshold pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntPtrInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
+	// The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degradedPacketLossThreshold`. Defaults to `20`.
 	MaxPacketLossThreshold pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the monitor.
 	Name pulumi.StringPtrInput
+	// The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+	PrivateLocations pulumi.StringArrayInput
 	// The parameters of the ICMP request.
 	Request IcmpMonitorRequestPtrInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy IcmpMonitorRetryStrategyPtrInput
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident IcmpMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -226,85 +238,89 @@ func (IcmpMonitorState) ElementType() reflect.Type {
 }
 
 type icmpMonitorArgs struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
-	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []IcmpMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *IcmpMonitorAlertSettings `pulumi:"alertSettings"`
-	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
 	DegradedPacketLossThreshold *int `pulumi:"degradedPacketLossThreshold"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency *int `pulumi:"frequency"`
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
+	// The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degradedPacketLossThreshold`. Defaults to `20`.
 	MaxPacketLossThreshold *int `pulumi:"maxPacketLossThreshold"`
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the monitor.
 	Name *string `pulumi:"name"`
+	// The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+	PrivateLocations []string `pulumi:"privateLocations"`
 	// The parameters of the ICMP request.
 	Request IcmpMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *IcmpMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *IcmpMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 // The set of arguments for constructing a IcmpMonitor resource.
 type IcmpMonitorArgs struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
-	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions IcmpMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings IcmpMonitorAlertSettingsPtrInput
-	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+	// The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
 	DegradedPacketLossThreshold pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency pulumi.IntInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency pulumi.IntPtrInput
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
+	// The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degradedPacketLossThreshold`. Defaults to `20`.
 	MaxPacketLossThreshold pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the monitor.
 	Name pulumi.StringPtrInput
+	// The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+	PrivateLocations pulumi.StringArrayInput
 	// The parameters of the ICMP request.
 	Request IcmpMonitorRequestInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy IcmpMonitorRetryStrategyPtrInput
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident IcmpMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -395,12 +411,12 @@ func (o IcmpMonitorOutput) ToIcmpMonitorOutputWithContext(ctx context.Context) I
 	return o
 }
 
-// Determines whether the monitor will run periodically or not after being deployed.
+// Determines whether the monitor runs on its schedule. Defaults to `true`.
 func (o IcmpMonitorOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o IcmpMonitorOutput) AlertChannelSubscriptions() IcmpMonitorAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *IcmpMonitor) IcmpMonitorAlertChannelSubscriptionArrayOutput {
 		return v.AlertChannelSubscriptions
@@ -412,54 +428,59 @@ func (o IcmpMonitorOutput) AlertSettings() IcmpMonitorAlertSettingsOutput {
 	return o.ApplyT(func(v *IcmpMonitor) IcmpMonitorAlertSettingsOutput { return v.AlertSettings }).(IcmpMonitorAlertSettingsOutput)
 }
 
-// The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
-func (o IcmpMonitorOutput) DegradedPacketLossThreshold() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntPtrOutput { return v.DegradedPacketLossThreshold }).(pulumi.IntPtrOutput)
+// The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
+func (o IcmpMonitorOutput) DegradedPacketLossThreshold() pulumi.IntOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntOutput { return v.DegradedPacketLossThreshold }).(pulumi.IntOutput)
 }
 
 // A description of the monitor.
-func (o IcmpMonitorOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *IcmpMonitor) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o IcmpMonitorOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 func (o IcmpMonitorOutput) Frequency() pulumi.IntOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntOutput { return v.Frequency }).(pulumi.IntOutput)
 }
 
-// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 func (o IcmpMonitorOutput) FrequencyOffset() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntPtrOutput { return v.FrequencyOffset }).(pulumi.IntPtrOutput)
 }
 
-// The ID of the check group that this monitor is part of.
+// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 func (o IcmpMonitorOutput) GroupId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntPtrOutput { return v.GroupId }).(pulumi.IntPtrOutput)
 }
 
-// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 func (o IcmpMonitorOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// An array of one or more data center locations where to run this monitor.
+// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 func (o IcmpMonitorOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.StringArrayOutput { return v.Locations }).(pulumi.StringArrayOutput)
 }
 
-// The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
-func (o IcmpMonitorOutput) MaxPacketLossThreshold() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntPtrOutput { return v.MaxPacketLossThreshold }).(pulumi.IntPtrOutput)
+// The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degradedPacketLossThreshold`. Defaults to `20`.
+func (o IcmpMonitorOutput) MaxPacketLossThreshold() pulumi.IntOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.IntOutput { return v.MaxPacketLossThreshold }).(pulumi.IntOutput)
 }
 
-// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
-func (o IcmpMonitorOutput) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+func (o IcmpMonitorOutput) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
 // The name of the monitor.
 func (o IcmpMonitorOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+func (o IcmpMonitorOutput) PrivateLocations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.StringArrayOutput { return v.PrivateLocations }).(pulumi.StringArrayOutput)
 }
 
 // The parameters of the ICMP request.
@@ -472,12 +493,12 @@ func (o IcmpMonitorOutput) RetryStrategy() IcmpMonitorRetryStrategyOutput {
 	return o.ApplyT(func(v *IcmpMonitor) IcmpMonitorRetryStrategyOutput { return v.RetryStrategy }).(IcmpMonitorRetryStrategyOutput)
 }
 
-// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-func (o IcmpMonitorOutput) RunParallel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolPtrOutput { return v.RunParallel }).(pulumi.BoolPtrOutput)
+// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+func (o IcmpMonitorOutput) RunParallel() pulumi.BoolOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolOutput { return v.RunParallel }).(pulumi.BoolOutput)
 }
 
-// A list of tags for organizing and filtering checks and monitors.
+// Tags for organizing and filtering checks and monitors.
 func (o IcmpMonitorOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *IcmpMonitor) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
@@ -487,9 +508,9 @@ func (o IcmpMonitorOutput) TriggerIncident() IcmpMonitorTriggerIncidentPtrOutput
 	return o.ApplyT(func(v *IcmpMonitor) IcmpMonitorTriggerIncidentPtrOutput { return v.TriggerIncident }).(IcmpMonitorTriggerIncidentPtrOutput)
 }
 
-// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
-func (o IcmpMonitorOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolPtrOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+func (o IcmpMonitorOutput) UseGlobalAlertSettings() pulumi.BoolOutput {
+	return o.ApplyT(func(v *IcmpMonitor) pulumi.BoolOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolOutput)
 }
 
 type IcmpMonitorArrayOutput struct{ *pulumi.OutputState }

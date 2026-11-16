@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class SslMonitorRequestSecurityBaselineRecommendedTlsVersion
     {
         /// <summary>
-        /// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+        /// What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
         /// </summary>
         public readonly string? Severity;
         /// <summary>
-        /// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).
+        /// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. Defaults to `TLS1.3`.
         /// </summary>
         public readonly string? Value;
 

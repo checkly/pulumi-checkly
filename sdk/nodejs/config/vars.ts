@@ -7,6 +7,9 @@ import * as utilities from "../utilities";
 declare var exports: any;
 const __config = new pulumi.Config("checkly");
 
+/**
+ * The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+ */
 export declare const accountId: string | undefined;
 Object.defineProperty(exports, "accountId", {
     get() {
@@ -15,6 +18,9 @@ Object.defineProperty(exports, "accountId", {
     enumerable: true,
 });
 
+/**
+ * The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+ */
 export declare const apiKey: string | undefined;
 Object.defineProperty(exports, "apiKey", {
     get() {
@@ -23,6 +29,9 @@ Object.defineProperty(exports, "apiKey", {
     enumerable: true,
 });
 
+/**
+ * The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+ */
 export declare const apiUrl: string | undefined;
 Object.defineProperty(exports, "apiUrl", {
     get() {

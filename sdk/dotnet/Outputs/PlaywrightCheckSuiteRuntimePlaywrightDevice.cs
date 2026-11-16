@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntimePlaywrightDevice
     {
         /// <summary>
-        /// The type of the device.
+        /// The type of the device. Possible values are `chromium`, `firefox` and `webkit`, which run the browsers Playwright downloads, and `chrome` and `msedge`, which run the branded Google Chrome and Microsoft Edge browsers.
         /// </summary>
         public readonly string Type;
 

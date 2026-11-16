@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class SslMonitorRequestSecurityBaselineSctPresentGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+        /// What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
         /// </summary>
         [Input("severity")]
         public Input<string>? Severity { get; set; }

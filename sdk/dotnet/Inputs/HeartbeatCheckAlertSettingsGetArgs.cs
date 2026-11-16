@@ -13,67 +13,34 @@ namespace Pulumi.Checkly.Inputs
     public sealed class HeartbeatCheckAlertSettingsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
-        [Input("parallelRunFailureThresholds")]
-        private InputList<Inputs.HeartbeatCheckAlertSettingsParallelRunFailureThresholdGetArgs>? _parallelRunFailureThresholds;
-
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public InputList<Inputs.HeartbeatCheckAlertSettingsParallelRunFailureThresholdGetArgs> ParallelRunFailureThresholds
-        {
-            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.HeartbeatCheckAlertSettingsParallelRunFailureThresholdGetArgs>());
-            set => _parallelRunFailureThresholds = value;
-        }
-
-        [Input("reminders")]
-        private InputList<Inputs.HeartbeatCheckAlertSettingsReminderGetArgs>? _reminders;
+        [Input("parallelRunFailureThreshold")]
+        public Input<Inputs.HeartbeatCheckAlertSettingsParallelRunFailureThresholdGetArgs>? ParallelRunFailureThreshold { get; set; }
 
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public InputList<Inputs.HeartbeatCheckAlertSettingsReminderGetArgs> Reminders
-        {
-            get => _reminders ?? (_reminders = new InputList<Inputs.HeartbeatCheckAlertSettingsReminderGetArgs>());
-            set => _reminders = value;
-        }
-
-        [Input("runBasedEscalations")]
-        private InputList<Inputs.HeartbeatCheckAlertSettingsRunBasedEscalationGetArgs>? _runBasedEscalations;
+        [Input("reminders")]
+        public Input<Inputs.HeartbeatCheckAlertSettingsRemindersGetArgs>? Reminders { get; set; }
 
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public InputList<Inputs.HeartbeatCheckAlertSettingsRunBasedEscalationGetArgs> RunBasedEscalations
-        {
-            get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.HeartbeatCheckAlertSettingsRunBasedEscalationGetArgs>());
-            set => _runBasedEscalations = value;
-        }
-
-        [Input("sslCertificates")]
-        private InputList<Inputs.HeartbeatCheckAlertSettingsSslCertificateGetArgs>? _sslCertificates;
-        [Obsolete(@"This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.")]
-        public InputList<Inputs.HeartbeatCheckAlertSettingsSslCertificateGetArgs> SslCertificates
-        {
-            get => _sslCertificates ?? (_sslCertificates = new InputList<Inputs.HeartbeatCheckAlertSettingsSslCertificateGetArgs>());
-            set => _sslCertificates = value;
-        }
-
-        [Input("timeBasedEscalations")]
-        private InputList<Inputs.HeartbeatCheckAlertSettingsTimeBasedEscalationGetArgs>? _timeBasedEscalations;
+        [Input("runBasedEscalation")]
+        public Input<Inputs.HeartbeatCheckAlertSettingsRunBasedEscalationGetArgs>? RunBasedEscalation { get; set; }
 
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public InputList<Inputs.HeartbeatCheckAlertSettingsTimeBasedEscalationGetArgs> TimeBasedEscalations
-        {
-            get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.HeartbeatCheckAlertSettingsTimeBasedEscalationGetArgs>());
-            set => _timeBasedEscalations = value;
-        }
+        [Input("timeBasedEscalation")]
+        public Input<Inputs.HeartbeatCheckAlertSettingsTimeBasedEscalationGetArgs>? TimeBasedEscalation { get; set; }
 
         public HeartbeatCheckAlertSettingsGetArgs()
         {

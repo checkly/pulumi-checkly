@@ -8,10 +8,12 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Global environment variables that can be referenced from check scripts.
+//
 // ## Example Usage
 //
 // ```go
@@ -19,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -47,13 +49,26 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing environment variable using its key.
+//
+// ```sh
+// $ pulumi import checkly:index/environmentVariable:EnvironmentVariable example API_KEY
+// ```
 type EnvironmentVariable struct {
 	pulumi.CustomResourceState
 
-	Key    pulumi.StringOutput  `pulumi:"key"`
-	Locked pulumi.BoolPtrOutput `pulumi:"locked"`
-	Secret pulumi.BoolPtrOutput `pulumi:"secret"`
-	Value  pulumi.StringOutput  `pulumi:"value"`
+	// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+	Key pulumi.StringOutput `pulumi:"key"`
+	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+	Locked pulumi.BoolOutput `pulumi:"locked"`
+	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+	Secret pulumi.BoolOutput   `pulumi:"secret"`
+	Value  pulumi.StringOutput `pulumi:"value"`
 }
 
 // NewEnvironmentVariable registers a new resource with the given unique name, arguments, and options.
@@ -69,6 +84,13 @@ func NewEnvironmentVariable(ctx *pulumi.Context,
 	if args.Value == nil {
 		return nil, errors.New("invalid value for required argument 'Value'")
 	}
+	if args.Value != nil {
+		args.Value = pulumi.ToSecret(args.Value).(pulumi.StringInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"value",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource EnvironmentVariable
 	err := ctx.RegisterResource("checkly:index/environmentVariable:EnvironmentVariable", name, args, &resource, opts...)
@@ -92,15 +114,21 @@ func GetEnvironmentVariable(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering EnvironmentVariable resources.
 type environmentVariableState struct {
-	Key    *string `pulumi:"key"`
-	Locked *bool   `pulumi:"locked"`
+	// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+	Key *string `pulumi:"key"`
+	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+	Locked *bool `pulumi:"locked"`
+	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
 	Secret *bool   `pulumi:"secret"`
 	Value  *string `pulumi:"value"`
 }
 
 type EnvironmentVariableState struct {
-	Key    pulumi.StringPtrInput
+	// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+	Key pulumi.StringPtrInput
+	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput
+	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
 	Secret pulumi.BoolPtrInput
 	Value  pulumi.StringPtrInput
 }
@@ -110,16 +138,22 @@ func (EnvironmentVariableState) ElementType() reflect.Type {
 }
 
 type environmentVariableArgs struct {
-	Key    string `pulumi:"key"`
-	Locked *bool  `pulumi:"locked"`
+	// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+	Key string `pulumi:"key"`
+	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+	Locked *bool `pulumi:"locked"`
+	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
 	Secret *bool  `pulumi:"secret"`
 	Value  string `pulumi:"value"`
 }
 
 // The set of arguments for constructing a EnvironmentVariable resource.
 type EnvironmentVariableArgs struct {
-	Key    pulumi.StringInput
+	// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+	Key pulumi.StringInput
+	// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
 	Locked pulumi.BoolPtrInput
+	// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
 	Secret pulumi.BoolPtrInput
 	Value  pulumi.StringInput
 }
@@ -211,16 +245,19 @@ func (o EnvironmentVariableOutput) ToEnvironmentVariableOutputWithContext(ctx co
 	return o
 }
 
+// The name of the environment variable. Changing the name forces the environment variable to be replaced.
 func (o EnvironmentVariableOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v *EnvironmentVariable) pulumi.StringOutput { return v.Key }).(pulumi.StringOutput)
 }
 
-func (o EnvironmentVariableOutput) Locked() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *EnvironmentVariable) pulumi.BoolPtrOutput { return v.Locked }).(pulumi.BoolPtrOutput)
+// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+func (o EnvironmentVariableOutput) Locked() pulumi.BoolOutput {
+	return o.ApplyT(func(v *EnvironmentVariable) pulumi.BoolOutput { return v.Locked }).(pulumi.BoolOutput)
 }
 
-func (o EnvironmentVariableOutput) Secret() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *EnvironmentVariable) pulumi.BoolPtrOutput { return v.Secret }).(pulumi.BoolPtrOutput)
+// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+func (o EnvironmentVariableOutput) Secret() pulumi.BoolOutput {
+	return o.ApplyT(func(v *EnvironmentVariable) pulumi.BoolOutput { return v.Secret }).(pulumi.BoolOutput)
 }
 
 func (o EnvironmentVariableOutput) Value() pulumi.StringOutput {

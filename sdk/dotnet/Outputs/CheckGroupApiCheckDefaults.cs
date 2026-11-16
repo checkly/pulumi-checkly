@@ -13,14 +13,26 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupApiCheckDefaults
     {
+        /// <summary>
+        /// Default assertions for API checks in this group.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CheckGroupApiCheckDefaultsAssertion> Assertions;
+        /// <summary>
+        /// Default basic auth credentials for API checks in this group.
+        /// </summary>
         public readonly Outputs.CheckGroupApiCheckDefaultsBasicAuth? BasicAuth;
+        /// <summary>
+        /// Default headers for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? Headers;
+        /// <summary>
+        /// Default query parameters for API checks in this group. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? QueryParameters;
         /// <summary>
         /// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
         /// </summary>
-        public readonly string? Url;
+        public readonly string Url;
 
         [OutputConstructor]
         private CheckGroupApiCheckDefaults(
@@ -32,7 +44,7 @@ namespace Pulumi.Checkly.Outputs
 
             ImmutableDictionary<string, string>? queryParameters,
 
-            string? url)
+            string url)
         {
             Assertions = assertions;
             BasicAuth = basicAuth;

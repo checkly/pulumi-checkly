@@ -13,14 +13,36 @@ namespace Pulumi.Checkly.Inputs
     public sealed class AlertChannelOpsgenieArgs : global::Pulumi.ResourceArgs
     {
         [Input("apiKey", required: true)]
-        public Input<string> ApiKey { get; set; } = null!;
+        private Input<string>? _apiKey;
 
+        /// <summary>
+        /// The API key of the Opsgenie integration to create alerts with.
+        /// </summary>
+        public Input<string>? ApiKey
+        {
+            get => _apiKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _apiKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// The name of this alert channel.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
+        /// <summary>
+        /// The priority of the alerts created in Opsgenie. Possible values are `P1`, `P2`, `P3`, `P4` and `P5`.
+        /// </summary>
         [Input("priority", required: true)]
         public Input<string> Priority { get; set; } = null!;
 
+        /// <summary>
+        /// The region of the Opsgenie account, which selects the Opsgenie API to call. Possible values are `EU` and `US`.
+        /// </summary>
         [Input("region", required: true)]
         public Input<string> Region { get; set; } = null!;
 

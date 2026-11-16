@@ -24,6 +24,9 @@ class ProviderArgs:
                  api_url: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Provider resource.
+        :param pulumi.Input[_builtins.str] account_id: The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        :param pulumi.Input[_builtins.str] api_key: The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        :param pulumi.Input[_builtins.str] api_url: The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
         """
         if account_id is not None:
             pulumi.set(__self__, "account_id", account_id)
@@ -35,6 +38,9 @@ class ProviderArgs:
     @_builtins.property
     @pulumi.getter(name="accountId")
     def account_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        """
         return pulumi.get(self, "account_id")
 
     @account_id.setter
@@ -44,6 +50,9 @@ class ProviderArgs:
     @_builtins.property
     @pulumi.getter(name="apiKey")
     def api_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        """
         return pulumi.get(self, "api_key")
 
     @api_key.setter
@@ -53,6 +62,9 @@ class ProviderArgs:
     @_builtins.property
     @pulumi.getter(name="apiUrl")
     def api_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+        """
         return pulumi.get(self, "api_url")
 
     @api_url.setter
@@ -78,6 +90,9 @@ class Provider(pulumi.ProviderResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.str] account_id: The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        :param pulumi.Input[_builtins.str] api_key: The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        :param pulumi.Input[_builtins.str] api_url: The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
         """
         ...
     @overload
@@ -132,16 +147,25 @@ class Provider(pulumi.ProviderResource):
     @_builtins.property
     @pulumi.getter(name="accountId")
     def account_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        """
         return pulumi.get(self, "account_id")
 
     @_builtins.property
     @pulumi.getter(name="apiKey")
     def api_key(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        """
         return pulumi.get(self, "api_key")
 
     @_builtins.property
     @pulumi.getter(name="apiUrl")
     def api_url(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+        """
         return pulumi.get(self, "api_url")
 
     @pulumi.output_type

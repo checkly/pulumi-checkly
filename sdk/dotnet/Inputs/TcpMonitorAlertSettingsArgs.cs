@@ -13,58 +13,34 @@ namespace Pulumi.Checkly.Inputs
     public sealed class TcpMonitorAlertSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
-        [Input("parallelRunFailureThresholds")]
-        private InputList<Inputs.TcpMonitorAlertSettingsParallelRunFailureThresholdArgs>? _parallelRunFailureThresholds;
-
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public InputList<Inputs.TcpMonitorAlertSettingsParallelRunFailureThresholdArgs> ParallelRunFailureThresholds
-        {
-            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.TcpMonitorAlertSettingsParallelRunFailureThresholdArgs>());
-            set => _parallelRunFailureThresholds = value;
-        }
-
-        [Input("reminders")]
-        private InputList<Inputs.TcpMonitorAlertSettingsReminderArgs>? _reminders;
+        [Input("parallelRunFailureThreshold")]
+        public Input<Inputs.TcpMonitorAlertSettingsParallelRunFailureThresholdArgs>? ParallelRunFailureThreshold { get; set; }
 
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public InputList<Inputs.TcpMonitorAlertSettingsReminderArgs> Reminders
-        {
-            get => _reminders ?? (_reminders = new InputList<Inputs.TcpMonitorAlertSettingsReminderArgs>());
-            set => _reminders = value;
-        }
-
-        [Input("runBasedEscalations")]
-        private InputList<Inputs.TcpMonitorAlertSettingsRunBasedEscalationArgs>? _runBasedEscalations;
+        [Input("reminders")]
+        public Input<Inputs.TcpMonitorAlertSettingsRemindersArgs>? Reminders { get; set; }
 
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public InputList<Inputs.TcpMonitorAlertSettingsRunBasedEscalationArgs> RunBasedEscalations
-        {
-            get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.TcpMonitorAlertSettingsRunBasedEscalationArgs>());
-            set => _runBasedEscalations = value;
-        }
-
-        [Input("timeBasedEscalations")]
-        private InputList<Inputs.TcpMonitorAlertSettingsTimeBasedEscalationArgs>? _timeBasedEscalations;
+        [Input("runBasedEscalation")]
+        public Input<Inputs.TcpMonitorAlertSettingsRunBasedEscalationArgs>? RunBasedEscalation { get; set; }
 
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public InputList<Inputs.TcpMonitorAlertSettingsTimeBasedEscalationArgs> TimeBasedEscalations
-        {
-            get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.TcpMonitorAlertSettingsTimeBasedEscalationArgs>());
-            set => _timeBasedEscalations = value;
-        }
+        [Input("timeBasedEscalation")]
+        public Input<Inputs.TcpMonitorAlertSettingsTimeBasedEscalationArgs>? TimeBasedEscalation { get; set; }
 
         public TcpMonitorAlertSettingsArgs()
         {

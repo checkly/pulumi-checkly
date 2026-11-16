@@ -13,8 +13,17 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class AlertChannelPagerduty
     {
+        /// <summary>
+        /// The name of the PagerDuty account.
+        /// </summary>
         public readonly string? Account;
+        /// <summary>
+        /// The integration key of the PagerDuty service to send alerts to.
+        /// </summary>
         public readonly string ServiceKey;
+        /// <summary>
+        /// The name of the PagerDuty service.
+        /// </summary>
         public readonly string? ServiceName;
 
         [OutputConstructor]

@@ -19,7 +19,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string>? ClientCertificateId { get; set; }
 
         /// <summary>
-        /// The mutual-TLS client-certificate mode. `account_default` inherits the account setting (no certificate sent), `auto` lets Checkly select a stored certificate, `explicit` uses the certificate referenced by `client_certificate_id`. (Default `account_default`).
+        /// The mutual-TLS client-certificate mode. Possible values are `account_default` (inherits the account setting, no certificate sent), `auto` (lets Checkly select a stored certificate) and `explicit` (uses the certificate referenced by `client_certificate_id`). Defaults to `account_default`.
         /// </summary>
         [Input("mode")]
         public Input<string>? Mode { get; set; }

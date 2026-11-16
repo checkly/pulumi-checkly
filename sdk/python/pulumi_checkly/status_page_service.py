@@ -64,8 +64,13 @@ class _StatusPageServiceState:
         pulumi.set(self, "name", value)
 
 
+warnings.warn("""Use StatusPageV3Component resources on a StatusPageV3 page instead.""", DeprecationWarning)
+
+
 @pulumi.type_token("checkly:index/statusPageService:StatusPageService")
 class StatusPageService(pulumi.CustomResource):
+    warnings.warn("""Use StatusPageV3Component resources on a StatusPageV3 page instead.""", DeprecationWarning)
+
     @overload
     def __init__(__self__,
                  resource_name: str,
@@ -75,6 +80,8 @@ class StatusPageService(pulumi.CustomResource):
         """
         Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
 
+        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the v2 upgrade guide.
+
         ## Example Usage
 
         ```python
@@ -83,6 +90,20 @@ class StatusPageService(pulumi.CustomResource):
 
         backend = checkly.StatusPageService("backend", name="Backend")
         frontend = checkly.StatusPageService("frontend", name="Frontend")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        checkly_status_page_service is deprecated together with checkly_status_page; services of v3 status pages are checkly_status_page_v3_component resources.
+
+        Import an existing status page service using its ID.
+
+        The ID is returned by the Checkly API at GET /v1/status-pages/services.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageService:StatusPageService example 8a894b49-467f-4af6-9230-cd4d3bd452f4
         ```
 
         :param str resource_name: The name of the resource.
@@ -98,6 +119,8 @@ class StatusPageService(pulumi.CustomResource):
         """
         Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
 
+        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the v2 upgrade guide.
+
         ## Example Usage
 
         ```python
@@ -106,6 +129,20 @@ class StatusPageService(pulumi.CustomResource):
 
         backend = checkly.StatusPageService("backend", name="Backend")
         frontend = checkly.StatusPageService("frontend", name="Frontend")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        checkly_status_page_service is deprecated together with checkly_status_page; services of v3 status pages are checkly_status_page_v3_component resources.
+
+        Import an existing status page service using its ID.
+
+        The ID is returned by the Checkly API at GET /v1/status-pages/services.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageService:StatusPageService example 8a894b49-467f-4af6-9230-cd4d3bd452f4
         ```
 
         :param str resource_name: The name of the resource.
@@ -125,6 +162,7 @@ class StatusPageService(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
+        pulumi.log.warn("""StatusPageService is deprecated: Use StatusPageV3Component resources on a StatusPageV3 page instead.""")
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')

@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class IcmpMonitorRequestAssertionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        /// The type of comparison to be executed between expected and actual value of the assertion. For `LATENCY`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`. For `JSON_RESPONSE`, possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL` and `NOT_NULL`.
         /// </summary>
         [Input("comparison", required: true)]
         public Input<string> Comparison { get; set; } = null!;
 
         /// <summary>
-        /// The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+        /// The property of the source to assert. Required for `LATENCY`, where possible values are `avg`, `min`, `max` and `stdDev`. For `JSON_RESPONSE`, a JSONPath expression selecting the asserted value.
         /// </summary>
         [Input("property")]
         public Input<string>? Property { get; set; }
@@ -31,10 +31,10 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> Source { get; set; } = null!;
 
         /// <summary>
-        /// The target value for the assertion.
+        /// The target value for the assertion. Required for `LATENCY`, where it must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
         /// </summary>
-        [Input("target", required: true)]
-        public Input<string> Target { get; set; } = null!;
+        [Input("target")]
+        public Input<string>? Target { get; set; }
 
         public IcmpMonitorRequestAssertionArgs()
         {

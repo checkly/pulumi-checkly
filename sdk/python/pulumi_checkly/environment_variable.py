@@ -25,6 +25,9 @@ class EnvironmentVariableArgs:
                  secret: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a EnvironmentVariable resource.
+        :param pulumi.Input[_builtins.str] key: The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        :param pulumi.Input[_builtins.bool] locked: If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] secret: If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "value", value)
@@ -36,6 +39,9 @@ class EnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def key(self) -> pulumi.Input[_builtins.str]:
+        """
+        The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        """
         return pulumi.get(self, "key")
 
     @key.setter
@@ -54,6 +60,9 @@ class EnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def locked(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        """
         return pulumi.get(self, "locked")
 
     @locked.setter
@@ -63,6 +72,9 @@ class EnvironmentVariableArgs:
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        """
         return pulumi.get(self, "secret")
 
     @secret.setter
@@ -79,6 +91,9 @@ class _EnvironmentVariableState:
                  value: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering EnvironmentVariable resources.
+        :param pulumi.Input[_builtins.str] key: The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        :param pulumi.Input[_builtins.bool] locked: If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] secret: If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
         """
         if key is not None:
             pulumi.set(__self__, "key", key)
@@ -92,6 +107,9 @@ class _EnvironmentVariableState:
     @_builtins.property
     @pulumi.getter
     def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        """
         return pulumi.get(self, "key")
 
     @key.setter
@@ -101,6 +119,9 @@ class _EnvironmentVariableState:
     @_builtins.property
     @pulumi.getter
     def locked(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        """
         return pulumi.get(self, "locked")
 
     @locked.setter
@@ -110,6 +131,9 @@ class _EnvironmentVariableState:
     @_builtins.property
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        """
         return pulumi.get(self, "secret")
 
     @secret.setter
@@ -138,6 +162,8 @@ class EnvironmentVariable(pulumi.CustomResource):
                  value: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
+        Global environment variables that can be referenced from check scripts.
+
         ## Example Usage
 
         ```python
@@ -154,8 +180,21 @@ class EnvironmentVariable(pulumi.CustomResource):
             value="http://localhost:3000")
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing environment variable using its key.
+
+        ```sh
+        $ pulumi import checkly:index/environmentVariable:EnvironmentVariable example API_KEY
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.str] key: The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        :param pulumi.Input[_builtins.bool] locked: If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] secret: If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
         """
         ...
     @overload
@@ -164,6 +203,8 @@ class EnvironmentVariable(pulumi.CustomResource):
                  args: EnvironmentVariableArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Global environment variables that can be referenced from check scripts.
+
         ## Example Usage
 
         ```python
@@ -178,6 +219,16 @@ class EnvironmentVariable(pulumi.CustomResource):
         variable2 = checkly.EnvironmentVariable("variable_2",
             key="API_URL",
             value="http://localhost:3000")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing environment variable using its key.
+
+        ```sh
+        $ pulumi import checkly:index/environmentVariable:EnvironmentVariable example API_KEY
         ```
 
         :param str resource_name: The name of the resource.
@@ -215,7 +266,9 @@ class EnvironmentVariable(pulumi.CustomResource):
             __props__.__dict__["secret"] = secret
             if value is None and not opts.urn:
                 raise TypeError("Missing required property 'value'")
-            __props__.__dict__["value"] = value
+            __props__.__dict__["value"] = None if value is None else pulumi.Output.secret(value)
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["value"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(EnvironmentVariable, __self__).__init__(
             'checkly:index/environmentVariable:EnvironmentVariable',
             resource_name,
@@ -237,6 +290,9 @@ class EnvironmentVariable(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[_builtins.str] key: The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        :param pulumi.Input[_builtins.bool] locked: If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] secret: If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -251,16 +307,25 @@ class EnvironmentVariable(pulumi.CustomResource):
     @_builtins.property
     @pulumi.getter
     def key(self) -> pulumi.Output[_builtins.str]:
+        """
+        The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        """
         return pulumi.get(self, "key")
 
     @_builtins.property
     @pulumi.getter
-    def locked(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def locked(self) -> pulumi.Output[_builtins.bool]:
+        """
+        If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        """
         return pulumi.get(self, "locked")
 
     @_builtins.property
     @pulumi.getter
-    def secret(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def secret(self) -> pulumi.Output[_builtins.bool]:
+        """
+        If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        """
         return pulumi.get(self, "secret")
 
     @_builtins.property

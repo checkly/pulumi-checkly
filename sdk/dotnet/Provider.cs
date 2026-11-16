@@ -18,12 +18,21 @@ namespace Pulumi.Checkly
     [ChecklyResourceType("pulumi:providers:checkly")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
+        /// <summary>
+        /// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        /// </summary>
         [Output("accountId")]
         public Output<string?> AccountId { get; private set; } = null!;
 
+        /// <summary>
+        /// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        /// </summary>
         [Output("apiKey")]
         public Output<string?> ApiKey { get; private set; } = null!;
 
+        /// <summary>
+        /// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+        /// </summary>
         [Output("apiUrl")]
         public Output<string?> ApiUrl { get; private set; } = null!;
 
@@ -66,11 +75,18 @@ namespace Pulumi.Checkly
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        /// </summary>
         [Input("accountId")]
         public Input<string>? AccountId { get; set; }
 
         [Input("apiKey")]
         private Input<string>? _apiKey;
+
+        /// <summary>
+        /// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        /// </summary>
         public Input<string>? ApiKey
         {
             get => _apiKey;
@@ -81,6 +97,9 @@ namespace Pulumi.Checkly
             }
         }
 
+        /// <summary>
+        /// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+        /// </summary>
         [Input("apiUrl")]
         public Input<string>? ApiUrl { get; set; }
 

@@ -33,12 +33,12 @@ class StatusPageV3ComponentArgs:
         :param pulumi.Input[_builtins.int] display_order: The position among siblings; lower comes first.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
         :param pulumi.Input[_builtins.str] description: An optional description shown next to the name.
-        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
-        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
-        :param pulumi.Input[_builtins.str] name: The name shown on the status page.
+        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] name: The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         :param pulumi.Input[_builtins.str] parent_id: The ID of the GROUP component to nest this component under. Must be on the same status page.
-        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
-        :param pulumi.Input[_builtins.str] type: The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
+        :param pulumi.Input[_builtins.str] type: The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         """
         pulumi.set(__self__, "display_order", display_order)
         pulumi.set(__self__, "status_page_id", status_page_id)
@@ -97,7 +97,7 @@ class StatusPageV3ComponentArgs:
     @pulumi.getter(name="expandedByDefault")
     def expanded_by_default(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+        Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
         """
         return pulumi.get(self, "expanded_by_default")
 
@@ -109,7 +109,7 @@ class StatusPageV3ComponentArgs:
     @pulumi.getter
     def hidden(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+        Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
         """
         return pulumi.get(self, "hidden")
 
@@ -121,7 +121,7 @@ class StatusPageV3ComponentArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name shown on the status page.
+        The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         """
         return pulumi.get(self, "name")
 
@@ -145,7 +145,7 @@ class StatusPageV3ComponentArgs:
     @pulumi.getter(name="showHistoricalData")
     def show_historical_data(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         """
         return pulumi.get(self, "show_historical_data")
 
@@ -157,7 +157,7 @@ class StatusPageV3ComponentArgs:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         """
         return pulumi.get(self, "type")
 
@@ -182,13 +182,13 @@ class _StatusPageV3ComponentState:
         Input properties used for looking up and filtering StatusPageV3Component resources.
         :param pulumi.Input[_builtins.str] description: An optional description shown next to the name.
         :param pulumi.Input[_builtins.int] display_order: The position among siblings; lower comes first.
-        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
-        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
-        :param pulumi.Input[_builtins.str] name: The name shown on the status page.
+        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] name: The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         :param pulumi.Input[_builtins.str] parent_id: The ID of the GROUP component to nest this component under. Must be on the same status page.
-        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
-        :param pulumi.Input[_builtins.str] type: The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        :param pulumi.Input[_builtins.str] type: The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
@@ -237,7 +237,7 @@ class _StatusPageV3ComponentState:
     @pulumi.getter(name="expandedByDefault")
     def expanded_by_default(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+        Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
         """
         return pulumi.get(self, "expanded_by_default")
 
@@ -249,7 +249,7 @@ class _StatusPageV3ComponentState:
     @pulumi.getter
     def hidden(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+        Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
         """
         return pulumi.get(self, "hidden")
 
@@ -261,7 +261,7 @@ class _StatusPageV3ComponentState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name shown on the status page.
+        The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         """
         return pulumi.get(self, "name")
 
@@ -285,7 +285,7 @@ class _StatusPageV3ComponentState:
     @pulumi.getter(name="showHistoricalData")
     def show_historical_data(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         """
         return pulumi.get(self, "show_historical_data")
 
@@ -309,7 +309,7 @@ class _StatusPageV3ComponentState:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         """
         return pulumi.get(self, "type")
 
@@ -360,17 +360,29 @@ class StatusPageV3Component(pulumi.CustomResource):
             parent_id=services.id)
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing status page component using "<status_page_id>/<component_id>".
+
+        Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/components.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageV3Component:StatusPageV3Component example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/0e4f5a72-6a5c-42a1-9a8a-5f7d38c8a9d1
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] description: An optional description shown next to the name.
         :param pulumi.Input[_builtins.int] display_order: The position among siblings; lower comes first.
-        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
-        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
-        :param pulumi.Input[_builtins.str] name: The name shown on the status page.
+        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] name: The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         :param pulumi.Input[_builtins.str] parent_id: The ID of the GROUP component to nest this component under. Must be on the same status page.
-        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
-        :param pulumi.Input[_builtins.str] type: The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        :param pulumi.Input[_builtins.str] type: The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         """
         ...
     @overload
@@ -402,6 +414,18 @@ class StatusPageV3Component(pulumi.CustomResource):
             description="The public API",
             display_order=1,
             parent_id=services.id)
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing status page component using "<status_page_id>/<component_id>".
+
+        Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/components.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageV3Component:StatusPageV3Component example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/0e4f5a72-6a5c-42a1-9a8a-5f7d38c8a9d1
         ```
 
         :param str resource_name: The name of the resource.
@@ -478,13 +502,13 @@ class StatusPageV3Component(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] description: An optional description shown next to the name.
         :param pulumi.Input[_builtins.int] display_order: The position among siblings; lower comes first.
-        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
-        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
-        :param pulumi.Input[_builtins.str] name: The name shown on the status page.
+        :param pulumi.Input[_builtins.bool] expanded_by_default: Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+        :param pulumi.Input[_builtins.bool] hidden: Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] name: The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         :param pulumi.Input[_builtins.str] parent_id: The ID of the GROUP component to nest this component under. Must be on the same status page.
-        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        :param pulumi.Input[_builtins.bool] show_historical_data: Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
-        :param pulumi.Input[_builtins.str] type: The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        :param pulumi.Input[_builtins.str] type: The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -503,7 +527,7 @@ class StatusPageV3Component(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def description(self) -> pulumi.Output[_builtins.str]:
         """
         An optional description shown next to the name.
         """
@@ -519,17 +543,17 @@ class StatusPageV3Component(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="expandedByDefault")
-    def expanded_by_default(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def expanded_by_default(self) -> pulumi.Output[_builtins.bool]:
         """
-        Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+        Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
         """
         return pulumi.get(self, "expanded_by_default")
 
     @_builtins.property
     @pulumi.getter
-    def hidden(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def hidden(self) -> pulumi.Output[_builtins.bool]:
         """
-        Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+        Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
         """
         return pulumi.get(self, "hidden")
 
@@ -537,13 +561,13 @@ class StatusPageV3Component(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name shown on the status page.
+        The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="parentId")
-    def parent_id(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def parent_id(self) -> pulumi.Output[_builtins.str]:
         """
         The ID of the GROUP component to nest this component under. Must be on the same status page.
         """
@@ -551,9 +575,9 @@ class StatusPageV3Component(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="showHistoricalData")
-    def show_historical_data(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def show_historical_data(self) -> pulumi.Output[_builtins.bool]:
         """
-        Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         """
         return pulumi.get(self, "show_historical_data")
 
@@ -567,9 +591,9 @@ class StatusPageV3Component(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def type(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def type(self) -> pulumi.Output[_builtins.str]:
         """
-        The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         """
         return pulumi.get(self, "type")
 

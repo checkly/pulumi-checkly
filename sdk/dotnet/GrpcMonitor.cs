@@ -11,18 +11,30 @@ namespace Pulumi.Checkly
 {
     /// <summary>
     /// gRPC monitors allow you to monitor gRPC services, either via a health check (HEALTH mode) or by invoking a unary method (BEHAVIOR mode).
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing gRPC monitor using its check ID.
+    /// 
+    /// You can find the ID in the check's URL in the Checkly dashboard.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/grpcMonitor:GrpcMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/grpcMonitor:GrpcMonitor")]
     public partial class GrpcMonitor : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines if the monitor is running or not. Possible values `true`, and `false`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.GrpcMonitorAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
@@ -34,58 +46,58 @@ namespace Pulumi.Checkly
         public Output<Outputs.GrpcMonitorAlertSettings> AlertSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        /// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         /// </summary>
         [Output("degradedResponseTime")]
-        public Output<int?> DegradedResponseTime { get; private set; } = null!;
+        public Output<int> DegradedResponseTime { get; private set; } = null!;
 
         /// <summary>
         /// A description of the monitor.
         /// </summary>
         [Output("description")]
-        public Output<string?> Description { get; private set; } = null!;
+        public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
 
         /// <summary>
-        /// The id of the check group this monitor is part of.
+        /// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         /// </summary>
         [Output("groupId")]
         public Output<int?> GroupId { get; private set; } = null!;
 
         /// <summary>
-        /// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        /// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         /// </summary>
         [Output("groupOrder")]
         public Output<int?> GroupOrder { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
+        /// The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
         /// </summary>
         [Output("maxResponseTime")]
-        public Output<int?> MaxResponseTime { get; private set; } = null!;
+        public Output<int> MaxResponseTime { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         /// </summary>
         [Output("muted")]
-        public Output<bool?> Muted { get; private set; } = null!;
+        public Output<bool> Muted { get; private set; } = null!;
 
         /// <summary>
         /// The name of the monitor.
@@ -94,7 +106,7 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the monitor from.
         /// </summary>
         [Output("privateLocations")]
         public Output<ImmutableArray<string>> PrivateLocations { get; private set; } = null!;
@@ -112,25 +124,19 @@ namespace Pulumi.Checkly
         public Output<Outputs.GrpcMonitorRetryStrategy> RetryStrategy { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if the monitor should run in all selected locations in parallel or round-robin.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         /// </summary>
         [Output("runParallel")]
-        public Output<bool?> RunParallel { get; private set; } = null!;
+        public Output<bool> RunParallel { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the runtime to use for this monitor.
+        /// The ID of the runtime to use for the monitor.
         /// </summary>
         [Output("runtimeId")]
         public Output<string?> RuntimeId { get; private set; } = null!;
 
         /// <summary>
-        /// Allows to invert the behaviour of when a monitor is considered to fail.
-        /// </summary>
-        [Output("shouldFail")]
-        public Output<bool?> ShouldFail { get; private set; } = null!;
-
-        /// <summary>
-        /// A list of tags for organizing and filtering checks and monitors.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
@@ -142,10 +148,10 @@ namespace Pulumi.Checkly
         public Output<Outputs.GrpcMonitorTriggerIncident?> TriggerIncident { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
-        public Output<bool?> UseGlobalAlertSettings { get; private set; } = null!;
+        public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
 
 
         /// <summary>
@@ -195,16 +201,16 @@ namespace Pulumi.Checkly
     public sealed class GrpcMonitorArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the monitor is running or not. Possible values `true`, and `false`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
         /// </summary>
-        [Input("activated", required: true)]
-        public Input<bool> Activated { get; set; } = null!;
+        [Input("activated")]
+        public Input<bool>? Activated { get; set; }
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.GrpcMonitorAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.GrpcMonitorAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
@@ -219,7 +225,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.GrpcMonitorAlertSettingsArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        /// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -231,25 +237,25 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
-        [Input("frequency", required: true)]
-        public Input<int> Frequency { get; set; } = null!;
+        [Input("frequency")]
+        public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
         /// <summary>
-        /// The id of the check group this monitor is part of.
+        /// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        /// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
@@ -258,7 +264,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -267,13 +273,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
+        /// The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -288,7 +294,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the monitor from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -309,28 +315,22 @@ namespace Pulumi.Checkly
         public Input<Inputs.GrpcMonitorRetryStrategyArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the monitor should run in all selected locations in parallel or round-robin.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The ID of the runtime to use for this monitor.
+        /// The ID of the runtime to use for the monitor.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
-
-        /// <summary>
-        /// Allows to invert the behaviour of when a monitor is considered to fail.
-        /// </summary>
-        [Input("shouldFail")]
-        public Input<bool>? ShouldFail { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks and monitors.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         public InputList<string> Tags
         {
@@ -345,7 +345,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.GrpcMonitorTriggerIncidentArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -359,7 +359,7 @@ namespace Pulumi.Checkly
     public sealed class GrpcMonitorState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the monitor is running or not. Possible values `true`, and `false`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -368,7 +368,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.GrpcMonitorAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.GrpcMonitorAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
@@ -383,7 +383,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.GrpcMonitorAlertSettingsGetArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        /// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -395,25 +395,25 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
         /// <summary>
-        /// The id of the check group this monitor is part of.
+        /// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        /// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
@@ -422,7 +422,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -431,13 +431,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
+        /// The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -452,7 +452,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the monitor from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -473,28 +473,22 @@ namespace Pulumi.Checkly
         public Input<Inputs.GrpcMonitorRetryStrategyGetArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the monitor should run in all selected locations in parallel or round-robin.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The ID of the runtime to use for this monitor.
+        /// The ID of the runtime to use for the monitor.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
-
-        /// <summary>
-        /// Allows to invert the behaviour of when a monitor is considered to fail.
-        /// </summary>
-        [Input("shouldFail")]
-        public Input<bool>? ShouldFail { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks and monitors.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         public InputList<string> Tags
         {
@@ -509,7 +503,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.GrpcMonitorTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

@@ -25,8 +25,17 @@ export class Provider extends pulumi.ProviderResource {
         return obj['__pulumiType'] === "pulumi:providers:" + Provider.__pulumiType;
     }
 
+    /**
+     * The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+     */
     declare public readonly accountId: pulumi.Output<string | undefined>;
+    /**
+     * The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+     */
     declare public readonly apiKey: pulumi.Output<string | undefined>;
+    /**
+     * The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+     */
     declare public readonly apiUrl: pulumi.Output<string | undefined>;
 
     /**
@@ -64,8 +73,17 @@ export class Provider extends pulumi.ProviderResource {
  * The set of arguments for constructing a Provider resource.
  */
 export interface ProviderArgs {
+    /**
+     * The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+     */
     accountId?: pulumi.Input<string>;
+    /**
+     * The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+     */
     apiKey?: pulumi.Input<string>;
+    /**
+     * The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+     */
     apiUrl?: pulumi.Input<string>;
 }
 

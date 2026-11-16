@@ -7,10 +7,61 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
+//	"github.com/pulumi/pulumi-aws/sdk/go/aws"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// All static IP addresses that Checkly's runners use.
+//			_, err := checkly.GetStaticIps(ctx, &checkly.GetStaticIpsArgs{}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			// Only the IPv4 addresses of two locations.
+//			euIpv4, err := checkly.GetStaticIps(ctx, &checkly.GetStaticIpsArgs{
+//				Locations: []string{
+//					"eu-central-1",
+//					"eu-west-1",
+//				},
+//				IpFamily: pulumi.StringRef("IPv4"),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			// Allow traffic from those runners to a service behind an AWS security group.
+//			// The addresses are already in CIDR notation, such as "3.64.0.1/32".
+//			_, err = aws.NewSecurityGroupRule(ctx, "checkly_ingress", &aws.SecurityGroupRuleArgs{
+//				Type:            "ingress",
+//				FromPort:        443,
+//				ToPort:          443,
+//				Protocol:        "tcp",
+//				CidrBlocks:      euIpv4.Addresses,
+//				SecurityGroupId: "sg-0123456789abcdef0",
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func GetStaticIps(ctx *pulumi.Context, args *GetStaticIpsArgs, opts ...pulumi.InvokeOption) (*GetStaticIpsResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetStaticIpsResult
@@ -23,21 +74,21 @@ func GetStaticIps(ctx *pulumi.Context, args *GetStaticIpsArgs, opts ...pulumi.In
 
 // A collection of arguments for invoking getStaticIps.
 type GetStaticIpsArgs struct {
-	// Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+	// Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
 	IpFamily *string `pulumi:"ipFamily"`
-	// Specify the locations you want to get static IPs for.
+	// Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
 	Locations []string `pulumi:"locations"`
 }
 
 // A collection of values returned by getStaticIps.
 type GetStaticIpsResult struct {
-	// Static IP addresses for Checkly's runner infrastructure.
+	// Static IP addresses for Checkly's runner infrastructure, in CIDR notation (for example `3.64.0.1/32`).
 	Addresses []string `pulumi:"addresses"`
 	// ID of the static IPs data source.
 	Id string `pulumi:"id"`
-	// Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
-	IpFamily *string `pulumi:"ipFamily"`
-	// Specify the locations you want to get static IPs for.
+	// Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
+	IpFamily string `pulumi:"ipFamily"`
+	// Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
 	Locations []string `pulumi:"locations"`
 }
 
@@ -52,9 +103,9 @@ func GetStaticIpsOutput(ctx *pulumi.Context, args GetStaticIpsOutputArgs, opts .
 
 // A collection of arguments for invoking getStaticIps.
 type GetStaticIpsOutputArgs struct {
-	// Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+	// Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
 	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
-	// Specify the locations you want to get static IPs for.
+	// Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
 	Locations pulumi.StringArrayInput `pulumi:"locations"`
 }
 
@@ -77,7 +128,7 @@ func (o GetStaticIpsResultOutput) ToGetStaticIpsResultOutputWithContext(ctx cont
 	return o
 }
 
-// Static IP addresses for Checkly's runner infrastructure.
+// Static IP addresses for Checkly's runner infrastructure, in CIDR notation (for example `3.64.0.1/32`).
 func (o GetStaticIpsResultOutput) Addresses() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetStaticIpsResult) []string { return v.Addresses }).(pulumi.StringArrayOutput)
 }
@@ -87,12 +138,12 @@ func (o GetStaticIpsResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetStaticIpsResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
-func (o GetStaticIpsResultOutput) IpFamily() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetStaticIpsResult) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
+// Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
+func (o GetStaticIpsResultOutput) IpFamily() pulumi.StringOutput {
+	return o.ApplyT(func(v GetStaticIpsResult) string { return v.IpFamily }).(pulumi.StringOutput)
 }
 
-// Specify the locations you want to get static IPs for.
+// Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
 func (o GetStaticIpsResultOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetStaticIpsResult) []string { return v.Locations }).(pulumi.StringArrayOutput)
 }

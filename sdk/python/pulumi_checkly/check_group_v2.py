@@ -37,18 +37,19 @@ class CheckGroupV2Args:
                  teardown_script: Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']] = None):
         """
         The set of arguments for constructing a CheckGroupV2 resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+        :param pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs'] api_check_defaults: Default settings for API checks in this group.
+        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         :param pulumi.Input['CheckGroupV2DefaultRuntimeArgs'] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
         :param pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs'] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
         :param pulumi.Input['CheckGroupV2EnforceLocationsArgs'] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
         :param pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs'] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
         :param pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs'] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check group.
         :param pulumi.Input['CheckGroupV2SetupScriptArgs'] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Additional tags to append to all checks in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         :param pulumi.Input['CheckGroupV2TeardownScriptArgs'] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         if activated is not None:
@@ -84,7 +85,7 @@ class CheckGroupV2Args:
     @pulumi.getter
     def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
+        Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
@@ -95,6 +96,9 @@ class CheckGroupV2Args:
     @_builtins.property
     @pulumi.getter(name="apiCheckDefaults")
     def api_check_defaults(self) -> Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']]:
+        """
+        Default settings for API checks in this group.
+        """
         return pulumi.get(self, "api_check_defaults")
 
     @api_check_defaults.setter
@@ -105,7 +109,7 @@ class CheckGroupV2Args:
     @pulumi.getter
     def concurrency(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+        Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         """
         return pulumi.get(self, "concurrency")
 
@@ -177,7 +181,7 @@ class CheckGroupV2Args:
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]:
         """
-        Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -189,7 +193,7 @@ class CheckGroupV2Args:
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+        Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -225,7 +229,7 @@ class CheckGroupV2Args:
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Additional tags to append to all checks in the group.
+        Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         """
         return pulumi.get(self, "tags")
 
@@ -265,18 +269,19 @@ class _CheckGroupV2State:
                  teardown_script: Optional[pulumi.Input['CheckGroupV2TeardownScriptArgs']] = None):
         """
         Input properties used for looking up and filtering CheckGroupV2 resources.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+        :param pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs'] api_check_defaults: Default settings for API checks in this group.
+        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         :param pulumi.Input['CheckGroupV2DefaultRuntimeArgs'] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
         :param pulumi.Input['CheckGroupV2EnforceAlertSettingsArgs'] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
         :param pulumi.Input['CheckGroupV2EnforceLocationsArgs'] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
         :param pulumi.Input['CheckGroupV2EnforceRetryStrategyArgs'] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
         :param pulumi.Input['CheckGroupV2EnforceSchedulingStrategyArgs'] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check group.
         :param pulumi.Input['CheckGroupV2SetupScriptArgs'] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Additional tags to append to all checks in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         :param pulumi.Input['CheckGroupV2TeardownScriptArgs'] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         if activated is not None:
@@ -312,7 +317,7 @@ class _CheckGroupV2State:
     @pulumi.getter
     def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
+        Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
@@ -323,6 +328,9 @@ class _CheckGroupV2State:
     @_builtins.property
     @pulumi.getter(name="apiCheckDefaults")
     def api_check_defaults(self) -> Optional[pulumi.Input['CheckGroupV2ApiCheckDefaultsArgs']]:
+        """
+        Default settings for API checks in this group.
+        """
         return pulumi.get(self, "api_check_defaults")
 
     @api_check_defaults.setter
@@ -333,7 +341,7 @@ class _CheckGroupV2State:
     @pulumi.getter
     def concurrency(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+        Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         """
         return pulumi.get(self, "concurrency")
 
@@ -405,7 +413,7 @@ class _CheckGroupV2State:
     @pulumi.getter(name="environmentVariables")
     def environment_variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CheckGroupV2EnvironmentVariableArgs']]]]:
         """
-        Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -417,7 +425,7 @@ class _CheckGroupV2State:
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+        Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -453,7 +461,7 @@ class _CheckGroupV2State:
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Additional tags to append to all checks in the group.
+        Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         """
         return pulumi.get(self, "tags")
 
@@ -498,7 +506,7 @@ class CheckGroupV2(pulumi.CustomResource):
         """
         Check groups organize related checks together and allow optional shared configuration.
 
-        Unlike `CheckGroup` (v1), which always imposed implicit defaults for various settings, `CheckGroupV2` does not override any check settings by default. A group can be as minimal as just a name. Use the optional `enforce_*` blocks only when you explicitly want the group to override individual check settings.
+        Unlike `CheckGroup` (v1), which always imposed implicit defaults for various settings, `CheckGroupV2` does not override any check settings by default. A group can be as minimal as just a name. Use the optional `enforce_*` attributes only when you explicitly want the group to override individual check settings.
 
         The new `CheckGroupV2` resource should always be preferred over the old `CheckGroup` resource.
 
@@ -547,17 +555,17 @@ class CheckGroupV2(pulumi.CustomResource):
                 "enabled": True,
                 "alert_settings": {
                     "escalation_type": "RUN_BASED",
-                    "run_based_escalations": [{
+                    "run_based_escalation": {
                         "failed_run_threshold": 2,
-                    }],
-                    "reminders": [{
+                    },
+                    "reminders": {
                         "amount": 3,
                         "interval": 10,
-                    }],
-                    "parallel_run_failure_thresholds": [{
+                    },
+                    "parallel_run_failure_threshold": {
                         "enabled": True,
                         "percentage": 50,
-                    }],
+                    },
                 },
                 "alert_channel_subscriptions": [{
                     "channel_id": 1234,
@@ -608,12 +616,12 @@ class CheckGroupV2(pulumi.CustomResource):
             },
             setup_script={
                 "inline_script": \"\"\"// Runs before every API check in this group
-        console.log("Setting up...")
+        console.log(\\"Setting up...\\")
         \"\"\",
             },
             teardown_script={
                 "inline_script": \"\"\"// Runs after every API check in this group
-        console.log("Tearing down...")
+        console.log(\\"Tearing down...\\")
         \"\"\",
             })
         # Example: enforce only retry strategy with network-error-only retries.
@@ -639,13 +647,13 @@ class CheckGroupV2(pulumi.CustomResource):
                 "enabled": True,
                 "alert_settings": {
                     "escalation_type": "TIME_BASED",
-                    "time_based_escalations": [{
+                    "time_based_escalation": {
                         "minutes_failing_threshold": 10,
-                    }],
-                    "reminders": [{
+                    },
+                    "reminders": {
                         "amount": 5,
                         "interval": 15,
-                    }],
+                    },
                 },
             })
         # Example: use global alert settings instead of custom ones.
@@ -659,9 +667,8 @@ class CheckGroupV2(pulumi.CustomResource):
         email = checkly.AlertChannel("email", email={
             "address": "alerts@example.com",
         })
-        slack = checkly.AlertChannel("slack", slack={
-            "channel": "#alerts",
-            "url": "https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX",
+        slack = checkly.AlertChannel("slack", slack_app={
+            "slack_channels": ["#alerts"],
         })
         with_alert_channels = checkly.CheckGroupV2("with-alert-channels",
             name="Group with Alert Channels",
@@ -669,13 +676,13 @@ class CheckGroupV2(pulumi.CustomResource):
                 "enabled": True,
                 "alert_settings": {
                     "escalation_type": "RUN_BASED",
-                    "run_based_escalations": [{
+                    "run_based_escalation": {
                         "failed_run_threshold": 1,
-                    }],
-                    "reminders": [{
+                    },
+                    "reminders": {
                         "amount": 0,
                         "interval": 5,
-                    }],
+                    },
                 },
                 "alert_channel_subscriptions": [
                     {
@@ -710,20 +717,33 @@ class CheckGroupV2(pulumi.CustomResource):
             })
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing check group using its numeric ID.
+
+        The ID is returned by the Checkly API at GET /v1/check-groups.
+
+        ```sh
+        $ pulumi import checkly:index/checkGroupV2:CheckGroupV2 example 12345
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+        :param pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict']] api_check_defaults: Default settings for API checks in this group.
+        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         :param pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict']] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
         :param pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict']] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
         :param pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict']] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
         :param pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict']] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
         :param pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict']] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check group.
         :param pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict']] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Additional tags to append to all checks in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         :param pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict']] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         ...
@@ -735,7 +755,7 @@ class CheckGroupV2(pulumi.CustomResource):
         """
         Check groups organize related checks together and allow optional shared configuration.
 
-        Unlike `CheckGroup` (v1), which always imposed implicit defaults for various settings, `CheckGroupV2` does not override any check settings by default. A group can be as minimal as just a name. Use the optional `enforce_*` blocks only when you explicitly want the group to override individual check settings.
+        Unlike `CheckGroup` (v1), which always imposed implicit defaults for various settings, `CheckGroupV2` does not override any check settings by default. A group can be as minimal as just a name. Use the optional `enforce_*` attributes only when you explicitly want the group to override individual check settings.
 
         The new `CheckGroupV2` resource should always be preferred over the old `CheckGroup` resource.
 
@@ -784,17 +804,17 @@ class CheckGroupV2(pulumi.CustomResource):
                 "enabled": True,
                 "alert_settings": {
                     "escalation_type": "RUN_BASED",
-                    "run_based_escalations": [{
+                    "run_based_escalation": {
                         "failed_run_threshold": 2,
-                    }],
-                    "reminders": [{
+                    },
+                    "reminders": {
                         "amount": 3,
                         "interval": 10,
-                    }],
-                    "parallel_run_failure_thresholds": [{
+                    },
+                    "parallel_run_failure_threshold": {
                         "enabled": True,
                         "percentage": 50,
-                    }],
+                    },
                 },
                 "alert_channel_subscriptions": [{
                     "channel_id": 1234,
@@ -845,12 +865,12 @@ class CheckGroupV2(pulumi.CustomResource):
             },
             setup_script={
                 "inline_script": \"\"\"// Runs before every API check in this group
-        console.log("Setting up...")
+        console.log(\\"Setting up...\\")
         \"\"\",
             },
             teardown_script={
                 "inline_script": \"\"\"// Runs after every API check in this group
-        console.log("Tearing down...")
+        console.log(\\"Tearing down...\\")
         \"\"\",
             })
         # Example: enforce only retry strategy with network-error-only retries.
@@ -876,13 +896,13 @@ class CheckGroupV2(pulumi.CustomResource):
                 "enabled": True,
                 "alert_settings": {
                     "escalation_type": "TIME_BASED",
-                    "time_based_escalations": [{
+                    "time_based_escalation": {
                         "minutes_failing_threshold": 10,
-                    }],
-                    "reminders": [{
+                    },
+                    "reminders": {
                         "amount": 5,
                         "interval": 15,
-                    }],
+                    },
                 },
             })
         # Example: use global alert settings instead of custom ones.
@@ -896,9 +916,8 @@ class CheckGroupV2(pulumi.CustomResource):
         email = checkly.AlertChannel("email", email={
             "address": "alerts@example.com",
         })
-        slack = checkly.AlertChannel("slack", slack={
-            "channel": "#alerts",
-            "url": "https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX",
+        slack = checkly.AlertChannel("slack", slack_app={
+            "slack_channels": ["#alerts"],
         })
         with_alert_channels = checkly.CheckGroupV2("with-alert-channels",
             name="Group with Alert Channels",
@@ -906,13 +925,13 @@ class CheckGroupV2(pulumi.CustomResource):
                 "enabled": True,
                 "alert_settings": {
                     "escalation_type": "RUN_BASED",
-                    "run_based_escalations": [{
+                    "run_based_escalation": {
                         "failed_run_threshold": 1,
-                    }],
-                    "reminders": [{
+                    },
+                    "reminders": {
                         "amount": 0,
                         "interval": 5,
-                    }],
+                    },
                 },
                 "alert_channel_subscriptions": [
                     {
@@ -945,6 +964,18 @@ class CheckGroupV2(pulumi.CustomResource):
                     "same_region": True,
                 },
             })
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing check group using its numeric ID.
+
+        The ID is returned by the Checkly API at GET /v1/check-groups.
+
+        ```sh
+        $ pulumi import checkly:index/checkGroupV2:CheckGroupV2 example 12345
         ```
 
         :param str resource_name: The name of the resource.
@@ -1030,18 +1061,19 @@ class CheckGroupV2(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+        :param pulumi.Input[Union['CheckGroupV2ApiCheckDefaultsArgs', 'CheckGroupV2ApiCheckDefaultsArgsDict']] api_check_defaults: Default settings for API checks in this group.
+        :param pulumi.Input[_builtins.int] concurrency: Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         :param pulumi.Input[Union['CheckGroupV2DefaultRuntimeArgs', 'CheckGroupV2DefaultRuntimeArgsDict']] default_runtime: Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
         :param pulumi.Input[Union['CheckGroupV2EnforceAlertSettingsArgs', 'CheckGroupV2EnforceAlertSettingsArgsDict']] enforce_alert_settings: Enforces alert settings for the whole group. Overrides check configuration.
         :param pulumi.Input[Union['CheckGroupV2EnforceLocationsArgs', 'CheckGroupV2EnforceLocationsArgsDict']] enforce_locations: Enforces public and private locations for the whole group. Overrides check configuration.
         :param pulumi.Input[Union['CheckGroupV2EnforceRetryStrategyArgs', 'CheckGroupV2EnforceRetryStrategyArgsDict']] enforce_retry_strategy: Enforces a retry strategy for the whole group. Overrides check configuration.
         :param pulumi.Input[Union['CheckGroupV2EnforceSchedulingStrategyArgs', 'CheckGroupV2EnforceSchedulingStrategyArgsDict']] enforce_scheduling_strategy: Enforces a scheduling strategy for the whole group. Overrides check configuration.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input[Union['CheckGroupV2EnvironmentVariableArgs', 'CheckGroupV2EnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check group.
         :param pulumi.Input[Union['CheckGroupV2SetupScriptArgs', 'CheckGroupV2SetupScriptArgsDict']] setup_script: A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Additional tags to append to all checks in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         :param pulumi.Input[Union['CheckGroupV2TeardownScriptArgs', 'CheckGroupV2TeardownScriptArgsDict']] teardown_script: A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -1066,22 +1098,25 @@ class CheckGroupV2(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def activated(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
+        Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="apiCheckDefaults")
     def api_check_defaults(self) -> pulumi.Output['outputs.CheckGroupV2ApiCheckDefaults']:
+        """
+        Default settings for API checks in this group.
+        """
         return pulumi.get(self, "api_check_defaults")
 
     @_builtins.property
     @pulumi.getter
-    def concurrency(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def concurrency(self) -> pulumi.Output[_builtins.int]:
         """
-        Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+        Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
         """
         return pulumi.get(self, "concurrency")
 
@@ -1127,17 +1162,17 @@ class CheckGroupV2(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    def environment_variables(self) -> pulumi.Output[Optional[Sequence['outputs.CheckGroupV2EnvironmentVariable']]]:
+    def environment_variables(self) -> pulumi.Output[Sequence['outputs.CheckGroupV2EnvironmentVariable']]:
         """
-        Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+        Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def muted(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+        Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -1159,9 +1194,9 @@ class CheckGroupV2(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        Additional tags to append to all checks in the group.
+        Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         """
         return pulumi.get(self, "tags")
 

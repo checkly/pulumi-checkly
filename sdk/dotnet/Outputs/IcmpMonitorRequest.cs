@@ -18,15 +18,15 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.IcmpMonitorRequestAssertion> Assertions;
         /// <summary>
-        /// The hostname to ping.
+        /// The hostname to ping, without a scheme or a port. Must be between `1` and `2048` characters.
         /// </summary>
         public readonly string Hostname;
         /// <summary>
-        /// The IP family to use. Possible values are `IPv4` and `IPv6`. (Default `IPv4`).
+        /// The IP family to use. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         public readonly string? IpFamily;
         /// <summary>
-        /// The number of ping packets to send. (Default `10`).
+        /// The number of ping packets to send. Defaults to `10`.
         /// </summary>
         public readonly int? PingCount;
 

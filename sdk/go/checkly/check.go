@@ -8,86 +8,96 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// checkly_check is deprecated; to start managing an existing resource, import it as checkly_api_check, checkly_browser_check or checkly_multistep_check instead.
+//
+// Import an existing check using its check ID.
+//
+// You can find the ID in the check's URL in the Checkly dashboard.
+//
+// ```sh
+// $ pulumi import checkly:index/check:Check example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+// ```
+//
+// Deprecated: Use the ApiCheck, BrowserCheck or MultistepCheck resource instead, which expose only the properties of their check type. An existing check can be moved to one of them with an alias, without recreating it. When moving an API check, note that ApiCheck defaults degradedResponseTime and maxResponseTime to 5000 and 20000 instead of 15000 and 30000, and request.followRedirects to true instead of false; set them to keep the previous behaviour.
 type Check struct {
 	pulumi.CustomResourceState
 
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled pulumi.BoolPtrOutput `pulumi:"aiAutoRepairEnabled"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings CheckAlertSettingsOutput `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
-	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
+	// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
+	DegradedResponseTime pulumi.IntOutput `pulumi:"degradedResponseTime"`
 	// A description of the check.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+	Description pulumi.StringOutput `pulumi:"description"`
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
-	DoubleCheck pulumi.BoolPtrOutput `pulumi:"doubleCheck"`
-	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-	EnvironmentVariable CheckEnvironmentVariableArrayOutput `pulumi:"environmentVariable"`
-	// Key/value pairs of environment variables to insert into the runtime environment.
-	//
-	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
-	EnvironmentVariables pulumi.StringMapOutput `pulumi:"environmentVariables"`
-	// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	DoubleCheck pulumi.BoolOutput `pulumi:"doubleCheck"`
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
+	EnvironmentVariables CheckEnvironmentVariableArrayOutput `pulumi:"environmentVariables"`
+	// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
-	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrOutput `pulumi:"frequencyOffset"`
-	// The id of the check group this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// A valid piece of Node.js code to run in the setup phase.
-	LocalSetupScript pulumi.StringPtrOutput `pulumi:"localSetupScript"`
-	// A valid piece of Node.js code to run in the teardown phase.
-	LocalTeardownScript pulumi.StringPtrOutput `pulumi:"localTeardownScript"`
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent CheckIntentPtrOutput `pulumi:"intent"`
+	// A valid piece of Node.js code to run in the setup phase of an API check.
+	LocalSetupScript pulumi.StringOutput `pulumi:"localSetupScript"`
+	// A valid piece of Node.js code to run in the teardown phase of an API check.
+	LocalTeardownScript pulumi.StringOutput `pulumi:"localTeardownScript"`
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
-	MaxResponseTime pulumi.IntPtrOutput `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
+	// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
+	MaxResponseTime pulumi.IntOutput `pulumi:"maxResponseTime"`
+	// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
 	// The name of the check.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
-	// An API check might have one request config.
+	// An API check might have one request config. Only relevant when `type` is `API`.
 	Request CheckRequestPtrOutput `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy CheckRetryStrategyOutput `pulumi:"retryStrategy"`
-	// Determines if the check should run in all selected locations in parallel or round-robin.
-	RunParallel pulumi.BoolPtrOutput `pulumi:"runParallel"`
-	// The id of the runtime to use for this check.
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+	RunParallel pulumi.BoolOutput `pulumi:"runParallel"`
+	// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
 	RuntimeId pulumi.StringPtrOutput `pulumi:"runtimeId"`
-	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
-	Script pulumi.StringPtrOutput `pulumi:"script"`
-	// An ID reference to a snippet to use in the setup phase of an API check.
+	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
+	Script pulumi.StringOutput `pulumi:"script"`
+	// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
 	SetupSnippetId pulumi.IntPtrOutput `pulumi:"setupSnippetId"`
-	// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
-	ShouldFail pulumi.BoolPtrOutput `pulumi:"shouldFail"`
-	// Determines if the SSL certificate should be validated for expiry.
-	//
-	// Deprecated: The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
-	SslCheck pulumi.BoolPtrOutput `pulumi:"sslCheck"`
-	// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+	// Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
+	ShouldFail pulumi.BoolOutput `pulumi:"shouldFail"`
+	// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
 	SslCheckDomain pulumi.StringPtrOutput `pulumi:"sslCheckDomain"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
-	// An ID reference to a snippet to use in the teardown phase of an API check.
+	// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
 	TeardownSnippetId pulumi.IntPtrOutput `pulumi:"teardownSnippetId"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident CheckTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
-	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+	// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
 	Type pulumi.StringOutput `pulumi:"type"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
-	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+	UseGlobalAlertSettings pulumi.BoolOutput `pulumi:"useGlobalAlertSettings"`
 }
 
 // NewCheck registers a new resource with the given unique name, arguments, and options.
@@ -97,12 +107,6 @@ func NewCheck(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Activated == nil {
-		return nil, errors.New("invalid value for required argument 'Activated'")
-	}
-	if args.Frequency == nil {
-		return nil, errors.New("invalid value for required argument 'Frequency'")
-	}
 	if args.Type == nil {
 		return nil, errors.New("invalid value for required argument 'Type'")
 	}
@@ -129,152 +133,144 @@ func GetCheck(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Check resources.
 type checkState struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []CheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the check.
 	Description *string `pulumi:"description"`
-	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck *bool `pulumi:"doubleCheck"`
-	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-	EnvironmentVariable []CheckEnvironmentVariable `pulumi:"environmentVariable"`
-	// Key/value pairs of environment variables to insert into the runtime environment.
-	//
-	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
-	EnvironmentVariables map[string]string `pulumi:"environmentVariables"`
-	// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
+	EnvironmentVariables []CheckEnvironmentVariable `pulumi:"environmentVariables"`
+	// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency *int `pulumi:"frequency"`
-	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The id of the check group this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// A valid piece of Node.js code to run in the setup phase.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent *CheckIntent `pulumi:"intent"`
+	// A valid piece of Node.js code to run in the setup phase of an API check.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
-	// A valid piece of Node.js code to run in the teardown phase.
+	// A valid piece of Node.js code to run in the teardown phase of an API check.
 	LocalTeardownScript *string `pulumi:"localTeardownScript"`
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations []string `pulumi:"privateLocations"`
-	// An API check might have one request config.
+	// An API check might have one request config. Only relevant when `type` is `API`.
 	Request *CheckRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *CheckRetryStrategy `pulumi:"retryStrategy"`
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// The id of the runtime to use for this check.
+	// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
 	RuntimeId *string `pulumi:"runtimeId"`
-	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
+	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
 	Script *string `pulumi:"script"`
-	// An ID reference to a snippet to use in the setup phase of an API check.
+	// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
 	SetupSnippetId *int `pulumi:"setupSnippetId"`
-	// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+	// Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
 	ShouldFail *bool `pulumi:"shouldFail"`
-	// Determines if the SSL certificate should be validated for expiry.
-	//
-	// Deprecated: The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
-	SslCheck *bool `pulumi:"sslCheck"`
-	// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+	// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
 	SslCheckDomain *string `pulumi:"sslCheckDomain"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
-	// An ID reference to a snippet to use in the teardown phase of an API check.
+	// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
 	TeardownSnippetId *int `pulumi:"teardownSnippetId"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *CheckTriggerIncident `pulumi:"triggerIncident"`
-	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+	// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
 	Type *string `pulumi:"type"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 type CheckState struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings CheckAlertSettingsPtrInput
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the check.
 	Description pulumi.StringPtrInput
-	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck pulumi.BoolPtrInput
-	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-	EnvironmentVariable CheckEnvironmentVariableArrayInput
-	// Key/value pairs of environment variables to insert into the runtime environment.
-	//
-	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
-	EnvironmentVariables pulumi.StringMapInput
-	// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
+	EnvironmentVariables CheckEnvironmentVariableArrayInput
+	// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntPtrInput
-	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The id of the check group this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// A valid piece of Node.js code to run in the setup phase.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent CheckIntentPtrInput
+	// A valid piece of Node.js code to run in the setup phase of an API check.
 	LocalSetupScript pulumi.StringPtrInput
-	// A valid piece of Node.js code to run in the teardown phase.
+	// A valid piece of Node.js code to run in the teardown phase of an API check.
 	LocalTeardownScript pulumi.StringPtrInput
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations pulumi.StringArrayInput
-	// An API check might have one request config.
+	// An API check might have one request config. Only relevant when `type` is `API`.
 	Request CheckRequestPtrInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy CheckRetryStrategyPtrInput
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// The id of the runtime to use for this check.
+	// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
 	RuntimeId pulumi.StringPtrInput
-	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
+	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
 	Script pulumi.StringPtrInput
-	// An ID reference to a snippet to use in the setup phase of an API check.
+	// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
 	SetupSnippetId pulumi.IntPtrInput
-	// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+	// Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
 	ShouldFail pulumi.BoolPtrInput
-	// Determines if the SSL certificate should be validated for expiry.
-	//
-	// Deprecated: The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
-	SslCheck pulumi.BoolPtrInput
-	// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+	// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
 	SslCheckDomain pulumi.StringPtrInput
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
-	// An ID reference to a snippet to use in the teardown phase of an API check.
+	// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
 	TeardownSnippetId pulumi.IntPtrInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident CheckTriggerIncidentPtrInput
-	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+	// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
 	Type pulumi.StringPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -283,153 +279,145 @@ func (CheckState) ElementType() reflect.Type {
 }
 
 type checkArgs struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled *bool `pulumi:"aiAutoRepairEnabled"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []CheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the check.
 	AlertSettings *CheckAlertSettings `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the check.
 	Description *string `pulumi:"description"`
-	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck *bool `pulumi:"doubleCheck"`
-	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-	EnvironmentVariable []CheckEnvironmentVariable `pulumi:"environmentVariable"`
-	// Key/value pairs of environment variables to insert into the runtime environment.
-	//
-	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
-	EnvironmentVariables map[string]string `pulumi:"environmentVariables"`
-	// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency int `pulumi:"frequency"`
-	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
+	EnvironmentVariables []CheckEnvironmentVariable `pulumi:"environmentVariables"`
+	// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency *int `pulumi:"frequency"`
+	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The id of the check group this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// A valid piece of Node.js code to run in the setup phase.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent *CheckIntent `pulumi:"intent"`
+	// A valid piece of Node.js code to run in the setup phase of an API check.
 	LocalSetupScript *string `pulumi:"localSetupScript"`
-	// A valid piece of Node.js code to run in the teardown phase.
+	// A valid piece of Node.js code to run in the teardown phase of an API check.
 	LocalTeardownScript *string `pulumi:"localTeardownScript"`
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations []string `pulumi:"privateLocations"`
-	// An API check might have one request config.
+	// An API check might have one request config. Only relevant when `type` is `API`.
 	Request *CheckRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *CheckRetryStrategy `pulumi:"retryStrategy"`
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// The id of the runtime to use for this check.
+	// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
 	RuntimeId *string `pulumi:"runtimeId"`
-	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
+	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
 	Script *string `pulumi:"script"`
-	// An ID reference to a snippet to use in the setup phase of an API check.
+	// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
 	SetupSnippetId *int `pulumi:"setupSnippetId"`
-	// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+	// Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
 	ShouldFail *bool `pulumi:"shouldFail"`
-	// Determines if the SSL certificate should be validated for expiry.
-	//
-	// Deprecated: The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
-	SslCheck *bool `pulumi:"sslCheck"`
-	// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+	// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
 	SslCheckDomain *string `pulumi:"sslCheckDomain"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
-	// An ID reference to a snippet to use in the teardown phase of an API check.
+	// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
 	TeardownSnippetId *int `pulumi:"teardownSnippetId"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *CheckTriggerIncident `pulumi:"triggerIncident"`
-	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+	// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
 	Type string `pulumi:"type"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 // The set of arguments for constructing a Check resource.
 type CheckArgs struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+	// Determines whether the check runs on its schedule. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+	AiAutoRepairEnabled pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions CheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the check.
 	AlertSettings CheckAlertSettingsPtrInput
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+	// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the check.
 	Description pulumi.StringPtrInput
-	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+	// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
 	//
 	// Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
 	DoubleCheck pulumi.BoolPtrInput
-	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-	EnvironmentVariable CheckEnvironmentVariableArrayInput
-	// Key/value pairs of environment variables to insert into the runtime environment.
-	//
-	// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
-	EnvironmentVariables pulumi.StringMapInput
-	// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency pulumi.IntInput
-	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
+	EnvironmentVariables CheckEnvironmentVariableArrayInput
+	// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency pulumi.IntPtrInput
+	// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The id of the check group this check is part of.
+	// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// A valid piece of Node.js code to run in the setup phase.
+	// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+	Intent CheckIntentPtrInput
+	// A valid piece of Node.js code to run in the setup phase of an API check.
 	LocalSetupScript pulumi.StringPtrInput
-	// A valid piece of Node.js code to run in the teardown phase.
+	// A valid piece of Node.js code to run in the teardown phase of an API check.
 	LocalTeardownScript pulumi.StringPtrInput
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+	// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the check.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the check from.
 	PrivateLocations pulumi.StringArrayInput
-	// An API check might have one request config.
+	// An API check might have one request config. Only relevant when `type` is `API`.
 	Request CheckRequestPtrInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy CheckRetryStrategyPtrInput
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// The id of the runtime to use for this check.
+	// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
 	RuntimeId pulumi.StringPtrInput
-	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
+	// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
 	Script pulumi.StringPtrInput
-	// An ID reference to a snippet to use in the setup phase of an API check.
+	// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
 	SetupSnippetId pulumi.IntPtrInput
-	// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+	// Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
 	ShouldFail pulumi.BoolPtrInput
-	// Determines if the SSL certificate should be validated for expiry.
-	//
-	// Deprecated: The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
-	SslCheck pulumi.BoolPtrInput
-	// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+	// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
 	SslCheckDomain pulumi.StringPtrInput
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
-	// An ID reference to a snippet to use in the teardown phase of an API check.
+	// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
 	TeardownSnippetId pulumi.IntPtrInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident CheckTriggerIncidentPtrInput
-	// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+	// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
 	Type pulumi.StringInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -520,12 +508,17 @@ func (o CheckOutput) ToCheckOutputWithContext(ctx context.Context) CheckOutput {
 	return o
 }
 
-// Determines if the check is running or not. Possible values `true`, and `false`.
+// Determines whether the check runs on its schedule. Defaults to `true`.
 func (o CheckOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Check) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next apply restores the configured script unless you copy the repaired script into the configuration or add `script` to `ignoreChanges`. An override edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `aiAutoRepairEnabled` to `ignoreChanges`.
+func (o CheckOutput) AiAutoRepairEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Check) pulumi.BoolPtrOutput { return v.AiAutoRepairEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
 func (o CheckOutput) AlertChannelSubscriptions() CheckAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *Check) CheckAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(CheckAlertChannelSubscriptionArrayOutput)
 }
@@ -535,78 +528,76 @@ func (o CheckOutput) AlertSettings() CheckAlertSettingsOutput {
 	return o.ApplyT(func(v *Check) CheckAlertSettingsOutput { return v.AlertSettings }).(CheckAlertSettingsOutput)
 }
 
-// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
-func (o CheckOutput) DegradedResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
+// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `type` is `API`.
+func (o CheckOutput) DegradedResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *Check) pulumi.IntOutput { return v.DegradedResponseTime }).(pulumi.IntOutput)
 }
 
 // A description of the check.
-func (o CheckOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o CheckOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *Check) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `false`.
 //
 // Deprecated: The property `doubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `retryStrategy` property instead.
-func (o CheckOutput) DoubleCheck() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.BoolPtrOutput { return v.DoubleCheck }).(pulumi.BoolPtrOutput)
+func (o CheckOutput) DoubleCheck() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Check) pulumi.BoolOutput { return v.DoubleCheck }).(pulumi.BoolOutput)
 }
 
-// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-func (o CheckOutput) EnvironmentVariable() CheckEnvironmentVariableArrayOutput {
-	return o.ApplyT(func(v *Check) CheckEnvironmentVariableArrayOutput { return v.EnvironmentVariable }).(CheckEnvironmentVariableArrayOutput)
+// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
+func (o CheckOutput) EnvironmentVariables() CheckEnvironmentVariableArrayOutput {
+	return o.ApplyT(func(v *Check) CheckEnvironmentVariableArrayOutput { return v.EnvironmentVariables }).(CheckEnvironmentVariableArrayOutput)
 }
 
-// Key/value pairs of environment variables to insert into the runtime environment.
-//
-// Deprecated: This attribute is deprecated and will be removed in a future version. Use the `environmentVariable` attribute instead.
-func (o CheckOutput) EnvironmentVariables() pulumi.StringMapOutput {
-	return o.ApplyT(func(v *Check) pulumi.StringMapOutput { return v.EnvironmentVariables }).(pulumi.StringMapOutput)
-}
-
-// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 func (o CheckOutput) Frequency() pulumi.IntOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntOutput { return v.Frequency }).(pulumi.IntOutput)
 }
 
-// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 func (o CheckOutput) FrequencyOffset() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.FrequencyOffset }).(pulumi.IntPtrOutput)
 }
 
-// The id of the check group this check is part of.
+// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
 func (o CheckOutput) GroupId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.GroupId }).(pulumi.IntPtrOutput)
 }
 
-// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
 func (o CheckOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// A valid piece of Node.js code to run in the setup phase.
-func (o CheckOutput) LocalSetupScript() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.StringPtrOutput { return v.LocalSetupScript }).(pulumi.StringPtrOutput)
+// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `requiredOutcomes` or `mustPreserve`. An intent edited in the web app and absent from the configuration is removed by the next apply, every time. To leave it to the web app, add `intent` to `ignoreChanges`.
+func (o CheckOutput) Intent() CheckIntentPtrOutput {
+	return o.ApplyT(func(v *Check) CheckIntentPtrOutput { return v.Intent }).(CheckIntentPtrOutput)
 }
 
-// A valid piece of Node.js code to run in the teardown phase.
-func (o CheckOutput) LocalTeardownScript() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.StringPtrOutput { return v.LocalTeardownScript }).(pulumi.StringPtrOutput)
+// A valid piece of Node.js code to run in the setup phase of an API check.
+func (o CheckOutput) LocalSetupScript() pulumi.StringOutput {
+	return o.ApplyT(func(v *Check) pulumi.StringOutput { return v.LocalSetupScript }).(pulumi.StringOutput)
 }
 
-// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+// A valid piece of Node.js code to run in the teardown phase of an API check.
+func (o CheckOutput) LocalTeardownScript() pulumi.StringOutput {
+	return o.ApplyT(func(v *Check) pulumi.StringOutput { return v.LocalTeardownScript }).(pulumi.StringOutput)
+}
+
+// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 func (o CheckOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Check) pulumi.StringArrayOutput { return v.Locations }).(pulumi.StringArrayOutput)
 }
 
-// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
-func (o CheckOutput) MaxResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.MaxResponseTime }).(pulumi.IntPtrOutput)
+// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `type` is `API`.
+func (o CheckOutput) MaxResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *Check) pulumi.IntOutput { return v.MaxResponseTime }).(pulumi.IntOutput)
 }
 
-// Determines if any notifications will be sent out when a check fails/degrades/recovers.
-func (o CheckOutput) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `false`.
+func (o CheckOutput) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Check) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
 // The name of the check.
@@ -614,12 +605,12 @@ func (o CheckOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Check) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// An array of one or more private locations slugs.
+// The slugs of the private locations to run the check from.
 func (o CheckOutput) PrivateLocations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Check) pulumi.StringArrayOutput { return v.PrivateLocations }).(pulumi.StringArrayOutput)
 }
 
-// An API check might have one request config.
+// An API check might have one request config. Only relevant when `type` is `API`.
 func (o CheckOutput) Request() CheckRequestPtrOutput {
 	return o.ApplyT(func(v *Check) CheckRequestPtrOutput { return v.Request }).(CheckRequestPtrOutput)
 }
@@ -629,49 +620,42 @@ func (o CheckOutput) RetryStrategy() CheckRetryStrategyOutput {
 	return o.ApplyT(func(v *Check) CheckRetryStrategyOutput { return v.RetryStrategy }).(CheckRetryStrategyOutput)
 }
 
-// Determines if the check should run in all selected locations in parallel or round-robin.
-func (o CheckOutput) RunParallel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.BoolPtrOutput { return v.RunParallel }).(pulumi.BoolPtrOutput)
+// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+func (o CheckOutput) RunParallel() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Check) pulumi.BoolOutput { return v.RunParallel }).(pulumi.BoolOutput)
 }
 
-// The id of the runtime to use for this check.
+// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
 func (o CheckOutput) RuntimeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.StringPtrOutput { return v.RuntimeId }).(pulumi.StringPtrOutput)
 }
 
-// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
-func (o CheckOutput) Script() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.StringPtrOutput { return v.Script }).(pulumi.StringPtrOutput)
+// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
+func (o CheckOutput) Script() pulumi.StringOutput {
+	return o.ApplyT(func(v *Check) pulumi.StringOutput { return v.Script }).(pulumi.StringOutput)
 }
 
-// An ID reference to a snippet to use in the setup phase of an API check.
+// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `type` is `API`.
 func (o CheckOutput) SetupSnippetId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.SetupSnippetId }).(pulumi.IntPtrOutput)
 }
 
-// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
-func (o CheckOutput) ShouldFail() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.BoolPtrOutput { return v.ShouldFail }).(pulumi.BoolPtrOutput)
+// Inverts when the check is considered to fail. Defaults to `false`. Only supported when `type` is `API`. Use it to validate an error status such as 404.
+func (o CheckOutput) ShouldFail() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Check) pulumi.BoolOutput { return v.ShouldFail }).(pulumi.BoolOutput)
 }
 
-// Determines if the SSL certificate should be validated for expiry.
-//
-// Deprecated: The property `sslCheck` is deprecated and it's ignored by the Checkly Public API. It will be removed in a future version.
-func (o CheckOutput) SslCheck() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.BoolPtrOutput { return v.SslCheck }).(pulumi.BoolPtrOutput)
-}
-
-// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `type` is `BROWSER`.
 func (o CheckOutput) SslCheckDomain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.StringPtrOutput { return v.SslCheckDomain }).(pulumi.StringPtrOutput)
 }
 
-// A list of tags for organizing and filtering checks.
+// Tags for organizing and filtering checks and monitors.
 func (o CheckOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Check) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
 
-// An ID reference to a snippet to use in the teardown phase of an API check.
+// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `type` is `API`.
 func (o CheckOutput) TeardownSnippetId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Check) pulumi.IntPtrOutput { return v.TeardownSnippetId }).(pulumi.IntPtrOutput)
 }
@@ -681,14 +665,14 @@ func (o CheckOutput) TriggerIncident() CheckTriggerIncidentPtrOutput {
 	return o.ApplyT(func(v *Check) CheckTriggerIncidentPtrOutput { return v.TriggerIncident }).(CheckTriggerIncidentPtrOutput)
 }
 
-// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
 func (o CheckOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v *Check) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }
 
-// When true, the account level alert settings will be used, not the alert setting defined on this check.
-func (o CheckOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Check) pulumi.BoolPtrOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+// When true, the account level alert settings are used instead of the `alertSettings` of this check. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+func (o CheckOutput) UseGlobalAlertSettings() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Check) pulumi.BoolOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolOutput)
 }
 
 type CheckArrayOutput struct{ *pulumi.OutputState }

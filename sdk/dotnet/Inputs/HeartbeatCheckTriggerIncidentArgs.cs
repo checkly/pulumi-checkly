@@ -37,7 +37,7 @@ namespace Pulumi.Checkly.Inputs
         public Input<string> ServiceId { get; set; } = null!;
 
         /// <summary>
-        /// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        /// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
         /// </summary>
         [Input("severity", required: true)]
         public Input<string> Severity { get; set; } = null!;

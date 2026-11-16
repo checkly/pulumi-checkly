@@ -30,7 +30,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string ServiceId;
         /// <summary>
-        /// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR`, and `CRITICAL`.
+        /// The severity level of the incident. Possible values are `MINOR`, `MEDIUM`, `MAJOR` and `CRITICAL`.
         /// </summary>
         public readonly string Severity;
 

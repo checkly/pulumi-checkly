@@ -18,11 +18,21 @@ namespace Pulumi.Checkly.Inputs
         [Input("channel", required: true)]
         public Input<string> Channel { get; set; } = null!;
 
+        [Input("url", required: true)]
+        private Input<string>? _url;
+
         /// <summary>
         /// The Slack webhook URL
         /// </summary>
-        [Input("url", required: true)]
-        public Input<string> Url { get; set; } = null!;
+        public Input<string>? Url
+        {
+            get => _url;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _url = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public AlertChannelSlackGetArgs()
         {

@@ -8,10 +8,12 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// A private location runs checks from your own infrastructure: Checkly agents that you deploy, for example as containers in your network, run the checks and monitors assigned to it. The agents authenticate with the location's API keys, which are only available when the location is created; see `keys`.
+//
 // ## Example Usage
 //
 // ```go
@@ -19,8 +21,9 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 //
 // )
 //
@@ -33,21 +36,47 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			cfg := config.New(ctx, "")
+//			proxyUrl := cfg.Require("proxyUrl")
+//			// API checks running in this location send their HTTP requests through the
+//			// proxy.
+//			_, err = checkly.NewPrivateLocation(ctx, "location-with-proxy", &checkly.PrivateLocationArgs{
+//				Name:     pulumi.String("Private Location behind a proxy"),
+//				SlugName: pulumi.String("private-location-with-proxy"),
+//				ProxyUrl: pulumi.String(proxyUrl),
+//			})
+//			if err != nil {
+//				return err
+//			}
 //			return nil
 //		})
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing private location using its ID.
+//
+// The ID is returned by the Checkly API at GET /v1/private-locations.
+//
+// ```sh
+// $ pulumi import checkly:index/privateLocation:PrivateLocation example 2a48cb5f-415a-4368-bffe-a58533d4b0a8
+// ```
 type PrivateLocation struct {
 	pulumi.CustomResourceState
 
-	// Icon assigned to the private location.
-	Icon pulumi.StringPtrOutput `pulumi:"icon"`
-	// Private location API keys.
+	// Icon assigned to the private location. Defaults to `location`.
+	Icon pulumi.StringOutput `pulumi:"icon"`
+	// The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
 	Keys pulumi.StringArrayOutput `pulumi:"keys"`
 	// The private location name.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// Valid slug name.
+	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+	ProxyUrl pulumi.StringPtrOutput `pulumi:"proxyUrl"`
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
 	SlugName pulumi.StringOutput `pulumi:"slugName"`
 }
 
@@ -61,8 +90,12 @@ func NewPrivateLocation(ctx *pulumi.Context,
 	if args.SlugName == nil {
 		return nil, errors.New("invalid value for required argument 'SlugName'")
 	}
+	if args.ProxyUrl != nil {
+		args.ProxyUrl = pulumi.ToSecret(args.ProxyUrl).(pulumi.StringPtrInput)
+	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"keys",
+		"proxyUrl",
 	})
 	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
@@ -88,24 +121,28 @@ func GetPrivateLocation(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering PrivateLocation resources.
 type privateLocationState struct {
-	// Icon assigned to the private location.
+	// Icon assigned to the private location. Defaults to `location`.
 	Icon *string `pulumi:"icon"`
-	// Private location API keys.
+	// The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
 	Keys []string `pulumi:"keys"`
 	// The private location name.
 	Name *string `pulumi:"name"`
-	// Valid slug name.
+	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+	ProxyUrl *string `pulumi:"proxyUrl"`
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
 	SlugName *string `pulumi:"slugName"`
 }
 
 type PrivateLocationState struct {
-	// Icon assigned to the private location.
+	// Icon assigned to the private location. Defaults to `location`.
 	Icon pulumi.StringPtrInput
-	// Private location API keys.
+	// The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
 	Keys pulumi.StringArrayInput
 	// The private location name.
 	Name pulumi.StringPtrInput
-	// Valid slug name.
+	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+	ProxyUrl pulumi.StringPtrInput
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
 	SlugName pulumi.StringPtrInput
 }
 
@@ -114,21 +151,25 @@ func (PrivateLocationState) ElementType() reflect.Type {
 }
 
 type privateLocationArgs struct {
-	// Icon assigned to the private location.
+	// Icon assigned to the private location. Defaults to `location`.
 	Icon *string `pulumi:"icon"`
 	// The private location name.
 	Name *string `pulumi:"name"`
-	// Valid slug name.
+	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+	ProxyUrl *string `pulumi:"proxyUrl"`
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
 	SlugName string `pulumi:"slugName"`
 }
 
 // The set of arguments for constructing a PrivateLocation resource.
 type PrivateLocationArgs struct {
-	// Icon assigned to the private location.
+	// Icon assigned to the private location. Defaults to `location`.
 	Icon pulumi.StringPtrInput
 	// The private location name.
 	Name pulumi.StringPtrInput
-	// Valid slug name.
+	// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+	ProxyUrl pulumi.StringPtrInput
+	// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
 	SlugName pulumi.StringInput
 }
 
@@ -219,12 +260,12 @@ func (o PrivateLocationOutput) ToPrivateLocationOutputWithContext(ctx context.Co
 	return o
 }
 
-// Icon assigned to the private location.
-func (o PrivateLocationOutput) Icon() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PrivateLocation) pulumi.StringPtrOutput { return v.Icon }).(pulumi.StringPtrOutput)
+// Icon assigned to the private location. Defaults to `location`.
+func (o PrivateLocationOutput) Icon() pulumi.StringOutput {
+	return o.ApplyT(func(v *PrivateLocation) pulumi.StringOutput { return v.Icon }).(pulumi.StringOutput)
 }
 
-// Private location API keys.
+// The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
 func (o PrivateLocationOutput) Keys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PrivateLocation) pulumi.StringArrayOutput { return v.Keys }).(pulumi.StringArrayOutput)
 }
@@ -234,7 +275,12 @@ func (o PrivateLocationOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *PrivateLocation) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// Valid slug name.
+// The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+func (o PrivateLocationOutput) ProxyUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PrivateLocation) pulumi.StringPtrOutput { return v.ProxyUrl }).(pulumi.StringPtrOutput)
+}
+
+// The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a plan that changes it fails, also with `pulumi up -replace` or `replaceTriggeredBy`. To use a different slug, add a new `PrivateLocation` resource block with it, move your checks and agents to the new location, then remove the old block.
 func (o PrivateLocationOutput) SlugName() pulumi.StringOutput {
 	return o.ApplyT(func(v *PrivateLocation) pulumi.StringOutput { return v.SlugName }).(pulumi.StringOutput)
 }

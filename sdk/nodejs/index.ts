@@ -10,6 +10,16 @@ export type AlertChannel = import("./alertChannel").AlertChannel;
 export const AlertChannel: typeof import("./alertChannel").AlertChannel = null as any;
 utilities.lazyLoad(exports, ["AlertChannel"], () => require("./alertChannel"));
 
+export { ApiCheckArgs, ApiCheckState } from "./apiCheck";
+export type ApiCheck = import("./apiCheck").ApiCheck;
+export const ApiCheck: typeof import("./apiCheck").ApiCheck = null as any;
+utilities.lazyLoad(exports, ["ApiCheck"], () => require("./apiCheck"));
+
+export { BrowserCheckArgs, BrowserCheckState } from "./browserCheck";
+export type BrowserCheck = import("./browserCheck").BrowserCheck;
+export const BrowserCheck: typeof import("./browserCheck").BrowserCheck = null as any;
+utilities.lazyLoad(exports, ["BrowserCheck"], () => require("./browserCheck"));
+
 export { CheckArgs, CheckState } from "./check";
 export type Check = import("./check").Check;
 export const Check: typeof import("./check").Check = null as any;
@@ -74,6 +84,11 @@ export { MaintenanceWindowArgs, MaintenanceWindowState } from "./maintenanceWind
 export type MaintenanceWindow = import("./maintenanceWindow").MaintenanceWindow;
 export const MaintenanceWindow: typeof import("./maintenanceWindow").MaintenanceWindow = null as any;
 utilities.lazyLoad(exports, ["MaintenanceWindow"], () => require("./maintenanceWindow"));
+
+export { MultistepCheckArgs, MultistepCheckState } from "./multistepCheck";
+export type MultistepCheck = import("./multistepCheck").MultistepCheck;
+export const MultistepCheck: typeof import("./multistepCheck").MultistepCheck = null as any;
+utilities.lazyLoad(exports, ["MultistepCheck"], () => require("./multistepCheck"));
 
 export { PlaywrightCheckSuiteArgs, PlaywrightCheckSuiteState } from "./playwrightCheckSuite";
 export type PlaywrightCheckSuite = import("./playwrightCheckSuite").PlaywrightCheckSuite;
@@ -143,16 +158,6 @@ export type TracerouteMonitor = import("./tracerouteMonitor").TracerouteMonitor;
 export const TracerouteMonitor: typeof import("./tracerouteMonitor").TracerouteMonitor = null as any;
 utilities.lazyLoad(exports, ["TracerouteMonitor"], () => require("./tracerouteMonitor"));
 
-export { TriggerCheckArgs, TriggerCheckState } from "./triggerCheck";
-export type TriggerCheck = import("./triggerCheck").TriggerCheck;
-export const TriggerCheck: typeof import("./triggerCheck").TriggerCheck = null as any;
-utilities.lazyLoad(exports, ["TriggerCheck"], () => require("./triggerCheck"));
-
-export { TriggerCheckGroupArgs, TriggerCheckGroupState } from "./triggerCheckGroup";
-export type TriggerCheckGroup = import("./triggerCheckGroup").TriggerCheckGroup;
-export const TriggerCheckGroup: typeof import("./triggerCheckGroup").TriggerCheckGroup = null as any;
-utilities.lazyLoad(exports, ["TriggerCheckGroup"], () => require("./triggerCheckGroup"));
-
 export { UrlMonitorArgs, UrlMonitorState } from "./urlMonitor";
 export type UrlMonitor = import("./urlMonitor").UrlMonitor;
 export const UrlMonitor: typeof import("./urlMonitor").UrlMonitor = null as any;
@@ -174,6 +179,10 @@ const _module = {
         switch (type) {
             case "checkly:index/alertChannel:AlertChannel":
                 return new AlertChannel(name, <any>undefined, { urn })
+            case "checkly:index/apiCheck:ApiCheck":
+                return new ApiCheck(name, <any>undefined, { urn })
+            case "checkly:index/browserCheck:BrowserCheck":
+                return new BrowserCheck(name, <any>undefined, { urn })
             case "checkly:index/check:Check":
                 return new Check(name, <any>undefined, { urn })
             case "checkly:index/checkGroup:CheckGroup":
@@ -198,6 +207,8 @@ const _module = {
                 return new IcmpMonitor(name, <any>undefined, { urn })
             case "checkly:index/maintenanceWindow:MaintenanceWindow":
                 return new MaintenanceWindow(name, <any>undefined, { urn })
+            case "checkly:index/multistepCheck:MultistepCheck":
+                return new MultistepCheck(name, <any>undefined, { urn })
             case "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite":
                 return new PlaywrightCheckSuite(name, <any>undefined, { urn })
             case "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle":
@@ -224,10 +235,6 @@ const _module = {
                 return new TcpMonitor(name, <any>undefined, { urn })
             case "checkly:index/tracerouteMonitor:TracerouteMonitor":
                 return new TracerouteMonitor(name, <any>undefined, { urn })
-            case "checkly:index/triggerCheck:TriggerCheck":
-                return new TriggerCheck(name, <any>undefined, { urn })
-            case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
-                return new TriggerCheckGroup(name, <any>undefined, { urn })
             case "checkly:index/urlMonitor:UrlMonitor":
                 return new UrlMonitor(name, <any>undefined, { urn })
             default:
@@ -236,6 +243,8 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("checkly", "index/alertChannel", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/apiCheck", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/browserCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/check", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/checkGroup", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/checkGroupV2", _module)
@@ -248,6 +257,7 @@ pulumi.runtime.registerResourceModule("checkly", "index/heartbeatCheck", _module
 pulumi.runtime.registerResourceModule("checkly", "index/heartbeatMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/icmpMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/maintenanceWindow", _module)
+pulumi.runtime.registerResourceModule("checkly", "index/multistepCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/playwrightCheckSuite", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/playwrightCodeBundle", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/privateLocation", _module)
@@ -261,8 +271,6 @@ pulumi.runtime.registerResourceModule("checkly", "index/statusPageV3Component", 
 pulumi.runtime.registerResourceModule("checkly", "index/tcpCheck", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tcpMonitor", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/tracerouteMonitor", _module)
-pulumi.runtime.registerResourceModule("checkly", "index/triggerCheck", _module)
-pulumi.runtime.registerResourceModule("checkly", "index/triggerCheckGroup", _module)
 pulumi.runtime.registerResourceModule("checkly", "index/urlMonitor", _module)
 pulumi.runtime.registerResourcePackage("checkly", {
     version: utilities.getVersion(),

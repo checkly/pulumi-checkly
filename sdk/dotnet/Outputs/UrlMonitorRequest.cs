@@ -18,19 +18,19 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.UrlMonitorRequestAssertion> Assertions;
         /// <summary>
-        /// Whether to follow HTTP redirects automatically. (Default `true`).
+        /// Whether to follow HTTP redirects automatically. Defaults to `true`.
         /// </summary>
         public readonly bool? FollowRedirects;
         /// <summary>
-        /// IP family version to use for the connection. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+        /// IP family version to use for the connection. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         public readonly string? IpFamily;
         /// <summary>
-        /// Whether to skip SSL certificate verification. (Default `false`).
+        /// Whether to skip SSL certificate verification. Defaults to `false`.
         /// </summary>
         public readonly bool? SkipSsl;
         /// <summary>
-        /// The URL to monitor. Must be a valid HTTP or HTTPS URL.
+        /// The URL to monitor. Must be between `1` and `2048` characters. Must be a valid HTTP or HTTPS URL.
         /// </summary>
         public readonly string Url;
 

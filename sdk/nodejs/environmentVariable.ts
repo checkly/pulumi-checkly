@@ -5,6 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * Global environment variables that can be referenced from check scripts.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -21,6 +23,16 @@ import * as utilities from "./utilities";
  *     key: "API_URL",
  *     value: "http://localhost:3000",
  * });
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing environment variable using its key.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/environmentVariable:EnvironmentVariable example API_KEY
  * ```
  */
 export class EnvironmentVariable extends pulumi.CustomResource {
@@ -51,9 +63,18 @@ export class EnvironmentVariable extends pulumi.CustomResource {
         return obj['__pulumiType'] === EnvironmentVariable.__pulumiType;
     }
 
+    /**
+     * The name of the environment variable. Changing the name forces the environment variable to be replaced.
+     */
     declare public readonly key: pulumi.Output<string>;
-    declare public readonly locked: pulumi.Output<boolean | undefined>;
-    declare public readonly secret: pulumi.Output<boolean | undefined>;
+    /**
+     * If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+     */
+    declare public readonly locked: pulumi.Output<boolean>;
+    /**
+     * If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+     */
+    declare public readonly secret: pulumi.Output<boolean>;
     declare public readonly value: pulumi.Output<string>;
 
     /**
@@ -84,9 +105,11 @@ export class EnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["key"] = args?.key;
             resourceInputs["locked"] = args?.locked;
             resourceInputs["secret"] = args?.secret;
-            resourceInputs["value"] = args?.value;
+            resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["value"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(EnvironmentVariable.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -95,8 +118,17 @@ export class EnvironmentVariable extends pulumi.CustomResource {
  * Input properties used for looking up and filtering EnvironmentVariable resources.
  */
 export interface EnvironmentVariableState {
+    /**
+     * The name of the environment variable. Changing the name forces the environment variable to be replaced.
+     */
     key?: pulumi.Input<string>;
+    /**
+     * If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+     */
     locked?: pulumi.Input<boolean>;
+    /**
+     * If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+     */
     secret?: pulumi.Input<boolean>;
     value?: pulumi.Input<string>;
 }
@@ -105,8 +137,17 @@ export interface EnvironmentVariableState {
  * The set of arguments for constructing a EnvironmentVariable resource.
  */
 export interface EnvironmentVariableArgs {
+    /**
+     * The name of the environment variable. Changing the name forces the environment variable to be replaced.
+     */
     key: pulumi.Input<string>;
+    /**
+     * If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+     */
     locked?: pulumi.Input<boolean>;
+    /**
+     * If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+     */
     secret?: pulumi.Input<boolean>;
     value: pulumi.Input<string>;
 }

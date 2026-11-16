@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class SslMonitorRequestSecurityBaselineOcspMustStapleRespected
     {
         /// <summary>
-        /// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+        /// What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
         /// </summary>
         public readonly string? Severity;
 

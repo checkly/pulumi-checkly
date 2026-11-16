@@ -14,35 +14,39 @@ namespace Pulumi.Checkly.Outputs
     public sealed class MaintenanceWindowStatusPageVisibility
     {
         /// <summary>
-        /// Mark every service on the linked status pages as affected. Can't be combined with `service_ids`. (Default `false`).
+        /// Mark every service on the linked v2 status pages (`checkly.StatusPage`) as affected. Defaults to `false`. Can't be combined with `service_ids`. v3 status pages use `component_configs` instead.
         /// </summary>
         public readonly bool? AffectAllServices;
         /// <summary>
-        /// Complete the maintenance automatically at the scheduled end time. (Default `true`).
+        /// Complete the maintenance automatically at the scheduled end time. Defaults to `true`.
         /// </summary>
         public readonly bool? AutoEnd;
         /// <summary>
-        /// Start the maintenance automatically at the scheduled time. (Default `true`).
+        /// Start the maintenance automatically at the scheduled time. Defaults to `true`.
         /// </summary>
         public readonly bool? AutoStart;
         /// <summary>
-        /// Show the maintenance window on the linked status pages. All other settings in this block only take effect when this is `true`. (Default `false`).
+        /// The affected components of each linked v3 status page (`checkly.StatusPageV3`), at most one entry per page. Omitting the attribute removes the window's component links.
+        /// </summary>
+        public readonly ImmutableArray<Outputs.MaintenanceWindowStatusPageVisibilityComponentConfig> ComponentConfigs;
+        /// <summary>
+        /// Show the maintenance window on the linked status pages. Defaults to `false`. All other settings in this attribute only take effect when this is `true`.
         /// </summary>
         public readonly bool? Enabled;
         /// <summary>
-        /// Email status page subscribers when the maintenance ends. (Default `false`).
+        /// Email status page subscribers when the maintenance ends. Defaults to `false`.
         /// </summary>
         public readonly bool? NotifyOnEnd;
         /// <summary>
-        /// Email status page subscribers when the maintenance starts. (Default `false`).
+        /// Email status page subscribers when the maintenance starts. Defaults to `false`.
         /// </summary>
         public readonly bool? NotifyOnStart;
         /// <summary>
-        /// Up to three reminders, in minutes before the maintenance starts (60 to 10080), sent to status page subscribers.
+        /// Up to three reminders, in minutes before the maintenance starts, sent to status page subscribers. Possible values are between `60` and `10080`.
         /// </summary>
         public readonly ImmutableArray<int> ReminderMinutesBefores;
         /// <summary>
-        /// The IDs of the affected status page services (`checkly.StatusPageService`). Each service must be on one of the linked status pages.
+        /// The IDs of the affected status page services (`checkly.StatusPageService`). Each service must be on one of the linked v2 status pages.
         /// </summary>
         public readonly ImmutableArray<string> ServiceIds;
         /// <summary>
@@ -50,15 +54,15 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string? Severity;
         /// <summary>
-        /// Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. (Default `true`).
+        /// Show which services the maintenance affects. When `false`, downtime during the maintenance counts against the services' uptime. Defaults to `true`.
         /// </summary>
         public readonly bool? ShowAffectedServices;
         /// <summary>
-        /// The IDs of the status pages (`checkly.StatusPage`) to show the maintenance window on. Requires `service_ids` or `affect_all_services`.
+        /// The IDs of the status pages to show the maintenance window on. A v2 status page (`checkly.StatusPage`) requires `service_ids` or `affect_all_services`, and a v3 status page (`checkly.StatusPageV3`) requires an entry in `component_configs`.
         /// </summary>
         public readonly ImmutableArray<string> StatusPageIds;
         /// <summary>
-        /// Suppress automatically created incidents for the linked services during the maintenance. (Default `false`).
+        /// Suppress automatically created incidents for the linked services during the maintenance. Defaults to `false`.
         /// </summary>
         public readonly bool? SuppressAutoIncidents;
 
@@ -69,6 +73,8 @@ namespace Pulumi.Checkly.Outputs
             bool? autoEnd,
 
             bool? autoStart,
+
+            ImmutableArray<Outputs.MaintenanceWindowStatusPageVisibilityComponentConfig> componentConfigs,
 
             bool? enabled,
 
@@ -91,6 +97,7 @@ namespace Pulumi.Checkly.Outputs
             AffectAllServices = affectAllServices;
             AutoEnd = autoEnd;
             AutoStart = autoStart;
+            ComponentConfigs = componentConfigs;
             Enabled = enabled;
             NotifyOnEnd = notifyOnEnd;
             NotifyOnStart = notifyOnStart;

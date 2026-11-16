@@ -15,8 +15,17 @@ else:
 from .. import _utilities
 
 accountId: Optional[str]
+"""
+The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+"""
 
 apiKey: Optional[str]
+"""
+The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+"""
 
 apiUrl: Optional[str]
+"""
+The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+"""
 

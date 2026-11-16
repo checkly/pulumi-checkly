@@ -10,7 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page: the new `checkly.StatusPageV3` resource should always be preferred for new pages.
+    /// Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page.
+    /// 
+    /// The `checkly.StatusPage` resource type is deprecated in favor of `checkly.StatusPageV3` and will be removed in a future version of the provider. v3 status pages are separate objects, so an existing page cannot be converted: create a v3 page alongside it instead. A maintenance window shown on the page links to a v3 page through `status_page_visibility.component_configs` on `checkly.MaintenanceWindow`. See Status pages in the v2 upgrade guide.
     /// 
     /// ## Example Usage
     /// 
@@ -59,7 +61,22 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// checkly_status_page is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
+    /// 
+    /// Import an existing status page using its ID.
+    /// 
+    /// The ID is returned by the Checkly API at GET /v1/status-pages.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/statusPage:StatusPage example cd8d05a4-c292-4dc4-a78f-1dea65e5457e
+    /// ```
     /// </summary>
+    [Obsolete(@"Use the StatusPageV3 resource instead. v3 status pages are separate objects, so an existing page cannot be converted.")]
     [ChecklyResourceType("checkly:index/statusPage:StatusPage")]
     public partial class StatusPage : global::Pulumi.CustomResource
     {
@@ -70,28 +87,28 @@ namespace Pulumi.Checkly
         public Output<ImmutableArray<Outputs.StatusPageCard>> Cards { get; private set; } = null!;
 
         /// <summary>
-        /// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+        /// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
         /// </summary>
         [Output("customDomain")]
-        public Output<string?> CustomDomain { get; private set; } = null!;
+        public Output<string> CustomDomain { get; private set; } = null!;
 
         /// <summary>
-        /// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+        /// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         /// </summary>
         [Output("defaultTheme")]
-        public Output<string?> DefaultTheme { get; private set; } = null!;
+        public Output<string> DefaultTheme { get; private set; } = null!;
 
         /// <summary>
-        /// A URL to an image file to use as the favicon of the status page.
+        /// An http or https URL to an image file to use as the favicon of the status page.
         /// </summary>
         [Output("favicon")]
-        public Output<string?> Favicon { get; private set; } = null!;
+        public Output<string> Favicon { get; private set; } = null!;
 
         /// <summary>
-        /// A URL to an image file to use as the logo for the status page.
+        /// An http or https URL to an image file to use as the logo for the status page.
         /// </summary>
         [Output("logo")]
-        public Output<string?> Logo { get; private set; } = null!;
+        public Output<string> Logo { get; private set; } = null!;
 
         /// <summary>
         /// The name of the status page.
@@ -100,13 +117,13 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The URL the user should be redirected to when clicking the logo.
+        /// The http or https URL the user should be redirected to when clicking the logo.
         /// </summary>
         [Output("redirectTo")]
-        public Output<string?> RedirectTo { get; private set; } = null!;
+        public Output<string> RedirectTo { get; private set; } = null!;
 
         /// <summary>
-        /// The URL of the status page.
+        /// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         /// </summary>
         [Output("url")]
         public Output<string> Url { get; private set; } = null!;
@@ -171,25 +188,25 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+        /// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
         /// </summary>
         [Input("customDomain")]
         public Input<string>? CustomDomain { get; set; }
 
         /// <summary>
-        /// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+        /// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         /// </summary>
         [Input("defaultTheme")]
         public Input<string>? DefaultTheme { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the favicon of the status page.
+        /// An http or https URL to an image file to use as the favicon of the status page.
         /// </summary>
         [Input("favicon")]
         public Input<string>? Favicon { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the logo for the status page.
+        /// An http or https URL to an image file to use as the logo for the status page.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
@@ -201,13 +218,13 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The URL the user should be redirected to when clicking the logo.
+        /// The http or https URL the user should be redirected to when clicking the logo.
         /// </summary>
         [Input("redirectTo")]
         public Input<string>? RedirectTo { get; set; }
 
         /// <summary>
-        /// The URL of the status page.
+        /// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         /// </summary>
         [Input("url", required: true)]
         public Input<string> Url { get; set; } = null!;
@@ -233,25 +250,25 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+        /// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
         /// </summary>
         [Input("customDomain")]
         public Input<string>? CustomDomain { get; set; }
 
         /// <summary>
-        /// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+        /// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         /// </summary>
         [Input("defaultTheme")]
         public Input<string>? DefaultTheme { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the favicon of the status page.
+        /// An http or https URL to an image file to use as the favicon of the status page.
         /// </summary>
         [Input("favicon")]
         public Input<string>? Favicon { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the logo for the status page.
+        /// An http or https URL to an image file to use as the logo for the status page.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
@@ -263,13 +280,13 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The URL the user should be redirected to when clicking the logo.
+        /// The http or https URL the user should be redirected to when clicking the logo.
         /// </summary>
         [Input("redirectTo")]
         public Input<string>? RedirectTo { get; set; }
 
         /// <summary>
-        /// The URL of the status page.
+        /// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }

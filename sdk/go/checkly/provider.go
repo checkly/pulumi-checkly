@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -18,9 +18,12 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
+	// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
 	AccountId pulumi.StringPtrOutput `pulumi:"accountId"`
-	ApiKey    pulumi.StringPtrOutput `pulumi:"apiKey"`
-	ApiUrl    pulumi.StringPtrOutput `pulumi:"apiUrl"`
+	// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+	ApiKey pulumi.StringPtrOutput `pulumi:"apiKey"`
+	// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+	ApiUrl pulumi.StringPtrOutput `pulumi:"apiUrl"`
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
@@ -47,16 +50,22 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
+	// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
 	AccountId *string `pulumi:"accountId"`
-	ApiKey    *string `pulumi:"apiKey"`
-	ApiUrl    *string `pulumi:"apiUrl"`
+	// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+	ApiKey *string `pulumi:"apiKey"`
+	// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+	ApiUrl *string `pulumi:"apiUrl"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
+	// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
 	AccountId pulumi.StringPtrInput
-	ApiKey    pulumi.StringPtrInput
-	ApiUrl    pulumi.StringPtrInput
+	// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+	ApiKey pulumi.StringPtrInput
+	// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+	ApiUrl pulumi.StringPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
@@ -119,14 +128,17 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
+// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
 func (o ProviderOutput) AccountId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.AccountId }).(pulumi.StringPtrOutput)
 }
 
+// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
 func (o ProviderOutput) ApiKey() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiKey }).(pulumi.StringPtrOutput)
 }
 
+// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
 func (o ProviderOutput) ApiUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiUrl }).(pulumi.StringPtrOutput)
 }

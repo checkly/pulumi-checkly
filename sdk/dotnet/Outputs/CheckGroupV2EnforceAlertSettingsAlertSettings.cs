@@ -14,47 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckGroupV2EnforceAlertSettingsAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminder> Reminders;
+        public readonly Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation> RunBasedEscalations;
-        public readonly ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate> SslCertificates;
+        public readonly Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private CheckGroupV2EnforceAlertSettingsAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminder> reminders,
+            Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsSslCertificate> sslCertificates,
-
-            ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            SslCertificates = sslCertificates;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

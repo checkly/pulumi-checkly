@@ -21,13 +21,13 @@ __all__ = ['GrpcMonitorArgs', 'GrpcMonitor']
 @pulumi.input_type
 class GrpcMonitorArgs:
     def __init__(__self__, *,
-                 activated: pulumi.Input[_builtins.bool],
-                 frequency: pulumi.Input[_builtins.int],
                  request: pulumi.Input['GrpcMonitorRequestArgs'],
+                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
                  alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['GrpcMonitorAlertChannelSubscriptionArgs']]]] = None,
                  alert_settings: Optional[pulumi.Input['GrpcMonitorAlertSettingsArgs']] = None,
                  degraded_response_time: Optional[pulumi.Input[_builtins.int]] = None,
                  description: Optional[pulumi.Input[_builtins.str]] = None,
+                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
                  frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
                  group_id: Optional[pulumi.Input[_builtins.int]] = None,
                  group_order: Optional[pulumi.Input[_builtins.int]] = None,
@@ -39,38 +39,36 @@ class GrpcMonitorArgs:
                  retry_strategy: Optional[pulumi.Input['GrpcMonitorRetryStrategyArgs']] = None,
                  run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
                  runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  trigger_incident: Optional[pulumi.Input['GrpcMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a GrpcMonitor resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines if the monitor is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
         :param pulumi.Input['GrpcMonitorRequestArgs'] request: The parameters for the gRPC connection.
-        :param pulumi.Input[Sequence[pulumi.Input['GrpcMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input['GrpcMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['GrpcMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The id of the check group this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
-        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from.
         :param pulumi.Input['GrpcMonitorRetryStrategyArgs'] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines if the monitor should run in all selected locations in parallel or round-robin.
-        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for this monitor.
-        :param pulumi.Input[_builtins.bool] should_fail: Allows to invert the behaviour of when a monitor is considered to fail.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input['GrpcMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
-        pulumi.set(__self__, "activated", activated)
-        pulumi.set(__self__, "frequency", frequency)
         pulumi.set(__self__, "request", request)
+        if activated is not None:
+            pulumi.set(__self__, "activated", activated)
         if alert_channel_subscriptions is not None:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
@@ -79,6 +77,8 @@ class GrpcMonitorArgs:
             pulumi.set(__self__, "degraded_response_time", degraded_response_time)
         if description is not None:
             pulumi.set(__self__, "description", description)
+        if frequency is not None:
+            pulumi.set(__self__, "frequency", frequency)
         if frequency_offset is not None:
             pulumi.set(__self__, "frequency_offset", frequency_offset)
         if group_id is not None:
@@ -101,38 +101,12 @@ class GrpcMonitorArgs:
             pulumi.set(__self__, "run_parallel", run_parallel)
         if runtime_id is not None:
             pulumi.set(__self__, "runtime_id", runtime_id)
-        if should_fail is not None:
-            pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if trigger_incident is not None:
             pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
-
-    @_builtins.property
-    @pulumi.getter
-    def activated(self) -> pulumi.Input[_builtins.bool]:
-        """
-        Determines if the monitor is running or not. Possible values `true`, and `false`.
-        """
-        return pulumi.get(self, "activated")
-
-    @activated.setter
-    def activated(self, value: pulumi.Input[_builtins.bool]):
-        pulumi.set(self, "activated", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def frequency(self) -> pulumi.Input[_builtins.int]:
-        """
-        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        """
-        return pulumi.get(self, "frequency")
-
-    @frequency.setter
-    def frequency(self, value: pulumi.Input[_builtins.int]):
-        pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter
@@ -147,10 +121,22 @@ class GrpcMonitorArgs:
         pulumi.set(self, "request", value)
 
     @_builtins.property
+    @pulumi.getter
+    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Determines whether the monitor runs on its schedule. Defaults to `true`.
+        """
+        return pulumi.get(self, "activated")
+
+    @activated.setter
+    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "activated", value)
+
+    @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['GrpcMonitorAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -174,7 +160,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -195,10 +181,22 @@ class GrpcMonitorArgs:
         pulumi.set(self, "description", value)
 
     @_builtins.property
+    @pulumi.getter
+    def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        """
+        return pulumi.get(self, "frequency")
+
+    @frequency.setter
+    def frequency(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "frequency", value)
+
+    @_builtins.property
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -210,7 +208,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="groupId")
     def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The id of the check group this monitor is part of.
+        The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
@@ -222,7 +220,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
@@ -234,7 +232,7 @@ class GrpcMonitorArgs:
     @pulumi.getter
     def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+        The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
@@ -246,7 +244,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
+        The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
         """
         return pulumi.get(self, "max_response_time")
 
@@ -258,7 +256,7 @@ class GrpcMonitorArgs:
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -282,7 +280,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="privateLocations")
     def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more private locations slugs.
+        The slugs of the private locations to run the monitor from.
         """
         return pulumi.get(self, "private_locations")
 
@@ -306,7 +304,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="runParallel")
     def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines if the monitor should run in all selected locations in parallel or round-robin.
+        Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
@@ -318,7 +316,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The ID of the runtime to use for this monitor.
+        The ID of the runtime to use for the monitor.
         """
         return pulumi.get(self, "runtime_id")
 
@@ -327,22 +325,10 @@ class GrpcMonitorArgs:
         pulumi.set(self, "runtime_id", value)
 
     @_builtins.property
-    @pulumi.getter(name="shouldFail")
-    def should_fail(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Allows to invert the behaviour of when a monitor is considered to fail.
-        """
-        return pulumi.get(self, "should_fail")
-
-    @should_fail.setter
-    def should_fail(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "should_fail", value)
-
-    @_builtins.property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
@@ -366,7 +352,7 @@ class GrpcMonitorArgs:
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
@@ -396,34 +382,32 @@ class _GrpcMonitorState:
                  retry_strategy: Optional[pulumi.Input['GrpcMonitorRetryStrategyArgs']] = None,
                  run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
                  runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  trigger_incident: Optional[pulumi.Input['GrpcMonitorTriggerIncidentArgs']] = None,
                  use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering GrpcMonitor resources.
-        :param pulumi.Input[_builtins.bool] activated: Determines if the monitor is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[Sequence[pulumi.Input['GrpcMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input['GrpcMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['GrpcMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The id of the check group this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
-        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from.
         :param pulumi.Input['GrpcMonitorRequestArgs'] request: The parameters for the gRPC connection.
         :param pulumi.Input['GrpcMonitorRetryStrategyArgs'] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines if the monitor should run in all selected locations in parallel or round-robin.
-        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for this monitor.
-        :param pulumi.Input[_builtins.bool] should_fail: Allows to invert the behaviour of when a monitor is considered to fail.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input['GrpcMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         if activated is not None:
             pulumi.set(__self__, "activated", activated)
@@ -461,8 +445,6 @@ class _GrpcMonitorState:
             pulumi.set(__self__, "run_parallel", run_parallel)
         if runtime_id is not None:
             pulumi.set(__self__, "runtime_id", runtime_id)
-        if should_fail is not None:
-            pulumi.set(__self__, "should_fail", should_fail)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if trigger_incident is not None:
@@ -474,7 +456,7 @@ class _GrpcMonitorState:
     @pulumi.getter
     def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines if the monitor is running or not. Possible values `true`, and `false`.
+        Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
@@ -486,7 +468,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="alertChannelSubscriptions")
     def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['GrpcMonitorAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -510,7 +492,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="degradedResponseTime")
     def degraded_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         """
         return pulumi.get(self, "degraded_response_time")
 
@@ -534,7 +516,7 @@ class _GrpcMonitorState:
     @pulumi.getter
     def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
@@ -546,7 +528,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -558,7 +540,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="groupId")
     def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The id of the check group this monitor is part of.
+        The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
@@ -570,7 +552,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
@@ -582,7 +564,7 @@ class _GrpcMonitorState:
     @pulumi.getter
     def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+        The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
@@ -594,7 +576,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="maxResponseTime")
     def max_response_time(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
+        The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
         """
         return pulumi.get(self, "max_response_time")
 
@@ -606,7 +588,7 @@ class _GrpcMonitorState:
     @pulumi.getter
     def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -630,7 +612,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="privateLocations")
     def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more private locations slugs.
+        The slugs of the private locations to run the monitor from.
         """
         return pulumi.get(self, "private_locations")
 
@@ -666,7 +648,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="runParallel")
     def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Determines if the monitor should run in all selected locations in parallel or round-robin.
+        Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
@@ -678,7 +660,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The ID of the runtime to use for this monitor.
+        The ID of the runtime to use for the monitor.
         """
         return pulumi.get(self, "runtime_id")
 
@@ -687,22 +669,10 @@ class _GrpcMonitorState:
         pulumi.set(self, "runtime_id", value)
 
     @_builtins.property
-    @pulumi.getter(name="shouldFail")
-    def should_fail(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Allows to invert the behaviour of when a monitor is considered to fail.
-        """
-        return pulumi.get(self, "should_fail")
-
-    @should_fail.setter
-    def should_fail(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "should_fail", value)
-
-    @_builtins.property
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
@@ -726,7 +696,7 @@ class _GrpcMonitorState:
     @pulumi.getter(name="useGlobalAlertSettings")
     def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
@@ -759,7 +729,6 @@ class GrpcMonitor(pulumi.CustomResource):
                  retry_strategy: Optional[pulumi.Input[Union['GrpcMonitorRetryStrategyArgs', 'GrpcMonitorRetryStrategyArgsDict']]] = None,
                  run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
                  runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  trigger_incident: Optional[pulumi.Input[Union['GrpcMonitorTriggerIncidentArgs', 'GrpcMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -767,30 +736,41 @@ class GrpcMonitor(pulumi.CustomResource):
         """
         gRPC monitors allow you to monitor gRPC services, either via a health check (HEALTH mode) or by invoking a unary method (BEHAVIOR mode).
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing gRPC monitor using its check ID.
+
+        You can find the ID in the check's URL in the Checkly dashboard.
+
+        ```sh
+        $ pulumi import checkly:index/grpcMonitor:GrpcMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines if the monitor is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['GrpcMonitorAlertChannelSubscriptionArgs', 'GrpcMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['GrpcMonitorAlertChannelSubscriptionArgs', 'GrpcMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['GrpcMonitorAlertSettingsArgs', 'GrpcMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The id of the check group this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
-        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from.
         :param pulumi.Input[Union['GrpcMonitorRequestArgs', 'GrpcMonitorRequestArgsDict']] request: The parameters for the gRPC connection.
         :param pulumi.Input[Union['GrpcMonitorRetryStrategyArgs', 'GrpcMonitorRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines if the monitor should run in all selected locations in parallel or round-robin.
-        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for this monitor.
-        :param pulumi.Input[_builtins.bool] should_fail: Allows to invert the behaviour of when a monitor is considered to fail.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input[Union['GrpcMonitorTriggerIncidentArgs', 'GrpcMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         ...
     @overload
@@ -800,6 +780,18 @@ class GrpcMonitor(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         gRPC monitors allow you to monitor gRPC services, either via a health check (HEALTH mode) or by invoking a unary method (BEHAVIOR mode).
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing gRPC monitor using its check ID.
+
+        You can find the ID in the check's URL in the Checkly dashboard.
+
+        ```sh
+        $ pulumi import checkly:index/grpcMonitor:GrpcMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+        ```
 
         :param str resource_name: The name of the resource.
         :param GrpcMonitorArgs args: The arguments to use to populate this resource's properties.
@@ -834,7 +826,6 @@ class GrpcMonitor(pulumi.CustomResource):
                  retry_strategy: Optional[pulumi.Input[Union['GrpcMonitorRetryStrategyArgs', 'GrpcMonitorRetryStrategyArgsDict']]] = None,
                  run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
                  runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
                  tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  trigger_incident: Optional[pulumi.Input[Union['GrpcMonitorTriggerIncidentArgs', 'GrpcMonitorTriggerIncidentArgsDict']]] = None,
                  use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -847,15 +838,11 @@ class GrpcMonitor(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = GrpcMonitorArgs.__new__(GrpcMonitorArgs)
 
-            if activated is None and not opts.urn:
-                raise TypeError("Missing required property 'activated'")
             __props__.__dict__["activated"] = activated
             __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
             __props__.__dict__["alert_settings"] = alert_settings
             __props__.__dict__["degraded_response_time"] = degraded_response_time
             __props__.__dict__["description"] = description
-            if frequency is None and not opts.urn:
-                raise TypeError("Missing required property 'frequency'")
             __props__.__dict__["frequency"] = frequency
             __props__.__dict__["frequency_offset"] = frequency_offset
             __props__.__dict__["group_id"] = group_id
@@ -871,7 +858,6 @@ class GrpcMonitor(pulumi.CustomResource):
             __props__.__dict__["retry_strategy"] = retry_strategy
             __props__.__dict__["run_parallel"] = run_parallel
             __props__.__dict__["runtime_id"] = runtime_id
-            __props__.__dict__["should_fail"] = should_fail
             __props__.__dict__["tags"] = tags
             __props__.__dict__["trigger_incident"] = trigger_incident
             __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
@@ -903,7 +889,6 @@ class GrpcMonitor(pulumi.CustomResource):
             retry_strategy: Optional[pulumi.Input[Union['GrpcMonitorRetryStrategyArgs', 'GrpcMonitorRetryStrategyArgsDict']]] = None,
             run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
             runtime_id: Optional[pulumi.Input[_builtins.str]] = None,
-            should_fail: Optional[pulumi.Input[_builtins.bool]] = None,
             tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             trigger_incident: Optional[pulumi.Input[Union['GrpcMonitorTriggerIncidentArgs', 'GrpcMonitorTriggerIncidentArgsDict']]] = None,
             use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None) -> 'GrpcMonitor':
@@ -914,28 +899,27 @@ class GrpcMonitor(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines if the monitor is running or not. Possible values `true`, and `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['GrpcMonitorAlertChannelSubscriptionArgs', 'GrpcMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['GrpcMonitorAlertChannelSubscriptionArgs', 'GrpcMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input[Union['GrpcMonitorAlertSettingsArgs', 'GrpcMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        :param pulumi.Input[_builtins.int] degraded_response_time: The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The id of the check group this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
-        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_response_time: The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from.
         :param pulumi.Input[Union['GrpcMonitorRequestArgs', 'GrpcMonitorRequestArgsDict']] request: The parameters for the gRPC connection.
         :param pulumi.Input[Union['GrpcMonitorRetryStrategyArgs', 'GrpcMonitorRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines if the monitor should run in all selected locations in parallel or round-robin.
-        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for this monitor.
-        :param pulumi.Input[_builtins.bool] should_fail: Allows to invert the behaviour of when a monitor is considered to fail.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] runtime_id: The ID of the runtime to use for the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input[Union['GrpcMonitorTriggerIncidentArgs', 'GrpcMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -959,7 +943,6 @@ class GrpcMonitor(pulumi.CustomResource):
         __props__.__dict__["retry_strategy"] = retry_strategy
         __props__.__dict__["run_parallel"] = run_parallel
         __props__.__dict__["runtime_id"] = runtime_id
-        __props__.__dict__["should_fail"] = should_fail
         __props__.__dict__["tags"] = tags
         __props__.__dict__["trigger_incident"] = trigger_incident
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
@@ -969,15 +952,15 @@ class GrpcMonitor(pulumi.CustomResource):
     @pulumi.getter
     def activated(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines if the monitor is running or not. Possible values `true`, and `false`.
+        Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> pulumi.Output[Optional[Sequence['outputs.GrpcMonitorAlertChannelSubscription']]]:
+    def alert_channel_subscriptions(self) -> pulumi.Output[Sequence['outputs.GrpcMonitorAlertChannelSubscription']]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -991,15 +974,15 @@ class GrpcMonitor(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="degradedResponseTime")
-    def degraded_response_time(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def degraded_response_time(self) -> pulumi.Output[_builtins.int]:
         """
-        The response time in milliseconds starting from which a monitor should be considered degraded. Possible values are between 0 and 180000. (Default `10000`).
+        The response time in milliseconds where the monitor should be considered degraded. Possible values are between `1` and `180000`. Defaults to `10000`.
         """
         return pulumi.get(self, "degraded_response_time")
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def description(self) -> pulumi.Output[_builtins.str]:
         """
         A description of the monitor.
         """
@@ -1009,7 +992,7 @@ class GrpcMonitor(pulumi.CustomResource):
     @pulumi.getter
     def frequency(self) -> pulumi.Output[_builtins.int]:
         """
-        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
@@ -1017,7 +1000,7 @@ class GrpcMonitor(pulumi.CustomResource):
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -1025,7 +1008,7 @@ class GrpcMonitor(pulumi.CustomResource):
     @pulumi.getter(name="groupId")
     def group_id(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The id of the check group this monitor is part of.
+        The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
@@ -1033,31 +1016,31 @@ class GrpcMonitor(pulumi.CustomResource):
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def locations(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+        The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @_builtins.property
     @pulumi.getter(name="maxResponseTime")
-    def max_response_time(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def max_response_time(self) -> pulumi.Output[_builtins.int]:
         """
-        The response time in milliseconds starting from which a monitor should be considered failing. Possible values are between 0 and 180000. (Default `20000`).
+        The response time in milliseconds where the monitor should be considered failing. Possible values are between `1` and `180000`. Defaults to `20000`.
         """
         return pulumi.get(self, "max_response_time")
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def muted(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+        Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -1071,9 +1054,9 @@ class GrpcMonitor(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def private_locations(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        An array of one or more private locations slugs.
+        The slugs of the private locations to run the monitor from.
         """
         return pulumi.get(self, "private_locations")
 
@@ -1095,9 +1078,9 @@ class GrpcMonitor(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines if the monitor should run in all selected locations in parallel or round-robin.
+        Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
@@ -1105,23 +1088,15 @@ class GrpcMonitor(pulumi.CustomResource):
     @pulumi.getter(name="runtimeId")
     def runtime_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The ID of the runtime to use for this monitor.
+        The ID of the runtime to use for the monitor.
         """
         return pulumi.get(self, "runtime_id")
 
     @_builtins.property
-    @pulumi.getter(name="shouldFail")
-    def should_fail(self) -> pulumi.Output[Optional[_builtins.bool]]:
-        """
-        Allows to invert the behaviour of when a monitor is considered to fail.
-        """
-        return pulumi.get(self, "should_fail")
-
-    @_builtins.property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
@@ -1135,9 +1110,9 @@ class GrpcMonitor(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Output[_builtins.bool]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+        When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 

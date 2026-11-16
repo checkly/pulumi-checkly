@@ -26,21 +26,36 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string? Body;
         /// <summary>
-        /// The `Content-Type` header of the request. Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+        /// The `Content-Type` header of the request. Possible values are `NONE`, `JSON`, `FORM`, `RAW` and `GRAPHQL`. Defaults to `NONE`.
         /// </summary>
         public readonly string? BodyType;
+        /// <summary>
+        /// Whether to follow HTTP redirects. Defaults to `false`.
+        /// </summary>
         public readonly bool? FollowRedirects;
+        /// <summary>
+        /// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? Headers;
         /// <summary>
-        /// IP Family to be used when executing the api check. The value can be either IPv4 or IPv6.
+        /// IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         public readonly string? IpFamily;
         /// <summary>
-        /// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. (Default `GET`).
+        /// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
         /// </summary>
         public readonly string? Method;
+        /// <summary>
+        /// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? QueryParameters;
+        /// <summary>
+        /// Whether to skip TLS certificate validation of the request. Defaults to `false`.
+        /// </summary>
         public readonly bool? SkipSsl;
+        /// <summary>
+        /// The URL to call. Must be between `1` and `2048` characters.
+        /// </summary>
         public readonly string Url;
 
         [OutputConstructor]

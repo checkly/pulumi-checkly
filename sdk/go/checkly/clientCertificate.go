@@ -8,28 +8,35 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Use client certificates to authenticate your API checks to APIs that require mutual TLS (mTLS) authentication, or any other authentication scheme where the requester needs to provide a certificate.
+// ## Example Usage
 //
-// Each client certificate is specific to a host name, e.g. `acme.com` or a wildcard such as `*.acme.com`, and will be used automatically by any API checks targeting that host. Set `path` to limit the certificate to requests under a URL path prefix.
+// ## Import
 //
-// Changing the value of any attribute forces a new resource to be created.
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing client certificate using its ID.
+//
+// The ID is returned by the Checkly API at GET /v1/client-certificates.
+//
+// ```sh
+// $ pulumi import checkly:index/clientCertificate:ClientCertificate example 49a1d5df-b89a-4998-a469-b1358e282ea5
+// ```
 type ClientCertificate struct {
 	pulumi.CustomResourceState
 
 	// The client certificate in PEM format.
 	Certificate pulumi.StringOutput `pulumi:"certificate"`
-	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
 	Host pulumi.StringOutput `pulumi:"host"`
-	// Passphrase for the private key.
+	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase pulumi.StringPtrOutput `pulumi:"passphrase"`
-	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path pulumi.StringPtrOutput `pulumi:"path"`
-	// The private key for the certificate in PEM format.
-	PrivateKey pulumi.StringOutput `pulumi:"privateKey"`
+	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+	Path       pulumi.StringPtrOutput `pulumi:"path"`
+	PrivateKey pulumi.StringOutput    `pulumi:"privateKey"`
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa pulumi.StringPtrOutput `pulumi:"trustedCa"`
 }
@@ -86,13 +93,12 @@ func GetClientCertificate(ctx *pulumi.Context,
 type clientCertificateState struct {
 	// The client certificate in PEM format.
 	Certificate *string `pulumi:"certificate"`
-	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
 	Host *string `pulumi:"host"`
-	// Passphrase for the private key.
+	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase *string `pulumi:"passphrase"`
-	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path *string `pulumi:"path"`
-	// The private key for the certificate in PEM format.
+	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+	Path       *string `pulumi:"path"`
 	PrivateKey *string `pulumi:"privateKey"`
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa *string `pulumi:"trustedCa"`
@@ -101,13 +107,12 @@ type clientCertificateState struct {
 type ClientCertificateState struct {
 	// The client certificate in PEM format.
 	Certificate pulumi.StringPtrInput
-	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
 	Host pulumi.StringPtrInput
-	// Passphrase for the private key.
+	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase pulumi.StringPtrInput
-	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path pulumi.StringPtrInput
-	// The private key for the certificate in PEM format.
+	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+	Path       pulumi.StringPtrInput
 	PrivateKey pulumi.StringPtrInput
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa pulumi.StringPtrInput
@@ -120,14 +125,13 @@ func (ClientCertificateState) ElementType() reflect.Type {
 type clientCertificateArgs struct {
 	// The client certificate in PEM format.
 	Certificate string `pulumi:"certificate"`
-	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
 	Host string `pulumi:"host"`
-	// Passphrase for the private key.
+	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase *string `pulumi:"passphrase"`
-	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path *string `pulumi:"path"`
-	// The private key for the certificate in PEM format.
-	PrivateKey string `pulumi:"privateKey"`
+	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+	Path       *string `pulumi:"path"`
+	PrivateKey string  `pulumi:"privateKey"`
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa *string `pulumi:"trustedCa"`
 }
@@ -136,13 +140,12 @@ type clientCertificateArgs struct {
 type ClientCertificateArgs struct {
 	// The client certificate in PEM format.
 	Certificate pulumi.StringInput
-	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+	// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
 	Host pulumi.StringInput
-	// Passphrase for the private key.
+	// Passphrase for the private key. Must be at most `95` bytes.
 	Passphrase pulumi.StringPtrInput
-	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-	Path pulumi.StringPtrInput
-	// The private key for the certificate in PEM format.
+	// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+	Path       pulumi.StringPtrInput
 	PrivateKey pulumi.StringInput
 	// PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
 	TrustedCa pulumi.StringPtrInput
@@ -240,22 +243,21 @@ func (o ClientCertificateOutput) Certificate() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClientCertificate) pulumi.StringOutput { return v.Certificate }).(pulumi.StringOutput)
 }
 
-// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+// The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
 func (o ClientCertificateOutput) Host() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClientCertificate) pulumi.StringOutput { return v.Host }).(pulumi.StringOutput)
 }
 
-// Passphrase for the private key.
+// Passphrase for the private key. Must be at most `95` bytes.
 func (o ClientCertificateOutput) Passphrase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClientCertificate) pulumi.StringPtrOutput { return v.Passphrase }).(pulumi.StringPtrOutput)
 }
 
-// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+// Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
 func (o ClientCertificateOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClientCertificate) pulumi.StringPtrOutput { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// The private key for the certificate in PEM format.
 func (o ClientCertificateOutput) PrivateKey() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClientCertificate) pulumi.StringOutput { return v.PrivateKey }).(pulumi.StringOutput)
 }

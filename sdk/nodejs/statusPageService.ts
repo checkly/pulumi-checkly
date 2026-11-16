@@ -7,6 +7,8 @@ import * as utilities from "./utilities";
 /**
  * Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `checkly.StatusPageV3Component` instead.
  *
+ * The `checkly.StatusPageService` resource type is deprecated together with `checkly.StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `checkly.MaintenanceWindow`. See Status pages in the v2 upgrade guide.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -16,6 +18,22 @@ import * as utilities from "./utilities";
  * const backend = new checkly.StatusPageService("backend", {name: "Backend"});
  * const frontend = new checkly.StatusPageService("frontend", {name: "Frontend"});
  * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * checkly_status_page_service is deprecated together with checkly_status_page; services of v3 status pages are checkly_status_page_v3_component resources.
+ *
+ * Import an existing status page service using its ID.
+ *
+ * The ID is returned by the Checkly API at GET /v1/status-pages/services.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/statusPageService:StatusPageService example 8a894b49-467f-4af6-9230-cd4d3bd452f4
+ * ```
+ *
+ * @deprecated Use StatusPageV3Component resources on a StatusPageV3 page instead.
  */
 export class StatusPageService extends pulumi.CustomResource {
     /**
@@ -28,6 +46,7 @@ export class StatusPageService extends pulumi.CustomResource {
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: StatusPageServiceState, opts?: pulumi.CustomResourceOptions): StatusPageService {
+        pulumi.log.warn("StatusPageService is deprecated: Use StatusPageV3Component resources on a StatusPageV3 page instead.")
         return new StatusPageService(name, <any>state, { ...opts, id: id });
     }
 
@@ -57,8 +76,11 @@ export class StatusPageService extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
+    /** @deprecated Use StatusPageV3Component resources on a StatusPageV3 page instead. */
     constructor(name: string, args?: StatusPageServiceArgs, opts?: pulumi.CustomResourceOptions)
+    /** @deprecated Use StatusPageV3Component resources on a StatusPageV3 page instead. */
     constructor(name: string, argsOrState?: StatusPageServiceArgs | StatusPageServiceState, opts?: pulumi.CustomResourceOptions) {
+        pulumi.log.warn("StatusPageService is deprecated: Use StatusPageV3Component resources on a StatusPageV3 page instead.")
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {

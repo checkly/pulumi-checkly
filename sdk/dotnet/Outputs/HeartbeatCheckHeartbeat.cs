@@ -14,23 +14,23 @@ namespace Pulumi.Checkly.Outputs
     public sealed class HeartbeatCheckHeartbeat
     {
         /// <summary>
-        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period. Must be at least `0`, and the combination of `grace` and `grace_unit` must be at most 365 days.
         /// </summary>
         public readonly int Grace;
         /// <summary>
-        /// Possible values `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `grace`. Possible values are `seconds`, `minutes`, `hours` and `days`.
         /// </summary>
         public readonly string GraceUnit;
         /// <summary>
-        /// How often you expect a ping to the ping URL.
+        /// How often you expect a ping to the ping URL. The combination of `period` and `period_unit` must be between 30 seconds and 365 days.
         /// </summary>
         public readonly int Period;
         /// <summary>
-        /// Possible values `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `period`. Possible values are `seconds`, `minutes`, `hours` and `days`.
         /// </summary>
         public readonly string PeriodUnit;
         /// <summary>
-        /// Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
+        /// A custom lowercase UUID with hyphens to generate your ping URL from, such as `22868839-8450-4010-9241-1ea83a2e425f`. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`. If not set, Checkly generates one.
         /// </summary>
         public readonly string? PingToken;
 

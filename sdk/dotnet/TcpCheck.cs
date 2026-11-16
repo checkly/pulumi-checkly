@@ -10,115 +10,32 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// ## Example Usage
+    /// ## Import
     /// 
-    /// ```csharp
-    /// using System.Collections.Generic;
-    /// using System.Linq;
-    /// using Pulumi;
-    /// using Checkly = Pulumi.Checkly;
+    /// The `pulumi import` command can be used, for example:
     /// 
-    /// return await Deployment.RunAsync(() =&gt; 
-    /// {
-    ///     // Basic TCP Check
-    ///     var example_tcp_check = new Checkly.TcpCheck("example-tcp-check", new()
-    ///     {
-    ///         Name = "Example TCP check",
-    ///         Activated = true,
-    ///         ShouldFail = false,
-    ///         Frequency = 1,
-    ///         UseGlobalAlertSettings = true,
-    ///         Locations = new[]
-    ///         {
-    ///             "us-west-1",
-    ///         },
-    ///         Request = new Checkly.Inputs.TcpCheckRequestArgs
-    ///         {
-    ///             Hostname = "api.checklyhq.com",
-    ///             Port = 80,
-    ///         },
-    ///     });
+    /// checkly_tcp_check is deprecated; to start managing an existing resource, import it as checkly_tcp_monitor instead.
     /// 
-    ///     // A more complex example using assertions and setting alerts
-    ///     var example_tcp_check_2 = new Checkly.TcpCheck("example-tcp-check-2", new()
-    ///     {
-    ///         Name = "Example TCP check 2",
-    ///         Activated = true,
-    ///         ShouldFail = true,
-    ///         Frequency = 1,
-    ///         DegradedResponseTime = 5000,
-    ///         MaxResponseTime = 10000,
-    ///         Locations = new[]
-    ///         {
-    ///             "us-west-1",
-    ///             "ap-northeast-1",
-    ///             "ap-south-1",
-    ///         },
-    ///         AlertSettings = new Checkly.Inputs.TcpCheckAlertSettingsArgs
-    ///         {
-    ///             EscalationType = "RUN_BASED",
-    ///             RunBasedEscalations = new[]
-    ///             {
-    ///                 new Checkly.Inputs.TcpCheckAlertSettingsRunBasedEscalationArgs
-    ///                 {
-    ///                     FailedRunThreshold = 1,
-    ///                 },
-    ///             },
-    ///             Reminders = new[]
-    ///             {
-    ///                 new Checkly.Inputs.TcpCheckAlertSettingsReminderArgs
-    ///                 {
-    ///                     Amount = 1,
-    ///                 },
-    ///             },
-    ///         },
-    ///         RetryStrategy = new Checkly.Inputs.TcpCheckRetryStrategyArgs
-    ///         {
-    ///             Type = "FIXED",
-    ///             BaseBackoffSeconds = 60,
-    ///             MaxDurationSeconds = 600,
-    ///             MaxRetries = 3,
-    ///             SameRegion = false,
-    ///         },
-    ///         Request = new Checkly.Inputs.TcpCheckRequestArgs
-    ///         {
-    ///             Hostname = "api.checklyhq.com",
-    ///             Port = 80,
-    ///             Data = "hello",
-    ///             Assertions = new[]
-    ///             {
-    ///                 new Checkly.Inputs.TcpCheckRequestAssertionArgs
-    ///                 {
-    ///                     Source = "RESPONSE_DATA",
-    ///                     Property = "",
-    ///                     Comparison = "CONTAINS",
-    ///                     Target = "welcome",
-    ///                 },
-    ///                 new Checkly.Inputs.TcpCheckRequestAssertionArgs
-    ///                 {
-    ///                     Source = "RESPONSE_TIME",
-    ///                     Property = "",
-    ///                     Comparison = "LESS_THAN",
-    ///                     Target = "2000",
-    ///                 },
-    ///             },
-    ///         },
-    ///     });
+    /// Import an existing TCP monitor using its check ID.
     /// 
-    /// });
+    /// You can find the ID in the check's URL in the Checkly dashboard.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/tcpCheck:TcpCheck example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
     /// ```
     /// </summary>
+    [Obsolete(@"Use the TcpMonitor resource instead. Both resources have the same properties.")]
     [ChecklyResourceType("checkly:index/tcpCheck:TcpCheck")]
     public partial class TcpCheck : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.TcpCheckAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
@@ -130,67 +47,67 @@ namespace Pulumi.Checkly
         public Output<Outputs.TcpCheckAlertSettings> AlertSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
+        /// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
         /// </summary>
         [Output("degradedResponseTime")]
-        public Output<int?> DegradedResponseTime { get; private set; } = null!;
+        public Output<int> DegradedResponseTime { get; private set; } = null!;
 
         /// <summary>
         /// A description of the monitor.
         /// </summary>
         [Output("description")]
-        public Output<string?> Description { get; private set; } = null!;
+        public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
 
         /// <summary>
-        /// The id of the check group this check is part of.
+        /// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         /// </summary>
         [Output("groupId")]
         public Output<int?> GroupId { get; private set; } = null!;
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        /// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         /// </summary>
         [Output("groupOrder")]
         public Output<int?> GroupOrder { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
+        /// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         /// </summary>
         [Output("maxResponseTime")]
-        public Output<int?> MaxResponseTime { get; private set; } = null!;
+        public Output<int> MaxResponseTime { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         /// </summary>
         [Output("muted")]
-        public Output<bool?> Muted { get; private set; } = null!;
+        public Output<bool> Muted { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the check.
+        /// The name of the monitor.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the monitor from.
         /// </summary>
         [Output("privateLocations")]
         public Output<ImmutableArray<string>> PrivateLocations { get; private set; } = null!;
@@ -208,25 +125,25 @@ namespace Pulumi.Checkly
         public Output<Outputs.TcpCheckRetryStrategy> RetryStrategy { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         /// </summary>
         [Output("runParallel")]
-        public Output<bool?> RunParallel { get; private set; } = null!;
+        public Output<bool> RunParallel { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the runtime to use for this check.
+        /// The ID of the runtime to use for the monitor.
         /// </summary>
         [Output("runtimeId")]
         public Output<string?> RuntimeId { get; private set; } = null!;
 
         /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail.
+        /// Inverts when the monitor is considered to fail. Defaults to `false`.
         /// </summary>
         [Output("shouldFail")]
-        public Output<bool?> ShouldFail { get; private set; } = null!;
+        public Output<bool> ShouldFail { get; private set; } = null!;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
@@ -238,10 +155,10 @@ namespace Pulumi.Checkly
         public Output<Outputs.TcpCheckTriggerIncident?> TriggerIncident { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check.
+        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
-        public Output<bool?> UseGlobalAlertSettings { get; private set; } = null!;
+        public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
 
 
         /// <summary>
@@ -291,16 +208,16 @@ namespace Pulumi.Checkly
     public sealed class TcpCheckArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
         /// </summary>
-        [Input("activated", required: true)]
-        public Input<bool> Activated { get; set; } = null!;
+        [Input("activated")]
+        public Input<bool>? Activated { get; set; }
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.TcpCheckAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.TcpCheckAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
@@ -315,7 +232,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckAlertSettingsArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
+        /// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -327,25 +244,25 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
-        [Input("frequency", required: true)]
-        public Input<int> Frequency { get; set; } = null!;
+        [Input("frequency")]
+        public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
         /// <summary>
-        /// The id of the check group this check is part of.
+        /// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        /// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
@@ -354,7 +271,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -363,19 +280,19 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
+        /// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
 
         /// <summary>
-        /// The name of the check.
+        /// The name of the monitor.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -384,7 +301,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the monitor from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -405,19 +322,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckRetryStrategyArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The ID of the runtime to use for this check.
+        /// The ID of the runtime to use for the monitor.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail.
+        /// Inverts when the monitor is considered to fail. Defaults to `false`.
         /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
@@ -426,7 +343,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         public InputList<string> Tags
         {
@@ -441,7 +358,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckTriggerIncidentArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check.
+        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -455,7 +372,7 @@ namespace Pulumi.Checkly
     public sealed class TcpCheckState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
+        /// Determines whether the monitor runs on its schedule. Defaults to `true`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -464,7 +381,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.TcpCheckAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.TcpCheckAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
@@ -479,7 +396,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckAlertSettingsGetArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
+        /// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -491,25 +408,25 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
         /// <summary>
-        /// The id of the check group this check is part of.
+        /// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        /// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
@@ -518,7 +435,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        /// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -527,19 +444,19 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
+        /// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+        /// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
 
         /// <summary>
-        /// The name of the check.
+        /// The name of the monitor.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -548,7 +465,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the monitor from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -569,19 +486,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckRetryStrategyGetArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The ID of the runtime to use for this check.
+        /// The ID of the runtime to use for the monitor.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail.
+        /// Inverts when the monitor is considered to fail. Defaults to `false`.
         /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
@@ -590,7 +507,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         public InputList<string> Tags
         {
@@ -605,7 +522,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.TcpCheckTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check.
+        /// When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

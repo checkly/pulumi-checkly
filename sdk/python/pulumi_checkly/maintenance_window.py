@@ -36,17 +36,17 @@ class MaintenanceWindowArgs:
                  timezone: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a MaintenanceWindow resource.
-        :param pulumi.Input[_builtins.str] ends_at: The end date of the maintenance window.
-        :param pulumi.Input[_builtins.str] starts_at: The start date of the maintenance window.
-        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
-        :param pulumi.Input[_builtins.str] name: The maintenance window name.
+        :param pulumi.Input[_builtins.str] ends_at: The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
+        :param pulumi.Input[_builtins.str] starts_at: The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
+        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
+        :param pulumi.Input[_builtins.str] name: The maintenance window name. Must be between `1` and `200` characters.
         :param pulumi.Input[_builtins.bool] pause_all_checks: Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] repeat_ends_at: The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
-        :param pulumi.Input[_builtins.int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
-        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        :param pulumi.Input[_builtins.str] repeat_ends_at: The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
+        :param pulumi.Input[_builtins.int] repeat_interval: How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
+        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] silence_alerts_tags: The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         :param pulumi.Input[_builtins.bool] silence_all_alerts: Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
-        :param pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs'] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        :param pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs'] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         :param pulumi.Input[_builtins.str] timezone: The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
@@ -79,7 +79,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="endsAt")
     def ends_at(self) -> pulumi.Input[_builtins.str]:
         """
-        The end date of the maintenance window.
+        The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
         """
         return pulumi.get(self, "ends_at")
 
@@ -91,7 +91,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="startsAt")
     def starts_at(self) -> pulumi.Input[_builtins.str]:
         """
-        The start date of the maintenance window.
+        The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
         """
         return pulumi.get(self, "starts_at")
 
@@ -103,7 +103,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+        A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
         """
         return pulumi.get(self, "description")
 
@@ -115,7 +115,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The maintenance window name.
+        The maintenance window name. Must be between `1` and `200` characters.
         """
         return pulumi.get(self, "name")
 
@@ -139,7 +139,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="repeatEndsAt")
     def repeat_ends_at(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
+        The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
         """
         return pulumi.get(self, "repeat_ends_at")
 
@@ -151,7 +151,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="repeatInterval")
     def repeat_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The repeat interval of the maintenance window from the first occurrence.
+        How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
         """
         return pulumi.get(self, "repeat_interval")
 
@@ -163,7 +163,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="repeatUnit")
     def repeat_unit(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         """
         return pulumi.get(self, "repeat_unit")
 
@@ -199,7 +199,7 @@ class MaintenanceWindowArgs:
     @pulumi.getter(name="statusPageVisibility")
     def status_page_visibility(self) -> Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']]:
         """
-        Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         """
         return pulumi.get(self, "status_page_visibility")
 
@@ -250,17 +250,17 @@ class _MaintenanceWindowState:
                  timezone: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering MaintenanceWindow resources.
-        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
-        :param pulumi.Input[_builtins.str] ends_at: The end date of the maintenance window.
-        :param pulumi.Input[_builtins.str] name: The maintenance window name.
+        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
+        :param pulumi.Input[_builtins.str] ends_at: The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
+        :param pulumi.Input[_builtins.str] name: The maintenance window name. Must be between `1` and `200` characters.
         :param pulumi.Input[_builtins.bool] pause_all_checks: Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] repeat_ends_at: The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
-        :param pulumi.Input[_builtins.int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
-        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        :param pulumi.Input[_builtins.str] repeat_ends_at: The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
+        :param pulumi.Input[_builtins.int] repeat_interval: How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
+        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] silence_alerts_tags: The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         :param pulumi.Input[_builtins.bool] silence_all_alerts: Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] starts_at: The start date of the maintenance window.
-        :param pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs'] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        :param pulumi.Input[_builtins.str] starts_at: The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
+        :param pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs'] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         :param pulumi.Input[_builtins.str] timezone: The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
@@ -295,7 +295,7 @@ class _MaintenanceWindowState:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+        A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
         """
         return pulumi.get(self, "description")
 
@@ -307,7 +307,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="endsAt")
     def ends_at(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The end date of the maintenance window.
+        The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
         """
         return pulumi.get(self, "ends_at")
 
@@ -319,7 +319,7 @@ class _MaintenanceWindowState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The maintenance window name.
+        The maintenance window name. Must be between `1` and `200` characters.
         """
         return pulumi.get(self, "name")
 
@@ -343,7 +343,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="repeatEndsAt")
     def repeat_ends_at(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
+        The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
         """
         return pulumi.get(self, "repeat_ends_at")
 
@@ -355,7 +355,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="repeatInterval")
     def repeat_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The repeat interval of the maintenance window from the first occurrence.
+        How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
         """
         return pulumi.get(self, "repeat_interval")
 
@@ -367,7 +367,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="repeatUnit")
     def repeat_unit(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         """
         return pulumi.get(self, "repeat_unit")
 
@@ -403,7 +403,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="startsAt")
     def starts_at(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The start date of the maintenance window.
+        The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
         """
         return pulumi.get(self, "starts_at")
 
@@ -415,7 +415,7 @@ class _MaintenanceWindowState:
     @pulumi.getter(name="statusPageVisibility")
     def status_page_visibility(self) -> Optional[pulumi.Input['MaintenanceWindowStatusPageVisibilityArgs']]:
         """
-        Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         """
         return pulumi.get(self, "status_page_visibility")
 
@@ -469,6 +469,8 @@ class MaintenanceWindow(pulumi.CustomResource):
                  timezone: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
+        Maintenance windows pause alerting during scheduled maintenance for the checks and groups they apply to.
+
         ## Example Usage
 
         ```python
@@ -480,7 +482,7 @@ class MaintenanceWindow(pulumi.CustomResource):
             starts_at="2014-08-24T00:00:00.000Z",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_unit="MONTH",
-            repeat_ends_at="2014-08-24T00:00:00.000Z",
+            repeat_ends_at="2014-12-31",
             repeat_interval=1,
             tags=["production"],
             timezone="America/New_York",
@@ -510,21 +512,68 @@ class MaintenanceWindow(pulumi.CustomResource):
                 "status_page_ids": [example.id],
                 "service_ids": [api.id],
             })
+        # Show a maintenance window on a v3 status page, with the status each
+        # affected component shows while the maintenance is in progress
+        example_status_page_v3 = checkly.StatusPageV3("example",
+            name="Example Application",
+            url="my-example-status-page-v3")
+        api_status_page_v3_component = checkly.StatusPageV3Component("api",
+            status_page_id=example_status_page_v3.id,
+            name="API",
+            display_order=0)
+        database = checkly.StatusPageV3Component("database",
+            status_page_id=example_status_page_v3.id,
+            name="Database",
+            display_order=1)
+        maintenance_3 = checkly.MaintenanceWindow("maintenance-3",
+            name="Database upgrade",
+            starts_at="2028-09-24T00:00:00.000Z",
+            ends_at="2028-09-24T02:00:00.000Z",
+            description="We're upgrading our database servers.",
+            status_page_visibility={
+                "enabled": True,
+                "severity": "MEDIUM",
+                "status_page_ids": [example_status_page_v3.id],
+                "component_configs": [{
+                    "status_page_id": example_status_page_v3.id,
+                    "components": [
+                        {
+                            "component_id": database.id,
+                        },
+                        {
+                            "component_id": api_status_page_v3_component.id,
+                            "status": "DEGRADED_PERFORMANCE",
+                        },
+                    ],
+                }],
+            })
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing maintenance window using its numeric ID.
+
+        The ID is returned by the Checkly API at GET /v1/maintenance-windows.
+
+        ```sh
+        $ pulumi import checkly:index/maintenanceWindow:MaintenanceWindow example 12345
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
-        :param pulumi.Input[_builtins.str] ends_at: The end date of the maintenance window.
-        :param pulumi.Input[_builtins.str] name: The maintenance window name.
+        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
+        :param pulumi.Input[_builtins.str] ends_at: The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
+        :param pulumi.Input[_builtins.str] name: The maintenance window name. Must be between `1` and `200` characters.
         :param pulumi.Input[_builtins.bool] pause_all_checks: Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] repeat_ends_at: The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
-        :param pulumi.Input[_builtins.int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
-        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        :param pulumi.Input[_builtins.str] repeat_ends_at: The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
+        :param pulumi.Input[_builtins.int] repeat_interval: How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
+        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] silence_alerts_tags: The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         :param pulumi.Input[_builtins.bool] silence_all_alerts: Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] starts_at: The start date of the maintenance window.
-        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        :param pulumi.Input[_builtins.str] starts_at: The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
+        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         :param pulumi.Input[_builtins.str] timezone: The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
@@ -535,6 +584,8 @@ class MaintenanceWindow(pulumi.CustomResource):
                  args: MaintenanceWindowArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Maintenance windows pause alerting during scheduled maintenance for the checks and groups they apply to.
+
         ## Example Usage
 
         ```python
@@ -546,7 +597,7 @@ class MaintenanceWindow(pulumi.CustomResource):
             starts_at="2014-08-24T00:00:00.000Z",
             ends_at="2014-08-25T00:00:00.000Z",
             repeat_unit="MONTH",
-            repeat_ends_at="2014-08-24T00:00:00.000Z",
+            repeat_ends_at="2014-12-31",
             repeat_interval=1,
             tags=["production"],
             timezone="America/New_York",
@@ -576,6 +627,53 @@ class MaintenanceWindow(pulumi.CustomResource):
                 "status_page_ids": [example.id],
                 "service_ids": [api.id],
             })
+        # Show a maintenance window on a v3 status page, with the status each
+        # affected component shows while the maintenance is in progress
+        example_status_page_v3 = checkly.StatusPageV3("example",
+            name="Example Application",
+            url="my-example-status-page-v3")
+        api_status_page_v3_component = checkly.StatusPageV3Component("api",
+            status_page_id=example_status_page_v3.id,
+            name="API",
+            display_order=0)
+        database = checkly.StatusPageV3Component("database",
+            status_page_id=example_status_page_v3.id,
+            name="Database",
+            display_order=1)
+        maintenance_3 = checkly.MaintenanceWindow("maintenance-3",
+            name="Database upgrade",
+            starts_at="2028-09-24T00:00:00.000Z",
+            ends_at="2028-09-24T02:00:00.000Z",
+            description="We're upgrading our database servers.",
+            status_page_visibility={
+                "enabled": True,
+                "severity": "MEDIUM",
+                "status_page_ids": [example_status_page_v3.id],
+                "component_configs": [{
+                    "status_page_id": example_status_page_v3.id,
+                    "components": [
+                        {
+                            "component_id": database.id,
+                        },
+                        {
+                            "component_id": api_status_page_v3_component.id,
+                            "status": "DEGRADED_PERFORMANCE",
+                        },
+                    ],
+                }],
+            })
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing maintenance window using its numeric ID.
+
+        The ID is returned by the Checkly API at GET /v1/maintenance-windows.
+
+        ```sh
+        $ pulumi import checkly:index/maintenanceWindow:MaintenanceWindow example 12345
         ```
 
         :param str resource_name: The name of the resource.
@@ -662,17 +760,17 @@ class MaintenanceWindow(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
-        :param pulumi.Input[_builtins.str] ends_at: The end date of the maintenance window.
-        :param pulumi.Input[_builtins.str] name: The maintenance window name.
+        :param pulumi.Input[_builtins.str] description: A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
+        :param pulumi.Input[_builtins.str] ends_at: The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
+        :param pulumi.Input[_builtins.str] name: The maintenance window name. Must be between `1` and `200` characters.
         :param pulumi.Input[_builtins.bool] pause_all_checks: Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] repeat_ends_at: The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
-        :param pulumi.Input[_builtins.int] repeat_interval: The repeat interval of the maintenance window from the first occurrence.
-        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        :param pulumi.Input[_builtins.str] repeat_ends_at: The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
+        :param pulumi.Input[_builtins.int] repeat_interval: How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
+        :param pulumi.Input[_builtins.str] repeat_unit: The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] silence_alerts_tags: The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         :param pulumi.Input[_builtins.bool] silence_all_alerts: Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] starts_at: The start date of the maintenance window.
-        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        :param pulumi.Input[_builtins.str] starts_at: The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
+        :param pulumi.Input[Union['MaintenanceWindowStatusPageVisibilityArgs', 'MaintenanceWindowStatusPageVisibilityArgsDict']] status_page_visibility: Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         :param pulumi.Input[_builtins.str] timezone: The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `starts_at` and `ends_at` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
         """
@@ -699,7 +797,7 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter
     def description(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+        A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
         """
         return pulumi.get(self, "description")
 
@@ -707,7 +805,7 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="endsAt")
     def ends_at(self) -> pulumi.Output[_builtins.str]:
         """
-        The end date of the maintenance window.
+        The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
         """
         return pulumi.get(self, "ends_at")
 
@@ -715,13 +813,13 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The maintenance window name.
+        The maintenance window name. Must be between `1` and `200` characters.
         """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="pauseAllChecks")
-    def pause_all_checks(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def pause_all_checks(self) -> pulumi.Output[_builtins.bool]:
         """
         Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
         """
@@ -731,7 +829,7 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="repeatEndsAt")
     def repeat_ends_at(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
+        The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeat_interval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
         """
         return pulumi.get(self, "repeat_ends_at")
 
@@ -739,7 +837,7 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="repeatInterval")
     def repeat_interval(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The repeat interval of the maintenance window from the first occurrence.
+        How many `repeat_unit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeat_unit`.
         """
         return pulumi.get(self, "repeat_interval")
 
@@ -747,13 +845,13 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="repeatUnit")
     def repeat_unit(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+        The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
         """
         return pulumi.get(self, "repeat_unit")
 
     @_builtins.property
     @pulumi.getter(name="silenceAlertsTags")
-    def silence_alerts_tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def silence_alerts_tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
         The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silence_all_alerts` is `true`.
         """
@@ -761,7 +859,7 @@ class MaintenanceWindow(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="silenceAllAlerts")
-    def silence_all_alerts(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def silence_all_alerts(self) -> pulumi.Output[_builtins.bool]:
         """
         Silence alerts for every check in the account during the maintenance window, regardless of `silence_alerts_tags`. Defaults to `false`.
         """
@@ -771,7 +869,7 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="startsAt")
     def starts_at(self) -> pulumi.Output[_builtins.str]:
         """
-        The start date of the maintenance window.
+        The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
         """
         return pulumi.get(self, "starts_at")
 
@@ -779,13 +877,13 @@ class MaintenanceWindow(pulumi.CustomResource):
     @pulumi.getter(name="statusPageVisibility")
     def status_page_visibility(self) -> pulumi.Output[Optional['outputs.MaintenanceWindowStatusPageVisibility']]:
         """
-        Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+        Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `component_configs`, since removing them is a change it can't make.
         """
         return pulumi.get(self, "status_page_visibility")
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
         The tags of the checks and groups that are paused during the maintenance window. Ignored when `pause_all_checks` is `true`.
         """

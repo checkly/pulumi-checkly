@@ -13,7 +13,13 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupApiCheckDefaultsBasicAuth
     {
+        /// <summary>
+        /// The basic auth password.
+        /// </summary>
         public readonly string Password;
+        /// <summary>
+        /// The basic auth username.
+        /// </summary>
         public readonly string Username;
 
         [OutputConstructor]

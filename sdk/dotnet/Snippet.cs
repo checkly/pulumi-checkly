@@ -10,6 +10,8 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
+    /// Snippets are reusable pieces of code that can be referenced from setup &amp; teardown scripts of API checks, or used as partials in browser checks.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -37,12 +39,24 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing snippet using its numeric ID.
+    /// 
+    /// The ID is returned by the Checkly API at GET /v1/snippets.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/snippet:Snippet example 12345
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/snippet:Snippet")]
     public partial class Snippet : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The name of the snippet
+        /// The name of the snippet.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -101,7 +115,7 @@ namespace Pulumi.Checkly
     public sealed class SnippetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the snippet
+        /// The name of the snippet.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -121,7 +135,7 @@ namespace Pulumi.Checkly
     public sealed class SnippetState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the snippet
+        /// The name of the snippet.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }

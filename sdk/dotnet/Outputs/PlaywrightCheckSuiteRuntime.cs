@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntime
     {
         /// <summary>
-        /// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+        /// Whether to automatically detect appropriate runtime environment configuration from the bundle. Defaults to `true`.
         /// </summary>
         public readonly bool? AutoDetect;
         /// <summary>

@@ -32,15 +32,15 @@ class StatusPageV3AutomationRuleArgs:
                  notify_subscribers: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a StatusPageV3AutomationRule resource.
-        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident.
-        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident.
+        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident. Must not be empty.
+        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident. Must not be empty.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the rule belongs to.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         :param pulumi.Input[Sequence[pulumi.Input['StatusPageV3AutomationRuleComponentArgs']]] components: The components an automated incident impacts, with the impact each gets.
-        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
-        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. (Default `true`).
-        :param pulumi.Input[_builtins.str] name: The name of the rule.
-        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. (Default `true`).
+        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
+        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. Defaults to `true`.
+        :param pulumi.Input[_builtins.str] name: The name of the rule. Must be between `1` and `255` characters.
+        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. Defaults to `true`.
         """
         pulumi.set(__self__, "first_update", first_update)
         pulumi.set(__self__, "last_update", last_update)
@@ -61,7 +61,7 @@ class StatusPageV3AutomationRuleArgs:
     @pulumi.getter(name="firstUpdate")
     def first_update(self) -> pulumi.Input[_builtins.str]:
         """
-        Body of the status update that opens the incident.
+        Body of the status update that opens the incident. Must not be empty.
         """
         return pulumi.get(self, "first_update")
 
@@ -73,7 +73,7 @@ class StatusPageV3AutomationRuleArgs:
     @pulumi.getter(name="lastUpdate")
     def last_update(self) -> pulumi.Input[_builtins.str]:
         """
-        Body of the status update that resolves the incident.
+        Body of the status update that resolves the incident. Must not be empty.
         """
         return pulumi.get(self, "last_update")
 
@@ -97,7 +97,7 @@ class StatusPageV3AutomationRuleArgs:
     @pulumi.getter
     def tags(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
         """
-        A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         """
         return pulumi.get(self, "tags")
 
@@ -121,7 +121,7 @@ class StatusPageV3AutomationRuleArgs:
     @pulumi.getter(name="coolDownWindowMinutes")
     def cool_down_window_minutes(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+        Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
         """
         return pulumi.get(self, "cool_down_window_minutes")
 
@@ -133,7 +133,7 @@ class StatusPageV3AutomationRuleArgs:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        A disabled rule never opens incidents. (Default `true`).
+        A disabled rule never opens incidents. Defaults to `true`.
         """
         return pulumi.get(self, "enabled")
 
@@ -145,7 +145,7 @@ class StatusPageV3AutomationRuleArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the rule.
+        The name of the rule. Must be between `1` and `255` characters.
         """
         return pulumi.get(self, "name")
 
@@ -157,7 +157,7 @@ class StatusPageV3AutomationRuleArgs:
     @pulumi.getter(name="notifySubscribers")
     def notify_subscribers(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Whether subscribers are notified of the automated updates. (Default `true`).
+        Whether subscribers are notified of the automated updates. Defaults to `true`.
         """
         return pulumi.get(self, "notify_subscribers")
 
@@ -181,14 +181,14 @@ class _StatusPageV3AutomationRuleState:
         """
         Input properties used for looking up and filtering StatusPageV3AutomationRule resources.
         :param pulumi.Input[Sequence[pulumi.Input['StatusPageV3AutomationRuleComponentArgs']]] components: The components an automated incident impacts, with the impact each gets.
-        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
-        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. (Default `true`).
-        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident.
-        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident.
-        :param pulumi.Input[_builtins.str] name: The name of the rule.
-        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. (Default `true`).
+        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
+        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. Defaults to `true`.
+        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident. Must not be empty.
+        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident. Must not be empty.
+        :param pulumi.Input[_builtins.str] name: The name of the rule. Must be between `1` and `255` characters.
+        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. Defaults to `true`.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the rule belongs to.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         """
         if components is not None:
             pulumi.set(__self__, "components", components)
@@ -225,7 +225,7 @@ class _StatusPageV3AutomationRuleState:
     @pulumi.getter(name="coolDownWindowMinutes")
     def cool_down_window_minutes(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+        Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
         """
         return pulumi.get(self, "cool_down_window_minutes")
 
@@ -237,7 +237,7 @@ class _StatusPageV3AutomationRuleState:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        A disabled rule never opens incidents. (Default `true`).
+        A disabled rule never opens incidents. Defaults to `true`.
         """
         return pulumi.get(self, "enabled")
 
@@ -249,7 +249,7 @@ class _StatusPageV3AutomationRuleState:
     @pulumi.getter(name="firstUpdate")
     def first_update(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Body of the status update that opens the incident.
+        Body of the status update that opens the incident. Must not be empty.
         """
         return pulumi.get(self, "first_update")
 
@@ -261,7 +261,7 @@ class _StatusPageV3AutomationRuleState:
     @pulumi.getter(name="lastUpdate")
     def last_update(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Body of the status update that resolves the incident.
+        Body of the status update that resolves the incident. Must not be empty.
         """
         return pulumi.get(self, "last_update")
 
@@ -273,7 +273,7 @@ class _StatusPageV3AutomationRuleState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the rule.
+        The name of the rule. Must be between `1` and `255` characters.
         """
         return pulumi.get(self, "name")
 
@@ -285,7 +285,7 @@ class _StatusPageV3AutomationRuleState:
     @pulumi.getter(name="notifySubscribers")
     def notify_subscribers(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Whether subscribers are notified of the automated updates. (Default `true`).
+        Whether subscribers are notified of the automated updates. Defaults to `true`.
         """
         return pulumi.get(self, "notify_subscribers")
 
@@ -309,7 +309,7 @@ class _StatusPageV3AutomationRuleState:
     @pulumi.getter
     def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         """
         return pulumi.get(self, "tags")
 
@@ -364,17 +364,29 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
             }])
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing status page automation rule using "<status_page_id>/<rule_id>".
+
+        Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/automation-rules.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/5b0a9a1e-8e29-4b71-92e1-0db9b3b41f0a
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[Union['StatusPageV3AutomationRuleComponentArgs', 'StatusPageV3AutomationRuleComponentArgsDict']]]] components: The components an automated incident impacts, with the impact each gets.
-        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
-        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. (Default `true`).
-        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident.
-        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident.
-        :param pulumi.Input[_builtins.str] name: The name of the rule.
-        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. (Default `true`).
+        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
+        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. Defaults to `true`.
+        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident. Must not be empty.
+        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident. Must not be empty.
+        :param pulumi.Input[_builtins.str] name: The name of the rule. Must be between `1` and `255` characters.
+        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. Defaults to `true`.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the rule belongs to.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         """
         ...
     @overload
@@ -410,6 +422,18 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
                 "component_id": api.id,
                 "target_impact": "MAJOR_OUTAGE",
             }])
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing status page automation rule using "<status_page_id>/<rule_id>".
+
+        Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/automation-rules.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/5b0a9a1e-8e29-4b71-92e1-0db9b3b41f0a
         ```
 
         :param str resource_name: The name of the resource.
@@ -489,14 +513,14 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[Union['StatusPageV3AutomationRuleComponentArgs', 'StatusPageV3AutomationRuleComponentArgsDict']]]] components: The components an automated incident impacts, with the impact each gets.
-        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
-        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. (Default `true`).
-        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident.
-        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident.
-        :param pulumi.Input[_builtins.str] name: The name of the rule.
-        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. (Default `true`).
+        :param pulumi.Input[_builtins.int] cool_down_window_minutes: Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
+        :param pulumi.Input[_builtins.bool] enabled: A disabled rule never opens incidents. Defaults to `true`.
+        :param pulumi.Input[_builtins.str] first_update: Body of the status update that opens the incident. Must not be empty.
+        :param pulumi.Input[_builtins.str] last_update: Body of the status update that resolves the incident. Must not be empty.
+        :param pulumi.Input[_builtins.str] name: The name of the rule. Must be between `1` and `255` characters.
+        :param pulumi.Input[_builtins.bool] notify_subscribers: Whether subscribers are notified of the automated updates. Defaults to `true`.
         :param pulumi.Input[_builtins.str] status_page_id: The ID of the v3 status page the rule belongs to.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -515,7 +539,7 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def components(self) -> pulumi.Output[Optional[Sequence['outputs.StatusPageV3AutomationRuleComponent']]]:
+    def components(self) -> pulumi.Output[Sequence['outputs.StatusPageV3AutomationRuleComponent']]:
         """
         The components an automated incident impacts, with the impact each gets.
         """
@@ -523,17 +547,17 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="coolDownWindowMinutes")
-    def cool_down_window_minutes(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def cool_down_window_minutes(self) -> pulumi.Output[_builtins.int]:
         """
-        Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+        Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
         """
         return pulumi.get(self, "cool_down_window_minutes")
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def enabled(self) -> pulumi.Output[_builtins.bool]:
         """
-        A disabled rule never opens incidents. (Default `true`).
+        A disabled rule never opens incidents. Defaults to `true`.
         """
         return pulumi.get(self, "enabled")
 
@@ -541,7 +565,7 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
     @pulumi.getter(name="firstUpdate")
     def first_update(self) -> pulumi.Output[_builtins.str]:
         """
-        Body of the status update that opens the incident.
+        Body of the status update that opens the incident. Must not be empty.
         """
         return pulumi.get(self, "first_update")
 
@@ -549,7 +573,7 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
     @pulumi.getter(name="lastUpdate")
     def last_update(self) -> pulumi.Output[_builtins.str]:
         """
-        Body of the status update that resolves the incident.
+        Body of the status update that resolves the incident. Must not be empty.
         """
         return pulumi.get(self, "last_update")
 
@@ -557,15 +581,15 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the rule.
+        The name of the rule. Must be between `1` and `255` characters.
         """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="notifySubscribers")
-    def notify_subscribers(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def notify_subscribers(self) -> pulumi.Output[_builtins.bool]:
         """
-        Whether subscribers are notified of the automated updates. (Default `true`).
+        Whether subscribers are notified of the automated updates. Defaults to `true`.
         """
         return pulumi.get(self, "notify_subscribers")
 
@@ -581,7 +605,7 @@ class StatusPageV3AutomationRule(pulumi.CustomResource):
     @pulumi.getter
     def tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         """
         return pulumi.get(self, "tags")
 

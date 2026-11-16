@@ -17,9 +17,12 @@ namespace Pulumi.Checkly.Outputs
         /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
         /// </summary>
         public readonly string Comparison;
+        /// <summary>
+        /// Not used by `STATUS_CODE`, the only allowed source; leave empty.
+        /// </summary>
         public readonly string? Property;
         /// <summary>
-        /// The source of the asserted value. The only allowed value is `STATUS_CODE`.
+        /// The source of the asserted value. The only possible value is `STATUS_CODE`.
         /// </summary>
         public readonly string Source;
         /// <summary>

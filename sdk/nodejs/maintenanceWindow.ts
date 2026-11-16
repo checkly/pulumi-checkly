@@ -7,6 +7,8 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
+ * Maintenance windows pause alerting during scheduled maintenance for the checks and groups they apply to.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -18,7 +20,7 @@ import * as utilities from "./utilities";
  *     startsAt: "2014-08-24T00:00:00.000Z",
  *     endsAt: "2014-08-25T00:00:00.000Z",
  *     repeatUnit: "MONTH",
- *     repeatEndsAt: "2014-08-24T00:00:00.000Z",
+ *     repeatEndsAt: "2014-12-31",
  *     repeatInterval: 1,
  *     tags: ["production"],
  *     timezone: "America/New_York",
@@ -51,6 +53,57 @@ import * as utilities from "./utilities";
  *         serviceIds: [api.id],
  *     },
  * });
+ * // Show a maintenance window on a v3 status page, with the status each
+ * // affected component shows while the maintenance is in progress
+ * const exampleStatusPageV3 = new checkly.StatusPageV3("example", {
+ *     name: "Example Application",
+ *     url: "my-example-status-page-v3",
+ * });
+ * const apiStatusPageV3Component = new checkly.StatusPageV3Component("api", {
+ *     statusPageId: exampleStatusPageV3.id,
+ *     name: "API",
+ *     displayOrder: 0,
+ * });
+ * const database = new checkly.StatusPageV3Component("database", {
+ *     statusPageId: exampleStatusPageV3.id,
+ *     name: "Database",
+ *     displayOrder: 1,
+ * });
+ * const maintenance_3 = new checkly.MaintenanceWindow("maintenance-3", {
+ *     name: "Database upgrade",
+ *     startsAt: "2028-09-24T00:00:00.000Z",
+ *     endsAt: "2028-09-24T02:00:00.000Z",
+ *     description: "We're upgrading our database servers.",
+ *     statusPageVisibility: {
+ *         enabled: true,
+ *         severity: "MEDIUM",
+ *         statusPageIds: [exampleStatusPageV3.id],
+ *         componentConfigs: [{
+ *             statusPageId: exampleStatusPageV3.id,
+ *             components: [
+ *                 {
+ *                     componentId: database.id,
+ *                 },
+ *                 {
+ *                     componentId: apiStatusPageV3Component.id,
+ *                     status: "DEGRADED_PERFORMANCE",
+ *                 },
+ *             ],
+ *         }],
+ *     },
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing maintenance window using its numeric ID.
+ *
+ * The ID is returned by the Checkly API at GET /v1/maintenance-windows.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/maintenanceWindow:MaintenanceWindow example 12345
  * ```
  */
 export class MaintenanceWindow extends pulumi.CustomResource {
@@ -82,53 +135,53 @@ export class MaintenanceWindow extends pulumi.CustomResource {
     }
 
     /**
-     * A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+     * A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
      */
     declare public readonly description: pulumi.Output<string | undefined>;
     /**
-     * The end date of the maintenance window.
+     * The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
      */
     declare public readonly endsAt: pulumi.Output<string>;
     /**
-     * The maintenance window name.
+     * The maintenance window name. Must be between `1` and `200` characters.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
      * Pause every check in the account during the maintenance window, regardless of `tags`. Defaults to `false`.
      */
-    declare public readonly pauseAllChecks: pulumi.Output<boolean | undefined>;
+    declare public readonly pauseAllChecks: pulumi.Output<boolean>;
     /**
-     * The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
+     * The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeatInterval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
      */
     declare public readonly repeatEndsAt: pulumi.Output<string | undefined>;
     /**
-     * The repeat interval of the maintenance window from the first occurrence.
+     * How many `repeatUnit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeatUnit`.
      */
     declare public readonly repeatInterval: pulumi.Output<number | undefined>;
     /**
-     * The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+     * The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
      */
     declare public readonly repeatUnit: pulumi.Output<string | undefined>;
     /**
      * The tags of the checks and groups whose alerts are silenced during the maintenance window. Ignored when `silenceAllAlerts` is `true`.
      */
-    declare public readonly silenceAlertsTags: pulumi.Output<string[] | undefined>;
+    declare public readonly silenceAlertsTags: pulumi.Output<string[]>;
     /**
      * Silence alerts for every check in the account during the maintenance window, regardless of `silenceAlertsTags`. Defaults to `false`.
      */
-    declare public readonly silenceAllAlerts: pulumi.Output<boolean | undefined>;
+    declare public readonly silenceAllAlerts: pulumi.Output<boolean>;
     /**
-     * The start date of the maintenance window.
+     * The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
      */
     declare public readonly startsAt: pulumi.Output<string>;
     /**
-     * Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+     * Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `componentConfigs`, since removing them is a change it can't make.
      */
     declare public readonly statusPageVisibility: pulumi.Output<outputs.MaintenanceWindowStatusPageVisibility | undefined>;
     /**
      * The tags of the checks and groups that are paused during the maintenance window. Ignored when `pauseAllChecks` is `true`.
      */
-    declare public readonly tags: pulumi.Output<string[] | undefined>;
+    declare public readonly tags: pulumi.Output<string[]>;
     /**
      * The named IANA time zone used to schedule recurring occurrences, e.g. `America/New_York`. Occurrences keep the same local time across daylight-saving changes. `startsAt` and `endsAt` remain absolute instants; the time zone does not reinterpret them. Use the canonical IANA name (e.g. `America/New_York`, not `US/Eastern`): the API stores canonical names, so an alias shows as a change on every plan. UTC offsets such as `+05:00` or `Etc/GMT+5` are not accepted. Defaults to `UTC`. The time zone cannot be changed while a maintenance is active.
      */
@@ -192,15 +245,15 @@ export class MaintenanceWindow extends pulumi.CustomResource {
  */
 export interface MaintenanceWindowState {
     /**
-     * A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+     * A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
      */
     description?: pulumi.Input<string>;
     /**
-     * The end date of the maintenance window.
+     * The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
      */
     endsAt?: pulumi.Input<string>;
     /**
-     * The maintenance window name.
+     * The maintenance window name. Must be between `1` and `200` characters.
      */
     name?: pulumi.Input<string>;
     /**
@@ -208,15 +261,15 @@ export interface MaintenanceWindowState {
      */
     pauseAllChecks?: pulumi.Input<boolean>;
     /**
-     * The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
+     * The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeatInterval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
      */
     repeatEndsAt?: pulumi.Input<string>;
     /**
-     * The repeat interval of the maintenance window from the first occurrence.
+     * How many `repeatUnit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeatUnit`.
      */
     repeatInterval?: pulumi.Input<number>;
     /**
-     * The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+     * The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
      */
     repeatUnit?: pulumi.Input<string>;
     /**
@@ -228,11 +281,11 @@ export interface MaintenanceWindowState {
      */
     silenceAllAlerts?: pulumi.Input<boolean>;
     /**
-     * The start date of the maintenance window.
+     * The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
      */
     startsAt?: pulumi.Input<string>;
     /**
-     * Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+     * Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `componentConfigs`, since removing them is a change it can't make.
      */
     statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility>;
     /**
@@ -250,15 +303,15 @@ export interface MaintenanceWindowState {
  */
 export interface MaintenanceWindowArgs {
     /**
-     * A description of the maintenance window. When the window is visible on status pages, the description is shown there too.
+     * A description of the maintenance window. Must be at most `2000` characters. When the window is visible on status pages, the description is shown there too.
      */
     description?: pulumi.Input<string>;
     /**
-     * The end date of the maintenance window.
+     * The end of the maintenance window: an RFC 3339 date-time such as `2099-06-01T11:00:00Z` or `2099-06-01T11:00:00+02:00`, or a date such as `2099-06-02`, which means midnight UTC.
      */
     endsAt: pulumi.Input<string>;
     /**
-     * The maintenance window name.
+     * The maintenance window name. Must be between `1` and `200` characters.
      */
     name?: pulumi.Input<string>;
     /**
@@ -266,15 +319,15 @@ export interface MaintenanceWindowArgs {
      */
     pauseAllChecks?: pulumi.Input<boolean>;
     /**
-     * The date on which the maintenance window should stop repeating, interpreted as a calendar date in `timezone`.
+     * The last calendar date, in `timezone` (UTC if not set), on which an occurrence may start. Use a date such as `2099-12-31`. An RFC 3339 date-time is accepted too and counts as its UTC date: `2099-06-01T23:00:00-05:00` means `2099-06-02`. Requires a `repeatInterval` of 1 or more. An empty string, like leaving it out, means the window repeats indefinitely.
      */
     repeatEndsAt?: pulumi.Input<string>;
     /**
-     * The repeat interval of the maintenance window from the first occurrence.
+     * How many `repeatUnit`s apart the occurrences of the maintenance window are, counted from the first occurrence. Possible values are between `0` and `365`. `0`, like leaving it out, means the window does not repeat. A value of `1` or more requires `repeatUnit`.
      */
     repeatInterval?: pulumi.Input<number>;
     /**
-     * The repeat cadence for the maintenance window. Possible values `DAY`, `WEEK` and `MONTH`.
+     * The repeat cadence for the maintenance window. Possible values are `DAY`, `WEEK` and `MONTH`.
      */
     repeatUnit?: pulumi.Input<string>;
     /**
@@ -286,11 +339,11 @@ export interface MaintenanceWindowArgs {
      */
     silenceAllAlerts?: pulumi.Input<boolean>;
     /**
-     * The start date of the maintenance window.
+     * The start of the maintenance window: an RFC 3339 date-time such as `2099-06-01T09:00:00Z` or `2099-06-01T09:00:00+02:00`, or a date such as `2099-06-01`, which means midnight UTC.
      */
     startsAt: pulumi.Input<string>;
     /**
-     * Whether and how the maintenance window appears on status pages. Omitting the block hides the window and unlinks it from all status pages and services. Only service-based status page links are supported; links to status page components can't be managed here. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the block as it is, because removing the block also changes the other settings, which is rejected.
+     * Whether and how the maintenance window appears on status pages. Omitting the attribute hides the window and unlinks it from all status pages and services. An account without the status page maintenance windows entitlement can only change `enabled` to `false`: keep the rest of the attribute as it is, because removing it also changes the other settings, which is rejected. For the same reason, such an account must copy the window's existing component links into `componentConfigs`, since removing them is a change it can't make.
      */
     statusPageVisibility?: pulumi.Input<inputs.MaintenanceWindowStatusPageVisibility>;
     /**

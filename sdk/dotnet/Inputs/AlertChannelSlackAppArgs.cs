@@ -16,7 +16,7 @@ namespace Pulumi.Checkly.Inputs
         private InputList<string>? _slackChannels;
 
         /// <summary>
-        /// The Slack channels or users to notify, e.g. `["#ops", "@John"]`.
+        /// The Slack channels or users to notify, e.g. `["#ops", "@John", "C0123456789"]`. Each element starts with `#` for a channel or `@` for a user, or is a Slack channel ID, such as `C0123456789`, and has no trailing whitespace. A private channel can be given by its ID.
         /// </summary>
         public InputList<string> SlackChannels
         {

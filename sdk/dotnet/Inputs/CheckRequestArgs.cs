@@ -37,16 +37,23 @@ namespace Pulumi.Checkly.Inputs
         public Input<string>? Body { get; set; }
 
         /// <summary>
-        /// The `Content-Type` header of the request. Possible values `NONE`, `JSON`, `FORM`, `RAW`, and `GRAPHQL`.
+        /// The `Content-Type` header of the request. Possible values are `NONE`, `JSON`, `FORM`, `RAW` and `GRAPHQL`. Defaults to `NONE`.
         /// </summary>
         [Input("bodyType")]
         public Input<string>? BodyType { get; set; }
 
+        /// <summary>
+        /// Whether to follow HTTP redirects. Defaults to `false`.
+        /// </summary>
         [Input("followRedirects")]
         public Input<bool>? FollowRedirects { get; set; }
 
         [Input("headers")]
         private InputMap<string>? _headers;
+
+        /// <summary>
+        /// HTTP headers to send with the request, as a map of header names to values. The values are not sensitive and show in plan output. To keep a credential in a header out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// </summary>
         public InputMap<string> Headers
         {
             get => _headers ?? (_headers = new InputMap<string>());
@@ -54,28 +61,38 @@ namespace Pulumi.Checkly.Inputs
         }
 
         /// <summary>
-        /// IP Family to be used when executing the api check. The value can be either IPv4 or IPv6.
+        /// IP Family to be used when executing the api check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         [Input("ipFamily")]
         public Input<string>? IpFamily { get; set; }
 
         /// <summary>
-        /// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE`, `PATCH`. (Default `GET`).
+        /// The HTTP method to use for this API check. Possible values are `GET`, `POST`, `PUT`, `HEAD`, `DELETE` and `PATCH`. Defaults to `GET`.
         /// </summary>
         [Input("method")]
         public Input<string>? Method { get; set; }
 
         [Input("queryParameters")]
         private InputMap<string>? _queryParameters;
+
+        /// <summary>
+        /// Query parameters to add to the request URL, as a map of parameter names to values. The values are not sensitive and show in plan output. To keep a credential in a parameter out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
+        /// </summary>
         public InputMap<string> QueryParameters
         {
             get => _queryParameters ?? (_queryParameters = new InputMap<string>());
             set => _queryParameters = value;
         }
 
+        /// <summary>
+        /// Whether to skip TLS certificate validation of the request. Defaults to `false`.
+        /// </summary>
         [Input("skipSsl")]
         public Input<bool>? SkipSsl { get; set; }
 
+        /// <summary>
+        /// The URL to call. Must be between `1` and `2048` characters.
+        /// </summary>
         [Input("url", required: true)]
         public Input<string> Url { get; set; } = null!;
 

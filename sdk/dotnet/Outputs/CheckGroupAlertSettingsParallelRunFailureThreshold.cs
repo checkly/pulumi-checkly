@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckGroupAlertSettingsParallelRunFailureThreshold
     {
         /// <summary>
-        /// Whether parallel run failure threshold is enabled. Only applies if the check is scheduled for multiple locations in parallel. (Default `false`).
+        /// Whether parallel run failure threshold is enabled. Only applies to the checks and monitors in the group that are scheduled for multiple locations in parallel. Defaults to `false`.
         /// </summary>
         public readonly bool? Enabled;
         /// <summary>
-        /// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90`, and `100`. (Default `10`).
+        /// Percentage of runs that must fail to trigger alert. Possible values are `10`, `20`, `30`, `40`, `50`, `60`, `70`, `80`, `90` and `100`. Defaults to `10`.
         /// </summary>
         public readonly int? Percentage;
 

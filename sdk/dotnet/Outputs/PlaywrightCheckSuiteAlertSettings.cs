@@ -14,43 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsReminder> Reminders;
+        public readonly Outputs.PlaywrightCheckSuiteAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation> RunBasedEscalations;
+        public readonly Outputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private PlaywrightCheckSuiteAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.PlaywrightCheckSuiteAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsReminder> reminders,
+            Outputs.PlaywrightCheckSuiteAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.PlaywrightCheckSuiteAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.PlaywrightCheckSuiteAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

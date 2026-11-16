@@ -10,6 +10,8 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
+    /// Global environment variables that can be referenced from check scripts.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -36,18 +38,37 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing environment variable using its key.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/environmentVariable:EnvironmentVariable example API_KEY
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/environmentVariable:EnvironmentVariable")]
     public partial class EnvironmentVariable : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        /// </summary>
         [Output("key")]
         public Output<string> Key { get; private set; } = null!;
 
+        /// <summary>
+        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        /// </summary>
         [Output("locked")]
-        public Output<bool?> Locked { get; private set; } = null!;
+        public Output<bool> Locked { get; private set; } = null!;
 
+        /// <summary>
+        /// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        /// </summary>
         [Output("secret")]
-        public Output<bool?> Secret { get; private set; } = null!;
+        public Output<bool> Secret { get; private set; } = null!;
 
         [Output("value")]
         public Output<string> Value { get; private set; } = null!;
@@ -76,6 +97,10 @@ namespace Pulumi.Checkly
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/checkly",
+                AdditionalSecretOutputs =
+                {
+                    "value",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -99,17 +124,35 @@ namespace Pulumi.Checkly
 
     public sealed class EnvironmentVariableArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        /// </summary>
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
+        /// <summary>
+        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
+        /// <summary>
+        /// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }
 
         [Input("value", required: true)]
-        public Input<string> Value { get; set; } = null!;
+        private Input<string>? _value;
+        public Input<string>? Value
+        {
+            get => _value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public EnvironmentVariableArgs()
         {
@@ -119,17 +162,35 @@ namespace Pulumi.Checkly
 
     public sealed class EnvironmentVariableState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of the environment variable. Changing the name forces the environment variable to be replaced.
+        /// </summary>
         [Input("key")]
         public Input<string>? Key { get; set; }
 
+        /// <summary>
+        /// If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+        /// </summary>
         [Input("locked")]
         public Input<bool>? Locked { get; set; }
 
+        /// <summary>
+        /// If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+        /// </summary>
         [Input("secret")]
         public Input<bool>? Secret { get; set; }
 
         [Input("value")]
-        public Input<string>? Value { get; set; }
+        private Input<string>? _value;
+        public Input<string>? Value
+        {
+            get => _value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public EnvironmentVariableState()
         {

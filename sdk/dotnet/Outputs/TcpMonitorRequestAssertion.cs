@@ -14,14 +14,20 @@ namespace Pulumi.Checkly.Outputs
     public sealed class TcpMonitorRequestAssertion
     {
         /// <summary>
-        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        /// The type of comparison to be executed between expected and actual value of the assertion. For `RESPONSE_DATA`, possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS` and `NOT_CONTAINS`. For `RESPONSE_TIME`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
         /// </summary>
         public readonly string Comparison;
+        /// <summary>
+        /// A regular expression for `RESPONSE_DATA` whose first capture group is asserted instead of the whole response data. Not used for `RESPONSE_TIME`.
+        /// </summary>
         public readonly string? Property;
         /// <summary>
         /// The source of the asserted value. Possible values are `RESPONSE_DATA` and `RESPONSE_TIME`.
         /// </summary>
         public readonly string Source;
+        /// <summary>
+        /// The value to compare against. Required for `RESPONSE_TIME`, where it must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, `IS_EMPTY` and `NOT_EMPTY`.
+        /// </summary>
         public readonly string? Target;
 
         [OutputConstructor]

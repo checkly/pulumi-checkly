@@ -31,6 +31,18 @@ import * as utilities from "./utilities";
  *     },
  * });
  * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing URL monitor using its check ID.
+ *
+ * You can find the ID in the check's URL in the Checkly dashboard.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/urlMonitor:UrlMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+ * ```
  */
 export class UrlMonitor extends pulumi.CustomResource {
     /**
@@ -61,61 +73,61 @@ export class UrlMonitor extends pulumi.CustomResource {
     }
 
     /**
-     * Determines whether the monitor will run periodically or not after being deployed.
+     * Determines whether the monitor runs on its schedule. Defaults to `true`.
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
-    declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.UrlMonitorAlertChannelSubscription[] | undefined>;
+    declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.UrlMonitorAlertChannelSubscription[]>;
     /**
      * Determines the alert escalation policy for the monitor.
      */
     declare public readonly alertSettings: pulumi.Output<outputs.UrlMonitorAlertSettings>;
     /**
-     * The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).
+     * The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
      */
-    declare public readonly degradedResponseTime: pulumi.Output<number | undefined>;
+    declare public readonly degradedResponseTime: pulumi.Output<number>;
     /**
      * A description of the monitor.
      */
-    declare public readonly description: pulumi.Output<string | undefined>;
+    declare public readonly description: pulumi.Output<string>;
     /**
-     * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+     * Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
      */
     declare public readonly frequency: pulumi.Output<number>;
     /**
-     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
     declare public readonly frequencyOffset: pulumi.Output<number | undefined>;
     /**
-     * The ID of the check group that this monitor is part of.
+     * The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
      */
     declare public readonly groupId: pulumi.Output<number | undefined>;
     /**
-     * The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+     * The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
      */
     declare public readonly groupOrder: pulumi.Output<number | undefined>;
     /**
-     * An array of one or more data center locations where to run the this monitor.
+     * The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
      */
-    declare public readonly locations: pulumi.Output<string[] | undefined>;
+    declare public readonly locations: pulumi.Output<string[]>;
     /**
-     * The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `30000`. (Default `5000`).
+     * The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
      */
-    declare public readonly maxResponseTime: pulumi.Output<number | undefined>;
+    declare public readonly maxResponseTime: pulumi.Output<number>;
     /**
-     * Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+     * Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
      */
-    declare public readonly muted: pulumi.Output<boolean | undefined>;
+    declare public readonly muted: pulumi.Output<boolean>;
     /**
      * The name of the monitor.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
-     * An array of one or more private locations slugs.
+     * The slugs of the private locations to run the monitor from.
      */
-    declare public readonly privateLocations: pulumi.Output<string[] | undefined>;
+    declare public readonly privateLocations: pulumi.Output<string[]>;
     /**
      * The parameters of the HTTP request.
      */
@@ -125,25 +137,25 @@ export class UrlMonitor extends pulumi.CustomResource {
      */
     declare public readonly retryStrategy: pulumi.Output<outputs.UrlMonitorRetryStrategy>;
     /**
-     * Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+     * Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
      */
-    declare public readonly runParallel: pulumi.Output<boolean | undefined>;
+    declare public readonly runParallel: pulumi.Output<boolean>;
     /**
-     * Allows to invert the behaviour of when the monitor is considered to fail. (Default `false`).
+     * Inverts when the monitor is considered to fail. Defaults to `false`. Use it to validate an error status such as 404.
      */
-    declare public readonly shouldFail: pulumi.Output<boolean | undefined>;
+    declare public readonly shouldFail: pulumi.Output<boolean>;
     /**
-     * A list of tags for organizing and filtering checks and monitors.
+     * Tags for organizing and filtering checks and monitors.
      */
-    declare public readonly tags: pulumi.Output<string[] | undefined>;
+    declare public readonly tags: pulumi.Output<string[]>;
     /**
      * Create and resolve an incident based on the alert configuration. Useful for status page automation.
      */
     declare public readonly triggerIncident: pulumi.Output<outputs.UrlMonitorTriggerIncident | undefined>;
     /**
-     * When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+     * When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    declare public readonly useGlobalAlertSettings: pulumi.Output<boolean | undefined>;
+    declare public readonly useGlobalAlertSettings: pulumi.Output<boolean>;
 
     /**
      * Create a UrlMonitor resource with the given unique name, arguments, and options.
@@ -181,12 +193,6 @@ export class UrlMonitor extends pulumi.CustomResource {
             resourceInputs["useGlobalAlertSettings"] = state?.useGlobalAlertSettings;
         } else {
             const args = argsOrState as UrlMonitorArgs | undefined;
-            if (args?.activated === undefined && !opts.urn) {
-                throw new Error("Missing required property 'activated'");
-            }
-            if (args?.frequency === undefined && !opts.urn) {
-                throw new Error("Missing required property 'frequency'");
-            }
             if (args?.request === undefined && !opts.urn) {
                 throw new Error("Missing required property 'request'");
             }
@@ -222,11 +228,11 @@ export class UrlMonitor extends pulumi.CustomResource {
  */
 export interface UrlMonitorState {
     /**
-     * Determines whether the monitor will run periodically or not after being deployed.
+     * Determines whether the monitor runs on its schedule. Defaults to `true`.
      */
     activated?: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertChannelSubscription>[]>;
     /**
@@ -234,7 +240,7 @@ export interface UrlMonitorState {
      */
     alertSettings?: pulumi.Input<inputs.UrlMonitorAlertSettings>;
     /**
-     * The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).
+     * The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
@@ -242,31 +248,31 @@ export interface UrlMonitorState {
      */
     description?: pulumi.Input<string>;
     /**
-     * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+     * Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
      */
     frequency?: pulumi.Input<number>;
     /**
-     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
     frequencyOffset?: pulumi.Input<number>;
     /**
-     * The ID of the check group that this monitor is part of.
+     * The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
      */
     groupId?: pulumi.Input<number>;
     /**
-     * The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+     * The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
      */
     groupOrder?: pulumi.Input<number>;
     /**
-     * An array of one or more data center locations where to run the this monitor.
+     * The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `30000`. (Default `5000`).
+     * The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
      */
     maxResponseTime?: pulumi.Input<number>;
     /**
-     * Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+     * Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
      */
     muted?: pulumi.Input<boolean>;
     /**
@@ -274,7 +280,7 @@ export interface UrlMonitorState {
      */
     name?: pulumi.Input<string>;
     /**
-     * An array of one or more private locations slugs.
+     * The slugs of the private locations to run the monitor from.
      */
     privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -286,15 +292,15 @@ export interface UrlMonitorState {
      */
     retryStrategy?: pulumi.Input<inputs.UrlMonitorRetryStrategy>;
     /**
-     * Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+     * Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
      */
     runParallel?: pulumi.Input<boolean>;
     /**
-     * Allows to invert the behaviour of when the monitor is considered to fail. (Default `false`).
+     * Inverts when the monitor is considered to fail. Defaults to `false`. Use it to validate an error status such as 404.
      */
     shouldFail?: pulumi.Input<boolean>;
     /**
-     * A list of tags for organizing and filtering checks and monitors.
+     * Tags for organizing and filtering checks and monitors.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -302,7 +308,7 @@ export interface UrlMonitorState {
      */
     triggerIncident?: pulumi.Input<inputs.UrlMonitorTriggerIncident>;
     /**
-     * When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+     * When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
     useGlobalAlertSettings?: pulumi.Input<boolean>;
 }
@@ -312,11 +318,11 @@ export interface UrlMonitorState {
  */
 export interface UrlMonitorArgs {
     /**
-     * Determines whether the monitor will run periodically or not after being deployed.
+     * Determines whether the monitor runs on its schedule. Defaults to `true`.
      */
-    activated: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
     alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.UrlMonitorAlertChannelSubscription>[]>;
     /**
@@ -324,7 +330,7 @@ export interface UrlMonitorArgs {
      */
     alertSettings?: pulumi.Input<inputs.UrlMonitorAlertSettings>;
     /**
-     * The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`. (Default `3000`).
+     * The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
      */
     degradedResponseTime?: pulumi.Input<number>;
     /**
@@ -332,31 +338,31 @@ export interface UrlMonitorArgs {
      */
     description?: pulumi.Input<string>;
     /**
-     * Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+     * Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
      */
-    frequency: pulumi.Input<number>;
+    frequency?: pulumi.Input<number>;
     /**
-     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+     * When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
      */
     frequencyOffset?: pulumi.Input<number>;
     /**
-     * The ID of the check group that this monitor is part of.
+     * The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
      */
     groupId?: pulumi.Input<number>;
     /**
-     * The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+     * The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
      */
     groupOrder?: pulumi.Input<number>;
     /**
-     * An array of one or more data center locations where to run the this monitor.
+     * The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
      */
     locations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `30000`. (Default `5000`).
+     * The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
      */
     maxResponseTime?: pulumi.Input<number>;
     /**
-     * Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+     * Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
      */
     muted?: pulumi.Input<boolean>;
     /**
@@ -364,7 +370,7 @@ export interface UrlMonitorArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * An array of one or more private locations slugs.
+     * The slugs of the private locations to run the monitor from.
      */
     privateLocations?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -376,15 +382,15 @@ export interface UrlMonitorArgs {
      */
     retryStrategy?: pulumi.Input<inputs.UrlMonitorRetryStrategy>;
     /**
-     * Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+     * Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
      */
     runParallel?: pulumi.Input<boolean>;
     /**
-     * Allows to invert the behaviour of when the monitor is considered to fail. (Default `false`).
+     * Inverts when the monitor is considered to fail. Defaults to `false`. Use it to validate an error status such as 404.
      */
     shouldFail?: pulumi.Input<boolean>;
     /**
-     * A list of tags for organizing and filtering checks and monitors.
+     * Tags for organizing and filtering checks and monitors.
      */
     tags?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -392,7 +398,7 @@ export interface UrlMonitorArgs {
      */
     triggerIncident?: pulumi.Input<inputs.UrlMonitorTriggerIncident>;
     /**
-     * When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+     * When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
     useGlobalAlertSettings?: pulumi.Input<boolean>;
 }

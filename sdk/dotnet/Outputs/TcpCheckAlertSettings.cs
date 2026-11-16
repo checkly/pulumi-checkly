@@ -14,43 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class TcpCheckAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.TcpCheckAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsReminder> Reminders;
+        public readonly Outputs.TcpCheckAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsRunBasedEscalation> RunBasedEscalations;
+        public readonly Outputs.TcpCheckAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TcpCheckAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.TcpCheckAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private TcpCheckAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.TcpCheckAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.TcpCheckAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.TcpCheckAlertSettingsReminder> reminders,
+            Outputs.TcpCheckAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.TcpCheckAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.TcpCheckAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.TcpCheckAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.TcpCheckAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

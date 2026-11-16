@@ -22,15 +22,15 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string? Data;
         /// <summary>
-        /// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+        /// The hostname or IP to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
         /// </summary>
         public readonly string Hostname;
         /// <summary>
-        /// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+        /// The IP family to use when executing the TCP check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         public readonly string? IpFamily;
         /// <summary>
-        /// The port number to connect to.
+        /// The port number to connect to. Possible values are between `1` and `65535`.
         /// </summary>
         public readonly int Port;
 

@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class SslMonitorRequestSecurityBaselineMinKeySizeBitsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `fail`).
+        /// What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `fail`.
         /// </summary>
         [Input("severity")]
         public Input<string>? Severity { get; set; }
 
         /// <summary>
-        /// The key size in bits. Possible values are between 1024 and 16384. (Default `2048`).
+        /// The key size in bits. Possible values are between `1024` and `16384`. Defaults to `2048`.
         /// </summary>
         [Input("value")]
         public Input<int>? Value { get; set; }

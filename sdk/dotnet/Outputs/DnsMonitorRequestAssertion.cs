@@ -14,18 +14,21 @@ namespace Pulumi.Checkly.Outputs
     public sealed class DnsMonitorRequestAssertion
     {
         /// <summary>
-        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL` and `NOT_NULL`.
         /// </summary>
         public readonly string Comparison;
+        /// <summary>
+        /// The property selecting the asserted value within the source: a regular expression for `TEXT_ANSWER` whose first capture group is asserted instead of the whole answer, or a JSONPath expression for `JSON_ANSWER`. Not used for `RESPONSE_CODE` and `RESPONSE_TIME`.
+        /// </summary>
         public readonly string? Property;
         /// <summary>
         /// The source of the asserted value. Possible values are `RESPONSE_CODE`, `RESPONSE_TIME`, `TEXT_ANSWER` and `JSON_ANSWER`.
         /// </summary>
         public readonly string Source;
         /// <summary>
-        /// The target value. Typically `NOERROR` when the source is `RESPONSE_CODE`.
+        /// The target value, typically `NOERROR` when the source is `RESPONSE_CODE`. For `RESPONSE_TIME` with `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` or `LESS_THAN`, it is required and must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
         /// </summary>
-        public readonly string Target;
+        public readonly string? Target;
 
         [OutputConstructor]
         private DnsMonitorRequestAssertion(
@@ -35,7 +38,7 @@ namespace Pulumi.Checkly.Outputs
 
             string source,
 
-            string target)
+            string? target)
         {
             Comparison = comparison;
             Property = property;

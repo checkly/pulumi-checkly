@@ -13,67 +13,34 @@ namespace Pulumi.Checkly.Inputs
     public sealed class CheckGroupAlertSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
-        [Input("parallelRunFailureThresholds")]
-        private InputList<Inputs.CheckGroupAlertSettingsParallelRunFailureThresholdArgs>? _parallelRunFailureThresholds;
-
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public InputList<Inputs.CheckGroupAlertSettingsParallelRunFailureThresholdArgs> ParallelRunFailureThresholds
-        {
-            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.CheckGroupAlertSettingsParallelRunFailureThresholdArgs>());
-            set => _parallelRunFailureThresholds = value;
-        }
-
-        [Input("reminders")]
-        private InputList<Inputs.CheckGroupAlertSettingsReminderArgs>? _reminders;
+        [Input("parallelRunFailureThreshold")]
+        public Input<Inputs.CheckGroupAlertSettingsParallelRunFailureThresholdArgs>? ParallelRunFailureThreshold { get; set; }
 
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public InputList<Inputs.CheckGroupAlertSettingsReminderArgs> Reminders
-        {
-            get => _reminders ?? (_reminders = new InputList<Inputs.CheckGroupAlertSettingsReminderArgs>());
-            set => _reminders = value;
-        }
-
-        [Input("runBasedEscalations")]
-        private InputList<Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs>? _runBasedEscalations;
+        [Input("reminders")]
+        public Input<Inputs.CheckGroupAlertSettingsRemindersArgs>? Reminders { get; set; }
 
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public InputList<Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs> RunBasedEscalations
-        {
-            get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs>());
-            set => _runBasedEscalations = value;
-        }
-
-        [Input("sslCertificates")]
-        private InputList<Inputs.CheckGroupAlertSettingsSslCertificateArgs>? _sslCertificates;
-        [Obsolete(@"This legacy attribute is no longer available and even if set, does not affect behavior. It will be removed in the next major version.")]
-        public InputList<Inputs.CheckGroupAlertSettingsSslCertificateArgs> SslCertificates
-        {
-            get => _sslCertificates ?? (_sslCertificates = new InputList<Inputs.CheckGroupAlertSettingsSslCertificateArgs>());
-            set => _sslCertificates = value;
-        }
-
-        [Input("timeBasedEscalations")]
-        private InputList<Inputs.CheckGroupAlertSettingsTimeBasedEscalationArgs>? _timeBasedEscalations;
+        [Input("runBasedEscalation")]
+        public Input<Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs>? RunBasedEscalation { get; set; }
 
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public InputList<Inputs.CheckGroupAlertSettingsTimeBasedEscalationArgs> TimeBasedEscalations
-        {
-            get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.CheckGroupAlertSettingsTimeBasedEscalationArgs>());
-            set => _timeBasedEscalations = value;
-        }
+        [Input("timeBasedEscalation")]
+        public Input<Inputs.CheckGroupAlertSettingsTimeBasedEscalationArgs>? TimeBasedEscalation { get; set; }
 
         public CheckGroupAlertSettingsArgs()
         {

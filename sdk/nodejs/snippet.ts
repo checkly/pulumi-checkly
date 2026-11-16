@@ -5,6 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * Snippets are reusable pieces of code that can be referenced from setup & teardown scripts of API checks, or used as partials in browser checks.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -22,6 +24,18 @@ import * as utilities from "./utilities";
  *     console.log('test2');
  * `,
  * });
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing snippet using its numeric ID.
+ *
+ * The ID is returned by the Checkly API at GET /v1/snippets.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/snippet:Snippet example 12345
  * ```
  */
 export class Snippet extends pulumi.CustomResource {
@@ -53,7 +67,7 @@ export class Snippet extends pulumi.CustomResource {
     }
 
     /**
-     * The name of the snippet
+     * The name of the snippet.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
@@ -94,7 +108,7 @@ export class Snippet extends pulumi.CustomResource {
  */
 export interface SnippetState {
     /**
-     * The name of the snippet
+     * The name of the snippet.
      */
     name?: pulumi.Input<string>;
     /**
@@ -108,7 +122,7 @@ export interface SnippetState {
  */
 export interface SnippetArgs {
     /**
-     * The name of the snippet
+     * The name of the snippet.
      */
     name?: pulumi.Input<string>;
     /**

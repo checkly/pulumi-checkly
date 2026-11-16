@@ -43,7 +43,7 @@ import * as utilities from "./utilities";
  *     ],
  * }});
  * // A legacy Slack alert channel, using a Slack webhook URL.
- * // Deprecated: use the slack_app block instead.
+ * // Deprecated: use the slack_app attribute instead.
  * const slackAc = new checkly.AlertChannel("slack_ac", {slack: {
  *     channel: "#checkly-notifications",
  *     url: "https://hooks.slack.com/services/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",
@@ -52,8 +52,8 @@ import * as utilities from "./utilities";
  * const opsgenieAc = new checkly.AlertChannel("opsgenie_ac", {opsgenie: {
  *     name: "opsalerts",
  *     apiKey: "fookey",
- *     region: "fooregion",
- *     priority: "foopriority",
+ *     region: "US",
+ *     priority: "P1",
  * }});
  * // A Pagerduty alert channel
  * const pagerdutyAc = new checkly.AlertChannel("pagerduty_ac", {pagerduty: {
@@ -64,24 +64,24 @@ import * as utilities from "./utilities";
  * // A Webhook alert channel
  * const webhookAc = new checkly.AlertChannel("webhook_ac", {webhook: {
  *     name: "foo",
- *     method: "get",
+ *     method: "GET",
  *     template: "footemplate",
  *     url: "https://example.com/foo",
  *     webhookSecret: "foosecret",
  * }});
- * // A Firehydran alert channel integration
+ * // A FireHydrant alert channel integration
  * const firehydrantAc = new checkly.AlertChannel("firehydrant_ac", {webhook: {
  *     name: "firehydrant",
- *     method: "post",
+ *     method: "POST",
  *     template: `{
- *   "event": "{{ALERT_TITLE}}",
- *   "link": "{{RESULT_LINK}}",
- *   "check_id": "{{CHECK_ID}}",
- *   "check_type": "{{CHECK_TYPE}}",
- *   "alert_type": "{{ALERT_TYPE}}",
- *   "started_at": "{{STARTED_AT}}",
- *   "check_result_id": "{{CHECK_RESULT_ID}}"
- * },
+ *   \\"event\\": \\"{{ALERT_TITLE}}\\",
+ *   \\"link\\": \\"{{RESULT_LINK}}\\",
+ *   \\"check_id\\": \\"{{CHECK_ID}}\\",
+ *   \\"check_type\\": \\"{{CHECK_TYPE}}\\",
+ *   \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+ *   \\"started_at\\": \\"{{STARTED_AT}}\\",
+ *   \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\"
+ * }
  * `,
  *     url: "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
  *     webhookType: "WEBHOOK_FIREHYDRANT",
@@ -96,13 +96,13 @@ import * as utilities from "./utilities";
  *         webhookSecret: "<rootly-webhook-secret>",
  *         webhookType: "WEBHOOK_ROOTLY",
  *         template: `{
- *   "alert_type": "{{ALERT_TYPE}}",
- *   "check_id": "{{CHECK_ID}}",
- *   "check_result_id": "{{CHECK_RESULT_ID}}",
- *   "check_name": "{{CHECK_NAME}}",
- *   "alert_title": "{{ALERT_TITLE}}",
- *   "started_at": "{{STARTED_AT}}",
- *   "link": "{{RESULT_LINK}}"
+ *   \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+ *   \\"check_id\\": \\"{{CHECK_ID}}\\",
+ *   \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\",
+ *   \\"check_name\\": \\"{{CHECK_NAME}}\\",
+ *   \\"alert_title\\": \\"{{ALERT_TITLE}}\\",
+ *   \\"started_at\\": \\"{{STARTED_AT}}\\",
+ *   \\"link\\": \\"{{RESULT_LINK}}\\"
  * }
  * `,
  *     },
@@ -121,13 +121,13 @@ import * as utilities from "./utilities";
  *         webhookSecret: "<rootly-webhook-secret>",
  *         webhookType: "WEBHOOK_ROOTLY",
  *         template: `{
- *   "alert_type": "{{ALERT_TYPE}}",
- *   "check_id": "{{CHECK_ID}}",
- *   "check_result_id": "{{CHECK_RESULT_ID}}",
- *   "check_name": "{{CHECK_NAME}}",
- *   "alert_title": "{{ALERT_TITLE}}",
- *   "started_at": "{{STARTED_AT}}",
- *   "link": "{{RESULT_LINK}}"
+ *   \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+ *   \\"check_id\\": \\"{{CHECK_ID}}\\",
+ *   \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\",
+ *   \\"check_name\\": \\"{{CHECK_NAME}}\\",
+ *   \\"alert_title\\": \\"{{ALERT_TITLE}}\\",
+ *   \\"started_at\\": \\"{{STARTED_AT}}\\",
+ *   \\"link\\": \\"{{RESULT_LINK}}\\"
  * }
  * `,
  *     },
@@ -135,8 +135,11 @@ import * as utilities from "./utilities";
  *     sendFailure: true,
  * });
  * // Connecting the alert channel to a check
- * const exampleCheck = new checkly.Check("example_check", {
+ * const exampleCheck = new checkly.ApiCheck("example_check", {
  *     name: "Example check",
+ *     request: {
+ *         url: "https://api.example.com/",
+ *     },
  *     alertChannelSubscriptions: [
  *         {
  *             channelId: emailAc.id,
@@ -148,6 +151,18 @@ import * as utilities from "./utilities";
  *         },
  *     ],
  * });
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing alert channel using its numeric ID.
+ *
+ * The ID is returned by the Checkly API at GET /v1/alert-channels.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/alertChannel:AlertChannel example 12345
  * ```
  */
 export class AlertChannel extends pulumi.CustomResource {
@@ -178,36 +193,60 @@ export class AlertChannel extends pulumi.CustomResource {
         return obj['__pulumiType'] === AlertChannel.__pulumiType;
     }
 
+    declare public readonly autoSubscribe: pulumi.Output<boolean>;
+    /**
+     * Sends alerts as phone calls.
+     */
     declare public readonly call: pulumi.Output<outputs.AlertChannelCall | undefined>;
+    /**
+     * Sends alerts by email.
+     */
     declare public readonly email: pulumi.Output<outputs.AlertChannelEmail | undefined>;
+    /**
+     * Creates alerts in Opsgenie.
+     */
     declare public readonly opsgenie: pulumi.Output<outputs.AlertChannelOpsgenie | undefined>;
+    /**
+     * Sends alerts to a PagerDuty service.
+     */
     declare public readonly pagerduty: pulumi.Output<outputs.AlertChannelPagerduty | undefined>;
     /**
-     * (Default `false`)
+     * Whether to send an alert when a check is degraded. Defaults to `false`.
      */
-    declare public readonly sendDegraded: pulumi.Output<boolean | undefined>;
+    declare public readonly sendDegraded: pulumi.Output<boolean>;
     /**
-     * (Default `true`)
+     * Whether to send an alert when a check fails. Defaults to `true`.
      */
-    declare public readonly sendFailure: pulumi.Output<boolean | undefined>;
+    declare public readonly sendFailure: pulumi.Output<boolean>;
     /**
-     * (Default `true`)
+     * Whether to send an alert when a check recovers. Defaults to `true`.
      */
-    declare public readonly sendRecovery: pulumi.Output<boolean | undefined>;
+    declare public readonly sendRecovery: pulumi.Output<boolean>;
     /**
-     * @deprecated The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+     * Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+     *
+     * @deprecated The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
      */
     declare public readonly slack: pulumi.Output<outputs.AlertChannelSlack | undefined>;
+    /**
+     * Sends alerts to Slack channels or users through the Checkly Slack app.
+     */
     declare public readonly slackApp: pulumi.Output<outputs.AlertChannelSlackApp | undefined>;
+    /**
+     * Sends alerts as SMS messages.
+     */
     declare public readonly sms: pulumi.Output<outputs.AlertChannelSms | undefined>;
     /**
-     * (Default `false`)
+     * Whether to send an alert for expiring SSL certificates. Defaults to `false`.
      */
-    declare public readonly sslExpiry: pulumi.Output<boolean | undefined>;
+    declare public readonly sslExpiry: pulumi.Output<boolean>;
     /**
-     * Value must be between 1 and 30 (Default `30`)
+     * How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
      */
-    declare public readonly sslExpiryThreshold: pulumi.Output<number | undefined>;
+    declare public readonly sslExpiryThreshold: pulumi.Output<number>;
+    /**
+     * Sends alerts as HTTP requests to a webhook.
+     */
     declare public readonly webhook: pulumi.Output<outputs.AlertChannelWebhook | undefined>;
 
     /**
@@ -223,6 +262,7 @@ export class AlertChannel extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as AlertChannelState | undefined;
+            resourceInputs["autoSubscribe"] = state?.autoSubscribe;
             resourceInputs["call"] = state?.call;
             resourceInputs["email"] = state?.email;
             resourceInputs["opsgenie"] = state?.opsgenie;
@@ -238,6 +278,7 @@ export class AlertChannel extends pulumi.CustomResource {
             resourceInputs["webhook"] = state?.webhook;
         } else {
             const args = argsOrState as AlertChannelArgs | undefined;
+            resourceInputs["autoSubscribe"] = args?.autoSubscribe;
             resourceInputs["call"] = args?.call;
             resourceInputs["email"] = args?.email;
             resourceInputs["opsgenie"] = args?.opsgenie;
@@ -261,36 +302,60 @@ export class AlertChannel extends pulumi.CustomResource {
  * Input properties used for looking up and filtering AlertChannel resources.
  */
 export interface AlertChannelState {
+    autoSubscribe?: pulumi.Input<boolean>;
+    /**
+     * Sends alerts as phone calls.
+     */
     call?: pulumi.Input<inputs.AlertChannelCall>;
+    /**
+     * Sends alerts by email.
+     */
     email?: pulumi.Input<inputs.AlertChannelEmail>;
+    /**
+     * Creates alerts in Opsgenie.
+     */
     opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
+    /**
+     * Sends alerts to a PagerDuty service.
+     */
     pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;
     /**
-     * (Default `false`)
+     * Whether to send an alert when a check is degraded. Defaults to `false`.
      */
     sendDegraded?: pulumi.Input<boolean>;
     /**
-     * (Default `true`)
+     * Whether to send an alert when a check fails. Defaults to `true`.
      */
     sendFailure?: pulumi.Input<boolean>;
     /**
-     * (Default `true`)
+     * Whether to send an alert when a check recovers. Defaults to `true`.
      */
     sendRecovery?: pulumi.Input<boolean>;
     /**
-     * @deprecated The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+     * Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+     *
+     * @deprecated The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
      */
     slack?: pulumi.Input<inputs.AlertChannelSlack>;
+    /**
+     * Sends alerts to Slack channels or users through the Checkly Slack app.
+     */
     slackApp?: pulumi.Input<inputs.AlertChannelSlackApp>;
+    /**
+     * Sends alerts as SMS messages.
+     */
     sms?: pulumi.Input<inputs.AlertChannelSms>;
     /**
-     * (Default `false`)
+     * Whether to send an alert for expiring SSL certificates. Defaults to `false`.
      */
     sslExpiry?: pulumi.Input<boolean>;
     /**
-     * Value must be between 1 and 30 (Default `30`)
+     * How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
      */
     sslExpiryThreshold?: pulumi.Input<number>;
+    /**
+     * Sends alerts as HTTP requests to a webhook.
+     */
     webhook?: pulumi.Input<inputs.AlertChannelWebhook>;
 }
 
@@ -298,35 +363,59 @@ export interface AlertChannelState {
  * The set of arguments for constructing a AlertChannel resource.
  */
 export interface AlertChannelArgs {
+    autoSubscribe?: pulumi.Input<boolean>;
+    /**
+     * Sends alerts as phone calls.
+     */
     call?: pulumi.Input<inputs.AlertChannelCall>;
+    /**
+     * Sends alerts by email.
+     */
     email?: pulumi.Input<inputs.AlertChannelEmail>;
+    /**
+     * Creates alerts in Opsgenie.
+     */
     opsgenie?: pulumi.Input<inputs.AlertChannelOpsgenie>;
+    /**
+     * Sends alerts to a PagerDuty service.
+     */
     pagerduty?: pulumi.Input<inputs.AlertChannelPagerduty>;
     /**
-     * (Default `false`)
+     * Whether to send an alert when a check is degraded. Defaults to `false`.
      */
     sendDegraded?: pulumi.Input<boolean>;
     /**
-     * (Default `true`)
+     * Whether to send an alert when a check fails. Defaults to `true`.
      */
     sendFailure?: pulumi.Input<boolean>;
     /**
-     * (Default `true`)
+     * Whether to send an alert when a check recovers. Defaults to `true`.
      */
     sendRecovery?: pulumi.Input<boolean>;
     /**
-     * @deprecated The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+     * Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+     *
+     * @deprecated The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
      */
     slack?: pulumi.Input<inputs.AlertChannelSlack>;
+    /**
+     * Sends alerts to Slack channels or users through the Checkly Slack app.
+     */
     slackApp?: pulumi.Input<inputs.AlertChannelSlackApp>;
+    /**
+     * Sends alerts as SMS messages.
+     */
     sms?: pulumi.Input<inputs.AlertChannelSms>;
     /**
-     * (Default `false`)
+     * Whether to send an alert for expiring SSL certificates. Defaults to `false`.
      */
     sslExpiry?: pulumi.Input<boolean>;
     /**
-     * Value must be between 1 and 30 (Default `30`)
+     * How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
      */
     sslExpiryThreshold?: pulumi.Input<number>;
+    /**
+     * Sends alerts as HTTP requests to a webhook.
+     */
     webhook?: pulumi.Input<inputs.AlertChannelWebhook>;
 }

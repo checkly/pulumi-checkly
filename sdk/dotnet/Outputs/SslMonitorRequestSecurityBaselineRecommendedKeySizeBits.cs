@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class SslMonitorRequestSecurityBaselineRecommendedKeySizeBits
     {
         /// <summary>
-        /// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+        /// What happens when the rule is violated. Possible values are `fail` (fails the monitor), `degrade` (marks it degraded) and `ignore` (disables the rule). Defaults to `ignore`.
         /// </summary>
         public readonly string? Severity;
         /// <summary>
-        /// The key size in bits. Possible values are between 1024 and 16384. (Default `3072`).
+        /// The key size in bits. Possible values are between `1024` and `16384`. Defaults to `3072`.
         /// </summary>
         public readonly int? Value;
 

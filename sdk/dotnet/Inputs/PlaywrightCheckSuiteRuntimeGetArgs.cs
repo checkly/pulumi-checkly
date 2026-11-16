@@ -13,7 +13,7 @@ namespace Pulumi.Checkly.Inputs
     public sealed class PlaywrightCheckSuiteRuntimeGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether to automatically detect appropriate runtime environment configuration from the bundle. (Default `true`).
+        /// Whether to automatically detect appropriate runtime environment configuration from the bundle. Defaults to `true`.
         /// </summary>
         [Input("autoDetect")]
         public Input<bool>? AutoDetect { get; set; }

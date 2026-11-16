@@ -8,65 +8,48 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ## Example Usage
+// ## Import
 //
-// ```go
-// package main
+// The `pulumi import` command can be used, for example:
 //
-// import (
+// checkly_heartbeat is deprecated; to start managing an existing resource, import it as checkly_heartbeat_monitor instead.
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// Import an existing heartbeat monitor using its check ID.
 //
-// )
+// You can find the ID in the check's URL in the Checkly dashboard.
 //
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := checkly.NewHeartbeatCheck(ctx, "example-heartbeat", &checkly.HeartbeatCheckArgs{
-//				Name:      pulumi.String("Example heartbeat"),
-//				Activated: pulumi.Bool(true),
-//				Heartbeat: &checkly.HeartbeatCheckHeartbeatArgs{
-//					Period:     pulumi.Int(7),
-//					PeriodUnit: pulumi.String("days"),
-//					Grace:      pulumi.Int(1),
-//					GraceUnit:  pulumi.String("days"),
-//				},
-//				UseGlobalAlertSettings: pulumi.Bool(true),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
+// ```sh
+// $ pulumi import checkly:index/heartbeatCheck:HeartbeatCheck example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
 // ```
+//
+// Deprecated: Use the HeartbeatMonitor resource instead. Both resources have the same properties.
 type HeartbeatCheck struct {
 	pulumi.CustomResourceState
 
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsOutput `pulumi:"alertSettings"`
 	// A description of the monitor.
-	Description pulumi.StringPtrOutput        `pulumi:"description"`
-	Heartbeat   HeartbeatCheckHeartbeatOutput `pulumi:"heartbeat"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
-	// The name of the check.
+	Description pulumi.StringOutput `pulumi:"description"`
+	// The heartbeat schedule and grace period.
+	Heartbeat HeartbeatCheckHeartbeatOutput `pulumi:"heartbeat"`
+	// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
+	// The name of the monitor.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident HeartbeatCheckTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
-	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+	UseGlobalAlertSettings pulumi.BoolOutput `pulumi:"useGlobalAlertSettings"`
 }
 
 // NewHeartbeatCheck registers a new resource with the given unique name, arguments, and options.
@@ -76,9 +59,6 @@ func NewHeartbeatCheck(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Activated == nil {
-		return nil, errors.New("invalid value for required argument 'Activated'")
-	}
 	if args.Heartbeat == nil {
 		return nil, errors.New("invalid value for required argument 'Heartbeat'")
 	}
@@ -105,46 +85,48 @@ func GetHeartbeatCheck(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering HeartbeatCheck resources.
 type heartbeatCheckState struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []HeartbeatCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *HeartbeatCheckAlertSettings `pulumi:"alertSettings"`
 	// A description of the monitor.
-	Description *string                  `pulumi:"description"`
-	Heartbeat   *HeartbeatCheckHeartbeat `pulumi:"heartbeat"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	Description *string `pulumi:"description"`
+	// The heartbeat schedule and grace period.
+	Heartbeat *HeartbeatCheckHeartbeat `pulumi:"heartbeat"`
+	// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
-	// The name of the check.
+	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *HeartbeatCheckTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 type HeartbeatCheckState struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	Heartbeat   HeartbeatCheckHeartbeatPtrInput
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// The heartbeat schedule and grace period.
+	Heartbeat HeartbeatCheckHeartbeatPtrInput
+	// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
-	// The name of the check.
+	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident HeartbeatCheckTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -153,47 +135,49 @@ func (HeartbeatCheckState) ElementType() reflect.Type {
 }
 
 type heartbeatCheckArgs struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []HeartbeatCheckAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *HeartbeatCheckAlertSettings `pulumi:"alertSettings"`
 	// A description of the monitor.
-	Description *string                 `pulumi:"description"`
-	Heartbeat   HeartbeatCheckHeartbeat `pulumi:"heartbeat"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	Description *string `pulumi:"description"`
+	// The heartbeat schedule and grace period.
+	Heartbeat HeartbeatCheckHeartbeat `pulumi:"heartbeat"`
+	// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
-	// The name of the check.
+	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *HeartbeatCheckTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 // The set of arguments for constructing a HeartbeatCheck resource.
 type HeartbeatCheckArgs struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions HeartbeatCheckAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings HeartbeatCheckAlertSettingsPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	Heartbeat   HeartbeatCheckHeartbeatInput
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// The heartbeat schedule and grace period.
+	Heartbeat HeartbeatCheckHeartbeatInput
+	// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
-	// The name of the check.
+	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident HeartbeatCheckTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -284,12 +268,12 @@ func (o HeartbeatCheckOutput) ToHeartbeatCheckOutputWithContext(ctx context.Cont
 	return o
 }
 
-// Determines if the check is running or not. Possible values `true`, and `false`.
+// Determines whether the monitor runs on its schedule. Defaults to `true`.
 func (o HeartbeatCheckOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o HeartbeatCheckOutput) AlertChannelSubscriptions() HeartbeatCheckAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) HeartbeatCheckAlertChannelSubscriptionArrayOutput {
 		return v.AlertChannelSubscriptions
@@ -302,25 +286,26 @@ func (o HeartbeatCheckOutput) AlertSettings() HeartbeatCheckAlertSettingsOutput 
 }
 
 // A description of the monitor.
-func (o HeartbeatCheckOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *HeartbeatCheck) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o HeartbeatCheckOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *HeartbeatCheck) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
+// The heartbeat schedule and grace period.
 func (o HeartbeatCheckOutput) Heartbeat() HeartbeatCheckHeartbeatOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) HeartbeatCheckHeartbeatOutput { return v.Heartbeat }).(HeartbeatCheckHeartbeatOutput)
 }
 
-// Determines if any notifications will be sent out when a check fails/degrades/recovers.
-func (o HeartbeatCheckOutput) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *HeartbeatCheck) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
+func (o HeartbeatCheckOutput) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *HeartbeatCheck) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
-// The name of the check.
+// The name of the monitor.
 func (o HeartbeatCheckOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// A list of tags for organizing and filtering checks.
+// Tags for organizing and filtering checks and monitors.
 func (o HeartbeatCheckOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *HeartbeatCheck) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
@@ -330,9 +315,9 @@ func (o HeartbeatCheckOutput) TriggerIncident() HeartbeatCheckTriggerIncidentPtr
 	return o.ApplyT(func(v *HeartbeatCheck) HeartbeatCheckTriggerIncidentPtrOutput { return v.TriggerIncident }).(HeartbeatCheckTriggerIncidentPtrOutput)
 }
 
-// When true, the account level alert settings will be used, not the alert setting defined on this check.
-func (o HeartbeatCheckOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *HeartbeatCheck) pulumi.BoolPtrOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+func (o HeartbeatCheckOutput) UseGlobalAlertSettings() pulumi.BoolOutput {
+	return o.ApplyT(func(v *HeartbeatCheck) pulumi.BoolOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolOutput)
 }
 
 type HeartbeatCheckArrayOutput struct{ *pulumi.OutputState }

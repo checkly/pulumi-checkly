@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -52,8 +52,8 @@ import (
 //				Activated:            pulumi.Bool(true),
 //				ShouldFail:           pulumi.Bool(true),
 //				Frequency:            pulumi.Int(1),
-//				DegradedResponseTime: pulumi.Int(5000),
-//				MaxResponseTime:      pulumi.Int(10000),
+//				DegradedResponseTime: pulumi.Int(4000),
+//				MaxResponseTime:      pulumi.Int(5000),
 //				Locations: pulumi.StringArray{
 //					pulumi.String("us-west-1"),
 //					pulumi.String("ap-northeast-1"),
@@ -61,15 +61,11 @@ import (
 //				},
 //				AlertSettings: &checkly.TcpMonitorAlertSettingsArgs{
 //					EscalationType: pulumi.String("RUN_BASED"),
-//					RunBasedEscalations: checkly.TcpMonitorAlertSettingsRunBasedEscalationArray{
-//						&checkly.TcpMonitorAlertSettingsRunBasedEscalationArgs{
-//							FailedRunThreshold: pulumi.Int(1),
-//						},
+//					RunBasedEscalation: &checkly.TcpMonitorAlertSettingsRunBasedEscalationArgs{
+//						FailedRunThreshold: pulumi.Int(1),
 //					},
-//					Reminders: checkly.TcpMonitorAlertSettingsReminderArray{
-//						&checkly.TcpMonitorAlertSettingsReminderArgs{
-//							Amount: pulumi.Int(1),
-//						},
+//					Reminders: &checkly.TcpMonitorAlertSettingsRemindersArgs{
+//						Amount: pulumi.Int(1),
 //					},
 //				},
 //				RetryStrategy: &checkly.TcpMonitorRetryStrategyArgs{
@@ -107,53 +103,65 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing TCP monitor using its check ID.
+//
+// You can find the ID in the check's URL in the Checkly dashboard.
+//
+// ```sh
+// $ pulumi import checkly:index/tcpMonitor:TcpMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+// ```
 type TcpMonitor struct {
 	pulumi.CustomResourceState
 
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions TcpMonitorAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings TcpMonitorAlertSettingsOutput `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
-	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
+	DegradedResponseTime pulumi.IntOutput `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	Description pulumi.StringOutput `pulumi:"description"`
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrOutput `pulumi:"frequencyOffset"`
-	// The id of the check group this check is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
-	MaxResponseTime pulumi.IntPtrOutput `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
-	// The name of the check.
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
+	MaxResponseTime pulumi.IntOutput `pulumi:"maxResponseTime"`
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
+	// The name of the monitor.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
 	// The parameters for the TCP connection.
 	Request TcpMonitorRequestOutput `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy TcpMonitorRetryStrategyOutput `pulumi:"retryStrategy"`
-	// Determines if the check should run in all selected locations in parallel or round-robin.
-	RunParallel pulumi.BoolPtrOutput `pulumi:"runParallel"`
-	// The ID of the runtime to use for this check.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+	RunParallel pulumi.BoolOutput `pulumi:"runParallel"`
+	// The ID of the runtime to use for the monitor.
 	RuntimeId pulumi.StringPtrOutput `pulumi:"runtimeId"`
-	// Allows to invert the behaviour of when a check is considered to fail.
-	ShouldFail pulumi.BoolPtrOutput `pulumi:"shouldFail"`
-	// A list of tags for organizing and filtering checks.
+	// Inverts when the monitor is considered to fail. Defaults to `false`.
+	ShouldFail pulumi.BoolOutput `pulumi:"shouldFail"`
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident TcpMonitorTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
-	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+	UseGlobalAlertSettings pulumi.BoolOutput `pulumi:"useGlobalAlertSettings"`
 }
 
 // NewTcpMonitor registers a new resource with the given unique name, arguments, and options.
@@ -163,12 +171,6 @@ func NewTcpMonitor(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Activated == nil {
-		return nil, errors.New("invalid value for required argument 'Activated'")
-	}
-	if args.Frequency == nil {
-		return nil, errors.New("invalid value for required argument 'Frequency'")
-	}
 	if args.Request == nil {
 		return nil, errors.New("invalid value for required argument 'Request'")
 	}
@@ -195,96 +197,96 @@ func GetTcpMonitor(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering TcpMonitor resources.
 type tcpMonitorState struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []TcpMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *TcpMonitorAlertSettings `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency *int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The id of the check group this check is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
-	// The name of the check.
+	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations []string `pulumi:"privateLocations"`
 	// The parameters for the TCP connection.
 	Request *TcpMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *TcpMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// The ID of the runtime to use for this check.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId *string `pulumi:"runtimeId"`
-	// Allows to invert the behaviour of when a check is considered to fail.
+	// Inverts when the monitor is considered to fail. Defaults to `false`.
 	ShouldFail *bool `pulumi:"shouldFail"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *TcpMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 type TcpMonitorState struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions TcpMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings TcpMonitorAlertSettingsPtrInput
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntPtrInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The id of the check group this check is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
-	// The name of the check.
+	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations pulumi.StringArrayInput
 	// The parameters for the TCP connection.
 	Request TcpMonitorRequestPtrInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy TcpMonitorRetryStrategyPtrInput
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// The ID of the runtime to use for this check.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId pulumi.StringPtrInput
-	// Allows to invert the behaviour of when a check is considered to fail.
+	// Inverts when the monitor is considered to fail. Defaults to `false`.
 	ShouldFail pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident TcpMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -293,97 +295,97 @@ func (TcpMonitorState) ElementType() reflect.Type {
 }
 
 type tcpMonitorArgs struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []TcpMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *TcpMonitorAlertSettings `pulumi:"alertSettings"`
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency *int `pulumi:"frequency"`
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The id of the check group this check is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
-	// The name of the check.
+	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations []string `pulumi:"privateLocations"`
 	// The parameters for the TCP connection.
 	Request TcpMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *TcpMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// The ID of the runtime to use for this check.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId *string `pulumi:"runtimeId"`
-	// Allows to invert the behaviour of when a check is considered to fail.
+	// Inverts when the monitor is considered to fail. Defaults to `false`.
 	ShouldFail *bool `pulumi:"shouldFail"`
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *TcpMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 // The set of arguments for constructing a TcpMonitor resource.
 type TcpMonitorArgs struct {
-	// Determines if the check is running or not. Possible values `true`, and `false`.
-	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions TcpMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings TcpMonitorAlertSettingsPtrInput
-	// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency pulumi.IntInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency pulumi.IntPtrInput
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The id of the check group this check is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
-	// The name of the check.
+	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations pulumi.StringArrayInput
 	// The parameters for the TCP connection.
 	Request TcpMonitorRequestInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy TcpMonitorRetryStrategyPtrInput
-	// Determines if the check should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// The ID of the runtime to use for this check.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId pulumi.StringPtrInput
-	// Allows to invert the behaviour of when a check is considered to fail.
+	// Inverts when the monitor is considered to fail. Defaults to `false`.
 	ShouldFail pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident TcpMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this check.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -474,12 +476,12 @@ func (o TcpMonitorOutput) ToTcpMonitorOutputWithContext(ctx context.Context) Tcp
 	return o
 }
 
-// Determines if the check is running or not. Possible values `true`, and `false`.
+// Determines whether the monitor runs on its schedule. Defaults to `true`.
 func (o TcpMonitorOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o TcpMonitorOutput) AlertChannelSubscriptions() TcpMonitorAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *TcpMonitor) TcpMonitorAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(TcpMonitorAlertChannelSubscriptionArrayOutput)
 }
@@ -489,57 +491,57 @@ func (o TcpMonitorOutput) AlertSettings() TcpMonitorAlertSettingsOutput {
 	return o.ApplyT(func(v *TcpMonitor) TcpMonitorAlertSettingsOutput { return v.AlertSettings }).(TcpMonitorAlertSettingsOutput)
 }
 
-// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 5000. (Default `4000`).
-func (o TcpMonitorOutput) DegradedResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *TcpMonitor) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
+// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `3000`.
+func (o TcpMonitorOutput) DegradedResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.IntOutput { return v.DegradedResponseTime }).(pulumi.IntOutput)
 }
 
 // A description of the monitor.
-func (o TcpMonitorOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TcpMonitor) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o TcpMonitorOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 func (o TcpMonitorOutput) Frequency() pulumi.IntOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.IntOutput { return v.Frequency }).(pulumi.IntOutput)
 }
 
-// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 func (o TcpMonitorOutput) FrequencyOffset() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.IntPtrOutput { return v.FrequencyOffset }).(pulumi.IntPtrOutput)
 }
 
-// The id of the check group this check is part of.
+// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 func (o TcpMonitorOutput) GroupId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.IntPtrOutput { return v.GroupId }).(pulumi.IntPtrOutput)
 }
 
-// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 func (o TcpMonitorOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 func (o TcpMonitorOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.StringArrayOutput { return v.Locations }).(pulumi.StringArrayOutput)
 }
 
-// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 5000. (Default `5000`).
-func (o TcpMonitorOutput) MaxResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *TcpMonitor) pulumi.IntPtrOutput { return v.MaxResponseTime }).(pulumi.IntPtrOutput)
+// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`, or up to `45000` if extended limits have been approved for your account. Defaults to `5000`.
+func (o TcpMonitorOutput) MaxResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.IntOutput { return v.MaxResponseTime }).(pulumi.IntOutput)
 }
 
-// Determines if any notifications will be sent out when a check fails/degrades/recovers.
-func (o TcpMonitorOutput) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+func (o TcpMonitorOutput) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
-// The name of the check.
+// The name of the monitor.
 func (o TcpMonitorOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// An array of one or more private locations slugs.
+// The slugs of the private locations to run the monitor from.
 func (o TcpMonitorOutput) PrivateLocations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.StringArrayOutput { return v.PrivateLocations }).(pulumi.StringArrayOutput)
 }
@@ -554,22 +556,22 @@ func (o TcpMonitorOutput) RetryStrategy() TcpMonitorRetryStrategyOutput {
 	return o.ApplyT(func(v *TcpMonitor) TcpMonitorRetryStrategyOutput { return v.RetryStrategy }).(TcpMonitorRetryStrategyOutput)
 }
 
-// Determines if the check should run in all selected locations in parallel or round-robin.
-func (o TcpMonitorOutput) RunParallel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolPtrOutput { return v.RunParallel }).(pulumi.BoolPtrOutput)
+// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+func (o TcpMonitorOutput) RunParallel() pulumi.BoolOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolOutput { return v.RunParallel }).(pulumi.BoolOutput)
 }
 
-// The ID of the runtime to use for this check.
+// The ID of the runtime to use for the monitor.
 func (o TcpMonitorOutput) RuntimeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.StringPtrOutput { return v.RuntimeId }).(pulumi.StringPtrOutput)
 }
 
-// Allows to invert the behaviour of when a check is considered to fail.
-func (o TcpMonitorOutput) ShouldFail() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolPtrOutput { return v.ShouldFail }).(pulumi.BoolPtrOutput)
+// Inverts when the monitor is considered to fail. Defaults to `false`.
+func (o TcpMonitorOutput) ShouldFail() pulumi.BoolOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolOutput { return v.ShouldFail }).(pulumi.BoolOutput)
 }
 
-// A list of tags for organizing and filtering checks.
+// Tags for organizing and filtering checks and monitors.
 func (o TcpMonitorOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *TcpMonitor) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
@@ -579,9 +581,9 @@ func (o TcpMonitorOutput) TriggerIncident() TcpMonitorTriggerIncidentPtrOutput {
 	return o.ApplyT(func(v *TcpMonitor) TcpMonitorTriggerIncidentPtrOutput { return v.TriggerIncident }).(TcpMonitorTriggerIncidentPtrOutput)
 }
 
-// When true, the account level alert settings will be used, not the alert setting defined on this check.
-func (o TcpMonitorOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolPtrOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+func (o TcpMonitorOutput) UseGlobalAlertSettings() pulumi.BoolOutput {
+	return o.ApplyT(func(v *TcpMonitor) pulumi.BoolOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolOutput)
 }
 
 type TcpMonitorArrayOutput struct{ *pulumi.OutputState }

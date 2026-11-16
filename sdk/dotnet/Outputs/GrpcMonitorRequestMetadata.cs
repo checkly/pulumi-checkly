@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class GrpcMonitorRequestMetadata
     {
         /// <summary>
-        /// The gRPC metadata (header) key.
+        /// The gRPC metadata (header) key. Must be between `1` and `256` characters.
         /// </summary>
         public readonly string Key;
         /// <summary>
-        /// The gRPC metadata (header) value.
+        /// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not sensitive and shows in plan output. To keep a credential out of plan output, take it from a variable declared with `sensitive = true` or wrap it in `sensitive(...)`.
         /// </summary>
         public readonly string? Value;
 

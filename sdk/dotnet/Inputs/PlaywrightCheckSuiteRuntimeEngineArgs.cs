@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class PlaywrightCheckSuiteRuntimeEngineArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The engine name. Valid values are "node" or "bun".
+        /// The engine name. Possible values are `node` and `bun`.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         /// <summary>
-        /// The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+        /// The engine version (e.g. "22", "24", "26" for node; "1.3", "1.4" for bun). Use "1" for bun to run the newest Bun 1.x available.
         /// </summary>
         [Input("version", required: true)]
         public Input<string> Version { get; set; } = null!;

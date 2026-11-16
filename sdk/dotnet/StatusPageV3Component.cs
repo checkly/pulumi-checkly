@@ -48,6 +48,18 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing status page component using "&lt;status_page_id&gt;/&lt;component_id&gt;".
+    /// 
+    /// Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/components.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/statusPageV3Component:StatusPageV3Component example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/0e4f5a72-6a5c-42a1-9a8a-5f7d38c8a9d1
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/statusPageV3Component:StatusPageV3Component")]
     public partial class StatusPageV3Component : global::Pulumi.CustomResource
@@ -56,7 +68,7 @@ namespace Pulumi.Checkly
         /// An optional description shown next to the name.
         /// </summary>
         [Output("description")]
-        public Output<string?> Description { get; private set; } = null!;
+        public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
         /// The position among siblings; lower comes first.
@@ -65,19 +77,19 @@ namespace Pulumi.Checkly
         public Output<int> DisplayOrder { get; private set; } = null!;
 
         /// <summary>
-        /// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+        /// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
         /// </summary>
         [Output("expandedByDefault")]
-        public Output<bool?> ExpandedByDefault { get; private set; } = null!;
+        public Output<bool> ExpandedByDefault { get; private set; } = null!;
 
         /// <summary>
-        /// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
         /// </summary>
         [Output("hidden")]
-        public Output<bool?> Hidden { get; private set; } = null!;
+        public Output<bool> Hidden { get; private set; } = null!;
 
         /// <summary>
-        /// The name shown on the status page.
+        /// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -86,13 +98,13 @@ namespace Pulumi.Checkly
         /// The ID of the GROUP component to nest this component under. Must be on the same status page.
         /// </summary>
         [Output("parentId")]
-        public Output<string?> ParentId { get; private set; } = null!;
+        public Output<string> ParentId { get; private set; } = null!;
 
         /// <summary>
-        /// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         /// </summary>
         [Output("showHistoricalData")]
-        public Output<bool?> ShowHistoricalData { get; private set; } = null!;
+        public Output<bool> ShowHistoricalData { get; private set; } = null!;
 
         /// <summary>
         /// The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
@@ -101,10 +113,10 @@ namespace Pulumi.Checkly
         public Output<string> StatusPageId { get; private set; } = null!;
 
         /// <summary>
-        /// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        /// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         /// </summary>
         [Output("type")]
-        public Output<string?> Type { get; private set; } = null!;
+        public Output<string> Type { get; private set; } = null!;
 
 
         /// <summary>
@@ -166,19 +178,19 @@ namespace Pulumi.Checkly
         public Input<int> DisplayOrder { get; set; } = null!;
 
         /// <summary>
-        /// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+        /// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
         /// </summary>
         [Input("expandedByDefault")]
         public Input<bool>? ExpandedByDefault { get; set; }
 
         /// <summary>
-        /// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
         /// </summary>
         [Input("hidden")]
         public Input<bool>? Hidden { get; set; }
 
         /// <summary>
-        /// The name shown on the status page.
+        /// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -190,7 +202,7 @@ namespace Pulumi.Checkly
         public Input<string>? ParentId { get; set; }
 
         /// <summary>
-        /// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         /// </summary>
         [Input("showHistoricalData")]
         public Input<bool>? ShowHistoricalData { get; set; }
@@ -202,7 +214,7 @@ namespace Pulumi.Checkly
         public Input<string> StatusPageId { get; set; } = null!;
 
         /// <summary>
-        /// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        /// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
@@ -228,19 +240,19 @@ namespace Pulumi.Checkly
         public Input<int>? DisplayOrder { get; set; }
 
         /// <summary>
-        /// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+        /// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
         /// </summary>
         [Input("expandedByDefault")]
         public Input<bool>? ExpandedByDefault { get; set; }
 
         /// <summary>
-        /// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+        /// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
         /// </summary>
         [Input("hidden")]
         public Input<bool>? Hidden { get; set; }
 
         /// <summary>
-        /// The name shown on the status page.
+        /// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -252,7 +264,7 @@ namespace Pulumi.Checkly
         public Input<string>? ParentId { get; set; }
 
         /// <summary>
-        /// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+        /// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
         /// </summary>
         [Input("showHistoricalData")]
         public Input<bool>? ShowHistoricalData { get; set; }
@@ -264,7 +276,7 @@ namespace Pulumi.Checkly
         public Input<string>? StatusPageId { get; set; }
 
         /// <summary>
-        /// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+        /// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
