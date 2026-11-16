@@ -24,33 +24,37 @@ const slackChannel = new checkly.AlertChannel("my-slack-channel", {
   }
 })
 
-// We create a group, add the tags, locations and alert channels.
-const group = new checkly.CheckGroup("my-group", {
+// We create a group with tags. It enforces its locations and alert channels on every check in it.
+const group = new checkly.CheckGroupV2("my-group", {
   name: 'Check Group #1',
   activated: true,
   concurrency: 1,
-  apiCheckDefaults: {},
-  locations,
   tags,
-  useGlobalAlertSettings: true,
-  alertChannelSubscriptions: [
-    {
-      activated: true,
-      channelId: slackChannel.id.apply((id: string) => parseInt(id)),
-    },
-    {
-      activated: true,
-      channelId: emailChannel.id.apply((id: string) => parseInt(id))
-    }
-  ]
+  enforceLocations: {
+    enabled: true,
+    locations,
+  },
+  enforceAlertSettings: {
+    enabled: true,
+    useGlobalAlertSettings: true,
+    alertChannelSubscriptions: [
+      {
+        activated: true,
+        channelId: slackChannel.id.apply((id: string) => parseInt(id)),
+      },
+      {
+        activated: true,
+        channelId: emailChannel.id.apply((id: string) => parseInt(id)),
+      }
+    ]
+  }
 })
 
 // Our first Browser check is added to group created above and uses the Playwright script.
-new checkly.Check("my-browser-check", {
+new checkly.BrowserCheck("my-browser-check", {
   name: "Google.com Playwright check",
   activated: true,
   frequency: 10,
-  type: "BROWSER",
   groupId: group.id.apply((id: string) => parseInt(id)),
   script: playwrightScript,
   locations,
@@ -63,11 +67,10 @@ const setupSnippet = new checkly.Snippet('my-snippet', {
 })
 
 // Our first API check uses the setup script defined above and has two assertions.
-new checkly.Check("my-api-check", {
+new checkly.ApiCheck("my-api-check", {
   name: "Public SpaceX API",
   activated: true,
   frequency: 10,
-  type: "API",
   locations,
   tags,
   setupSnippetId: setupSnippet.id.apply((id: string) => parseInt(id)),

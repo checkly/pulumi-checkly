@@ -29,20 +29,20 @@ The Checkly provider must be configured with an `API Key` and an `Account ID` in
 ```javascript
 const checkly = require('@checkly/pulumi')
 
-new checkly.Check('api-check', {
+new checkly.ApiCheck('api-check', {
   activated: true,
   frequency: 10,
-  type: 'API',
+  locations: ['eu-west-1'],
   request: {
     method: 'GET',
     url: "https://checklyhq.com",
   },
 })
 
-new checkly.Check('browser-check', {
+new checkly.BrowserCheck('browser-check', {
   activated: true,
   frequency: 10,
-  type: 'BROWSER',
+  locations: ['eu-west-1'],
   script: 'console.log("Hello World!")',
 })
 ```
@@ -53,20 +53,20 @@ new checkly.Check('browser-check', {
 ```typescript
 import * as checkly from '@checkly/pulumi'
 
-new checkly.Check('api-check', {
+new checkly.ApiCheck('api-check', {
   activated: true,
   frequency: 10,
-  type: 'API',
+  locations: ['eu-west-1'],
   request: {
     method: 'GET',
     url: 'https://checklyhq.com',
   }
 })
 
-new checkly.Check('browser-check', {
+new checkly.BrowserCheck('browser-check', {
   activated: true,
   frequency: 10,
-  type: 'BROWSER',
+  locations: ['eu-west-1'],
   script: 'console.log("Hello World!")',
 })
 ```
