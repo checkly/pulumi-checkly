@@ -62,7 +62,9 @@ runs:
       uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
       with:
         node-version: 22.x
-        registry-url: https://registry.npmjs.org
+        # No registry-url: setup-node would then write an .npmrc that sends
+        # NODE_AUTH_TOKEN, or a placeholder for it, with every npm request.
+        # Installs need no token, and npm publishing uses trusted publishing.
 
     - name: Setup DotNet
       if: inputs.tools == 'all' || contains(inputs.tools, 'dotnet')

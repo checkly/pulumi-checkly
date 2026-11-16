@@ -135,9 +135,6 @@ jobs:
         version: ${{ inputs.version }}
         npmTrustedPublishing: true
       env:
-        # setup-node exports a placeholder NODE_AUTH_TOKEN, which npm trusted
-        # publishing refuses; an empty value makes npm authenticate with OIDC.
-        NODE_AUTH_TOKEN: ""
         NUGET_PUBLISH_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
     - name: Publish SDKs (except Java)
       if: inputs.skipJavaSdk == true
@@ -147,9 +144,6 @@ jobs:
         version: ${{ inputs.version }}
         npmTrustedPublishing: true
       env:
-        # setup-node exports a placeholder NODE_AUTH_TOKEN, which npm trusted
-        # publishing refuses; an empty value makes npm authenticate with OIDC.
-        NODE_AUTH_TOKEN: ""
         NUGET_PUBLISH_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
     - name: Download Go SDK
       uses: ./.github/actions/download-sdk
