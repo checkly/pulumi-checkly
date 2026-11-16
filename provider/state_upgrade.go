@@ -258,7 +258,9 @@ func upgradeV2EnvironmentVariables(state resource.PropertyMap) {
 
 // updateAt replaces the value at path in m with f applied to it, if the path exists. Objects
 // along the path are copied, so values shared with other property maps are not modified.
-func updateAt(m resource.PropertyMap, path []resource.PropertyKey, f func(resource.PropertyValue) resource.PropertyValue) {
+func updateAt(
+	m resource.PropertyMap, path []resource.PropertyKey, f func(resource.PropertyValue) resource.PropertyValue,
+) {
 	v, ok := m[path[0]]
 	if !ok {
 		return

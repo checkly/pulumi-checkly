@@ -11,7 +11,6 @@ import (
 	"crypto/sha256"
 	"crypto/x509"
 	"crypto/x509/pkix"
-	_ "embed"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
@@ -27,6 +26,10 @@ import (
 	"testing"
 	"time"
 
+	_ "embed"
+
+	"google.golang.org/protobuf/types/known/structpb"
+
 	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -34,7 +37,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
-	"google.golang.org/protobuf/types/known/structpb"
 
 	"github.com/checkly/pulumi-checkly/provider/pkg/version"
 )
@@ -45,8 +47,8 @@ var testPackageSchema []byte
 // stateCompatCase describes a resource as a stack created with pulumi-checkly v2.x stores it,
 // and the program a user writes for the same resource after upgrading to v3.
 type stateCompatCase struct {
-	name  string
-	token string
+	name         string
+	resourceType string
 	// v2Inputs are the inputs recorded in the v2.x state, with v2.x property names and shapes.
 	v2Inputs map[string]any
 	// v2Outputs are the properties the v2.x state holds in addition to its inputs.
@@ -102,11 +104,11 @@ func TestStateCompatibilityRefresh(t *testing.T) {
 				reads++
 				w.WriteHeader(http.StatusNotFound)
 			})
-			urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+			urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.resourceType), tc.name)
 			if _, err := srv.Read(context.Background(), &pulumirpc.ReadRequest{
 				Id:         "1234",
 				Urn:        string(urn),
-				Type:       tc.token,
+				Type:       tc.resourceType,
 				Name:       tc.name,
 				Properties: marshal(t, tc.v2State()),
 				Inputs:     marshal(t, tc.v2Inputs),
@@ -196,10 +198,10 @@ func updateV2State(t *testing.T, providerInfo tfbridge.ProviderInfo, tc stateCom
 		_ = json.NewEncoder(w).Encode(body)
 	})
 	ctx := context.Background()
-	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.resourceType), tc.name)
 	check, err := srv.Check(ctx, &pulumirpc.CheckRequest{
 		Urn:        string(urn),
-		Type:       tc.token,
+		Type:       tc.resourceType,
 		Name:       tc.name,
 		Olds:       marshal(t, tc.v2Inputs),
 		News:       marshal(t, tc.v3Inputs),
@@ -211,7 +213,7 @@ func updateV2State(t *testing.T, providerInfo tfbridge.ProviderInfo, tc stateCom
 	_, err = srv.Update(ctx, &pulumirpc.UpdateRequest{
 		Id:            "1234",
 		Urn:           string(urn),
-		Type:          tc.token,
+		Type:          tc.resourceType,
 		Name:          tc.name,
 		Olds:          marshal(t, tc.v2State()),
 		News:          check.GetInputs(),
@@ -257,11 +259,11 @@ func TestDiffOfStoredV2InputsFails(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.resourceType), tc.name)
 	_, err = srv.Diff(context.Background(), &pulumirpc.DiffRequest{
 		Id:        "1234",
 		Urn:       string(urn),
-		Type:      tc.token,
+		Type:      tc.resourceType,
 		Name:      tc.name,
 		Olds:      marshal(t, tc.v2State()),
 		News:      news,
@@ -298,17 +300,17 @@ func deleteV2State(t *testing.T, providerInfo tfbridge.ProviderInfo, tc stateCom
 		deletes++
 		w.WriteHeader(http.StatusNoContent)
 	})
-	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.resourceType), tc.name)
 	_, err := srv.Delete(context.Background(), &pulumirpc.DeleteRequest{
 		Id:         "1234",
 		Urn:        string(urn),
-		Type:       tc.token,
+		Type:       tc.resourceType,
 		Name:       tc.name,
 		Properties: marshal(t, tc.v2State()),
 		OldInputs:  marshal(t, tc.v2Inputs),
 	})
 	// Upstream never deletes a code bundle: the API cleans it up once nothing uses it.
-	if err == nil && deletes == 0 && tc.token != "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle" {
+	if err == nil && deletes == 0 && tc.resourceType != "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle" {
 		t.Errorf("Delete did not call the API")
 	}
 	return err
@@ -363,7 +365,7 @@ func newTestProviderServerWithInfo(
 		t.Fatalf("creating provider server: %v", err)
 	}
 
-	config := marshal(t, map[string]any{
+	config := marshal(t, map[string]any{ //nolint:gosec // apiKey holds a fake test value, not a credential.
 		"apiKey":    "dummy-api-key",
 		"accountId": "00000000-0000-4000-8000-000000000000",
 		"apiUrl":    api.URL,
@@ -385,12 +387,12 @@ func runStateCompatCase(t *testing.T, tc stateCompatCase) {
 		w.WriteHeader(http.StatusInternalServerError)
 	})
 
-	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	urn := resource.NewURN("test", "statecompat", "", tokens.Type(tc.resourceType), tc.name)
 	oldInputs := marshal(t, tc.v2Inputs)
 
 	check, err := srv.Check(ctx, &pulumirpc.CheckRequest{
 		Urn:        string(urn),
-		Type:       tc.token,
+		Type:       tc.resourceType,
 		Name:       tc.name,
 		Olds:       oldInputs,
 		News:       marshal(t, tc.v3Inputs),
@@ -409,7 +411,7 @@ func runStateCompatCase(t *testing.T, tc stateCompatCase) {
 	resp, err := srv.Diff(ctx, &pulumirpc.DiffRequest{
 		Id:        "1234",
 		Urn:       string(urn),
-		Type:      tc.token,
+		Type:      tc.resourceType,
 		Name:      tc.name,
 		Olds:      marshal(t, tc.v2State()),
 		News:      check.GetInputs(),
@@ -563,8 +565,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 
 	cases := []stateCompatCase{
 		{
-			name:  "AlertChannel",
-			token: "checkly:index/alertChannel:AlertChannel",
+			name:         "AlertChannel",
+			resourceType: "checkly:index/alertChannel:AlertChannel",
 			v2Inputs: map[string]any{
 				"email":              map[string]any{"address": "alerts@example.com"},
 				"sendRecovery":       true,
@@ -583,8 +585,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "AlertChannelWebhook",
-			token: "checkly:index/alertChannel:AlertChannel",
+			name:         "AlertChannelWebhook",
+			resourceType: "checkly:index/alertChannel:AlertChannel",
 			v2Inputs: map[string]any{
 				"webhook": map[string]any{
 					"name":            "hook",
@@ -617,8 +619,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "CheckAPI",
-			token: "checkly:index/check:Check",
+			name:         "CheckAPI",
+			resourceType: "checkly:index/check:Check",
 			v2Inputs: map[string]any{
 				"name":                 "api check",
 				"type":                 "API",
@@ -700,8 +702,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "CheckBrowser",
-			token: "checkly:index/check:Check",
+			name:         "CheckBrowser",
+			resourceType: "checkly:index/check:Check",
 			v2Inputs: map[string]any{
 				"name":                   "browser check",
 				"type":                   "BROWSER",
@@ -753,8 +755,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "CheckEnvironmentVariablesMap",
-			token: "checkly:index/check:Check",
+			name:         "CheckEnvironmentVariablesMap",
+			resourceType: "checkly:index/check:Check",
 			v2Inputs: map[string]any{
 				"name":                 "env map check",
 				"type":                 "BROWSER",
@@ -797,8 +799,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "CheckGroup",
-			token: "checkly:index/checkGroup:CheckGroup",
+			name:         "CheckGroup",
+			resourceType: "checkly:index/checkGroup:CheckGroup",
 			v2Inputs: map[string]any{
 				"name":             "group",
 				"activated":        true,
@@ -847,8 +849,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "CheckGroupV2",
-			token: "checkly:index/checkGroupV2:CheckGroupV2",
+			name:         "CheckGroupV2",
+			resourceType: "checkly:index/checkGroupV2:CheckGroupV2",
 			v2Inputs: map[string]any{
 				"name":        "group v2",
 				"activated":   true,
@@ -911,8 +913,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "CheckGroupV2AlertSettings",
-			token: "checkly:index/checkGroupV2:CheckGroupV2",
+			name:         "CheckGroupV2AlertSettings",
+			resourceType: "checkly:index/checkGroupV2:CheckGroupV2",
 			v2Inputs: map[string]any{
 				"name": "group v2 alerts",
 				"enforceAlertSettings": map[string]any{
@@ -947,8 +949,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "ClientCertificate",
-			token: "checkly:index/clientCertificate:ClientCertificate",
+			name:         "ClientCertificate",
+			resourceType: "checkly:index/clientCertificate:ClientCertificate",
 			v2Inputs: map[string]any{
 				"host":        "*.example.com",
 				"certificate": certificate,
@@ -962,14 +964,14 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:     "Dashboard",
-			token:    "checkly:index/dashboard:Dashboard",
-			v2Inputs: map[string]any{"customUrl": "statecompat", "header": "Status"},
-			v3Inputs: map[string]any{"customUrl": "statecompat", "header": "Status"},
+			name:         "Dashboard",
+			resourceType: "checkly:index/dashboard:Dashboard",
+			v2Inputs:     map[string]any{"customUrl": "statecompat", "header": "Status"},
+			v3Inputs:     map[string]any{"customUrl": "statecompat", "header": "Status"},
 		},
 		{
-			name:  "DnsMonitor",
-			token: "checkly:index/dnsMonitor:DnsMonitor",
+			name:         "DnsMonitor",
+			resourceType: "checkly:index/dnsMonitor:DnsMonitor",
 			v2Inputs: map[string]any{
 				"name": "dns", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"query": "example.com", "recordType": "A"},
@@ -981,14 +983,14 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:     "EnvironmentVariable",
-			token:    "checkly:index/environmentVariable:EnvironmentVariable",
-			v2Inputs: map[string]any{"key": "STATECOMPAT", "value": "value"},
-			v3Inputs: map[string]any{"key": "STATECOMPAT", "value": "value"},
+			name:         "EnvironmentVariable",
+			resourceType: "checkly:index/environmentVariable:EnvironmentVariable",
+			v2Inputs:     map[string]any{"key": "STATECOMPAT", "value": "value"},
+			v3Inputs:     map[string]any{"key": "STATECOMPAT", "value": "value"},
 		},
 		{
-			name:  "GrpcMonitor",
-			token: "checkly:index/grpcMonitor:GrpcMonitor",
+			name:         "GrpcMonitor",
+			resourceType: "checkly:index/grpcMonitor:GrpcMonitor",
 			v2Inputs: map[string]any{
 				"name": "grpc", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"host": "grpc.example.com", "port": 443, "grpcMode": "HEALTH"},
@@ -1008,8 +1010,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "HeartbeatCheck",
-			token: "checkly:index/heartbeatCheck:HeartbeatCheck",
+			name:         "HeartbeatCheck",
+			resourceType: "checkly:index/heartbeatCheck:HeartbeatCheck",
 			v2Inputs: map[string]any{
 				"name": "heartbeat", "activated": true,
 				"heartbeat": map[string]any{"period": 7, "periodUnit": "days", "grace": 1, "graceUnit": "days"},
@@ -1030,8 +1032,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "HeartbeatMonitor",
-			token: "checkly:index/heartbeatMonitor:HeartbeatMonitor",
+			name:         "HeartbeatMonitor",
+			resourceType: "checkly:index/heartbeatMonitor:HeartbeatMonitor",
 			v2Inputs: map[string]any{
 				"name": "heartbeat monitor", "activated": true,
 				"heartbeat": map[string]any{"period": 7, "periodUnit": "days", "grace": 1, "graceUnit": "days"},
@@ -1052,8 +1054,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "IcmpMonitor",
-			token: "checkly:index/icmpMonitor:IcmpMonitor",
+			name:         "IcmpMonitor",
+			resourceType: "checkly:index/icmpMonitor:IcmpMonitor",
 			v2Inputs: map[string]any{
 				"name": "icmp", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"hostname": "example.com"},
@@ -1065,8 +1067,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "MaintenanceWindow",
-			token: "checkly:index/maintenanceWindow:MaintenanceWindow",
+			name:         "MaintenanceWindow",
+			resourceType: "checkly:index/maintenanceWindow:MaintenanceWindow",
 			v2Inputs: map[string]any{
 				"name":              "maintenance",
 				"startsAt":          "2030-01-01T00:00:00.000Z",
@@ -1093,8 +1095,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			wantNoChanges: true,
 		},
 		{
-			name:  "PlaywrightCheckSuite",
-			token: "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite",
+			name:         "PlaywrightCheckSuite",
+			resourceType: "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite",
 			v2Inputs: map[string]any{
 				"name": "suite", "activated": true, "frequency": 10, "locations": locations,
 				"bundle": map[string]any{"id": "bundle-id", "metadata": bundleMetadata},
@@ -1107,28 +1109,28 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 		},
 		{
 			name:          "PlaywrightCodeBundle",
-			token:         "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle",
+			resourceType:  "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle",
 			v2Inputs:      map[string]any{"prebuiltArchive": map[string]any{"file": bundleFile}},
 			v2Outputs:     map[string]any{"metadata": bundleMetadata},
 			v3Inputs:      map[string]any{"prebuiltArchive": map[string]any{"file": bundleFile}},
 			wantNoChanges: true,
 		},
 		{
-			name:     "PrivateLocation",
-			token:    "checkly:index/privateLocation:PrivateLocation",
-			v2Inputs: map[string]any{"name": "location", "slugName": "statecompat"},
-			v3Inputs: map[string]any{"name": "location", "slugName": "statecompat"},
+			name:         "PrivateLocation",
+			resourceType: "checkly:index/privateLocation:PrivateLocation",
+			v2Inputs:     map[string]any{"name": "location", "slugName": "statecompat"},
+			v3Inputs:     map[string]any{"name": "location", "slugName": "statecompat"},
 		},
 		{
 			name:          "Snippet",
-			token:         "checkly:index/snippet:Snippet",
+			resourceType:  "checkly:index/snippet:Snippet",
 			v2Inputs:      map[string]any{"name": "snippet", "script": "console.log('hi')"},
 			v3Inputs:      map[string]any{"name": "snippet", "script": "console.log('hi')"},
 			wantNoChanges: true,
 		},
 		{
-			name:  "SslMonitor",
-			token: "checkly:index/sslMonitor:SslMonitor",
+			name:         "SslMonitor",
+			resourceType: "checkly:index/sslMonitor:SslMonitor",
 			v2Inputs: map[string]any{
 				"name": "ssl", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"hostname": "example.com"},
@@ -1140,8 +1142,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "StatusPage",
-			token: "checkly:index/statusPage:StatusPage",
+			name:         "StatusPage",
+			resourceType: "checkly:index/statusPage:StatusPage",
 			v2Inputs: map[string]any{
 				"name": "status", "url": "statecompat",
 				"cards": []any{map[string]any{
@@ -1159,20 +1161,20 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 		},
 		{
 			name:          "StatusPageService",
-			token:         "checkly:index/statusPageService:StatusPageService",
+			resourceType:  "checkly:index/statusPageService:StatusPageService",
 			v2Inputs:      map[string]any{"name": "service"},
 			v3Inputs:      map[string]any{"name": "service"},
 			wantNoChanges: true,
 		},
 		{
-			name:     "StatusPageV3",
-			token:    "checkly:index/statusPageV3:StatusPageV3",
-			v2Inputs: map[string]any{"name": "status v3", "url": "statecompat-v3"},
-			v3Inputs: map[string]any{"name": "status v3", "url": "statecompat-v3"},
+			name:         "StatusPageV3",
+			resourceType: "checkly:index/statusPageV3:StatusPageV3",
+			v2Inputs:     map[string]any{"name": "status v3", "url": "statecompat-v3"},
+			v3Inputs:     map[string]any{"name": "status v3", "url": "statecompat-v3"},
 		},
 		{
-			name:  "StatusPageV3AutomationRule",
-			token: "checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule",
+			name:         "StatusPageV3AutomationRule",
+			resourceType: "checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule",
 			v2Inputs: map[string]any{
 				"statusPageId": "page-id", "tags": []any{"pulumi"},
 				"firstUpdate": "Investigating", "lastUpdate": "Resolved",
@@ -1183,14 +1185,14 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:     "StatusPageV3Component",
-			token:    "checkly:index/statusPageV3Component:StatusPageV3Component",
-			v2Inputs: map[string]any{"name": "component", "statusPageId": "page-id", "displayOrder": 1},
-			v3Inputs: map[string]any{"name": "component", "statusPageId": "page-id", "displayOrder": 1},
+			name:         "StatusPageV3Component",
+			resourceType: "checkly:index/statusPageV3Component:StatusPageV3Component",
+			v2Inputs:     map[string]any{"name": "component", "statusPageId": "page-id", "displayOrder": 1},
+			v3Inputs:     map[string]any{"name": "component", "statusPageId": "page-id", "displayOrder": 1},
 		},
 		{
-			name:  "TcpCheck",
-			token: "checkly:index/tcpCheck:TcpCheck",
+			name:         "TcpCheck",
+			resourceType: "checkly:index/tcpCheck:TcpCheck",
 			v2Inputs: map[string]any{
 				"name": "tcp", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"hostname": "example.com", "port": 443},
@@ -1202,8 +1204,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "TcpMonitor",
-			token: "checkly:index/tcpMonitor:TcpMonitor",
+			name:         "TcpMonitor",
+			resourceType: "checkly:index/tcpMonitor:TcpMonitor",
 			v2Inputs: map[string]any{
 				"name": "tcp monitor", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"hostname": "example.com", "port": 443},
@@ -1223,8 +1225,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "TracerouteMonitor",
-			token: "checkly:index/tracerouteMonitor:TracerouteMonitor",
+			name:         "TracerouteMonitor",
+			resourceType: "checkly:index/tracerouteMonitor:TracerouteMonitor",
 			v2Inputs: map[string]any{
 				"name": "traceroute", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"url": "example.com"},
@@ -1236,8 +1238,8 @@ func stateCompatCases(t *testing.T) []stateCompatCase {
 			},
 		},
 		{
-			name:  "UrlMonitor",
-			token: "checkly:index/urlMonitor:UrlMonitor",
+			name:         "UrlMonitor",
+			resourceType: "checkly:index/urlMonitor:UrlMonitor",
 			v2Inputs: map[string]any{
 				"name": "url", "activated": true, "frequency": 10, "locations": locations,
 				"request": map[string]any{"url": "https://example.com"},
@@ -1289,17 +1291,17 @@ func aliasCases(t *testing.T, cases []stateCompatCase) []stateCompatCase {
 		m["name"] = name
 		return m
 	}
-	alias := func(name, from, token string, v3Inputs map[string]any) stateCompatCase {
+	alias := func(name, from, resourceType string, v3Inputs map[string]any) stateCompatCase {
 		c, ok := byName[from]
 		if !ok {
 			t.Fatalf("no case %s", from)
 		}
 		return stateCompatCase{
-			name:      name,
-			token:     token,
-			v2Inputs:  c.v2Inputs,
-			v2Outputs: c.v2Outputs,
-			v3Inputs:  v3Inputs,
+			name:         name,
+			resourceType: resourceType,
+			v2Inputs:     c.v2Inputs,
+			v2Outputs:    c.v2Outputs,
+			v3Inputs:     v3Inputs,
 		}
 	}
 

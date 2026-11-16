@@ -271,7 +271,8 @@ func TestAliasedCheckSchemaVersions(t *testing.T) {
 			continue
 		}
 		if got := res.SchemaVersion(); got != want {
-			t.Errorf("upstream %s is at schema version %d, but the aliasedCheckState hook in state_upgrade.go expects %d", name, got, want)
+			t.Errorf("upstream %s is at schema version %d, but the aliasedCheckState hook in "+
+				"state_upgrade.go expects %d", name, got, want)
 		}
 	}
 }

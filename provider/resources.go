@@ -110,9 +110,11 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_check": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Check"),
-				DeprecationMessage: "Use the ApiCheck, BrowserCheck or MultistepCheck resource instead, which expose only the properties of their check type. " +
-					"An existing check can be moved to one of them with an alias, without recreating it. When moving an API check, note that ApiCheck " +
-					"defaults degradedResponseTime and maxResponseTime to 5000 and 20000 instead of 15000 and 30000, and request.followRedirects " +
+				DeprecationMessage: "Use the ApiCheck, BrowserCheck or MultistepCheck resource instead, " +
+					"which expose only the properties of their check type. " +
+					"An existing check can be moved to one of them with an alias, without recreating it. " +
+					"When moving an API check, note that ApiCheck defaults degradedResponseTime and " +
+					"maxResponseTime to 5000 and 20000 instead of 15000 and 30000, and request.followRedirects " +
 					"to true instead of false; set them to keep the previous behaviour.",
 			},
 			"checkly_check_group": {
@@ -149,8 +151,9 @@ func Provider() tfbridge.ProviderInfo {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Snippet"),
 			},
 			"checkly_status_page": {
-				Tok:                tfbridge.MakeResource(mainPkg, mainMod, "StatusPage"),
-				DeprecationMessage: "Use the StatusPageV3 resource instead. v3 status pages are separate objects, so an existing page cannot be converted.",
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPage"),
+				DeprecationMessage: "Use the StatusPageV3 resource instead. " +
+					"v3 status pages are separate objects, so an existing page cannot be converted.",
 			},
 			"checkly_status_page_service": {
 				Tok:                tfbridge.MakeResource(mainPkg, mainMod, "StatusPageService"),

@@ -16,6 +16,7 @@ package main
 
 import (
 	"context"
+
 	_ "embed"
 
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
@@ -28,5 +29,6 @@ var pulumiSchema []byte
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main(context.Background(), "checkly", checkly.Provider(), tfbridge.ProviderMetadata{PackageSchema: pulumiSchema})
+	tfbridge.Main(context.Background(), "checkly", checkly.Provider(),
+		tfbridge.ProviderMetadata{PackageSchema: pulumiSchema})
 }

@@ -136,11 +136,11 @@ func testRefreshAndMove(t *testing.T, tc stateCompatCase, checkJSON, target stri
 		}
 	})
 
-	checkURN := resource.NewURN("test", "statecompat", "", tokens.Type(tc.token), tc.name)
+	checkURN := resource.NewURN("test", "statecompat", "", tokens.Type(tc.resourceType), tc.name)
 	read, err := srv.Read(ctx, &pulumirpc.ReadRequest{
 		Id:         "1234",
 		Urn:        string(checkURN),
-		Type:       tc.token,
+		Type:       tc.resourceType,
 		Name:       tc.name,
 		Properties: marshal(t, tc.v2State()),
 		Inputs:     marshal(t, tc.v2Inputs),
@@ -175,7 +175,7 @@ func testRefreshAndMove(t *testing.T, tc stateCompatCase, checkJSON, target stri
 	if _, err := srv.Delete(ctx, &pulumirpc.DeleteRequest{
 		Id:         "1234",
 		Urn:        string(checkURN),
-		Type:       tc.token,
+		Type:       tc.resourceType,
 		Name:       tc.name,
 		Properties: read.GetProperties(),
 		OldInputs:  read.GetInputs(),
