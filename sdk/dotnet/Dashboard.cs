@@ -10,6 +10,8 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
+    /// Dashboards are public status pages that display selected checks and their statuses.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
@@ -39,21 +41,32 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing dashboard using its dashboard ID, a short hexadecimal string.
+    /// The ID is the dashboardId returned by the Checkly API at GET /v1/dashboards.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/dashboard:Dashboard example 7f3a9c21
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/dashboard:Dashboard")]
     public partial class Dashboard : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        /// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         /// </summary>
         [Output("checksPerPage")]
-        public Output<int?> ChecksPerPage { get; private set; } = null!;
+        public Output<int> ChecksPerPage { get; private set; } = null!;
 
         /// <summary>
         /// Custom CSS to be applied to the dashboard.
         /// </summary>
         [Output("customCss")]
-        public Output<string?> CustomCss { get; private set; } = null!;
+        public Output<string> CustomCss { get; private set; } = null!;
 
         /// <summary>
         /// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
@@ -62,7 +75,7 @@ namespace Pulumi.Checkly
         public Output<string?> CustomDomain { get; private set; } = null!;
 
         /// <summary>
-        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         /// </summary>
         [Output("customUrl")]
         public Output<string> CustomUrl { get; private set; } = null!;
@@ -71,25 +84,25 @@ namespace Pulumi.Checkly
         /// HTML \n\n description for the dashboard.
         /// </summary>
         [Output("description")]
-        public Output<string?> Description { get; private set; } = null!;
+        public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Enable incident support for the dashboard. (Default `false`).
+        /// Enable incident support for the dashboard. Defaults to `False`.
         /// </summary>
         [Output("enableIncidents")]
-        public Output<bool?> EnableIncidents { get; private set; } = null!;
+        public Output<bool> EnableIncidents { get; private set; } = null!;
 
         /// <summary>
-        /// Expand or collapse checks on the dashboard. (Default `false`).
+        /// Expand or collapse checks on the dashboard. Defaults to `False`.
         /// </summary>
         [Output("expandChecks")]
-        public Output<bool?> ExpandChecks { get; private set; } = null!;
+        public Output<bool> ExpandChecks { get; private set; } = null!;
 
         /// <summary>
-        /// A URL pointing to an image file to use as browser favicon.
+        /// An http or https URL pointing to an image file to use as browser favicon.
         /// </summary>
         [Output("favicon")]
-        public Output<string?> Favicon { get; private set; } = null!;
+        public Output<string> Favicon { get; private set; } = null!;
 
         /// <summary>
         /// A piece of text displayed at the top of your dashboard.
@@ -98,76 +111,88 @@ namespace Pulumi.Checkly
         public Output<string> Header { get; private set; } = null!;
 
         /// <summary>
-        /// Show or hide the tags on the dashboard. (Default `false`).
+        /// Show or hide the tags on the dashboard. Defaults to `False`.
         /// </summary>
         [Output("hideTags")]
-        public Output<bool?> HideTags { get; private set; } = null!;
+        public Output<bool> HideTags { get; private set; } = null!;
 
         /// <summary>
-        /// Set your dashboard as private and generate key.
+        /// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `False`.
         /// </summary>
         [Output("isPrivate")]
-        public Output<bool?> IsPrivate { get; private set; } = null!;
+        public Output<bool> IsPrivate { get; private set; } = null!;
 
         /// <summary>
-        /// The access key when the dashboard is private.
+        /// The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
         /// </summary>
         [Output("key")]
         public Output<string> Key { get; private set; } = null!;
 
         /// <summary>
-        /// A link to for the dashboard logo.
+        /// The http or https URL that clicking the dashboard logo leads to.
         /// </summary>
         [Output("link")]
-        public Output<string?> Link { get; private set; } = null!;
+        public Output<string> Link { get; private set; } = null!;
 
         /// <summary>
-        /// A URL pointing to an image file to use for the dashboard logo.
+        /// An http or https URL pointing to an image file to use for the dashboard logo.
         /// </summary>
         [Output("logo")]
-        public Output<string?> Logo { get; private set; } = null!;
+        public Output<string> Logo { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if pagination is on or off. (Default `true`).
+        /// Determines if pagination is on or off. Defaults to `True`.
         /// </summary>
         [Output("paginate")]
-        public Output<bool?> Paginate { get; private set; } = null!;
+        public Output<bool> Paginate { get; private set; } = null!;
 
         /// <summary>
-        /// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+        /// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
         /// </summary>
         [Output("paginationRate")]
-        public Output<int?> PaginationRate { get; private set; } = null!;
+        public Output<int> PaginationRate { get; private set; } = null!;
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+        /// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
         /// </summary>
         [Output("refreshRate")]
-        public Output<int?> RefreshRate { get; private set; } = null!;
+        public Output<int> RefreshRate { get; private set; } = null!;
 
         /// <summary>
-        /// Show or hide check run links on the dashboard. (Default `false`).
+        /// Show or hide check run links on the dashboard. Defaults to `False`.
         /// </summary>
         [Output("showCheckRunLinks")]
-        public Output<bool?> ShowCheckRunLinks { get; private set; } = null!;
+        public Output<bool> ShowCheckRunLinks { get; private set; } = null!;
 
         /// <summary>
-        /// Show or hide header and description on the dashboard. (Default `true`).
+        /// Show or hide the names of the groups of the checks on the dashboard. Defaults to `True`.
+        /// </summary>
+        [Output("showGroupNames")]
+        public Output<bool> ShowGroupNames { get; private set; } = null!;
+
+        /// <summary>
+        /// Show or hide header and description on the dashboard. Defaults to `True`.
         /// </summary>
         [Output("showHeader")]
-        public Output<bool?> ShowHeader { get; private set; } = null!;
+        public Output<bool> ShowHeader { get; private set; } = null!;
 
         /// <summary>
-        /// Show or hide the P95 stats on the dashboard. (Default `true`).
+        /// Show or hide the P95 stats on the dashboard. Defaults to `True`.
         /// </summary>
         [Output("showP95")]
-        public Output<bool?> ShowP95 { get; private set; } = null!;
+        public Output<bool> ShowP95 { get; private set; } = null!;
 
         /// <summary>
-        /// Show or hide the P99 stats on the dashboard. (Default `true`).
+        /// Show or hide the P99 stats on the dashboard. Defaults to `True`.
         /// </summary>
         [Output("showP99")]
-        public Output<bool?> ShowP99 { get; private set; } = null!;
+        public Output<bool> ShowP99 { get; private set; } = null!;
+
+        /// <summary>
+        /// List failing checks first. Defaults to `False`.
+        /// </summary>
+        [Output("sortByStatus")]
+        public Output<bool> SortByStatus { get; private set; } = null!;
 
         /// <summary>
         /// A list of one or more tags that filter which checks to display on the dashboard.
@@ -176,16 +201,16 @@ namespace Pulumi.Checkly
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
         /// <summary>
-        /// Set when to use AND operator for fetching dashboard tags. (Default `false`).
+        /// Set when to use AND operator for fetching dashboard tags. Defaults to `False`.
         /// </summary>
         [Output("useTagsAndOperator")]
-        public Output<bool?> UseTagsAndOperator { get; private set; } = null!;
+        public Output<bool> UseTagsAndOperator { get; private set; } = null!;
 
         /// <summary>
-        /// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        /// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         /// </summary>
         [Output("width")]
-        public Output<string?> Width { get; private set; } = null!;
+        public Output<string> Width { get; private set; } = null!;
 
 
         /// <summary>
@@ -239,7 +264,7 @@ namespace Pulumi.Checkly
     public sealed class DashboardArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        /// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         /// </summary>
         [Input("checksPerPage")]
         public Input<int>? ChecksPerPage { get; set; }
@@ -257,7 +282,7 @@ namespace Pulumi.Checkly
         public Input<string>? CustomDomain { get; set; }
 
         /// <summary>
-        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         /// </summary>
         [Input("customUrl", required: true)]
         public Input<string> CustomUrl { get; set; } = null!;
@@ -269,19 +294,19 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Enable incident support for the dashboard. (Default `false`).
+        /// Enable incident support for the dashboard. Defaults to `False`.
         /// </summary>
         [Input("enableIncidents")]
         public Input<bool>? EnableIncidents { get; set; }
 
         /// <summary>
-        /// Expand or collapse checks on the dashboard. (Default `false`).
+        /// Expand or collapse checks on the dashboard. Defaults to `False`.
         /// </summary>
         [Input("expandChecks")]
         public Input<bool>? ExpandChecks { get; set; }
 
         /// <summary>
-        /// A URL pointing to an image file to use as browser favicon.
+        /// An http or https URL pointing to an image file to use as browser favicon.
         /// </summary>
         [Input("favicon")]
         public Input<string>? Favicon { get; set; }
@@ -293,70 +318,82 @@ namespace Pulumi.Checkly
         public Input<string> Header { get; set; } = null!;
 
         /// <summary>
-        /// Show or hide the tags on the dashboard. (Default `false`).
+        /// Show or hide the tags on the dashboard. Defaults to `False`.
         /// </summary>
         [Input("hideTags")]
         public Input<bool>? HideTags { get; set; }
 
         /// <summary>
-        /// Set your dashboard as private and generate key.
+        /// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `False`.
         /// </summary>
         [Input("isPrivate")]
         public Input<bool>? IsPrivate { get; set; }
 
         /// <summary>
-        /// A link to for the dashboard logo.
+        /// The http or https URL that clicking the dashboard logo leads to.
         /// </summary>
         [Input("link")]
         public Input<string>? Link { get; set; }
 
         /// <summary>
-        /// A URL pointing to an image file to use for the dashboard logo.
+        /// An http or https URL pointing to an image file to use for the dashboard logo.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
 
         /// <summary>
-        /// Determines if pagination is on or off. (Default `true`).
+        /// Determines if pagination is on or off. Defaults to `True`.
         /// </summary>
         [Input("paginate")]
         public Input<bool>? Paginate { get; set; }
 
         /// <summary>
-        /// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+        /// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
         /// </summary>
         [Input("paginationRate")]
         public Input<int>? PaginationRate { get; set; }
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+        /// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
         /// </summary>
         [Input("refreshRate")]
         public Input<int>? RefreshRate { get; set; }
 
         /// <summary>
-        /// Show or hide check run links on the dashboard. (Default `false`).
+        /// Show or hide check run links on the dashboard. Defaults to `False`.
         /// </summary>
         [Input("showCheckRunLinks")]
         public Input<bool>? ShowCheckRunLinks { get; set; }
 
         /// <summary>
-        /// Show or hide header and description on the dashboard. (Default `true`).
+        /// Show or hide the names of the groups of the checks on the dashboard. Defaults to `True`.
+        /// </summary>
+        [Input("showGroupNames")]
+        public Input<bool>? ShowGroupNames { get; set; }
+
+        /// <summary>
+        /// Show or hide header and description on the dashboard. Defaults to `True`.
         /// </summary>
         [Input("showHeader")]
         public Input<bool>? ShowHeader { get; set; }
 
         /// <summary>
-        /// Show or hide the P95 stats on the dashboard. (Default `true`).
+        /// Show or hide the P95 stats on the dashboard. Defaults to `True`.
         /// </summary>
         [Input("showP95")]
         public Input<bool>? ShowP95 { get; set; }
 
         /// <summary>
-        /// Show or hide the P99 stats on the dashboard. (Default `true`).
+        /// Show or hide the P99 stats on the dashboard. Defaults to `True`.
         /// </summary>
         [Input("showP99")]
         public Input<bool>? ShowP99 { get; set; }
+
+        /// <summary>
+        /// List failing checks first. Defaults to `False`.
+        /// </summary>
+        [Input("sortByStatus")]
+        public Input<bool>? SortByStatus { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
@@ -371,13 +408,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Set when to use AND operator for fetching dashboard tags. (Default `false`).
+        /// Set when to use AND operator for fetching dashboard tags. Defaults to `False`.
         /// </summary>
         [Input("useTagsAndOperator")]
         public Input<bool>? UseTagsAndOperator { get; set; }
 
         /// <summary>
-        /// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        /// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         /// </summary>
         [Input("width")]
         public Input<string>? Width { get; set; }
@@ -391,7 +428,7 @@ namespace Pulumi.Checkly
     public sealed class DashboardState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        /// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         /// </summary>
         [Input("checksPerPage")]
         public Input<int>? ChecksPerPage { get; set; }
@@ -409,7 +446,7 @@ namespace Pulumi.Checkly
         public Input<string>? CustomDomain { get; set; }
 
         /// <summary>
-        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        /// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         /// </summary>
         [Input("customUrl")]
         public Input<string>? CustomUrl { get; set; }
@@ -421,19 +458,19 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Enable incident support for the dashboard. (Default `false`).
+        /// Enable incident support for the dashboard. Defaults to `False`.
         /// </summary>
         [Input("enableIncidents")]
         public Input<bool>? EnableIncidents { get; set; }
 
         /// <summary>
-        /// Expand or collapse checks on the dashboard. (Default `false`).
+        /// Expand or collapse checks on the dashboard. Defaults to `False`.
         /// </summary>
         [Input("expandChecks")]
         public Input<bool>? ExpandChecks { get; set; }
 
         /// <summary>
-        /// A URL pointing to an image file to use as browser favicon.
+        /// An http or https URL pointing to an image file to use as browser favicon.
         /// </summary>
         [Input("favicon")]
         public Input<string>? Favicon { get; set; }
@@ -445,13 +482,13 @@ namespace Pulumi.Checkly
         public Input<string>? Header { get; set; }
 
         /// <summary>
-        /// Show or hide the tags on the dashboard. (Default `false`).
+        /// Show or hide the tags on the dashboard. Defaults to `False`.
         /// </summary>
         [Input("hideTags")]
         public Input<bool>? HideTags { get; set; }
 
         /// <summary>
-        /// Set your dashboard as private and generate key.
+        /// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `False`.
         /// </summary>
         [Input("isPrivate")]
         public Input<bool>? IsPrivate { get; set; }
@@ -460,7 +497,7 @@ namespace Pulumi.Checkly
         private Input<string>? _key;
 
         /// <summary>
-        /// The access key when the dashboard is private.
+        /// The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
         /// </summary>
         public Input<string>? Key
         {
@@ -473,58 +510,70 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// A link to for the dashboard logo.
+        /// The http or https URL that clicking the dashboard logo leads to.
         /// </summary>
         [Input("link")]
         public Input<string>? Link { get; set; }
 
         /// <summary>
-        /// A URL pointing to an image file to use for the dashboard logo.
+        /// An http or https URL pointing to an image file to use for the dashboard logo.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
 
         /// <summary>
-        /// Determines if pagination is on or off. (Default `true`).
+        /// Determines if pagination is on or off. Defaults to `True`.
         /// </summary>
         [Input("paginate")]
         public Input<bool>? Paginate { get; set; }
 
         /// <summary>
-        /// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+        /// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
         /// </summary>
         [Input("paginationRate")]
         public Input<int>? PaginationRate { get; set; }
 
         /// <summary>
-        /// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+        /// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
         /// </summary>
         [Input("refreshRate")]
         public Input<int>? RefreshRate { get; set; }
 
         /// <summary>
-        /// Show or hide check run links on the dashboard. (Default `false`).
+        /// Show or hide check run links on the dashboard. Defaults to `False`.
         /// </summary>
         [Input("showCheckRunLinks")]
         public Input<bool>? ShowCheckRunLinks { get; set; }
 
         /// <summary>
-        /// Show or hide header and description on the dashboard. (Default `true`).
+        /// Show or hide the names of the groups of the checks on the dashboard. Defaults to `True`.
+        /// </summary>
+        [Input("showGroupNames")]
+        public Input<bool>? ShowGroupNames { get; set; }
+
+        /// <summary>
+        /// Show or hide header and description on the dashboard. Defaults to `True`.
         /// </summary>
         [Input("showHeader")]
         public Input<bool>? ShowHeader { get; set; }
 
         /// <summary>
-        /// Show or hide the P95 stats on the dashboard. (Default `true`).
+        /// Show or hide the P95 stats on the dashboard. Defaults to `True`.
         /// </summary>
         [Input("showP95")]
         public Input<bool>? ShowP95 { get; set; }
 
         /// <summary>
-        /// Show or hide the P99 stats on the dashboard. (Default `true`).
+        /// Show or hide the P99 stats on the dashboard. Defaults to `True`.
         /// </summary>
         [Input("showP99")]
         public Input<bool>? ShowP99 { get; set; }
+
+        /// <summary>
+        /// List failing checks first. Defaults to `False`.
+        /// </summary>
+        [Input("sortByStatus")]
+        public Input<bool>? SortByStatus { get; set; }
 
         [Input("tags")]
         private InputList<string>? _tags;
@@ -539,13 +588,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Set when to use AND operator for fetching dashboard tags. (Default `false`).
+        /// Set when to use AND operator for fetching dashboard tags. Defaults to `False`.
         /// </summary>
         [Input("useTagsAndOperator")]
         public Input<bool>? UseTagsAndOperator { get; set; }
 
         /// <summary>
-        /// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        /// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         /// </summary>
         [Input("width")]
         public Input<string>? Width { get; set; }

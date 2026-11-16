@@ -31,19 +31,19 @@ namespace Pulumi.Checkly.Inputs
         public Input<string>? Data { get; set; }
 
         /// <summary>
-        /// The hostname or IP to connect to. Do not include a scheme or a port in this value.
+        /// The hostname or IP to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
         /// </summary>
         [Input("hostname", required: true)]
         public Input<string> Hostname { get; set; } = null!;
 
         /// <summary>
-        /// The IP family to use when executing the TCP check. The value can be either `IPv4` or `IPv6`.
+        /// The IP family to use when executing the TCP check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         [Input("ipFamily")]
         public Input<string>? IpFamily { get; set; }
 
         /// <summary>
-        /// The port number to connect to.
+        /// The port number to connect to. Possible values are between `1` and `65535`.
         /// </summary>
         [Input("port", required: true)]
         public Input<int> Port { get; set; } = null!;

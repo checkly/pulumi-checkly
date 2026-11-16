@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -70,6 +70,12 @@ type PlaywrightCodeBundleState struct {
 
 func (PlaywrightCodeBundleState) ElementType() reflect.Type {
 	return reflect.TypeOf((*playwrightCodeBundleState)(nil)).Elem()
+}
+
+// PlaywrightCodeBundleExists checks whether an existing PlaywrightCodeBundle resource with the given ID exists.
+func PlaywrightCodeBundleExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *PlaywrightCodeBundleState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/playwrightCodeBundle:PlaywrightCodeBundle", id, state, "", opts...)
 }
 
 type playwrightCodeBundleArgs struct {

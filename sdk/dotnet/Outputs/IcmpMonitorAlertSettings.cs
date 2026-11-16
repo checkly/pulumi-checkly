@@ -14,43 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class IcmpMonitorAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.IcmpMonitorAlertSettingsReminder> Reminders;
+        public readonly Outputs.IcmpMonitorAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.IcmpMonitorAlertSettingsRunBasedEscalation> RunBasedEscalations;
+        public readonly Outputs.IcmpMonitorAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.IcmpMonitorAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.IcmpMonitorAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private IcmpMonitorAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.IcmpMonitorAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.IcmpMonitorAlertSettingsReminder> reminders,
+            Outputs.IcmpMonitorAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.IcmpMonitorAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.IcmpMonitorAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.IcmpMonitorAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.IcmpMonitorAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

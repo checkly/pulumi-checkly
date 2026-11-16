@@ -5,6 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * Global environment variables that can be referenced from check scripts.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -22,6 +24,16 @@ import * as utilities from "./utilities";
  *     value: "http://localhost:3000",
  * });
  * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing environment variable using its key.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/environmentVariable:EnvironmentVariable example API_KEY
+ * ```
  */
 export class EnvironmentVariable extends pulumi.CustomResource {
     /**
@@ -35,6 +47,17 @@ export class EnvironmentVariable extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: EnvironmentVariableState, opts?: pulumi.CustomResourceOptions): EnvironmentVariable {
         return new EnvironmentVariable(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing EnvironmentVariable resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: EnvironmentVariableState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/environmentVariable:EnvironmentVariable", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -51,9 +74,21 @@ export class EnvironmentVariable extends pulumi.CustomResource {
         return obj['__pulumiType'] === EnvironmentVariable.__pulumiType;
     }
 
+    /**
+     * The name of the environment variable. Changing the name forces the environment variable to be replaced.
+     */
     declare public readonly key: pulumi.Output<string>;
-    declare public readonly locked: pulumi.Output<boolean | undefined>;
-    declare public readonly secret: pulumi.Output<boolean | undefined>;
+    /**
+     * If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+     */
+    declare public readonly locked: pulumi.Output<boolean>;
+    /**
+     * If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+     */
+    declare public readonly secret: pulumi.Output<boolean>;
+    /**
+     * The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Pulumi, for example in the web app, doesn't show in the preview. An imported secret variable has a null value, so the first preview after the import shows an update, and running it overwrites the value in Checkly with the configured one.
+     */
     declare public readonly value: pulumi.Output<string>;
 
     /**
@@ -84,9 +119,11 @@ export class EnvironmentVariable extends pulumi.CustomResource {
             resourceInputs["key"] = args?.key;
             resourceInputs["locked"] = args?.locked;
             resourceInputs["secret"] = args?.secret;
-            resourceInputs["value"] = args?.value;
+            resourceInputs["value"] = args?.value ? pulumi.secret(args.value) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["value"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(EnvironmentVariable.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -95,18 +132,42 @@ export class EnvironmentVariable extends pulumi.CustomResource {
  * Input properties used for looking up and filtering EnvironmentVariable resources.
  */
 export interface EnvironmentVariableState {
-    key?: pulumi.Input<string>;
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
-    value?: pulumi.Input<string>;
+    /**
+     * The name of the environment variable. Changing the name forces the environment variable to be replaced.
+     */
+    key?: pulumi.Input<string | undefined>;
+    /**
+     * If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+     */
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
+    /**
+     * The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Pulumi, for example in the web app, doesn't show in the preview. An imported secret variable has a null value, so the first preview after the import shows an update, and running it overwrites the value in Checkly with the configured one.
+     */
+    value?: pulumi.Input<string | undefined>;
 }
 
 /**
  * The set of arguments for constructing a EnvironmentVariable resource.
  */
 export interface EnvironmentVariableArgs {
+    /**
+     * The name of the environment variable. Changing the name forces the environment variable to be replaced.
+     */
     key: pulumi.Input<string>;
-    locked?: pulumi.Input<boolean>;
-    secret?: pulumi.Input<boolean>;
+    /**
+     * If true, the value is hidden in the Checkly UI by default, but it can be revealed. Defaults to `false`.
+     */
+    locked?: pulumi.Input<boolean | undefined>;
+    /**
+     * If true, the value can never be revealed after creation, and the API never returns it; see `value`. Defaults to `false`. The API can't turn a secret variable back into a regular one, so changing `secret` from `true` to `false` forces the environment variable to be replaced.
+     */
+    secret?: pulumi.Input<boolean | undefined>;
+    /**
+     * The value of the environment variable, which must not be empty. Must be at most `64000` bytes in UTF-8, or `31744` bytes for a secret or locked variable. A secret value must be at least `3` characters. The API never returns the value of a secret variable, so the provider keeps the configured value: a change made outside Pulumi, for example in the web app, doesn't show in the preview. An imported secret variable has a null value, so the first preview after the import shows an update, and running it overwrites the value in Checkly with the configured one.
+     */
     value: pulumi.Input<string>;
 }

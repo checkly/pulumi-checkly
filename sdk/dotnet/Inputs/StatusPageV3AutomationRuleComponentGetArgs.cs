@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class StatusPageV3AutomationRuleComponentGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The ID of the impacted component. Must be on the same status page.
+        /// The ID of the impacted component. Must be on the same status page, and listed only once.
         /// </summary>
         [Input("componentId", required: true)]
         public Input<string> ComponentId { get; set; } = null!;
 
         /// <summary>
-        /// The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+        /// The impact set on the component while the incident is open. Possible values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
         /// </summary>
         [Input("targetImpact", required: true)]
         public Input<string> TargetImpact { get; set; } = null!;

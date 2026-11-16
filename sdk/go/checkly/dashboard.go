@@ -8,10 +8,12 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Dashboards are public status pages that display selected checks and their statuses.
+//
 // ## Example Usage
 //
 // ```go
@@ -19,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -48,57 +50,72 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing dashboard using its dashboard ID, a short hexadecimal string.
+// The ID is the dashboardId returned by the Checkly API at GET /v1/dashboards.
+//
+// ```sh
+// $ pulumi import checkly:index/dashboard:Dashboard example 7f3a9c21
+// ```
 type Dashboard struct {
 	pulumi.CustomResourceState
 
-	// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
-	ChecksPerPage pulumi.IntPtrOutput `pulumi:"checksPerPage"`
+	// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
+	ChecksPerPage pulumi.IntOutput `pulumi:"checksPerPage"`
 	// Custom CSS to be applied to the dashboard.
-	CustomCss pulumi.StringPtrOutput `pulumi:"customCss"`
+	CustomCss pulumi.StringOutput `pulumi:"customCss"`
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrOutput `pulumi:"customDomain"`
-	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
 	CustomUrl pulumi.StringOutput `pulumi:"customUrl"`
 	// HTML \n\n description for the dashboard.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Enable incident support for the dashboard. (Default `false`).
-	EnableIncidents pulumi.BoolPtrOutput `pulumi:"enableIncidents"`
-	// Expand or collapse checks on the dashboard. (Default `false`).
-	ExpandChecks pulumi.BoolPtrOutput `pulumi:"expandChecks"`
-	// A URL pointing to an image file to use as browser favicon.
-	Favicon pulumi.StringPtrOutput `pulumi:"favicon"`
+	Description pulumi.StringOutput `pulumi:"description"`
+	// Enable incident support for the dashboard. Defaults to `false`.
+	EnableIncidents pulumi.BoolOutput `pulumi:"enableIncidents"`
+	// Expand or collapse checks on the dashboard. Defaults to `false`.
+	ExpandChecks pulumi.BoolOutput `pulumi:"expandChecks"`
+	// An http or https URL pointing to an image file to use as browser favicon.
+	Favicon pulumi.StringOutput `pulumi:"favicon"`
 	// A piece of text displayed at the top of your dashboard.
 	Header pulumi.StringOutput `pulumi:"header"`
-	// Show or hide the tags on the dashboard. (Default `false`).
-	HideTags pulumi.BoolPtrOutput `pulumi:"hideTags"`
-	// Set your dashboard as private and generate key.
-	IsPrivate pulumi.BoolPtrOutput `pulumi:"isPrivate"`
-	// The access key when the dashboard is private.
+	// Show or hide the tags on the dashboard. Defaults to `false`.
+	HideTags pulumi.BoolOutput `pulumi:"hideTags"`
+	// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
+	IsPrivate pulumi.BoolOutput `pulumi:"isPrivate"`
+	// The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
 	Key pulumi.StringOutput `pulumi:"key"`
-	// A link to for the dashboard logo.
-	Link pulumi.StringPtrOutput `pulumi:"link"`
-	// A URL pointing to an image file to use for the dashboard logo.
-	Logo pulumi.StringPtrOutput `pulumi:"logo"`
-	// Determines if pagination is on or off. (Default `true`).
-	Paginate pulumi.BoolPtrOutput `pulumi:"paginate"`
-	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
-	PaginationRate pulumi.IntPtrOutput `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
-	RefreshRate pulumi.IntPtrOutput `pulumi:"refreshRate"`
-	// Show or hide check run links on the dashboard. (Default `false`).
-	ShowCheckRunLinks pulumi.BoolPtrOutput `pulumi:"showCheckRunLinks"`
-	// Show or hide header and description on the dashboard. (Default `true`).
-	ShowHeader pulumi.BoolPtrOutput `pulumi:"showHeader"`
-	// Show or hide the P95 stats on the dashboard. (Default `true`).
-	ShowP95 pulumi.BoolPtrOutput `pulumi:"showP95"`
-	// Show or hide the P99 stats on the dashboard. (Default `true`).
-	ShowP99 pulumi.BoolPtrOutput `pulumi:"showP99"`
+	// The http or https URL that clicking the dashboard logo leads to.
+	Link pulumi.StringOutput `pulumi:"link"`
+	// An http or https URL pointing to an image file to use for the dashboard logo.
+	Logo pulumi.StringOutput `pulumi:"logo"`
+	// Determines if pagination is on or off. Defaults to `true`.
+	Paginate pulumi.BoolOutput `pulumi:"paginate"`
+	// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
+	PaginationRate pulumi.IntOutput `pulumi:"paginationRate"`
+	// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
+	RefreshRate pulumi.IntOutput `pulumi:"refreshRate"`
+	// Show or hide check run links on the dashboard. Defaults to `false`.
+	ShowCheckRunLinks pulumi.BoolOutput `pulumi:"showCheckRunLinks"`
+	// Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+	ShowGroupNames pulumi.BoolOutput `pulumi:"showGroupNames"`
+	// Show or hide header and description on the dashboard. Defaults to `true`.
+	ShowHeader pulumi.BoolOutput `pulumi:"showHeader"`
+	// Show or hide the P95 stats on the dashboard. Defaults to `true`.
+	ShowP95 pulumi.BoolOutput `pulumi:"showP95"`
+	// Show or hide the P99 stats on the dashboard. Defaults to `true`.
+	ShowP99 pulumi.BoolOutput `pulumi:"showP99"`
+	// List failing checks first. Defaults to `false`.
+	SortByStatus pulumi.BoolOutput `pulumi:"sortByStatus"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
-	// Set when to use AND operator for fetching dashboard tags. (Default `false`).
-	UseTagsAndOperator pulumi.BoolPtrOutput `pulumi:"useTagsAndOperator"`
-	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
-	Width pulumi.StringPtrOutput `pulumi:"width"`
+	// Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
+	UseTagsAndOperator pulumi.BoolOutput `pulumi:"useTagsAndOperator"`
+	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
+	Width pulumi.StringOutput `pulumi:"width"`
 }
 
 // NewDashboard registers a new resource with the given unique name, arguments, and options.
@@ -141,104 +158,112 @@ func GetDashboard(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Dashboard resources.
 type dashboardState struct {
-	// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+	// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
 	ChecksPerPage *int `pulumi:"checksPerPage"`
 	// Custom CSS to be applied to the dashboard.
 	CustomCss *string `pulumi:"customCss"`
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
-	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
 	CustomUrl *string `pulumi:"customUrl"`
 	// HTML \n\n description for the dashboard.
 	Description *string `pulumi:"description"`
-	// Enable incident support for the dashboard. (Default `false`).
+	// Enable incident support for the dashboard. Defaults to `false`.
 	EnableIncidents *bool `pulumi:"enableIncidents"`
-	// Expand or collapse checks on the dashboard. (Default `false`).
+	// Expand or collapse checks on the dashboard. Defaults to `false`.
 	ExpandChecks *bool `pulumi:"expandChecks"`
-	// A URL pointing to an image file to use as browser favicon.
+	// An http or https URL pointing to an image file to use as browser favicon.
 	Favicon *string `pulumi:"favicon"`
 	// A piece of text displayed at the top of your dashboard.
 	Header *string `pulumi:"header"`
-	// Show or hide the tags on the dashboard. (Default `false`).
+	// Show or hide the tags on the dashboard. Defaults to `false`.
 	HideTags *bool `pulumi:"hideTags"`
-	// Set your dashboard as private and generate key.
+	// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
 	IsPrivate *bool `pulumi:"isPrivate"`
-	// The access key when the dashboard is private.
+	// The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
 	Key *string `pulumi:"key"`
-	// A link to for the dashboard logo.
+	// The http or https URL that clicking the dashboard logo leads to.
 	Link *string `pulumi:"link"`
-	// A URL pointing to an image file to use for the dashboard logo.
+	// An http or https URL pointing to an image file to use for the dashboard logo.
 	Logo *string `pulumi:"logo"`
-	// Determines if pagination is on or off. (Default `true`).
+	// Determines if pagination is on or off. Defaults to `true`.
 	Paginate *bool `pulumi:"paginate"`
-	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+	// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
 	PaginationRate *int `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+	// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
 	RefreshRate *int `pulumi:"refreshRate"`
-	// Show or hide check run links on the dashboard. (Default `false`).
+	// Show or hide check run links on the dashboard. Defaults to `false`.
 	ShowCheckRunLinks *bool `pulumi:"showCheckRunLinks"`
-	// Show or hide header and description on the dashboard. (Default `true`).
+	// Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+	ShowGroupNames *bool `pulumi:"showGroupNames"`
+	// Show or hide header and description on the dashboard. Defaults to `true`.
 	ShowHeader *bool `pulumi:"showHeader"`
-	// Show or hide the P95 stats on the dashboard. (Default `true`).
+	// Show or hide the P95 stats on the dashboard. Defaults to `true`.
 	ShowP95 *bool `pulumi:"showP95"`
-	// Show or hide the P99 stats on the dashboard. (Default `true`).
+	// Show or hide the P99 stats on the dashboard. Defaults to `true`.
 	ShowP99 *bool `pulumi:"showP99"`
+	// List failing checks first. Defaults to `false`.
+	SortByStatus *bool `pulumi:"sortByStatus"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
-	// Set when to use AND operator for fetching dashboard tags. (Default `false`).
+	// Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
 	UseTagsAndOperator *bool `pulumi:"useTagsAndOperator"`
-	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
 	Width *string `pulumi:"width"`
 }
 
 type DashboardState struct {
-	// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+	// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
 	ChecksPerPage pulumi.IntPtrInput
 	// Custom CSS to be applied to the dashboard.
 	CustomCss pulumi.StringPtrInput
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
-	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
 	CustomUrl pulumi.StringPtrInput
 	// HTML \n\n description for the dashboard.
 	Description pulumi.StringPtrInput
-	// Enable incident support for the dashboard. (Default `false`).
+	// Enable incident support for the dashboard. Defaults to `false`.
 	EnableIncidents pulumi.BoolPtrInput
-	// Expand or collapse checks on the dashboard. (Default `false`).
+	// Expand or collapse checks on the dashboard. Defaults to `false`.
 	ExpandChecks pulumi.BoolPtrInput
-	// A URL pointing to an image file to use as browser favicon.
+	// An http or https URL pointing to an image file to use as browser favicon.
 	Favicon pulumi.StringPtrInput
 	// A piece of text displayed at the top of your dashboard.
 	Header pulumi.StringPtrInput
-	// Show or hide the tags on the dashboard. (Default `false`).
+	// Show or hide the tags on the dashboard. Defaults to `false`.
 	HideTags pulumi.BoolPtrInput
-	// Set your dashboard as private and generate key.
+	// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
 	IsPrivate pulumi.BoolPtrInput
-	// The access key when the dashboard is private.
+	// The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
 	Key pulumi.StringPtrInput
-	// A link to for the dashboard logo.
+	// The http or https URL that clicking the dashboard logo leads to.
 	Link pulumi.StringPtrInput
-	// A URL pointing to an image file to use for the dashboard logo.
+	// An http or https URL pointing to an image file to use for the dashboard logo.
 	Logo pulumi.StringPtrInput
-	// Determines if pagination is on or off. (Default `true`).
+	// Determines if pagination is on or off. Defaults to `true`.
 	Paginate pulumi.BoolPtrInput
-	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+	// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
 	PaginationRate pulumi.IntPtrInput
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+	// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
 	RefreshRate pulumi.IntPtrInput
-	// Show or hide check run links on the dashboard. (Default `false`).
+	// Show or hide check run links on the dashboard. Defaults to `false`.
 	ShowCheckRunLinks pulumi.BoolPtrInput
-	// Show or hide header and description on the dashboard. (Default `true`).
+	// Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+	ShowGroupNames pulumi.BoolPtrInput
+	// Show or hide header and description on the dashboard. Defaults to `true`.
 	ShowHeader pulumi.BoolPtrInput
-	// Show or hide the P95 stats on the dashboard. (Default `true`).
+	// Show or hide the P95 stats on the dashboard. Defaults to `true`.
 	ShowP95 pulumi.BoolPtrInput
-	// Show or hide the P99 stats on the dashboard. (Default `true`).
+	// Show or hide the P99 stats on the dashboard. Defaults to `true`.
 	ShowP99 pulumi.BoolPtrInput
+	// List failing checks first. Defaults to `false`.
+	SortByStatus pulumi.BoolPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput
-	// Set when to use AND operator for fetching dashboard tags. (Default `false`).
+	// Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
 	UseTagsAndOperator pulumi.BoolPtrInput
-	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
 	Width pulumi.StringPtrInput
 }
 
@@ -246,102 +271,116 @@ func (DashboardState) ElementType() reflect.Type {
 	return reflect.TypeOf((*dashboardState)(nil)).Elem()
 }
 
+// DashboardExists checks whether an existing Dashboard resource with the given ID exists.
+func DashboardExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DashboardState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/dashboard:Dashboard", id, state, "", opts...)
+}
+
 type dashboardArgs struct {
-	// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+	// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
 	ChecksPerPage *int `pulumi:"checksPerPage"`
 	// Custom CSS to be applied to the dashboard.
 	CustomCss *string `pulumi:"customCss"`
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
-	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
 	CustomUrl string `pulumi:"customUrl"`
 	// HTML \n\n description for the dashboard.
 	Description *string `pulumi:"description"`
-	// Enable incident support for the dashboard. (Default `false`).
+	// Enable incident support for the dashboard. Defaults to `false`.
 	EnableIncidents *bool `pulumi:"enableIncidents"`
-	// Expand or collapse checks on the dashboard. (Default `false`).
+	// Expand or collapse checks on the dashboard. Defaults to `false`.
 	ExpandChecks *bool `pulumi:"expandChecks"`
-	// A URL pointing to an image file to use as browser favicon.
+	// An http or https URL pointing to an image file to use as browser favicon.
 	Favicon *string `pulumi:"favicon"`
 	// A piece of text displayed at the top of your dashboard.
 	Header string `pulumi:"header"`
-	// Show or hide the tags on the dashboard. (Default `false`).
+	// Show or hide the tags on the dashboard. Defaults to `false`.
 	HideTags *bool `pulumi:"hideTags"`
-	// Set your dashboard as private and generate key.
+	// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
 	IsPrivate *bool `pulumi:"isPrivate"`
-	// A link to for the dashboard logo.
+	// The http or https URL that clicking the dashboard logo leads to.
 	Link *string `pulumi:"link"`
-	// A URL pointing to an image file to use for the dashboard logo.
+	// An http or https URL pointing to an image file to use for the dashboard logo.
 	Logo *string `pulumi:"logo"`
-	// Determines if pagination is on or off. (Default `true`).
+	// Determines if pagination is on or off. Defaults to `true`.
 	Paginate *bool `pulumi:"paginate"`
-	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+	// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
 	PaginationRate *int `pulumi:"paginationRate"`
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+	// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
 	RefreshRate *int `pulumi:"refreshRate"`
-	// Show or hide check run links on the dashboard. (Default `false`).
+	// Show or hide check run links on the dashboard. Defaults to `false`.
 	ShowCheckRunLinks *bool `pulumi:"showCheckRunLinks"`
-	// Show or hide header and description on the dashboard. (Default `true`).
+	// Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+	ShowGroupNames *bool `pulumi:"showGroupNames"`
+	// Show or hide header and description on the dashboard. Defaults to `true`.
 	ShowHeader *bool `pulumi:"showHeader"`
-	// Show or hide the P95 stats on the dashboard. (Default `true`).
+	// Show or hide the P95 stats on the dashboard. Defaults to `true`.
 	ShowP95 *bool `pulumi:"showP95"`
-	// Show or hide the P99 stats on the dashboard. (Default `true`).
+	// Show or hide the P99 stats on the dashboard. Defaults to `true`.
 	ShowP99 *bool `pulumi:"showP99"`
+	// List failing checks first. Defaults to `false`.
+	SortByStatus *bool `pulumi:"sortByStatus"`
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags []string `pulumi:"tags"`
-	// Set when to use AND operator for fetching dashboard tags. (Default `false`).
+	// Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
 	UseTagsAndOperator *bool `pulumi:"useTagsAndOperator"`
-	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
 	Width *string `pulumi:"width"`
 }
 
 // The set of arguments for constructing a Dashboard resource.
 type DashboardArgs struct {
-	// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+	// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
 	ChecksPerPage pulumi.IntPtrInput
 	// Custom CSS to be applied to the dashboard.
 	CustomCss pulumi.StringPtrInput
 	// A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
-	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+	// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
 	CustomUrl pulumi.StringInput
 	// HTML \n\n description for the dashboard.
 	Description pulumi.StringPtrInput
-	// Enable incident support for the dashboard. (Default `false`).
+	// Enable incident support for the dashboard. Defaults to `false`.
 	EnableIncidents pulumi.BoolPtrInput
-	// Expand or collapse checks on the dashboard. (Default `false`).
+	// Expand or collapse checks on the dashboard. Defaults to `false`.
 	ExpandChecks pulumi.BoolPtrInput
-	// A URL pointing to an image file to use as browser favicon.
+	// An http or https URL pointing to an image file to use as browser favicon.
 	Favicon pulumi.StringPtrInput
 	// A piece of text displayed at the top of your dashboard.
 	Header pulumi.StringInput
-	// Show or hide the tags on the dashboard. (Default `false`).
+	// Show or hide the tags on the dashboard. Defaults to `false`.
 	HideTags pulumi.BoolPtrInput
-	// Set your dashboard as private and generate key.
+	// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
 	IsPrivate pulumi.BoolPtrInput
-	// A link to for the dashboard logo.
+	// The http or https URL that clicking the dashboard logo leads to.
 	Link pulumi.StringPtrInput
-	// A URL pointing to an image file to use for the dashboard logo.
+	// An http or https URL pointing to an image file to use for the dashboard logo.
 	Logo pulumi.StringPtrInput
-	// Determines if pagination is on or off. (Default `true`).
+	// Determines if pagination is on or off. Defaults to `true`.
 	Paginate pulumi.BoolPtrInput
-	// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+	// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
 	PaginationRate pulumi.IntPtrInput
-	// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+	// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
 	RefreshRate pulumi.IntPtrInput
-	// Show or hide check run links on the dashboard. (Default `false`).
+	// Show or hide check run links on the dashboard. Defaults to `false`.
 	ShowCheckRunLinks pulumi.BoolPtrInput
-	// Show or hide header and description on the dashboard. (Default `true`).
+	// Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+	ShowGroupNames pulumi.BoolPtrInput
+	// Show or hide header and description on the dashboard. Defaults to `true`.
 	ShowHeader pulumi.BoolPtrInput
-	// Show or hide the P95 stats on the dashboard. (Default `true`).
+	// Show or hide the P95 stats on the dashboard. Defaults to `true`.
 	ShowP95 pulumi.BoolPtrInput
-	// Show or hide the P99 stats on the dashboard. (Default `true`).
+	// Show or hide the P99 stats on the dashboard. Defaults to `true`.
 	ShowP99 pulumi.BoolPtrInput
+	// List failing checks first. Defaults to `false`.
+	SortByStatus pulumi.BoolPtrInput
 	// A list of one or more tags that filter which checks to display on the dashboard.
 	Tags pulumi.StringArrayInput
-	// Set when to use AND operator for fetching dashboard tags. (Default `false`).
+	// Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
 	UseTagsAndOperator pulumi.BoolPtrInput
-	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+	// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
 	Width pulumi.StringPtrInput
 }
 
@@ -432,14 +471,14 @@ func (o DashboardOutput) ToDashboardOutputWithContext(ctx context.Context) Dashb
 	return o
 }
 
-// Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
-func (o DashboardOutput) ChecksPerPage() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.IntPtrOutput { return v.ChecksPerPage }).(pulumi.IntPtrOutput)
+// Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
+func (o DashboardOutput) ChecksPerPage() pulumi.IntOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.IntOutput { return v.ChecksPerPage }).(pulumi.IntOutput)
 }
 
 // Custom CSS to be applied to the dashboard.
-func (o DashboardOutput) CustomCss() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.StringPtrOutput { return v.CustomCss }).(pulumi.StringPtrOutput)
+func (o DashboardOutput) CustomCss() pulumi.StringOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.CustomCss }).(pulumi.StringOutput)
 }
 
 // A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
@@ -447,29 +486,29 @@ func (o DashboardOutput) CustomDomain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Dashboard) pulumi.StringPtrOutput { return v.CustomDomain }).(pulumi.StringPtrOutput)
 }
 
-// A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+// A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
 func (o DashboardOutput) CustomUrl() pulumi.StringOutput {
 	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.CustomUrl }).(pulumi.StringOutput)
 }
 
 // HTML \n\n description for the dashboard.
-func (o DashboardOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o DashboardOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Enable incident support for the dashboard. (Default `false`).
-func (o DashboardOutput) EnableIncidents() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.EnableIncidents }).(pulumi.BoolPtrOutput)
+// Enable incident support for the dashboard. Defaults to `false`.
+func (o DashboardOutput) EnableIncidents() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.EnableIncidents }).(pulumi.BoolOutput)
 }
 
-// Expand or collapse checks on the dashboard. (Default `false`).
-func (o DashboardOutput) ExpandChecks() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.ExpandChecks }).(pulumi.BoolPtrOutput)
+// Expand or collapse checks on the dashboard. Defaults to `false`.
+func (o DashboardOutput) ExpandChecks() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.ExpandChecks }).(pulumi.BoolOutput)
 }
 
-// A URL pointing to an image file to use as browser favicon.
-func (o DashboardOutput) Favicon() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.StringPtrOutput { return v.Favicon }).(pulumi.StringPtrOutput)
+// An http or https URL pointing to an image file to use as browser favicon.
+func (o DashboardOutput) Favicon() pulumi.StringOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.Favicon }).(pulumi.StringOutput)
 }
 
 // A piece of text displayed at the top of your dashboard.
@@ -477,64 +516,74 @@ func (o DashboardOutput) Header() pulumi.StringOutput {
 	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.Header }).(pulumi.StringOutput)
 }
 
-// Show or hide the tags on the dashboard. (Default `false`).
-func (o DashboardOutput) HideTags() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.HideTags }).(pulumi.BoolPtrOutput)
+// Show or hide the tags on the dashboard. Defaults to `false`.
+func (o DashboardOutput) HideTags() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.HideTags }).(pulumi.BoolOutput)
 }
 
-// Set your dashboard as private and generate key.
-func (o DashboardOutput) IsPrivate() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.IsPrivate }).(pulumi.BoolPtrOutput)
+// Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
+func (o DashboardOutput) IsPrivate() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.IsPrivate }).(pulumi.BoolOutput)
 }
 
-// The access key when the dashboard is private.
+// The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
 func (o DashboardOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.Key }).(pulumi.StringOutput)
 }
 
-// A link to for the dashboard logo.
-func (o DashboardOutput) Link() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.StringPtrOutput { return v.Link }).(pulumi.StringPtrOutput)
+// The http or https URL that clicking the dashboard logo leads to.
+func (o DashboardOutput) Link() pulumi.StringOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.Link }).(pulumi.StringOutput)
 }
 
-// A URL pointing to an image file to use for the dashboard logo.
-func (o DashboardOutput) Logo() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.StringPtrOutput { return v.Logo }).(pulumi.StringPtrOutput)
+// An http or https URL pointing to an image file to use for the dashboard logo.
+func (o DashboardOutput) Logo() pulumi.StringOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.Logo }).(pulumi.StringOutput)
 }
 
-// Determines if pagination is on or off. (Default `true`).
-func (o DashboardOutput) Paginate() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.Paginate }).(pulumi.BoolPtrOutput)
+// Determines if pagination is on or off. Defaults to `true`.
+func (o DashboardOutput) Paginate() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.Paginate }).(pulumi.BoolOutput)
 }
 
-// How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
-func (o DashboardOutput) PaginationRate() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.IntPtrOutput { return v.PaginationRate }).(pulumi.IntPtrOutput)
+// How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
+func (o DashboardOutput) PaginationRate() pulumi.IntOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.IntOutput { return v.PaginationRate }).(pulumi.IntOutput)
 }
 
-// How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
-func (o DashboardOutput) RefreshRate() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.IntPtrOutput { return v.RefreshRate }).(pulumi.IntPtrOutput)
+// How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
+func (o DashboardOutput) RefreshRate() pulumi.IntOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.IntOutput { return v.RefreshRate }).(pulumi.IntOutput)
 }
 
-// Show or hide check run links on the dashboard. (Default `false`).
-func (o DashboardOutput) ShowCheckRunLinks() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.ShowCheckRunLinks }).(pulumi.BoolPtrOutput)
+// Show or hide check run links on the dashboard. Defaults to `false`.
+func (o DashboardOutput) ShowCheckRunLinks() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.ShowCheckRunLinks }).(pulumi.BoolOutput)
 }
 
-// Show or hide header and description on the dashboard. (Default `true`).
-func (o DashboardOutput) ShowHeader() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.ShowHeader }).(pulumi.BoolPtrOutput)
+// Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+func (o DashboardOutput) ShowGroupNames() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.ShowGroupNames }).(pulumi.BoolOutput)
 }
 
-// Show or hide the P95 stats on the dashboard. (Default `true`).
-func (o DashboardOutput) ShowP95() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.ShowP95 }).(pulumi.BoolPtrOutput)
+// Show or hide header and description on the dashboard. Defaults to `true`.
+func (o DashboardOutput) ShowHeader() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.ShowHeader }).(pulumi.BoolOutput)
 }
 
-// Show or hide the P99 stats on the dashboard. (Default `true`).
-func (o DashboardOutput) ShowP99() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.ShowP99 }).(pulumi.BoolPtrOutput)
+// Show or hide the P95 stats on the dashboard. Defaults to `true`.
+func (o DashboardOutput) ShowP95() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.ShowP95 }).(pulumi.BoolOutput)
+}
+
+// Show or hide the P99 stats on the dashboard. Defaults to `true`.
+func (o DashboardOutput) ShowP99() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.ShowP99 }).(pulumi.BoolOutput)
+}
+
+// List failing checks first. Defaults to `false`.
+func (o DashboardOutput) SortByStatus() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.SortByStatus }).(pulumi.BoolOutput)
 }
 
 // A list of one or more tags that filter which checks to display on the dashboard.
@@ -542,14 +591,14 @@ func (o DashboardOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Dashboard) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
 
-// Set when to use AND operator for fetching dashboard tags. (Default `false`).
-func (o DashboardOutput) UseTagsAndOperator() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.BoolPtrOutput { return v.UseTagsAndOperator }).(pulumi.BoolPtrOutput)
+// Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
+func (o DashboardOutput) UseTagsAndOperator() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.BoolOutput { return v.UseTagsAndOperator }).(pulumi.BoolOutput)
 }
 
-// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
-func (o DashboardOutput) Width() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Dashboard) pulumi.StringPtrOutput { return v.Width }).(pulumi.StringPtrOutput)
+// Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
+func (o DashboardOutput) Width() pulumi.StringOutput {
+	return o.ApplyT(func(v *Dashboard) pulumi.StringOutput { return v.Width }).(pulumi.StringOutput)
 }
 
 type DashboardArrayOutput struct{ *pulumi.OutputState }

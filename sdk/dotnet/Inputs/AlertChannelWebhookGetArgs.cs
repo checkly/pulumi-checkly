@@ -14,6 +14,10 @@ namespace Pulumi.Checkly.Inputs
     {
         [Input("headers")]
         private InputMap<string>? _headers;
+
+        /// <summary>
+        /// HTTP headers to send with the webhook request, as a map of header names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        /// </summary>
         public InputMap<string> Headers
         {
             get => _headers ?? (_headers = new InputMap<string>());
@@ -21,33 +25,69 @@ namespace Pulumi.Checkly.Inputs
         }
 
         /// <summary>
-        /// (Default `POST`)
+        /// The HTTP method of the webhook request, such as `GET`, `POST`, `PUT`, `HEAD`, `DELETE` or `PATCH`. Must not be empty. Defaults to `POST`.
         /// </summary>
         [Input("method")]
         public Input<string>? Method { get; set; }
 
+        /// <summary>
+        /// The name of this alert channel.
+        /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         [Input("queryParameters")]
         private InputMap<string>? _queryParameters;
+
+        /// <summary>
+        /// Query parameters to add to the webhook URL, as a map of parameter names to values. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        /// </summary>
         public InputMap<string> QueryParameters
         {
             get => _queryParameters ?? (_queryParameters = new InputMap<string>());
             set => _queryParameters = value;
         }
 
+        /// <summary>
+        /// The body of the webhook request, which can contain template variables such as `{{ALERT_TITLE}}` and `{{RESULT_LINK}}`. If not set, Checkly sends its default JSON payload.
+        /// </summary>
         [Input("template")]
         public Input<string>? Template { get; set; }
 
         [Input("url", required: true)]
-        public Input<string> Url { get; set; } = null!;
-
-        [Input("webhookSecret")]
-        public Input<string>? WebhookSecret { get; set; }
+        private Input<string>? _url;
 
         /// <summary>
-        /// Type of the webhook. The allowed values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
+        /// The URL to send the webhook request to.
+        /// </summary>
+        public Input<string>? Url
+        {
+            get => _url;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _url = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("webhookSecret")]
+        private Input<string>? _webhookSecret;
+
+        /// <summary>
+        /// A secret to sign webhook requests with. When set, Checkly sends an HMAC-SHA256 signature of the request body, keyed with this secret, in the `x-checkly-signature` header.
+        /// </summary>
+        public Input<string>? WebhookSecret
+        {
+            get => _webhookSecret;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _webhookSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// Type of the webhook. Possible values are `WEBHOOK_CORALOGIX`, `WEBHOOK_DISCORD`, `WEBHOOK_FIREHYDRANT`, `WEBHOOK_GITLAB_ALERT`, `WEBHOOK_ILERT`, `WEBHOOK_INCIDENTIO`, `WEBHOOK_MSTEAMS`, `WEBHOOK_ROOTLY`, `WEBHOOK_SPIKESH`, `WEBHOOK_SPLUNK` and `WEBHOOK_TELEGRAM`.
         /// </summary>
         [Input("webhookType")]
         public Input<string>? WebhookType { get; set; }

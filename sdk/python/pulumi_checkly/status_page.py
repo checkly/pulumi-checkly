@@ -23,22 +23,23 @@ class StatusPageArgs:
     def __init__(__self__, *,
                  cards: pulumi.Input[Sequence[pulumi.Input['StatusPageCardArgs']]],
                  url: pulumi.Input[_builtins.str],
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None):
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a StatusPage resource.
+
         :param pulumi.Input[Sequence[pulumi.Input['StatusPageCardArgs']]] cards: A list of cards to include on the status page.
-        :param pulumi.Input[_builtins.str] url: The URL of the status page.
-        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
+        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
+        :param pulumi.Input[_builtins.str] default_theme: The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
         """
         pulumi.set(__self__, "cards", cards)
         pulumi.set(__self__, "url", url)
@@ -71,7 +72,7 @@ class StatusPageArgs:
     @pulumi.getter
     def url(self) -> pulumi.Input[_builtins.str]:
         """
-        The URL of the status page.
+        The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "url")
 
@@ -81,98 +82,99 @@ class StatusPageArgs:
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+        A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
         """
         return pulumi.get(self, "custom_domain")
 
     @custom_domain.setter
-    def custom_domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_domain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_domain", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTheme")
-    def default_theme(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_theme(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+        The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         """
         return pulumi.get(self, "default_theme")
 
     @default_theme.setter
-    def default_theme(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_theme(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_theme", value)
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def favicon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the favicon of the status page.
+        An http or https URL to an image file to use as the favicon of the status page.
         """
         return pulumi.get(self, "favicon")
 
     @favicon.setter
-    def favicon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def favicon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "favicon", value)
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the logo for the status page.
+        An http or https URL to an image file to use as the logo for the status page.
         """
         return pulumi.get(self, "logo")
 
     @logo.setter
-    def logo(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the status page.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="redirectTo")
-    def redirect_to(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def redirect_to(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The URL the user should be redirected to when clicking the logo.
+        The http or https URL the user should be redirected to when clicking the logo.
         """
         return pulumi.get(self, "redirect_to")
 
     @redirect_to.setter
-    def redirect_to(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def redirect_to(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "redirect_to", value)
 
 
 @pulumi.input_type
 class _StatusPageState:
     def __init__(__self__, *,
-                 cards: Optional[pulumi.Input[Sequence[pulumi.Input['StatusPageCardArgs']]]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None):
+                 cards: pulumi.Input[Optional[Sequence[pulumi.Input['StatusPageCardArgs']]]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering StatusPage resources.
+
         :param pulumi.Input[Sequence[pulumi.Input['StatusPageCardArgs']]] cards: A list of cards to include on the status page.
-        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
+        :param pulumi.Input[_builtins.str] default_theme: The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
-        :param pulumi.Input[_builtins.str] url: The URL of the status page.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         if cards is not None:
             pulumi.set(__self__, "cards", cards)
@@ -193,118 +195,125 @@ class _StatusPageState:
 
     @_builtins.property
     @pulumi.getter
-    def cards(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['StatusPageCardArgs']]]]:
+    def cards(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['StatusPageCardArgs']]]]:
         """
         A list of cards to include on the status page.
         """
         return pulumi.get(self, "cards")
 
     @cards.setter
-    def cards(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['StatusPageCardArgs']]]]):
+    def cards(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['StatusPageCardArgs']]]]):
         pulumi.set(self, "cards", value)
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+        A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
         """
         return pulumi.get(self, "custom_domain")
 
     @custom_domain.setter
-    def custom_domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_domain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_domain", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTheme")
-    def default_theme(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_theme(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+        The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         """
         return pulumi.get(self, "default_theme")
 
     @default_theme.setter
-    def default_theme(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_theme(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_theme", value)
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def favicon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the favicon of the status page.
+        An http or https URL to an image file to use as the favicon of the status page.
         """
         return pulumi.get(self, "favicon")
 
     @favicon.setter
-    def favicon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def favicon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "favicon", value)
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the logo for the status page.
+        An http or https URL to an image file to use as the logo for the status page.
         """
         return pulumi.get(self, "logo")
 
     @logo.setter
-    def logo(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the status page.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="redirectTo")
-    def redirect_to(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def redirect_to(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The URL the user should be redirected to when clicking the logo.
+        The http or https URL the user should be redirected to when clicking the logo.
         """
         return pulumi.get(self, "redirect_to")
 
     @redirect_to.setter
-    def redirect_to(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def redirect_to(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "redirect_to", value)
 
     @_builtins.property
     @pulumi.getter
-    def url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The URL of the status page.
+        The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "url")
 
     @url.setter
-    def url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "url", value)
+
+
+warnings.warn("""Use the StatusPageV3 resource instead. v3 status pages are separate objects, so an existing page cannot be converted.""", DeprecationWarning)
 
 
 @pulumi.type_token("checkly:index/statusPage:StatusPage")
 class StatusPage(pulumi.CustomResource):
+    warnings.warn("""Use the StatusPageV3 resource instead. v3 status pages are separate objects, so an existing page cannot be converted.""", DeprecationWarning)
+
     @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cards: Optional[pulumi.Input[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict']]]]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None,
+                 cards: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict', 'outputs.StatusPageCard']]]]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
-        Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page: the new `StatusPageV3` resource should always be preferred for new pages.
+        Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page.
+
+        The `StatusPage` resource type is deprecated in favor of `StatusPageV3` and will be removed in a future version of the provider. v3 status pages are separate objects, so an existing page cannot be converted: create a v3 page alongside it instead. A maintenance window shown on the page links to a v3 page through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         ## Example Usage
 
@@ -331,16 +340,29 @@ class StatusPage(pulumi.CustomResource):
             }])
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        StatusPage is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
+        Import an existing status page using its ID.
+        The ID is returned by the Checkly API at GET /v1/status-pages.
+
+        ```sh
+        $ pulumi import checkly:index/statusPage:StatusPage example cd8d05a4-c292-4dc4-a78f-1dea65e5457e
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict']]]] cards: A list of cards to include on the status page.
-        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict', 'outputs.StatusPageCard']]]] cards: A list of cards to include on the status page.
+        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
+        :param pulumi.Input[_builtins.str] default_theme: The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
-        :param pulumi.Input[_builtins.str] url: The URL of the status page.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         ...
     @overload
@@ -349,7 +371,9 @@ class StatusPage(pulumi.CustomResource):
                  args: StatusPageArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page: the new `StatusPageV3` resource should always be preferred for new pages.
+        Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page.
+
+        The `StatusPage` resource type is deprecated in favor of `StatusPageV3` and will be removed in a future version of the provider. v3 status pages are separate objects, so an existing page cannot be converted: create a v3 page alongside it instead. A maintenance window shown on the page links to a v3 page through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         ## Example Usage
 
@@ -375,6 +399,19 @@ class StatusPage(pulumi.CustomResource):
                 ],
             }])
         ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        StatusPage is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
+        Import an existing status page using its ID.
+        The ID is returned by the Checkly API at GET /v1/status-pages.
+
+        ```sh
+        $ pulumi import checkly:index/statusPage:StatusPage example cd8d05a4-c292-4dc4-a78f-1dea65e5457e
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param StatusPageArgs args: The arguments to use to populate this resource's properties.
@@ -391,15 +428,16 @@ class StatusPage(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cards: Optional[pulumi.Input[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict']]]]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None,
+                 cards: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict', 'outputs.StatusPageCard']]]]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
+        pulumi.log.warn("""StatusPage is deprecated: Use the StatusPageV3 resource instead. v3 status pages are separate objects, so an existing page cannot be converted.""")
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
@@ -430,14 +468,14 @@ class StatusPage(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cards: Optional[pulumi.Input[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict']]]]] = None,
-            custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-            default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-            favicon: Optional[pulumi.Input[_builtins.str]] = None,
-            logo: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-            url: Optional[pulumi.Input[_builtins.str]] = None) -> 'StatusPage':
+            cards: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict', 'outputs.StatusPageCard']]]]] = None,
+            custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+            default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+            favicon: pulumi.Input[Optional[_builtins.str]] = None,
+            logo: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+            url: pulumi.Input[Optional[_builtins.str]] = None) -> 'StatusPage':
         """
         Get an existing StatusPage resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -445,14 +483,14 @@ class StatusPage(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict']]]] cards: A list of cards to include on the status page.
-        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict', 'outputs.StatusPageCard']]]] cards: A list of cards to include on the status page.
+        :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
+        :param pulumi.Input[_builtins.str] default_theme: The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
-        :param pulumi.Input[_builtins.str] url: The URL of the status page.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -468,6 +506,28 @@ class StatusPage(pulumi.CustomResource):
         __props__.__dict__["url"] = url
         return StatusPage(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            cards: pulumi.Input[Optional[Sequence[pulumi.Input[Union['StatusPageCardArgs', 'StatusPageCardArgsDict', 'outputs.StatusPageCard']]]]] = None,
+            custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+            default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+            favicon: pulumi.Input[Optional[_builtins.str]] = None,
+            logo: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+            url: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["cards"] = cards
+        __props__["customDomain"] = custom_domain
+        __props__["defaultTheme"] = default_theme
+        __props__["favicon"] = favicon
+        __props__["logo"] = logo
+        __props__["name"] = name
+        __props__["redirectTo"] = redirect_to
+        __props__["url"] = url
+        return pulumi.runtime.exists_resource(None, 'checkly:index/statusPage:StatusPage', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def cards(self) -> pulumi.Output[Sequence['outputs.StatusPageCard']]:
@@ -478,33 +538,33 @@ class StatusPage(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Output[_builtins.str]:
         """
-        A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+        A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
         """
         return pulumi.get(self, "custom_domain")
 
     @_builtins.property
     @pulumi.getter(name="defaultTheme")
-    def default_theme(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def default_theme(self) -> pulumi.Output[_builtins.str]:
         """
-        Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+        The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         """
         return pulumi.get(self, "default_theme")
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def favicon(self) -> pulumi.Output[_builtins.str]:
         """
-        A URL to an image file to use as the favicon of the status page.
+        An http or https URL to an image file to use as the favicon of the status page.
         """
         return pulumi.get(self, "favicon")
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def logo(self) -> pulumi.Output[_builtins.str]:
         """
-        A URL to an image file to use as the logo for the status page.
+        An http or https URL to an image file to use as the logo for the status page.
         """
         return pulumi.get(self, "logo")
 
@@ -518,9 +578,9 @@ class StatusPage(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="redirectTo")
-    def redirect_to(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def redirect_to(self) -> pulumi.Output[_builtins.str]:
         """
-        The URL the user should be redirected to when clicking the logo.
+        The http or https URL the user should be redirected to when clicking the logo.
         """
         return pulumi.get(self, "redirect_to")
 
@@ -528,7 +588,7 @@ class StatusPage(pulumi.CustomResource):
     @pulumi.getter
     def url(self) -> pulumi.Output[_builtins.str]:
         """
-        The URL of the status page.
+        The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "url")
 

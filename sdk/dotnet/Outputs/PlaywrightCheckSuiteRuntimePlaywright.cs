@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntimePlaywright
     {
         /// <summary>
-        /// The list of devices that should be made available for Playwright. Defaults to chromium, firefox, and webkit.
+        /// The list of devices that should be made available for Playwright. Can't be empty. If not set, `Chromium`, `Firefox` and `Webkit` are used, whether or not `AutoDetect` is enabled.
         /// </summary>
         public readonly ImmutableArray<Outputs.PlaywrightCheckSuiteRuntimePlaywrightDevice> Devices;
         /// <summary>
-        /// The Playwright version to use. Defaults to the version detected from the code bundle's lockfile.
+        /// The Playwright version to use. If not set, the version detected from the code bundle's lockfile is used.
         /// </summary>
         public readonly string? Version;
 

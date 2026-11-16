@@ -13,14 +13,26 @@ namespace Pulumi.Checkly.Outputs
     [OutputType]
     public sealed class CheckGroupV2ApiCheckDefaults
     {
+        /// <summary>
+        /// Default assertions for API checks in this group.
+        /// </summary>
         public readonly ImmutableArray<Outputs.CheckGroupV2ApiCheckDefaultsAssertion> Assertions;
+        /// <summary>
+        /// Default basic auth credentials for API checks in this group.
+        /// </summary>
         public readonly Outputs.CheckGroupV2ApiCheckDefaultsBasicAuth? BasicAuth;
+        /// <summary>
+        /// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? Headers;
+        /// <summary>
+        /// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        /// </summary>
         public readonly ImmutableDictionary<string, string>? QueryParameters;
         /// <summary>
         /// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
         /// </summary>
-        public readonly string? Url;
+        public readonly string Url;
 
         [OutputConstructor]
         private CheckGroupV2ApiCheckDefaults(
@@ -32,7 +44,7 @@ namespace Pulumi.Checkly.Outputs
 
             ImmutableDictionary<string, string>? queryParameters,
 
-            string? url)
+            string url)
         {
             Assertions = assertions;
             BasicAuth = basicAuth;

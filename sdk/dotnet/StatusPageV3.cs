@@ -90,63 +90,74 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing status page using its ID.
+    /// The ID is returned by the Checkly API at GET /v3/status-pages.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/statusPageV3:StatusPageV3 example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/statusPageV3:StatusPageV3")]
     public partial class StatusPageV3 : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Whether search engines may index the public page. (Default `true`).
+        /// Whether search engines may index the public page. Defaults to `True`.
         /// </summary>
         [Output("allowIndexing")]
-        public Output<bool?> AllowIndexing { get; private set; } = null!;
+        public Output<bool> AllowIndexing { get; private set; } = null!;
 
         /// <summary>
         /// A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
         /// </summary>
         [Output("customDomain")]
-        public Output<string?> CustomDomain { get; private set; } = null!;
+        public Output<string> CustomDomain { get; private set; } = null!;
 
         /// <summary>
-        /// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+        /// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         /// </summary>
         [Output("defaultTheme")]
-        public Output<string?> DefaultTheme { get; private set; } = null!;
+        public Output<string> DefaultTheme { get; private set; } = null!;
 
         /// <summary>
-        /// A short description shown on the status page.
+        /// A short description shown on the status page. Must be at most `500` characters.
         /// </summary>
         [Output("description")]
-        public Output<string?> Description { get; private set; } = null!;
+        public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// A URL to an image file to use as the favicon of the status page.
+        /// An http or https URL to an image file to use as the favicon of the status page.
         /// </summary>
         [Output("favicon")]
-        public Output<string?> Favicon { get; private set; } = null!;
+        public Output<string> Favicon { get; private set; } = null!;
 
         /// <summary>
-        /// Free-form footer text.
+        /// Free-form footer text. Must be at most `1000` characters.
         /// </summary>
         [Output("footerText")]
-        public Output<string?> FooterText { get; private set; } = null!;
+        public Output<string> FooterText { get; private set; } = null!;
 
         /// <summary>
-        /// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+        /// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
         /// </summary>
         [Output("googleAnalyticsTag")]
-        public Output<string?> GoogleAnalyticsTag { get; private set; } = null!;
+        public Output<string> GoogleAnalyticsTag { get; private set; } = null!;
 
         /// <summary>
-        /// A URL to an image file to use as the logo for the status page.
+        /// An http or https URL to an image file to use as the logo for the status page.
         /// </summary>
         [Output("logo")]
-        public Output<string?> Logo { get; private set; } = null!;
+        public Output<string> Logo { get; private set; } = null!;
 
         /// <summary>
-        /// A URL to an image file to use as the logo in dark mode.
+        /// An http or https URL to an image file to use as the logo in dark mode.
         /// </summary>
         [Output("logoDark")]
-        public Output<string?> LogoDark { get; private set; } = null!;
+        public Output<string> LogoDark { get; private set; } = null!;
 
         /// <summary>
         /// The name of the status page.
@@ -155,37 +166,37 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// A link to your privacy policy, shown in the page footer.
+        /// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Output("privacyPolicyLink")]
-        public Output<string?> PrivacyPolicyLink { get; private set; } = null!;
+        public Output<string> PrivacyPolicyLink { get; private set; } = null!;
 
         /// <summary>
-        /// The URL the user should be redirected to when clicking the logo.
+        /// The http or https URL the user should be redirected to when clicking the logo.
         /// </summary>
         [Output("redirectTo")]
-        public Output<string?> RedirectTo { get; private set; } = null!;
+        public Output<string> RedirectTo { get; private set; } = null!;
 
         /// <summary>
-        /// A support contact link (http, https or mailto), shown in the page footer.
+        /// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Output("supportLink")]
-        public Output<string?> SupportLink { get; private set; } = null!;
+        public Output<string> SupportLink { get; private set; } = null!;
 
         /// <summary>
-        /// A link to your terms of service, shown in the page footer.
+        /// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Output("termsOfServiceLink")]
-        public Output<string?> TermsOfServiceLink { get; private set; } = null!;
+        public Output<string> TermsOfServiceLink { get; private set; } = null!;
 
         /// <summary>
-        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `Light` and `Dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         /// </summary>
         [Output("themeColors")]
         public Output<Outputs.StatusPageV3ThemeColors?> ThemeColors { get; private set; } = null!;
 
         /// <summary>
-        /// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        /// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         /// </summary>
         [Output("url")]
         public Output<string> Url { get; private set; } = null!;
@@ -238,7 +249,7 @@ namespace Pulumi.Checkly
     public sealed class StatusPageV3Args : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether search engines may index the public page. (Default `true`).
+        /// Whether search engines may index the public page. Defaults to `True`.
         /// </summary>
         [Input("allowIndexing")]
         public Input<bool>? AllowIndexing { get; set; }
@@ -250,43 +261,43 @@ namespace Pulumi.Checkly
         public Input<string>? CustomDomain { get; set; }
 
         /// <summary>
-        /// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+        /// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         /// </summary>
         [Input("defaultTheme")]
         public Input<string>? DefaultTheme { get; set; }
 
         /// <summary>
-        /// A short description shown on the status page.
+        /// A short description shown on the status page. Must be at most `500` characters.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the favicon of the status page.
+        /// An http or https URL to an image file to use as the favicon of the status page.
         /// </summary>
         [Input("favicon")]
         public Input<string>? Favicon { get; set; }
 
         /// <summary>
-        /// Free-form footer text.
+        /// Free-form footer text. Must be at most `1000` characters.
         /// </summary>
         [Input("footerText")]
         public Input<string>? FooterText { get; set; }
 
         /// <summary>
-        /// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+        /// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
         /// </summary>
         [Input("googleAnalyticsTag")]
         public Input<string>? GoogleAnalyticsTag { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the logo for the status page.
+        /// An http or https URL to an image file to use as the logo for the status page.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the logo in dark mode.
+        /// An http or https URL to an image file to use as the logo in dark mode.
         /// </summary>
         [Input("logoDark")]
         public Input<string>? LogoDark { get; set; }
@@ -298,37 +309,37 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// A link to your privacy policy, shown in the page footer.
+        /// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Input("privacyPolicyLink")]
         public Input<string>? PrivacyPolicyLink { get; set; }
 
         /// <summary>
-        /// The URL the user should be redirected to when clicking the logo.
+        /// The http or https URL the user should be redirected to when clicking the logo.
         /// </summary>
         [Input("redirectTo")]
         public Input<string>? RedirectTo { get; set; }
 
         /// <summary>
-        /// A support contact link (http, https or mailto), shown in the page footer.
+        /// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Input("supportLink")]
         public Input<string>? SupportLink { get; set; }
 
         /// <summary>
-        /// A link to your terms of service, shown in the page footer.
+        /// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Input("termsOfServiceLink")]
         public Input<string>? TermsOfServiceLink { get; set; }
 
         /// <summary>
-        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `Light` and `Dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         /// </summary>
         [Input("themeColors")]
         public Input<Inputs.StatusPageV3ThemeColorsArgs>? ThemeColors { get; set; }
 
         /// <summary>
-        /// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        /// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         /// </summary>
         [Input("url", required: true)]
         public Input<string> Url { get; set; } = null!;
@@ -342,7 +353,7 @@ namespace Pulumi.Checkly
     public sealed class StatusPageV3State : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Whether search engines may index the public page. (Default `true`).
+        /// Whether search engines may index the public page. Defaults to `True`.
         /// </summary>
         [Input("allowIndexing")]
         public Input<bool>? AllowIndexing { get; set; }
@@ -354,43 +365,43 @@ namespace Pulumi.Checkly
         public Input<string>? CustomDomain { get; set; }
 
         /// <summary>
-        /// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+        /// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         /// </summary>
         [Input("defaultTheme")]
         public Input<string>? DefaultTheme { get; set; }
 
         /// <summary>
-        /// A short description shown on the status page.
+        /// A short description shown on the status page. Must be at most `500` characters.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the favicon of the status page.
+        /// An http or https URL to an image file to use as the favicon of the status page.
         /// </summary>
         [Input("favicon")]
         public Input<string>? Favicon { get; set; }
 
         /// <summary>
-        /// Free-form footer text.
+        /// Free-form footer text. Must be at most `1000` characters.
         /// </summary>
         [Input("footerText")]
         public Input<string>? FooterText { get; set; }
 
         /// <summary>
-        /// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+        /// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
         /// </summary>
         [Input("googleAnalyticsTag")]
         public Input<string>? GoogleAnalyticsTag { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the logo for the status page.
+        /// An http or https URL to an image file to use as the logo for the status page.
         /// </summary>
         [Input("logo")]
         public Input<string>? Logo { get; set; }
 
         /// <summary>
-        /// A URL to an image file to use as the logo in dark mode.
+        /// An http or https URL to an image file to use as the logo in dark mode.
         /// </summary>
         [Input("logoDark")]
         public Input<string>? LogoDark { get; set; }
@@ -402,37 +413,37 @@ namespace Pulumi.Checkly
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// A link to your privacy policy, shown in the page footer.
+        /// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Input("privacyPolicyLink")]
         public Input<string>? PrivacyPolicyLink { get; set; }
 
         /// <summary>
-        /// The URL the user should be redirected to when clicking the logo.
+        /// The http or https URL the user should be redirected to when clicking the logo.
         /// </summary>
         [Input("redirectTo")]
         public Input<string>? RedirectTo { get; set; }
 
         /// <summary>
-        /// A support contact link (http, https or mailto), shown in the page footer.
+        /// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Input("supportLink")]
         public Input<string>? SupportLink { get; set; }
 
         /// <summary>
-        /// A link to your terms of service, shown in the page footer.
+        /// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
         /// </summary>
         [Input("termsOfServiceLink")]
         public Input<string>? TermsOfServiceLink { get; set; }
 
         /// <summary>
-        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+        /// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `Light` and `Dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         /// </summary>
         [Input("themeColors")]
         public Input<Inputs.StatusPageV3ThemeColorsGetArgs>? ThemeColors { get; set; }
 
         /// <summary>
-        /// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        /// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         /// </summary>
         [Input("url")]
         public Input<string>? Url { get; set; }

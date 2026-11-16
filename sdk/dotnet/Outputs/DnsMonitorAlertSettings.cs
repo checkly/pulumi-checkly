@@ -14,43 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class DnsMonitorAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.DnsMonitorAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.DnsMonitorAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.DnsMonitorAlertSettingsReminder> Reminders;
+        public readonly Outputs.DnsMonitorAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.DnsMonitorAlertSettingsRunBasedEscalation> RunBasedEscalations;
+        public readonly Outputs.DnsMonitorAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.DnsMonitorAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.DnsMonitorAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private DnsMonitorAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.DnsMonitorAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.DnsMonitorAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.DnsMonitorAlertSettingsReminder> reminders,
+            Outputs.DnsMonitorAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.DnsMonitorAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.DnsMonitorAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.DnsMonitorAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.DnsMonitorAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

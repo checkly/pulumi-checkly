@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class StatusPageV3AutomationRuleComponent
     {
         /// <summary>
-        /// The ID of the impacted component. Must be on the same status page.
+        /// The ID of the impacted component. Must be on the same status page, and listed only once.
         /// </summary>
         public readonly string ComponentId;
         /// <summary>
-        /// The impact set on the component while the incident is open. The allowed values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
+        /// The impact set on the component while the incident is open. Possible values are `UNDER_MAINTENANCE`, `DEGRADED_PERFORMANCE`, `PARTIAL_OUTAGE` and `MAJOR_OUTAGE`.
         /// </summary>
         public readonly string TargetImpact;
 

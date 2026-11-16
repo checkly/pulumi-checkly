@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -60,27 +60,38 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing status page component using "<status_page_id>/<component_id>".
+// Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/components.
+//
+// ```sh
+// $ pulumi import checkly:index/statusPageV3Component:StatusPageV3Component example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/0e4f5a72-6a5c-42a1-9a8a-5f7d38c8a9d1
+// ```
 type StatusPageV3Component struct {
 	pulumi.CustomResourceState
 
 	// An optional description shown next to the name.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
+	Description pulumi.StringOutput `pulumi:"description"`
 	// The position among siblings; lower comes first.
 	DisplayOrder pulumi.IntOutput `pulumi:"displayOrder"`
-	// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
-	ExpandedByDefault pulumi.BoolPtrOutput `pulumi:"expandedByDefault"`
-	// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
-	Hidden pulumi.BoolPtrOutput `pulumi:"hidden"`
-	// The name shown on the status page.
+	// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+	ExpandedByDefault pulumi.BoolOutput `pulumi:"expandedByDefault"`
+	// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+	Hidden pulumi.BoolOutput `pulumi:"hidden"`
+	// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The ID of the GROUP component to nest this component under. Must be on the same status page.
-	ParentId pulumi.StringPtrOutput `pulumi:"parentId"`
-	// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
-	ShowHistoricalData pulumi.BoolPtrOutput `pulumi:"showHistoricalData"`
+	ParentId pulumi.StringOutput `pulumi:"parentId"`
+	// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
+	ShowHistoricalData pulumi.BoolOutput `pulumi:"showHistoricalData"`
 	// The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
 	StatusPageId pulumi.StringOutput `pulumi:"statusPageId"`
-	// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
-	Type pulumi.StringPtrOutput `pulumi:"type"`
+	// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
+	Type pulumi.StringOutput `pulumi:"type"`
 }
 
 // NewStatusPageV3Component registers a new resource with the given unique name, arguments, and options.
@@ -123,19 +134,19 @@ type statusPageV3ComponentState struct {
 	Description *string `pulumi:"description"`
 	// The position among siblings; lower comes first.
 	DisplayOrder *int `pulumi:"displayOrder"`
-	// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+	// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
 	ExpandedByDefault *bool `pulumi:"expandedByDefault"`
-	// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+	// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
 	Hidden *bool `pulumi:"hidden"`
-	// The name shown on the status page.
+	// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
 	Name *string `pulumi:"name"`
 	// The ID of the GROUP component to nest this component under. Must be on the same status page.
 	ParentId *string `pulumi:"parentId"`
-	// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+	// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
 	ShowHistoricalData *bool `pulumi:"showHistoricalData"`
 	// The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
 	StatusPageId *string `pulumi:"statusPageId"`
-	// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+	// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
 	Type *string `pulumi:"type"`
 }
 
@@ -144,19 +155,19 @@ type StatusPageV3ComponentState struct {
 	Description pulumi.StringPtrInput
 	// The position among siblings; lower comes first.
 	DisplayOrder pulumi.IntPtrInput
-	// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+	// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
 	ExpandedByDefault pulumi.BoolPtrInput
-	// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+	// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
 	Hidden pulumi.BoolPtrInput
-	// The name shown on the status page.
+	// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
 	Name pulumi.StringPtrInput
 	// The ID of the GROUP component to nest this component under. Must be on the same status page.
 	ParentId pulumi.StringPtrInput
-	// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+	// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
 	ShowHistoricalData pulumi.BoolPtrInput
 	// The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
 	StatusPageId pulumi.StringPtrInput
-	// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+	// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
 	Type pulumi.StringPtrInput
 }
 
@@ -164,24 +175,30 @@ func (StatusPageV3ComponentState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageV3ComponentState)(nil)).Elem()
 }
 
+// StatusPageV3ComponentExists checks whether an existing StatusPageV3Component resource with the given ID exists.
+func StatusPageV3ComponentExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageV3ComponentState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPageV3Component:StatusPageV3Component", id, state, "", opts...)
+}
+
 type statusPageV3ComponentArgs struct {
 	// An optional description shown next to the name.
 	Description *string `pulumi:"description"`
 	// The position among siblings; lower comes first.
 	DisplayOrder int `pulumi:"displayOrder"`
-	// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+	// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
 	ExpandedByDefault *bool `pulumi:"expandedByDefault"`
-	// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+	// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
 	Hidden *bool `pulumi:"hidden"`
-	// The name shown on the status page.
+	// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
 	Name *string `pulumi:"name"`
 	// The ID of the GROUP component to nest this component under. Must be on the same status page.
 	ParentId *string `pulumi:"parentId"`
-	// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+	// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
 	ShowHistoricalData *bool `pulumi:"showHistoricalData"`
 	// The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
 	StatusPageId string `pulumi:"statusPageId"`
-	// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+	// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
 	Type *string `pulumi:"type"`
 }
 
@@ -191,19 +208,19 @@ type StatusPageV3ComponentArgs struct {
 	Description pulumi.StringPtrInput
 	// The position among siblings; lower comes first.
 	DisplayOrder pulumi.IntInput
-	// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+	// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
 	ExpandedByDefault pulumi.BoolPtrInput
-	// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+	// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
 	Hidden pulumi.BoolPtrInput
-	// The name shown on the status page.
+	// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
 	Name pulumi.StringPtrInput
 	// The ID of the GROUP component to nest this component under. Must be on the same status page.
 	ParentId pulumi.StringPtrInput
-	// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+	// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
 	ShowHistoricalData pulumi.BoolPtrInput
 	// The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
 	StatusPageId pulumi.StringInput
-	// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+	// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
 	Type pulumi.StringPtrInput
 }
 
@@ -295,8 +312,8 @@ func (o StatusPageV3ComponentOutput) ToStatusPageV3ComponentOutputWithContext(ct
 }
 
 // An optional description shown next to the name.
-func (o StatusPageV3ComponentOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o StatusPageV3ComponentOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
 // The position among siblings; lower comes first.
@@ -304,29 +321,29 @@ func (o StatusPageV3ComponentOutput) DisplayOrder() pulumi.IntOutput {
 	return o.ApplyT(func(v *StatusPageV3Component) pulumi.IntOutput { return v.DisplayOrder }).(pulumi.IntOutput)
 }
 
-// Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
-func (o StatusPageV3ComponentOutput) ExpandedByDefault() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3Component) pulumi.BoolPtrOutput { return v.ExpandedByDefault }).(pulumi.BoolPtrOutput)
+// Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
+func (o StatusPageV3ComponentOutput) ExpandedByDefault() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StatusPageV3Component) pulumi.BoolOutput { return v.ExpandedByDefault }).(pulumi.BoolOutput)
 }
 
-// Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
-func (o StatusPageV3ComponentOutput) Hidden() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3Component) pulumi.BoolPtrOutput { return v.Hidden }).(pulumi.BoolPtrOutput)
+// Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
+func (o StatusPageV3ComponentOutput) Hidden() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StatusPageV3Component) pulumi.BoolOutput { return v.Hidden }).(pulumi.BoolOutput)
 }
 
-// The name shown on the status page.
+// The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
 func (o StatusPageV3ComponentOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
 // The ID of the GROUP component to nest this component under. Must be on the same status page.
-func (o StatusPageV3ComponentOutput) ParentId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringPtrOutput { return v.ParentId }).(pulumi.StringPtrOutput)
+func (o StatusPageV3ComponentOutput) ParentId() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringOutput { return v.ParentId }).(pulumi.StringOutput)
 }
 
-// Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
-func (o StatusPageV3ComponentOutput) ShowHistoricalData() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3Component) pulumi.BoolPtrOutput { return v.ShowHistoricalData }).(pulumi.BoolPtrOutput)
+// Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
+func (o StatusPageV3ComponentOutput) ShowHistoricalData() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StatusPageV3Component) pulumi.BoolOutput { return v.ShowHistoricalData }).(pulumi.BoolOutput)
 }
 
 // The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
@@ -334,9 +351,9 @@ func (o StatusPageV3ComponentOutput) StatusPageId() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringOutput { return v.StatusPageId }).(pulumi.StringOutput)
 }
 
-// The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
-func (o StatusPageV3ComponentOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringPtrOutput { return v.Type }).(pulumi.StringPtrOutput)
+// The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
+func (o StatusPageV3ComponentOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3Component) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }
 
 type StatusPageV3ComponentArrayOutput struct{ *pulumi.OutputState }

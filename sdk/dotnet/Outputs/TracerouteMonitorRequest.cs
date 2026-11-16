@@ -18,35 +18,35 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly ImmutableArray<Outputs.TracerouteMonitorRequestAssertion> Assertions;
         /// <summary>
-        /// The IP family to use when executing the traceroute. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+        /// The IP family to use when executing the traceroute. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         public readonly string? IpFamily;
         /// <summary>
-        /// The maximum number of network hops to probe before stopping. Possible values are between 1 and 64. (Default `30`).
+        /// The maximum number of network hops to probe before stopping. Possible values are between `1` and `64`. Defaults to `30`.
         /// </summary>
         public readonly int? MaxHops;
         /// <summary>
-        /// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between 1 and 30, and the value must not exceed `max_hops`. (Default `min(15, max_hops)`).
+        /// The maximum number of consecutive unresponsive hops to tolerate before stopping the trace. Possible values are between `1` and `30`, and the value must not exceed `MaxHops`. If not set, the smaller of `15` and `MaxHops` is used.
         /// </summary>
         public readonly int? MaxUnknownHops;
         /// <summary>
-        /// The destination port for TCP/UDP/SCTP probes. Possible values are between 1 and 65535. Ignored (and not sent) when `protocol = "ICMP"`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`.
+        /// The destination port for TCP/UDP/SCTP probes. Possible values are between `1` and `65535`. The default depends on the protocol: `443` for `TCP`, `33434` for `UDP` and `SCTP`. Must not be set when `protocol = "ICMP"`, which has no port.
         /// </summary>
         public readonly int? Port;
         /// <summary>
-        /// The probe protocol. `TCP` sends SYN probes (default), `UDP` sends datagrams to a high port, `ICMP` sends Echo Requests, `SCTP` sends INIT chunks. (Default `TCP`).
+        /// The probe protocol. Possible values are `TCP` (sends SYN probes), `UDP` (sends datagrams to a high port), `ICMP` (sends Echo Requests) and `SCTP` (sends INIT chunks). Defaults to `TCP`.
         /// </summary>
         public readonly string? Protocol;
         /// <summary>
-        /// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. (Default `true`).
+        /// Whether to perform reverse-DNS (PTR) lookups on each hop's IP address. Defaults to `True`.
         /// </summary>
         public readonly bool? PtrLookup;
         /// <summary>
-        /// The number of seconds to wait for the traceroute to complete before timing out. Possible values are between 1 and 30. (Default `10`).
+        /// The number of seconds to wait for the traceroute to complete before timing out. Possible values are between `1` and `30`. Defaults to `10`.
         /// </summary>
         public readonly int? Timeout;
         /// <summary>
-        /// The host to trace the network path to. Do not include a scheme or a port in this value.
+        /// The host to trace the network path to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
         /// </summary>
         public readonly string Url;
 

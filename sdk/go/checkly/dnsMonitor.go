@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -55,52 +55,83 @@ import (
 //			if err != nil {
 //				return err
 //			}
+//			// A DNS monitor that runs from a private location. The location's agents need
+//			// version 7.0.0 or later.
+//			_, err = checkly.NewDnsMonitor(ctx, "example-dns-monitor-private-location", &checkly.DnsMonitorArgs{
+//				Name:                   pulumi.String("Example DNS monitor on a private location"),
+//				Activated:              pulumi.Bool(true),
+//				Frequency:              pulumi.Int(2),
+//				UseGlobalAlertSettings: pulumi.Bool(true),
+//				PrivateLocations: pulumi.StringArray{
+//					pulumi.String("my-private-location"),
+//				},
+//				Request: &checkly.DnsMonitorRequestArgs{
+//					RecordType: pulumi.String("A"),
+//					Query:      pulumi.String("internal.example.com"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //			return nil
 //		})
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing DNS monitor using its check ID.
+// You can find the ID in the check's URL in the Checkly dashboard.
+//
+// ```sh
+// $ pulumi import checkly:index/dnsMonitor:DnsMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+// ```
 type DnsMonitor struct {
 	pulumi.CustomResourceState
 
-	// Determines whether the monitor will run periodically or not after being deployed.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions DnsMonitorAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings DnsMonitorAlertSettingsOutput `pulumi:"alertSettings"`
-	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
-	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. Defaults to `500`.
+	DegradedResponseTime pulumi.IntOutput `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	Description pulumi.StringOutput `pulumi:"description"`
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrOutput `pulumi:"frequencyOffset"`
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. (Default `1000`).
-	MaxResponseTime pulumi.IntPtrOutput `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. Defaults to `1000`.
+	MaxResponseTime pulumi.IntOutput `pulumi:"maxResponseTime"`
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
 	// The name of the monitor.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The parameters of the HTTP request.
+	// The slugs of the private locations to run the monitor from. A private location runs DNS monitors with agent v7.0.0 or later.
+	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
+	// The parameters of the DNS request.
 	Request DnsMonitorRequestOutput `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy DnsMonitorRetryStrategyOutput `pulumi:"retryStrategy"`
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-	RunParallel pulumi.BoolPtrOutput `pulumi:"runParallel"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+	RunParallel pulumi.BoolOutput `pulumi:"runParallel"`
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident DnsMonitorTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
-	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+	UseGlobalAlertSettings pulumi.BoolOutput `pulumi:"useGlobalAlertSettings"`
 }
 
 // NewDnsMonitor registers a new resource with the given unique name, arguments, and options.
@@ -110,12 +141,6 @@ func NewDnsMonitor(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Activated == nil {
-		return nil, errors.New("invalid value for required argument 'Activated'")
-	}
-	if args.Frequency == nil {
-		return nil, errors.New("invalid value for required argument 'Frequency'")
-	}
 	if args.Request == nil {
 		return nil, errors.New("invalid value for required argument 'Request'")
 	}
@@ -142,84 +167,88 @@ func GetDnsMonitor(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering DnsMonitor resources.
 type dnsMonitorState struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []DnsMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *DnsMonitorAlertSettings `pulumi:"alertSettings"`
-	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. Defaults to `500`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency *int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. (Default `1000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. Defaults to `1000`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// The parameters of the HTTP request.
+	// The slugs of the private locations to run the monitor from. A private location runs DNS monitors with agent v7.0.0 or later.
+	PrivateLocations []string `pulumi:"privateLocations"`
+	// The parameters of the DNS request.
 	Request *DnsMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *DnsMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *DnsMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 type DnsMonitorState struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions DnsMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings DnsMonitorAlertSettingsPtrInput
-	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. Defaults to `500`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntPtrInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run the this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. (Default `1000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. Defaults to `1000`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// The parameters of the HTTP request.
+	// The slugs of the private locations to run the monitor from. A private location runs DNS monitors with agent v7.0.0 or later.
+	PrivateLocations pulumi.StringArrayInput
+	// The parameters of the DNS request.
 	Request DnsMonitorRequestPtrInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy DnsMonitorRetryStrategyPtrInput
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident DnsMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -227,86 +256,96 @@ func (DnsMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*dnsMonitorState)(nil)).Elem()
 }
 
+// DnsMonitorExists checks whether an existing DnsMonitor resource with the given ID exists.
+func DnsMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DnsMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/dnsMonitor:DnsMonitor", id, state, "", opts...)
+}
+
 type dnsMonitorArgs struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
-	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []DnsMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *DnsMonitorAlertSettings `pulumi:"alertSettings"`
-	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. Defaults to `500`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency *int `pulumi:"frequency"`
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run the this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. (Default `1000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. Defaults to `1000`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// The parameters of the HTTP request.
+	// The slugs of the private locations to run the monitor from. A private location runs DNS monitors with agent v7.0.0 or later.
+	PrivateLocations []string `pulumi:"privateLocations"`
+	// The parameters of the DNS request.
 	Request DnsMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *DnsMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *DnsMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 // The set of arguments for constructing a DnsMonitor resource.
 type DnsMonitorArgs struct {
-	// Determines whether the monitor will run periodically or not after being deployed.
-	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions DnsMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings DnsMonitorAlertSettingsPtrInput
-	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
+	// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. Defaults to `500`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency pulumi.IntInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency pulumi.IntPtrInput
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The ID of the check group that this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run the this monitor.
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. (Default `1000`).
+	// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. Defaults to `1000`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// The parameters of the HTTP request.
+	// The slugs of the private locations to run the monitor from. A private location runs DNS monitors with agent v7.0.0 or later.
+	PrivateLocations pulumi.StringArrayInput
+	// The parameters of the DNS request.
 	Request DnsMonitorRequestInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy DnsMonitorRetryStrategyPtrInput
-	// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident DnsMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -397,12 +436,12 @@ func (o DnsMonitorOutput) ToDnsMonitorOutputWithContext(ctx context.Context) Dns
 	return o
 }
 
-// Determines whether the monitor will run periodically or not after being deployed.
+// Determines whether the monitor runs on its schedule. Defaults to `true`.
 func (o DnsMonitorOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o DnsMonitorOutput) AlertChannelSubscriptions() DnsMonitorAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *DnsMonitor) DnsMonitorAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(DnsMonitorAlertChannelSubscriptionArrayOutput)
 }
@@ -412,49 +451,49 @@ func (o DnsMonitorOutput) AlertSettings() DnsMonitorAlertSettingsOutput {
 	return o.ApplyT(func(v *DnsMonitor) DnsMonitorAlertSettingsOutput { return v.AlertSettings }).(DnsMonitorAlertSettingsOutput)
 }
 
-// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. (Default `500`).
-func (o DnsMonitorOutput) DegradedResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *DnsMonitor) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
+// The response time in milliseconds where the monitor should be considered degraded. Possible values are between `0` and `5000`. Defaults to `500`.
+func (o DnsMonitorOutput) DegradedResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.IntOutput { return v.DegradedResponseTime }).(pulumi.IntOutput)
 }
 
 // A description of the monitor.
-func (o DnsMonitorOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DnsMonitor) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o DnsMonitorOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 func (o DnsMonitorOutput) Frequency() pulumi.IntOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.IntOutput { return v.Frequency }).(pulumi.IntOutput)
 }
 
-// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 func (o DnsMonitorOutput) FrequencyOffset() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.IntPtrOutput { return v.FrequencyOffset }).(pulumi.IntPtrOutput)
 }
 
-// The ID of the check group that this monitor is part of.
+// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 func (o DnsMonitorOutput) GroupId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.IntPtrOutput { return v.GroupId }).(pulumi.IntPtrOutput)
 }
 
-// The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 func (o DnsMonitorOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// An array of one or more data center locations where to run the this monitor.
+// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 func (o DnsMonitorOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.StringArrayOutput { return v.Locations }).(pulumi.StringArrayOutput)
 }
 
-// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. (Default `1000`).
-func (o DnsMonitorOutput) MaxResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *DnsMonitor) pulumi.IntPtrOutput { return v.MaxResponseTime }).(pulumi.IntPtrOutput)
+// The response time in milliseconds where the monitor should be considered failing. Possible values are between `0` and `5000`. Defaults to `1000`.
+func (o DnsMonitorOutput) MaxResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.IntOutput { return v.MaxResponseTime }).(pulumi.IntOutput)
 }
 
-// Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
-func (o DnsMonitorOutput) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+func (o DnsMonitorOutput) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
 // The name of the monitor.
@@ -462,7 +501,12 @@ func (o DnsMonitorOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The parameters of the HTTP request.
+// The slugs of the private locations to run the monitor from. A private location runs DNS monitors with agent v7.0.0 or later.
+func (o DnsMonitorOutput) PrivateLocations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.StringArrayOutput { return v.PrivateLocations }).(pulumi.StringArrayOutput)
+}
+
+// The parameters of the DNS request.
 func (o DnsMonitorOutput) Request() DnsMonitorRequestOutput {
 	return o.ApplyT(func(v *DnsMonitor) DnsMonitorRequestOutput { return v.Request }).(DnsMonitorRequestOutput)
 }
@@ -472,12 +516,12 @@ func (o DnsMonitorOutput) RetryStrategy() DnsMonitorRetryStrategyOutput {
 	return o.ApplyT(func(v *DnsMonitor) DnsMonitorRetryStrategyOutput { return v.RetryStrategy }).(DnsMonitorRetryStrategyOutput)
 }
 
-// Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-func (o DnsMonitorOutput) RunParallel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolPtrOutput { return v.RunParallel }).(pulumi.BoolPtrOutput)
+// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+func (o DnsMonitorOutput) RunParallel() pulumi.BoolOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolOutput { return v.RunParallel }).(pulumi.BoolOutput)
 }
 
-// A list of tags for organizing and filtering checks and monitors.
+// Tags for organizing and filtering checks and monitors.
 func (o DnsMonitorOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *DnsMonitor) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
@@ -487,9 +531,9 @@ func (o DnsMonitorOutput) TriggerIncident() DnsMonitorTriggerIncidentPtrOutput {
 	return o.ApplyT(func(v *DnsMonitor) DnsMonitorTriggerIncidentPtrOutput { return v.TriggerIncident }).(DnsMonitorTriggerIncidentPtrOutput)
 }
 
-// When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
-func (o DnsMonitorOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolPtrOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+func (o DnsMonitorOutput) UseGlobalAlertSettings() pulumi.BoolOutput {
+	return o.ApplyT(func(v *DnsMonitor) pulumi.BoolOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolOutput)
 }
 
 type DnsMonitorArrayOutput struct{ *pulumi.OutputState }

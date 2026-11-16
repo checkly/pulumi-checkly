@@ -18,11 +18,14 @@ namespace Pulumi.Checkly.Inputs
         [Input("comparison", required: true)]
         public Input<string> Comparison { get; set; } = null!;
 
+        /// <summary>
+        /// Not used by `STATUS_CODE`, the only allowed source; leave empty.
+        /// </summary>
         [Input("property")]
         public Input<string>? Property { get; set; }
 
         /// <summary>
-        /// The source of the asserted value. The only allowed value is `STATUS_CODE`.
+        /// The source of the asserted value. The only possible value is `STATUS_CODE`.
         /// </summary>
         [Input("source", required: true)]
         public Input<string> Source { get; set; } = null!;

@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class PlaywrightCheckSuiteRuntimeEngine
     {
         /// <summary>
-        /// The engine name. Valid values are "node" or "bun".
+        /// The engine name. Possible values are `Node` and `Bun`.
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// The engine version (e.g. "22", "24", "26" for node; "1.3" for bun).
+        /// The engine version (e.g. "22", "24", "26" for node; "1.3", "1.4" for bun). Use "1" for bun to run the newest Bun 1.x available.
         /// </summary>
         public readonly string Version;
 

@@ -13,58 +13,34 @@ namespace Pulumi.Checkly.Inputs
     public sealed class TracerouteMonitorAlertSettingsGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         [Input("escalationType")]
         public Input<string>? EscalationType { get; set; }
 
-        [Input("parallelRunFailureThresholds")]
-        private InputList<Inputs.TracerouteMonitorAlertSettingsParallelRunFailureThresholdGetArgs>? _parallelRunFailureThresholds;
-
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public InputList<Inputs.TracerouteMonitorAlertSettingsParallelRunFailureThresholdGetArgs> ParallelRunFailureThresholds
-        {
-            get => _parallelRunFailureThresholds ?? (_parallelRunFailureThresholds = new InputList<Inputs.TracerouteMonitorAlertSettingsParallelRunFailureThresholdGetArgs>());
-            set => _parallelRunFailureThresholds = value;
-        }
-
-        [Input("reminders")]
-        private InputList<Inputs.TracerouteMonitorAlertSettingsReminderGetArgs>? _reminders;
+        [Input("parallelRunFailureThreshold")]
+        public Input<Inputs.TracerouteMonitorAlertSettingsParallelRunFailureThresholdGetArgs>? ParallelRunFailureThreshold { get; set; }
 
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public InputList<Inputs.TracerouteMonitorAlertSettingsReminderGetArgs> Reminders
-        {
-            get => _reminders ?? (_reminders = new InputList<Inputs.TracerouteMonitorAlertSettingsReminderGetArgs>());
-            set => _reminders = value;
-        }
-
-        [Input("runBasedEscalations")]
-        private InputList<Inputs.TracerouteMonitorAlertSettingsRunBasedEscalationGetArgs>? _runBasedEscalations;
+        [Input("reminders")]
+        public Input<Inputs.TracerouteMonitorAlertSettingsRemindersGetArgs>? Reminders { get; set; }
 
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public InputList<Inputs.TracerouteMonitorAlertSettingsRunBasedEscalationGetArgs> RunBasedEscalations
-        {
-            get => _runBasedEscalations ?? (_runBasedEscalations = new InputList<Inputs.TracerouteMonitorAlertSettingsRunBasedEscalationGetArgs>());
-            set => _runBasedEscalations = value;
-        }
-
-        [Input("timeBasedEscalations")]
-        private InputList<Inputs.TracerouteMonitorAlertSettingsTimeBasedEscalationGetArgs>? _timeBasedEscalations;
+        [Input("runBasedEscalation")]
+        public Input<Inputs.TracerouteMonitorAlertSettingsRunBasedEscalationGetArgs>? RunBasedEscalation { get; set; }
 
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public InputList<Inputs.TracerouteMonitorAlertSettingsTimeBasedEscalationGetArgs> TimeBasedEscalations
-        {
-            get => _timeBasedEscalations ?? (_timeBasedEscalations = new InputList<Inputs.TracerouteMonitorAlertSettingsTimeBasedEscalationGetArgs>());
-            set => _timeBasedEscalations = value;
-        }
+        [Input("timeBasedEscalation")]
+        public Input<Inputs.TracerouteMonitorAlertSettingsTimeBasedEscalationGetArgs>? TimeBasedEscalation { get; set; }
 
         public TracerouteMonitorAlertSettingsGetArgs()
         {

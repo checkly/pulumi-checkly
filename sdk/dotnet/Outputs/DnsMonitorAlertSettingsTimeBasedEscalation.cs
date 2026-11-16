@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class DnsMonitorAlertSettingsTimeBasedEscalation
     {
         /// <summary>
-        /// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15`, and `30`. (Default `5`).
+        /// Send an alert notification after the monitor has been failing for the given amount of time (in minutes). Possible values are `5`, `10`, `15` and `30`. Defaults to `5`.
         /// </summary>
         public readonly int? MinutesFailingThreshold;
 

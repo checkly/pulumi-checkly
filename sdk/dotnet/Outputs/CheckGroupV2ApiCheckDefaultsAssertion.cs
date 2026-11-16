@@ -14,14 +14,20 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckGroupV2ApiCheckDefaultsAssertion
     {
         /// <summary>
-        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, and `NOT_NULL`.
+        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `HAS_KEY`, `NOT_HAS_KEY`, `HAS_VALUE`, `NOT_HAS_VALUE`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL` and `NOT_NULL`.
         /// </summary>
         public readonly string Comparison;
+        /// <summary>
+        /// The property of the asserted value, for example a JSON path or header name.
+        /// </summary>
         public readonly string? Property;
         /// <summary>
-        /// The source of the asserted value. Possible values `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY`, and `RESPONSE_TIME`.
+        /// The source of the asserted value. Possible values are `STATUS_CODE`, `JSON_BODY`, `HEADERS`, `TEXT_BODY` and `RESPONSE_TIME`.
         /// </summary>
         public readonly string Source;
+        /// <summary>
+        /// The value to compare against.
+        /// </summary>
         public readonly string Target;
 
         [OutputConstructor]

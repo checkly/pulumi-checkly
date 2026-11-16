@@ -8,11 +8,13 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page: the new `StatusPageV3` resource should always be preferred for new pages.
+// Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. This resource creates a legacy v2 status page.
+//
+// The `StatusPage` resource type is deprecated in favor of `StatusPageV3` and will be removed in a future version of the provider. v3 status pages are separate objects, so an existing page cannot be converted: create a v3 page alongside it instead. A maintenance window shown on the page links to a v3 page through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 //
 // ## Example Usage
 //
@@ -21,7 +23,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -66,24 +68,38 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// StatusPage is deprecated; new status pages use checkly_status_page_v3, which manages a different kind of status page.
+// Import an existing status page using its ID.
+// The ID is returned by the Checkly API at GET /v1/status-pages.
+//
+// ```sh
+// $ pulumi import checkly:index/statusPage:StatusPage example cd8d05a4-c292-4dc4-a78f-1dea65e5457e
+// ```
+//
+// Deprecated: Use the StatusPageV3 resource instead. v3 status pages are separate objects, so an existing page cannot be converted.
 type StatusPage struct {
 	pulumi.CustomResourceState
 
 	// A list of cards to include on the status page.
 	Cards StatusPageCardArrayOutput `pulumi:"cards"`
-	// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
-	CustomDomain pulumi.StringPtrOutput `pulumi:"customDomain"`
-	// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
-	DefaultTheme pulumi.StringPtrOutput `pulumi:"defaultTheme"`
-	// A URL to an image file to use as the favicon of the status page.
-	Favicon pulumi.StringPtrOutput `pulumi:"favicon"`
-	// A URL to an image file to use as the logo for the status page.
-	Logo pulumi.StringPtrOutput `pulumi:"logo"`
+	// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
+	CustomDomain pulumi.StringOutput `pulumi:"customDomain"`
+	// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+	DefaultTheme pulumi.StringOutput `pulumi:"defaultTheme"`
+	// An http or https URL to an image file to use as the favicon of the status page.
+	Favicon pulumi.StringOutput `pulumi:"favicon"`
+	// An http or https URL to an image file to use as the logo for the status page.
+	Logo pulumi.StringOutput `pulumi:"logo"`
 	// The name of the status page.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The URL the user should be redirected to when clicking the logo.
-	RedirectTo pulumi.StringPtrOutput `pulumi:"redirectTo"`
-	// The URL of the status page.
+	// The http or https URL the user should be redirected to when clicking the logo.
+	RedirectTo pulumi.StringOutput `pulumi:"redirectTo"`
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url pulumi.StringOutput `pulumi:"url"`
 }
 
@@ -125,38 +141,38 @@ func GetStatusPage(ctx *pulumi.Context,
 type statusPageState struct {
 	// A list of cards to include on the status page.
 	Cards []StatusPageCard `pulumi:"cards"`
-	// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+	// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
-	// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+	// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme *string `pulumi:"defaultTheme"`
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon *string `pulumi:"favicon"`
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo *string `pulumi:"logo"`
 	// The name of the status page.
 	Name *string `pulumi:"name"`
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo *string `pulumi:"redirectTo"`
-	// The URL of the status page.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url *string `pulumi:"url"`
 }
 
 type StatusPageState struct {
 	// A list of cards to include on the status page.
 	Cards StatusPageCardArrayInput
-	// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+	// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
-	// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+	// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme pulumi.StringPtrInput
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon pulumi.StringPtrInput
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo pulumi.StringPtrInput
 	// The name of the status page.
 	Name pulumi.StringPtrInput
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo pulumi.StringPtrInput
-	// The URL of the status page.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url pulumi.StringPtrInput
 }
 
@@ -164,22 +180,28 @@ func (StatusPageState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageState)(nil)).Elem()
 }
 
+// StatusPageExists checks whether an existing StatusPage resource with the given ID exists.
+func StatusPageExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPage:StatusPage", id, state, "", opts...)
+}
+
 type statusPageArgs struct {
 	// A list of cards to include on the status page.
 	Cards []StatusPageCard `pulumi:"cards"`
-	// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+	// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
-	// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+	// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme *string `pulumi:"defaultTheme"`
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon *string `pulumi:"favicon"`
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo *string `pulumi:"logo"`
 	// The name of the status page.
 	Name *string `pulumi:"name"`
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo *string `pulumi:"redirectTo"`
-	// The URL of the status page.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url string `pulumi:"url"`
 }
 
@@ -187,19 +209,19 @@ type statusPageArgs struct {
 type StatusPageArgs struct {
 	// A list of cards to include on the status page.
 	Cards StatusPageCardArrayInput
-	// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
+	// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
-	// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
+	// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme pulumi.StringPtrInput
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon pulumi.StringPtrInput
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo pulumi.StringPtrInput
 	// The name of the status page.
 	Name pulumi.StringPtrInput
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo pulumi.StringPtrInput
-	// The URL of the status page.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url pulumi.StringInput
 }
 
@@ -295,24 +317,24 @@ func (o StatusPageOutput) Cards() StatusPageCardArrayOutput {
 	return o.ApplyT(func(v *StatusPage) StatusPageCardArrayOutput { return v.Cards }).(StatusPageCardArrayOutput)
 }
 
-// A custom user domain, e.g. "status.example.com". See the docs on updating your DNS and SSL usage.
-func (o StatusPageOutput) CustomDomain() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPage) pulumi.StringPtrOutput { return v.CustomDomain }).(pulumi.StringPtrOutput)
+// A custom user domain, e.g. "status.mycompany.com": a lowercase hostname without a scheme. Domains under example.com, example.net and example.org are not supported. See the docs on updating your DNS and SSL usage.
+func (o StatusPageOutput) CustomDomain() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPage) pulumi.StringOutput { return v.CustomDomain }).(pulumi.StringOutput)
 }
 
-// Possible values are `AUTO`, `DARK`, and `LIGHT`. (Default `AUTO`).
-func (o StatusPageOutput) DefaultTheme() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPage) pulumi.StringPtrOutput { return v.DefaultTheme }).(pulumi.StringPtrOutput)
+// The color theme the status page is shown in. `AUTO` follows the visitor's system preference. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+func (o StatusPageOutput) DefaultTheme() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPage) pulumi.StringOutput { return v.DefaultTheme }).(pulumi.StringOutput)
 }
 
-// A URL to an image file to use as the favicon of the status page.
-func (o StatusPageOutput) Favicon() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPage) pulumi.StringPtrOutput { return v.Favicon }).(pulumi.StringPtrOutput)
+// An http or https URL to an image file to use as the favicon of the status page.
+func (o StatusPageOutput) Favicon() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPage) pulumi.StringOutput { return v.Favicon }).(pulumi.StringOutput)
 }
 
-// A URL to an image file to use as the logo for the status page.
-func (o StatusPageOutput) Logo() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPage) pulumi.StringPtrOutput { return v.Logo }).(pulumi.StringPtrOutput)
+// An http or https URL to an image file to use as the logo for the status page.
+func (o StatusPageOutput) Logo() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPage) pulumi.StringOutput { return v.Logo }).(pulumi.StringOutput)
 }
 
 // The name of the status page.
@@ -320,12 +342,12 @@ func (o StatusPageOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPage) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The URL the user should be redirected to when clicking the logo.
-func (o StatusPageOutput) RedirectTo() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPage) pulumi.StringPtrOutput { return v.RedirectTo }).(pulumi.StringPtrOutput)
+// The http or https URL the user should be redirected to when clicking the logo.
+func (o StatusPageOutput) RedirectTo() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPage) pulumi.StringOutput { return v.RedirectTo }).(pulumi.StringOutput)
 }
 
-// The URL of the status page.
+// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 func (o StatusPageOutput) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPage) pulumi.StringOutput { return v.Url }).(pulumi.StringOutput)
 }

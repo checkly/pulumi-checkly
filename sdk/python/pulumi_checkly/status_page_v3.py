@@ -22,39 +22,40 @@ __all__ = ['StatusPageV3Args', 'StatusPageV3']
 class StatusPageV3Args:
     def __init__(__self__, *,
                  url: pulumi.Input[_builtins.str],
-                 allow_indexing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 footer_text: Optional[pulumi.Input[_builtins.str]] = None,
-                 google_analytics_tag: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo_dark: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 privacy_policy_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-                 support_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 terms_of_service_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 theme_colors: Optional[pulumi.Input['StatusPageV3ThemeColorsArgs']] = None):
+                 allow_indexing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 footer_text: pulumi.Input[Optional[_builtins.str]] = None,
+                 google_analytics_tag: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo_dark: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 privacy_policy_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+                 support_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 terms_of_service_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 theme_colors: pulumi.Input[Optional['StatusPageV3ThemeColorsArgs']] = None):
         """
         The set of arguments for constructing a StatusPageV3 resource.
-        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
-        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. (Default `true`).
+
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
+        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. Defaults to `true`.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
-        :param pulumi.Input[_builtins.str] description: A short description shown on the status page.
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text.
-        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
-        :param pulumi.Input[_builtins.str] logo_dark: A URL to an image file to use as the logo in dark mode.
+        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] description: A short description shown on the status page. Must be at most `500` characters.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text. Must be at most `1000` characters.
+        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[_builtins.str] logo_dark: An http or https URL to an image file to use as the logo in dark mode.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] privacy_policy_link: A link to your privacy policy, shown in the page footer.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
-        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer.
-        :param pulumi.Input[_builtins.str] terms_of_service_link: A link to your terms of service, shown in the page footer.
-        :param pulumi.Input['StatusPageV3ThemeColorsArgs'] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+        :param pulumi.Input[_builtins.str] privacy_policy_link: An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] terms_of_service_link: An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input['StatusPageV3ThemeColorsArgs'] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         """
         pulumi.set(__self__, "url", url)
         if allow_indexing is not None:
@@ -92,7 +93,7 @@ class StatusPageV3Args:
     @pulumi.getter
     def url(self) -> pulumi.Input[_builtins.str]:
         """
-        The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "url")
 
@@ -102,222 +103,223 @@ class StatusPageV3Args:
 
     @_builtins.property
     @pulumi.getter(name="allowIndexing")
-    def allow_indexing(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_indexing(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether search engines may index the public page. (Default `true`).
+        Whether search engines may index the public page. Defaults to `true`.
         """
         return pulumi.get(self, "allow_indexing")
 
     @allow_indexing.setter
-    def allow_indexing(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_indexing(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_indexing", value)
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
         """
         return pulumi.get(self, "custom_domain")
 
     @custom_domain.setter
-    def custom_domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_domain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_domain", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTheme")
-    def default_theme(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_theme(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+        The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         """
         return pulumi.get(self, "default_theme")
 
     @default_theme.setter
-    def default_theme(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_theme(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_theme", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A short description shown on the status page.
+        A short description shown on the status page. Must be at most `500` characters.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def favicon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the favicon of the status page.
+        An http or https URL to an image file to use as the favicon of the status page.
         """
         return pulumi.get(self, "favicon")
 
     @favicon.setter
-    def favicon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def favicon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "favicon", value)
 
     @_builtins.property
     @pulumi.getter(name="footerText")
-    def footer_text(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def footer_text(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Free-form footer text.
+        Free-form footer text. Must be at most `1000` characters.
         """
         return pulumi.get(self, "footer_text")
 
     @footer_text.setter
-    def footer_text(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def footer_text(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "footer_text", value)
 
     @_builtins.property
     @pulumi.getter(name="googleAnalyticsTag")
-    def google_analytics_tag(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def google_analytics_tag(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+        A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
         """
         return pulumi.get(self, "google_analytics_tag")
 
     @google_analytics_tag.setter
-    def google_analytics_tag(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def google_analytics_tag(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "google_analytics_tag", value)
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the logo for the status page.
+        An http or https URL to an image file to use as the logo for the status page.
         """
         return pulumi.get(self, "logo")
 
     @logo.setter
-    def logo(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo", value)
 
     @_builtins.property
     @pulumi.getter(name="logoDark")
-    def logo_dark(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo_dark(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the logo in dark mode.
+        An http or https URL to an image file to use as the logo in dark mode.
         """
         return pulumi.get(self, "logo_dark")
 
     @logo_dark.setter
-    def logo_dark(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo_dark(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo_dark", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the status page.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privacyPolicyLink")
-    def privacy_policy_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def privacy_policy_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A link to your privacy policy, shown in the page footer.
+        An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "privacy_policy_link")
 
     @privacy_policy_link.setter
-    def privacy_policy_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def privacy_policy_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "privacy_policy_link", value)
 
     @_builtins.property
     @pulumi.getter(name="redirectTo")
-    def redirect_to(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def redirect_to(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The URL the user should be redirected to when clicking the logo.
+        The http or https URL the user should be redirected to when clicking the logo.
         """
         return pulumi.get(self, "redirect_to")
 
     @redirect_to.setter
-    def redirect_to(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def redirect_to(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "redirect_to", value)
 
     @_builtins.property
     @pulumi.getter(name="supportLink")
-    def support_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def support_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A support contact link (http, https or mailto), shown in the page footer.
+        A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "support_link")
 
     @support_link.setter
-    def support_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def support_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "support_link", value)
 
     @_builtins.property
     @pulumi.getter(name="termsOfServiceLink")
-    def terms_of_service_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def terms_of_service_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A link to your terms of service, shown in the page footer.
+        An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "terms_of_service_link")
 
     @terms_of_service_link.setter
-    def terms_of_service_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def terms_of_service_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "terms_of_service_link", value)
 
     @_builtins.property
     @pulumi.getter(name="themeColors")
-    def theme_colors(self) -> Optional[pulumi.Input['StatusPageV3ThemeColorsArgs']]:
+    def theme_colors(self) -> pulumi.Input[Optional['StatusPageV3ThemeColorsArgs']]:
         """
-        Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+        Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         """
         return pulumi.get(self, "theme_colors")
 
     @theme_colors.setter
-    def theme_colors(self, value: Optional[pulumi.Input['StatusPageV3ThemeColorsArgs']]):
+    def theme_colors(self, value: pulumi.Input[Optional['StatusPageV3ThemeColorsArgs']]):
         pulumi.set(self, "theme_colors", value)
 
 
 @pulumi.input_type
 class _StatusPageV3State:
     def __init__(__self__, *,
-                 allow_indexing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 footer_text: Optional[pulumi.Input[_builtins.str]] = None,
-                 google_analytics_tag: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo_dark: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 privacy_policy_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-                 support_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 terms_of_service_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 theme_colors: Optional[pulumi.Input['StatusPageV3ThemeColorsArgs']] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None):
+                 allow_indexing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 footer_text: pulumi.Input[Optional[_builtins.str]] = None,
+                 google_analytics_tag: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo_dark: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 privacy_policy_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+                 support_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 terms_of_service_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 theme_colors: pulumi.Input[Optional['StatusPageV3ThemeColorsArgs']] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering StatusPageV3 resources.
-        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. (Default `true`).
+
+        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. Defaults to `true`.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
-        :param pulumi.Input[_builtins.str] description: A short description shown on the status page.
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text.
-        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
-        :param pulumi.Input[_builtins.str] logo_dark: A URL to an image file to use as the logo in dark mode.
+        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] description: A short description shown on the status page. Must be at most `500` characters.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text. Must be at most `1000` characters.
+        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[_builtins.str] logo_dark: An http or https URL to an image file to use as the logo in dark mode.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] privacy_policy_link: A link to your privacy policy, shown in the page footer.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
-        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer.
-        :param pulumi.Input[_builtins.str] terms_of_service_link: A link to your terms of service, shown in the page footer.
-        :param pulumi.Input['StatusPageV3ThemeColorsArgs'] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
-        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        :param pulumi.Input[_builtins.str] privacy_policy_link: An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] terms_of_service_link: An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input['StatusPageV3ThemeColorsArgs'] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         if allow_indexing is not None:
             pulumi.set(__self__, "allow_indexing", allow_indexing)
@@ -354,194 +356,194 @@ class _StatusPageV3State:
 
     @_builtins.property
     @pulumi.getter(name="allowIndexing")
-    def allow_indexing(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_indexing(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Whether search engines may index the public page. (Default `true`).
+        Whether search engines may index the public page. Defaults to `true`.
         """
         return pulumi.get(self, "allow_indexing")
 
     @allow_indexing.setter
-    def allow_indexing(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_indexing(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_indexing", value)
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
         """
         return pulumi.get(self, "custom_domain")
 
     @custom_domain.setter
-    def custom_domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_domain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_domain", value)
 
     @_builtins.property
     @pulumi.getter(name="defaultTheme")
-    def default_theme(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def default_theme(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+        The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         """
         return pulumi.get(self, "default_theme")
 
     @default_theme.setter
-    def default_theme(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def default_theme(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "default_theme", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A short description shown on the status page.
+        A short description shown on the status page. Must be at most `500` characters.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def favicon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the favicon of the status page.
+        An http or https URL to an image file to use as the favicon of the status page.
         """
         return pulumi.get(self, "favicon")
 
     @favicon.setter
-    def favicon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def favicon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "favicon", value)
 
     @_builtins.property
     @pulumi.getter(name="footerText")
-    def footer_text(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def footer_text(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Free-form footer text.
+        Free-form footer text. Must be at most `1000` characters.
         """
         return pulumi.get(self, "footer_text")
 
     @footer_text.setter
-    def footer_text(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def footer_text(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "footer_text", value)
 
     @_builtins.property
     @pulumi.getter(name="googleAnalyticsTag")
-    def google_analytics_tag(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def google_analytics_tag(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+        A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
         """
         return pulumi.get(self, "google_analytics_tag")
 
     @google_analytics_tag.setter
-    def google_analytics_tag(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def google_analytics_tag(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "google_analytics_tag", value)
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the logo for the status page.
+        An http or https URL to an image file to use as the logo for the status page.
         """
         return pulumi.get(self, "logo")
 
     @logo.setter
-    def logo(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo", value)
 
     @_builtins.property
     @pulumi.getter(name="logoDark")
-    def logo_dark(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo_dark(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL to an image file to use as the logo in dark mode.
+        An http or https URL to an image file to use as the logo in dark mode.
         """
         return pulumi.get(self, "logo_dark")
 
     @logo_dark.setter
-    def logo_dark(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo_dark(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo_dark", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the status page.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privacyPolicyLink")
-    def privacy_policy_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def privacy_policy_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A link to your privacy policy, shown in the page footer.
+        An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "privacy_policy_link")
 
     @privacy_policy_link.setter
-    def privacy_policy_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def privacy_policy_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "privacy_policy_link", value)
 
     @_builtins.property
     @pulumi.getter(name="redirectTo")
-    def redirect_to(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def redirect_to(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The URL the user should be redirected to when clicking the logo.
+        The http or https URL the user should be redirected to when clicking the logo.
         """
         return pulumi.get(self, "redirect_to")
 
     @redirect_to.setter
-    def redirect_to(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def redirect_to(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "redirect_to", value)
 
     @_builtins.property
     @pulumi.getter(name="supportLink")
-    def support_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def support_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A support contact link (http, https or mailto), shown in the page footer.
+        A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "support_link")
 
     @support_link.setter
-    def support_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def support_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "support_link", value)
 
     @_builtins.property
     @pulumi.getter(name="termsOfServiceLink")
-    def terms_of_service_link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def terms_of_service_link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A link to your terms of service, shown in the page footer.
+        An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "terms_of_service_link")
 
     @terms_of_service_link.setter
-    def terms_of_service_link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def terms_of_service_link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "terms_of_service_link", value)
 
     @_builtins.property
     @pulumi.getter(name="themeColors")
-    def theme_colors(self) -> Optional[pulumi.Input['StatusPageV3ThemeColorsArgs']]:
+    def theme_colors(self) -> pulumi.Input[Optional['StatusPageV3ThemeColorsArgs']]:
         """
-        Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+        Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         """
         return pulumi.get(self, "theme_colors")
 
     @theme_colors.setter
-    def theme_colors(self, value: Optional[pulumi.Input['StatusPageV3ThemeColorsArgs']]):
+    def theme_colors(self, value: pulumi.Input[Optional['StatusPageV3ThemeColorsArgs']]):
         pulumi.set(self, "theme_colors", value)
 
     @_builtins.property
     @pulumi.getter
-    def url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "url")
 
     @url.setter
-    def url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "url", value)
 
 
@@ -551,22 +553,22 @@ class StatusPageV3(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_indexing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 footer_text: Optional[pulumi.Input[_builtins.str]] = None,
-                 google_analytics_tag: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo_dark: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 privacy_policy_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-                 support_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 terms_of_service_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 theme_colors: Optional[pulumi.Input[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict']]] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_indexing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 footer_text: pulumi.Input[Optional[_builtins.str]] = None,
+                 google_analytics_tag: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo_dark: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 privacy_policy_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+                 support_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 terms_of_service_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 theme_colors: pulumi.Input[Optional[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict', 'outputs.StatusPageV3ThemeColors']]] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Checkly status pages allow you to easily communicate the uptime and health of your applications and services to your customers. A v3 status page has no cards or services: its structure is managed with `StatusPageV3Component` resources, and incidents can be automated with `StatusPageV3AutomationRule` resources. The `StatusPageV3` resource should always be preferred over the old `StatusPage` resource.
@@ -630,24 +632,36 @@ class StatusPageV3(pulumi.CustomResource):
             parent_id=services.id)
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing status page using its ID.
+        The ID is returned by the Checkly API at GET /v3/status-pages.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageV3:StatusPageV3 example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. (Default `true`).
+        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. Defaults to `true`.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
-        :param pulumi.Input[_builtins.str] description: A short description shown on the status page.
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text.
-        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
-        :param pulumi.Input[_builtins.str] logo_dark: A URL to an image file to use as the logo in dark mode.
+        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] description: A short description shown on the status page. Must be at most `500` characters.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text. Must be at most `1000` characters.
+        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[_builtins.str] logo_dark: An http or https URL to an image file to use as the logo in dark mode.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] privacy_policy_link: A link to your privacy policy, shown in the page footer.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
-        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer.
-        :param pulumi.Input[_builtins.str] terms_of_service_link: A link to your terms of service, shown in the page footer.
-        :param pulumi.Input[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict']] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
-        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        :param pulumi.Input[_builtins.str] privacy_policy_link: An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] terms_of_service_link: An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict', 'outputs.StatusPageV3ThemeColors']] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         ...
     @overload
@@ -717,6 +731,18 @@ class StatusPageV3(pulumi.CustomResource):
             parent_id=services.id)
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing status page using its ID.
+        The ID is returned by the Checkly API at GET /v3/status-pages.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageV3:StatusPageV3 example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param StatusPageV3Args args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -732,22 +758,22 @@ class StatusPageV3(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_indexing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 footer_text: Optional[pulumi.Input[_builtins.str]] = None,
-                 google_analytics_tag: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo_dark: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 privacy_policy_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-                 support_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 terms_of_service_link: Optional[pulumi.Input[_builtins.str]] = None,
-                 theme_colors: Optional[pulumi.Input[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict']]] = None,
-                 url: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_indexing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 footer_text: pulumi.Input[Optional[_builtins.str]] = None,
+                 google_analytics_tag: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo_dark: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 privacy_policy_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+                 support_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 terms_of_service_link: pulumi.Input[Optional[_builtins.str]] = None,
+                 theme_colors: pulumi.Input[Optional[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict', 'outputs.StatusPageV3ThemeColors']]] = None,
+                 url: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -785,22 +811,22 @@ class StatusPageV3(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            allow_indexing: Optional[pulumi.Input[_builtins.bool]] = None,
-            custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-            default_theme: Optional[pulumi.Input[_builtins.str]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            favicon: Optional[pulumi.Input[_builtins.str]] = None,
-            footer_text: Optional[pulumi.Input[_builtins.str]] = None,
-            google_analytics_tag: Optional[pulumi.Input[_builtins.str]] = None,
-            logo: Optional[pulumi.Input[_builtins.str]] = None,
-            logo_dark: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            privacy_policy_link: Optional[pulumi.Input[_builtins.str]] = None,
-            redirect_to: Optional[pulumi.Input[_builtins.str]] = None,
-            support_link: Optional[pulumi.Input[_builtins.str]] = None,
-            terms_of_service_link: Optional[pulumi.Input[_builtins.str]] = None,
-            theme_colors: Optional[pulumi.Input[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict']]] = None,
-            url: Optional[pulumi.Input[_builtins.str]] = None) -> 'StatusPageV3':
+            allow_indexing: pulumi.Input[Optional[_builtins.bool]] = None,
+            custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+            default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            favicon: pulumi.Input[Optional[_builtins.str]] = None,
+            footer_text: pulumi.Input[Optional[_builtins.str]] = None,
+            google_analytics_tag: pulumi.Input[Optional[_builtins.str]] = None,
+            logo: pulumi.Input[Optional[_builtins.str]] = None,
+            logo_dark: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            privacy_policy_link: pulumi.Input[Optional[_builtins.str]] = None,
+            redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+            support_link: pulumi.Input[Optional[_builtins.str]] = None,
+            terms_of_service_link: pulumi.Input[Optional[_builtins.str]] = None,
+            theme_colors: pulumi.Input[Optional[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict', 'outputs.StatusPageV3ThemeColors']]] = None,
+            url: pulumi.Input[Optional[_builtins.str]] = None) -> 'StatusPageV3':
         """
         Get an existing StatusPageV3 resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -808,22 +834,22 @@ class StatusPageV3(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. (Default `true`).
+        :param pulumi.Input[_builtins.bool] allow_indexing: Whether search engines may index the public page. Defaults to `true`.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
-        :param pulumi.Input[_builtins.str] description: A short description shown on the status page.
-        :param pulumi.Input[_builtins.str] favicon: A URL to an image file to use as the favicon of the status page.
-        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text.
-        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
-        :param pulumi.Input[_builtins.str] logo: A URL to an image file to use as the logo for the status page.
-        :param pulumi.Input[_builtins.str] logo_dark: A URL to an image file to use as the logo in dark mode.
+        :param pulumi.Input[_builtins.str] default_theme: The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+        :param pulumi.Input[_builtins.str] description: A short description shown on the status page. Must be at most `500` characters.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL to an image file to use as the favicon of the status page.
+        :param pulumi.Input[_builtins.str] footer_text: Free-form footer text. Must be at most `1000` characters.
+        :param pulumi.Input[_builtins.str] google_analytics_tag: A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL to an image file to use as the logo for the status page.
+        :param pulumi.Input[_builtins.str] logo_dark: An http or https URL to an image file to use as the logo in dark mode.
         :param pulumi.Input[_builtins.str] name: The name of the status page.
-        :param pulumi.Input[_builtins.str] privacy_policy_link: A link to your privacy policy, shown in the page footer.
-        :param pulumi.Input[_builtins.str] redirect_to: The URL the user should be redirected to when clicking the logo.
-        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer.
-        :param pulumi.Input[_builtins.str] terms_of_service_link: A link to your terms of service, shown in the page footer.
-        :param pulumi.Input[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict']] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
-        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        :param pulumi.Input[_builtins.str] privacy_policy_link: An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] redirect_to: The http or https URL the user should be redirected to when clicking the logo.
+        :param pulumi.Input[_builtins.str] support_link: A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] terms_of_service_link: An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
+        :param pulumi.Input[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict', 'outputs.StatusPageV3ThemeColors']] theme_colors: Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
+        :param pulumi.Input[_builtins.str] url: The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -847,17 +873,55 @@ class StatusPageV3(pulumi.CustomResource):
         __props__.__dict__["url"] = url
         return StatusPageV3(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            allow_indexing: pulumi.Input[Optional[_builtins.bool]] = None,
+            custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+            default_theme: pulumi.Input[Optional[_builtins.str]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            favicon: pulumi.Input[Optional[_builtins.str]] = None,
+            footer_text: pulumi.Input[Optional[_builtins.str]] = None,
+            google_analytics_tag: pulumi.Input[Optional[_builtins.str]] = None,
+            logo: pulumi.Input[Optional[_builtins.str]] = None,
+            logo_dark: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            privacy_policy_link: pulumi.Input[Optional[_builtins.str]] = None,
+            redirect_to: pulumi.Input[Optional[_builtins.str]] = None,
+            support_link: pulumi.Input[Optional[_builtins.str]] = None,
+            terms_of_service_link: pulumi.Input[Optional[_builtins.str]] = None,
+            theme_colors: pulumi.Input[Optional[Union['StatusPageV3ThemeColorsArgs', 'StatusPageV3ThemeColorsArgsDict', 'outputs.StatusPageV3ThemeColors']]] = None,
+            url: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["allowIndexing"] = allow_indexing
+        __props__["customDomain"] = custom_domain
+        __props__["defaultTheme"] = default_theme
+        __props__["description"] = description
+        __props__["favicon"] = favicon
+        __props__["footerText"] = footer_text
+        __props__["googleAnalyticsTag"] = google_analytics_tag
+        __props__["logo"] = logo
+        __props__["logoDark"] = logo_dark
+        __props__["name"] = name
+        __props__["privacyPolicyLink"] = privacy_policy_link
+        __props__["redirectTo"] = redirect_to
+        __props__["supportLink"] = support_link
+        __props__["termsOfServiceLink"] = terms_of_service_link
+        __props__["themeColors"] = theme_colors
+        __props__["url"] = url
+        return pulumi.runtime.exists_resource(None, 'checkly:index/statusPageV3:StatusPageV3', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="allowIndexing")
-    def allow_indexing(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def allow_indexing(self) -> pulumi.Output[_builtins.bool]:
         """
-        Whether search engines may index the public page. (Default `true`).
+        Whether search engines may index the public page. Defaults to `true`.
         """
         return pulumi.get(self, "allow_indexing")
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Output[_builtins.str]:
         """
         A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
         """
@@ -865,57 +929,57 @@ class StatusPageV3(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="defaultTheme")
-    def default_theme(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def default_theme(self) -> pulumi.Output[_builtins.str]:
         """
-        The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+        The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
         """
         return pulumi.get(self, "default_theme")
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def description(self) -> pulumi.Output[_builtins.str]:
         """
-        A short description shown on the status page.
+        A short description shown on the status page. Must be at most `500` characters.
         """
         return pulumi.get(self, "description")
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def favicon(self) -> pulumi.Output[_builtins.str]:
         """
-        A URL to an image file to use as the favicon of the status page.
+        An http or https URL to an image file to use as the favicon of the status page.
         """
         return pulumi.get(self, "favicon")
 
     @_builtins.property
     @pulumi.getter(name="footerText")
-    def footer_text(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def footer_text(self) -> pulumi.Output[_builtins.str]:
         """
-        Free-form footer text.
+        Free-form footer text. Must be at most `1000` characters.
         """
         return pulumi.get(self, "footer_text")
 
     @_builtins.property
     @pulumi.getter(name="googleAnalyticsTag")
-    def google_analytics_tag(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def google_analytics_tag(self) -> pulumi.Output[_builtins.str]:
         """
-        A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+        A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
         """
         return pulumi.get(self, "google_analytics_tag")
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def logo(self) -> pulumi.Output[_builtins.str]:
         """
-        A URL to an image file to use as the logo for the status page.
+        An http or https URL to an image file to use as the logo for the status page.
         """
         return pulumi.get(self, "logo")
 
     @_builtins.property
     @pulumi.getter(name="logoDark")
-    def logo_dark(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def logo_dark(self) -> pulumi.Output[_builtins.str]:
         """
-        A URL to an image file to use as the logo in dark mode.
+        An http or https URL to an image file to use as the logo in dark mode.
         """
         return pulumi.get(self, "logo_dark")
 
@@ -929,33 +993,33 @@ class StatusPageV3(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="privacyPolicyLink")
-    def privacy_policy_link(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def privacy_policy_link(self) -> pulumi.Output[_builtins.str]:
         """
-        A link to your privacy policy, shown in the page footer.
+        An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "privacy_policy_link")
 
     @_builtins.property
     @pulumi.getter(name="redirectTo")
-    def redirect_to(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def redirect_to(self) -> pulumi.Output[_builtins.str]:
         """
-        The URL the user should be redirected to when clicking the logo.
+        The http or https URL the user should be redirected to when clicking the logo.
         """
         return pulumi.get(self, "redirect_to")
 
     @_builtins.property
     @pulumi.getter(name="supportLink")
-    def support_link(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def support_link(self) -> pulumi.Output[_builtins.str]:
         """
-        A support contact link (http, https or mailto), shown in the page footer.
+        A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "support_link")
 
     @_builtins.property
     @pulumi.getter(name="termsOfServiceLink")
-    def terms_of_service_link(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def terms_of_service_link(self) -> pulumi.Output[_builtins.str]:
         """
-        A link to your terms of service, shown in the page footer.
+        An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
         """
         return pulumi.get(self, "terms_of_service_link")
 
@@ -963,7 +1027,7 @@ class StatusPageV3(pulumi.CustomResource):
     @pulumi.getter(name="themeColors")
     def theme_colors(self) -> pulumi.Output[Optional['outputs.StatusPageV3ThemeColors']]:
         """
-        Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+        Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
         """
         return pulumi.get(self, "theme_colors")
 
@@ -971,7 +1035,7 @@ class StatusPageV3(pulumi.CustomResource):
     @pulumi.getter
     def url(self) -> pulumi.Output[_builtins.str]:
         """
-        The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+        The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "url")
 

@@ -14,43 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class TracerouteMonitorAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TracerouteMonitorAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.TracerouteMonitorAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TracerouteMonitorAlertSettingsReminder> Reminders;
+        public readonly Outputs.TracerouteMonitorAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TracerouteMonitorAlertSettingsRunBasedEscalation> RunBasedEscalations;
+        public readonly Outputs.TracerouteMonitorAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.TracerouteMonitorAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.TracerouteMonitorAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private TracerouteMonitorAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.TracerouteMonitorAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.TracerouteMonitorAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.TracerouteMonitorAlertSettingsReminder> reminders,
+            Outputs.TracerouteMonitorAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.TracerouteMonitorAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.TracerouteMonitorAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.TracerouteMonitorAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.TracerouteMonitorAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

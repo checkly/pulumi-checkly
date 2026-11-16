@@ -5,6 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * A private location runs checks from your own infrastructure: Checkly agents that you deploy, for example as containers in your network, run the checks and monitors assigned to it. The agents authenticate with the location's API keys, which are only available when the location is created; see `keys`.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -15,6 +17,26 @@ import * as utilities from "./utilities";
  *     name: "New Private Location",
  *     slugName: "new-private-location",
  * });
+ * const config = new pulumi.Config();
+ * const proxyUrl = config.require("proxyUrl");
+ * // API checks running in this location send their HTTP requests through the
+ * // proxy.
+ * const location_with_proxy = new checkly.PrivateLocation("location-with-proxy", {
+ *     name: "Private Location behind a proxy",
+ *     slugName: "private-location-with-proxy",
+ *     proxyUrl: proxyUrl,
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing private location using its ID.
+ * The ID is returned by the Checkly API at GET /v1/private-locations.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/privateLocation:PrivateLocation example 2a48cb5f-415a-4368-bffe-a58533d4b0a8
  * ```
  */
 export class PrivateLocation extends pulumi.CustomResource {
@@ -29,6 +51,17 @@ export class PrivateLocation extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: PrivateLocationState, opts?: pulumi.CustomResourceOptions): PrivateLocation {
         return new PrivateLocation(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing PrivateLocation resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: PrivateLocationState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/privateLocation:PrivateLocation", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -46,11 +79,11 @@ export class PrivateLocation extends pulumi.CustomResource {
     }
 
     /**
-     * Icon assigned to the private location.
+     * Icon assigned to the private location. Defaults to `location`.
      */
-    declare public readonly icon: pulumi.Output<string | undefined>;
+    declare public readonly icon: pulumi.Output<string>;
     /**
-     * Private location API keys.
+     * The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
      */
     declare public /*out*/ readonly keys: pulumi.Output<string[]>;
     /**
@@ -58,7 +91,11 @@ export class PrivateLocation extends pulumi.CustomResource {
      */
     declare public readonly name: pulumi.Output<string>;
     /**
-     * Valid slug name.
+     * The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+     */
+    declare public readonly proxyUrl: pulumi.Output<string | undefined>;
+    /**
+     * The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `checkly.PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
      */
     declare public readonly slugName: pulumi.Output<string>;
 
@@ -78,6 +115,7 @@ export class PrivateLocation extends pulumi.CustomResource {
             resourceInputs["icon"] = state?.icon;
             resourceInputs["keys"] = state?.keys;
             resourceInputs["name"] = state?.name;
+            resourceInputs["proxyUrl"] = state?.proxyUrl;
             resourceInputs["slugName"] = state?.slugName;
         } else {
             const args = argsOrState as PrivateLocationArgs | undefined;
@@ -86,11 +124,12 @@ export class PrivateLocation extends pulumi.CustomResource {
             }
             resourceInputs["icon"] = args?.icon;
             resourceInputs["name"] = args?.name;
+            resourceInputs["proxyUrl"] = args?.proxyUrl ? pulumi.secret(args.proxyUrl) : undefined;
             resourceInputs["slugName"] = args?.slugName;
             resourceInputs["keys"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["keys"] };
+        const secretOpts = { additionalSecretOutputs: ["keys", "proxyUrl"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(PrivateLocation.__pulumiType, name, resourceInputs, opts);
     }
@@ -101,21 +140,25 @@ export class PrivateLocation extends pulumi.CustomResource {
  */
 export interface PrivateLocationState {
     /**
-     * Icon assigned to the private location.
+     * Icon assigned to the private location. Defaults to `location`.
      */
-    icon?: pulumi.Input<string>;
+    icon?: pulumi.Input<string | undefined>;
     /**
-     * Private location API keys.
+     * The API keys that the location's agents authenticate with. The API returns a key only when it is created, so this holds the key created with the location and is never refreshed: keys added or revoked later, for example in the web app, don't show here. After an import, it is null.
      */
-    keys?: pulumi.Input<pulumi.Input<string>[]>;
+    keys?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * The private location name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
-     * Valid slug name.
+     * The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
      */
-    slugName?: pulumi.Input<string>;
+    proxyUrl?: pulumi.Input<string | undefined>;
+    /**
+     * The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `checkly.PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
+     */
+    slugName?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -123,15 +166,19 @@ export interface PrivateLocationState {
  */
 export interface PrivateLocationArgs {
     /**
-     * Icon assigned to the private location.
+     * Icon assigned to the private location. Defaults to `location`.
      */
-    icon?: pulumi.Input<string>;
+    icon?: pulumi.Input<string | undefined>;
     /**
      * The private location name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
-     * Valid slug name.
+     * The proxy that API checks running in the private location send their HTTP requests through, such as `https://user:password@proxy.example.com:3128`. It can hold credentials.
+     */
+    proxyUrl?: pulumi.Input<string | undefined>;
+    /**
+     * The slug name of the private location, which checks and monitors refer to the location by. Must be between `1` and `30` characters. Must contain only letters, digits and dashes, and must not start with the ID of a public location such as `eu-central-1`. The slug can't be changed after creation: a preview that changes it fails. `pulumi up --replace` skips this check and replaces the location, which the API refuses for a location that checks or groups use, and which disconnects its agents, so don't use it to change the slug. To use a different slug, add a new `checkly.PrivateLocation` resource with it, move your checks and agents to the new location, then remove the old resource.
      */
     slugName: pulumi.Input<string>;
 }

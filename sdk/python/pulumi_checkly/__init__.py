@@ -7,6 +7,8 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .alert_channel import *
+from .api_check import *
+from .browser_check import *
 from .check import *
 from .check_group import *
 from .check_group_v2 import *
@@ -20,6 +22,7 @@ from .heartbeat_check import *
 from .heartbeat_monitor import *
 from .icmp_monitor import *
 from .maintenance_window import *
+from .multistep_check import *
 from .playwright_check_suite import *
 from .playwright_code_bundle import *
 from .private_location import *
@@ -34,8 +37,6 @@ from .status_page_v3_component import *
 from .tcp_check import *
 from .tcp_monitor import *
 from .traceroute_monitor import *
-from .trigger_check import *
-from .trigger_check_group import *
 from .url_monitor import *
 from ._inputs import *
 from . import outputs
@@ -56,6 +57,22 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/alertChannel:AlertChannel": "AlertChannel"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/apiCheck",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/apiCheck:ApiCheck": "ApiCheck"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/browserCheck",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/browserCheck:BrowserCheck": "BrowserCheck"
   }
  },
  {
@@ -152,6 +169,14 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/maintenanceWindow:MaintenanceWindow": "MaintenanceWindow"
+  }
+ },
+ {
+  "pkg": "checkly",
+  "mod": "index/multistepCheck",
+  "fqn": "pulumi_checkly",
+  "classes": {
+   "checkly:index/multistepCheck:MultistepCheck": "MultistepCheck"
   }
  },
  {
@@ -256,22 +281,6 @@ _utilities.register(
   "fqn": "pulumi_checkly",
   "classes": {
    "checkly:index/tracerouteMonitor:TracerouteMonitor": "TracerouteMonitor"
-  }
- },
- {
-  "pkg": "checkly",
-  "mod": "index/triggerCheck",
-  "fqn": "pulumi_checkly",
-  "classes": {
-   "checkly:index/triggerCheck:TriggerCheck": "TriggerCheck"
-  }
- },
- {
-  "pkg": "checkly",
-  "mod": "index/triggerCheckGroup",
-  "fqn": "pulumi_checkly",
-  "classes": {
-   "checkly:index/triggerCheckGroup:TriggerCheckGroup": "TriggerCheckGroup"
   }
  },
  {

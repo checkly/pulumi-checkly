@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class IcmpMonitorRequestAssertion
     {
         /// <summary>
-        /// The type of comparison to be executed between expected and actual value of the assertion. Possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`.
+        /// The type of comparison to be executed between expected and actual value of the assertion. For `LATENCY`, possible values are `EQUALS`, `NOT_EQUALS`, `GREATER_THAN` and `LESS_THAN`. For `JSON_RESPONSE`, possible values are `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL` and `NOT_NULL`.
         /// </summary>
         public readonly string Comparison;
         /// <summary>
-        /// The property of the source to assert. For `LATENCY` source, possible values are `avg`, `min`, `max` and `stdDev`.
+        /// The property of the source to assert. Required for `LATENCY`, where possible values are `Avg`, `Min`, `Max` and `stdDev`. For `JSON_RESPONSE`, a JSONPath expression selecting the asserted value.
         /// </summary>
         public readonly string? Property;
         /// <summary>
@@ -26,9 +26,9 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly string Source;
         /// <summary>
-        /// The target value for the assertion.
+        /// The target value for the assertion. Required for `LATENCY`, where it must be a non-negative number of milliseconds without surrounding whitespace. Leave it out for comparisons that take no value, such as `IS_EMPTY` and `NOT_NULL`.
         /// </summary>
-        public readonly string Target;
+        public readonly string? Target;
 
         [OutputConstructor]
         private IcmpMonitorRequestAssertion(
@@ -38,7 +38,7 @@ namespace Pulumi.Checkly.Outputs
 
             string source,
 
-            string target)
+            string? target)
         {
             Comparison = comparison;
             Property = property;

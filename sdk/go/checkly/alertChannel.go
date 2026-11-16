@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -20,7 +20,9 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"strconv"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -66,7 +68,7 @@ import (
 //				return err
 //			}
 //			// A legacy Slack alert channel, using a Slack webhook URL.
-//			// Deprecated: use the slack_app block instead.
+//			// Deprecated: use the slack_app attribute instead.
 //			_, err = checkly.NewAlertChannel(ctx, "slack_ac", &checkly.AlertChannelArgs{
 //				Slack: &checkly.AlertChannelSlackArgs{
 //					Channel: pulumi.String("#checkly-notifications"),
@@ -81,8 +83,8 @@ import (
 //				Opsgenie: &checkly.AlertChannelOpsgenieArgs{
 //					Name:     pulumi.String("opsalerts"),
 //					ApiKey:   pulumi.String("fookey"),
-//					Region:   pulumi.String("fooregion"),
-//					Priority: pulumi.String("foopriority"),
+//					Region:   pulumi.String("US"),
+//					Priority: pulumi.String("P1"),
 //				},
 //			})
 //			if err != nil {
@@ -103,7 +105,7 @@ import (
 //			_, err = checkly.NewAlertChannel(ctx, "webhook_ac", &checkly.AlertChannelArgs{
 //				Webhook: &checkly.AlertChannelWebhookArgs{
 //					Name:          pulumi.String("foo"),
-//					Method:        pulumi.String("get"),
+//					Method:        pulumi.String("GET"),
 //					Template:      pulumi.String("footemplate"),
 //					Url:           pulumi.String("https://example.com/foo"),
 //					WebhookSecret: pulumi.String("foosecret"),
@@ -112,20 +114,20 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			// A Firehydran alert channel integration
+//			// A FireHydrant alert channel integration
 //			_, err = checkly.NewAlertChannel(ctx, "firehydrant_ac", &checkly.AlertChannelArgs{
 //				Webhook: &checkly.AlertChannelWebhookArgs{
 //					Name:   pulumi.String("firehydrant"),
-//					Method: pulumi.String("post"),
+//					Method: pulumi.String("POST"),
 //					Template: pulumi.String(`{
-//	  "event": "{{ALERT_TITLE}}",
-//	  "link": "{{RESULT_LINK}}",
-//	  "check_id": "{{CHECK_ID}}",
-//	  "check_type": "{{CHECK_TYPE}}",
-//	  "alert_type": "{{ALERT_TYPE}}",
-//	  "started_at": "{{STARTED_AT}}",
-//	  "check_result_id": "{{CHECK_RESULT_ID}}"
-//	},
+//	  \"event\": \"{{ALERT_TITLE}}\",
+//	  \"link\": \"{{RESULT_LINK}}\",
+//	  \"check_id\": \"{{CHECK_ID}}\",
+//	  \"check_type\": \"{{CHECK_TYPE}}\",
+//	  \"alert_type\": \"{{ALERT_TYPE}}\",
+//	  \"started_at\": \"{{STARTED_AT}}\",
+//	  \"check_result_id\": \"{{CHECK_RESULT_ID}}\"
+//	}
 //
 // `),
 //
@@ -146,13 +148,13 @@ import (
 //					WebhookSecret: pulumi.String("<rootly-webhook-secret>"),
 //					WebhookType:   pulumi.String("WEBHOOK_ROOTLY"),
 //					Template: pulumi.String(`{
-//	  "alert_type": "{{ALERT_TYPE}}",
-//	  "check_id": "{{CHECK_ID}}",
-//	  "check_result_id": "{{CHECK_RESULT_ID}}",
-//	  "check_name": "{{CHECK_NAME}}",
-//	  "alert_title": "{{ALERT_TITLE}}",
-//	  "started_at": "{{STARTED_AT}}",
-//	  "link": "{{RESULT_LINK}}"
+//	  \"alert_type\": \"{{ALERT_TYPE}}\",
+//	  \"check_id\": \"{{CHECK_ID}}\",
+//	  \"check_result_id\": \"{{CHECK_RESULT_ID}}\",
+//	  \"check_name\": \"{{CHECK_NAME}}\",
+//	  \"alert_title\": \"{{ALERT_TITLE}}\",
+//	  \"started_at\": \"{{STARTED_AT}}\",
+//	  \"link\": \"{{RESULT_LINK}}\"
 //	}
 //
 // `),
@@ -176,13 +178,13 @@ import (
 //					WebhookSecret: pulumi.String("<rootly-webhook-secret>"),
 //					WebhookType:   pulumi.String("WEBHOOK_ROOTLY"),
 //					Template: pulumi.String(`{
-//	  "alert_type": "{{ALERT_TYPE}}",
-//	  "check_id": "{{CHECK_ID}}",
-//	  "check_result_id": "{{CHECK_RESULT_ID}}",
-//	  "check_name": "{{CHECK_NAME}}",
-//	  "alert_title": "{{ALERT_TITLE}}",
-//	  "started_at": "{{STARTED_AT}}",
-//	  "link": "{{RESULT_LINK}}"
+//	  \"alert_type\": \"{{ALERT_TYPE}}\",
+//	  \"check_id\": \"{{CHECK_ID}}\",
+//	  \"check_result_id\": \"{{CHECK_RESULT_ID}}\",
+//	  \"check_name\": \"{{CHECK_NAME}}\",
+//	  \"alert_title\": \"{{ALERT_TITLE}}\",
+//	  \"started_at\": \"{{STARTED_AT}}\",
+//	  \"link\": \"{{RESULT_LINK}}\"
 //	}
 //
 // `),
@@ -195,15 +197,18 @@ import (
 //				return err
 //			}
 //			// Connecting the alert channel to a check
-//			_, err = checkly.NewCheck(ctx, "example_check", &checkly.CheckArgs{
+//			_, err = checkly.NewApiCheck(ctx, "example_check", &checkly.ApiCheckArgs{
 //				Name: pulumi.String("Example check"),
-//				AlertChannelSubscriptions: checkly.CheckAlertChannelSubscriptionArray{
-//					&checkly.CheckAlertChannelSubscriptionArgs{
-//						ChannelId: emailAc.ID(),
+//				Request: &checkly.ApiCheckRequestArgs{
+//					Url: pulumi.String("https://api.example.com/"),
+//				},
+//				AlertChannelSubscriptions: checkly.ApiCheckAlertChannelSubscriptionArray{
+//					&checkly.ApiCheckAlertChannelSubscriptionArgs{
+//						ChannelId: emailAc.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //						Activated: pulumi.Bool(true),
 //					},
-//					&checkly.CheckAlertChannelSubscriptionArgs{
-//						ChannelId: smsAc.ID(),
+//					&checkly.ApiCheckAlertChannelSubscriptionArgs{
+//						ChannelId: smsAc.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //						Activated: pulumi.Bool(true),
 //					},
 //				},
@@ -216,28 +221,50 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing alert channel using its numeric ID.
+// The ID is returned by the Checkly API at GET /v1/alert-channels.
+//
+// ```sh
+// $ pulumi import checkly:index/alertChannel:AlertChannel example 12345
+// ```
 type AlertChannel struct {
 	pulumi.CustomResourceState
 
-	Call      AlertChannelCallPtrOutput      `pulumi:"call"`
-	Email     AlertChannelEmailPtrOutput     `pulumi:"email"`
-	Opsgenie  AlertChannelOpsgeniePtrOutput  `pulumi:"opsgenie"`
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	AutoSubscribe pulumi.BoolOutput `pulumi:"autoSubscribe"`
+	// Sends alerts as phone calls.
+	Call AlertChannelCallPtrOutput `pulumi:"call"`
+	// Sends alerts by email.
+	Email AlertChannelEmailPtrOutput `pulumi:"email"`
+	// Creates alerts in Opsgenie.
+	Opsgenie AlertChannelOpsgeniePtrOutput `pulumi:"opsgenie"`
+	// Sends alerts to a PagerDuty service.
 	Pagerduty AlertChannelPagerdutyPtrOutput `pulumi:"pagerduty"`
-	// (Default `false`)
-	SendDegraded pulumi.BoolPtrOutput `pulumi:"sendDegraded"`
-	// (Default `true`)
-	SendFailure pulumi.BoolPtrOutput `pulumi:"sendFailure"`
-	// (Default `true`)
-	SendRecovery pulumi.BoolPtrOutput `pulumi:"sendRecovery"`
-	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
-	Slack    AlertChannelSlackPtrOutput    `pulumi:"slack"`
+	// Whether to send an alert when a check is degraded. Defaults to `false`.
+	SendDegraded pulumi.BoolOutput `pulumi:"sendDegraded"`
+	// Whether to send an alert when a check fails. Defaults to `true`.
+	SendFailure pulumi.BoolOutput `pulumi:"sendFailure"`
+	// Whether to send an alert when a check recovers. Defaults to `true`.
+	SendRecovery pulumi.BoolOutput `pulumi:"sendRecovery"`
+	// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+	//
+	// Deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack AlertChannelSlackPtrOutput `pulumi:"slack"`
+	// Sends alerts to Slack channels or users through the Checkly Slack app.
 	SlackApp AlertChannelSlackAppPtrOutput `pulumi:"slackApp"`
-	Sms      AlertChannelSmsPtrOutput      `pulumi:"sms"`
-	// (Default `false`)
-	SslExpiry pulumi.BoolPtrOutput `pulumi:"sslExpiry"`
-	// Value must be between 1 and 30 (Default `30`)
-	SslExpiryThreshold pulumi.IntPtrOutput          `pulumi:"sslExpiryThreshold"`
-	Webhook            AlertChannelWebhookPtrOutput `pulumi:"webhook"`
+	// Sends alerts as SMS messages.
+	Sms AlertChannelSmsPtrOutput `pulumi:"sms"`
+	// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+	SslExpiry pulumi.BoolOutput `pulumi:"sslExpiry"`
+	// How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+	SslExpiryThreshold pulumi.IntOutput `pulumi:"sslExpiryThreshold"`
+	// Sends alerts as HTTP requests to a webhook.
+	Webhook AlertChannelWebhookPtrOutput `pulumi:"webhook"`
 }
 
 // NewAlertChannel registers a new resource with the given unique name, arguments, and options.
@@ -270,96 +297,146 @@ func GetAlertChannel(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering AlertChannel resources.
 type alertChannelState struct {
-	Call      *AlertChannelCall      `pulumi:"call"`
-	Email     *AlertChannelEmail     `pulumi:"email"`
-	Opsgenie  *AlertChannelOpsgenie  `pulumi:"opsgenie"`
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	AutoSubscribe *bool `pulumi:"autoSubscribe"`
+	// Sends alerts as phone calls.
+	Call *AlertChannelCall `pulumi:"call"`
+	// Sends alerts by email.
+	Email *AlertChannelEmail `pulumi:"email"`
+	// Creates alerts in Opsgenie.
+	Opsgenie *AlertChannelOpsgenie `pulumi:"opsgenie"`
+	// Sends alerts to a PagerDuty service.
 	Pagerduty *AlertChannelPagerduty `pulumi:"pagerduty"`
-	// (Default `false`)
+	// Whether to send an alert when a check is degraded. Defaults to `false`.
 	SendDegraded *bool `pulumi:"sendDegraded"`
-	// (Default `true`)
+	// Whether to send an alert when a check fails. Defaults to `true`.
 	SendFailure *bool `pulumi:"sendFailure"`
-	// (Default `true`)
+	// Whether to send an alert when a check recovers. Defaults to `true`.
 	SendRecovery *bool `pulumi:"sendRecovery"`
-	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
-	Slack    *AlertChannelSlack    `pulumi:"slack"`
+	// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+	//
+	// Deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack *AlertChannelSlack `pulumi:"slack"`
+	// Sends alerts to Slack channels or users through the Checkly Slack app.
 	SlackApp *AlertChannelSlackApp `pulumi:"slackApp"`
-	Sms      *AlertChannelSms      `pulumi:"sms"`
-	// (Default `false`)
+	// Sends alerts as SMS messages.
+	Sms *AlertChannelSms `pulumi:"sms"`
+	// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
 	SslExpiry *bool `pulumi:"sslExpiry"`
-	// Value must be between 1 and 30 (Default `30`)
-	SslExpiryThreshold *int                 `pulumi:"sslExpiryThreshold"`
-	Webhook            *AlertChannelWebhook `pulumi:"webhook"`
+	// How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+	SslExpiryThreshold *int `pulumi:"sslExpiryThreshold"`
+	// Sends alerts as HTTP requests to a webhook.
+	Webhook *AlertChannelWebhook `pulumi:"webhook"`
 }
 
 type AlertChannelState struct {
-	Call      AlertChannelCallPtrInput
-	Email     AlertChannelEmailPtrInput
-	Opsgenie  AlertChannelOpsgeniePtrInput
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	AutoSubscribe pulumi.BoolPtrInput
+	// Sends alerts as phone calls.
+	Call AlertChannelCallPtrInput
+	// Sends alerts by email.
+	Email AlertChannelEmailPtrInput
+	// Creates alerts in Opsgenie.
+	Opsgenie AlertChannelOpsgeniePtrInput
+	// Sends alerts to a PagerDuty service.
 	Pagerduty AlertChannelPagerdutyPtrInput
-	// (Default `false`)
+	// Whether to send an alert when a check is degraded. Defaults to `false`.
 	SendDegraded pulumi.BoolPtrInput
-	// (Default `true`)
+	// Whether to send an alert when a check fails. Defaults to `true`.
 	SendFailure pulumi.BoolPtrInput
-	// (Default `true`)
+	// Whether to send an alert when a check recovers. Defaults to `true`.
 	SendRecovery pulumi.BoolPtrInput
-	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
-	Slack    AlertChannelSlackPtrInput
+	// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+	//
+	// Deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack AlertChannelSlackPtrInput
+	// Sends alerts to Slack channels or users through the Checkly Slack app.
 	SlackApp AlertChannelSlackAppPtrInput
-	Sms      AlertChannelSmsPtrInput
-	// (Default `false`)
+	// Sends alerts as SMS messages.
+	Sms AlertChannelSmsPtrInput
+	// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
 	SslExpiry pulumi.BoolPtrInput
-	// Value must be between 1 and 30 (Default `30`)
+	// How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
 	SslExpiryThreshold pulumi.IntPtrInput
-	Webhook            AlertChannelWebhookPtrInput
+	// Sends alerts as HTTP requests to a webhook.
+	Webhook AlertChannelWebhookPtrInput
 }
 
 func (AlertChannelState) ElementType() reflect.Type {
 	return reflect.TypeOf((*alertChannelState)(nil)).Elem()
 }
 
+// AlertChannelExists checks whether an existing AlertChannel resource with the given ID exists.
+func AlertChannelExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AlertChannelState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/alertChannel:AlertChannel", id, state, "", opts...)
+}
+
 type alertChannelArgs struct {
-	Call      *AlertChannelCall      `pulumi:"call"`
-	Email     *AlertChannelEmail     `pulumi:"email"`
-	Opsgenie  *AlertChannelOpsgenie  `pulumi:"opsgenie"`
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	AutoSubscribe *bool `pulumi:"autoSubscribe"`
+	// Sends alerts as phone calls.
+	Call *AlertChannelCall `pulumi:"call"`
+	// Sends alerts by email.
+	Email *AlertChannelEmail `pulumi:"email"`
+	// Creates alerts in Opsgenie.
+	Opsgenie *AlertChannelOpsgenie `pulumi:"opsgenie"`
+	// Sends alerts to a PagerDuty service.
 	Pagerduty *AlertChannelPagerduty `pulumi:"pagerduty"`
-	// (Default `false`)
+	// Whether to send an alert when a check is degraded. Defaults to `false`.
 	SendDegraded *bool `pulumi:"sendDegraded"`
-	// (Default `true`)
+	// Whether to send an alert when a check fails. Defaults to `true`.
 	SendFailure *bool `pulumi:"sendFailure"`
-	// (Default `true`)
+	// Whether to send an alert when a check recovers. Defaults to `true`.
 	SendRecovery *bool `pulumi:"sendRecovery"`
-	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
-	Slack    *AlertChannelSlack    `pulumi:"slack"`
+	// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+	//
+	// Deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack *AlertChannelSlack `pulumi:"slack"`
+	// Sends alerts to Slack channels or users through the Checkly Slack app.
 	SlackApp *AlertChannelSlackApp `pulumi:"slackApp"`
-	Sms      *AlertChannelSms      `pulumi:"sms"`
-	// (Default `false`)
+	// Sends alerts as SMS messages.
+	Sms *AlertChannelSms `pulumi:"sms"`
+	// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
 	SslExpiry *bool `pulumi:"sslExpiry"`
-	// Value must be between 1 and 30 (Default `30`)
-	SslExpiryThreshold *int                 `pulumi:"sslExpiryThreshold"`
-	Webhook            *AlertChannelWebhook `pulumi:"webhook"`
+	// How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+	SslExpiryThreshold *int `pulumi:"sslExpiryThreshold"`
+	// Sends alerts as HTTP requests to a webhook.
+	Webhook *AlertChannelWebhook `pulumi:"webhook"`
 }
 
 // The set of arguments for constructing a AlertChannel resource.
 type AlertChannelArgs struct {
-	Call      AlertChannelCallPtrInput
-	Email     AlertChannelEmailPtrInput
-	Opsgenie  AlertChannelOpsgeniePtrInput
+	// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+	AutoSubscribe pulumi.BoolPtrInput
+	// Sends alerts as phone calls.
+	Call AlertChannelCallPtrInput
+	// Sends alerts by email.
+	Email AlertChannelEmailPtrInput
+	// Creates alerts in Opsgenie.
+	Opsgenie AlertChannelOpsgeniePtrInput
+	// Sends alerts to a PagerDuty service.
 	Pagerduty AlertChannelPagerdutyPtrInput
-	// (Default `false`)
+	// Whether to send an alert when a check is degraded. Defaults to `false`.
 	SendDegraded pulumi.BoolPtrInput
-	// (Default `true`)
+	// Whether to send an alert when a check fails. Defaults to `true`.
 	SendFailure pulumi.BoolPtrInput
-	// (Default `true`)
+	// Whether to send an alert when a check recovers. Defaults to `true`.
 	SendRecovery pulumi.BoolPtrInput
-	// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
-	Slack    AlertChannelSlackPtrInput
+	// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+	//
+	// Deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+	Slack AlertChannelSlackPtrInput
+	// Sends alerts to Slack channels or users through the Checkly Slack app.
 	SlackApp AlertChannelSlackAppPtrInput
-	Sms      AlertChannelSmsPtrInput
-	// (Default `false`)
+	// Sends alerts as SMS messages.
+	Sms AlertChannelSmsPtrInput
+	// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
 	SslExpiry pulumi.BoolPtrInput
-	// Value must be between 1 and 30 (Default `30`)
+	// How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
 	SslExpiryThreshold pulumi.IntPtrInput
-	Webhook            AlertChannelWebhookPtrInput
+	// Sends alerts as HTTP requests to a webhook.
+	Webhook AlertChannelWebhookPtrInput
 }
 
 func (AlertChannelArgs) ElementType() reflect.Type {
@@ -449,60 +526,74 @@ func (o AlertChannelOutput) ToAlertChannelOutputWithContext(ctx context.Context)
 	return o
 }
 
+// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alertChannelSubscriptions`. Defaults to `false`.
+func (o AlertChannelOutput) AutoSubscribe() pulumi.BoolOutput {
+	return o.ApplyT(func(v *AlertChannel) pulumi.BoolOutput { return v.AutoSubscribe }).(pulumi.BoolOutput)
+}
+
+// Sends alerts as phone calls.
 func (o AlertChannelOutput) Call() AlertChannelCallPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelCallPtrOutput { return v.Call }).(AlertChannelCallPtrOutput)
 }
 
+// Sends alerts by email.
 func (o AlertChannelOutput) Email() AlertChannelEmailPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelEmailPtrOutput { return v.Email }).(AlertChannelEmailPtrOutput)
 }
 
+// Creates alerts in Opsgenie.
 func (o AlertChannelOutput) Opsgenie() AlertChannelOpsgeniePtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelOpsgeniePtrOutput { return v.Opsgenie }).(AlertChannelOpsgeniePtrOutput)
 }
 
+// Sends alerts to a PagerDuty service.
 func (o AlertChannelOutput) Pagerduty() AlertChannelPagerdutyPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelPagerdutyPtrOutput { return v.Pagerduty }).(AlertChannelPagerdutyPtrOutput)
 }
 
-// (Default `false`)
-func (o AlertChannelOutput) SendDegraded() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AlertChannel) pulumi.BoolPtrOutput { return v.SendDegraded }).(pulumi.BoolPtrOutput)
+// Whether to send an alert when a check is degraded. Defaults to `false`.
+func (o AlertChannelOutput) SendDegraded() pulumi.BoolOutput {
+	return o.ApplyT(func(v *AlertChannel) pulumi.BoolOutput { return v.SendDegraded }).(pulumi.BoolOutput)
 }
 
-// (Default `true`)
-func (o AlertChannelOutput) SendFailure() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AlertChannel) pulumi.BoolPtrOutput { return v.SendFailure }).(pulumi.BoolPtrOutput)
+// Whether to send an alert when a check fails. Defaults to `true`.
+func (o AlertChannelOutput) SendFailure() pulumi.BoolOutput {
+	return o.ApplyT(func(v *AlertChannel) pulumi.BoolOutput { return v.SendFailure }).(pulumi.BoolOutput)
 }
 
-// (Default `true`)
-func (o AlertChannelOutput) SendRecovery() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AlertChannel) pulumi.BoolPtrOutput { return v.SendRecovery }).(pulumi.BoolPtrOutput)
+// Whether to send an alert when a check recovers. Defaults to `true`.
+func (o AlertChannelOutput) SendRecovery() pulumi.BoolOutput {
+	return o.ApplyT(func(v *AlertChannel) pulumi.BoolOutput { return v.SendRecovery }).(pulumi.BoolOutput)
 }
 
-// Deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
+// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+//
+// Deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slackApp` instead.
 func (o AlertChannelOutput) Slack() AlertChannelSlackPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelSlackPtrOutput { return v.Slack }).(AlertChannelSlackPtrOutput)
 }
 
+// Sends alerts to Slack channels or users through the Checkly Slack app.
 func (o AlertChannelOutput) SlackApp() AlertChannelSlackAppPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelSlackAppPtrOutput { return v.SlackApp }).(AlertChannelSlackAppPtrOutput)
 }
 
+// Sends alerts as SMS messages.
 func (o AlertChannelOutput) Sms() AlertChannelSmsPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelSmsPtrOutput { return v.Sms }).(AlertChannelSmsPtrOutput)
 }
 
-// (Default `false`)
-func (o AlertChannelOutput) SslExpiry() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *AlertChannel) pulumi.BoolPtrOutput { return v.SslExpiry }).(pulumi.BoolPtrOutput)
+// Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+func (o AlertChannelOutput) SslExpiry() pulumi.BoolOutput {
+	return o.ApplyT(func(v *AlertChannel) pulumi.BoolOutput { return v.SslExpiry }).(pulumi.BoolOutput)
 }
 
-// Value must be between 1 and 30 (Default `30`)
-func (o AlertChannelOutput) SslExpiryThreshold() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *AlertChannel) pulumi.IntPtrOutput { return v.SslExpiryThreshold }).(pulumi.IntPtrOutput)
+// How many days before an SSL certificate expires to start sending alerts, when `sslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+func (o AlertChannelOutput) SslExpiryThreshold() pulumi.IntOutput {
+	return o.ApplyT(func(v *AlertChannel) pulumi.IntOutput { return v.SslExpiryThreshold }).(pulumi.IntOutput)
 }
 
+// Sends alerts as HTTP requests to a webhook.
 func (o AlertChannelOutput) Webhook() AlertChannelWebhookPtrOutput {
 	return o.ApplyT(func(v *AlertChannel) AlertChannelWebhookPtrOutput { return v.Webhook }).(AlertChannelWebhookPtrOutput)
 }

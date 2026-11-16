@@ -14,43 +14,43 @@ namespace Pulumi.Checkly.Outputs
     public sealed class UrlMonitorAlertSettings
     {
         /// <summary>
-        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. (Default `RUN_BASED`).
+        /// Determines the type of escalation to use. Possible values are `RUN_BASED` and `TIME_BASED`. Defaults to `RUN_BASED`.
         /// </summary>
         public readonly string? EscalationType;
         /// <summary>
         /// Configuration for parallel run failure threshold.
         /// </summary>
-        public readonly ImmutableArray<Outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold> ParallelRunFailureThresholds;
+        public readonly Outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold? ParallelRunFailureThreshold;
         /// <summary>
-        /// Defines how often to send reminder notifications after initial alert.
+        /// Defines how often to send reminder notifications after the initial alert.
         /// </summary>
-        public readonly ImmutableArray<Outputs.UrlMonitorAlertSettingsReminder> Reminders;
+        public readonly Outputs.UrlMonitorAlertSettingsReminders? Reminders;
         /// <summary>
         /// Configuration for run-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.UrlMonitorAlertSettingsRunBasedEscalation> RunBasedEscalations;
+        public readonly Outputs.UrlMonitorAlertSettingsRunBasedEscalation? RunBasedEscalation;
         /// <summary>
         /// Configuration for time-based escalation.
         /// </summary>
-        public readonly ImmutableArray<Outputs.UrlMonitorAlertSettingsTimeBasedEscalation> TimeBasedEscalations;
+        public readonly Outputs.UrlMonitorAlertSettingsTimeBasedEscalation? TimeBasedEscalation;
 
         [OutputConstructor]
         private UrlMonitorAlertSettings(
             string? escalationType,
 
-            ImmutableArray<Outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold> parallelRunFailureThresholds,
+            Outputs.UrlMonitorAlertSettingsParallelRunFailureThreshold? parallelRunFailureThreshold,
 
-            ImmutableArray<Outputs.UrlMonitorAlertSettingsReminder> reminders,
+            Outputs.UrlMonitorAlertSettingsReminders? reminders,
 
-            ImmutableArray<Outputs.UrlMonitorAlertSettingsRunBasedEscalation> runBasedEscalations,
+            Outputs.UrlMonitorAlertSettingsRunBasedEscalation? runBasedEscalation,
 
-            ImmutableArray<Outputs.UrlMonitorAlertSettingsTimeBasedEscalation> timeBasedEscalations)
+            Outputs.UrlMonitorAlertSettingsTimeBasedEscalation? timeBasedEscalation)
         {
             EscalationType = escalationType;
-            ParallelRunFailureThresholds = parallelRunFailureThresholds;
+            ParallelRunFailureThreshold = parallelRunFailureThreshold;
             Reminders = reminders;
-            RunBasedEscalations = runBasedEscalations;
-            TimeBasedEscalations = timeBasedEscalations;
+            RunBasedEscalation = runBasedEscalation;
+            TimeBasedEscalation = timeBasedEscalation;
         }
     }
 }

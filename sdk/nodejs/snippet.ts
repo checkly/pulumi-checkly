@@ -5,6 +5,8 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * Snippets are reusable pieces of code that can be referenced from setup & teardown scripts of API checks, or used as partials in browser checks.
+ *
  * ## Example Usage
  *
  * ```typescript
@@ -23,6 +25,17 @@ import * as utilities from "./utilities";
  * `,
  * });
  * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing snippet using its numeric ID.
+ * The ID is returned by the Checkly API at GET /v1/snippets.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/snippet:Snippet example 12345
+ * ```
  */
 export class Snippet extends pulumi.CustomResource {
     /**
@@ -36,6 +49,17 @@ export class Snippet extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: SnippetState, opts?: pulumi.CustomResourceOptions): Snippet {
         return new Snippet(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing Snippet resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: SnippetState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/snippet:Snippet", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -53,7 +77,7 @@ export class Snippet extends pulumi.CustomResource {
     }
 
     /**
-     * The name of the snippet
+     * The name of the snippet.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
@@ -94,13 +118,13 @@ export class Snippet extends pulumi.CustomResource {
  */
 export interface SnippetState {
     /**
-     * The name of the snippet
+     * The name of the snippet.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
      */
-    script?: pulumi.Input<string>;
+    script?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -108,9 +132,9 @@ export interface SnippetState {
  */
 export interface SnippetArgs {
     /**
-     * The name of the snippet
+     * The name of the snippet.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
      */

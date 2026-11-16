@@ -14,17 +14,28 @@ namespace Pulumi.Checkly.Inputs
     {
         [Input("assertions")]
         private InputList<Inputs.CheckGroupApiCheckDefaultsAssertionArgs>? _assertions;
+
+        /// <summary>
+        /// Default assertions for API checks in this group.
+        /// </summary>
         public InputList<Inputs.CheckGroupApiCheckDefaultsAssertionArgs> Assertions
         {
             get => _assertions ?? (_assertions = new InputList<Inputs.CheckGroupApiCheckDefaultsAssertionArgs>());
             set => _assertions = value;
         }
 
+        /// <summary>
+        /// Default basic auth credentials for API checks in this group.
+        /// </summary>
         [Input("basicAuth")]
         public Input<Inputs.CheckGroupApiCheckDefaultsBasicAuthArgs>? BasicAuth { get; set; }
 
         [Input("headers")]
         private InputMap<string>? _headers;
+
+        /// <summary>
+        /// Default headers for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a header secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        /// </summary>
         public InputMap<string> Headers
         {
             get => _headers ?? (_headers = new InputMap<string>());
@@ -33,6 +44,10 @@ namespace Pulumi.Checkly.Inputs
 
         [Input("queryParameters")]
         private InputMap<string>? _queryParameters;
+
+        /// <summary>
+        /// Default query parameters for API checks in this group. The values are not secret by default: they show in preview output and are stored unencrypted in the state. To keep a credential in a parameter secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
+        /// </summary>
         public InputMap<string> QueryParameters
         {
             get => _queryParameters ?? (_queryParameters = new InputMap<string>());
@@ -42,12 +57,11 @@ namespace Pulumi.Checkly.Inputs
         /// <summary>
         /// The base url for this group which you can reference with the `GROUP_BASE_URL` variable in all group checks.
         /// </summary>
-        [Input("url")]
-        public Input<string>? Url { get; set; }
+        [Input("url", required: true)]
+        public Input<string> Url { get; set; } = null!;
 
         public CheckGroupApiCheckDefaultsArgs()
         {
-            Url = "";
         }
         public static new CheckGroupApiCheckDefaultsArgs Empty => new CheckGroupApiCheckDefaultsArgs();
     }

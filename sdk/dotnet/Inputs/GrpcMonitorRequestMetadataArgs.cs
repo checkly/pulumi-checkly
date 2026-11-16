@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class GrpcMonitorRequestMetadataArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The gRPC metadata (header) key.
+        /// The gRPC metadata (header) key. Must be between `1` and `256` characters.
         /// </summary>
         [Input("key", required: true)]
         public Input<string> Key { get; set; } = null!;
 
         /// <summary>
-        /// The gRPC metadata (header) value.
+        /// The gRPC metadata (header) value. Must be at most `8192` characters. The value is not secret by default: it shows in preview output and is stored unencrypted in the state. To keep a credential secret, mark it as a secret, for example with a secret configuration value or your language's Pulumi secret helper. Pulumi then masks it in preview output and encrypts it in the state.
         /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }

@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -68,26 +68,37 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing status page automation rule using "<status_page_id>/<rule_id>".
+// Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/automation-rules.
+//
+// ```sh
+// $ pulumi import checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/5b0a9a1e-8e29-4b71-92e1-0db9b3b41f0a
+// ```
 type StatusPageV3AutomationRule struct {
 	pulumi.CustomResourceState
 
 	// The components an automated incident impacts, with the impact each gets.
 	Components StatusPageV3AutomationRuleComponentArrayOutput `pulumi:"components"`
-	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
-	CoolDownWindowMinutes pulumi.IntPtrOutput `pulumi:"coolDownWindowMinutes"`
-	// A disabled rule never opens incidents. (Default `true`).
-	Enabled pulumi.BoolPtrOutput `pulumi:"enabled"`
-	// Body of the status update that opens the incident.
+	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
+	CoolDownWindowMinutes pulumi.IntOutput `pulumi:"coolDownWindowMinutes"`
+	// A disabled rule never opens incidents. Defaults to `true`.
+	Enabled pulumi.BoolOutput `pulumi:"enabled"`
+	// Body of the status update that opens the incident. Must not be empty.
 	FirstUpdate pulumi.StringOutput `pulumi:"firstUpdate"`
-	// Body of the status update that resolves the incident.
+	// Body of the status update that resolves the incident. Must not be empty.
 	LastUpdate pulumi.StringOutput `pulumi:"lastUpdate"`
-	// The name of the rule.
+	// The name of the rule. Must be between `1` and `255` characters.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// Whether subscribers are notified of the automated updates. (Default `true`).
-	NotifySubscribers pulumi.BoolPtrOutput `pulumi:"notifySubscribers"`
+	// Whether subscribers are notified of the automated updates. Defaults to `true`.
+	NotifySubscribers pulumi.BoolOutput `pulumi:"notifySubscribers"`
 	// The ID of the v3 status page the rule belongs to.
 	StatusPageId pulumi.StringOutput `pulumi:"statusPageId"`
-	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 }
 
@@ -135,42 +146,42 @@ func GetStatusPageV3AutomationRule(ctx *pulumi.Context,
 type statusPageV3AutomationRuleState struct {
 	// The components an automated incident impacts, with the impact each gets.
 	Components []StatusPageV3AutomationRuleComponent `pulumi:"components"`
-	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
 	CoolDownWindowMinutes *int `pulumi:"coolDownWindowMinutes"`
-	// A disabled rule never opens incidents. (Default `true`).
+	// A disabled rule never opens incidents. Defaults to `true`.
 	Enabled *bool `pulumi:"enabled"`
-	// Body of the status update that opens the incident.
+	// Body of the status update that opens the incident. Must not be empty.
 	FirstUpdate *string `pulumi:"firstUpdate"`
-	// Body of the status update that resolves the incident.
+	// Body of the status update that resolves the incident. Must not be empty.
 	LastUpdate *string `pulumi:"lastUpdate"`
-	// The name of the rule.
+	// The name of the rule. Must be between `1` and `255` characters.
 	Name *string `pulumi:"name"`
-	// Whether subscribers are notified of the automated updates. (Default `true`).
+	// Whether subscribers are notified of the automated updates. Defaults to `true`.
 	NotifySubscribers *bool `pulumi:"notifySubscribers"`
 	// The ID of the v3 status page the rule belongs to.
 	StatusPageId *string `pulumi:"statusPageId"`
-	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
 	Tags []string `pulumi:"tags"`
 }
 
 type StatusPageV3AutomationRuleState struct {
 	// The components an automated incident impacts, with the impact each gets.
 	Components StatusPageV3AutomationRuleComponentArrayInput
-	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
 	CoolDownWindowMinutes pulumi.IntPtrInput
-	// A disabled rule never opens incidents. (Default `true`).
+	// A disabled rule never opens incidents. Defaults to `true`.
 	Enabled pulumi.BoolPtrInput
-	// Body of the status update that opens the incident.
+	// Body of the status update that opens the incident. Must not be empty.
 	FirstUpdate pulumi.StringPtrInput
-	// Body of the status update that resolves the incident.
+	// Body of the status update that resolves the incident. Must not be empty.
 	LastUpdate pulumi.StringPtrInput
-	// The name of the rule.
+	// The name of the rule. Must be between `1` and `255` characters.
 	Name pulumi.StringPtrInput
-	// Whether subscribers are notified of the automated updates. (Default `true`).
+	// Whether subscribers are notified of the automated updates. Defaults to `true`.
 	NotifySubscribers pulumi.BoolPtrInput
 	// The ID of the v3 status page the rule belongs to.
 	StatusPageId pulumi.StringPtrInput
-	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
 	Tags pulumi.StringArrayInput
 }
 
@@ -178,24 +189,30 @@ func (StatusPageV3AutomationRuleState) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageV3AutomationRuleState)(nil)).Elem()
 }
 
+// StatusPageV3AutomationRuleExists checks whether an existing StatusPageV3AutomationRule resource with the given ID exists.
+func StatusPageV3AutomationRuleExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageV3AutomationRuleState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule", id, state, "", opts...)
+}
+
 type statusPageV3AutomationRuleArgs struct {
 	// The components an automated incident impacts, with the impact each gets.
 	Components []StatusPageV3AutomationRuleComponent `pulumi:"components"`
-	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
 	CoolDownWindowMinutes *int `pulumi:"coolDownWindowMinutes"`
-	// A disabled rule never opens incidents. (Default `true`).
+	// A disabled rule never opens incidents. Defaults to `true`.
 	Enabled *bool `pulumi:"enabled"`
-	// Body of the status update that opens the incident.
+	// Body of the status update that opens the incident. Must not be empty.
 	FirstUpdate string `pulumi:"firstUpdate"`
-	// Body of the status update that resolves the incident.
+	// Body of the status update that resolves the incident. Must not be empty.
 	LastUpdate string `pulumi:"lastUpdate"`
-	// The name of the rule.
+	// The name of the rule. Must be between `1` and `255` characters.
 	Name *string `pulumi:"name"`
-	// Whether subscribers are notified of the automated updates. (Default `true`).
+	// Whether subscribers are notified of the automated updates. Defaults to `true`.
 	NotifySubscribers *bool `pulumi:"notifySubscribers"`
 	// The ID of the v3 status page the rule belongs to.
 	StatusPageId string `pulumi:"statusPageId"`
-	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
 	Tags []string `pulumi:"tags"`
 }
 
@@ -203,21 +220,21 @@ type statusPageV3AutomationRuleArgs struct {
 type StatusPageV3AutomationRuleArgs struct {
 	// The components an automated incident impacts, with the impact each gets.
 	Components StatusPageV3AutomationRuleComponentArrayInput
-	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+	// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
 	CoolDownWindowMinutes pulumi.IntPtrInput
-	// A disabled rule never opens incidents. (Default `true`).
+	// A disabled rule never opens incidents. Defaults to `true`.
 	Enabled pulumi.BoolPtrInput
-	// Body of the status update that opens the incident.
+	// Body of the status update that opens the incident. Must not be empty.
 	FirstUpdate pulumi.StringInput
-	// Body of the status update that resolves the incident.
+	// Body of the status update that resolves the incident. Must not be empty.
 	LastUpdate pulumi.StringInput
-	// The name of the rule.
+	// The name of the rule. Must be between `1` and `255` characters.
 	Name pulumi.StringPtrInput
-	// Whether subscribers are notified of the automated updates. (Default `true`).
+	// Whether subscribers are notified of the automated updates. Defaults to `true`.
 	NotifySubscribers pulumi.BoolPtrInput
 	// The ID of the v3 status page the rule belongs to.
 	StatusPageId pulumi.StringInput
-	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+	// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
 	Tags pulumi.StringArrayInput
 }
 
@@ -315,34 +332,34 @@ func (o StatusPageV3AutomationRuleOutput) Components() StatusPageV3AutomationRul
 	}).(StatusPageV3AutomationRuleComponentArrayOutput)
 }
 
-// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
-func (o StatusPageV3AutomationRuleOutput) CoolDownWindowMinutes() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.IntPtrOutput { return v.CoolDownWindowMinutes }).(pulumi.IntPtrOutput)
+// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
+func (o StatusPageV3AutomationRuleOutput) CoolDownWindowMinutes() pulumi.IntOutput {
+	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.IntOutput { return v.CoolDownWindowMinutes }).(pulumi.IntOutput)
 }
 
-// A disabled rule never opens incidents. (Default `true`).
-func (o StatusPageV3AutomationRuleOutput) Enabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.BoolPtrOutput { return v.Enabled }).(pulumi.BoolPtrOutput)
+// A disabled rule never opens incidents. Defaults to `true`.
+func (o StatusPageV3AutomationRuleOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.BoolOutput { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-// Body of the status update that opens the incident.
+// Body of the status update that opens the incident. Must not be empty.
 func (o StatusPageV3AutomationRuleOutput) FirstUpdate() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.StringOutput { return v.FirstUpdate }).(pulumi.StringOutput)
 }
 
-// Body of the status update that resolves the incident.
+// Body of the status update that resolves the incident. Must not be empty.
 func (o StatusPageV3AutomationRuleOutput) LastUpdate() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.StringOutput { return v.LastUpdate }).(pulumi.StringOutput)
 }
 
-// The name of the rule.
+// The name of the rule. Must be between `1` and `255` characters.
 func (o StatusPageV3AutomationRuleOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// Whether subscribers are notified of the automated updates. (Default `true`).
-func (o StatusPageV3AutomationRuleOutput) NotifySubscribers() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.BoolPtrOutput { return v.NotifySubscribers }).(pulumi.BoolPtrOutput)
+// Whether subscribers are notified of the automated updates. Defaults to `true`.
+func (o StatusPageV3AutomationRuleOutput) NotifySubscribers() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.BoolOutput { return v.NotifySubscribers }).(pulumi.BoolOutput)
 }
 
 // The ID of the v3 status page the rule belongs to.
@@ -350,7 +367,7 @@ func (o StatusPageV3AutomationRuleOutput) StatusPageId() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.StringOutput { return v.StatusPageId }).(pulumi.StringOutput)
 }
 
-// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
 func (o StatusPageV3AutomationRuleOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *StatusPageV3AutomationRule) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }

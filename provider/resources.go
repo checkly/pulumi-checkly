@@ -15,19 +15,19 @@
 package checkly
 
 import (
+	"os"
 	"path"
 
 	// Allow embedding bridge-metadata.json in the provider.
 	_ "embed"
 
-	checkly "github.com/checkly/terraform-provider-checkly/checkly" // Import the upstream provider
+	checklyprovider "github.com/checkly/terraform-provider-checkly/v2/provider" // Import the upstream provider
 
+	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/info"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
-	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 
 	"github.com/checkly/pulumi-checkly/provider/pkg/version"
 )
@@ -48,67 +48,10 @@ var metadata []byte
 func Provider() tfbridge.ProviderInfo {
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		// Instantiate the Terraform provider
-		//
-		// The [pulumi-terraform-bridge](https://github.com/pulumi/pulumi-terraform-bridge) supports 3
-		// types of Terraform providers:
-		//
-		// 1. Providers written with the terraform-plugin-sdk/v1:
-		//
-		//    If the provider you are bridging is written with the terraform-plugin-sdk/v1, then you
-		//    will need to adapt the boilerplate:
-		//
-		//    - Change the import "shimv2" to "shimv1" and change the associated import to
-		//      "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v1".
-		//
-		//    You can then proceed as normal.
-		//
-		// 2. Providers written with terraform-plugin-sdk/v2:
-		//
-		//    This boilerplate is already geared towards providers written with the
-		//    terraform-plugin-sdk/v2, since it is the most common provider framework used. No
-		//    adaptions are needed.
-		//
-		// 3. Providers written with terraform-plugin-framework:
-		//
-		//    If the provider you are bridging is written with the terraform-plugin-framework, then
-		//    you will need to adapt the boilerplate:
-		//
-		//    - Remove the `shimv2` import and add:
-		//
-		//      	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
-		//
-		//    - Replace `shimv2.NewProvider` with `pfbridge.ShimProvider`.
-		//
-		//    - In provider/cmd/pulumi-tfgen-checkly/main.go, replace the
-		//      "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfgen" import with
-		//      "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfgen". Remove the `version.Version`
-		//      argument to `tfgen.Main`.
-		//
-		//    - In provider/cmd/pulumi-resource-checkly/main.go, replace the
-		//      "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge" import with
-		//      "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge". Replace the arguments to the
-		//      `tfbridge.Main` so it looks like this:
-		//
-		//      	tfbridge.Main(context.Background(), "checkly", checkly.Provider(),
-		//			tfbridge.ProviderMetadata{PulumiSchema: pulumiSchema})
-		//
-		//   Detailed instructions can be found at
-		//   https://pulumi-developer-docs.readthedocs.io/projects/pulumi-terraform-bridge/en/latest/docs/guides/new-pf-provider.html
-		//   After that, you can proceed as normal.
-		//
-		// This is where you give the bridge a handle to the upstream terraform provider. SDKv2
-		// convention is to have a function at "github.com/checkly/terraform-provider-checkly/provider".New
-		// which takes a version and produces a factory function. The provider you are bridging may
-		// not do that. You will need to find the function (generally called in upstream's main.go)
-		// that produces a:
-		//
-		// - *"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema".Provider (for SDKv2)
-		// - *"github.com/hashicorp/terraform-plugin-sdk/v1/helper/schema".Provider (for SDKv1)
-		// - "github.com/hashicorp/terraform-plugin-framework/provider".Provider (for plugin-framework)
-		//
-		//nolint:lll
-		P: shimv2.NewProvider(checkly.Provider()),
+		// Instantiate the upstream provider, which is built on the Terraform Plugin Framework.
+		// Upstream only reports the version it is given in its Metadata response, which the
+		// bridge does not read, and its API client does not send it, so a fixed value is used.
+		P: pfbridge.ShimProvider(checklyprovider.New("dev")()),
 
 		Name:    "checkly",
 		Version: version.Version,
@@ -138,88 +81,48 @@ func Provider() tfbridge.ProviderInfo {
 		Repository: "https://github.com/checkly/pulumi-checkly",
 		// The GitHub Org for the provider - defaults to `terraform-providers`. Note that this should
 		// match the TF provider module's require directive, not any replace directives.
-		GitHubOrg:    "checkly",
+		GitHubOrg: "checkly",
+		// The upstream Go module path carries a /v2 suffix, which the docs lookup needs.
+		TFProviderModuleVersion: "v2",
+		// UpstreamRepoPath overrides where tfgen reads the upstream docs. When it is empty,
+		// tfgen locates them in the Go module cache.
+		UpstreamRepoPath: os.Getenv("CHECKLY_UPSTREAM_REPO_PATH"),
+		// Rewrite Terraform-specific wording in the upstream docs for Pulumi users.
+		DocRules:     &info.DocRule{EditRules: docsEditRules},
 		MetadataInfo: tfbridge.NewProviderMetadata(metadata),
-		Config:       map[string]*tfbridge.SchemaInfo{},
+		// checkly_maintenance_windows is a deprecated alias of checkly_maintenance_window, with
+		// the same schema. Up to v2.x, MaintenanceWindow mapped checkly_maintenance_windows;
+		// it now maps checkly_maintenance_window, so existing programs and stacks keep working,
+		// and no stack can hold a resource of the alias. It is left unmapped rather than added
+		// as a new resource that is deprecated from the start.
+		IgnoreMappings: []string{"checkly_maintenance_windows"},
+		Config:         map[string]*tfbridge.SchemaInfo{},
 		Resources: map[string]*info.Resource{
 			// Automatic token maping will ignore resources that are manually mapped.
 			"checkly_alert_channel": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "AlertChannel"),
-				Fields: map[string]*tfbridge.SchemaInfo{
-					"webhook": {
-						Elem: &tfbridge.SchemaInfo{
-							Fields: map[string]*tfbridge.SchemaInfo{
-								"headers": {
-									Transform: handleFaultySliceMapDefault,
-								},
-								"query_parameters": {
-									Transform: handleFaultySliceMapDefault,
-								},
-							},
-						},
-					},
-				},
+			},
+			"checkly_api_check": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "ApiCheck"),
+			},
+			"checkly_browser_check": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "BrowserCheck"),
 			},
 			"checkly_check": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Check"),
-				Fields: map[string]*tfbridge.SchemaInfo{
-					"request": {
-						Elem: &tfbridge.SchemaInfo{
-							Fields: map[string]*tfbridge.SchemaInfo{
-								"headers": {
-									Transform: handleFaultySliceMapDefault,
-								},
-								"query_parameters": {
-									Transform: handleFaultySliceMapDefault,
-								},
-							},
-						},
-					},
-				},
+				DeprecationMessage: "Use the ApiCheck, BrowserCheck or MultistepCheck resource instead, " +
+					"which expose only the properties of their check type. " +
+					"An existing check can be moved to one of them with an alias, without recreating it. " +
+					"When moving an API check, note that ApiCheck defaults degradedResponseTime and " +
+					"maxResponseTime to 5000 and 20000 instead of 15000 and 30000, and request.followRedirects " +
+					"to true instead of false; set them to keep the previous behaviour.",
 			},
 			"checkly_check_group": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CheckGroup"),
-				Fields: map[string]*tfbridge.SchemaInfo{
-					"api_check_defaults": {
-						Elem: &tfbridge.SchemaInfo{
-							Fields: map[string]*tfbridge.SchemaInfo{
-								"url": {
-									Default: &tfbridge.DefaultInfo{
-										Value: "",
-									},
-								},
-								"headers": {
-									Transform: handleFaultySliceMapDefault,
-								},
-								"query_parameters": {
-									Transform: handleFaultySliceMapDefault,
-								},
-							},
-						},
-					},
-				},
+				Tok:                tfbridge.MakeResource(mainPkg, mainMod, "CheckGroup"),
+				DeprecationMessage: "Use the CheckGroupV2 resource instead.",
 			},
 			"checkly_check_group_v2": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "CheckGroupV2"),
-				Fields: map[string]*tfbridge.SchemaInfo{
-					"api_check_defaults": {
-						Elem: &tfbridge.SchemaInfo{
-							Fields: map[string]*tfbridge.SchemaInfo{
-								"url": {
-									Default: &tfbridge.DefaultInfo{
-										Value: "",
-									},
-								},
-								"headers": {
-									Transform: handleFaultySliceMapDefault,
-								},
-								"query_parameters": {
-									Transform: handleFaultySliceMapDefault,
-								},
-							},
-						},
-					},
-				},
 			},
 			"checkly_dashboard": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "Dashboard"),
@@ -228,14 +131,18 @@ func Provider() tfbridge.ProviderInfo {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "EnvironmentVariable"),
 			},
 			"checkly_heartbeat": {
-				Tok:        tfbridge.MakeResource(mainPkg, mainMod, "HeartbeatCheck"),
-				CSharpName: "HeartbeatCheck",
+				Tok:                tfbridge.MakeResource(mainPkg, mainMod, "HeartbeatCheck"),
+				DeprecationMessage: "Use the HeartbeatMonitor resource instead. Both resources have the same properties.",
+				CSharpName:         "HeartbeatCheck",
 			},
 			"checkly_heartbeat_monitor": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "HeartbeatMonitor"),
 			},
-			"checkly_maintenance_windows": {
+			"checkly_maintenance_window": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MaintenanceWindow"),
+			},
+			"checkly_multistep_check": {
+				Tok: tfbridge.MakeResource(mainPkg, mainMod, "MultistepCheck"),
 			},
 			"checkly_private_location": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "PrivateLocation"),
@@ -245,9 +152,12 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"checkly_status_page": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPage"),
+				DeprecationMessage: "Use the StatusPageV3 resource instead. " +
+					"v3 status pages are separate objects, so an existing page cannot be converted.",
 			},
 			"checkly_status_page_service": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageService"),
+				Tok:                tfbridge.MakeResource(mainPkg, mainMod, "StatusPageService"),
+				DeprecationMessage: "Use StatusPageV3Component resources on a StatusPageV3 page instead.",
 			},
 			"checkly_status_page_v3": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageV3"),
@@ -259,16 +169,11 @@ func Provider() tfbridge.ProviderInfo {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "StatusPageV3Component"),
 			},
 			"checkly_tcp_check": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TcpCheck"),
+				Tok:                tfbridge.MakeResource(mainPkg, mainMod, "TcpCheck"),
+				DeprecationMessage: "Use the TcpMonitor resource instead. Both resources have the same properties.",
 			},
 			"checkly_tcp_monitor": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TcpMonitor"),
-			},
-			"checkly_trigger_check": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TriggerCheck"),
-			},
-			"checkly_trigger_group": {
-				Tok: tfbridge.MakeResource(mainPkg, mainMod, "TriggerCheckGroup"),
 			},
 			"checkly_url_monitor": {
 				Tok: tfbridge.MakeResource(mainPkg, mainMod, "UrlMonitor"),
@@ -350,20 +255,11 @@ func Provider() tfbridge.ProviderInfo {
 	prov.MustComputeTokens(tokens.SingleModule("checkly_", mainMod,
 		tokens.MakeStandard(mainPkg)))
 
+	// Rewrite state that v2.x stored in the shape of the Plugin SDK based provider.
+	applyV2StateUpgradeHooks(&prov)
+
 	prov.MustApplyAutoAliases()
 	prov.SetAutonaming(255, "-")
 
 	return prov
-}
-
-// Provider 1.8.2 uses DefaultFunc to create a faulty default value of
-// `[]tfMap{}`, which Pulumi cannot deal with, so we have have to remap the
-// faulty value to an empty object which it should have been.
-func handleFaultySliceMapDefault(value resource.PropertyValue) (resource.PropertyValue, error) {
-	// If we find a slice, we know we have the faulty default value.
-	if value.IsArray() {
-		return resource.NewObjectProperty(resource.PropertyMap{}), nil
-	}
-
-	return value, nil
 }

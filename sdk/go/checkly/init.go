@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/blang/semver"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -23,6 +23,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "checkly:index/alertChannel:AlertChannel":
 		r = &AlertChannel{}
+	case "checkly:index/apiCheck:ApiCheck":
+		r = &ApiCheck{}
+	case "checkly:index/browserCheck:BrowserCheck":
+		r = &BrowserCheck{}
 	case "checkly:index/check:Check":
 		r = &Check{}
 	case "checkly:index/checkGroup:CheckGroup":
@@ -47,6 +51,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &IcmpMonitor{}
 	case "checkly:index/maintenanceWindow:MaintenanceWindow":
 		r = &MaintenanceWindow{}
+	case "checkly:index/multistepCheck:MultistepCheck":
+		r = &MultistepCheck{}
 	case "checkly:index/playwrightCheckSuite:PlaywrightCheckSuite":
 		r = &PlaywrightCheckSuite{}
 	case "checkly:index/playwrightCodeBundle:PlaywrightCodeBundle":
@@ -73,10 +79,6 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &TcpMonitor{}
 	case "checkly:index/tracerouteMonitor:TracerouteMonitor":
 		r = &TracerouteMonitor{}
-	case "checkly:index/triggerCheck:TriggerCheck":
-		r = &TriggerCheck{}
-	case "checkly:index/triggerCheckGroup:TriggerCheckGroup":
-		r = &TriggerCheckGroup{}
 	case "checkly:index/urlMonitor:UrlMonitor":
 		r = &UrlMonitor{}
 	default:
@@ -113,6 +115,16 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/alertChannel",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/apiCheck",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/browserCheck",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -173,6 +185,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/maintenanceWindow",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"checkly",
+		"index/multistepCheck",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -238,16 +255,6 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"checkly",
 		"index/tracerouteMonitor",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"checkly",
-		"index/triggerCheck",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"checkly",
-		"index/triggerCheckGroup",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

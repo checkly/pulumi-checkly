@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class SslMonitorRequestSecurityBaselineRecommendedTlsVersionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// What happens when the rule is violated: `fail` fails the monitor, `degrade` marks it degraded, `ignore` disables the rule. (Default `ignore`).
+        /// What happens when the rule is violated. Possible values are `Fail` (fails the monitor), `Degrade` (marks it degraded) and `Ignore` (disables the rule). Defaults to `Ignore`.
         /// </summary>
         [Input("severity")]
         public Input<string>? Severity { get; set; }
 
         /// <summary>
-        /// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. (Default `TLS1.3`).
+        /// The TLS version. Possible values are `TLS1.2` and `TLS1.3`. Defaults to `TLS1.3`.
         /// </summary>
         [Input("value")]
         public Input<string>? Value { get; set; }

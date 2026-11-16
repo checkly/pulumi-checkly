@@ -14,27 +14,23 @@ namespace Pulumi.Checkly.Outputs
     public sealed class IcmpMonitorRetryStrategy
     {
         /// <summary>
-        /// The number of seconds to wait before the first retry attempt. (Default `60`).
+        /// The number of seconds to wait before the first retry attempt. Must be at least `0`. Defaults to `60`. Not available when `Type` is `NO_RETRIES`.
         /// </summary>
         public readonly int? BaseBackoffSeconds;
         /// <summary>
-        /// The total amount of time to continue retrying the check/monitor (maximum 600 seconds). Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `600`).
+        /// The total amount of time to continue retrying the check/monitor, in seconds. Possible values are between `0` and `600`. Defaults to `600`. Available when `Type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
         /// </summary>
         public readonly int? MaxDurationSeconds;
         /// <summary>
-        /// The maximum number of times to retry the check/monitor. Value must be between `1` and `10`. Available when `type` is `FIXED`, `LINEAR`, or `EXPONENTIAL`. (Default `2`).
+        /// The maximum number of times to retry the check/monitor. Possible values are between `1` and `10`. Defaults to `2`. Available when `Type` is `FIXED`, `LINEAR` or `EXPONENTIAL`.
         /// </summary>
         public readonly int? MaxRetries;
         /// <summary>
-        /// Apply the retry strategy only if the defined conditions match.
-        /// </summary>
-        public readonly Outputs.IcmpMonitorRetryStrategyOnlyOn? OnlyOn;
-        /// <summary>
-        /// Whether retries should be run in the same region as the initial check/monitor run. (Default `true`).
+        /// Whether retries should be run in the same region as the initial check/monitor run. Defaults to `True`. Not available when `Type` is `NO_RETRIES`.
         /// </summary>
         public readonly bool? SameRegion;
         /// <summary>
-        /// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY`, and `NO_RETRIES`.
+        /// Determines which type of retry strategy to use. Possible values are `FIXED`, `LINEAR`, `EXPONENTIAL`, `SINGLE_RETRY` and `NO_RETRIES`.
         /// </summary>
         public readonly string Type;
 
@@ -46,8 +42,6 @@ namespace Pulumi.Checkly.Outputs
 
             int? maxRetries,
 
-            Outputs.IcmpMonitorRetryStrategyOnlyOn? onlyOn,
-
             bool? sameRegion,
 
             string type)
@@ -55,7 +49,6 @@ namespace Pulumi.Checkly.Outputs
             BaseBackoffSeconds = baseBackoffSeconds;
             MaxDurationSeconds = maxDurationSeconds;
             MaxRetries = maxRetries;
-            OnlyOn = onlyOn;
             SameRegion = sameRegion;
             Type = type;
         }

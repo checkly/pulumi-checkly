@@ -21,52 +21,57 @@ class DashboardArgs:
     def __init__(__self__, *,
                  custom_url: pulumi.Input[_builtins.str],
                  header: pulumi.Input[_builtins.str],
-                 checks_per_page: Optional[pulumi.Input[_builtins.int]] = None,
-                 custom_css: Optional[pulumi.Input[_builtins.str]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 enable_incidents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 expand_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 hide_tags: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_private: Optional[pulumi.Input[_builtins.bool]] = None,
-                 link: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 paginate: Optional[pulumi.Input[_builtins.bool]] = None,
-                 pagination_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 refresh_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 show_check_run_links: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_header: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p95: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p99: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 use_tags_and_operator: Optional[pulumi.Input[_builtins.bool]] = None,
-                 width: Optional[pulumi.Input[_builtins.str]] = None):
+                 checks_per_page: pulumi.Input[Optional[_builtins.int]] = None,
+                 custom_css: pulumi.Input[Optional[_builtins.str]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enable_incidents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 expand_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 hide_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_private: pulumi.Input[Optional[_builtins.bool]] = None,
+                 link: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 paginate: pulumi.Input[Optional[_builtins.bool]] = None,
+                 pagination_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 refresh_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 show_check_run_links: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_group_names: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_header: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p95: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p99: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sort_by_status: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 use_tags_and_operator: pulumi.Input[Optional[_builtins.bool]] = None,
+                 width: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Dashboard resource.
-        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+
+        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         :param pulumi.Input[_builtins.str] header: A piece of text displayed at the top of your dashboard.
-        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         :param pulumi.Input[_builtins.str] custom_css: Custom CSS to be applied to the dashboard.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         :param pulumi.Input[_builtins.str] description: HTML \\n\\n description for the dashboard.
-        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.str] favicon: A URL pointing to an image file to use as browser favicon.
-        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private and generate key.
-        :param pulumi.Input[_builtins.str] link: A link to for the dashboard logo.
-        :param pulumi.Input[_builtins.str] logo: A URL pointing to an image file to use for the dashboard logo.
-        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. (Default `true`).
-        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
-        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
-        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. (Default `true`).
+        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL pointing to an image file to use as browser favicon.
+        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] link: The http or https URL that clicking the dashboard logo leads to.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL pointing to an image file to use for the dashboard logo.
+        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. Defaults to `true`.
+        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
+        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
+        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] show_group_names: Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] sort_by_status: List failing checks first. Defaults to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
-        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. (Default `false`).
-        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         """
         pulumi.set(__self__, "custom_url", custom_url)
         pulumi.set(__self__, "header", header)
@@ -100,12 +105,16 @@ class DashboardArgs:
             pulumi.set(__self__, "refresh_rate", refresh_rate)
         if show_check_run_links is not None:
             pulumi.set(__self__, "show_check_run_links", show_check_run_links)
+        if show_group_names is not None:
+            pulumi.set(__self__, "show_group_names", show_group_names)
         if show_header is not None:
             pulumi.set(__self__, "show_header", show_header)
         if show_p95 is not None:
             pulumi.set(__self__, "show_p95", show_p95)
         if show_p99 is not None:
             pulumi.set(__self__, "show_p99", show_p99)
+        if sort_by_status is not None:
+            pulumi.set(__self__, "sort_by_status", sort_by_status)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if use_tags_and_operator is not None:
@@ -117,7 +126,7 @@ class DashboardArgs:
     @pulumi.getter(name="customUrl")
     def custom_url(self) -> pulumi.Input[_builtins.str]:
         """
-        A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "custom_url")
 
@@ -139,310 +148,339 @@ class DashboardArgs:
 
     @_builtins.property
     @pulumi.getter(name="checksPerPage")
-    def checks_per_page(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def checks_per_page(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         """
         return pulumi.get(self, "checks_per_page")
 
     @checks_per_page.setter
-    def checks_per_page(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def checks_per_page(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "checks_per_page", value)
 
     @_builtins.property
     @pulumi.getter(name="customCss")
-    def custom_css(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_css(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Custom CSS to be applied to the dashboard.
         """
         return pulumi.get(self, "custom_css")
 
     @custom_css.setter
-    def custom_css(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_css(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_css", value)
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         """
         return pulumi.get(self, "custom_domain")
 
     @custom_domain.setter
-    def custom_domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_domain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_domain", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         HTML \\n\\n description for the dashboard.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="enableIncidents")
-    def enable_incidents(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enable_incidents(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Enable incident support for the dashboard. (Default `false`).
+        Enable incident support for the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "enable_incidents")
 
     @enable_incidents.setter
-    def enable_incidents(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enable_incidents(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enable_incidents", value)
 
     @_builtins.property
     @pulumi.getter(name="expandChecks")
-    def expand_checks(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def expand_checks(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Expand or collapse checks on the dashboard. (Default `false`).
+        Expand or collapse checks on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "expand_checks")
 
     @expand_checks.setter
-    def expand_checks(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def expand_checks(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "expand_checks", value)
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def favicon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL pointing to an image file to use as browser favicon.
+        An http or https URL pointing to an image file to use as browser favicon.
         """
         return pulumi.get(self, "favicon")
 
     @favicon.setter
-    def favicon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def favicon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "favicon", value)
 
     @_builtins.property
     @pulumi.getter(name="hideTags")
-    def hide_tags(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def hide_tags(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide the tags on the dashboard. (Default `false`).
+        Show or hide the tags on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "hide_tags")
 
     @hide_tags.setter
-    def hide_tags(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def hide_tags(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "hide_tags", value)
 
     @_builtins.property
     @pulumi.getter(name="isPrivate")
-    def is_private(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_private(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Set your dashboard as private and generate key.
+        Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
         """
         return pulumi.get(self, "is_private")
 
     @is_private.setter
-    def is_private(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_private(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_private", value)
 
     @_builtins.property
     @pulumi.getter
-    def link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A link to for the dashboard logo.
+        The http or https URL that clicking the dashboard logo leads to.
         """
         return pulumi.get(self, "link")
 
     @link.setter
-    def link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "link", value)
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL pointing to an image file to use for the dashboard logo.
+        An http or https URL pointing to an image file to use for the dashboard logo.
         """
         return pulumi.get(self, "logo")
 
     @logo.setter
-    def logo(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo", value)
 
     @_builtins.property
     @pulumi.getter
-    def paginate(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def paginate(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines if pagination is on or off. (Default `true`).
+        Determines if pagination is on or off. Defaults to `true`.
         """
         return pulumi.get(self, "paginate")
 
     @paginate.setter
-    def paginate(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def paginate(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "paginate", value)
 
     @_builtins.property
     @pulumi.getter(name="paginationRate")
-    def pagination_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def pagination_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+        How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
         """
         return pulumi.get(self, "pagination_rate")
 
     @pagination_rate.setter
-    def pagination_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def pagination_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "pagination_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="refreshRate")
-    def refresh_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def refresh_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+        How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
         """
         return pulumi.get(self, "refresh_rate")
 
     @refresh_rate.setter
-    def refresh_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def refresh_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "refresh_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="showCheckRunLinks")
-    def show_check_run_links(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def show_check_run_links(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide check run links on the dashboard. (Default `false`).
+        Show or hide check run links on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "show_check_run_links")
 
     @show_check_run_links.setter
-    def show_check_run_links(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_check_run_links(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_check_run_links", value)
 
     @_builtins.property
-    @pulumi.getter(name="showHeader")
-    def show_header(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    @pulumi.getter(name="showGroupNames")
+    def show_group_names(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide header and description on the dashboard. (Default `true`).
+        Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+        """
+        return pulumi.get(self, "show_group_names")
+
+    @show_group_names.setter
+    def show_group_names(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "show_group_names", value)
+
+    @_builtins.property
+    @pulumi.getter(name="showHeader")
+    def show_header(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Show or hide header and description on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_header")
 
     @show_header.setter
-    def show_header(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_header(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_header", value)
 
     @_builtins.property
     @pulumi.getter(name="showP95")
-    def show_p95(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def show_p95(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide the P95 stats on the dashboard. (Default `true`).
+        Show or hide the P95 stats on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_p95")
 
     @show_p95.setter
-    def show_p95(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_p95(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_p95", value)
 
     @_builtins.property
     @pulumi.getter(name="showP99")
-    def show_p99(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def show_p99(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide the P99 stats on the dashboard. (Default `true`).
+        Show or hide the P99 stats on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_p99")
 
     @show_p99.setter
-    def show_p99(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_p99(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_p99", value)
 
     @_builtins.property
+    @pulumi.getter(name="sortByStatus")
+    def sort_by_status(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        List failing checks first. Defaults to `false`.
+        """
+        return pulumi.get(self, "sort_by_status")
+
+    @sort_by_status.setter
+    def sort_by_status(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "sort_by_status", value)
+
+    @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of one or more tags that filter which checks to display on the dashboard.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="useTagsAndOperator")
-    def use_tags_and_operator(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_tags_and_operator(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Set when to use AND operator for fetching dashboard tags. (Default `false`).
+        Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
         """
         return pulumi.get(self, "use_tags_and_operator")
 
     @use_tags_and_operator.setter
-    def use_tags_and_operator(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_tags_and_operator(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_tags_and_operator", value)
 
     @_builtins.property
     @pulumi.getter
-    def width(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def width(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         """
         return pulumi.get(self, "width")
 
     @width.setter
-    def width(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def width(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "width", value)
 
 
 @pulumi.input_type
 class _DashboardState:
     def __init__(__self__, *,
-                 checks_per_page: Optional[pulumi.Input[_builtins.int]] = None,
-                 custom_css: Optional[pulumi.Input[_builtins.str]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 custom_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 enable_incidents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 expand_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 header: Optional[pulumi.Input[_builtins.str]] = None,
-                 hide_tags: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_private: Optional[pulumi.Input[_builtins.bool]] = None,
-                 key: Optional[pulumi.Input[_builtins.str]] = None,
-                 link: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 paginate: Optional[pulumi.Input[_builtins.bool]] = None,
-                 pagination_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 refresh_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 show_check_run_links: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_header: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p95: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p99: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 use_tags_and_operator: Optional[pulumi.Input[_builtins.bool]] = None,
-                 width: Optional[pulumi.Input[_builtins.str]] = None):
+                 checks_per_page: pulumi.Input[Optional[_builtins.int]] = None,
+                 custom_css: pulumi.Input[Optional[_builtins.str]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 custom_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enable_incidents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 expand_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 header: pulumi.Input[Optional[_builtins.str]] = None,
+                 hide_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_private: pulumi.Input[Optional[_builtins.bool]] = None,
+                 key: pulumi.Input[Optional[_builtins.str]] = None,
+                 link: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 paginate: pulumi.Input[Optional[_builtins.bool]] = None,
+                 pagination_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 refresh_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 show_check_run_links: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_group_names: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_header: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p95: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p99: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sort_by_status: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 use_tags_and_operator: pulumi.Input[Optional[_builtins.bool]] = None,
+                 width: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Dashboard resources.
-        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+
+        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         :param pulumi.Input[_builtins.str] custom_css: Custom CSS to be applied to the dashboard.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         :param pulumi.Input[_builtins.str] description: HTML \\n\\n description for the dashboard.
-        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.str] favicon: A URL pointing to an image file to use as browser favicon.
+        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL pointing to an image file to use as browser favicon.
         :param pulumi.Input[_builtins.str] header: A piece of text displayed at the top of your dashboard.
-        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private and generate key.
-        :param pulumi.Input[_builtins.str] key: The access key when the dashboard is private.
-        :param pulumi.Input[_builtins.str] link: A link to for the dashboard logo.
-        :param pulumi.Input[_builtins.str] logo: A URL pointing to an image file to use for the dashboard logo.
-        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. (Default `true`).
-        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
-        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
-        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. (Default `true`).
+        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] key: The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
+        :param pulumi.Input[_builtins.str] link: The http or https URL that clicking the dashboard logo leads to.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL pointing to an image file to use for the dashboard logo.
+        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. Defaults to `true`.
+        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
+        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
+        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] show_group_names: Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] sort_by_status: List failing checks first. Defaults to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
-        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. (Default `false`).
-        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         """
         if checks_per_page is not None:
             pulumi.set(__self__, "checks_per_page", checks_per_page)
@@ -480,12 +518,16 @@ class _DashboardState:
             pulumi.set(__self__, "refresh_rate", refresh_rate)
         if show_check_run_links is not None:
             pulumi.set(__self__, "show_check_run_links", show_check_run_links)
+        if show_group_names is not None:
+            pulumi.set(__self__, "show_group_names", show_group_names)
         if show_header is not None:
             pulumi.set(__self__, "show_header", show_header)
         if show_p95 is not None:
             pulumi.set(__self__, "show_p95", show_p95)
         if show_p99 is not None:
             pulumi.set(__self__, "show_p99", show_p99)
+        if sort_by_status is not None:
+            pulumi.set(__self__, "sort_by_status", sort_by_status)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
         if use_tags_and_operator is not None:
@@ -495,290 +537,314 @@ class _DashboardState:
 
     @_builtins.property
     @pulumi.getter(name="checksPerPage")
-    def checks_per_page(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def checks_per_page(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         """
         return pulumi.get(self, "checks_per_page")
 
     @checks_per_page.setter
-    def checks_per_page(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def checks_per_page(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "checks_per_page", value)
 
     @_builtins.property
     @pulumi.getter(name="customCss")
-    def custom_css(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_css(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Custom CSS to be applied to the dashboard.
         """
         return pulumi.get(self, "custom_css")
 
     @custom_css.setter
-    def custom_css(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_css(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_css", value)
 
     @_builtins.property
     @pulumi.getter(name="customDomain")
-    def custom_domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_domain(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
         """
         return pulumi.get(self, "custom_domain")
 
     @custom_domain.setter
-    def custom_domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_domain(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_domain", value)
 
     @_builtins.property
     @pulumi.getter(name="customUrl")
-    def custom_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def custom_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "custom_url")
 
     @custom_url.setter
-    def custom_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def custom_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "custom_url", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         HTML \\n\\n description for the dashboard.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="enableIncidents")
-    def enable_incidents(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enable_incidents(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Enable incident support for the dashboard. (Default `false`).
+        Enable incident support for the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "enable_incidents")
 
     @enable_incidents.setter
-    def enable_incidents(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enable_incidents(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enable_incidents", value)
 
     @_builtins.property
     @pulumi.getter(name="expandChecks")
-    def expand_checks(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def expand_checks(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Expand or collapse checks on the dashboard. (Default `false`).
+        Expand or collapse checks on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "expand_checks")
 
     @expand_checks.setter
-    def expand_checks(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def expand_checks(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "expand_checks", value)
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def favicon(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL pointing to an image file to use as browser favicon.
+        An http or https URL pointing to an image file to use as browser favicon.
         """
         return pulumi.get(self, "favicon")
 
     @favicon.setter
-    def favicon(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def favicon(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "favicon", value)
 
     @_builtins.property
     @pulumi.getter
-    def header(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def header(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A piece of text displayed at the top of your dashboard.
         """
         return pulumi.get(self, "header")
 
     @header.setter
-    def header(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def header(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "header", value)
 
     @_builtins.property
     @pulumi.getter(name="hideTags")
-    def hide_tags(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def hide_tags(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide the tags on the dashboard. (Default `false`).
+        Show or hide the tags on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "hide_tags")
 
     @hide_tags.setter
-    def hide_tags(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def hide_tags(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "hide_tags", value)
 
     @_builtins.property
     @pulumi.getter(name="isPrivate")
-    def is_private(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_private(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Set your dashboard as private and generate key.
+        Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
         """
         return pulumi.get(self, "is_private")
 
     @is_private.setter
-    def is_private(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_private(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_private", value)
 
     @_builtins.property
     @pulumi.getter
-    def key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The access key when the dashboard is private.
+        The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
         """
         return pulumi.get(self, "key")
 
     @key.setter
-    def key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "key", value)
 
     @_builtins.property
     @pulumi.getter
-    def link(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def link(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A link to for the dashboard logo.
+        The http or https URL that clicking the dashboard logo leads to.
         """
         return pulumi.get(self, "link")
 
     @link.setter
-    def link(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def link(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "link", value)
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def logo(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        A URL pointing to an image file to use for the dashboard logo.
+        An http or https URL pointing to an image file to use for the dashboard logo.
         """
         return pulumi.get(self, "logo")
 
     @logo.setter
-    def logo(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def logo(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "logo", value)
 
     @_builtins.property
     @pulumi.getter
-    def paginate(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def paginate(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines if pagination is on or off. (Default `true`).
+        Determines if pagination is on or off. Defaults to `true`.
         """
         return pulumi.get(self, "paginate")
 
     @paginate.setter
-    def paginate(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def paginate(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "paginate", value)
 
     @_builtins.property
     @pulumi.getter(name="paginationRate")
-    def pagination_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def pagination_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+        How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
         """
         return pulumi.get(self, "pagination_rate")
 
     @pagination_rate.setter
-    def pagination_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def pagination_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "pagination_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="refreshRate")
-    def refresh_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def refresh_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+        How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
         """
         return pulumi.get(self, "refresh_rate")
 
     @refresh_rate.setter
-    def refresh_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def refresh_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "refresh_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="showCheckRunLinks")
-    def show_check_run_links(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def show_check_run_links(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide check run links on the dashboard. (Default `false`).
+        Show or hide check run links on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "show_check_run_links")
 
     @show_check_run_links.setter
-    def show_check_run_links(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_check_run_links(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_check_run_links", value)
 
     @_builtins.property
-    @pulumi.getter(name="showHeader")
-    def show_header(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    @pulumi.getter(name="showGroupNames")
+    def show_group_names(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide header and description on the dashboard. (Default `true`).
+        Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+        """
+        return pulumi.get(self, "show_group_names")
+
+    @show_group_names.setter
+    def show_group_names(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "show_group_names", value)
+
+    @_builtins.property
+    @pulumi.getter(name="showHeader")
+    def show_header(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Show or hide header and description on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_header")
 
     @show_header.setter
-    def show_header(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_header(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_header", value)
 
     @_builtins.property
     @pulumi.getter(name="showP95")
-    def show_p95(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def show_p95(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide the P95 stats on the dashboard. (Default `true`).
+        Show or hide the P95 stats on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_p95")
 
     @show_p95.setter
-    def show_p95(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_p95(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_p95", value)
 
     @_builtins.property
     @pulumi.getter(name="showP99")
-    def show_p99(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def show_p99(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Show or hide the P99 stats on the dashboard. (Default `true`).
+        Show or hide the P99 stats on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_p99")
 
     @show_p99.setter
-    def show_p99(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def show_p99(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "show_p99", value)
 
     @_builtins.property
+    @pulumi.getter(name="sortByStatus")
+    def sort_by_status(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        List failing checks first. Defaults to `false`.
+        """
+        return pulumi.get(self, "sort_by_status")
+
+    @sort_by_status.setter
+    def sort_by_status(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "sort_by_status", value)
+
+    @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of one or more tags that filter which checks to display on the dashboard.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="useTagsAndOperator")
-    def use_tags_and_operator(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_tags_and_operator(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Set when to use AND operator for fetching dashboard tags. (Default `false`).
+        Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
         """
         return pulumi.get(self, "use_tags_and_operator")
 
     @use_tags_and_operator.setter
-    def use_tags_and_operator(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_tags_and_operator(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_tags_and_operator", value)
 
     @_builtins.property
     @pulumi.getter
-    def width(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def width(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         """
         return pulumi.get(self, "width")
 
     @width.setter
-    def width(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def width(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "width", value)
 
 
@@ -788,31 +854,35 @@ class Dashboard(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 checks_per_page: Optional[pulumi.Input[_builtins.int]] = None,
-                 custom_css: Optional[pulumi.Input[_builtins.str]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 custom_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 enable_incidents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 expand_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 header: Optional[pulumi.Input[_builtins.str]] = None,
-                 hide_tags: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_private: Optional[pulumi.Input[_builtins.bool]] = None,
-                 link: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 paginate: Optional[pulumi.Input[_builtins.bool]] = None,
-                 pagination_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 refresh_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 show_check_run_links: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_header: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p95: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p99: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 use_tags_and_operator: Optional[pulumi.Input[_builtins.bool]] = None,
-                 width: Optional[pulumi.Input[_builtins.str]] = None,
+                 checks_per_page: pulumi.Input[Optional[_builtins.int]] = None,
+                 custom_css: pulumi.Input[Optional[_builtins.str]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 custom_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enable_incidents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 expand_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 header: pulumi.Input[Optional[_builtins.str]] = None,
+                 hide_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_private: pulumi.Input[Optional[_builtins.bool]] = None,
+                 link: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 paginate: pulumi.Input[Optional[_builtins.bool]] = None,
+                 pagination_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 refresh_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 show_check_run_links: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_group_names: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_header: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p95: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p99: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sort_by_status: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 use_tags_and_operator: pulumi.Input[Optional[_builtins.bool]] = None,
+                 width: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
+        Dashboards are public status pages that display selected checks and their statuses.
+
         ## Example Usage
 
         ```python
@@ -832,31 +902,45 @@ class Dashboard(pulumi.CustomResource):
             tags=["production"])
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing dashboard using its dashboard ID, a short hexadecimal string.
+        The ID is the dashboardId returned by the Checkly API at GET /v1/dashboards.
+
+        ```sh
+        $ pulumi import checkly:index/dashboard:Dashboard example 7f3a9c21
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         :param pulumi.Input[_builtins.str] custom_css: Custom CSS to be applied to the dashboard.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         :param pulumi.Input[_builtins.str] description: HTML \\n\\n description for the dashboard.
-        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.str] favicon: A URL pointing to an image file to use as browser favicon.
+        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL pointing to an image file to use as browser favicon.
         :param pulumi.Input[_builtins.str] header: A piece of text displayed at the top of your dashboard.
-        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private and generate key.
-        :param pulumi.Input[_builtins.str] link: A link to for the dashboard logo.
-        :param pulumi.Input[_builtins.str] logo: A URL pointing to an image file to use for the dashboard logo.
-        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. (Default `true`).
-        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
-        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
-        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. (Default `true`).
+        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] link: The http or https URL that clicking the dashboard logo leads to.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL pointing to an image file to use for the dashboard logo.
+        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. Defaults to `true`.
+        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
+        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
+        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] show_group_names: Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] sort_by_status: List failing checks first. Defaults to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
-        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. (Default `false`).
-        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         """
         ...
     @overload
@@ -865,6 +949,8 @@ class Dashboard(pulumi.CustomResource):
                  args: DashboardArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Dashboards are public status pages that display selected checks and their statuses.
+
         ## Example Usage
 
         ```python
@@ -883,6 +969,18 @@ class Dashboard(pulumi.CustomResource):
             width="FULL",
             tags=["production"])
         ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing dashboard using its dashboard ID, a short hexadecimal string.
+        The ID is the dashboardId returned by the Checkly API at GET /v1/dashboards.
+
+        ```sh
+        $ pulumi import checkly:index/dashboard:Dashboard example 7f3a9c21
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param DashboardArgs args: The arguments to use to populate this resource's properties.
@@ -899,29 +997,31 @@ class Dashboard(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 checks_per_page: Optional[pulumi.Input[_builtins.int]] = None,
-                 custom_css: Optional[pulumi.Input[_builtins.str]] = None,
-                 custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-                 custom_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 enable_incidents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 expand_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 favicon: Optional[pulumi.Input[_builtins.str]] = None,
-                 header: Optional[pulumi.Input[_builtins.str]] = None,
-                 hide_tags: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_private: Optional[pulumi.Input[_builtins.bool]] = None,
-                 link: Optional[pulumi.Input[_builtins.str]] = None,
-                 logo: Optional[pulumi.Input[_builtins.str]] = None,
-                 paginate: Optional[pulumi.Input[_builtins.bool]] = None,
-                 pagination_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 refresh_rate: Optional[pulumi.Input[_builtins.int]] = None,
-                 show_check_run_links: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_header: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p95: Optional[pulumi.Input[_builtins.bool]] = None,
-                 show_p99: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 use_tags_and_operator: Optional[pulumi.Input[_builtins.bool]] = None,
-                 width: Optional[pulumi.Input[_builtins.str]] = None,
+                 checks_per_page: pulumi.Input[Optional[_builtins.int]] = None,
+                 custom_css: pulumi.Input[Optional[_builtins.str]] = None,
+                 custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+                 custom_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 enable_incidents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 expand_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 favicon: pulumi.Input[Optional[_builtins.str]] = None,
+                 header: pulumi.Input[Optional[_builtins.str]] = None,
+                 hide_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_private: pulumi.Input[Optional[_builtins.bool]] = None,
+                 link: pulumi.Input[Optional[_builtins.str]] = None,
+                 logo: pulumi.Input[Optional[_builtins.str]] = None,
+                 paginate: pulumi.Input[Optional[_builtins.bool]] = None,
+                 pagination_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 refresh_rate: pulumi.Input[Optional[_builtins.int]] = None,
+                 show_check_run_links: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_group_names: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_header: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p95: pulumi.Input[Optional[_builtins.bool]] = None,
+                 show_p99: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sort_by_status: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 use_tags_and_operator: pulumi.Input[Optional[_builtins.bool]] = None,
+                 width: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -952,9 +1052,11 @@ class Dashboard(pulumi.CustomResource):
             __props__.__dict__["pagination_rate"] = pagination_rate
             __props__.__dict__["refresh_rate"] = refresh_rate
             __props__.__dict__["show_check_run_links"] = show_check_run_links
+            __props__.__dict__["show_group_names"] = show_group_names
             __props__.__dict__["show_header"] = show_header
             __props__.__dict__["show_p95"] = show_p95
             __props__.__dict__["show_p99"] = show_p99
+            __props__.__dict__["sort_by_status"] = sort_by_status
             __props__.__dict__["tags"] = tags
             __props__.__dict__["use_tags_and_operator"] = use_tags_and_operator
             __props__.__dict__["width"] = width
@@ -971,30 +1073,32 @@ class Dashboard(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            checks_per_page: Optional[pulumi.Input[_builtins.int]] = None,
-            custom_css: Optional[pulumi.Input[_builtins.str]] = None,
-            custom_domain: Optional[pulumi.Input[_builtins.str]] = None,
-            custom_url: Optional[pulumi.Input[_builtins.str]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            enable_incidents: Optional[pulumi.Input[_builtins.bool]] = None,
-            expand_checks: Optional[pulumi.Input[_builtins.bool]] = None,
-            favicon: Optional[pulumi.Input[_builtins.str]] = None,
-            header: Optional[pulumi.Input[_builtins.str]] = None,
-            hide_tags: Optional[pulumi.Input[_builtins.bool]] = None,
-            is_private: Optional[pulumi.Input[_builtins.bool]] = None,
-            key: Optional[pulumi.Input[_builtins.str]] = None,
-            link: Optional[pulumi.Input[_builtins.str]] = None,
-            logo: Optional[pulumi.Input[_builtins.str]] = None,
-            paginate: Optional[pulumi.Input[_builtins.bool]] = None,
-            pagination_rate: Optional[pulumi.Input[_builtins.int]] = None,
-            refresh_rate: Optional[pulumi.Input[_builtins.int]] = None,
-            show_check_run_links: Optional[pulumi.Input[_builtins.bool]] = None,
-            show_header: Optional[pulumi.Input[_builtins.bool]] = None,
-            show_p95: Optional[pulumi.Input[_builtins.bool]] = None,
-            show_p99: Optional[pulumi.Input[_builtins.bool]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            use_tags_and_operator: Optional[pulumi.Input[_builtins.bool]] = None,
-            width: Optional[pulumi.Input[_builtins.str]] = None) -> 'Dashboard':
+            checks_per_page: pulumi.Input[Optional[_builtins.int]] = None,
+            custom_css: pulumi.Input[Optional[_builtins.str]] = None,
+            custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+            custom_url: pulumi.Input[Optional[_builtins.str]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            enable_incidents: pulumi.Input[Optional[_builtins.bool]] = None,
+            expand_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+            favicon: pulumi.Input[Optional[_builtins.str]] = None,
+            header: pulumi.Input[Optional[_builtins.str]] = None,
+            hide_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+            is_private: pulumi.Input[Optional[_builtins.bool]] = None,
+            key: pulumi.Input[Optional[_builtins.str]] = None,
+            link: pulumi.Input[Optional[_builtins.str]] = None,
+            logo: pulumi.Input[Optional[_builtins.str]] = None,
+            paginate: pulumi.Input[Optional[_builtins.bool]] = None,
+            pagination_rate: pulumi.Input[Optional[_builtins.int]] = None,
+            refresh_rate: pulumi.Input[Optional[_builtins.int]] = None,
+            show_check_run_links: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_group_names: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_header: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_p95: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_p99: pulumi.Input[Optional[_builtins.bool]] = None,
+            sort_by_status: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            use_tags_and_operator: pulumi.Input[Optional[_builtins.bool]] = None,
+            width: pulumi.Input[Optional[_builtins.str]] = None) -> 'Dashboard':
         """
         Get an existing Dashboard resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1002,30 +1106,32 @@ class Dashboard(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        :param pulumi.Input[_builtins.int] checks_per_page: Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         :param pulumi.Input[_builtins.str] custom_css: Custom CSS to be applied to the dashboard.
         :param pulumi.Input[_builtins.str] custom_domain: A custom user domain, e.g. 'status.example.com'. See the docs on updating your DNS and SSL usage.
-        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        :param pulumi.Input[_builtins.str] custom_url: A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         :param pulumi.Input[_builtins.str] description: HTML \\n\\n description for the dashboard.
-        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.str] favicon: A URL pointing to an image file to use as browser favicon.
+        :param pulumi.Input[_builtins.bool] enable_incidents: Enable incident support for the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] expand_checks: Expand or collapse checks on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] favicon: An http or https URL pointing to an image file to use as browser favicon.
         :param pulumi.Input[_builtins.str] header: A piece of text displayed at the top of your dashboard.
-        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private and generate key.
-        :param pulumi.Input[_builtins.str] key: The access key when the dashboard is private.
-        :param pulumi.Input[_builtins.str] link: A link to for the dashboard logo.
-        :param pulumi.Input[_builtins.str] logo: A URL pointing to an image file to use for the dashboard logo.
-        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. (Default `true`).
-        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
-        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
-        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. (Default `false`).
-        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. (Default `true`).
-        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. (Default `true`).
+        :param pulumi.Input[_builtins.bool] hide_tags: Show or hide the tags on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] is_private: Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] key: The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
+        :param pulumi.Input[_builtins.str] link: The http or https URL that clicking the dashboard logo leads to.
+        :param pulumi.Input[_builtins.str] logo: An http or https URL pointing to an image file to use for the dashboard logo.
+        :param pulumi.Input[_builtins.bool] paginate: Determines if pagination is on or off. Defaults to `true`.
+        :param pulumi.Input[_builtins.int] pagination_rate: How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
+        :param pulumi.Input[_builtins.int] refresh_rate: How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
+        :param pulumi.Input[_builtins.bool] show_check_run_links: Show or hide check run links on the dashboard. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] show_group_names: Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_header: Show or hide header and description on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p95: Show or hide the P95 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] show_p99: Show or hide the P99 stats on the dashboard. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] sort_by_status: List failing checks first. Defaults to `false`.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of one or more tags that filter which checks to display on the dashboard.
-        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. (Default `false`).
-        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        :param pulumi.Input[_builtins.bool] use_tags_and_operator: Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] width: Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1049,25 +1155,85 @@ class Dashboard(pulumi.CustomResource):
         __props__.__dict__["pagination_rate"] = pagination_rate
         __props__.__dict__["refresh_rate"] = refresh_rate
         __props__.__dict__["show_check_run_links"] = show_check_run_links
+        __props__.__dict__["show_group_names"] = show_group_names
         __props__.__dict__["show_header"] = show_header
         __props__.__dict__["show_p95"] = show_p95
         __props__.__dict__["show_p99"] = show_p99
+        __props__.__dict__["sort_by_status"] = sort_by_status
         __props__.__dict__["tags"] = tags
         __props__.__dict__["use_tags_and_operator"] = use_tags_and_operator
         __props__.__dict__["width"] = width
         return Dashboard(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            checks_per_page: pulumi.Input[Optional[_builtins.int]] = None,
+            custom_css: pulumi.Input[Optional[_builtins.str]] = None,
+            custom_domain: pulumi.Input[Optional[_builtins.str]] = None,
+            custom_url: pulumi.Input[Optional[_builtins.str]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            enable_incidents: pulumi.Input[Optional[_builtins.bool]] = None,
+            expand_checks: pulumi.Input[Optional[_builtins.bool]] = None,
+            favicon: pulumi.Input[Optional[_builtins.str]] = None,
+            header: pulumi.Input[Optional[_builtins.str]] = None,
+            hide_tags: pulumi.Input[Optional[_builtins.bool]] = None,
+            is_private: pulumi.Input[Optional[_builtins.bool]] = None,
+            key: pulumi.Input[Optional[_builtins.str]] = None,
+            link: pulumi.Input[Optional[_builtins.str]] = None,
+            logo: pulumi.Input[Optional[_builtins.str]] = None,
+            paginate: pulumi.Input[Optional[_builtins.bool]] = None,
+            pagination_rate: pulumi.Input[Optional[_builtins.int]] = None,
+            refresh_rate: pulumi.Input[Optional[_builtins.int]] = None,
+            show_check_run_links: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_group_names: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_header: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_p95: pulumi.Input[Optional[_builtins.bool]] = None,
+            show_p99: pulumi.Input[Optional[_builtins.bool]] = None,
+            sort_by_status: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            use_tags_and_operator: pulumi.Input[Optional[_builtins.bool]] = None,
+            width: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["checksPerPage"] = checks_per_page
+        __props__["customCss"] = custom_css
+        __props__["customDomain"] = custom_domain
+        __props__["customUrl"] = custom_url
+        __props__["description"] = description
+        __props__["enableIncidents"] = enable_incidents
+        __props__["expandChecks"] = expand_checks
+        __props__["favicon"] = favicon
+        __props__["header"] = header
+        __props__["hideTags"] = hide_tags
+        __props__["isPrivate"] = is_private
+        __props__["key"] = key
+        __props__["link"] = link
+        __props__["logo"] = logo
+        __props__["paginate"] = paginate
+        __props__["paginationRate"] = pagination_rate
+        __props__["refreshRate"] = refresh_rate
+        __props__["showCheckRunLinks"] = show_check_run_links
+        __props__["showGroupNames"] = show_group_names
+        __props__["showHeader"] = show_header
+        __props__["showP95"] = show_p95
+        __props__["showP99"] = show_p99
+        __props__["sortByStatus"] = sort_by_status
+        __props__["tags"] = tags
+        __props__["useTagsAndOperator"] = use_tags_and_operator
+        __props__["width"] = width
+        return pulumi.runtime.exists_resource(None, 'checkly:index/dashboard:Dashboard', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="checksPerPage")
-    def checks_per_page(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def checks_per_page(self) -> pulumi.Output[_builtins.int]:
         """
-        Determines how many checks to show per page. Possible values are between 1 and 20. (Default `15`).
+        Determines how many checks to show per page. Possible values are between `1` and `20`. Defaults to `15`.
         """
         return pulumi.get(self, "checks_per_page")
 
     @_builtins.property
     @pulumi.getter(name="customCss")
-    def custom_css(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def custom_css(self) -> pulumi.Output[_builtins.str]:
         """
         Custom CSS to be applied to the dashboard.
         """
@@ -1085,13 +1251,13 @@ class Dashboard(pulumi.CustomResource):
     @pulumi.getter(name="customUrl")
     def custom_url(self) -> pulumi.Output[_builtins.str]:
         """
-        A subdomain name under 'checklyhq.com'. Needs to be unique across all users.
+        A subdomain name under 'checklyhq.com'. Needs to be unique across all users. Must be at most `63` characters. Must contain only letters, digits and dashes, with no leading or trailing dash.
         """
         return pulumi.get(self, "custom_url")
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def description(self) -> pulumi.Output[_builtins.str]:
         """
         HTML \\n\\n description for the dashboard.
         """
@@ -1099,25 +1265,25 @@ class Dashboard(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="enableIncidents")
-    def enable_incidents(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def enable_incidents(self) -> pulumi.Output[_builtins.bool]:
         """
-        Enable incident support for the dashboard. (Default `false`).
+        Enable incident support for the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "enable_incidents")
 
     @_builtins.property
     @pulumi.getter(name="expandChecks")
-    def expand_checks(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def expand_checks(self) -> pulumi.Output[_builtins.bool]:
         """
-        Expand or collapse checks on the dashboard. (Default `false`).
+        Expand or collapse checks on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "expand_checks")
 
     @_builtins.property
     @pulumi.getter
-    def favicon(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def favicon(self) -> pulumi.Output[_builtins.str]:
         """
-        A URL pointing to an image file to use as browser favicon.
+        An http or https URL pointing to an image file to use as browser favicon.
         """
         return pulumi.get(self, "favicon")
 
@@ -1131,17 +1297,17 @@ class Dashboard(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="hideTags")
-    def hide_tags(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def hide_tags(self) -> pulumi.Output[_builtins.bool]:
         """
-        Show or hide the tags on the dashboard. (Default `false`).
+        Show or hide the tags on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "hide_tags")
 
     @_builtins.property
     @pulumi.getter(name="isPrivate")
-    def is_private(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def is_private(self) -> pulumi.Output[_builtins.bool]:
         """
-        Set your dashboard as private and generate key.
+        Set your dashboard as private. An access key is only issued when the dashboard is created private. Making an existing dashboard private through an update leaves it without a key; recreate the dashboard to get one. An update that leaves the dashboard public revokes its key. Defaults to `false`.
         """
         return pulumi.get(self, "is_private")
 
@@ -1149,85 +1315,101 @@ class Dashboard(pulumi.CustomResource):
     @pulumi.getter
     def key(self) -> pulumi.Output[_builtins.str]:
         """
-        The access key when the dashboard is private.
+        The access key of a private dashboard. It is only issued when the dashboard is created private, and an update that leaves the dashboard public revokes it. A dashboard made private through an update, or imported, has no key.
         """
         return pulumi.get(self, "key")
 
     @_builtins.property
     @pulumi.getter
-    def link(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def link(self) -> pulumi.Output[_builtins.str]:
         """
-        A link to for the dashboard logo.
+        The http or https URL that clicking the dashboard logo leads to.
         """
         return pulumi.get(self, "link")
 
     @_builtins.property
     @pulumi.getter
-    def logo(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def logo(self) -> pulumi.Output[_builtins.str]:
         """
-        A URL pointing to an image file to use for the dashboard logo.
+        An http or https URL pointing to an image file to use for the dashboard logo.
         """
         return pulumi.get(self, "logo")
 
     @_builtins.property
     @pulumi.getter
-    def paginate(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def paginate(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines if pagination is on or off. (Default `true`).
+        Determines if pagination is on or off. Defaults to `true`.
         """
         return pulumi.get(self, "paginate")
 
     @_builtins.property
     @pulumi.getter(name="paginationRate")
-    def pagination_rate(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def pagination_rate(self) -> pulumi.Output[_builtins.int]:
         """
-        How often to trigger pagination in seconds. Possible values `30`, `60` and `300`. (Default `60`).
+        How often to trigger pagination in seconds. Possible values are `30`, `60` and `300`. Defaults to `60`.
         """
         return pulumi.get(self, "pagination_rate")
 
     @_builtins.property
     @pulumi.getter(name="refreshRate")
-    def refresh_rate(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def refresh_rate(self) -> pulumi.Output[_builtins.int]:
         """
-        How often to refresh the dashboard in seconds. Possible values `60`, '300' and `600`. (Default `60`).
+        How often to refresh the dashboard in seconds. Possible values are `60`, `300` and `600`. Defaults to `60`.
         """
         return pulumi.get(self, "refresh_rate")
 
     @_builtins.property
     @pulumi.getter(name="showCheckRunLinks")
-    def show_check_run_links(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def show_check_run_links(self) -> pulumi.Output[_builtins.bool]:
         """
-        Show or hide check run links on the dashboard. (Default `false`).
+        Show or hide check run links on the dashboard. Defaults to `false`.
         """
         return pulumi.get(self, "show_check_run_links")
 
     @_builtins.property
-    @pulumi.getter(name="showHeader")
-    def show_header(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    @pulumi.getter(name="showGroupNames")
+    def show_group_names(self) -> pulumi.Output[_builtins.bool]:
         """
-        Show or hide header and description on the dashboard. (Default `true`).
+        Show or hide the names of the groups of the checks on the dashboard. Defaults to `true`.
+        """
+        return pulumi.get(self, "show_group_names")
+
+    @_builtins.property
+    @pulumi.getter(name="showHeader")
+    def show_header(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Show or hide header and description on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_header")
 
     @_builtins.property
     @pulumi.getter(name="showP95")
-    def show_p95(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def show_p95(self) -> pulumi.Output[_builtins.bool]:
         """
-        Show or hide the P95 stats on the dashboard. (Default `true`).
+        Show or hide the P95 stats on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_p95")
 
     @_builtins.property
     @pulumi.getter(name="showP99")
-    def show_p99(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def show_p99(self) -> pulumi.Output[_builtins.bool]:
         """
-        Show or hide the P99 stats on the dashboard. (Default `true`).
+        Show or hide the P99 stats on the dashboard. Defaults to `true`.
         """
         return pulumi.get(self, "show_p99")
 
     @_builtins.property
+    @pulumi.getter(name="sortByStatus")
+    def sort_by_status(self) -> pulumi.Output[_builtins.bool]:
+        """
+        List failing checks first. Defaults to `false`.
+        """
+        return pulumi.get(self, "sort_by_status")
+
+    @_builtins.property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
         A list of one or more tags that filter which checks to display on the dashboard.
         """
@@ -1235,17 +1417,17 @@ class Dashboard(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="useTagsAndOperator")
-    def use_tags_and_operator(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def use_tags_and_operator(self) -> pulumi.Output[_builtins.bool]:
         """
-        Set when to use AND operator for fetching dashboard tags. (Default `false`).
+        Set when to use AND operator for fetching dashboard tags. Defaults to `false`.
         """
         return pulumi.get(self, "use_tags_and_operator")
 
     @_builtins.property
     @pulumi.getter
-    def width(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def width(self) -> pulumi.Output[_builtins.str]:
         """
-        Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. (Default `FULL`).
+        Determines whether to use the full screen or focus in the center. Possible values are `FULL` and `960PX`. Defaults to `FULL`.
         """
         return pulumi.get(self, "width")
 

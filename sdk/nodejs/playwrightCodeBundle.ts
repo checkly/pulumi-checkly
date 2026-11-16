@@ -23,6 +23,17 @@ export class PlaywrightCodeBundle extends pulumi.CustomResource {
         return new PlaywrightCodeBundle(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing PlaywrightCodeBundle resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: PlaywrightCodeBundleState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/playwrightCodeBundle:PlaywrightCodeBundle", id, <any>state || {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'checkly:index/playwrightCodeBundle:PlaywrightCodeBundle';
 
@@ -81,11 +92,11 @@ export interface PlaywrightCodeBundleState {
     /**
      * An opaque blob of generated metadata. The value is not intended to be user-consumable and should be passed as-is to a Playwright check resource.
      */
-    metadata?: pulumi.Input<string>;
+    metadata?: pulumi.Input<string | undefined>;
     /**
      * A prebuilt archive containing the code bundle.
      */
-    prebuiltArchive?: pulumi.Input<inputs.PlaywrightCodeBundlePrebuiltArchive>;
+    prebuiltArchive?: pulumi.Input<inputs.PlaywrightCodeBundlePrebuiltArchive | undefined>;
 }
 
 /**

@@ -11,18 +11,230 @@ namespace Pulumi.Checkly
 {
     /// <summary>
     /// Checks allows you to monitor key webapp flows, backend API's and set up alerting, so you get a notification when things break or slow down.
+    /// 
+    /// The `checkly.Check` resource type is deprecated in favor of `checkly.ApiCheck`, `checkly.BrowserCheck` and `checkly.MultistepCheck`, which only expose the attributes of their check type, and will be removed in a future version of the provider. An existing check can be moved to its per-type resource with a Pulumi alias, without recreating it. Before moving a check, see "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for what to change: `checkly.ApiCheck` has lower default `DegradedResponseTime` and `MaxResponseTime` values and follows redirects by default, and the per-type resources have no `DoubleCheck`.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     // Basic API Check
+    ///     var exampleCheck = new Checkly.Check("example_check", new()
+    ///     {
+    ///         Name = "Example check",
+    ///         Type = "API",
+    ///         Activated = true,
+    ///         ShouldFail = false,
+    ///         Frequency = 1,
+    ///         UseGlobalAlertSettings = true,
+    ///         Locations = new[]
+    ///         {
+    ///             "us-west-1",
+    ///         },
+    ///         Request = new Checkly.Inputs.CheckRequestArgs
+    ///         {
+    ///             Url = "https://api.example.com/",
+    ///             FollowRedirects = true,
+    ///             SkipSsl = false,
+    ///             Assertions = new[]
+    ///             {
+    ///                 new Checkly.Inputs.CheckRequestAssertionArgs
+    ///                 {
+    ///                     Source = "STATUS_CODE",
+    ///                     Comparison = "EQUALS",
+    ///                     Target = "200",
+    ///                 },
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    ///     // A more complex example using more assertions and setting alerts
+    ///     var exampleCheck2 = new Checkly.Check("example_check_2", new()
+    ///     {
+    ///         Name = "Example API check 2",
+    ///         Type = "API",
+    ///         Activated = true,
+    ///         ShouldFail = true,
+    ///         Frequency = 1,
+    ///         DegradedResponseTime = 5000,
+    ///         MaxResponseTime = 10000,
+    ///         Locations = new[]
+    ///         {
+    ///             "us-west-1",
+    ///             "ap-northeast-1",
+    ///             "ap-south-1",
+    ///         },
+    ///         AlertSettings = new Checkly.Inputs.CheckAlertSettingsArgs
+    ///         {
+    ///             EscalationType = "RUN_BASED",
+    ///             RunBasedEscalation = new Checkly.Inputs.CheckAlertSettingsRunBasedEscalationArgs
+    ///             {
+    ///                 FailedRunThreshold = 1,
+    ///             },
+    ///             Reminders = new Checkly.Inputs.CheckAlertSettingsRemindersArgs
+    ///             {
+    ///                 Amount = 1,
+    ///             },
+    ///         },
+    ///         RetryStrategy = new Checkly.Inputs.CheckRetryStrategyArgs
+    ///         {
+    ///             Type = "FIXED",
+    ///             BaseBackoffSeconds = 60,
+    ///             MaxDurationSeconds = 600,
+    ///             MaxRetries = 3,
+    ///             SameRegion = false,
+    ///         },
+    ///         Request = new Checkly.Inputs.CheckRequestArgs
+    ///         {
+    ///             FollowRedirects = true,
+    ///             SkipSsl = false,
+    ///             Url = "http://api.example.com/",
+    ///             QueryParameters = 
+    ///             {
+    ///                 { "search", "foo" },
+    ///             },
+    ///             Headers = 
+    ///             {
+    ///                 { "X-Bogus", "bogus" },
+    ///             },
+    ///             Assertions = new[]
+    ///             {
+    ///                 new Checkly.Inputs.CheckRequestAssertionArgs
+    ///                 {
+    ///                     Source = "JSON_BODY",
+    ///                     Property = "code",
+    ///                     Comparison = "HAS_VALUE",
+    ///                     Target = "authentication.failed",
+    ///                 },
+    ///                 new Checkly.Inputs.CheckRequestAssertionArgs
+    ///                 {
+    ///                     Source = "STATUS_CODE",
+    ///                     Property = "",
+    ///                     Comparison = "EQUALS",
+    ///                     Target = "401",
+    ///                 },
+    ///             },
+    ///             BasicAuth = new Checkly.Inputs.CheckRequestBasicAuthArgs
+    ///             {
+    ///                 Username = "",
+    ///                 Password = "",
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    ///     // Basic Browser  Check
+    ///     var browserCheck1 = new Checkly.Check("browser_check_1", new()
+    ///     {
+    ///         Name = "Example check",
+    ///         Type = "BROWSER",
+    ///         Activated = true,
+    ///         Frequency = 10,
+    ///         UseGlobalAlertSettings = true,
+    ///         Locations = new[]
+    ///         {
+    ///             "us-west-1",
+    ///         },
+    ///         RuntimeId = "2023.02",
+    ///         Script = @"const { expect, test } = require('@playwright/test')
+    /// 
+    /// test.use({ actionTimeout: 10000 })
+    /// 
+    /// test('visit page and take screenshot', async ({ page }) =&gt; {
+    ///     const response = await page.goto(process.env.ENVIRONMENT_URL || 'https://checklyhq.com')
+    ///     await page.screenshot({ path: 'screenshot.jpg' })
+    ///     expect(response.status(), 'should respond with correct status code').toBeLessThan(400)
+    /// })
+    /// ",
+    ///     });
+    /// 
+    ///     // Connection checks with alert channels
+    ///     var emailAc1 = new Checkly.AlertChannel("email_ac1", new()
+    ///     {
+    ///         Email = new Checkly.Inputs.AlertChannelEmailArgs
+    ///         {
+    ///             Address = "info1@example.com",
+    ///         },
+    ///     });
+    /// 
+    ///     var emailAc2 = new Checkly.AlertChannel("email_ac2", new()
+    ///     {
+    ///         Email = new Checkly.Inputs.AlertChannelEmailArgs
+    ///         {
+    ///             Address = "info2@example.com",
+    ///         },
+    ///     });
+    /// 
+    ///     var exampleCheckWithAlerts = new Checkly.Check("example_check_with_alerts", new()
+    ///     {
+    ///         Name = "Example check with alerts",
+    ///         Type = "API",
+    ///         Frequency = 1,
+    ///         Locations = new[]
+    ///         {
+    ///             "us-west-1",
+    ///         },
+    ///         Request = new Checkly.Inputs.CheckRequestArgs
+    ///         {
+    ///             Url = "https://api.example.com/",
+    ///         },
+    ///         AlertChannelSubscriptions = new[]
+    ///         {
+    ///             new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
+    ///             {
+    ///                 ChannelId = emailAc1.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
+    ///                 Activated = true,
+    ///             },
+    ///             new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
+    ///             {
+    ///                 ChannelId = emailAc2.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
+    ///                 Activated = true,
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Moving to the per-type resources
+    /// 
+    /// An existing check can be moved to the resource of its type, `checkly.ApiCheck`, `checkly.BrowserCheck` or `checkly.MultistepCheck`, without recreating it: declare the new resource with an alias to the old type, `checkly:index/check:Check`, and run `pulumi up`. Refresh the stack on v3 before you add the alias. The provider can't verify the check type during the move, so pick the resource that matches the check's `Type`. The per-type resources have no `DoubleCheck`, so replace it with the equivalent `RetryStrategy` first. For a browser or multi-step check whose `ShouldFail` is `True`, remove `ShouldFail` and run `pulumi up` before the move, which sets it to `False`. See "Moving to the replacement resources" in [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for the details.
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// checkly.Check is deprecated; to start managing an existing resource, import it as checkly_api_check, checkly.BrowserCheck or checkly.MultistepCheck instead.
+    /// Import an existing check using its check ID.
+    /// You can find the ID in the check's URL in the Checkly dashboard.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/check:Check example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+    /// ```
     /// </summary>
+    [Obsolete(@"Use the ApiCheck, BrowserCheck or MultistepCheck resource instead, which expose only the properties of their check type. An existing check can be moved to one of them with an alias, without recreating it. When moving an API check, note that ApiCheck defaults degradedResponseTime and maxResponseTime to 5000 and 20000 instead of 15000 and 30000, and request.followRedirects to true instead of false; set them to keep the previous behaviour.")]
     [ChecklyResourceType("checkly:index/check:Check")]
     public partial class Check : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
+        /// Determines whether the check runs on its schedule. Defaults to `True`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next update restores the configured script unless you copy the repaired script into your program or add `Script` to the `IgnoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `AiAutoRepairEnabled` to the `IgnoreChanges` resource option.
+        /// </summary>
+        [Output("aiAutoRepairEnabled")]
+        public Output<bool?> AiAutoRepairEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.CheckAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
@@ -34,88 +246,89 @@ namespace Pulumi.Checkly
         public Output<Outputs.CheckAlertSettings> AlertSettings { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `Type` is `API`.
         /// </summary>
         [Output("degradedResponseTime")]
-        public Output<int?> DegradedResponseTime { get; private set; } = null!;
+        public Output<int> DegradedResponseTime { get; private set; } = null!;
 
         /// <summary>
         /// A description of the check.
         /// </summary>
         [Output("description")]
-        public Output<string?> Description { get; private set; } = null!;
+        public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+        /// Setting this to `True` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `False`.
         /// </summary>
         [Output("doubleCheck")]
-        public Output<bool?> DoubleCheck { get; private set; } = null!;
+        [Obsolete(@"The property `DoubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `RetryStrategy` property instead.")]
+        public Output<bool> DoubleCheck { get; private set; } = null!;
 
         /// <summary>
-        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-        /// </summary>
-        [Output("environmentVariable")]
-        public Output<ImmutableArray<Outputs.CheckEnvironmentVariable>> EnvironmentVariable { get; private set; } = null!;
-
-        /// <summary>
-        /// Key/value pairs of environment variables to insert into the runtime environment.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
         /// </summary>
         [Output("environmentVariables")]
-        public Output<ImmutableDictionary<string, string>?> EnvironmentVariables { get; private set; } = null!;
+        public Output<ImmutableArray<Outputs.CheckEnvironmentVariable>> EnvironmentVariables { get; private set; } = null!;
 
         /// <summary>
-        /// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Output("frequency")]
         public Output<int> Frequency { get; private set; } = null!;
 
         /// <summary>
-        /// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// Only relevant when `Type` is `API`. When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Output("frequencyOffset")]
         public Output<int?> FrequencyOffset { get; private set; } = null!;
 
         /// <summary>
-        /// The id of the check group this check is part of.
+        /// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         /// </summary>
         [Output("groupId")]
         public Output<int?> GroupId { get; private set; } = null!;
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        /// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         /// </summary>
         [Output("groupOrder")]
         public Output<int?> GroupOrder { get; private set; } = null!;
 
         /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `Intent` to the `IgnoreChanges` resource option.
+        /// </summary>
+        [Output("intent")]
+        public Output<Outputs.CheckIntent?> Intent { get; private set; } = null!;
+
+        /// <summary>
+        /// A valid piece of Node.js code to run in the setup phase of an API check.
         /// </summary>
         [Output("localSetupScript")]
-        public Output<string?> LocalSetupScript { get; private set; } = null!;
+        public Output<string> LocalSetupScript { get; private set; } = null!;
 
         /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase.
+        /// A valid piece of Node.js code to run in the teardown phase of an API check.
         /// </summary>
         [Output("localTeardownScript")]
-        public Output<string?> LocalTeardownScript { get; private set; } = null!;
+        public Output<string> LocalTeardownScript { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `Type` is `API`.
         /// </summary>
         [Output("maxResponseTime")]
-        public Output<int?> MaxResponseTime { get; private set; } = null!;
+        public Output<int> MaxResponseTime { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Output("muted")]
-        public Output<bool?> Muted { get; private set; } = null!;
+        public Output<bool> Muted { get; private set; } = null!;
 
         /// <summary>
         /// The name of the check.
@@ -124,13 +337,13 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the check from.
         /// </summary>
         [Output("privateLocations")]
         public Output<ImmutableArray<string>> PrivateLocations { get; private set; } = null!;
 
         /// <summary>
-        /// An API check might have one request config.
+        /// An API check might have one request config. Only relevant when `Type` is `API`.
         /// </summary>
         [Output("request")]
         public Output<Outputs.CheckRequest?> Request { get; private set; } = null!;
@@ -142,55 +355,49 @@ namespace Pulumi.Checkly
         public Output<Outputs.CheckRetryStrategy> RetryStrategy { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Output("runParallel")]
-        public Output<bool?> RunParallel { get; private set; } = null!;
+        public Output<bool> RunParallel { get; private set; } = null!;
 
         /// <summary>
-        /// The id of the runtime to use for this check.
+        /// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
         /// </summary>
         [Output("runtimeId")]
         public Output<string?> RuntimeId { get; private set; } = null!;
 
         /// <summary>
-        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
+        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `Type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
         /// </summary>
         [Output("script")]
-        public Output<string?> Script { get; private set; } = null!;
+        public Output<string> Script { get; private set; } = null!;
 
         /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
+        /// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `Type` is `API`.
         /// </summary>
         [Output("setupSnippetId")]
         public Output<int?> SetupSnippetId { get; private set; } = null!;
 
         /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+        /// Inverts when the check is considered to fail. Defaults to `False`. Only supported when `Type` is `API`. Use it to validate an error status such as 404.
         /// </summary>
         [Output("shouldFail")]
-        public Output<bool?> ShouldFail { get; private set; } = null!;
+        public Output<bool> ShouldFail { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if the SSL certificate should be validated for expiry.
-        /// </summary>
-        [Output("sslCheck")]
-        public Output<bool?> SslCheck { get; private set; } = null!;
-
-        /// <summary>
-        /// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+        /// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `Type` is `BROWSER`.
         /// </summary>
         [Output("sslCheckDomain")]
         public Output<string?> SslCheckDomain { get; private set; } = null!;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
         /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
+        /// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `Type` is `API`.
         /// </summary>
         [Output("teardownSnippetId")]
         public Output<int?> TeardownSnippetId { get; private set; } = null!;
@@ -202,16 +409,16 @@ namespace Pulumi.Checkly
         public Output<Outputs.CheckTriggerIncident?> TriggerIncident { get; private set; } = null!;
 
         /// <summary>
-        /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+        /// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
-        public Output<bool?> UseGlobalAlertSettings { get; private set; } = null!;
+        public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
 
 
         /// <summary>
@@ -261,16 +468,22 @@ namespace Pulumi.Checkly
     public sealed class CheckArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
+        /// Determines whether the check runs on its schedule. Defaults to `True`.
         /// </summary>
-        [Input("activated", required: true)]
-        public Input<bool> Activated { get; set; } = null!;
+        [Input("activated")]
+        public Input<bool>? Activated { get; set; }
+
+        /// <summary>
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next update restores the configured script unless you copy the repaired script into your program or add `Script` to the `IgnoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `AiAutoRepairEnabled` to the `IgnoreChanges` resource option.
+        /// </summary>
+        [Input("aiAutoRepairEnabled")]
+        public Input<bool>? AiAutoRepairEnabled { get; set; }
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.CheckAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.CheckAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
@@ -285,7 +498,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckAlertSettingsArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -297,68 +510,62 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+        /// Setting this to `True` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `False`.
         /// </summary>
         [Input("doubleCheck")]
+        [Obsolete(@"The property `DoubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `RetryStrategy` property instead.")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariable")]
-        private InputList<Inputs.CheckEnvironmentVariableArgs>? _environmentVariable;
-
-        /// <summary>
-        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-        /// </summary>
-        public InputList<Inputs.CheckEnvironmentVariableArgs> EnvironmentVariable
-        {
-            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckEnvironmentVariableArgs>());
-            set => _environmentVariable = value;
-        }
-
         [Input("environmentVariables")]
-        private InputMap<string>? _environmentVariables;
+        private InputList<Inputs.CheckEnvironmentVariableArgs>? _environmentVariables;
 
         /// <summary>
-        /// Key/value pairs of environment variables to insert into the runtime environment.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
         /// </summary>
-        [Obsolete(@"This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.")]
-        public InputMap<string> EnvironmentVariables
+        public InputList<Inputs.CheckEnvironmentVariableArgs> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
+            get => _environmentVariables ?? (_environmentVariables = new InputList<Inputs.CheckEnvironmentVariableArgs>());
             set => _environmentVariables = value;
         }
 
         /// <summary>
-        /// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
-        [Input("frequency", required: true)]
-        public Input<int> Frequency { get; set; } = null!;
+        [Input("frequency")]
+        public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// Only relevant when `Type` is `API`. When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
         /// <summary>
-        /// The id of the check group this check is part of.
+        /// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        /// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `Intent` to the `IgnoreChanges` resource option.
+        /// </summary>
+        [Input("intent")]
+        public Input<Inputs.CheckIntentArgs>? Intent { get; set; }
+
+        /// <summary>
+        /// A valid piece of Node.js code to run in the setup phase of an API check.
         /// </summary>
         [Input("localSetupScript")]
         public Input<string>? LocalSetupScript { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase.
+        /// A valid piece of Node.js code to run in the teardown phase of an API check.
         /// </summary>
         [Input("localTeardownScript")]
         public Input<string>? LocalTeardownScript { get; set; }
@@ -367,7 +574,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -376,13 +583,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -397,7 +604,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the check from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -406,7 +613,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// An API check might have one request config.
+        /// An API check might have one request config. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("request")]
         public Input<Inputs.CheckRequestArgs>? Request { get; set; }
@@ -418,43 +625,37 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckRetryStrategyArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The id of the runtime to use for this check.
+        /// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
+        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `Type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
         /// </summary>
         [Input("script")]
         public Input<string>? Script { get; set; }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
+        /// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
 
         /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+        /// Inverts when the check is considered to fail. Defaults to `False`. Only supported when `Type` is `API`. Use it to validate an error status such as 404.
         /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
 
         /// <summary>
-        /// Determines if the SSL certificate should be validated for expiry.
-        /// </summary>
-        [Input("sslCheck")]
-        public Input<bool>? SslCheck { get; set; }
-
-        /// <summary>
-        /// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+        /// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `Type` is `BROWSER`.
         /// </summary>
         [Input("sslCheckDomain")]
         public Input<string>? SslCheckDomain { get; set; }
@@ -463,7 +664,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         public InputList<string> Tags
         {
@@ -472,7 +673,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
+        /// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
@@ -484,13 +685,13 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckTriggerIncidentArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+        /// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -504,16 +705,22 @@ namespace Pulumi.Checkly
     public sealed class CheckState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the check is running or not. Possible values `true`, and `false`.
+        /// Determines whether the check runs on its schedule. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
+
+        /// <summary>
+        /// Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `Intent` with at least one statement. A repair is saved to the check, so it shows as a change to `Script`, and the next update restores the configured script unless you copy the repaired script into your program or add `Script` to the `IgnoreChanges` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `AiAutoRepairEnabled` to the `IgnoreChanges` resource option.
+        /// </summary>
+        [Input("aiAutoRepairEnabled")]
+        public Input<bool>? AiAutoRepairEnabled { get; set; }
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.CheckAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         /// </summary>
         public InputList<Inputs.CheckAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
@@ -528,7 +735,7 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckAlertSettingsGetArgs>? AlertSettings { get; set; }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered degraded. Possible values are between 0 and 30000. (Default `15000`).
+        /// The response time in milliseconds where the check should be considered degraded. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `15000`. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("degradedResponseTime")]
         public Input<int>? DegradedResponseTime { get; set; }
@@ -540,68 +747,62 @@ namespace Pulumi.Checkly
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+        /// Setting this to `True` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `False`.
         /// </summary>
         [Input("doubleCheck")]
+        [Obsolete(@"The property `DoubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `RetryStrategy` property instead.")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariable")]
-        private InputList<Inputs.CheckEnvironmentVariableGetArgs>? _environmentVariable;
-
-        /// <summary>
-        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-        /// </summary>
-        public InputList<Inputs.CheckEnvironmentVariableGetArgs> EnvironmentVariable
-        {
-            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckEnvironmentVariableGetArgs>());
-            set => _environmentVariable = value;
-        }
-
         [Input("environmentVariables")]
-        private InputMap<string>? _environmentVariables;
+        private InputList<Inputs.CheckEnvironmentVariableGetArgs>? _environmentVariables;
 
         /// <summary>
-        /// Key/value pairs of environment variables to insert into the runtime environment.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
         /// </summary>
-        [Obsolete(@"This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.")]
-        public InputMap<string> EnvironmentVariables
+        public InputList<Inputs.CheckEnvironmentVariableGetArgs> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
+            get => _environmentVariables ?? (_environmentVariables = new InputList<Inputs.CheckEnvironmentVariableGetArgs>());
             set => _environmentVariables = value;
         }
 
         /// <summary>
-        /// Controls how often the check should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        /// Controls how often the check should run. Defined in minutes. Possible values are `0` (high frequency - use `FrequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         /// </summary>
         [Input("frequency")]
         public Input<int>? Frequency { get; set; }
 
         /// <summary>
-        /// Only relevant when `type` is `API`. When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        /// Only relevant when `Type` is `API`. When `Frequency` is `0` (high frequency), `FrequencyOffset` is required and it alone controls how often the check should run. Defined in seconds. Possible values are `0` (disabled - use `Frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         /// </summary>
         [Input("frequencyOffset")]
         public Input<int>? FrequencyOffset { get; set; }
 
         /// <summary>
-        /// The id of the check group this check is part of.
+        /// The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         /// </summary>
         [Input("groupId")]
         public Input<int>? GroupId { get; set; }
 
         /// <summary>
-        /// The position of this check in a check group. It determines in what order checks are run when a group is triggered from the API or from CI/CD.
+        /// The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         /// </summary>
         [Input("groupOrder")]
         public Input<int>? GroupOrder { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js code to run in the setup phase.
+        /// Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `Goal` on its own is accepted here, but repair needs at least one statement in either `RequiredOutcomes` or `MustPreserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `Intent` to the `IgnoreChanges` resource option.
+        /// </summary>
+        [Input("intent")]
+        public Input<Inputs.CheckIntentGetArgs>? Intent { get; set; }
+
+        /// <summary>
+        /// A valid piece of Node.js code to run in the setup phase of an API check.
         /// </summary>
         [Input("localSetupScript")]
         public Input<string>? LocalSetupScript { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js code to run in the teardown phase.
+        /// A valid piece of Node.js code to run in the teardown phase of an API check.
         /// </summary>
         [Input("localTeardownScript")]
         public Input<string>? LocalTeardownScript { get; set; }
@@ -610,7 +811,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the this check. (Default ["us-east-1"])
+        /// The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `Locations` or `PrivateLocations`, unless it is part of a check group.
         /// </summary>
         public InputList<string> Locations
         {
@@ -619,13 +820,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// The response time in milliseconds starting from which a check should be considered failing. Possible values are between 0 and 30000. (Default `30000`).
+        /// The response time in milliseconds where the check should be considered failing. Possible values are between `0` and `30000`, or up to `45000` if extended limits have been approved for your account. Defaults to `30000`. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("maxResponseTime")]
         public Input<int>? MaxResponseTime { get; set; }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check fails/degrades/recovers.
+        /// Determines whether notifications are sent when the check fails, degrades or recovers. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -640,7 +841,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the check from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -649,7 +850,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// An API check might have one request config.
+        /// An API check might have one request config. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("request")]
         public Input<Inputs.CheckRequestGetArgs>? Request { get; set; }
@@ -661,43 +862,37 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckRetryStrategyGetArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the check should run in all selected locations in parallel or round-robin.
+        /// Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The id of the runtime to use for this check.
+        /// The ID of the runtime to use for the check. If not set, the account's default runtime is used.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file.
+        /// A valid piece of Node.js JavaScript code describing a browser interaction with the Puppeteer/Playwright framework or a reference to an external JavaScript file. Required when `Type` is `BROWSER` or `MULTI_STEP`; has no effect when it is `API`. Updating a browser or multi-step check clears the script path and dependencies that the Checkly CLI sets for multi-file scripts.
         /// </summary>
         [Input("script")]
         public Input<string>? Script { get; set; }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
+        /// The ID of the snippet to run in the setup phase of the API check. Must be at least `1`. If not set, no setup snippet runs. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
 
         /// <summary>
-        /// Allows to invert the behaviour of when a check is considered to fail. Allows for validating error status like 404.
+        /// Inverts when the check is considered to fail. Defaults to `False`. Only supported when `Type` is `API`. Use it to validate an error status such as 404.
         /// </summary>
         [Input("shouldFail")]
         public Input<bool>? ShouldFail { get; set; }
 
         /// <summary>
-        /// Determines if the SSL certificate should be validated for expiry.
-        /// </summary>
-        [Input("sslCheck")]
-        public Input<bool>? SslCheck { get; set; }
-
-        /// <summary>
-        /// A valid fully qualified domain name (FQDN) to check its SSL certificate.
+        /// A valid fully qualified domain name (FQDN) to check its SSL certificate. Only relevant when `Type` is `BROWSER`.
         /// </summary>
         [Input("sslCheckDomain")]
         public Input<string>? SslCheckDomain { get; set; }
@@ -706,7 +901,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A list of tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors.
         /// </summary>
         public InputList<string> Tags
         {
@@ -715,7 +910,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
+        /// The ID of the snippet to run in the teardown phase of the API check. Must be at least `1`. If not set, no teardown snippet runs. Only relevant when `Type` is `API`.
         /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
@@ -727,13 +922,13 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckTriggerIncidentGetArgs>? TriggerIncident { get; set; }
 
         /// <summary>
-        /// The type of the check. Possible values are `API`, `BROWSER`, and `MULTI_STEP`.
+        /// The type of the check. Possible values are `API`, `BROWSER` and `MULTI_STEP`.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

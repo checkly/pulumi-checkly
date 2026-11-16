@@ -12,12 +12,31 @@ namespace Pulumi.Checkly.Inputs
 
     public sealed class AlertChannelPagerdutyArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// The name of the PagerDuty account.
+        /// </summary>
         [Input("account")]
         public Input<string>? Account { get; set; }
 
         [Input("serviceKey", required: true)]
-        public Input<string> ServiceKey { get; set; } = null!;
+        private Input<string>? _serviceKey;
 
+        /// <summary>
+        /// The integration key of the PagerDuty service to send alerts to.
+        /// </summary>
+        public Input<string>? ServiceKey
+        {
+            get => _serviceKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _serviceKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// The name of the PagerDuty service.
+        /// </summary>
         [Input("serviceName")]
         public Input<string>? ServiceName { get; set; }
 

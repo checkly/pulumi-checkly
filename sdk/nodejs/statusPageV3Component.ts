@@ -32,6 +32,17 @@ import * as utilities from "./utilities";
  *     parentId: services.id,
  * });
  * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing status page component using "<status_page_id>/<component_id>".
+ * Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/components.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/statusPageV3Component:StatusPageV3Component example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/0e4f5a72-6a5c-42a1-9a8a-5f7d38c8a9d1
+ * ```
  */
 export class StatusPageV3Component extends pulumi.CustomResource {
     /**
@@ -45,6 +56,17 @@ export class StatusPageV3Component extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: StatusPageV3ComponentState, opts?: pulumi.CustomResourceOptions): StatusPageV3Component {
         return new StatusPageV3Component(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing StatusPageV3Component resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: StatusPageV3ComponentState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/statusPageV3Component:StatusPageV3Component", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -64,39 +86,39 @@ export class StatusPageV3Component extends pulumi.CustomResource {
     /**
      * An optional description shown next to the name.
      */
-    declare public readonly description: pulumi.Output<string | undefined>;
+    declare public readonly description: pulumi.Output<string>;
     /**
      * The position among siblings; lower comes first.
      */
     declare public readonly displayOrder: pulumi.Output<number>;
     /**
-     * Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+     * Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
      */
-    declare public readonly expandedByDefault: pulumi.Output<boolean | undefined>;
+    declare public readonly expandedByDefault: pulumi.Output<boolean>;
     /**
-     * Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+     * Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
      */
-    declare public readonly hidden: pulumi.Output<boolean | undefined>;
+    declare public readonly hidden: pulumi.Output<boolean>;
     /**
-     * The name shown on the status page.
+     * The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
      * The ID of the GROUP component to nest this component under. Must be on the same status page.
      */
-    declare public readonly parentId: pulumi.Output<string | undefined>;
+    declare public readonly parentId: pulumi.Output<string>;
     /**
-     * Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+     * Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
      */
-    declare public readonly showHistoricalData: pulumi.Output<boolean | undefined>;
+    declare public readonly showHistoricalData: pulumi.Output<boolean>;
     /**
      * The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
      */
     declare public readonly statusPageId: pulumi.Output<string>;
     /**
-     * The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+     * The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
      */
-    declare public readonly type: pulumi.Output<string | undefined>;
+    declare public readonly type: pulumi.Output<string>;
 
     /**
      * Create a StatusPageV3Component resource with the given unique name, arguments, and options.
@@ -150,39 +172,39 @@ export interface StatusPageV3ComponentState {
     /**
      * An optional description shown next to the name.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The position among siblings; lower comes first.
      */
-    displayOrder?: pulumi.Input<number>;
+    displayOrder?: pulumi.Input<number | undefined>;
     /**
-     * Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+     * Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
      */
-    expandedByDefault?: pulumi.Input<boolean>;
+    expandedByDefault?: pulumi.Input<boolean | undefined>;
     /**
-     * Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+     * Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
      */
-    hidden?: pulumi.Input<boolean>;
+    hidden?: pulumi.Input<boolean | undefined>;
     /**
-     * The name shown on the status page.
+     * The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The ID of the GROUP component to nest this component under. Must be on the same status page.
      */
-    parentId?: pulumi.Input<string>;
+    parentId?: pulumi.Input<string | undefined>;
     /**
-     * Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+     * Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
      */
-    showHistoricalData?: pulumi.Input<boolean>;
+    showHistoricalData?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
      */
-    statusPageId?: pulumi.Input<string>;
+    statusPageId?: pulumi.Input<string | undefined>;
     /**
-     * The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+     * The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -192,37 +214,37 @@ export interface StatusPageV3ComponentArgs {
     /**
      * An optional description shown next to the name.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The position among siblings; lower comes first.
      */
     displayOrder: pulumi.Input<number>;
     /**
-     * Render the group expanded when the status page loads. Only available on a `GROUP` component. (Default `false`).
+     * Render the group expanded when the status page loads. Defaults to `false`. Only available on a `GROUP` component.
      */
-    expandedByDefault?: pulumi.Input<boolean>;
+    expandedByDefault?: pulumi.Input<boolean | undefined>;
     /**
-     * Hide the component from the public page while keeping it available for incidents and automation. (Default `false`).
+     * Hide the component from the public page while keeping it available for incidents and automation. Defaults to `false`.
      */
-    hidden?: pulumi.Input<boolean>;
+    hidden?: pulumi.Input<boolean | undefined>;
     /**
-     * The name shown on the status page.
+     * The name shown on the status page. Must be between `1` and `255` characters, without leading or trailing whitespace.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The ID of the GROUP component to nest this component under. Must be on the same status page.
      */
-    parentId?: pulumi.Input<string>;
+    parentId?: pulumi.Input<string | undefined>;
     /**
-     * Show the historical status (the uptime bar) of the component on the status page. (Default `true`).
+     * Show the historical status (the uptime bar) of the component on the status page. Defaults to `true`.
      */
-    showHistoricalData?: pulumi.Input<boolean>;
+    showHistoricalData?: pulumi.Input<boolean | undefined>;
     /**
      * The ID of the v3 status page the component belongs to. A component cannot be moved to another page.
      */
     statusPageId: pulumi.Input<string>;
     /**
-     * The type of the component. The allowed values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). (Default `SERVICE`).
+     * The type of the component. Possible values are `SERVICE` (a monitored thing with its own status) and `GROUP` (a container for other components). Defaults to `SERVICE`.
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
 }

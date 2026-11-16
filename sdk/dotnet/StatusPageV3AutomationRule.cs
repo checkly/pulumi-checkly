@@ -59,6 +59,17 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing status page automation rule using "&lt;status_page_id&gt;/&lt;rule_id&gt;".
+    /// Both IDs are returned by the Checkly API at GET /v3/status-pages/{status_page_id}/automation-rules.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c/5b0a9a1e-8e29-4b71-92e1-0db9b3b41f0a
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/statusPageV3AutomationRule:StatusPageV3AutomationRule")]
     public partial class StatusPageV3AutomationRule : global::Pulumi.CustomResource
@@ -70,40 +81,40 @@ namespace Pulumi.Checkly
         public Output<ImmutableArray<Outputs.StatusPageV3AutomationRuleComponent>> Components { get; private set; } = null!;
 
         /// <summary>
-        /// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+        /// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
         /// </summary>
         [Output("coolDownWindowMinutes")]
-        public Output<int?> CoolDownWindowMinutes { get; private set; } = null!;
+        public Output<int> CoolDownWindowMinutes { get; private set; } = null!;
 
         /// <summary>
-        /// A disabled rule never opens incidents. (Default `true`).
+        /// A disabled rule never opens incidents. Defaults to `True`.
         /// </summary>
         [Output("enabled")]
-        public Output<bool?> Enabled { get; private set; } = null!;
+        public Output<bool> Enabled { get; private set; } = null!;
 
         /// <summary>
-        /// Body of the status update that opens the incident.
+        /// Body of the status update that opens the incident. Must not be empty.
         /// </summary>
         [Output("firstUpdate")]
         public Output<string> FirstUpdate { get; private set; } = null!;
 
         /// <summary>
-        /// Body of the status update that resolves the incident.
+        /// Body of the status update that resolves the incident. Must not be empty.
         /// </summary>
         [Output("lastUpdate")]
         public Output<string> LastUpdate { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the rule.
+        /// The name of the rule. Must be between `1` and `255` characters.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// Whether subscribers are notified of the automated updates. (Default `true`).
+        /// Whether subscribers are notified of the automated updates. Defaults to `True`.
         /// </summary>
         [Output("notifySubscribers")]
-        public Output<bool?> NotifySubscribers { get; private set; } = null!;
+        public Output<bool> NotifySubscribers { get; private set; } = null!;
 
         /// <summary>
         /// The ID of the v3 status page the rule belongs to.
@@ -112,7 +123,7 @@ namespace Pulumi.Checkly
         public Output<string> StatusPageId { get; private set; } = null!;
 
         /// <summary>
-        /// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        /// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
@@ -177,37 +188,37 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+        /// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
         /// </summary>
         [Input("coolDownWindowMinutes")]
         public Input<int>? CoolDownWindowMinutes { get; set; }
 
         /// <summary>
-        /// A disabled rule never opens incidents. (Default `true`).
+        /// A disabled rule never opens incidents. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         /// <summary>
-        /// Body of the status update that opens the incident.
+        /// Body of the status update that opens the incident. Must not be empty.
         /// </summary>
         [Input("firstUpdate", required: true)]
         public Input<string> FirstUpdate { get; set; } = null!;
 
         /// <summary>
-        /// Body of the status update that resolves the incident.
+        /// Body of the status update that resolves the incident. Must not be empty.
         /// </summary>
         [Input("lastUpdate", required: true)]
         public Input<string> LastUpdate { get; set; } = null!;
 
         /// <summary>
-        /// The name of the rule.
+        /// The name of the rule. Must be between `1` and `255` characters.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Whether subscribers are notified of the automated updates. (Default `true`).
+        /// Whether subscribers are notified of the automated updates. Defaults to `True`.
         /// </summary>
         [Input("notifySubscribers")]
         public Input<bool>? NotifySubscribers { get; set; }
@@ -222,7 +233,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        /// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         /// </summary>
         public InputList<string> Tags
         {
@@ -251,37 +262,37 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. (Default `5`).
+        /// Minimum minutes after an automated incident before this rule may open the next one. `0` disables the cool down. Defaults to `5`.
         /// </summary>
         [Input("coolDownWindowMinutes")]
         public Input<int>? CoolDownWindowMinutes { get; set; }
 
         /// <summary>
-        /// A disabled rule never opens incidents. (Default `true`).
+        /// A disabled rule never opens incidents. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         /// <summary>
-        /// Body of the status update that opens the incident.
+        /// Body of the status update that opens the incident. Must not be empty.
         /// </summary>
         [Input("firstUpdate")]
         public Input<string>? FirstUpdate { get; set; }
 
         /// <summary>
-        /// Body of the status update that resolves the incident.
+        /// Body of the status update that resolves the incident. Must not be empty.
         /// </summary>
         [Input("lastUpdate")]
         public Input<string>? LastUpdate { get; set; }
 
         /// <summary>
-        /// The name of the rule.
+        /// The name of the rule. Must be between `1` and `255` characters.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Whether subscribers are notified of the automated updates. (Default `true`).
+        /// Whether subscribers are notified of the automated updates. Defaults to `True`.
         /// </summary>
         [Input("notifySubscribers")]
         public Input<bool>? NotifySubscribers { get; set; }
@@ -296,7 +307,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required.
+        /// A failing check matches this rule when it, or its group, carries ANY of these tags. At least one tag is required, and tags must not be empty.
         /// </summary>
         public InputList<string> Tags
         {

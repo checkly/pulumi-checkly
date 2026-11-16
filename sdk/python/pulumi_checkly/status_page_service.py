@@ -19,9 +19,10 @@ __all__ = ['StatusPageServiceArgs', 'StatusPageService']
 @pulumi.input_type
 class StatusPageServiceArgs:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a StatusPageService resource.
+
         :param pulumi.Input[_builtins.str] name: The name of the service.
         """
         if name is not None:
@@ -29,23 +30,24 @@ class StatusPageServiceArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the service.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
 
 @pulumi.input_type
 class _StatusPageServiceState:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering StatusPageService resources.
+
         :param pulumi.Input[_builtins.str] name: The name of the service.
         """
         if name is not None:
@@ -53,27 +55,34 @@ class _StatusPageServiceState:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the service.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
+
+
+warnings.warn("""Use StatusPageV3Component resources on a StatusPageV3 page instead.""", DeprecationWarning)
 
 
 @pulumi.type_token("checkly:index/statusPageService:StatusPageService")
 class StatusPageService(pulumi.CustomResource):
+    warnings.warn("""Use StatusPageV3Component resources on a StatusPageV3 page instead.""", DeprecationWarning)
+
     @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
+
+        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
 
         ## Example Usage
 
@@ -84,6 +93,19 @@ class StatusPageService(pulumi.CustomResource):
         backend = checkly.StatusPageService("backend", name="Backend")
         frontend = checkly.StatusPageService("frontend", name="Frontend")
         ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        StatusPageService is deprecated together with checkly_status_page; services of v3 status pages are StatusPageV3Component resources.
+        Import an existing status page service using its ID.
+        The ID is returned by the Checkly API at GET /v1/status-pages/services.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageService:StatusPageService example 8a894b49-467f-4af6-9230-cd4d3bd452f4
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -98,6 +120,8 @@ class StatusPageService(pulumi.CustomResource):
         """
         Status page services represent functional pieces of your application or website, such as landing page, API, support portal etc. Services belong to legacy v2 status pages: on new v3 pages, use `StatusPageV3Component` instead.
 
+        The `StatusPageService` resource type is deprecated together with `StatusPage` and will be removed in a future version of the provider. A maintenance window that affects the service links to v3 components through `status_page_visibility.component_configs` on `MaintenanceWindow`. See Status pages in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
+
         ## Example Usage
 
         ```python
@@ -107,6 +131,19 @@ class StatusPageService(pulumi.CustomResource):
         backend = checkly.StatusPageService("backend", name="Backend")
         frontend = checkly.StatusPageService("frontend", name="Frontend")
         ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        StatusPageService is deprecated together with checkly_status_page; services of v3 status pages are StatusPageV3Component resources.
+        Import an existing status page service using its ID.
+        The ID is returned by the Checkly API at GET /v1/status-pages/services.
+
+        ```sh
+        $ pulumi import checkly:index/statusPageService:StatusPageService example 8a894b49-467f-4af6-9230-cd4d3bd452f4
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param StatusPageServiceArgs args: The arguments to use to populate this resource's properties.
@@ -123,8 +160,9 @@ class StatusPageService(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
+        pulumi.log.warn("""StatusPageService is deprecated: Use StatusPageV3Component resources on a StatusPageV3 page instead.""")
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
@@ -144,7 +182,7 @@ class StatusPageService(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None) -> 'StatusPageService':
+            name: pulumi.Input[Optional[_builtins.str]] = None) -> 'StatusPageService':
         """
         Get an existing StatusPageService resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -160,6 +198,14 @@ class StatusPageService(pulumi.CustomResource):
 
         __props__.__dict__["name"] = name
         return StatusPageService(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["name"] = name
+        return pulumi.runtime.exists_resource(None, 'checkly:index/statusPageService:StatusPageService', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter

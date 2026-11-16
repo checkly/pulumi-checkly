@@ -15,12 +15,13 @@
 package main
 
 import (
+	"context"
+
 	_ "embed"
 
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 
 	checkly "github.com/checkly/pulumi-checkly/provider"
-	"github.com/checkly/pulumi-checkly/provider/pkg/version"
 )
 
 //go:embed schema.json
@@ -28,5 +29,6 @@ var pulumiSchema []byte
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main("checkly", version.Version, checkly.Provider(), pulumiSchema)
+	tfbridge.Main(context.Background(), "checkly", checkly.Provider(),
+		tfbridge.ProviderMetadata{PackageSchema: pulumiSchema})
 }

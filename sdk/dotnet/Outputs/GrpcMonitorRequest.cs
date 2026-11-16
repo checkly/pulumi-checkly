@@ -17,61 +17,64 @@ namespace Pulumi.Checkly.Outputs
         /// A request can have multiple assertions. The allowed comparisons, properties, and target formats depend on the assertion source — see the Assertion Reference below.
         /// </summary>
         public readonly ImmutableArray<Outputs.GrpcMonitorRequestAssertion> Assertions;
+        /// <summary>
+        /// A base64-encoded binary FlatBuffers schema (`.bfbs`). Must be at most `100` KiB once encoded. Required when `encoding = "FLATBUFFERS"` and forbidden otherwise. Generate it with `flatc -b --schema --bfbs-builtins schema.fbs` and pass the file's contents base64-encoded.
+        /// </summary>
         public readonly string? BfbsContent;
         /// <summary>
-        /// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. (Default `PROTOBUF`).
+        /// The wire encoding used in `BEHAVIOR` mode. Possible values are `PROTOBUF` and `FLATBUFFERS`. Defaults to `PROTOBUF`.
         /// </summary>
         public readonly string? Encoding;
         /// <summary>
-        /// The gRPC monitoring mode. `BEHAVIOR` invokes a unary method (requires `method`); `HEALTH` queries the standard gRPC health-check service (allows `service`). (Default `BEHAVIOR`).
+        /// The gRPC monitoring mode. Possible values are `BEHAVIOR` (invokes a unary method, requires `Method`) and `HEALTH` (queries the standard gRPC health-check service, allows `Service`). Defaults to `BEHAVIOR`.
         /// </summary>
         public readonly string? GrpcMode;
         /// <summary>
-        /// The host to connect to. Do not include a scheme or a port in this value.
+        /// The host to connect to. Must be between `1` and `2048` characters. Do not include a scheme or a port in this value.
         /// </summary>
         public readonly string Host;
         /// <summary>
-        /// The IP family to use when executing the gRPC check. The value can be either `IPv4` or `IPv6`. (Default `IPv4`).
+        /// The IP family to use when executing the gRPC check. Possible values are `IPv4` and `IPv6`. Defaults to `IPv4`.
         /// </summary>
         public readonly string? IpFamily;
         /// <summary>
-        /// The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode.
+        /// The JSON request message sent as the gRPC call payload in `BEHAVIOR` mode. Must be at most `65536` characters. Must not be set in `HEALTH` mode.
         /// </summary>
         public readonly string? Message;
         /// <summary>
-        /// gRPC metadata (request headers) sent with the call.
+        /// gRPC metadata (request headers) sent with the call. Must contain at most `50` elements.
         /// </summary>
         public readonly ImmutableArray<Outputs.GrpcMonitorRequestMetadata> Metadatas;
         /// <summary>
-        /// The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; forbidden in `HEALTH` mode.
+        /// The fully-qualified gRPC method to invoke in `BEHAVIOR` mode (e.g. `package.Service/Method`). Required in `BEHAVIOR` mode; must not be set in `HEALTH` mode.
         /// </summary>
         public readonly string? Method;
         /// <summary>
-        /// The port number to connect to. Possible values are between 1 and 65535.
+        /// The port number to connect to. Possible values are between `1` and `65535`.
         /// </summary>
         public readonly int Port;
         /// <summary>
-        /// The inline `.proto` file source used when `service_definition = "PROTO_FILE"` in `BEHAVIOR` mode. Forbidden when `encoding = "FLATBUFFERS"`.
+        /// The inline `.proto` file source used when `ServiceDefinition = "PROTO_FILE"` in `BEHAVIOR` mode, where it is required. Must be at most `102400` characters. Must not be set in `HEALTH` mode or when `encoding = "FLATBUFFERS"`.
         /// </summary>
         public readonly string? ProtoContent;
         /// <summary>
-        /// The service name to query in `HEALTH` mode. An empty value queries overall server health. Forbidden in `BEHAVIOR` mode.
+        /// The service name to query in `HEALTH` mode. An empty value queries overall server health. Must not be set in `BEHAVIOR` mode.
         /// </summary>
         public readonly string? Service;
         /// <summary>
-        /// How the service definition is resolved in `BEHAVIOR` mode: `REFLECTION` uses server reflection; `PROTO_FILE` uses the inline `proto_content`. Forbidden when `encoding = "FLATBUFFERS"`. (Default `REFLECTION`).
+        /// How the service definition is resolved in `BEHAVIOR` mode. Possible values are `REFLECTION` (uses server reflection) and `PROTO_FILE` (uses the inline `ProtoContent`, which it requires). Defaults to `REFLECTION`. Must not be set when `encoding = "FLATBUFFERS"`, and must not be `PROTO_FILE` in `HEALTH` mode.
         /// </summary>
         public readonly string? ServiceDefinition;
         /// <summary>
-        /// Whether to skip SSL certificate validation when `tls` is enabled. (Default `false`).
+        /// Whether to skip SSL certificate validation when `Tls` is enabled. Defaults to `False`.
         /// </summary>
         public readonly bool? SkipSsl;
         /// <summary>
-        /// The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between 1 and 180. (Default `60`).
+        /// The number of seconds to wait for the gRPC call to complete before timing out. Possible values are between `1` and `180`. Defaults to `60`.
         /// </summary>
         public readonly int? Timeout;
         /// <summary>
-        /// Whether to use a TLS-encrypted connection to the gRPC server. (Default `true`).
+        /// Whether to use a TLS-encrypted connection to the gRPC server. Defaults to `True`.
         /// </summary>
         public readonly bool? Tls;
 

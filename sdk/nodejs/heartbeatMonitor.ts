@@ -27,6 +27,17 @@ import * as utilities from "./utilities";
  *     useGlobalAlertSettings: true,
  * });
  * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * Import an existing heartbeat monitor using its check ID.
+ * You can find the ID in the check's URL in the Checkly dashboard.
+ *
+ * ```sh
+ * $ pulumi import checkly:index/heartbeatMonitor:HeartbeatMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+ * ```
  */
 export class HeartbeatMonitor extends pulumi.CustomResource {
     /**
@@ -40,6 +51,17 @@ export class HeartbeatMonitor extends pulumi.CustomResource {
      */
     public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: HeartbeatMonitorState, opts?: pulumi.CustomResourceOptions): HeartbeatMonitor {
         return new HeartbeatMonitor(name, <any>state, { ...opts, id: id });
+    }
+
+    /**
+     * Check whether an existing HeartbeatMonitor resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: HeartbeatMonitorState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("checkly:index/heartbeatMonitor:HeartbeatMonitor", id, <any>state || {}, { ...opts }, undefined);
     }
 
     /** @internal */
@@ -57,13 +79,13 @@ export class HeartbeatMonitor extends pulumi.CustomResource {
     }
 
     /**
-     * Determines if the check is running or not. Possible values `true`, and `false`.
+     * Determines whether the monitor runs on its schedule. Defaults to `true`.
      */
     declare public readonly activated: pulumi.Output<boolean>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
-    declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.HeartbeatMonitorAlertChannelSubscription[] | undefined>;
+    declare public readonly alertChannelSubscriptions: pulumi.Output<outputs.HeartbeatMonitorAlertChannelSubscription[]>;
     /**
      * Determines the alert escalation policy for the monitor.
      */
@@ -71,28 +93,31 @@ export class HeartbeatMonitor extends pulumi.CustomResource {
     /**
      * A description of the monitor.
      */
-    declare public readonly description: pulumi.Output<string | undefined>;
+    declare public readonly description: pulumi.Output<string>;
+    /**
+     * The heartbeat schedule and grace period.
+     */
     declare public readonly heartbeat: pulumi.Output<outputs.HeartbeatMonitorHeartbeat>;
     /**
-     * Determines if any notifications will be sent out when a check fails/degrades/recovers.
+     * Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
      */
-    declare public readonly muted: pulumi.Output<boolean | undefined>;
+    declare public readonly muted: pulumi.Output<boolean>;
     /**
-     * The name of the check.
+     * The name of the monitor.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
-     * A list of tags for organizing and filtering checks.
+     * Tags for organizing and filtering checks and monitors.
      */
-    declare public readonly tags: pulumi.Output<string[] | undefined>;
+    declare public readonly tags: pulumi.Output<string[]>;
     /**
      * Create and resolve an incident based on the alert configuration. Useful for status page automation.
      */
     declare public readonly triggerIncident: pulumi.Output<outputs.HeartbeatMonitorTriggerIncident | undefined>;
     /**
-     * When true, the account level alert settings will be used, not the alert setting defined on this check.
+     * When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    declare public readonly useGlobalAlertSettings: pulumi.Output<boolean | undefined>;
+    declare public readonly useGlobalAlertSettings: pulumi.Output<boolean>;
 
     /**
      * Create a HeartbeatMonitor resource with the given unique name, arguments, and options.
@@ -119,9 +144,6 @@ export class HeartbeatMonitor extends pulumi.CustomResource {
             resourceInputs["useGlobalAlertSettings"] = state?.useGlobalAlertSettings;
         } else {
             const args = argsOrState as HeartbeatMonitorArgs | undefined;
-            if (args?.activated === undefined && !opts.urn) {
-                throw new Error("Missing required property 'activated'");
-            }
             if (args?.heartbeat === undefined && !opts.urn) {
                 throw new Error("Missing required property 'heartbeat'");
             }
@@ -146,42 +168,45 @@ export class HeartbeatMonitor extends pulumi.CustomResource {
  */
 export interface HeartbeatMonitorState {
     /**
-     * Determines if the check is running or not. Possible values `true`, and `false`.
+     * Determines whether the monitor runs on its schedule. Defaults to `true`.
      */
-    activated?: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
-    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertChannelSubscription>[]>;
+    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertChannelSubscription>[] | undefined>;
     /**
      * Determines the alert escalation policy for the monitor.
      */
-    alertSettings?: pulumi.Input<inputs.HeartbeatMonitorAlertSettings>;
+    alertSettings?: pulumi.Input<inputs.HeartbeatMonitorAlertSettings | undefined>;
     /**
      * A description of the monitor.
      */
-    description?: pulumi.Input<string>;
-    heartbeat?: pulumi.Input<inputs.HeartbeatMonitorHeartbeat>;
+    description?: pulumi.Input<string | undefined>;
     /**
-     * Determines if any notifications will be sent out when a check fails/degrades/recovers.
+     * The heartbeat schedule and grace period.
      */
-    muted?: pulumi.Input<boolean>;
+    heartbeat?: pulumi.Input<inputs.HeartbeatMonitorHeartbeat | undefined>;
     /**
-     * The name of the check.
+     * Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
      */
-    name?: pulumi.Input<string>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
-     * A list of tags for organizing and filtering checks.
+     * The name of the monitor.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    name?: pulumi.Input<string | undefined>;
+    /**
+     * Tags for organizing and filtering checks and monitors.
+     */
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Create and resolve an incident based on the alert configuration. Useful for status page automation.
      */
-    triggerIncident?: pulumi.Input<inputs.HeartbeatMonitorTriggerIncident>;
+    triggerIncident?: pulumi.Input<inputs.HeartbeatMonitorTriggerIncident | undefined>;
     /**
-     * When true, the account level alert settings will be used, not the alert setting defined on this check.
+     * When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    useGlobalAlertSettings?: pulumi.Input<boolean>;
+    useGlobalAlertSettings?: pulumi.Input<boolean | undefined>;
 }
 
 /**
@@ -189,40 +214,43 @@ export interface HeartbeatMonitorState {
  */
 export interface HeartbeatMonitorArgs {
     /**
-     * Determines if the check is running or not. Possible values `true`, and `false`.
+     * Determines whether the monitor runs on its schedule. Defaults to `true`.
      */
-    activated: pulumi.Input<boolean>;
+    activated?: pulumi.Input<boolean | undefined>;
     /**
-     * An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+     * A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
      */
-    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertChannelSubscription>[]>;
+    alertChannelSubscriptions?: pulumi.Input<pulumi.Input<inputs.HeartbeatMonitorAlertChannelSubscription>[] | undefined>;
     /**
      * Determines the alert escalation policy for the monitor.
      */
-    alertSettings?: pulumi.Input<inputs.HeartbeatMonitorAlertSettings>;
+    alertSettings?: pulumi.Input<inputs.HeartbeatMonitorAlertSettings | undefined>;
     /**
      * A description of the monitor.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
+    /**
+     * The heartbeat schedule and grace period.
+     */
     heartbeat: pulumi.Input<inputs.HeartbeatMonitorHeartbeat>;
     /**
-     * Determines if any notifications will be sent out when a check fails/degrades/recovers.
+     * Determines whether notifications are sent when the monitor fails or recovers. Defaults to `false`.
      */
-    muted?: pulumi.Input<boolean>;
+    muted?: pulumi.Input<boolean | undefined>;
     /**
-     * The name of the check.
+     * The name of the monitor.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
-     * A list of tags for organizing and filtering checks.
+     * Tags for organizing and filtering checks and monitors.
      */
-    tags?: pulumi.Input<pulumi.Input<string>[]>;
+    tags?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Create and resolve an incident based on the alert configuration. Useful for status page automation.
      */
-    triggerIncident?: pulumi.Input<inputs.HeartbeatMonitorTriggerIncident>;
+    triggerIncident?: pulumi.Input<inputs.HeartbeatMonitorTriggerIncident | undefined>;
     /**
-     * When true, the account level alert settings will be used, not the alert setting defined on this check.
+     * When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
      */
-    useGlobalAlertSettings?: pulumi.Input<boolean>;
+    useGlobalAlertSettings?: pulumi.Input<boolean | undefined>;
 }

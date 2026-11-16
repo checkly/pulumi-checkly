@@ -91,6 +91,16 @@ You must generate and check in the SDKs on each pull request containing a code c
 1. Open a pull request containing all changes
 1. *Note:* If a large number of seemingly-unrelated diffs are produced by `make build_sdks` (for example, lots of changes to comments unrelated to the change you are making), ensure that the latest dependencies for the provider are installed by running `go mod tidy` in the `provider/` directory of this repository.
 
+### Generating against a local Terraform provider checkout
+
+`make tfgen` reads the upstream resource docs from the version of `terraform-provider-checkly` in the Go module cache. To try an unreleased upstream change, point a Go workspace (`go.work`, which is gitignored) at your local checkout, and set `CHECKLY_UPSTREAM_REPO_PATH` to the same checkout so that tfgen reads its docs:
+
+```sh
+CHECKLY_UPSTREAM_REPO_PATH=/path/to/terraform-provider-checkly make tfgen
+```
+
+This is a local development aid only. Generate the code you commit without it, from a released upstream version.
+
 ## Running Integration Tests
 
 The examples and integration tests in this repository will create and destroy real

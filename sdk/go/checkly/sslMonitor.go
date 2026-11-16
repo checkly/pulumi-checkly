@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -32,7 +32,6 @@ import (
 //			_, err := checkly.NewSslMonitor(ctx, "example-ssl-monitor", &checkly.SslMonitorArgs{
 //				Name:                   pulumi.String("Example SSL monitor"),
 //				Activated:              pulumi.Bool(true),
-//				ShouldFail:             pulumi.Bool(false),
 //				Frequency:              pulumi.Int(60),
 //				UseGlobalAlertSettings: pulumi.Bool(true),
 //				Locations: pulumi.StringArray{
@@ -52,7 +51,6 @@ import (
 //			_, err = checkly.NewSslMonitor(ctx, "example-ssl-monitor-2", &checkly.SslMonitorArgs{
 //				Name:                 pulumi.String("Example SSL monitor 2"),
 //				Activated:            pulumi.Bool(true),
-//				ShouldFail:           pulumi.Bool(false),
 //				Frequency:            pulumi.Int(60),
 //				DegradedResponseTime: pulumi.Int(3000),
 //				MaxResponseTime:      pulumi.Int(10000),
@@ -62,15 +60,11 @@ import (
 //				},
 //				AlertSettings: &checkly.SslMonitorAlertSettingsArgs{
 //					EscalationType: pulumi.String("RUN_BASED"),
-//					RunBasedEscalations: checkly.SslMonitorAlertSettingsRunBasedEscalationArray{
-//						&checkly.SslMonitorAlertSettingsRunBasedEscalationArgs{
-//							FailedRunThreshold: pulumi.Int(1),
-//						},
+//					RunBasedEscalation: &checkly.SslMonitorAlertSettingsRunBasedEscalationArgs{
+//						FailedRunThreshold: pulumi.Int(1),
 //					},
-//					Reminders: checkly.SslMonitorAlertSettingsReminderArray{
-//						&checkly.SslMonitorAlertSettingsReminderArgs{
-//							Amount: pulumi.Int(1),
-//						},
+//					Reminders: &checkly.SslMonitorAlertSettingsRemindersArgs{
+//						Amount: pulumi.Int(1),
 //					},
 //				},
 //				Request: &checkly.SslMonitorRequestArgs{
@@ -121,7 +115,7 @@ import (
 //
 // ## Assertion Reference
 //
-// Each `assertion` block has the shape `{ source, property, comparison, target }`. SSL assertions use a property-scoped grammar: for the `CERTIFICATE` and `CONNECTION` sources, `property` selects the fact being asserted, and that property determines which comparisons are allowed. These rules are enforced by the Checkly API at apply time.
+// Each element of `request.assertions` has the shape `{ source, property, comparison, target }`. SSL assertions use a property-scoped grammar: for the `CERTIFICATE` and `CONNECTION` sources, `property` selects the fact being asserted, and that property determines which comparisons are allowed. These rules are enforced by the Checkly API when the resource is created or updated.
 //
 // ### Source `CERTIFICATE`
 //
@@ -163,53 +157,62 @@ import (
 // | `RESPONSE_TIME` | Must be empty. | `EQUALS`, `NOT_EQUALS`, `GREATER_THAN`, `LESS_THAN` | Handshake time in milliseconds, ≥ 0. |
 // | `JSON_RESPONSE` | Required. A JSONPath expression over the check result (e.g. `$.certificate.keySizeBits`). | `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `GREATER_THAN`, `LESS_THAN`, `CONTAINS`, `NOT_CONTAINS`, `IS_NULL`, `NOT_NULL` | Free-form string. |
 // | `TEXT_RESPONSE` | Optional. A regular expression applied to the serialized response; empty matches the whole response. | `EQUALS`, `NOT_EQUALS`, `IS_EMPTY`, `NOT_EMPTY`, `CONTAINS`, `NOT_CONTAINS`, `GREATER_THAN`, `LESS_THAN` | Free-form string. |
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing SSL monitor using its check ID.
+// You can find the ID in the check's URL in the Checkly dashboard.
+//
+// ```sh
+// $ pulumi import checkly:index/sslMonitor:SslMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+// ```
 type SslMonitor struct {
 	pulumi.CustomResourceState
 
-	// Determines if the monitor is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolOutput `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions SslMonitorAlertChannelSubscriptionArrayOutput `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings SslMonitorAlertSettingsOutput `pulumi:"alertSettings"`
-	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).
-	DegradedResponseTime pulumi.IntPtrOutput `pulumi:"degradedResponseTime"`
+	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between `1` and `30000`. Defaults to `3000`.
+	DegradedResponseTime pulumi.IntOutput `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	Description pulumi.StringOutput `pulumi:"description"`
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntOutput `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrOutput `pulumi:"frequencyOffset"`
-	// The id of the check group this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
-	// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrOutput `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayOutput `pulumi:"locations"`
-	// The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degradedResponseTime`. Possible values are between 0 and 30000. (Default `20000`).
-	MaxResponseTime pulumi.IntPtrOutput `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
+	// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degradedResponseTime`. Defaults to `10000`.
+	MaxResponseTime pulumi.IntOutput `pulumi:"maxResponseTime"`
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
 	// The name of the monitor.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations pulumi.StringArrayOutput `pulumi:"privateLocations"`
 	// The parameters for the SSL connection.
 	Request SslMonitorRequestOutput `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy SslMonitorRetryStrategyOutput `pulumi:"retryStrategy"`
-	// Determines if the monitor should run in all selected locations in parallel or round-robin.
-	RunParallel pulumi.BoolPtrOutput `pulumi:"runParallel"`
-	// The ID of the runtime to use for this monitor.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+	RunParallel pulumi.BoolOutput `pulumi:"runParallel"`
+	// The ID of the runtime to use for the monitor.
 	RuntimeId pulumi.StringPtrOutput `pulumi:"runtimeId"`
-	// Allows to invert the behaviour of when a monitor is considered to fail.
-	ShouldFail pulumi.BoolPtrOutput `pulumi:"shouldFail"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident SslMonitorTriggerIncidentPtrOutput `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
-	UseGlobalAlertSettings pulumi.BoolPtrOutput `pulumi:"useGlobalAlertSettings"`
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+	UseGlobalAlertSettings pulumi.BoolOutput `pulumi:"useGlobalAlertSettings"`
 }
 
 // NewSslMonitor registers a new resource with the given unique name, arguments, and options.
@@ -219,12 +222,6 @@ func NewSslMonitor(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.Activated == nil {
-		return nil, errors.New("invalid value for required argument 'Activated'")
-	}
-	if args.Frequency == nil {
-		return nil, errors.New("invalid value for required argument 'Frequency'")
-	}
 	if args.Request == nil {
 		return nil, errors.New("invalid value for required argument 'Request'")
 	}
@@ -251,96 +248,92 @@ func GetSslMonitor(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering SslMonitor resources.
 type sslMonitorState struct {
-	// Determines if the monitor is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated *bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []SslMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *SslMonitorAlertSettings `pulumi:"alertSettings"`
-	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).
+	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between `1` and `30000`. Defaults to `3000`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency *int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The id of the check group this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degradedResponseTime`. Possible values are between 0 and 30000. (Default `20000`).
+	// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degradedResponseTime`. Defaults to `10000`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations []string `pulumi:"privateLocations"`
 	// The parameters for the SSL connection.
 	Request *SslMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *SslMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines if the monitor should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// The ID of the runtime to use for this monitor.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId *string `pulumi:"runtimeId"`
-	// Allows to invert the behaviour of when a monitor is considered to fail.
-	ShouldFail *bool `pulumi:"shouldFail"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *SslMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 type SslMonitorState struct {
-	// Determines if the monitor is running or not. Possible values `true`, and `false`.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
 	Activated pulumi.BoolPtrInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions SslMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings SslMonitorAlertSettingsPtrInput
-	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).
+	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between `1` and `30000`. Defaults to `3000`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 	Frequency pulumi.IntPtrInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The id of the check group this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degradedResponseTime`. Possible values are between 0 and 30000. (Default `20000`).
+	// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degradedResponseTime`. Defaults to `10000`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations pulumi.StringArrayInput
 	// The parameters for the SSL connection.
 	Request SslMonitorRequestPtrInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy SslMonitorRetryStrategyPtrInput
-	// Determines if the monitor should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// The ID of the runtime to use for this monitor.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId pulumi.StringPtrInput
-	// Allows to invert the behaviour of when a monitor is considered to fail.
-	ShouldFail pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident SslMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -348,98 +341,100 @@ func (SslMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*sslMonitorState)(nil)).Elem()
 }
 
+// SslMonitorExists checks whether an existing SslMonitor resource with the given ID exists.
+func SslMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SslMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/sslMonitor:SslMonitor", id, state, "", opts...)
+}
+
 type sslMonitorArgs struct {
-	// Determines if the monitor is running or not. Possible values `true`, and `false`.
-	Activated bool `pulumi:"activated"`
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions []SslMonitorAlertChannelSubscription `pulumi:"alertChannelSubscriptions"`
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings *SslMonitorAlertSettings `pulumi:"alertSettings"`
-	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).
+	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between `1` and `30000`. Defaults to `3000`.
 	DegradedResponseTime *int `pulumi:"degradedResponseTime"`
 	// A description of the monitor.
 	Description *string `pulumi:"description"`
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency int `pulumi:"frequency"`
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency *int `pulumi:"frequency"`
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset *int `pulumi:"frequencyOffset"`
-	// The id of the check group this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId *int `pulumi:"groupId"`
-	// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder *int `pulumi:"groupOrder"`
-	// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations []string `pulumi:"locations"`
-	// The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degradedResponseTime`. Possible values are between 0 and 30000. (Default `20000`).
+	// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degradedResponseTime`. Defaults to `10000`.
 	MaxResponseTime *int `pulumi:"maxResponseTime"`
-	// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the monitor.
 	Name *string `pulumi:"name"`
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations []string `pulumi:"privateLocations"`
 	// The parameters for the SSL connection.
 	Request SslMonitorRequest `pulumi:"request"`
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy *SslMonitorRetryStrategy `pulumi:"retryStrategy"`
-	// Determines if the monitor should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel *bool `pulumi:"runParallel"`
-	// The ID of the runtime to use for this monitor.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId *string `pulumi:"runtimeId"`
-	// Allows to invert the behaviour of when a monitor is considered to fail.
-	ShouldFail *bool `pulumi:"shouldFail"`
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags []string `pulumi:"tags"`
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident *SslMonitorTriggerIncident `pulumi:"triggerIncident"`
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings *bool `pulumi:"useGlobalAlertSettings"`
 }
 
 // The set of arguments for constructing a SslMonitor resource.
 type SslMonitorArgs struct {
-	// Determines if the monitor is running or not. Possible values `true`, and `false`.
-	Activated pulumi.BoolInput
-	// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+	// Determines whether the monitor runs on its schedule. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 	AlertChannelSubscriptions SslMonitorAlertChannelSubscriptionArrayInput
 	// Determines the alert escalation policy for the monitor.
 	AlertSettings SslMonitorAlertSettingsPtrInput
-	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).
+	// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between `1` and `30000`. Defaults to `3000`.
 	DegradedResponseTime pulumi.IntPtrInput
 	// A description of the monitor.
 	Description pulumi.StringPtrInput
-	// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-	Frequency pulumi.IntInput
-	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+	// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+	Frequency pulumi.IntPtrInput
+	// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 	FrequencyOffset pulumi.IntPtrInput
-	// The id of the check group this monitor is part of.
+	// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 	GroupId pulumi.IntPtrInput
-	// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+	// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 	GroupOrder pulumi.IntPtrInput
-	// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+	// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 	Locations pulumi.StringArrayInput
-	// The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degradedResponseTime`. Possible values are between 0 and 30000. (Default `20000`).
+	// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degradedResponseTime`. Defaults to `10000`.
 	MaxResponseTime pulumi.IntPtrInput
-	// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
+	// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the monitor.
 	Name pulumi.StringPtrInput
-	// An array of one or more private locations slugs.
+	// The slugs of the private locations to run the monitor from.
 	PrivateLocations pulumi.StringArrayInput
 	// The parameters for the SSL connection.
 	Request SslMonitorRequestInput
 	// A strategy for retrying failed check/monitor runs.
 	RetryStrategy SslMonitorRetryStrategyPtrInput
-	// Determines if the monitor should run in all selected locations in parallel or round-robin.
+	// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
 	RunParallel pulumi.BoolPtrInput
-	// The ID of the runtime to use for this monitor.
+	// The ID of the runtime to use for the monitor.
 	RuntimeId pulumi.StringPtrInput
-	// Allows to invert the behaviour of when a monitor is considered to fail.
-	ShouldFail pulumi.BoolPtrInput
-	// A list of tags for organizing and filtering checks and monitors.
+	// Tags for organizing and filtering checks and monitors.
 	Tags pulumi.StringArrayInput
 	// Create and resolve an incident based on the alert configuration. Useful for status page automation.
 	TriggerIncident SslMonitorTriggerIncidentPtrInput
-	// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
+	// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
 	UseGlobalAlertSettings pulumi.BoolPtrInput
 }
 
@@ -530,12 +525,12 @@ func (o SslMonitorOutput) ToSslMonitorOutputWithContext(ctx context.Context) Ssl
 	return o
 }
 
-// Determines if the monitor is running or not. Possible values `true`, and `false`.
+// Determines whether the monitor runs on its schedule. Defaults to `true`.
 func (o SslMonitorOutput) Activated() pulumi.BoolOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
-// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
 func (o SslMonitorOutput) AlertChannelSubscriptions() SslMonitorAlertChannelSubscriptionArrayOutput {
 	return o.ApplyT(func(v *SslMonitor) SslMonitorAlertChannelSubscriptionArrayOutput { return v.AlertChannelSubscriptions }).(SslMonitorAlertChannelSubscriptionArrayOutput)
 }
@@ -545,49 +540,49 @@ func (o SslMonitorOutput) AlertSettings() SslMonitorAlertSettingsOutput {
 	return o.ApplyT(func(v *SslMonitor) SslMonitorAlertSettingsOutput { return v.AlertSettings }).(SslMonitorAlertSettingsOutput)
 }
 
-// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between 0 and 30000. (Default `10000`).
-func (o SslMonitorOutput) DegradedResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *SslMonitor) pulumi.IntPtrOutput { return v.DegradedResponseTime }).(pulumi.IntPtrOutput)
+// The handshake time in milliseconds above which the monitor is considered degraded. Possible values are between `1` and `30000`. Defaults to `3000`.
+func (o SslMonitorOutput) DegradedResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *SslMonitor) pulumi.IntOutput { return v.DegradedResponseTime }).(pulumi.IntOutput)
 }
 
 // A description of the monitor.
-func (o SslMonitorOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SslMonitor) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o SslMonitorOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *SslMonitor) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+// Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequencyOffset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
 func (o SslMonitorOutput) Frequency() pulumi.IntOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.IntOutput { return v.Frequency }).(pulumi.IntOutput)
 }
 
-// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+// When `frequency` is `0` (high frequency), `frequencyOffset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
 func (o SslMonitorOutput) FrequencyOffset() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.IntPtrOutput { return v.FrequencyOffset }).(pulumi.IntPtrOutput)
 }
 
-// The id of the check group this monitor is part of.
+// The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
 func (o SslMonitorOutput) GroupId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.IntPtrOutput { return v.GroupId }).(pulumi.IntPtrOutput)
 }
 
-// The position of this monitor in a check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+// The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
 func (o SslMonitorOutput) GroupOrder() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.IntPtrOutput { return v.GroupOrder }).(pulumi.IntPtrOutput)
 }
 
-// An array of one or more data center locations where to run this monitor. (Default ["us-east-1"])
+// The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `privateLocations`, unless it is part of a check group.
 func (o SslMonitorOutput) Locations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.StringArrayOutput { return v.Locations }).(pulumi.StringArrayOutput)
 }
 
-// The handshake time in milliseconds above which the monitor is considered failing. Must be greater than or equal to `degradedResponseTime`. Possible values are between 0 and 30000. (Default `20000`).
-func (o SslMonitorOutput) MaxResponseTime() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *SslMonitor) pulumi.IntPtrOutput { return v.MaxResponseTime }).(pulumi.IntPtrOutput)
+// The handshake time in milliseconds above which the monitor is considered failing. Possible values are between `1` and `30000`, and the value must be greater than or equal to `degradedResponseTime`. Defaults to `10000`.
+func (o SslMonitorOutput) MaxResponseTime() pulumi.IntOutput {
+	return o.ApplyT(func(v *SslMonitor) pulumi.IntOutput { return v.MaxResponseTime }).(pulumi.IntOutput)
 }
 
-// Determines if any notifications will be sent out when a monitor fails/degrades/recovers.
-func (o SslMonitorOutput) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *SslMonitor) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
+func (o SslMonitorOutput) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SslMonitor) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
 // The name of the monitor.
@@ -595,7 +590,7 @@ func (o SslMonitorOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// An array of one or more private locations slugs.
+// The slugs of the private locations to run the monitor from.
 func (o SslMonitorOutput) PrivateLocations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.StringArrayOutput { return v.PrivateLocations }).(pulumi.StringArrayOutput)
 }
@@ -610,22 +605,17 @@ func (o SslMonitorOutput) RetryStrategy() SslMonitorRetryStrategyOutput {
 	return o.ApplyT(func(v *SslMonitor) SslMonitorRetryStrategyOutput { return v.RetryStrategy }).(SslMonitorRetryStrategyOutput)
 }
 
-// Determines if the monitor should run in all selected locations in parallel or round-robin.
-func (o SslMonitorOutput) RunParallel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *SslMonitor) pulumi.BoolPtrOutput { return v.RunParallel }).(pulumi.BoolPtrOutput)
+// Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+func (o SslMonitorOutput) RunParallel() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SslMonitor) pulumi.BoolOutput { return v.RunParallel }).(pulumi.BoolOutput)
 }
 
-// The ID of the runtime to use for this monitor.
+// The ID of the runtime to use for the monitor.
 func (o SslMonitorOutput) RuntimeId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.StringPtrOutput { return v.RuntimeId }).(pulumi.StringPtrOutput)
 }
 
-// Allows to invert the behaviour of when a monitor is considered to fail.
-func (o SslMonitorOutput) ShouldFail() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *SslMonitor) pulumi.BoolPtrOutput { return v.ShouldFail }).(pulumi.BoolPtrOutput)
-}
-
-// A list of tags for organizing and filtering checks and monitors.
+// Tags for organizing and filtering checks and monitors.
 func (o SslMonitorOutput) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *SslMonitor) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }
@@ -635,9 +625,9 @@ func (o SslMonitorOutput) TriggerIncident() SslMonitorTriggerIncidentPtrOutput {
 	return o.ApplyT(func(v *SslMonitor) SslMonitorTriggerIncidentPtrOutput { return v.TriggerIncident }).(SslMonitorTriggerIncidentPtrOutput)
 }
 
-// When true, the account level alert settings will be used, not the alert setting defined on this monitor.
-func (o SslMonitorOutput) UseGlobalAlertSettings() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *SslMonitor) pulumi.BoolPtrOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolPtrOutput)
+// When true, the account level alert settings are used instead of the `alertSettings` of this monitor. Defaults to `true` when `alertSettings` is not set, and to `false` when it is.
+func (o SslMonitorOutput) UseGlobalAlertSettings() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SslMonitor) pulumi.BoolOutput { return v.UseGlobalAlertSettings }).(pulumi.BoolOutput)
 }
 
 type SslMonitorArrayOutput struct{ *pulumi.OutputState }

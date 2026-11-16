@@ -13,13 +13,13 @@ namespace Pulumi.Checkly.Inputs
     public sealed class DnsMonitorRequestNameServerGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name server host.
+        /// The name server host. Must be between `1` and `100` characters.
         /// </summary>
         [Input("host")]
         public Input<string>? Host { get; set; }
 
         /// <summary>
-        /// The name server port.
+        /// The name server port. Possible values are between `1` and `65535`.
         /// </summary>
         [Input("port")]
         public Input<int>? Port { get; set; }

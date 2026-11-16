@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -21,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -100,40 +100,51 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing status page using its ID.
+// The ID is returned by the Checkly API at GET /v3/status-pages.
+//
+// ```sh
+// $ pulumi import checkly:index/statusPageV3:StatusPageV3 example e35f7e14-91b2-4d24-b7b6-e0f9e2f8e51c
+// ```
 type StatusPageV3 struct {
 	pulumi.CustomResourceState
 
-	// Whether search engines may index the public page. (Default `true`).
-	AllowIndexing pulumi.BoolPtrOutput `pulumi:"allowIndexing"`
+	// Whether search engines may index the public page. Defaults to `true`.
+	AllowIndexing pulumi.BoolOutput `pulumi:"allowIndexing"`
 	// A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
-	CustomDomain pulumi.StringPtrOutput `pulumi:"customDomain"`
-	// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
-	DefaultTheme pulumi.StringPtrOutput `pulumi:"defaultTheme"`
-	// A short description shown on the status page.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
-	// A URL to an image file to use as the favicon of the status page.
-	Favicon pulumi.StringPtrOutput `pulumi:"favicon"`
-	// Free-form footer text.
-	FooterText pulumi.StringPtrOutput `pulumi:"footerText"`
-	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
-	GoogleAnalyticsTag pulumi.StringPtrOutput `pulumi:"googleAnalyticsTag"`
-	// A URL to an image file to use as the logo for the status page.
-	Logo pulumi.StringPtrOutput `pulumi:"logo"`
-	// A URL to an image file to use as the logo in dark mode.
-	LogoDark pulumi.StringPtrOutput `pulumi:"logoDark"`
+	CustomDomain pulumi.StringOutput `pulumi:"customDomain"`
+	// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+	DefaultTheme pulumi.StringOutput `pulumi:"defaultTheme"`
+	// A short description shown on the status page. Must be at most `500` characters.
+	Description pulumi.StringOutput `pulumi:"description"`
+	// An http or https URL to an image file to use as the favicon of the status page.
+	Favicon pulumi.StringOutput `pulumi:"favicon"`
+	// Free-form footer text. Must be at most `1000` characters.
+	FooterText pulumi.StringOutput `pulumi:"footerText"`
+	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
+	GoogleAnalyticsTag pulumi.StringOutput `pulumi:"googleAnalyticsTag"`
+	// An http or https URL to an image file to use as the logo for the status page.
+	Logo pulumi.StringOutput `pulumi:"logo"`
+	// An http or https URL to an image file to use as the logo in dark mode.
+	LogoDark pulumi.StringOutput `pulumi:"logoDark"`
 	// The name of the status page.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// A link to your privacy policy, shown in the page footer.
-	PrivacyPolicyLink pulumi.StringPtrOutput `pulumi:"privacyPolicyLink"`
-	// The URL the user should be redirected to when clicking the logo.
-	RedirectTo pulumi.StringPtrOutput `pulumi:"redirectTo"`
-	// A support contact link (http, https or mailto), shown in the page footer.
-	SupportLink pulumi.StringPtrOutput `pulumi:"supportLink"`
-	// A link to your terms of service, shown in the page footer.
-	TermsOfServiceLink pulumi.StringPtrOutput `pulumi:"termsOfServiceLink"`
-	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+	// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
+	PrivacyPolicyLink pulumi.StringOutput `pulumi:"privacyPolicyLink"`
+	// The http or https URL the user should be redirected to when clicking the logo.
+	RedirectTo pulumi.StringOutput `pulumi:"redirectTo"`
+	// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
+	SupportLink pulumi.StringOutput `pulumi:"supportLink"`
+	// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
+	TermsOfServiceLink pulumi.StringOutput `pulumi:"termsOfServiceLink"`
+	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
 	ThemeColors StatusPageV3ThemeColorsPtrOutput `pulumi:"themeColors"`
-	// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url pulumi.StringOutput `pulumi:"url"`
 }
 
@@ -170,72 +181,72 @@ func GetStatusPageV3(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering StatusPageV3 resources.
 type statusPageV3State struct {
-	// Whether search engines may index the public page. (Default `true`).
+	// Whether search engines may index the public page. Defaults to `true`.
 	AllowIndexing *bool `pulumi:"allowIndexing"`
 	// A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
-	// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+	// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme *string `pulumi:"defaultTheme"`
-	// A short description shown on the status page.
+	// A short description shown on the status page. Must be at most `500` characters.
 	Description *string `pulumi:"description"`
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon *string `pulumi:"favicon"`
-	// Free-form footer text.
+	// Free-form footer text. Must be at most `1000` characters.
 	FooterText *string `pulumi:"footerText"`
-	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
 	GoogleAnalyticsTag *string `pulumi:"googleAnalyticsTag"`
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo *string `pulumi:"logo"`
-	// A URL to an image file to use as the logo in dark mode.
+	// An http or https URL to an image file to use as the logo in dark mode.
 	LogoDark *string `pulumi:"logoDark"`
 	// The name of the status page.
 	Name *string `pulumi:"name"`
-	// A link to your privacy policy, shown in the page footer.
+	// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
 	PrivacyPolicyLink *string `pulumi:"privacyPolicyLink"`
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo *string `pulumi:"redirectTo"`
-	// A support contact link (http, https or mailto), shown in the page footer.
+	// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
 	SupportLink *string `pulumi:"supportLink"`
-	// A link to your terms of service, shown in the page footer.
+	// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
 	TermsOfServiceLink *string `pulumi:"termsOfServiceLink"`
-	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
 	ThemeColors *StatusPageV3ThemeColors `pulumi:"themeColors"`
-	// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url *string `pulumi:"url"`
 }
 
 type StatusPageV3State struct {
-	// Whether search engines may index the public page. (Default `true`).
+	// Whether search engines may index the public page. Defaults to `true`.
 	AllowIndexing pulumi.BoolPtrInput
 	// A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
-	// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+	// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme pulumi.StringPtrInput
-	// A short description shown on the status page.
+	// A short description shown on the status page. Must be at most `500` characters.
 	Description pulumi.StringPtrInput
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon pulumi.StringPtrInput
-	// Free-form footer text.
+	// Free-form footer text. Must be at most `1000` characters.
 	FooterText pulumi.StringPtrInput
-	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
 	GoogleAnalyticsTag pulumi.StringPtrInput
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo pulumi.StringPtrInput
-	// A URL to an image file to use as the logo in dark mode.
+	// An http or https URL to an image file to use as the logo in dark mode.
 	LogoDark pulumi.StringPtrInput
 	// The name of the status page.
 	Name pulumi.StringPtrInput
-	// A link to your privacy policy, shown in the page footer.
+	// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
 	PrivacyPolicyLink pulumi.StringPtrInput
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo pulumi.StringPtrInput
-	// A support contact link (http, https or mailto), shown in the page footer.
+	// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
 	SupportLink pulumi.StringPtrInput
-	// A link to your terms of service, shown in the page footer.
+	// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
 	TermsOfServiceLink pulumi.StringPtrInput
-	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
 	ThemeColors StatusPageV3ThemeColorsPtrInput
-	// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url pulumi.StringPtrInput
 }
 
@@ -243,74 +254,80 @@ func (StatusPageV3State) ElementType() reflect.Type {
 	return reflect.TypeOf((*statusPageV3State)(nil)).Elem()
 }
 
+// StatusPageV3Exists checks whether an existing StatusPageV3 resource with the given ID exists.
+func StatusPageV3Exists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StatusPageV3State, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/statusPageV3:StatusPageV3", id, state, "", opts...)
+}
+
 type statusPageV3Args struct {
-	// Whether search engines may index the public page. (Default `true`).
+	// Whether search engines may index the public page. Defaults to `true`.
 	AllowIndexing *bool `pulumi:"allowIndexing"`
 	// A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
 	CustomDomain *string `pulumi:"customDomain"`
-	// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+	// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme *string `pulumi:"defaultTheme"`
-	// A short description shown on the status page.
+	// A short description shown on the status page. Must be at most `500` characters.
 	Description *string `pulumi:"description"`
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon *string `pulumi:"favicon"`
-	// Free-form footer text.
+	// Free-form footer text. Must be at most `1000` characters.
 	FooterText *string `pulumi:"footerText"`
-	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
 	GoogleAnalyticsTag *string `pulumi:"googleAnalyticsTag"`
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo *string `pulumi:"logo"`
-	// A URL to an image file to use as the logo in dark mode.
+	// An http or https URL to an image file to use as the logo in dark mode.
 	LogoDark *string `pulumi:"logoDark"`
 	// The name of the status page.
 	Name *string `pulumi:"name"`
-	// A link to your privacy policy, shown in the page footer.
+	// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
 	PrivacyPolicyLink *string `pulumi:"privacyPolicyLink"`
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo *string `pulumi:"redirectTo"`
-	// A support contact link (http, https or mailto), shown in the page footer.
+	// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
 	SupportLink *string `pulumi:"supportLink"`
-	// A link to your terms of service, shown in the page footer.
+	// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
 	TermsOfServiceLink *string `pulumi:"termsOfServiceLink"`
-	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
 	ThemeColors *StatusPageV3ThemeColors `pulumi:"themeColors"`
-	// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url string `pulumi:"url"`
 }
 
 // The set of arguments for constructing a StatusPageV3 resource.
 type StatusPageV3Args struct {
-	// Whether search engines may index the public page. (Default `true`).
+	// Whether search engines may index the public page. Defaults to `true`.
 	AllowIndexing pulumi.BoolPtrInput
 	// A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
 	CustomDomain pulumi.StringPtrInput
-	// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
+	// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
 	DefaultTheme pulumi.StringPtrInput
-	// A short description shown on the status page.
+	// A short description shown on the status page. Must be at most `500` characters.
 	Description pulumi.StringPtrInput
-	// A URL to an image file to use as the favicon of the status page.
+	// An http or https URL to an image file to use as the favicon of the status page.
 	Favicon pulumi.StringPtrInput
-	// Free-form footer text.
+	// Free-form footer text. Must be at most `1000` characters.
 	FooterText pulumi.StringPtrInput
-	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
+	// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
 	GoogleAnalyticsTag pulumi.StringPtrInput
-	// A URL to an image file to use as the logo for the status page.
+	// An http or https URL to an image file to use as the logo for the status page.
 	Logo pulumi.StringPtrInput
-	// A URL to an image file to use as the logo in dark mode.
+	// An http or https URL to an image file to use as the logo in dark mode.
 	LogoDark pulumi.StringPtrInput
 	// The name of the status page.
 	Name pulumi.StringPtrInput
-	// A link to your privacy policy, shown in the page footer.
+	// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
 	PrivacyPolicyLink pulumi.StringPtrInput
-	// The URL the user should be redirected to when clicking the logo.
+	// The http or https URL the user should be redirected to when clicking the logo.
 	RedirectTo pulumi.StringPtrInput
-	// A support contact link (http, https or mailto), shown in the page footer.
+	// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
 	SupportLink pulumi.StringPtrInput
-	// A link to your terms of service, shown in the page footer.
+	// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
 	TermsOfServiceLink pulumi.StringPtrInput
-	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+	// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
 	ThemeColors StatusPageV3ThemeColorsPtrInput
-	// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+	// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 	Url pulumi.StringInput
 }
 
@@ -401,49 +418,49 @@ func (o StatusPageV3Output) ToStatusPageV3OutputWithContext(ctx context.Context)
 	return o
 }
 
-// Whether search engines may index the public page. (Default `true`).
-func (o StatusPageV3Output) AllowIndexing() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.BoolPtrOutput { return v.AllowIndexing }).(pulumi.BoolPtrOutput)
+// Whether search engines may index the public page. Defaults to `true`.
+func (o StatusPageV3Output) AllowIndexing() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.BoolOutput { return v.AllowIndexing }).(pulumi.BoolOutput)
 }
 
 // A custom user domain, e.g. "status.example.com": a lowercase hostname without a scheme. See the docs on updating your DNS and SSL usage.
-func (o StatusPageV3Output) CustomDomain() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.CustomDomain }).(pulumi.StringPtrOutput)
+func (o StatusPageV3Output) CustomDomain() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.CustomDomain }).(pulumi.StringOutput)
 }
 
-// The default theme of the status page. The allowed values are `AUTO`, `DARK` and `LIGHT`.
-func (o StatusPageV3Output) DefaultTheme() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.DefaultTheme }).(pulumi.StringPtrOutput)
+// The default theme of the status page. Possible values are `AUTO`, `DARK` and `LIGHT`. Defaults to `AUTO`.
+func (o StatusPageV3Output) DefaultTheme() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.DefaultTheme }).(pulumi.StringOutput)
 }
 
-// A short description shown on the status page.
-func (o StatusPageV3Output) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+// A short description shown on the status page. Must be at most `500` characters.
+func (o StatusPageV3Output) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// A URL to an image file to use as the favicon of the status page.
-func (o StatusPageV3Output) Favicon() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.Favicon }).(pulumi.StringPtrOutput)
+// An http or https URL to an image file to use as the favicon of the status page.
+func (o StatusPageV3Output) Favicon() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.Favicon }).(pulumi.StringOutput)
 }
 
-// Free-form footer text.
-func (o StatusPageV3Output) FooterText() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.FooterText }).(pulumi.StringPtrOutput)
+// Free-form footer text. Must be at most `1000` characters.
+func (o StatusPageV3Output) FooterText() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.FooterText }).(pulumi.StringOutput)
 }
 
-// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page.
-func (o StatusPageV3Output) GoogleAnalyticsTag() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.GoogleAnalyticsTag }).(pulumi.StringPtrOutput)
+// A Google Analytics tag ID (e.g. "G-XXXXXXXXXX") to embed on the public page. Must be at most `255` characters. Must contain only letters, digits and dashes.
+func (o StatusPageV3Output) GoogleAnalyticsTag() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.GoogleAnalyticsTag }).(pulumi.StringOutput)
 }
 
-// A URL to an image file to use as the logo for the status page.
-func (o StatusPageV3Output) Logo() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.Logo }).(pulumi.StringPtrOutput)
+// An http or https URL to an image file to use as the logo for the status page.
+func (o StatusPageV3Output) Logo() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.Logo }).(pulumi.StringOutput)
 }
 
-// A URL to an image file to use as the logo in dark mode.
-func (o StatusPageV3Output) LogoDark() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.LogoDark }).(pulumi.StringPtrOutput)
+// An http or https URL to an image file to use as the logo in dark mode.
+func (o StatusPageV3Output) LogoDark() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.LogoDark }).(pulumi.StringOutput)
 }
 
 // The name of the status page.
@@ -451,32 +468,32 @@ func (o StatusPageV3Output) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// A link to your privacy policy, shown in the page footer.
-func (o StatusPageV3Output) PrivacyPolicyLink() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.PrivacyPolicyLink }).(pulumi.StringPtrOutput)
+// An http or https link to your privacy policy, shown in the page footer. Must be at most `255` characters.
+func (o StatusPageV3Output) PrivacyPolicyLink() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.PrivacyPolicyLink }).(pulumi.StringOutput)
 }
 
-// The URL the user should be redirected to when clicking the logo.
-func (o StatusPageV3Output) RedirectTo() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.RedirectTo }).(pulumi.StringPtrOutput)
+// The http or https URL the user should be redirected to when clicking the logo.
+func (o StatusPageV3Output) RedirectTo() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.RedirectTo }).(pulumi.StringOutput)
 }
 
-// A support contact link (http, https or mailto), shown in the page footer.
-func (o StatusPageV3Output) SupportLink() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.SupportLink }).(pulumi.StringPtrOutput)
+// A support contact link (http, https or mailto), shown in the page footer. Must be at most `255` characters.
+func (o StatusPageV3Output) SupportLink() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.SupportLink }).(pulumi.StringOutput)
 }
 
-// A link to your terms of service, shown in the page footer.
-func (o StatusPageV3Output) TermsOfServiceLink() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StatusPageV3) pulumi.StringPtrOutput { return v.TermsOfServiceLink }).(pulumi.StringPtrOutput)
+// An http or https link to your terms of service, shown in the page footer. Must be at most `255` characters.
+func (o StatusPageV3Output) TermsOfServiceLink() pulumi.StringOutput {
+	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.TermsOfServiceLink }).(pulumi.StringOutput)
 }
 
-// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the block out to use Checkly's default colors; the default palette the API then reports is not tracked, and the block is not populated when importing a page.
+// Custom colors for the light and dark theme of the page. Requires custom theme colors to be part of your plan. The complete palette must be given: both `light` and `dark`, each with every color. Leave the attribute out to use Checkly's default colors; the default palette the API then reports is not tracked, and the attribute is not populated when importing a page.
 func (o StatusPageV3Output) ThemeColors() StatusPageV3ThemeColorsPtrOutput {
 	return o.ApplyT(func(v *StatusPageV3) StatusPageV3ThemeColorsPtrOutput { return v.ThemeColors }).(StatusPageV3ThemeColorsPtrOutput)
 }
 
-// The unique subdomain of the status page: lowercase alphanumeric characters and dashes, no leading or trailing dash, at most 63 characters.
+// The unique subdomain of the status page. Must be at most `63` characters. Must contain only lowercase alphanumeric characters and dashes, with no leading or trailing dash.
 func (o StatusPageV3Output) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v *StatusPageV3) pulumi.StringOutput { return v.Url }).(pulumi.StringOutput)
 }

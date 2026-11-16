@@ -11,12 +11,141 @@ namespace Pulumi.Checkly
 {
     public static class GetStaticIps
     {
+        /// <summary>
+        /// Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Aws = Pulumi.Aws;
+        /// using Checkly = Pulumi.Checkly;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // All static IP addresses that Checkly's runners use.
+        ///     var all = Checkly.GetStaticIps.Invoke();
+        /// 
+        ///     // Only the IPv4 addresses of two locations.
+        ///     var euIpv4 = Checkly.GetStaticIps.Invoke(new()
+        ///     {
+        ///         Locations = new[]
+        ///         {
+        ///             "eu-central-1",
+        ///             "eu-west-1",
+        ///         },
+        ///         IpFamily = "IPv4",
+        ///     });
+        /// 
+        ///     // Allow traffic from those runners to a service behind an AWS security group.
+        ///     // The addresses are already in CIDR notation, such as "3.64.0.1/32".
+        ///     var checklyIngress = new Aws.SecurityGroupRule("checkly_ingress", new()
+        ///     {
+        ///         Type = "ingress",
+        ///         FromPort = 443,
+        ///         ToPort = 443,
+        ///         Protocol = "tcp",
+        ///         CidrBlocks = euIpv4.Apply(getStaticIpsResult =&gt; getStaticIpsResult.Addresses),
+        ///         SecurityGroupId = "sg-0123456789abcdef0",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Task<GetStaticIpsResult> InvokeAsync(GetStaticIpsArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetStaticIpsResult>("checkly:index/getStaticIps:getStaticIps", args ?? new GetStaticIpsArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Aws = Pulumi.Aws;
+        /// using Checkly = Pulumi.Checkly;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // All static IP addresses that Checkly's runners use.
+        ///     var all = Checkly.GetStaticIps.Invoke();
+        /// 
+        ///     // Only the IPv4 addresses of two locations.
+        ///     var euIpv4 = Checkly.GetStaticIps.Invoke(new()
+        ///     {
+        ///         Locations = new[]
+        ///         {
+        ///             "eu-central-1",
+        ///             "eu-west-1",
+        ///         },
+        ///         IpFamily = "IPv4",
+        ///     });
+        /// 
+        ///     // Allow traffic from those runners to a service behind an AWS security group.
+        ///     // The addresses are already in CIDR notation, such as "3.64.0.1/32".
+        ///     var checklyIngress = new Aws.SecurityGroupRule("checkly_ingress", new()
+        ///     {
+        ///         Type = "ingress",
+        ///         FromPort = 443,
+        ///         ToPort = 443,
+        ///         Protocol = "tcp",
+        ///         CidrBlocks = euIpv4.Apply(getStaticIpsResult =&gt; getStaticIpsResult.Addresses),
+        ///         SecurityGroupId = "sg-0123456789abcdef0",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetStaticIpsResult> Invoke(GetStaticIpsInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetStaticIpsResult>("checkly:index/getStaticIps:getStaticIps", args ?? new GetStaticIpsInvokeArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Aws = Pulumi.Aws;
+        /// using Checkly = Pulumi.Checkly;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     // All static IP addresses that Checkly's runners use.
+        ///     var all = Checkly.GetStaticIps.Invoke();
+        /// 
+        ///     // Only the IPv4 addresses of two locations.
+        ///     var euIpv4 = Checkly.GetStaticIps.Invoke(new()
+        ///     {
+        ///         Locations = new[]
+        ///         {
+        ///             "eu-central-1",
+        ///             "eu-west-1",
+        ///         },
+        ///         IpFamily = "IPv4",
+        ///     });
+        /// 
+        ///     // Allow traffic from those runners to a service behind an AWS security group.
+        ///     // The addresses are already in CIDR notation, such as "3.64.0.1/32".
+        ///     var checklyIngress = new Aws.SecurityGroupRule("checkly_ingress", new()
+        ///     {
+        ///         Type = "ingress",
+        ///         FromPort = 443,
+        ///         ToPort = 443,
+        ///         Protocol = "tcp",
+        ///         CidrBlocks = euIpv4.Apply(getStaticIpsResult =&gt; getStaticIpsResult.Addresses),
+        ///         SecurityGroupId = "sg-0123456789abcdef0",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// </summary>
         public static Output<GetStaticIpsResult> Invoke(GetStaticIpsInvokeArgs args, InvokeOutputOptions options)
             => global::Pulumi.Deployment.Instance.Invoke<GetStaticIpsResult>("checkly:index/getStaticIps:getStaticIps", args ?? new GetStaticIpsInvokeArgs(), options.WithDefaults());
     }
@@ -25,7 +154,7 @@ namespace Pulumi.Checkly
     public sealed class GetStaticIpsArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+        /// Specify the IP family you want to get static IPs for. Possible values are `All` (both families), `IPv4` and `IPv6`. Defaults to `All`.
         /// </summary>
         [Input("ipFamily")]
         public string? IpFamily { get; set; }
@@ -34,7 +163,7 @@ namespace Pulumi.Checkly
         private List<string>? _locations;
 
         /// <summary>
-        /// Specify the locations you want to get static IPs for.
+        /// Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
         /// </summary>
         public List<string> Locations
         {
@@ -51,7 +180,7 @@ namespace Pulumi.Checkly
     public sealed class GetStaticIpsInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+        /// Specify the IP family you want to get static IPs for. Possible values are `All` (both families), `IPv4` and `IPv6`. Defaults to `All`.
         /// </summary>
         [Input("ipFamily")]
         public Input<string>? IpFamily { get; set; }
@@ -60,7 +189,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// Specify the locations you want to get static IPs for.
+        /// Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
         /// </summary>
         public InputList<string> Locations
         {
@@ -79,7 +208,7 @@ namespace Pulumi.Checkly
     public sealed class GetStaticIpsResult
     {
         /// <summary>
-        /// Static IP addresses for Checkly's runner infrastructure.
+        /// Static IP addresses for Checkly's runner infrastructure, in CIDR notation (for example `3.64.0.1/32`).
         /// </summary>
         public readonly ImmutableArray<string> Addresses;
         /// <summary>
@@ -87,11 +216,11 @@ namespace Pulumi.Checkly
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+        /// Specify the IP family you want to get static IPs for. Possible values are `All` (both families), `IPv4` and `IPv6`. Defaults to `All`.
         /// </summary>
-        public readonly string? IpFamily;
+        public readonly string IpFamily;
         /// <summary>
-        /// Specify the locations you want to get static IPs for.
+        /// Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
         /// </summary>
         public readonly ImmutableArray<string> Locations;
 
@@ -101,7 +230,7 @@ namespace Pulumi.Checkly
 
             string id,
 
-            string? ipFamily,
+            string ipFamily,
 
             ImmutableArray<string> locations)
         {

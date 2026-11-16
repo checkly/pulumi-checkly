@@ -13,8 +13,24 @@ namespace Pulumi.Checkly.Inputs
     public sealed class CheckRequestBasicAuthGetArgs : global::Pulumi.ResourceArgs
     {
         [Input("password", required: true)]
-        public Input<string> Password { get; set; } = null!;
+        private Input<string>? _password;
 
+        /// <summary>
+        /// The basic auth password.
+        /// </summary>
+        public Input<string>? Password
+        {
+            get => _password;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _password = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// The basic auth username.
+        /// </summary>
         [Input("username", required: true)]
         public Input<string> Username { get; set; } = null!;
 

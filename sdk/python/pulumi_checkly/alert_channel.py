@@ -21,27 +21,40 @@ __all__ = ['AlertChannelArgs', 'AlertChannel']
 @pulumi.input_type
 class AlertChannelArgs:
     def __init__(__self__, *,
-                 call: Optional[pulumi.Input['AlertChannelCallArgs']] = None,
-                 email: Optional[pulumi.Input['AlertChannelEmailArgs']] = None,
-                 opsgenie: Optional[pulumi.Input['AlertChannelOpsgenieArgs']] = None,
-                 pagerduty: Optional[pulumi.Input['AlertChannelPagerdutyArgs']] = None,
-                 send_degraded: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
-                 slack: Optional[pulumi.Input['AlertChannelSlackArgs']] = None,
-                 slack_app: Optional[pulumi.Input['AlertChannelSlackAppArgs']] = None,
-                 sms: Optional[pulumi.Input['AlertChannelSmsArgs']] = None,
-                 ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 webhook: Optional[pulumi.Input['AlertChannelWebhookArgs']] = None):
+                 auto_subscribe: pulumi.Input[Optional[_builtins.bool]] = None,
+                 call: pulumi.Input[Optional['AlertChannelCallArgs']] = None,
+                 email: pulumi.Input[Optional['AlertChannelEmailArgs']] = None,
+                 opsgenie: pulumi.Input[Optional['AlertChannelOpsgenieArgs']] = None,
+                 pagerduty: pulumi.Input[Optional['AlertChannelPagerdutyArgs']] = None,
+                 send_degraded: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_failure: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_recovery: pulumi.Input[Optional[_builtins.bool]] = None,
+                 slack: pulumi.Input[Optional['AlertChannelSlackArgs']] = None,
+                 slack_app: pulumi.Input[Optional['AlertChannelSlackAppArgs']] = None,
+                 sms: pulumi.Input[Optional['AlertChannelSmsArgs']] = None,
+                 ssl_expiry: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ssl_expiry_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 webhook: pulumi.Input[Optional['AlertChannelWebhookArgs']] = None):
         """
         The set of arguments for constructing a AlertChannel resource.
-        :param pulumi.Input[_builtins.bool] send_degraded: (Default `false`)
-        :param pulumi.Input[_builtins.bool] send_failure: (Default `true`)
-        :param pulumi.Input[_builtins.bool] send_recovery: (Default `true`)
-        :param pulumi.Input[_builtins.bool] ssl_expiry: (Default `false`)
-        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: Value must be between 1 and 30 (Default `30`)
+
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input['AlertChannelCallArgs'] call: Sends alerts as phone calls.
+        :param pulumi.Input['AlertChannelEmailArgs'] email: Sends alerts by email.
+        :param pulumi.Input['AlertChannelOpsgenieArgs'] opsgenie: Creates alerts in Opsgenie.
+        :param pulumi.Input['AlertChannelPagerdutyArgs'] pagerduty: Sends alerts to a PagerDuty service.
+        :param pulumi.Input[_builtins.bool] send_degraded: Whether to send an alert when a check is degraded. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] send_failure: Whether to send an alert when a check fails. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] send_recovery: Whether to send an alert when a check recovers. Defaults to `true`.
+        :param pulumi.Input['AlertChannelSlackArgs'] slack: Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        :param pulumi.Input['AlertChannelSlackAppArgs'] slack_app: Sends alerts to Slack channels or users through the Checkly Slack app.
+        :param pulumi.Input['AlertChannelSmsArgs'] sms: Sends alerts as SMS messages.
+        :param pulumi.Input[_builtins.bool] ssl_expiry: Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+        :param pulumi.Input['AlertChannelWebhookArgs'] webhook: Sends alerts as HTTP requests to a webhook.
         """
+        if auto_subscribe is not None:
+            pulumi.set(__self__, "auto_subscribe", auto_subscribe)
         if call is not None:
             pulumi.set(__self__, "call", call)
         if email is not None:
@@ -57,8 +70,8 @@ class AlertChannelArgs:
         if send_recovery is not None:
             pulumi.set(__self__, "send_recovery", send_recovery)
         if slack is not None:
-            warnings.warn("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""", DeprecationWarning)
-            pulumi.log.warn("""slack is deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
+            warnings.warn("""The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""", DeprecationWarning)
+            pulumi.log.warn("""slack is deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
         if slack is not None:
             pulumi.set(__self__, "slack", slack)
         if slack_app is not None:
@@ -73,163 +86,212 @@ class AlertChannelArgs:
             pulumi.set(__self__, "webhook", webhook)
 
     @_builtins.property
+    @pulumi.getter(name="autoSubscribe")
+    def auto_subscribe(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        """
+        return pulumi.get(self, "auto_subscribe")
+
+    @auto_subscribe.setter
+    def auto_subscribe(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "auto_subscribe", value)
+
+    @_builtins.property
     @pulumi.getter
-    def call(self) -> Optional[pulumi.Input['AlertChannelCallArgs']]:
+    def call(self) -> pulumi.Input[Optional['AlertChannelCallArgs']]:
+        """
+        Sends alerts as phone calls.
+        """
         return pulumi.get(self, "call")
 
     @call.setter
-    def call(self, value: Optional[pulumi.Input['AlertChannelCallArgs']]):
+    def call(self, value: pulumi.Input[Optional['AlertChannelCallArgs']]):
         pulumi.set(self, "call", value)
 
     @_builtins.property
     @pulumi.getter
-    def email(self) -> Optional[pulumi.Input['AlertChannelEmailArgs']]:
+    def email(self) -> pulumi.Input[Optional['AlertChannelEmailArgs']]:
+        """
+        Sends alerts by email.
+        """
         return pulumi.get(self, "email")
 
     @email.setter
-    def email(self, value: Optional[pulumi.Input['AlertChannelEmailArgs']]):
+    def email(self, value: pulumi.Input[Optional['AlertChannelEmailArgs']]):
         pulumi.set(self, "email", value)
 
     @_builtins.property
     @pulumi.getter
-    def opsgenie(self) -> Optional[pulumi.Input['AlertChannelOpsgenieArgs']]:
+    def opsgenie(self) -> pulumi.Input[Optional['AlertChannelOpsgenieArgs']]:
+        """
+        Creates alerts in Opsgenie.
+        """
         return pulumi.get(self, "opsgenie")
 
     @opsgenie.setter
-    def opsgenie(self, value: Optional[pulumi.Input['AlertChannelOpsgenieArgs']]):
+    def opsgenie(self, value: pulumi.Input[Optional['AlertChannelOpsgenieArgs']]):
         pulumi.set(self, "opsgenie", value)
 
     @_builtins.property
     @pulumi.getter
-    def pagerduty(self) -> Optional[pulumi.Input['AlertChannelPagerdutyArgs']]:
+    def pagerduty(self) -> pulumi.Input[Optional['AlertChannelPagerdutyArgs']]:
+        """
+        Sends alerts to a PagerDuty service.
+        """
         return pulumi.get(self, "pagerduty")
 
     @pagerduty.setter
-    def pagerduty(self, value: Optional[pulumi.Input['AlertChannelPagerdutyArgs']]):
+    def pagerduty(self, value: pulumi.Input[Optional['AlertChannelPagerdutyArgs']]):
         pulumi.set(self, "pagerduty", value)
 
     @_builtins.property
     @pulumi.getter(name="sendDegraded")
-    def send_degraded(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_degraded(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `false`)
+        Whether to send an alert when a check is degraded. Defaults to `false`.
         """
         return pulumi.get(self, "send_degraded")
 
     @send_degraded.setter
-    def send_degraded(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_degraded(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_degraded", value)
 
     @_builtins.property
     @pulumi.getter(name="sendFailure")
-    def send_failure(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_failure(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `true`)
+        Whether to send an alert when a check fails. Defaults to `true`.
         """
         return pulumi.get(self, "send_failure")
 
     @send_failure.setter
-    def send_failure(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_failure(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_failure", value)
 
     @_builtins.property
     @pulumi.getter(name="sendRecovery")
-    def send_recovery(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_recovery(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `true`)
+        Whether to send an alert when a check recovers. Defaults to `true`.
         """
         return pulumi.get(self, "send_recovery")
 
     @send_recovery.setter
-    def send_recovery(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_recovery(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_recovery", value)
 
     @_builtins.property
     @pulumi.getter
-    @_utilities.deprecated("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
-    def slack(self) -> Optional[pulumi.Input['AlertChannelSlackArgs']]:
+    @_utilities.deprecated("""The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
+    def slack(self) -> pulumi.Input[Optional['AlertChannelSlackArgs']]:
+        """
+        Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        """
         return pulumi.get(self, "slack")
 
     @slack.setter
-    def slack(self, value: Optional[pulumi.Input['AlertChannelSlackArgs']]):
+    def slack(self, value: pulumi.Input[Optional['AlertChannelSlackArgs']]):
         pulumi.set(self, "slack", value)
 
     @_builtins.property
     @pulumi.getter(name="slackApp")
-    def slack_app(self) -> Optional[pulumi.Input['AlertChannelSlackAppArgs']]:
+    def slack_app(self) -> pulumi.Input[Optional['AlertChannelSlackAppArgs']]:
+        """
+        Sends alerts to Slack channels or users through the Checkly Slack app.
+        """
         return pulumi.get(self, "slack_app")
 
     @slack_app.setter
-    def slack_app(self, value: Optional[pulumi.Input['AlertChannelSlackAppArgs']]):
+    def slack_app(self, value: pulumi.Input[Optional['AlertChannelSlackAppArgs']]):
         pulumi.set(self, "slack_app", value)
 
     @_builtins.property
     @pulumi.getter
-    def sms(self) -> Optional[pulumi.Input['AlertChannelSmsArgs']]:
+    def sms(self) -> pulumi.Input[Optional['AlertChannelSmsArgs']]:
+        """
+        Sends alerts as SMS messages.
+        """
         return pulumi.get(self, "sms")
 
     @sms.setter
-    def sms(self, value: Optional[pulumi.Input['AlertChannelSmsArgs']]):
+    def sms(self, value: pulumi.Input[Optional['AlertChannelSmsArgs']]):
         pulumi.set(self, "sms", value)
 
     @_builtins.property
     @pulumi.getter(name="sslExpiry")
-    def ssl_expiry(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ssl_expiry(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `false`)
+        Whether to send an alert for expiring SSL certificates. Defaults to `false`.
         """
         return pulumi.get(self, "ssl_expiry")
 
     @ssl_expiry.setter
-    def ssl_expiry(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ssl_expiry(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ssl_expiry", value)
 
     @_builtins.property
     @pulumi.getter(name="sslExpiryThreshold")
-    def ssl_expiry_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def ssl_expiry_threshold(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Value must be between 1 and 30 (Default `30`)
+        How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         """
         return pulumi.get(self, "ssl_expiry_threshold")
 
     @ssl_expiry_threshold.setter
-    def ssl_expiry_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def ssl_expiry_threshold(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "ssl_expiry_threshold", value)
 
     @_builtins.property
     @pulumi.getter
-    def webhook(self) -> Optional[pulumi.Input['AlertChannelWebhookArgs']]:
+    def webhook(self) -> pulumi.Input[Optional['AlertChannelWebhookArgs']]:
+        """
+        Sends alerts as HTTP requests to a webhook.
+        """
         return pulumi.get(self, "webhook")
 
     @webhook.setter
-    def webhook(self, value: Optional[pulumi.Input['AlertChannelWebhookArgs']]):
+    def webhook(self, value: pulumi.Input[Optional['AlertChannelWebhookArgs']]):
         pulumi.set(self, "webhook", value)
 
 
 @pulumi.input_type
 class _AlertChannelState:
     def __init__(__self__, *,
-                 call: Optional[pulumi.Input['AlertChannelCallArgs']] = None,
-                 email: Optional[pulumi.Input['AlertChannelEmailArgs']] = None,
-                 opsgenie: Optional[pulumi.Input['AlertChannelOpsgenieArgs']] = None,
-                 pagerduty: Optional[pulumi.Input['AlertChannelPagerdutyArgs']] = None,
-                 send_degraded: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
-                 slack: Optional[pulumi.Input['AlertChannelSlackArgs']] = None,
-                 slack_app: Optional[pulumi.Input['AlertChannelSlackAppArgs']] = None,
-                 sms: Optional[pulumi.Input['AlertChannelSmsArgs']] = None,
-                 ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 webhook: Optional[pulumi.Input['AlertChannelWebhookArgs']] = None):
+                 auto_subscribe: pulumi.Input[Optional[_builtins.bool]] = None,
+                 call: pulumi.Input[Optional['AlertChannelCallArgs']] = None,
+                 email: pulumi.Input[Optional['AlertChannelEmailArgs']] = None,
+                 opsgenie: pulumi.Input[Optional['AlertChannelOpsgenieArgs']] = None,
+                 pagerduty: pulumi.Input[Optional['AlertChannelPagerdutyArgs']] = None,
+                 send_degraded: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_failure: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_recovery: pulumi.Input[Optional[_builtins.bool]] = None,
+                 slack: pulumi.Input[Optional['AlertChannelSlackArgs']] = None,
+                 slack_app: pulumi.Input[Optional['AlertChannelSlackAppArgs']] = None,
+                 sms: pulumi.Input[Optional['AlertChannelSmsArgs']] = None,
+                 ssl_expiry: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ssl_expiry_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 webhook: pulumi.Input[Optional['AlertChannelWebhookArgs']] = None):
         """
         Input properties used for looking up and filtering AlertChannel resources.
-        :param pulumi.Input[_builtins.bool] send_degraded: (Default `false`)
-        :param pulumi.Input[_builtins.bool] send_failure: (Default `true`)
-        :param pulumi.Input[_builtins.bool] send_recovery: (Default `true`)
-        :param pulumi.Input[_builtins.bool] ssl_expiry: (Default `false`)
-        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: Value must be between 1 and 30 (Default `30`)
+
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input['AlertChannelCallArgs'] call: Sends alerts as phone calls.
+        :param pulumi.Input['AlertChannelEmailArgs'] email: Sends alerts by email.
+        :param pulumi.Input['AlertChannelOpsgenieArgs'] opsgenie: Creates alerts in Opsgenie.
+        :param pulumi.Input['AlertChannelPagerdutyArgs'] pagerduty: Sends alerts to a PagerDuty service.
+        :param pulumi.Input[_builtins.bool] send_degraded: Whether to send an alert when a check is degraded. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] send_failure: Whether to send an alert when a check fails. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] send_recovery: Whether to send an alert when a check recovers. Defaults to `true`.
+        :param pulumi.Input['AlertChannelSlackArgs'] slack: Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        :param pulumi.Input['AlertChannelSlackAppArgs'] slack_app: Sends alerts to Slack channels or users through the Checkly Slack app.
+        :param pulumi.Input['AlertChannelSmsArgs'] sms: Sends alerts as SMS messages.
+        :param pulumi.Input[_builtins.bool] ssl_expiry: Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+        :param pulumi.Input['AlertChannelWebhookArgs'] webhook: Sends alerts as HTTP requests to a webhook.
         """
+        if auto_subscribe is not None:
+            pulumi.set(__self__, "auto_subscribe", auto_subscribe)
         if call is not None:
             pulumi.set(__self__, "call", call)
         if email is not None:
@@ -245,8 +307,8 @@ class _AlertChannelState:
         if send_recovery is not None:
             pulumi.set(__self__, "send_recovery", send_recovery)
         if slack is not None:
-            warnings.warn("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""", DeprecationWarning)
-            pulumi.log.warn("""slack is deprecated: The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
+            warnings.warn("""The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""", DeprecationWarning)
+            pulumi.log.warn("""slack is deprecated: The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
         if slack is not None:
             pulumi.set(__self__, "slack", slack)
         if slack_app is not None:
@@ -261,136 +323,172 @@ class _AlertChannelState:
             pulumi.set(__self__, "webhook", webhook)
 
     @_builtins.property
+    @pulumi.getter(name="autoSubscribe")
+    def auto_subscribe(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        """
+        return pulumi.get(self, "auto_subscribe")
+
+    @auto_subscribe.setter
+    def auto_subscribe(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "auto_subscribe", value)
+
+    @_builtins.property
     @pulumi.getter
-    def call(self) -> Optional[pulumi.Input['AlertChannelCallArgs']]:
+    def call(self) -> pulumi.Input[Optional['AlertChannelCallArgs']]:
+        """
+        Sends alerts as phone calls.
+        """
         return pulumi.get(self, "call")
 
     @call.setter
-    def call(self, value: Optional[pulumi.Input['AlertChannelCallArgs']]):
+    def call(self, value: pulumi.Input[Optional['AlertChannelCallArgs']]):
         pulumi.set(self, "call", value)
 
     @_builtins.property
     @pulumi.getter
-    def email(self) -> Optional[pulumi.Input['AlertChannelEmailArgs']]:
+    def email(self) -> pulumi.Input[Optional['AlertChannelEmailArgs']]:
+        """
+        Sends alerts by email.
+        """
         return pulumi.get(self, "email")
 
     @email.setter
-    def email(self, value: Optional[pulumi.Input['AlertChannelEmailArgs']]):
+    def email(self, value: pulumi.Input[Optional['AlertChannelEmailArgs']]):
         pulumi.set(self, "email", value)
 
     @_builtins.property
     @pulumi.getter
-    def opsgenie(self) -> Optional[pulumi.Input['AlertChannelOpsgenieArgs']]:
+    def opsgenie(self) -> pulumi.Input[Optional['AlertChannelOpsgenieArgs']]:
+        """
+        Creates alerts in Opsgenie.
+        """
         return pulumi.get(self, "opsgenie")
 
     @opsgenie.setter
-    def opsgenie(self, value: Optional[pulumi.Input['AlertChannelOpsgenieArgs']]):
+    def opsgenie(self, value: pulumi.Input[Optional['AlertChannelOpsgenieArgs']]):
         pulumi.set(self, "opsgenie", value)
 
     @_builtins.property
     @pulumi.getter
-    def pagerduty(self) -> Optional[pulumi.Input['AlertChannelPagerdutyArgs']]:
+    def pagerduty(self) -> pulumi.Input[Optional['AlertChannelPagerdutyArgs']]:
+        """
+        Sends alerts to a PagerDuty service.
+        """
         return pulumi.get(self, "pagerduty")
 
     @pagerduty.setter
-    def pagerduty(self, value: Optional[pulumi.Input['AlertChannelPagerdutyArgs']]):
+    def pagerduty(self, value: pulumi.Input[Optional['AlertChannelPagerdutyArgs']]):
         pulumi.set(self, "pagerduty", value)
 
     @_builtins.property
     @pulumi.getter(name="sendDegraded")
-    def send_degraded(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_degraded(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `false`)
+        Whether to send an alert when a check is degraded. Defaults to `false`.
         """
         return pulumi.get(self, "send_degraded")
 
     @send_degraded.setter
-    def send_degraded(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_degraded(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_degraded", value)
 
     @_builtins.property
     @pulumi.getter(name="sendFailure")
-    def send_failure(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_failure(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `true`)
+        Whether to send an alert when a check fails. Defaults to `true`.
         """
         return pulumi.get(self, "send_failure")
 
     @send_failure.setter
-    def send_failure(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_failure(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_failure", value)
 
     @_builtins.property
     @pulumi.getter(name="sendRecovery")
-    def send_recovery(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_recovery(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `true`)
+        Whether to send an alert when a check recovers. Defaults to `true`.
         """
         return pulumi.get(self, "send_recovery")
 
     @send_recovery.setter
-    def send_recovery(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_recovery(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_recovery", value)
 
     @_builtins.property
     @pulumi.getter
-    @_utilities.deprecated("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
-    def slack(self) -> Optional[pulumi.Input['AlertChannelSlackArgs']]:
+    @_utilities.deprecated("""The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
+    def slack(self) -> pulumi.Input[Optional['AlertChannelSlackArgs']]:
+        """
+        Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        """
         return pulumi.get(self, "slack")
 
     @slack.setter
-    def slack(self, value: Optional[pulumi.Input['AlertChannelSlackArgs']]):
+    def slack(self, value: pulumi.Input[Optional['AlertChannelSlackArgs']]):
         pulumi.set(self, "slack", value)
 
     @_builtins.property
     @pulumi.getter(name="slackApp")
-    def slack_app(self) -> Optional[pulumi.Input['AlertChannelSlackAppArgs']]:
+    def slack_app(self) -> pulumi.Input[Optional['AlertChannelSlackAppArgs']]:
+        """
+        Sends alerts to Slack channels or users through the Checkly Slack app.
+        """
         return pulumi.get(self, "slack_app")
 
     @slack_app.setter
-    def slack_app(self, value: Optional[pulumi.Input['AlertChannelSlackAppArgs']]):
+    def slack_app(self, value: pulumi.Input[Optional['AlertChannelSlackAppArgs']]):
         pulumi.set(self, "slack_app", value)
 
     @_builtins.property
     @pulumi.getter
-    def sms(self) -> Optional[pulumi.Input['AlertChannelSmsArgs']]:
+    def sms(self) -> pulumi.Input[Optional['AlertChannelSmsArgs']]:
+        """
+        Sends alerts as SMS messages.
+        """
         return pulumi.get(self, "sms")
 
     @sms.setter
-    def sms(self, value: Optional[pulumi.Input['AlertChannelSmsArgs']]):
+    def sms(self, value: pulumi.Input[Optional['AlertChannelSmsArgs']]):
         pulumi.set(self, "sms", value)
 
     @_builtins.property
     @pulumi.getter(name="sslExpiry")
-    def ssl_expiry(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ssl_expiry(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        (Default `false`)
+        Whether to send an alert for expiring SSL certificates. Defaults to `false`.
         """
         return pulumi.get(self, "ssl_expiry")
 
     @ssl_expiry.setter
-    def ssl_expiry(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ssl_expiry(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ssl_expiry", value)
 
     @_builtins.property
     @pulumi.getter(name="sslExpiryThreshold")
-    def ssl_expiry_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def ssl_expiry_threshold(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Value must be between 1 and 30 (Default `30`)
+        How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         """
         return pulumi.get(self, "ssl_expiry_threshold")
 
     @ssl_expiry_threshold.setter
-    def ssl_expiry_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def ssl_expiry_threshold(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "ssl_expiry_threshold", value)
 
     @_builtins.property
     @pulumi.getter
-    def webhook(self) -> Optional[pulumi.Input['AlertChannelWebhookArgs']]:
+    def webhook(self) -> pulumi.Input[Optional['AlertChannelWebhookArgs']]:
+        """
+        Sends alerts as HTTP requests to a webhook.
+        """
         return pulumi.get(self, "webhook")
 
     @webhook.setter
-    def webhook(self, value: Optional[pulumi.Input['AlertChannelWebhookArgs']]):
+    def webhook(self, value: pulumi.Input[Optional['AlertChannelWebhookArgs']]):
         pulumi.set(self, "webhook", value)
 
 
@@ -400,19 +498,20 @@ class AlertChannel(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 call: Optional[pulumi.Input[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict']]] = None,
-                 email: Optional[pulumi.Input[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict']]] = None,
-                 opsgenie: Optional[pulumi.Input[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict']]] = None,
-                 pagerduty: Optional[pulumi.Input[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict']]] = None,
-                 send_degraded: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
-                 slack: Optional[pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict']]] = None,
-                 slack_app: Optional[pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict']]] = None,
-                 sms: Optional[pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict']]] = None,
-                 ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 webhook: Optional[pulumi.Input[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict']]] = None,
+                 auto_subscribe: pulumi.Input[Optional[_builtins.bool]] = None,
+                 call: pulumi.Input[Optional[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']]] = None,
+                 email: pulumi.Input[Optional[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']]] = None,
+                 opsgenie: pulumi.Input[Optional[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']]] = None,
+                 pagerduty: pulumi.Input[Optional[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict', 'outputs.AlertChannelPagerduty']]] = None,
+                 send_degraded: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_failure: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_recovery: pulumi.Input[Optional[_builtins.bool]] = None,
+                 slack: pulumi.Input[Optional[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict', 'outputs.AlertChannelSlack']]] = None,
+                 slack_app: pulumi.Input[Optional[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict', 'outputs.AlertChannelSlackApp']]] = None,
+                 sms: pulumi.Input[Optional[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict', 'outputs.AlertChannelSms']]] = None,
+                 ssl_expiry: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ssl_expiry_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 webhook: pulumi.Input[Optional[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict', 'outputs.AlertChannelWebhook']]] = None,
                  __props__=None):
         """
         Allows you to define alerting channels for the checks and groups in your account
@@ -449,7 +548,7 @@ class AlertChannel(pulumi.CustomResource):
             ],
         })
         # A legacy Slack alert channel, using a Slack webhook URL.
-        # Deprecated: use the slack_app block instead.
+        # Deprecated: use the slack_app attribute instead.
         slack_ac = checkly.AlertChannel("slack_ac", slack={
             "channel": "#checkly-notifications",
             "url": "https://hooks.slack.com/services/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",
@@ -458,8 +557,8 @@ class AlertChannel(pulumi.CustomResource):
         opsgenie_ac = checkly.AlertChannel("opsgenie_ac", opsgenie={
             "name": "opsalerts",
             "api_key": "fookey",
-            "region": "fooregion",
-            "priority": "foopriority",
+            "region": "US",
+            "priority": "P1",
         })
         # A Pagerduty alert channel
         pagerduty_ac = checkly.AlertChannel("pagerduty_ac", pagerduty={
@@ -470,24 +569,24 @@ class AlertChannel(pulumi.CustomResource):
         # A Webhook alert channel
         webhook_ac = checkly.AlertChannel("webhook_ac", webhook={
             "name": "foo",
-            "method": "get",
+            "method": "GET",
             "template": "footemplate",
             "url": "https://example.com/foo",
             "webhook_secret": "foosecret",
         })
-        # A Firehydran alert channel integration
+        # A FireHydrant alert channel integration
         firehydrant_ac = checkly.AlertChannel("firehydrant_ac", webhook={
             "name": "firehydrant",
-            "method": "post",
+            "method": "POST",
             "template": \"\"\"{
-          "event": "{{ALERT_TITLE}}",
-          "link": "{{RESULT_LINK}}",
-          "check_id": "{{CHECK_ID}}",
-          "check_type": "{{CHECK_TYPE}}",
-          "alert_type": "{{ALERT_TYPE}}",
-          "started_at": "{{STARTED_AT}}",
-          "check_result_id": "{{CHECK_RESULT_ID}}"
-        },
+          \\"event\\": \\"{{ALERT_TITLE}}\\",
+          \\"link\\": \\"{{RESULT_LINK}}\\",
+          \\"check_id\\": \\"{{CHECK_ID}}\\",
+          \\"check_type\\": \\"{{CHECK_TYPE}}\\",
+          \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+          \\"started_at\\": \\"{{STARTED_AT}}\\",
+          \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\"
+        }
         \"\"\",
             "url": "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
             "webhook_type": "WEBHOOK_FIREHYDRANT",
@@ -502,13 +601,13 @@ class AlertChannel(pulumi.CustomResource):
                 "webhook_secret": "<rootly-webhook-secret>",
                 "webhook_type": "WEBHOOK_ROOTLY",
                 "template": \"\"\"{
-          "alert_type": "{{ALERT_TYPE}}",
-          "check_id": "{{CHECK_ID}}",
-          "check_result_id": "{{CHECK_RESULT_ID}}",
-          "check_name": "{{CHECK_NAME}}",
-          "alert_title": "{{ALERT_TITLE}}",
-          "started_at": "{{STARTED_AT}}",
-          "link": "{{RESULT_LINK}}"
+          \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+          \\"check_id\\": \\"{{CHECK_ID}}\\",
+          \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\",
+          \\"check_name\\": \\"{{CHECK_NAME}}\\",
+          \\"alert_title\\": \\"{{ALERT_TITLE}}\\",
+          \\"started_at\\": \\"{{STARTED_AT}}\\",
+          \\"link\\": \\"{{RESULT_LINK}}\\"
         }
         \"\"\",
             },
@@ -526,40 +625,64 @@ class AlertChannel(pulumi.CustomResource):
                 "webhook_secret": "<rootly-webhook-secret>",
                 "webhook_type": "WEBHOOK_ROOTLY",
                 "template": \"\"\"{
-          "alert_type": "{{ALERT_TYPE}}",
-          "check_id": "{{CHECK_ID}}",
-          "check_result_id": "{{CHECK_RESULT_ID}}",
-          "check_name": "{{CHECK_NAME}}",
-          "alert_title": "{{ALERT_TITLE}}",
-          "started_at": "{{STARTED_AT}}",
-          "link": "{{RESULT_LINK}}"
+          \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+          \\"check_id\\": \\"{{CHECK_ID}}\\",
+          \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\",
+          \\"check_name\\": \\"{{CHECK_NAME}}\\",
+          \\"alert_title\\": \\"{{ALERT_TITLE}}\\",
+          \\"started_at\\": \\"{{STARTED_AT}}\\",
+          \\"link\\": \\"{{RESULT_LINK}}\\"
         }
         \"\"\",
             },
             send_recovery=True,
             send_failure=True)
         # Connecting the alert channel to a check
-        example_check = checkly.Check("example_check",
+        example_check = checkly.ApiCheck("example_check",
             name="Example check",
+            request={
+                "url": "https://api.example.com/",
+            },
             alert_channel_subscriptions=[
                 {
-                    "channel_id": email_ac.id,
+                    "channel_id": email_ac.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
                 {
-                    "channel_id": sms_ac.id,
+                    "channel_id": sms_ac.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
             ])
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing alert channel using its numeric ID.
+        The ID is returned by the Checkly API at GET /v1/alert-channels.
+
+        ```sh
+        $ pulumi import checkly:index/alertChannel:AlertChannel example 12345
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] send_degraded: (Default `false`)
-        :param pulumi.Input[_builtins.bool] send_failure: (Default `true`)
-        :param pulumi.Input[_builtins.bool] send_recovery: (Default `true`)
-        :param pulumi.Input[_builtins.bool] ssl_expiry: (Default `false`)
-        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: Value must be between 1 and 30 (Default `30`)
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']] call: Sends alerts as phone calls.
+        :param pulumi.Input[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']] email: Sends alerts by email.
+        :param pulumi.Input[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']] opsgenie: Creates alerts in Opsgenie.
+        :param pulumi.Input[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict', 'outputs.AlertChannelPagerduty']] pagerduty: Sends alerts to a PagerDuty service.
+        :param pulumi.Input[_builtins.bool] send_degraded: Whether to send an alert when a check is degraded. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] send_failure: Whether to send an alert when a check fails. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] send_recovery: Whether to send an alert when a check recovers. Defaults to `true`.
+        :param pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict', 'outputs.AlertChannelSlack']] slack: Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        :param pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict', 'outputs.AlertChannelSlackApp']] slack_app: Sends alerts to Slack channels or users through the Checkly Slack app.
+        :param pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict', 'outputs.AlertChannelSms']] sms: Sends alerts as SMS messages.
+        :param pulumi.Input[_builtins.bool] ssl_expiry: Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+        :param pulumi.Input[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict', 'outputs.AlertChannelWebhook']] webhook: Sends alerts as HTTP requests to a webhook.
         """
         ...
     @overload
@@ -602,7 +725,7 @@ class AlertChannel(pulumi.CustomResource):
             ],
         })
         # A legacy Slack alert channel, using a Slack webhook URL.
-        # Deprecated: use the slack_app block instead.
+        # Deprecated: use the slack_app attribute instead.
         slack_ac = checkly.AlertChannel("slack_ac", slack={
             "channel": "#checkly-notifications",
             "url": "https://hooks.slack.com/services/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",
@@ -611,8 +734,8 @@ class AlertChannel(pulumi.CustomResource):
         opsgenie_ac = checkly.AlertChannel("opsgenie_ac", opsgenie={
             "name": "opsalerts",
             "api_key": "fookey",
-            "region": "fooregion",
-            "priority": "foopriority",
+            "region": "US",
+            "priority": "P1",
         })
         # A Pagerduty alert channel
         pagerduty_ac = checkly.AlertChannel("pagerduty_ac", pagerduty={
@@ -623,24 +746,24 @@ class AlertChannel(pulumi.CustomResource):
         # A Webhook alert channel
         webhook_ac = checkly.AlertChannel("webhook_ac", webhook={
             "name": "foo",
-            "method": "get",
+            "method": "GET",
             "template": "footemplate",
             "url": "https://example.com/foo",
             "webhook_secret": "foosecret",
         })
-        # A Firehydran alert channel integration
+        # A FireHydrant alert channel integration
         firehydrant_ac = checkly.AlertChannel("firehydrant_ac", webhook={
             "name": "firehydrant",
-            "method": "post",
+            "method": "POST",
             "template": \"\"\"{
-          "event": "{{ALERT_TITLE}}",
-          "link": "{{RESULT_LINK}}",
-          "check_id": "{{CHECK_ID}}",
-          "check_type": "{{CHECK_TYPE}}",
-          "alert_type": "{{ALERT_TYPE}}",
-          "started_at": "{{STARTED_AT}}",
-          "check_result_id": "{{CHECK_RESULT_ID}}"
-        },
+          \\"event\\": \\"{{ALERT_TITLE}}\\",
+          \\"link\\": \\"{{RESULT_LINK}}\\",
+          \\"check_id\\": \\"{{CHECK_ID}}\\",
+          \\"check_type\\": \\"{{CHECK_TYPE}}\\",
+          \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+          \\"started_at\\": \\"{{STARTED_AT}}\\",
+          \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\"
+        }
         \"\"\",
             "url": "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
             "webhook_type": "WEBHOOK_FIREHYDRANT",
@@ -655,13 +778,13 @@ class AlertChannel(pulumi.CustomResource):
                 "webhook_secret": "<rootly-webhook-secret>",
                 "webhook_type": "WEBHOOK_ROOTLY",
                 "template": \"\"\"{
-          "alert_type": "{{ALERT_TYPE}}",
-          "check_id": "{{CHECK_ID}}",
-          "check_result_id": "{{CHECK_RESULT_ID}}",
-          "check_name": "{{CHECK_NAME}}",
-          "alert_title": "{{ALERT_TITLE}}",
-          "started_at": "{{STARTED_AT}}",
-          "link": "{{RESULT_LINK}}"
+          \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+          \\"check_id\\": \\"{{CHECK_ID}}\\",
+          \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\",
+          \\"check_name\\": \\"{{CHECK_NAME}}\\",
+          \\"alert_title\\": \\"{{ALERT_TITLE}}\\",
+          \\"started_at\\": \\"{{STARTED_AT}}\\",
+          \\"link\\": \\"{{RESULT_LINK}}\\"
         }
         \"\"\",
             },
@@ -679,32 +802,47 @@ class AlertChannel(pulumi.CustomResource):
                 "webhook_secret": "<rootly-webhook-secret>",
                 "webhook_type": "WEBHOOK_ROOTLY",
                 "template": \"\"\"{
-          "alert_type": "{{ALERT_TYPE}}",
-          "check_id": "{{CHECK_ID}}",
-          "check_result_id": "{{CHECK_RESULT_ID}}",
-          "check_name": "{{CHECK_NAME}}",
-          "alert_title": "{{ALERT_TITLE}}",
-          "started_at": "{{STARTED_AT}}",
-          "link": "{{RESULT_LINK}}"
+          \\"alert_type\\": \\"{{ALERT_TYPE}}\\",
+          \\"check_id\\": \\"{{CHECK_ID}}\\",
+          \\"check_result_id\\": \\"{{CHECK_RESULT_ID}}\\",
+          \\"check_name\\": \\"{{CHECK_NAME}}\\",
+          \\"alert_title\\": \\"{{ALERT_TITLE}}\\",
+          \\"started_at\\": \\"{{STARTED_AT}}\\",
+          \\"link\\": \\"{{RESULT_LINK}}\\"
         }
         \"\"\",
             },
             send_recovery=True,
             send_failure=True)
         # Connecting the alert channel to a check
-        example_check = checkly.Check("example_check",
+        example_check = checkly.ApiCheck("example_check",
             name="Example check",
+            request={
+                "url": "https://api.example.com/",
+            },
             alert_channel_subscriptions=[
                 {
-                    "channel_id": email_ac.id,
+                    "channel_id": email_ac.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
                 {
-                    "channel_id": sms_ac.id,
+                    "channel_id": sms_ac.id.apply(lambda x: int(x)),
                     "activated": True,
                 },
             ])
         ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing alert channel using its numeric ID.
+        The ID is returned by the Checkly API at GET /v1/alert-channels.
+
+        ```sh
+        $ pulumi import checkly:index/alertChannel:AlertChannel example 12345
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param AlertChannelArgs args: The arguments to use to populate this resource's properties.
@@ -721,19 +859,20 @@ class AlertChannel(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 call: Optional[pulumi.Input[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict']]] = None,
-                 email: Optional[pulumi.Input[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict']]] = None,
-                 opsgenie: Optional[pulumi.Input[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict']]] = None,
-                 pagerduty: Optional[pulumi.Input[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict']]] = None,
-                 send_degraded: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
-                 slack: Optional[pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict']]] = None,
-                 slack_app: Optional[pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict']]] = None,
-                 sms: Optional[pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict']]] = None,
-                 ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 webhook: Optional[pulumi.Input[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict']]] = None,
+                 auto_subscribe: pulumi.Input[Optional[_builtins.bool]] = None,
+                 call: pulumi.Input[Optional[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']]] = None,
+                 email: pulumi.Input[Optional[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']]] = None,
+                 opsgenie: pulumi.Input[Optional[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']]] = None,
+                 pagerduty: pulumi.Input[Optional[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict', 'outputs.AlertChannelPagerduty']]] = None,
+                 send_degraded: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_failure: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_recovery: pulumi.Input[Optional[_builtins.bool]] = None,
+                 slack: pulumi.Input[Optional[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict', 'outputs.AlertChannelSlack']]] = None,
+                 slack_app: pulumi.Input[Optional[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict', 'outputs.AlertChannelSlackApp']]] = None,
+                 sms: pulumi.Input[Optional[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict', 'outputs.AlertChannelSms']]] = None,
+                 ssl_expiry: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ssl_expiry_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 webhook: pulumi.Input[Optional[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict', 'outputs.AlertChannelWebhook']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -743,6 +882,7 @@ class AlertChannel(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = AlertChannelArgs.__new__(AlertChannelArgs)
 
+            __props__.__dict__["auto_subscribe"] = auto_subscribe
             __props__.__dict__["call"] = call
             __props__.__dict__["email"] = email
             __props__.__dict__["opsgenie"] = opsgenie
@@ -766,19 +906,20 @@ class AlertChannel(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            call: Optional[pulumi.Input[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict']]] = None,
-            email: Optional[pulumi.Input[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict']]] = None,
-            opsgenie: Optional[pulumi.Input[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict']]] = None,
-            pagerduty: Optional[pulumi.Input[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict']]] = None,
-            send_degraded: Optional[pulumi.Input[_builtins.bool]] = None,
-            send_failure: Optional[pulumi.Input[_builtins.bool]] = None,
-            send_recovery: Optional[pulumi.Input[_builtins.bool]] = None,
-            slack: Optional[pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict']]] = None,
-            slack_app: Optional[pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict']]] = None,
-            sms: Optional[pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict']]] = None,
-            ssl_expiry: Optional[pulumi.Input[_builtins.bool]] = None,
-            ssl_expiry_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-            webhook: Optional[pulumi.Input[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict']]] = None) -> 'AlertChannel':
+            auto_subscribe: pulumi.Input[Optional[_builtins.bool]] = None,
+            call: pulumi.Input[Optional[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']]] = None,
+            email: pulumi.Input[Optional[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']]] = None,
+            opsgenie: pulumi.Input[Optional[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']]] = None,
+            pagerduty: pulumi.Input[Optional[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict', 'outputs.AlertChannelPagerduty']]] = None,
+            send_degraded: pulumi.Input[Optional[_builtins.bool]] = None,
+            send_failure: pulumi.Input[Optional[_builtins.bool]] = None,
+            send_recovery: pulumi.Input[Optional[_builtins.bool]] = None,
+            slack: pulumi.Input[Optional[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict', 'outputs.AlertChannelSlack']]] = None,
+            slack_app: pulumi.Input[Optional[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict', 'outputs.AlertChannelSlackApp']]] = None,
+            sms: pulumi.Input[Optional[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict', 'outputs.AlertChannelSms']]] = None,
+            ssl_expiry: pulumi.Input[Optional[_builtins.bool]] = None,
+            ssl_expiry_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+            webhook: pulumi.Input[Optional[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict', 'outputs.AlertChannelWebhook']]] = None) -> 'AlertChannel':
         """
         Get an existing AlertChannel resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -786,16 +927,26 @@ class AlertChannel(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] send_degraded: (Default `false`)
-        :param pulumi.Input[_builtins.bool] send_failure: (Default `true`)
-        :param pulumi.Input[_builtins.bool] send_recovery: (Default `true`)
-        :param pulumi.Input[_builtins.bool] ssl_expiry: (Default `false`)
-        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: Value must be between 1 and 30 (Default `30`)
+        :param pulumi.Input[_builtins.bool] auto_subscribe: Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        :param pulumi.Input[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']] call: Sends alerts as phone calls.
+        :param pulumi.Input[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']] email: Sends alerts by email.
+        :param pulumi.Input[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']] opsgenie: Creates alerts in Opsgenie.
+        :param pulumi.Input[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict', 'outputs.AlertChannelPagerduty']] pagerduty: Sends alerts to a PagerDuty service.
+        :param pulumi.Input[_builtins.bool] send_degraded: Whether to send an alert when a check is degraded. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] send_failure: Whether to send an alert when a check fails. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] send_recovery: Whether to send an alert when a check recovers. Defaults to `true`.
+        :param pulumi.Input[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict', 'outputs.AlertChannelSlack']] slack: Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        :param pulumi.Input[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict', 'outputs.AlertChannelSlackApp']] slack_app: Sends alerts to Slack channels or users through the Checkly Slack app.
+        :param pulumi.Input[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict', 'outputs.AlertChannelSms']] sms: Sends alerts as SMS messages.
+        :param pulumi.Input[_builtins.bool] ssl_expiry: Whether to send an alert for expiring SSL certificates. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] ssl_expiry_threshold: How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
+        :param pulumi.Input[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict', 'outputs.AlertChannelWebhook']] webhook: Sends alerts as HTTP requests to a webhook.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _AlertChannelState.__new__(_AlertChannelState)
 
+        __props__.__dict__["auto_subscribe"] = auto_subscribe
         __props__.__dict__["call"] = call
         __props__.__dict__["email"] = email
         __props__.__dict__["opsgenie"] = opsgenie
@@ -811,84 +962,150 @@ class AlertChannel(pulumi.CustomResource):
         __props__.__dict__["webhook"] = webhook
         return AlertChannel(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            auto_subscribe: pulumi.Input[Optional[_builtins.bool]] = None,
+            call: pulumi.Input[Optional[Union['AlertChannelCallArgs', 'AlertChannelCallArgsDict', 'outputs.AlertChannelCall']]] = None,
+            email: pulumi.Input[Optional[Union['AlertChannelEmailArgs', 'AlertChannelEmailArgsDict', 'outputs.AlertChannelEmail']]] = None,
+            opsgenie: pulumi.Input[Optional[Union['AlertChannelOpsgenieArgs', 'AlertChannelOpsgenieArgsDict', 'outputs.AlertChannelOpsgenie']]] = None,
+            pagerduty: pulumi.Input[Optional[Union['AlertChannelPagerdutyArgs', 'AlertChannelPagerdutyArgsDict', 'outputs.AlertChannelPagerduty']]] = None,
+            send_degraded: pulumi.Input[Optional[_builtins.bool]] = None,
+            send_failure: pulumi.Input[Optional[_builtins.bool]] = None,
+            send_recovery: pulumi.Input[Optional[_builtins.bool]] = None,
+            slack: pulumi.Input[Optional[Union['AlertChannelSlackArgs', 'AlertChannelSlackArgsDict', 'outputs.AlertChannelSlack']]] = None,
+            slack_app: pulumi.Input[Optional[Union['AlertChannelSlackAppArgs', 'AlertChannelSlackAppArgsDict', 'outputs.AlertChannelSlackApp']]] = None,
+            sms: pulumi.Input[Optional[Union['AlertChannelSmsArgs', 'AlertChannelSmsArgsDict', 'outputs.AlertChannelSms']]] = None,
+            ssl_expiry: pulumi.Input[Optional[_builtins.bool]] = None,
+            ssl_expiry_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+            webhook: pulumi.Input[Optional[Union['AlertChannelWebhookArgs', 'AlertChannelWebhookArgsDict', 'outputs.AlertChannelWebhook']]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["autoSubscribe"] = auto_subscribe
+        __props__["call"] = call
+        __props__["email"] = email
+        __props__["opsgenie"] = opsgenie
+        __props__["pagerduty"] = pagerduty
+        __props__["sendDegraded"] = send_degraded
+        __props__["sendFailure"] = send_failure
+        __props__["sendRecovery"] = send_recovery
+        __props__["slack"] = slack
+        __props__["slackApp"] = slack_app
+        __props__["sms"] = sms
+        __props__["sslExpiry"] = ssl_expiry
+        __props__["sslExpiryThreshold"] = ssl_expiry_threshold
+        __props__["webhook"] = webhook
+        return pulumi.runtime.exists_resource(None, 'checkly:index/alertChannel:AlertChannel', id, __props__, opts or pulumi.ResourceOptions())
+
+    @_builtins.property
+    @pulumi.getter(name="autoSubscribe")
+    def auto_subscribe(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `alert_channel_subscriptions`. Defaults to `false`.
+        """
+        return pulumi.get(self, "auto_subscribe")
+
     @_builtins.property
     @pulumi.getter
     def call(self) -> pulumi.Output[Optional['outputs.AlertChannelCall']]:
+        """
+        Sends alerts as phone calls.
+        """
         return pulumi.get(self, "call")
 
     @_builtins.property
     @pulumi.getter
     def email(self) -> pulumi.Output[Optional['outputs.AlertChannelEmail']]:
+        """
+        Sends alerts by email.
+        """
         return pulumi.get(self, "email")
 
     @_builtins.property
     @pulumi.getter
     def opsgenie(self) -> pulumi.Output[Optional['outputs.AlertChannelOpsgenie']]:
+        """
+        Creates alerts in Opsgenie.
+        """
         return pulumi.get(self, "opsgenie")
 
     @_builtins.property
     @pulumi.getter
     def pagerduty(self) -> pulumi.Output[Optional['outputs.AlertChannelPagerduty']]:
+        """
+        Sends alerts to a PagerDuty service.
+        """
         return pulumi.get(self, "pagerduty")
 
     @_builtins.property
     @pulumi.getter(name="sendDegraded")
-    def send_degraded(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def send_degraded(self) -> pulumi.Output[_builtins.bool]:
         """
-        (Default `false`)
+        Whether to send an alert when a check is degraded. Defaults to `false`.
         """
         return pulumi.get(self, "send_degraded")
 
     @_builtins.property
     @pulumi.getter(name="sendFailure")
-    def send_failure(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def send_failure(self) -> pulumi.Output[_builtins.bool]:
         """
-        (Default `true`)
+        Whether to send an alert when a check fails. Defaults to `true`.
         """
         return pulumi.get(self, "send_failure")
 
     @_builtins.property
     @pulumi.getter(name="sendRecovery")
-    def send_recovery(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def send_recovery(self) -> pulumi.Output[_builtins.bool]:
         """
-        (Default `true`)
+        Whether to send an alert when a check recovers. Defaults to `true`.
         """
         return pulumi.get(self, "send_recovery")
 
     @_builtins.property
     @pulumi.getter
-    @_utilities.deprecated("""The `slack` block uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
+    @_utilities.deprecated("""The `slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `slack_app` instead.""")
     def slack(self) -> pulumi.Output[Optional['outputs.AlertChannelSlack']]:
+        """
+        Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        """
         return pulumi.get(self, "slack")
 
     @_builtins.property
     @pulumi.getter(name="slackApp")
     def slack_app(self) -> pulumi.Output[Optional['outputs.AlertChannelSlackApp']]:
+        """
+        Sends alerts to Slack channels or users through the Checkly Slack app.
+        """
         return pulumi.get(self, "slack_app")
 
     @_builtins.property
     @pulumi.getter
     def sms(self) -> pulumi.Output[Optional['outputs.AlertChannelSms']]:
+        """
+        Sends alerts as SMS messages.
+        """
         return pulumi.get(self, "sms")
 
     @_builtins.property
     @pulumi.getter(name="sslExpiry")
-    def ssl_expiry(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def ssl_expiry(self) -> pulumi.Output[_builtins.bool]:
         """
-        (Default `false`)
+        Whether to send an alert for expiring SSL certificates. Defaults to `false`.
         """
         return pulumi.get(self, "ssl_expiry")
 
     @_builtins.property
     @pulumi.getter(name="sslExpiryThreshold")
-    def ssl_expiry_threshold(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def ssl_expiry_threshold(self) -> pulumi.Output[_builtins.int]:
         """
-        Value must be between 1 and 30 (Default `30`)
+        How many days before an SSL certificate expires to start sending alerts, when `ssl_expiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         """
         return pulumi.get(self, "ssl_expiry_threshold")
 
     @_builtins.property
     @pulumi.getter
     def webhook(self) -> pulumi.Output[Optional['outputs.AlertChannelWebhook']]:
+        """
+        Sends alerts as HTTP requests to a webhook.
+        """
         return pulumi.get(self, "webhook")
 

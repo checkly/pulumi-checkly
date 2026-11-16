@@ -12,7 +12,7 @@ upstreamProviderOrg: pulumi
 
 # major version of the current provider - used in make files
 # This should always be set by all providers as this is key to go module paths.
-major-version: 1
+major-version: 3
 
 # Enable using the terraform converter for example generation.
 pulumiConvert: 1
@@ -24,7 +24,7 @@ pulumiConvert: 1
 # Should be set for all bridged providers
 plugins:
   - name: terraform
-    version: "1.0.16"
+    version: "1.4.0"
     kind: converter
 
 # providerDefaultBranch is used to customise the default branch for the repo
@@ -53,3 +53,6 @@ publishRegistry: false
 
 toolVersions:
   pulumictl: "v0.0.48"
+  # GitHub publishes no Python 3.11 builds for Ubuntu 26.04, which ubuntu-latest
+  # runners use; 3.12 is the oldest available. The SDK still supports >=3.9.
+  python: "3.12"

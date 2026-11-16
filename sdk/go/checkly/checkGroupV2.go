@@ -7,13 +7,13 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 // Check groups organize related checks together and allow optional shared configuration.
 //
-// Unlike `CheckGroup` (v1), which always imposed implicit defaults for various settings, `CheckGroupV2` does not override any check settings by default. A group can be as minimal as just a name. Use the optional `enforce_*` blocks only when you explicitly want the group to override individual check settings.
+// Unlike `CheckGroup` (v1), which always imposed implicit defaults for various settings, `CheckGroupV2` does not override any check settings by default. A group can be as minimal as just a name. Use the optional `enforce_*` attributes only when you explicitly want the group to override individual check settings.
 //
 // The new `CheckGroupV2` resource should always be preferred over the old `CheckGroup` resource.
 //
@@ -24,7 +24,9 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"strconv"
+//
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -77,22 +79,16 @@ import (
 //					Enabled: pulumi.Bool(true),
 //					AlertSettings: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{
 //						EscalationType: pulumi.String("RUN_BASED"),
-//						RunBasedEscalations: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray{
-//							&checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{
-//								FailedRunThreshold: pulumi.Int(2),
-//							},
+//						RunBasedEscalation: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{
+//							FailedRunThreshold: pulumi.Int(2),
 //						},
-//						Reminders: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{
-//							&checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{
-//								Amount:   pulumi.Int(3),
-//								Interval: pulumi.Int(10),
-//							},
+//						Reminders: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRemindersArgs{
+//							Amount:   pulumi.Int(3),
+//							Interval: pulumi.Int(10),
 //						},
-//						ParallelRunFailureThresholds: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArray{
-//							&checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs{
-//								Enabled:    pulumi.Bool(true),
-//								Percentage: pulumi.Int(50),
-//							},
+//						ParallelRunFailureThreshold: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsParallelRunFailureThresholdArgs{
+//							Enabled:    pulumi.Bool(true),
+//							Percentage: pulumi.Int(50),
 //						},
 //					},
 //					AlertChannelSubscriptions: checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray{
@@ -145,10 +141,10 @@ import (
 //					},
 //				},
 //				SetupScript: &checkly.CheckGroupV2SetupScriptArgs{
-//					InlineScript: pulumi.String("// Runs before every API check in this group\nconsole.log(\"Setting up...\")\n"),
+//					InlineScript: pulumi.String("// Runs before every API check in this group\nconsole.log(\\\"Setting up...\\\")\n"),
 //				},
 //				TeardownScript: &checkly.CheckGroupV2TeardownScriptArgs{
-//					InlineScript: pulumi.String("// Runs after every API check in this group\nconsole.log(\"Tearing down...\")\n"),
+//					InlineScript: pulumi.String("// Runs after every API check in this group\nconsole.log(\\\"Tearing down...\\\")\n"),
 //				},
 //			})
 //			if err != nil {
@@ -181,16 +177,12 @@ import (
 //					Enabled: pulumi.Bool(true),
 //					AlertSettings: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{
 //						EscalationType: pulumi.String("TIME_BASED"),
-//						TimeBasedEscalations: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArray{
-//							&checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs{
-//								MinutesFailingThreshold: pulumi.Int(10),
-//							},
+//						TimeBasedEscalation: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsTimeBasedEscalationArgs{
+//							MinutesFailingThreshold: pulumi.Int(10),
 //						},
-//						Reminders: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{
-//							&checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{
-//								Amount:   pulumi.Int(5),
-//								Interval: pulumi.Int(15),
-//							},
+//						Reminders: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRemindersArgs{
+//							Amount:   pulumi.Int(5),
+//							Interval: pulumi.Int(15),
 //						},
 //					},
 //				},
@@ -219,9 +211,10 @@ import (
 //				return err
 //			}
 //			slack, err := checkly.NewAlertChannel(ctx, "slack", &checkly.AlertChannelArgs{
-//				Slack: &checkly.AlertChannelSlackArgs{
-//					Channel: pulumi.String("#alerts"),
-//					Url:     pulumi.String("https://hooks.slack.com/services/TXXXXX/XXXXX/XXXXXXXXXX"),
+//				SlackApp: &checkly.AlertChannelSlackAppArgs{
+//					SlackChannels: pulumi.StringArray{
+//						pulumi.String("#alerts"),
+//					},
 //				},
 //			})
 //			if err != nil {
@@ -233,25 +226,21 @@ import (
 //					Enabled: pulumi.Bool(true),
 //					AlertSettings: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsArgs{
 //						EscalationType: pulumi.String("RUN_BASED"),
-//						RunBasedEscalations: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArray{
-//							&checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{
-//								FailedRunThreshold: pulumi.Int(1),
-//							},
+//						RunBasedEscalation: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRunBasedEscalationArgs{
+//							FailedRunThreshold: pulumi.Int(1),
 //						},
-//						Reminders: checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArray{
-//							&checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsReminderArgs{
-//								Amount:   pulumi.Int(0),
-//								Interval: pulumi.Int(5),
-//							},
+//						Reminders: &checkly.CheckGroupV2EnforceAlertSettingsAlertSettingsRemindersArgs{
+//							Amount:   pulumi.Int(0),
+//							Interval: pulumi.Int(5),
 //						},
 //					},
 //					AlertChannelSubscriptions: checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArray{
 //						&checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{
-//							ChannelId: email.ID(),
+//							ChannelId: email.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //							Activated: pulumi.Bool(true),
 //						},
 //						&checkly.CheckGroupV2EnforceAlertSettingsAlertChannelSubscriptionArgs{
-//							ChannelId: slack.ID(),
+//							ChannelId: slack.ID().ToStringOutput().ApplyT(strconv.Atoi).(pulumi.IntOutput),
 //							Activated: pulumi.Bool(true),
 //						},
 //					},
@@ -293,14 +282,26 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing check group using its numeric ID.
+// The ID is returned by the Checkly API at GET /v1/check-groups.
+//
+// ```sh
+// $ pulumi import checkly:index/checkGroupV2:CheckGroupV2 example 12345
+// ```
 type CheckGroupV2 struct {
 	pulumi.CustomResourceState
 
-	// Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-	Activated        pulumi.BoolPtrOutput               `pulumi:"activated"`
+	// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+	Activated pulumi.BoolOutput `pulumi:"activated"`
+	// Default settings for API checks in this group.
 	ApiCheckDefaults CheckGroupV2ApiCheckDefaultsOutput `pulumi:"apiCheckDefaults"`
-	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
-	Concurrency pulumi.IntPtrOutput `pulumi:"concurrency"`
+	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
+	Concurrency pulumi.IntOutput `pulumi:"concurrency"`
 	// Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
 	DefaultRuntime CheckGroupV2DefaultRuntimePtrOutput `pulumi:"defaultRuntime"`
 	// Enforces alert settings for the whole group. Overrides check configuration.
@@ -311,15 +312,15 @@ type CheckGroupV2 struct {
 	EnforceRetryStrategy CheckGroupV2EnforceRetryStrategyOutput `pulumi:"enforceRetryStrategy"`
 	// Enforces a scheduling strategy for the whole group. Overrides check configuration.
 	EnforceSchedulingStrategy CheckGroupV2EnforceSchedulingStrategyOutput `pulumi:"enforceSchedulingStrategy"`
-	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
 	EnvironmentVariables CheckGroupV2EnvironmentVariableArrayOutput `pulumi:"environmentVariables"`
-	// Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
-	Muted pulumi.BoolPtrOutput `pulumi:"muted"`
+	// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
+	Muted pulumi.BoolOutput `pulumi:"muted"`
 	// The name of the check group.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
 	SetupScript CheckGroupV2SetupScriptPtrOutput `pulumi:"setupScript"`
-	// Additional tags to append to all checks in the group.
+	// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
 	// A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
 	TeardownScript CheckGroupV2TeardownScriptPtrOutput `pulumi:"teardownScript"`
@@ -332,9 +333,6 @@ func NewCheckGroupV2(ctx *pulumi.Context,
 		args = &CheckGroupV2Args{}
 	}
 
-	if args.ApiCheckDefaults != nil {
-		args.ApiCheckDefaults = args.ApiCheckDefaults.ToCheckGroupV2ApiCheckDefaultsPtrOutput().ApplyT(func(v *CheckGroupV2ApiCheckDefaults) *CheckGroupV2ApiCheckDefaults { return v.Defaults() }).(CheckGroupV2ApiCheckDefaultsPtrOutput)
-	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource CheckGroupV2
 	err := ctx.RegisterResource("checkly:index/checkGroupV2:CheckGroupV2", name, args, &resource, opts...)
@@ -358,10 +356,11 @@ func GetCheckGroupV2(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering CheckGroupV2 resources.
 type checkGroupV2State struct {
-	// Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-	Activated        *bool                         `pulumi:"activated"`
+	// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// Default settings for API checks in this group.
 	ApiCheckDefaults *CheckGroupV2ApiCheckDefaults `pulumi:"apiCheckDefaults"`
-	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
 	Concurrency *int `pulumi:"concurrency"`
 	// Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
 	DefaultRuntime *CheckGroupV2DefaultRuntime `pulumi:"defaultRuntime"`
@@ -373,25 +372,26 @@ type checkGroupV2State struct {
 	EnforceRetryStrategy *CheckGroupV2EnforceRetryStrategy `pulumi:"enforceRetryStrategy"`
 	// Enforces a scheduling strategy for the whole group. Overrides check configuration.
 	EnforceSchedulingStrategy *CheckGroupV2EnforceSchedulingStrategy `pulumi:"enforceSchedulingStrategy"`
-	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
 	EnvironmentVariables []CheckGroupV2EnvironmentVariable `pulumi:"environmentVariables"`
-	// Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+	// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check group.
 	Name *string `pulumi:"name"`
 	// A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
 	SetupScript *CheckGroupV2SetupScript `pulumi:"setupScript"`
-	// Additional tags to append to all checks in the group.
+	// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
 	Tags []string `pulumi:"tags"`
 	// A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
 	TeardownScript *CheckGroupV2TeardownScript `pulumi:"teardownScript"`
 }
 
 type CheckGroupV2State struct {
-	// Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-	Activated        pulumi.BoolPtrInput
+	// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// Default settings for API checks in this group.
 	ApiCheckDefaults CheckGroupV2ApiCheckDefaultsPtrInput
-	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
 	Concurrency pulumi.IntPtrInput
 	// Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
 	DefaultRuntime CheckGroupV2DefaultRuntimePtrInput
@@ -403,15 +403,15 @@ type CheckGroupV2State struct {
 	EnforceRetryStrategy CheckGroupV2EnforceRetryStrategyPtrInput
 	// Enforces a scheduling strategy for the whole group. Overrides check configuration.
 	EnforceSchedulingStrategy CheckGroupV2EnforceSchedulingStrategyPtrInput
-	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
 	EnvironmentVariables CheckGroupV2EnvironmentVariableArrayInput
-	// Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+	// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the check group.
 	Name pulumi.StringPtrInput
 	// A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
 	SetupScript CheckGroupV2SetupScriptPtrInput
-	// Additional tags to append to all checks in the group.
+	// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
 	Tags pulumi.StringArrayInput
 	// A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
 	TeardownScript CheckGroupV2TeardownScriptPtrInput
@@ -421,11 +421,18 @@ func (CheckGroupV2State) ElementType() reflect.Type {
 	return reflect.TypeOf((*checkGroupV2State)(nil)).Elem()
 }
 
+// CheckGroupV2Exists checks whether an existing CheckGroupV2 resource with the given ID exists.
+func CheckGroupV2Exists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CheckGroupV2State, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/checkGroupV2:CheckGroupV2", id, state, "", opts...)
+}
+
 type checkGroupV2Args struct {
-	// Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-	Activated        *bool                         `pulumi:"activated"`
+	// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+	Activated *bool `pulumi:"activated"`
+	// Default settings for API checks in this group.
 	ApiCheckDefaults *CheckGroupV2ApiCheckDefaults `pulumi:"apiCheckDefaults"`
-	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
 	Concurrency *int `pulumi:"concurrency"`
 	// Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
 	DefaultRuntime *CheckGroupV2DefaultRuntime `pulumi:"defaultRuntime"`
@@ -437,15 +444,15 @@ type checkGroupV2Args struct {
 	EnforceRetryStrategy *CheckGroupV2EnforceRetryStrategy `pulumi:"enforceRetryStrategy"`
 	// Enforces a scheduling strategy for the whole group. Overrides check configuration.
 	EnforceSchedulingStrategy *CheckGroupV2EnforceSchedulingStrategy `pulumi:"enforceSchedulingStrategy"`
-	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
 	EnvironmentVariables []CheckGroupV2EnvironmentVariable `pulumi:"environmentVariables"`
-	// Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+	// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
 	Muted *bool `pulumi:"muted"`
 	// The name of the check group.
 	Name *string `pulumi:"name"`
 	// A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
 	SetupScript *CheckGroupV2SetupScript `pulumi:"setupScript"`
-	// Additional tags to append to all checks in the group.
+	// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
 	Tags []string `pulumi:"tags"`
 	// A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
 	TeardownScript *CheckGroupV2TeardownScript `pulumi:"teardownScript"`
@@ -453,10 +460,11 @@ type checkGroupV2Args struct {
 
 // The set of arguments for constructing a CheckGroupV2 resource.
 type CheckGroupV2Args struct {
-	// Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-	Activated        pulumi.BoolPtrInput
+	// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+	Activated pulumi.BoolPtrInput
+	// Default settings for API checks in this group.
 	ApiCheckDefaults CheckGroupV2ApiCheckDefaultsPtrInput
-	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
+	// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
 	Concurrency pulumi.IntPtrInput
 	// Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
 	DefaultRuntime CheckGroupV2DefaultRuntimePtrInput
@@ -468,15 +476,15 @@ type CheckGroupV2Args struct {
 	EnforceRetryStrategy CheckGroupV2EnforceRetryStrategyPtrInput
 	// Enforces a scheduling strategy for the whole group. Overrides check configuration.
 	EnforceSchedulingStrategy CheckGroupV2EnforceSchedulingStrategyPtrInput
-	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+	// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
 	EnvironmentVariables CheckGroupV2EnvironmentVariableArrayInput
-	// Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
+	// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
 	Muted pulumi.BoolPtrInput
 	// The name of the check group.
 	Name pulumi.StringPtrInput
 	// A script to run in the setup phase of an API check. Runs in addition to the check's own setup script.
 	SetupScript CheckGroupV2SetupScriptPtrInput
-	// Additional tags to append to all checks in the group.
+	// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
 	Tags pulumi.StringArrayInput
 	// A script to run in the teardown phase of an API check. Runs in addition to the check's own teardown script.
 	TeardownScript CheckGroupV2TeardownScriptPtrInput
@@ -569,18 +577,19 @@ func (o CheckGroupV2Output) ToCheckGroupV2OutputWithContext(ctx context.Context)
 	return o
 }
 
-// Determines whether activated checks in the group should run or not. Deactivating the group will prevent all checks in the group from running, regardless of their activated state. (Default `true`).
-func (o CheckGroupV2Output) Activated() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *CheckGroupV2) pulumi.BoolPtrOutput { return v.Activated }).(pulumi.BoolPtrOutput)
+// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `activated`. Defaults to `true`.
+func (o CheckGroupV2Output) Activated() pulumi.BoolOutput {
+	return o.ApplyT(func(v *CheckGroupV2) pulumi.BoolOutput { return v.Activated }).(pulumi.BoolOutput)
 }
 
+// Default settings for API checks in this group.
 func (o CheckGroupV2Output) ApiCheckDefaults() CheckGroupV2ApiCheckDefaultsOutput {
 	return o.ApplyT(func(v *CheckGroupV2) CheckGroupV2ApiCheckDefaultsOutput { return v.ApiCheckDefaults }).(CheckGroupV2ApiCheckDefaultsOutput)
 }
 
-// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. (Default `1`).
-func (o CheckGroupV2Output) Concurrency() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *CheckGroupV2) pulumi.IntPtrOutput { return v.Concurrency }).(pulumi.IntPtrOutput)
+// Determines the number of checks to run concurrently when triggering the check group via CI/CD or the API. Defaults to `1`.
+func (o CheckGroupV2Output) Concurrency() pulumi.IntOutput {
+	return o.ApplyT(func(v *CheckGroupV2) pulumi.IntOutput { return v.Concurrency }).(pulumi.IntOutput)
 }
 
 // Sets a default runtime for the group. Used as a fallback when a check belonging to the group has no runtime set. Takes precedence over the account default runtime.
@@ -608,14 +617,14 @@ func (o CheckGroupV2Output) EnforceSchedulingStrategy() CheckGroupV2EnforceSched
 	return o.ApplyT(func(v *CheckGroupV2) CheckGroupV2EnforceSchedulingStrategyOutput { return v.EnforceSchedulingStrategy }).(CheckGroupV2EnforceSchedulingStrategyOutput)
 }
 
-// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible.
+// Insert environment variables into the runtime environment of checks in the group. Only relevant for check types that support environment variables. Use global environment variables whenever possible. Must contain at most `200` variables.
 func (o CheckGroupV2Output) EnvironmentVariables() CheckGroupV2EnvironmentVariableArrayOutput {
 	return o.ApplyT(func(v *CheckGroupV2) CheckGroupV2EnvironmentVariableArrayOutput { return v.EnvironmentVariables }).(CheckGroupV2EnvironmentVariableArrayOutput)
 }
 
-// Determines if any notifications will be sent out when a check in this group fails and/or recovers. Muting the group will deactivate all notifications for all checks in the group, regardless of their muted state. (Default `false`).
-func (o CheckGroupV2Output) Muted() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *CheckGroupV2) pulumi.BoolPtrOutput { return v.Muted }).(pulumi.BoolPtrOutput)
+// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `muted`. Defaults to `false`.
+func (o CheckGroupV2Output) Muted() pulumi.BoolOutput {
+	return o.ApplyT(func(v *CheckGroupV2) pulumi.BoolOutput { return v.Muted }).(pulumi.BoolOutput)
 }
 
 // The name of the check group.
@@ -628,7 +637,7 @@ func (o CheckGroupV2Output) SetupScript() CheckGroupV2SetupScriptPtrOutput {
 	return o.ApplyT(func(v *CheckGroupV2) CheckGroupV2SetupScriptPtrOutput { return v.SetupScript }).(CheckGroupV2SetupScriptPtrOutput)
 }
 
-// Additional tags to append to all checks in the group.
+// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
 func (o CheckGroupV2Output) Tags() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CheckGroupV2) pulumi.StringArrayOutput { return v.Tags }).(pulumi.StringArrayOutput)
 }

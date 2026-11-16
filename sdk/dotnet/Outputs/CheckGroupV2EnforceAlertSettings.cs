@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckGroupV2EnforceAlertSettings
     {
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your group, we won't be able to alert you even if a check or monitor in the group starts failing.
         /// </summary>
         public readonly ImmutableArray<Outputs.CheckGroupV2EnforceAlertSettingsAlertChannelSubscription> AlertChannelSubscriptions;
         /// <summary>
-        /// Determines the alert escalation policy for the check.
+        /// Determines the alert escalation policy for the checks and monitors in the group.
         /// </summary>
         public readonly Outputs.CheckGroupV2EnforceAlertSettingsAlertSettings? AlertSettings;
         /// <summary>
@@ -26,7 +26,7 @@ namespace Pulumi.Checkly.Outputs
         /// </summary>
         public readonly bool Enabled;
         /// <summary>
-        /// Whether to use account level alert settings instead of the group's alert settings.Default (`false`).
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check group. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is. The value is derived only while `Enabled` is `True`. While the enforcement stays disabled, the stored value is kept and has no effect; disabling an enabled enforcement resets it to null.
         /// </summary>
         public readonly bool? UseGlobalAlertSettings;
 

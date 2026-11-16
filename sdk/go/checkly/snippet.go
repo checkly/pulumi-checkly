@@ -8,10 +8,12 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Snippets are reusable pieces of code that can be referenced from setup & teardown scripts of API checks, or used as partials in browser checks.
+//
 // ## Example Usage
 //
 // ```go
@@ -19,7 +21,7 @@ import (
 //
 // import (
 //
-//	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly"
+//	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //
 // )
@@ -46,10 +48,21 @@ import (
 //	}
 //
 // ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// Import an existing snippet using its numeric ID.
+// The ID is returned by the Checkly API at GET /v1/snippets.
+//
+// ```sh
+// $ pulumi import checkly:index/snippet:Snippet example 12345
+// ```
 type Snippet struct {
 	pulumi.CustomResourceState
 
-	// The name of the snippet
+	// The name of the snippet.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
 	Script pulumi.StringOutput `pulumi:"script"`
@@ -88,14 +101,14 @@ func GetSnippet(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Snippet resources.
 type snippetState struct {
-	// The name of the snippet
+	// The name of the snippet.
 	Name *string `pulumi:"name"`
 	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
 	Script *string `pulumi:"script"`
 }
 
 type SnippetState struct {
-	// The name of the snippet
+	// The name of the snippet.
 	Name pulumi.StringPtrInput
 	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
 	Script pulumi.StringPtrInput
@@ -105,8 +118,14 @@ func (SnippetState) ElementType() reflect.Type {
 	return reflect.TypeOf((*snippetState)(nil)).Elem()
 }
 
+// SnippetExists checks whether an existing Snippet resource with the given ID exists.
+func SnippetExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SnippetState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("checkly:index/snippet:Snippet", id, state, "", opts...)
+}
+
 type snippetArgs struct {
-	// The name of the snippet
+	// The name of the snippet.
 	Name *string `pulumi:"name"`
 	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
 	Script string `pulumi:"script"`
@@ -114,7 +133,7 @@ type snippetArgs struct {
 
 // The set of arguments for constructing a Snippet resource.
 type SnippetArgs struct {
-	// The name of the snippet
+	// The name of the snippet.
 	Name pulumi.StringPtrInput
 	// Your Node.js code that interacts with the API check lifecycle, or functions as a partial for browser checks.
 	Script pulumi.StringInput
@@ -207,7 +226,7 @@ func (o SnippetOutput) ToSnippetOutputWithContext(ctx context.Context) SnippetOu
 	return o
 }
 
-// The name of the snippet
+// The name of the snippet.
 func (o SnippetOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Snippet) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }

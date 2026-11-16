@@ -21,50 +21,53 @@ __all__ = ['IcmpMonitorArgs', 'IcmpMonitor']
 @pulumi.input_type
 class IcmpMonitorArgs:
     def __init__(__self__, *,
-                 activated: pulumi.Input[_builtins.bool],
-                 frequency: pulumi.Input[_builtins.int],
                  request: pulumi.Input['IcmpMonitorRequestArgs'],
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['IcmpMonitorAlertSettingsArgs']] = None,
-                 degraded_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 retry_strategy: Optional[pulumi.Input['IcmpMonitorRetryStrategyArgs']] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['IcmpMonitorTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['IcmpMonitorAlertSettingsArgs']] = None,
+                 degraded_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 retry_strategy: pulumi.Input[Optional['IcmpMonitorRetryStrategyArgs']] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['IcmpMonitorTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a IcmpMonitor resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+
         :param pulumi.Input['IcmpMonitorRequestArgs'] request: The parameters of the ICMP request.
-        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['IcmpMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor.
-        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degraded_packet_loss_threshold`. Defaults to `20`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
         :param pulumi.Input['IcmpMonitorRetryStrategyArgs'] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input['IcmpMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
-        pulumi.set(__self__, "activated", activated)
-        pulumi.set(__self__, "frequency", frequency)
         pulumi.set(__self__, "request", request)
+        if activated is not None:
+            pulumi.set(__self__, "activated", activated)
         if alert_channel_subscriptions is not None:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
@@ -73,6 +76,8 @@ class IcmpMonitorArgs:
             pulumi.set(__self__, "degraded_packet_loss_threshold", degraded_packet_loss_threshold)
         if description is not None:
             pulumi.set(__self__, "description", description)
+        if frequency is not None:
+            pulumi.set(__self__, "frequency", frequency)
         if frequency_offset is not None:
             pulumi.set(__self__, "frequency_offset", frequency_offset)
         if group_id is not None:
@@ -87,6 +92,8 @@ class IcmpMonitorArgs:
             pulumi.set(__self__, "muted", muted)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if private_locations is not None:
+            pulumi.set(__self__, "private_locations", private_locations)
         if retry_strategy is not None:
             pulumi.set(__self__, "retry_strategy", retry_strategy)
         if run_parallel is not None:
@@ -97,30 +104,6 @@ class IcmpMonitorArgs:
             pulumi.set(__self__, "trigger_incident", trigger_incident)
         if use_global_alert_settings is not None:
             pulumi.set(__self__, "use_global_alert_settings", use_global_alert_settings)
-
-    @_builtins.property
-    @pulumi.getter
-    def activated(self) -> pulumi.Input[_builtins.bool]:
-        """
-        Determines whether the monitor will run periodically or not after being deployed.
-        """
-        return pulumi.get(self, "activated")
-
-    @activated.setter
-    def activated(self, value: pulumi.Input[_builtins.bool]):
-        pulumi.set(self, "activated", value)
-
-    @_builtins.property
-    @pulumi.getter
-    def frequency(self) -> pulumi.Input[_builtins.int]:
-        """
-        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        """
-        return pulumi.get(self, "frequency")
-
-    @frequency.setter
-    def frequency(self, value: pulumi.Input[_builtins.int]):
-        pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter
@@ -135,241 +118,280 @@ class IcmpMonitorArgs:
         pulumi.set(self, "request", value)
 
     @_builtins.property
-    @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]:
+    @pulumi.getter
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        Determines whether the monitor runs on its schedule. Defaults to `true`.
+        """
+        return pulumi.get(self, "activated")
+
+    @activated.setter
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "activated", value)
+
+    @_builtins.property
+    @pulumi.getter(name="alertChannelSubscriptions")
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]:
+        """
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['IcmpMonitorAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['IcmpMonitorAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the monitor.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['IcmpMonitorAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['IcmpMonitorAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="degradedPacketLossThreshold")
-    def degraded_packet_loss_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def degraded_packet_loss_threshold(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+        The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
         """
         return pulumi.get(self, "degraded_packet_loss_threshold")
 
     @degraded_packet_loss_threshold.setter
-    def degraded_packet_loss_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def degraded_packet_loss_threshold(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "degraded_packet_loss_threshold", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the monitor.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
-    @pulumi.getter(name="frequencyOffset")
-    def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
+    @pulumi.getter
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        """
+        return pulumi.get(self, "frequency")
+
+    @frequency.setter
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "frequency", value)
+
+    @_builtins.property
+    @pulumi.getter(name="frequencyOffset")
+    def frequency_offset(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
     @frequency_offset.setter
-    def frequency_offset(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency_offset(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency_offset", value)
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The ID of the check group that this monitor is part of.
+        The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more data center locations where to run this monitor.
+        The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter(name="maxPacketLossThreshold")
-    def max_packet_loss_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_packet_loss_threshold(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
+        The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degraded_packet_loss_threshold`. Defaults to `20`.
         """
         return pulumi.get(self, "max_packet_loss_threshold")
 
     @max_packet_loss_threshold.setter
-    def max_packet_loss_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_packet_loss_threshold(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_packet_loss_threshold", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+        Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the monitor.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+        """
+        return pulumi.get(self, "private_locations")
+
+    @private_locations.setter
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "private_locations", value)
+
+    @_builtins.property
     @pulumi.getter(name="retryStrategy")
-    def retry_strategy(self) -> Optional[pulumi.Input['IcmpMonitorRetryStrategyArgs']]:
+    def retry_strategy(self) -> pulumi.Input[Optional['IcmpMonitorRetryStrategyArgs']]:
         """
         A strategy for retrying failed check/monitor runs.
         """
         return pulumi.get(self, "retry_strategy")
 
     @retry_strategy.setter
-    def retry_strategy(self, value: Optional[pulumi.Input['IcmpMonitorRetryStrategyArgs']]):
+    def retry_strategy(self, value: pulumi.Input[Optional['IcmpMonitorRetryStrategyArgs']]):
         pulumi.set(self, "retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+        Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['IcmpMonitorTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['IcmpMonitorTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['IcmpMonitorTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['IcmpMonitorTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+        When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
 @pulumi.input_type
 class _IcmpMonitorState:
     def __init__(__self__, *,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['IcmpMonitorAlertSettingsArgs']] = None,
-                 degraded_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 request: Optional[pulumi.Input['IcmpMonitorRequestArgs']] = None,
-                 retry_strategy: Optional[pulumi.Input['IcmpMonitorRetryStrategyArgs']] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['IcmpMonitorTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['IcmpMonitorAlertSettingsArgs']] = None,
+                 degraded_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional['IcmpMonitorRequestArgs']] = None,
+                 retry_strategy: pulumi.Input[Optional['IcmpMonitorRetryStrategyArgs']] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['IcmpMonitorTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering IcmpMonitor resources.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['IcmpMonitorAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor.
-        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degraded_packet_loss_threshold`. Defaults to `20`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
         :param pulumi.Input['IcmpMonitorRequestArgs'] request: The parameters of the ICMP request.
         :param pulumi.Input['IcmpMonitorRetryStrategyArgs'] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input['IcmpMonitorTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         if activated is not None:
             pulumi.set(__self__, "activated", activated)
@@ -397,6 +419,8 @@ class _IcmpMonitorState:
             pulumi.set(__self__, "muted", muted)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if private_locations is not None:
+            pulumi.set(__self__, "private_locations", private_locations)
         if request is not None:
             pulumi.set(__self__, "request", request)
         if retry_strategy is not None:
@@ -412,230 +436,242 @@ class _IcmpMonitorState:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines whether the monitor will run periodically or not after being deployed.
+        Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['IcmpMonitorAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['IcmpMonitorAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['IcmpMonitorAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the monitor.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['IcmpMonitorAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['IcmpMonitorAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter(name="degradedPacketLossThreshold")
-    def degraded_packet_loss_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def degraded_packet_loss_threshold(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+        The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
         """
         return pulumi.get(self, "degraded_packet_loss_threshold")
 
     @degraded_packet_loss_threshold.setter
-    def degraded_packet_loss_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def degraded_packet_loss_threshold(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "degraded_packet_loss_threshold", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the monitor.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter
-    def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
     @frequency.setter
-    def frequency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter(name="frequencyOffset")
-    def frequency_offset(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency_offset(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
     @frequency_offset.setter
-    def frequency_offset(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency_offset(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency_offset", value)
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The ID of the check group that this monitor is part of.
+        The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more data center locations where to run this monitor.
+        The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter(name="maxPacketLossThreshold")
-    def max_packet_loss_threshold(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def max_packet_loss_threshold(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
+        The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degraded_packet_loss_threshold`. Defaults to `20`.
         """
         return pulumi.get(self, "max_packet_loss_threshold")
 
     @max_packet_loss_threshold.setter
-    def max_packet_loss_threshold(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def max_packet_loss_threshold(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "max_packet_loss_threshold", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+        Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the monitor.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+        """
+        return pulumi.get(self, "private_locations")
+
+    @private_locations.setter
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "private_locations", value)
+
+    @_builtins.property
     @pulumi.getter
-    def request(self) -> Optional[pulumi.Input['IcmpMonitorRequestArgs']]:
+    def request(self) -> pulumi.Input[Optional['IcmpMonitorRequestArgs']]:
         """
         The parameters of the ICMP request.
         """
         return pulumi.get(self, "request")
 
     @request.setter
-    def request(self, value: Optional[pulumi.Input['IcmpMonitorRequestArgs']]):
+    def request(self, value: pulumi.Input[Optional['IcmpMonitorRequestArgs']]):
         pulumi.set(self, "request", value)
 
     @_builtins.property
     @pulumi.getter(name="retryStrategy")
-    def retry_strategy(self) -> Optional[pulumi.Input['IcmpMonitorRetryStrategyArgs']]:
+    def retry_strategy(self) -> pulumi.Input[Optional['IcmpMonitorRetryStrategyArgs']]:
         """
         A strategy for retrying failed check/monitor runs.
         """
         return pulumi.get(self, "retry_strategy")
 
     @retry_strategy.setter
-    def retry_strategy(self, value: Optional[pulumi.Input['IcmpMonitorRetryStrategyArgs']]):
+    def retry_strategy(self, value: pulumi.Input[Optional['IcmpMonitorRetryStrategyArgs']]):
         pulumi.set(self, "retry_strategy", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+        Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['IcmpMonitorTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['IcmpMonitorTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['IcmpMonitorTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['IcmpMonitorTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+        When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
@@ -645,25 +681,26 @@ class IcmpMonitor(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict']]] = None,
-                 degraded_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 request: Optional[pulumi.Input[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict']]] = None,
-                 retry_strategy: Optional[pulumi.Input[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict']]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict', 'outputs.IcmpMonitorAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict', 'outputs.IcmpMonitorAlertSettings']]] = None,
+                 degraded_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict', 'outputs.IcmpMonitorRequest']]] = None,
+                 retry_strategy: pulumi.Input[Optional[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict', 'outputs.IcmpMonitorRetryStrategy']]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict', 'outputs.IcmpMonitorTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Creates an ICMP Monitor to check host availability using ping.
@@ -693,27 +730,40 @@ class IcmpMonitor(pulumi.CustomResource):
             })
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing ICMP monitor using its check ID.
+        You can find the ID in the check's URL in the Checkly dashboard.
+
+        ```sh
+        $ pulumi import checkly:index/icmpMonitor:IcmpMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict', 'outputs.IcmpMonitorAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict', 'outputs.IcmpMonitorAlertSettings']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor.
-        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degraded_packet_loss_threshold`. Defaults to `20`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
-        :param pulumi.Input[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict']] request: The parameters of the ICMP request.
-        :param pulumi.Input[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+        :param pulumi.Input[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict', 'outputs.IcmpMonitorRequest']] request: The parameters of the ICMP request.
+        :param pulumi.Input[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict', 'outputs.IcmpMonitorRetryStrategy']] retry_strategy: A strategy for retrying failed check/monitor runs.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict', 'outputs.IcmpMonitorTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         ...
     @overload
@@ -749,6 +799,18 @@ class IcmpMonitor(pulumi.CustomResource):
             })
         ```
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing ICMP monitor using its check ID.
+        You can find the ID in the check's URL in the Checkly dashboard.
+
+        ```sh
+        $ pulumi import checkly:index/icmpMonitor:IcmpMonitor example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param IcmpMonitorArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -764,25 +826,26 @@ class IcmpMonitor(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict']]] = None,
-                 degraded_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 max_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 request: Optional[pulumi.Input[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict']]] = None,
-                 retry_strategy: Optional[pulumi.Input[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict']]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict', 'outputs.IcmpMonitorAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict', 'outputs.IcmpMonitorAlertSettings']]] = None,
+                 degraded_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 max_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 request: pulumi.Input[Optional[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict', 'outputs.IcmpMonitorRequest']]] = None,
+                 retry_strategy: pulumi.Input[Optional[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict', 'outputs.IcmpMonitorRetryStrategy']]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict', 'outputs.IcmpMonitorTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -792,15 +855,11 @@ class IcmpMonitor(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = IcmpMonitorArgs.__new__(IcmpMonitorArgs)
 
-            if activated is None and not opts.urn:
-                raise TypeError("Missing required property 'activated'")
             __props__.__dict__["activated"] = activated
             __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
             __props__.__dict__["alert_settings"] = alert_settings
             __props__.__dict__["degraded_packet_loss_threshold"] = degraded_packet_loss_threshold
             __props__.__dict__["description"] = description
-            if frequency is None and not opts.urn:
-                raise TypeError("Missing required property 'frequency'")
             __props__.__dict__["frequency"] = frequency
             __props__.__dict__["frequency_offset"] = frequency_offset
             __props__.__dict__["group_id"] = group_id
@@ -809,6 +868,7 @@ class IcmpMonitor(pulumi.CustomResource):
             __props__.__dict__["max_packet_loss_threshold"] = max_packet_loss_threshold
             __props__.__dict__["muted"] = muted
             __props__.__dict__["name"] = name
+            __props__.__dict__["private_locations"] = private_locations
             if request is None and not opts.urn:
                 raise TypeError("Missing required property 'request'")
             __props__.__dict__["request"] = request
@@ -827,25 +887,26 @@ class IcmpMonitor(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            activated: Optional[pulumi.Input[_builtins.bool]] = None,
-            alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict']]]]] = None,
-            alert_settings: Optional[pulumi.Input[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict']]] = None,
-            degraded_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            frequency: Optional[pulumi.Input[_builtins.int]] = None,
-            frequency_offset: Optional[pulumi.Input[_builtins.int]] = None,
-            group_id: Optional[pulumi.Input[_builtins.int]] = None,
-            group_order: Optional[pulumi.Input[_builtins.int]] = None,
-            locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            max_packet_loss_threshold: Optional[pulumi.Input[_builtins.int]] = None,
-            muted: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            request: Optional[pulumi.Input[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict']]] = None,
-            retry_strategy: Optional[pulumi.Input[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict']]] = None,
-            run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            trigger_incident: Optional[pulumi.Input[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict']]] = None,
-            use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None) -> 'IcmpMonitor':
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict', 'outputs.IcmpMonitorAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict', 'outputs.IcmpMonitorAlertSettings']]] = None,
+            degraded_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            max_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            request: pulumi.Input[Optional[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict', 'outputs.IcmpMonitorRequest']]] = None,
+            retry_strategy: pulumi.Input[Optional[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict', 'outputs.IcmpMonitorRetryStrategy']]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict', 'outputs.IcmpMonitorTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> 'IcmpMonitor':
         """
         Get an existing IcmpMonitor resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -853,25 +914,26 @@ class IcmpMonitor(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the monitor.
-        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the monitor runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict', 'outputs.IcmpMonitorAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict', 'outputs.IcmpMonitorAlertSettings']] alert_settings: Determines the alert escalation policy for the monitor.
+        :param pulumi.Input[_builtins.int] degraded_packet_loss_threshold: The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
         :param pulumi.Input[_builtins.str] description: A description of the monitor.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this monitor is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run this monitor.
-        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] frequency_offset: When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.int] max_packet_loss_threshold: The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degraded_packet_loss_threshold`. Defaults to `20`.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the monitor.
-        :param pulumi.Input[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict']] request: The parameters of the ICMP request.
-        :param pulumi.Input[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict']] retry_strategy: A strategy for retrying failed check/monitor runs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+        :param pulumi.Input[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict', 'outputs.IcmpMonitorRequest']] request: The parameters of the ICMP request.
+        :param pulumi.Input[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict', 'outputs.IcmpMonitorRetryStrategy']] retry_strategy: A strategy for retrying failed check/monitor runs.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict', 'outputs.IcmpMonitorTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -890,6 +952,7 @@ class IcmpMonitor(pulumi.CustomResource):
         __props__.__dict__["max_packet_loss_threshold"] = max_packet_loss_threshold
         __props__.__dict__["muted"] = muted
         __props__.__dict__["name"] = name
+        __props__.__dict__["private_locations"] = private_locations
         __props__.__dict__["request"] = request
         __props__.__dict__["retry_strategy"] = retry_strategy
         __props__.__dict__["run_parallel"] = run_parallel
@@ -898,19 +961,65 @@ class IcmpMonitor(pulumi.CustomResource):
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return IcmpMonitor(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['IcmpMonitorAlertChannelSubscriptionArgs', 'IcmpMonitorAlertChannelSubscriptionArgsDict', 'outputs.IcmpMonitorAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['IcmpMonitorAlertSettingsArgs', 'IcmpMonitorAlertSettingsArgsDict', 'outputs.IcmpMonitorAlertSettings']]] = None,
+            degraded_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            frequency_offset: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            max_packet_loss_threshold: pulumi.Input[Optional[_builtins.int]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            request: pulumi.Input[Optional[Union['IcmpMonitorRequestArgs', 'IcmpMonitorRequestArgsDict', 'outputs.IcmpMonitorRequest']]] = None,
+            retry_strategy: pulumi.Input[Optional[Union['IcmpMonitorRetryStrategyArgs', 'IcmpMonitorRetryStrategyArgsDict', 'outputs.IcmpMonitorRetryStrategy']]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['IcmpMonitorTriggerIncidentArgs', 'IcmpMonitorTriggerIncidentArgsDict', 'outputs.IcmpMonitorTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["activated"] = activated
+        __props__["alertChannelSubscriptions"] = alert_channel_subscriptions
+        __props__["alertSettings"] = alert_settings
+        __props__["degradedPacketLossThreshold"] = degraded_packet_loss_threshold
+        __props__["description"] = description
+        __props__["frequency"] = frequency
+        __props__["frequencyOffset"] = frequency_offset
+        __props__["groupId"] = group_id
+        __props__["groupOrder"] = group_order
+        __props__["locations"] = locations
+        __props__["maxPacketLossThreshold"] = max_packet_loss_threshold
+        __props__["muted"] = muted
+        __props__["name"] = name
+        __props__["privateLocations"] = private_locations
+        __props__["request"] = request
+        __props__["retryStrategy"] = retry_strategy
+        __props__["runParallel"] = run_parallel
+        __props__["tags"] = tags
+        __props__["triggerIncident"] = trigger_incident
+        __props__["useGlobalAlertSettings"] = use_global_alert_settings
+        return pulumi.runtime.exists_resource(None, 'checkly:index/icmpMonitor:IcmpMonitor', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def activated(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines whether the monitor will run periodically or not after being deployed.
+        Determines whether the monitor runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> pulumi.Output[Optional[Sequence['outputs.IcmpMonitorAlertChannelSubscription']]]:
+    def alert_channel_subscriptions(self) -> pulumi.Output[Sequence['outputs.IcmpMonitorAlertChannelSubscription']]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your monitor, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -924,15 +1033,15 @@ class IcmpMonitor(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="degradedPacketLossThreshold")
-    def degraded_packet_loss_threshold(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def degraded_packet_loss_threshold(self) -> pulumi.Output[_builtins.int]:
         """
-        The packet loss percentage where the monitor should be considered degraded. Possible values are between `0` and `100`. (Default `10`).
+        The packet loss percentage where the monitor should be considered degraded. Possible values are between `1` and `100`. Defaults to `10`.
         """
         return pulumi.get(self, "degraded_packet_loss_threshold")
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def description(self) -> pulumi.Output[_builtins.str]:
         """
         A description of the monitor.
         """
@@ -942,7 +1051,7 @@ class IcmpMonitor(pulumi.CustomResource):
     @pulumi.getter
     def frequency(self) -> pulumi.Output[_builtins.int]:
         """
-        Controls how often the monitor should run. Defined in minutes. The allowed values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        Controls how often the monitor should run. Defined in minutes. Possible values are `0` (high frequency - use `frequency_offset` to define the actual frequency), `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
@@ -950,7 +1059,7 @@ class IcmpMonitor(pulumi.CustomResource):
     @pulumi.getter(name="frequencyOffset")
     def frequency_offset(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. The allowed values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
+        When `frequency` is `0` (high frequency), `frequency_offset` is required and it alone controls how often the monitor should run. Defined in seconds. Possible values are `0` (disabled - use `frequency` to define the actual frequency), `10` (10 seconds), `20` (20 seconds) and `30` (30 seconds).
         """
         return pulumi.get(self, "frequency_offset")
 
@@ -958,7 +1067,7 @@ class IcmpMonitor(pulumi.CustomResource):
     @pulumi.getter(name="groupId")
     def group_id(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The ID of the check group that this monitor is part of.
+        The ID of the check group the monitor is part of. Must be at least `1`. If not set, the monitor is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
@@ -966,31 +1075,31 @@ class IcmpMonitor(pulumi.CustomResource):
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The position of the monitor in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the monitor in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the monitor has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def locations(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        An array of one or more data center locations where to run this monitor.
+        The data center locations to run the monitor from, such as `us-east-1`. The monitor needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @_builtins.property
     @pulumi.getter(name="maxPacketLossThreshold")
-    def max_packet_loss_threshold(self) -> pulumi.Output[Optional[_builtins.int]]:
+    def max_packet_loss_threshold(self) -> pulumi.Output[_builtins.int]:
         """
-        The packet loss percentage where the monitor should be considered failing. Possible values are between `0` and `100`. (Default `20`).
+        The packet loss percentage where the monitor should be considered failing. Possible values are between `1` and `100`, and the value must be greater than or equal to `degraded_packet_loss_threshold`. Defaults to `20`.
         """
         return pulumi.get(self, "max_packet_loss_threshold")
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def muted(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines if any notifications will be sent out when the monitor fails and/or recovers. (Default `false`).
+        Determines whether notifications are sent when the monitor fails, degrades or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -1001,6 +1110,14 @@ class IcmpMonitor(pulumi.CustomResource):
         The name of the monitor.
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="privateLocations")
+    def private_locations(self) -> pulumi.Output[Sequence[_builtins.str]]:
+        """
+        The slugs of the private locations to run the monitor from. A private location runs ICMP monitors with agent v7.0.0 or later and the `NET_RAW` capability.
+        """
+        return pulumi.get(self, "private_locations")
 
     @_builtins.property
     @pulumi.getter
@@ -1020,17 +1137,17 @@ class IcmpMonitor(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines whether the monitor should run on all selected locations in parallel or round-robin. (Default `false`).
+        Determines whether the monitor runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
@@ -1044,9 +1161,9 @@ class IcmpMonitor(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Output[_builtins.bool]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this monitor. (Default `true`).
+        When true, the account level alert settings are used instead of the `alert_settings` of this monitor. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 

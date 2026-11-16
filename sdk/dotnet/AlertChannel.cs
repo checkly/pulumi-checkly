@@ -62,7 +62,7 @@ namespace Pulumi.Checkly
     ///     });
     /// 
     ///     // A legacy Slack alert channel, using a Slack webhook URL.
-    ///     // Deprecated: use the slack_app block instead.
+    ///     // Deprecated: use the slack_app attribute instead.
     ///     var slackAc = new Checkly.AlertChannel("slack_ac", new()
     ///     {
     ///         Slack = new Checkly.Inputs.AlertChannelSlackArgs
@@ -79,8 +79,8 @@ namespace Pulumi.Checkly
     ///         {
     ///             Name = "opsalerts",
     ///             ApiKey = "fookey",
-    ///             Region = "fooregion",
-    ///             Priority = "foopriority",
+    ///             Region = "US",
+    ///             Priority = "P1",
     ///         },
     ///     });
     /// 
@@ -101,29 +101,29 @@ namespace Pulumi.Checkly
     ///         Webhook = new Checkly.Inputs.AlertChannelWebhookArgs
     ///         {
     ///             Name = "foo",
-    ///             Method = "get",
+    ///             Method = "GET",
     ///             Template = "footemplate",
     ///             Url = "https://example.com/foo",
     ///             WebhookSecret = "foosecret",
     ///         },
     ///     });
     /// 
-    ///     // A Firehydran alert channel integration
+    ///     // A FireHydrant alert channel integration
     ///     var firehydrantAc = new Checkly.AlertChannel("firehydrant_ac", new()
     ///     {
     ///         Webhook = new Checkly.Inputs.AlertChannelWebhookArgs
     ///         {
     ///             Name = "firehydrant",
-    ///             Method = "post",
+    ///             Method = "POST",
     ///             Template = @"{
-    ///   ""event"": ""{{ALERT_TITLE}}"",
-    ///   ""link"": ""{{RESULT_LINK}}"",
-    ///   ""check_id"": ""{{CHECK_ID}}"",
-    ///   ""check_type"": ""{{CHECK_TYPE}}"",
-    ///   ""alert_type"": ""{{ALERT_TYPE}}"",
-    ///   ""started_at"": ""{{STARTED_AT}}"",
-    ///   ""check_result_id"": ""{{CHECK_RESULT_ID}}""
-    /// },
+    ///   \""event\"": \""{{ALERT_TITLE}}\"",
+    ///   \""link\"": \""{{RESULT_LINK}}\"",
+    ///   \""check_id\"": \""{{CHECK_ID}}\"",
+    ///   \""check_type\"": \""{{CHECK_TYPE}}\"",
+    ///   \""alert_type\"": \""{{ALERT_TYPE}}\"",
+    ///   \""started_at\"": \""{{STARTED_AT}}\"",
+    ///   \""check_result_id\"": \""{{CHECK_RESULT_ID}}\""
+    /// }
     /// ",
     ///             Url = "https://app.firehydrant.io/integrations/alerting/webhooks/2/checkly",
     ///             WebhookType = "WEBHOOK_FIREHYDRANT",
@@ -142,13 +142,13 @@ namespace Pulumi.Checkly
     ///             WebhookSecret = "&lt;rootly-webhook-secret&gt;",
     ///             WebhookType = "WEBHOOK_ROOTLY",
     ///             Template = @"{
-    ///   ""alert_type"": ""{{ALERT_TYPE}}"",
-    ///   ""check_id"": ""{{CHECK_ID}}"",
-    ///   ""check_result_id"": ""{{CHECK_RESULT_ID}}"",
-    ///   ""check_name"": ""{{CHECK_NAME}}"",
-    ///   ""alert_title"": ""{{ALERT_TITLE}}"",
-    ///   ""started_at"": ""{{STARTED_AT}}"",
-    ///   ""link"": ""{{RESULT_LINK}}""
+    ///   \""alert_type\"": \""{{ALERT_TYPE}}\"",
+    ///   \""check_id\"": \""{{CHECK_ID}}\"",
+    ///   \""check_result_id\"": \""{{CHECK_RESULT_ID}}\"",
+    ///   \""check_name\"": \""{{CHECK_NAME}}\"",
+    ///   \""alert_title\"": \""{{ALERT_TITLE}}\"",
+    ///   \""started_at\"": \""{{STARTED_AT}}\"",
+    ///   \""link\"": \""{{RESULT_LINK}}\""
     /// }
     /// ",
     ///         },
@@ -170,13 +170,13 @@ namespace Pulumi.Checkly
     ///             WebhookSecret = "&lt;rootly-webhook-secret&gt;",
     ///             WebhookType = "WEBHOOK_ROOTLY",
     ///             Template = @"{
-    ///   ""alert_type"": ""{{ALERT_TYPE}}"",
-    ///   ""check_id"": ""{{CHECK_ID}}"",
-    ///   ""check_result_id"": ""{{CHECK_RESULT_ID}}"",
-    ///   ""check_name"": ""{{CHECK_NAME}}"",
-    ///   ""alert_title"": ""{{ALERT_TITLE}}"",
-    ///   ""started_at"": ""{{STARTED_AT}}"",
-    ///   ""link"": ""{{RESULT_LINK}}""
+    ///   \""alert_type\"": \""{{ALERT_TYPE}}\"",
+    ///   \""check_id\"": \""{{CHECK_ID}}\"",
+    ///   \""check_result_id\"": \""{{CHECK_RESULT_ID}}\"",
+    ///   \""check_name\"": \""{{CHECK_NAME}}\"",
+    ///   \""alert_title\"": \""{{ALERT_TITLE}}\"",
+    ///   \""started_at\"": \""{{STARTED_AT}}\"",
+    ///   \""link\"": \""{{RESULT_LINK}}\""
     /// }
     /// ",
     ///         },
@@ -185,19 +185,23 @@ namespace Pulumi.Checkly
     ///     });
     /// 
     ///     // Connecting the alert channel to a check
-    ///     var exampleCheck = new Checkly.Check("example_check", new()
+    ///     var exampleCheck = new Checkly.ApiCheck("example_check", new()
     ///     {
     ///         Name = "Example check",
+    ///         Request = new Checkly.Inputs.ApiCheckRequestArgs
+    ///         {
+    ///             Url = "https://api.example.com/",
+    ///         },
     ///         AlertChannelSubscriptions = new[]
     ///         {
-    ///             new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
+    ///             new Checkly.Inputs.ApiCheckAlertChannelSubscriptionArgs
     ///             {
-    ///                 ChannelId = emailAc.Id,
+    ///                 ChannelId = emailAc.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
     ///                 Activated = true,
     ///             },
-    ///             new Checkly.Inputs.CheckAlertChannelSubscriptionArgs
+    ///             new Checkly.Inputs.ApiCheckAlertChannelSubscriptionArgs
     ///             {
-    ///                 ChannelId = smsAc.Id,
+    ///                 ChannelId = smsAc.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
     ///                 Activated = true,
     ///             },
     ///         },
@@ -205,61 +209,103 @@ namespace Pulumi.Checkly
     /// 
     /// });
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// Import an existing alert channel using its numeric ID.
+    /// The ID is returned by the Checkly API at GET /v1/alert-channels.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/alertChannel:AlertChannel example 12345
+    /// ```
     /// </summary>
     [ChecklyResourceType("checkly:index/alertChannel:AlertChannel")]
     public partial class AlertChannel : global::Pulumi.CustomResource
     {
+        /// <summary>
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// </summary>
+        [Output("autoSubscribe")]
+        public Output<bool> AutoSubscribe { get; private set; } = null!;
+
+        /// <summary>
+        /// Sends alerts as phone calls.
+        /// </summary>
         [Output("call")]
         public Output<Outputs.AlertChannelCall?> Call { get; private set; } = null!;
 
+        /// <summary>
+        /// Sends alerts by email.
+        /// </summary>
         [Output("email")]
         public Output<Outputs.AlertChannelEmail?> Email { get; private set; } = null!;
 
+        /// <summary>
+        /// Creates alerts in Opsgenie.
+        /// </summary>
         [Output("opsgenie")]
         public Output<Outputs.AlertChannelOpsgenie?> Opsgenie { get; private set; } = null!;
 
+        /// <summary>
+        /// Sends alerts to a PagerDuty service.
+        /// </summary>
         [Output("pagerduty")]
         public Output<Outputs.AlertChannelPagerduty?> Pagerduty { get; private set; } = null!;
 
         /// <summary>
-        /// (Default `false`)
+        /// Whether to send an alert when a check is degraded. Defaults to `False`.
         /// </summary>
         [Output("sendDegraded")]
-        public Output<bool?> SendDegraded { get; private set; } = null!;
+        public Output<bool> SendDegraded { get; private set; } = null!;
 
         /// <summary>
-        /// (Default `true`)
+        /// Whether to send an alert when a check fails. Defaults to `True`.
         /// </summary>
         [Output("sendFailure")]
-        public Output<bool?> SendFailure { get; private set; } = null!;
+        public Output<bool> SendFailure { get; private set; } = null!;
 
         /// <summary>
-        /// (Default `true`)
+        /// Whether to send an alert when a check recovers. Defaults to `True`.
         /// </summary>
         [Output("sendRecovery")]
-        public Output<bool?> SendRecovery { get; private set; } = null!;
+        public Output<bool> SendRecovery { get; private set; } = null!;
 
+        /// <summary>
+        /// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        /// </summary>
         [Output("slack")]
+        [Obsolete(@"The `Slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `SlackApp` instead.")]
         public Output<Outputs.AlertChannelSlack?> Slack { get; private set; } = null!;
 
+        /// <summary>
+        /// Sends alerts to Slack channels or users through the Checkly Slack app.
+        /// </summary>
         [Output("slackApp")]
         public Output<Outputs.AlertChannelSlackApp?> SlackApp { get; private set; } = null!;
 
+        /// <summary>
+        /// Sends alerts as SMS messages.
+        /// </summary>
         [Output("sms")]
         public Output<Outputs.AlertChannelSms?> Sms { get; private set; } = null!;
 
         /// <summary>
-        /// (Default `false`)
+        /// Whether to send an alert for expiring SSL certificates. Defaults to `False`.
         /// </summary>
         [Output("sslExpiry")]
-        public Output<bool?> SslExpiry { get; private set; } = null!;
+        public Output<bool> SslExpiry { get; private set; } = null!;
 
         /// <summary>
-        /// Value must be between 1 and 30 (Default `30`)
+        /// How many days before an SSL certificate expires to start sending alerts, when `SslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         /// </summary>
         [Output("sslExpiryThreshold")]
-        public Output<int?> SslExpiryThreshold { get; private set; } = null!;
+        public Output<int> SslExpiryThreshold { get; private set; } = null!;
 
+        /// <summary>
+        /// Sends alerts as HTTP requests to a webhook.
+        /// </summary>
         [Output("webhook")]
         public Output<Outputs.AlertChannelWebhook?> Webhook { get; private set; } = null!;
 
@@ -310,57 +356,88 @@ namespace Pulumi.Checkly
 
     public sealed class AlertChannelArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// </summary>
+        [Input("autoSubscribe")]
+        public Input<bool>? AutoSubscribe { get; set; }
+
+        /// <summary>
+        /// Sends alerts as phone calls.
+        /// </summary>
         [Input("call")]
         public Input<Inputs.AlertChannelCallArgs>? Call { get; set; }
 
+        /// <summary>
+        /// Sends alerts by email.
+        /// </summary>
         [Input("email")]
         public Input<Inputs.AlertChannelEmailArgs>? Email { get; set; }
 
+        /// <summary>
+        /// Creates alerts in Opsgenie.
+        /// </summary>
         [Input("opsgenie")]
         public Input<Inputs.AlertChannelOpsgenieArgs>? Opsgenie { get; set; }
 
+        /// <summary>
+        /// Sends alerts to a PagerDuty service.
+        /// </summary>
         [Input("pagerduty")]
         public Input<Inputs.AlertChannelPagerdutyArgs>? Pagerduty { get; set; }
 
         /// <summary>
-        /// (Default `false`)
+        /// Whether to send an alert when a check is degraded. Defaults to `False`.
         /// </summary>
         [Input("sendDegraded")]
         public Input<bool>? SendDegraded { get; set; }
 
         /// <summary>
-        /// (Default `true`)
+        /// Whether to send an alert when a check fails. Defaults to `True`.
         /// </summary>
         [Input("sendFailure")]
         public Input<bool>? SendFailure { get; set; }
 
         /// <summary>
-        /// (Default `true`)
+        /// Whether to send an alert when a check recovers. Defaults to `True`.
         /// </summary>
         [Input("sendRecovery")]
         public Input<bool>? SendRecovery { get; set; }
 
+        /// <summary>
+        /// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        /// </summary>
         [Input("slack")]
+        [Obsolete(@"The `Slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `SlackApp` instead.")]
         public Input<Inputs.AlertChannelSlackArgs>? Slack { get; set; }
 
+        /// <summary>
+        /// Sends alerts to Slack channels or users through the Checkly Slack app.
+        /// </summary>
         [Input("slackApp")]
         public Input<Inputs.AlertChannelSlackAppArgs>? SlackApp { get; set; }
 
+        /// <summary>
+        /// Sends alerts as SMS messages.
+        /// </summary>
         [Input("sms")]
         public Input<Inputs.AlertChannelSmsArgs>? Sms { get; set; }
 
         /// <summary>
-        /// (Default `false`)
+        /// Whether to send an alert for expiring SSL certificates. Defaults to `False`.
         /// </summary>
         [Input("sslExpiry")]
         public Input<bool>? SslExpiry { get; set; }
 
         /// <summary>
-        /// Value must be between 1 and 30 (Default `30`)
+        /// How many days before an SSL certificate expires to start sending alerts, when `SslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         /// </summary>
         [Input("sslExpiryThreshold")]
         public Input<int>? SslExpiryThreshold { get; set; }
 
+        /// <summary>
+        /// Sends alerts as HTTP requests to a webhook.
+        /// </summary>
         [Input("webhook")]
         public Input<Inputs.AlertChannelWebhookArgs>? Webhook { get; set; }
 
@@ -372,57 +449,88 @@ namespace Pulumi.Checkly
 
     public sealed class AlertChannelState : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Whether new checks are subscribed to this alert channel automatically. Only the web app, which preselects the channel when you create a check there, and the Vercel integration, for the checks it creates, act on it. Checks created through the API, the Checkly CLI or Pulumi are not subscribed, and neither are existing checks; subscribe them with `AlertChannelSubscriptions`. Defaults to `False`.
+        /// </summary>
+        [Input("autoSubscribe")]
+        public Input<bool>? AutoSubscribe { get; set; }
+
+        /// <summary>
+        /// Sends alerts as phone calls.
+        /// </summary>
         [Input("call")]
         public Input<Inputs.AlertChannelCallGetArgs>? Call { get; set; }
 
+        /// <summary>
+        /// Sends alerts by email.
+        /// </summary>
         [Input("email")]
         public Input<Inputs.AlertChannelEmailGetArgs>? Email { get; set; }
 
+        /// <summary>
+        /// Creates alerts in Opsgenie.
+        /// </summary>
         [Input("opsgenie")]
         public Input<Inputs.AlertChannelOpsgenieGetArgs>? Opsgenie { get; set; }
 
+        /// <summary>
+        /// Sends alerts to a PagerDuty service.
+        /// </summary>
         [Input("pagerduty")]
         public Input<Inputs.AlertChannelPagerdutyGetArgs>? Pagerduty { get; set; }
 
         /// <summary>
-        /// (Default `false`)
+        /// Whether to send an alert when a check is degraded. Defaults to `False`.
         /// </summary>
         [Input("sendDegraded")]
         public Input<bool>? SendDegraded { get; set; }
 
         /// <summary>
-        /// (Default `true`)
+        /// Whether to send an alert when a check fails. Defaults to `True`.
         /// </summary>
         [Input("sendFailure")]
         public Input<bool>? SendFailure { get; set; }
 
         /// <summary>
-        /// (Default `true`)
+        /// Whether to send an alert when a check recovers. Defaults to `True`.
         /// </summary>
         [Input("sendRecovery")]
         public Input<bool>? SendRecovery { get; set; }
 
+        /// <summary>
+        /// Sends alerts to a Slack channel through a legacy Slack incoming webhook.
+        /// </summary>
         [Input("slack")]
+        [Obsolete(@"The `Slack` attribute uses the legacy Slack webhook integration and will be removed in a future major release. Use `SlackApp` instead.")]
         public Input<Inputs.AlertChannelSlackGetArgs>? Slack { get; set; }
 
+        /// <summary>
+        /// Sends alerts to Slack channels or users through the Checkly Slack app.
+        /// </summary>
         [Input("slackApp")]
         public Input<Inputs.AlertChannelSlackAppGetArgs>? SlackApp { get; set; }
 
+        /// <summary>
+        /// Sends alerts as SMS messages.
+        /// </summary>
         [Input("sms")]
         public Input<Inputs.AlertChannelSmsGetArgs>? Sms { get; set; }
 
         /// <summary>
-        /// (Default `false`)
+        /// Whether to send an alert for expiring SSL certificates. Defaults to `False`.
         /// </summary>
         [Input("sslExpiry")]
         public Input<bool>? SslExpiry { get; set; }
 
         /// <summary>
-        /// Value must be between 1 and 30 (Default `30`)
+        /// How many days before an SSL certificate expires to start sending alerts, when `SslExpiry` is enabled. Possible values are between `1` and `30`. Defaults to `30`.
         /// </summary>
         [Input("sslExpiryThreshold")]
         public Input<int>? SslExpiryThreshold { get; set; }
 
+        /// <summary>
+        /// Sends alerts as HTTP requests to a webhook.
+        /// </summary>
         [Input("webhook")]
         public Input<Inputs.AlertChannelWebhookGetArgs>? Webhook { get; set; }
 

@@ -13,34 +13,44 @@ namespace Pulumi.Checkly.Inputs
     public sealed class HeartbeatCheckHeartbeatArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period.
+        /// How long Checkly should wait before triggering any alerts when a ping does not arrive within the set period. Must be at least `0`, and the combination of `Grace` and `GraceUnit` must be at most 365 days.
         /// </summary>
         [Input("grace", required: true)]
         public Input<int> Grace { get; set; } = null!;
 
         /// <summary>
-        /// Possible values `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `Grace`. Possible values are `Seconds`, `Minutes`, `Hours` and `Days`.
         /// </summary>
         [Input("graceUnit", required: true)]
         public Input<string> GraceUnit { get; set; } = null!;
 
         /// <summary>
-        /// How often you expect a ping to the ping URL.
+        /// How often you expect a ping to the ping URL. The combination of `Period` and `PeriodUnit` must be between 30 seconds and 365 days.
         /// </summary>
         [Input("period", required: true)]
         public Input<int> Period { get; set; } = null!;
 
         /// <summary>
-        /// Possible values `seconds`, `minutes`, `hours` and `days`.
+        /// The unit of `Period`. Possible values are `Seconds`, `Minutes`, `Hours` and `Days`.
         /// </summary>
         [Input("periodUnit", required: true)]
         public Input<string> PeriodUnit { get; set; } = null!;
 
-        /// <summary>
-        /// Custom token to generate your ping URL. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`.
-        /// </summary>
         [Input("pingToken")]
-        public Input<string>? PingToken { get; set; }
+        private Input<string>? _pingToken;
+
+        /// <summary>
+        /// A custom lowercase UUID with hyphens to generate your ping URL from, such as `22868839-8450-4010-9241-1ea83a2e425f`. Checkly will expect a ping to `https://ping.checklyhq.com/[PING_TOKEN]`. If not set, Checkly generates one.
+        /// </summary>
+        public Input<string>? PingToken
+        {
+            get => _pingToken;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _pingToken = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public HeartbeatCheckHeartbeatArgs()
         {

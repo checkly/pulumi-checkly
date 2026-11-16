@@ -22,13 +22,22 @@ __config__ = pulumi.Config('checkly')
 class _ExportableConfig(types.ModuleType):
     @_builtins.property
     def account_id(self) -> Optional[str]:
+        """
+        The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
+        """
         return __config__.get('accountId')
 
     @_builtins.property
     def api_key(self) -> Optional[str]:
+        """
+        The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
+        """
         return __config__.get('apiKey')
 
     @_builtins.property
     def api_url(self) -> Optional[str]:
+        """
+        The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
+        """
         return __config__.get('apiUrl')
 

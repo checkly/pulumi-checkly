@@ -10,29 +10,202 @@ using Pulumi.Serialization;
 namespace Pulumi.Checkly
 {
     /// <summary>
-    /// Check groups allow  you to group together a set of related checks, which can also share default settings for various attributes.
+    /// Check groups allow you to group together a set of related checks, which can also share default settings for various attributes.
+    /// 
+    /// The `checkly.CheckGroup` resource type is deprecated in favor of `checkly.CheckGroupV2`, which does not impose implicit defaults on its checks, and will be removed in a future version of the provider. Both resource types manage the same check groups, so an existing group can be moved to a `checkly.CheckGroupV2` resource with a Pulumi alias. See Check groups in the Terraform provider's v2 upgrade guide, linked from [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) for how its configuration translates.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Checkly = Pulumi.Checkly;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var testGroup1 = new Checkly.CheckGroup("test_group1", new()
+    ///     {
+    ///         Name = "My test group 1",
+    ///         Activated = true,
+    ///         Muted = false,
+    ///         Tags = new[]
+    ///         {
+    ///             "auto",
+    ///         },
+    ///         Locations = new[]
+    ///         {
+    ///             "eu-west-1",
+    ///         },
+    ///         Concurrency = 3,
+    ///         ApiCheckDefaults = new Checkly.Inputs.CheckGroupApiCheckDefaultsArgs
+    ///         {
+    ///             Url = "http://example.com/",
+    ///             Headers = 
+    ///             {
+    ///                 { "X-Test", "foo" },
+    ///             },
+    ///             QueryParameters = 
+    ///             {
+    ///                 { "query", "foo" },
+    ///             },
+    ///             Assertions = new[]
+    ///             {
+    ///                 new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs
+    ///                 {
+    ///                     Source = "STATUS_CODE",
+    ///                     Property = "",
+    ///                     Comparison = "EQUALS",
+    ///                     Target = "200",
+    ///                 },
+    ///                 new Checkly.Inputs.CheckGroupApiCheckDefaultsAssertionArgs
+    ///                 {
+    ///                     Source = "TEXT_BODY",
+    ///                     Property = "",
+    ///                     Comparison = "CONTAINS",
+    ///                     Target = "welcome",
+    ///                 },
+    ///             },
+    ///             BasicAuth = new Checkly.Inputs.CheckGroupApiCheckDefaultsBasicAuthArgs
+    ///             {
+    ///                 Username = "user",
+    ///                 Password = "pass",
+    ///             },
+    ///         },
+    ///         EnvironmentVariables = new[]
+    ///         {
+    ///             new Checkly.Inputs.CheckGroupEnvironmentVariableArgs
+    ///             {
+    ///                 Key = "TEST_ENV_VAR",
+    ///                 Value = "Hello world",
+    ///                 Locked = false,
+    ///             },
+    ///             new Checkly.Inputs.CheckGroupEnvironmentVariableArgs
+    ///             {
+    ///                 Key = "ADDITIONAL_ENV_VAR",
+    ///                 Value = "test value",
+    ///                 Locked = true,
+    ///             },
+    ///         },
+    ///         UseGlobalAlertSettings = false,
+    ///         AlertSettings = new Checkly.Inputs.CheckGroupAlertSettingsArgs
+    ///         {
+    ///             EscalationType = "RUN_BASED",
+    ///             RunBasedEscalation = new Checkly.Inputs.CheckGroupAlertSettingsRunBasedEscalationArgs
+    ///             {
+    ///                 FailedRunThreshold = 1,
+    ///             },
+    ///             Reminders = new Checkly.Inputs.CheckGroupAlertSettingsRemindersArgs
+    ///             {
+    ///                 Amount = 2,
+    ///                 Interval = 5,
+    ///             },
+    ///         },
+    ///         LocalSetupScript = "setup-test",
+    ///         LocalTeardownScript = "teardown-test",
+    ///     });
+    /// 
+    ///     // Add a check to a group
+    ///     var testCheck1 = new Checkly.Check("test_check1", new()
+    ///     {
+    ///         Name = "My test check 1",
+    ///         Type = "API",
+    ///         Activated = true,
+    ///         Frequency = 1,
+    ///         Locations = new[]
+    ///         {
+    ///             "us-west-1",
+    ///         },
+    ///         Request = new Checkly.Inputs.CheckRequestArgs
+    ///         {
+    ///             Url = "https://api.example.com/",
+    ///         },
+    ///         GroupId = testGroup1.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
+    ///         GroupOrder = 1,
+    ///     });
+    /// 
+    ///     // Using with alert channels
+    ///     var emailAc1 = new Checkly.AlertChannel("email_ac1", new()
+    ///     {
+    ///         Email = new Checkly.Inputs.AlertChannelEmailArgs
+    ///         {
+    ///             Address = "info@example.com",
+    ///         },
+    ///     });
+    /// 
+    ///     var emailAc2 = new Checkly.AlertChannel("email_ac2", new()
+    ///     {
+    ///         Email = new Checkly.Inputs.AlertChannelEmailArgs
+    ///         {
+    ///             Address = "info2@example.com",
+    ///         },
+    ///     });
+    /// 
+    ///     // Connect the check group to the alert channels
+    ///     var testGroupWithAlerts = new Checkly.CheckGroup("test_group_with_alerts", new()
+    ///     {
+    ///         Name = "My test group with alerts",
+    ///         Concurrency = 3,
+    ///         AlertChannelSubscriptions = new[]
+    ///         {
+    ///             new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
+    ///             {
+    ///                 ChannelId = emailAc1.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
+    ///                 Activated = true,
+    ///             },
+    ///             new Checkly.Inputs.CheckGroupAlertChannelSubscriptionArgs
+    ///             {
+    ///                 ChannelId = emailAc2.Id.Apply(x =&gt; int.Parse(x, System.Globalization.CultureInfo.InvariantCulture)),
+    ///                 Activated = true,
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
+    /// ## Moving to `checkly.CheckGroupV2`
+    /// 
+    /// An existing group can be moved to `checkly.CheckGroupV2` without recreating it or its checks: declare the new resource with an alias to the old type, `checkly:index/checkGroup:CheckGroup`, and run `pulumi up`. Refresh the stack on v3 before you add the alias. Its properties have to be translated; see [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3).
+    /// 
+    /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
+    /// checkly.CheckGroup is deprecated; to start managing an existing resource, import it as checkly.CheckGroupV2 instead.
+    /// A group already managed as checkly.CheckGroup moves to checkly.CheckGroupV2 with a Pulumi alias; see Upgrading to v3 in the pulumi-checkly README.
+    /// Import an existing check group using its numeric ID.
+    /// The ID is returned by the Checkly API at GET /v1/check-groups.
+    /// 
+    /// ```sh
+    /// $ pulumi import checkly:index/checkGroup:CheckGroup example 12345
+    /// ```
     /// </summary>
+    [Obsolete(@"Use the CheckGroupV2 resource instead.")]
     [ChecklyResourceType("checkly:index/checkGroup:CheckGroup")]
     public partial class CheckGroup : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Determines if the checks in the group are running or not.
+        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `Activated`. Defaults to `True`.
         /// </summary>
         [Output("activated")]
         public Output<bool> Activated { get; private set; } = null!;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your group, we won't be able to alert you even if a check or monitor in the group starts failing.
         /// </summary>
         [Output("alertChannelSubscriptions")]
         public Output<ImmutableArray<Outputs.CheckGroupAlertChannelSubscription>> AlertChannelSubscriptions { get; private set; } = null!;
 
         /// <summary>
-        /// Determines the alert escalation policy for the check.
+        /// Determines the alert escalation policy for the checks and monitors in the group.
         /// </summary>
         [Output("alertSettings")]
         public Output<Outputs.CheckGroupAlertSettings> AlertSettings { get; private set; } = null!;
 
+        /// <summary>
+        /// Default settings for API checks in this group.
+        /// </summary>
         [Output("apiCheckDefaults")]
         public Output<Outputs.CheckGroupApiCheckDefaults> ApiCheckDefaults { get; private set; } = null!;
 
@@ -43,46 +216,41 @@ namespace Pulumi.Checkly
         public Output<int> Concurrency { get; private set; } = null!;
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+        /// Setting this to `True` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `False`.
         /// </summary>
         [Output("doubleCheck")]
-        public Output<bool?> DoubleCheck { get; private set; } = null!;
+        [Obsolete(@"The property `DoubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `RetryStrategy` property instead.")]
+        public Output<bool> DoubleCheck { get; private set; } = null!;
 
         /// <summary>
-        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-        /// </summary>
-        [Output("environmentVariable")]
-        public Output<ImmutableArray<Outputs.CheckGroupEnvironmentVariable>> EnvironmentVariable { get; private set; } = null!;
-
-        /// <summary>
-        /// Key/value pairs of environment variables to insert into the runtime environment.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
         /// </summary>
         [Output("environmentVariables")]
-        public Output<ImmutableDictionary<string, string>?> EnvironmentVariables { get; private set; } = null!;
+        public Output<ImmutableArray<Outputs.CheckGroupEnvironmentVariable>> EnvironmentVariables { get; private set; } = null!;
 
         /// <summary>
         /// A valid piece of Node.js code to run in the setup phase of an API check in this group.
         /// </summary>
         [Output("localSetupScript")]
-        public Output<string?> LocalSetupScript { get; private set; } = null!;
+        public Output<string> LocalSetupScript { get; private set; } = null!;
 
         /// <summary>
         /// A valid piece of Node.js code to run in the teardown phase of an API check in this group.
         /// </summary>
         [Output("localTeardownScript")]
-        public Output<string?> LocalTeardownScript { get; private set; } = null!;
+        public Output<string> LocalTeardownScript { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the checks.
+        /// The data center locations to run the checks and monitors in the group from, such as `us-east-1`.
         /// </summary>
         [Output("locations")]
         public Output<ImmutableArray<string>> Locations { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
+        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `Muted`. Defaults to `False`.
         /// </summary>
         [Output("muted")]
-        public Output<bool?> Muted { get; private set; } = null!;
+        public Output<bool> Muted { get; private set; } = null!;
 
         /// <summary>
         /// The name of the check group.
@@ -91,7 +259,7 @@ namespace Pulumi.Checkly
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the checks and monitors in the group from.
         /// </summary>
         [Output("privateLocations")]
         public Output<ImmutableArray<string>> PrivateLocations { get; private set; } = null!;
@@ -103,40 +271,40 @@ namespace Pulumi.Checkly
         public Output<Outputs.CheckGroupRetryStrategy> RetryStrategy { get; private set; } = null!;
 
         /// <summary>
-        /// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        /// Determines whether the checks and monitors in the group run in all their locations in parallel instead of round-robin. Defaults to `False`.
         /// </summary>
         [Output("runParallel")]
-        public Output<bool?> RunParallel { get; private set; } = null!;
+        public Output<bool> RunParallel { get; private set; } = null!;
 
         /// <summary>
-        /// The id of the runtime to use for this group.
+        /// The ID of the runtime to use for the checks in the group. If not set, the account's default runtime is used.
         /// </summary>
         [Output("runtimeId")]
         public Output<string?> RuntimeId { get; private set; } = null!;
 
         /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
+        /// The ID of the snippet to run in the setup phase of the group's API checks. Must be at least `1`. If not set, no setup snippet runs.
         /// </summary>
         [Output("setupSnippetId")]
         public Output<int?> SetupSnippetId { get; private set; } = null!;
 
         /// <summary>
-        /// Tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         /// </summary>
         [Output("tags")]
         public Output<ImmutableArray<string>> Tags { get; private set; } = null!;
 
         /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
+        /// The ID of the snippet to run in the teardown phase of the group's API checks. Must be at least `1`. If not set, no teardown snippet runs.
         /// </summary>
         [Output("teardownSnippetId")]
         public Output<int?> TeardownSnippetId { get; private set; } = null!;
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check group.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check group. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Output("useGlobalAlertSettings")]
-        public Output<bool?> UseGlobalAlertSettings { get; private set; } = null!;
+        public Output<bool> UseGlobalAlertSettings { get; private set; } = null!;
 
 
         /// <summary>
@@ -186,16 +354,16 @@ namespace Pulumi.Checkly
     public sealed class CheckGroupArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the checks in the group are running or not.
+        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `Activated`. Defaults to `True`.
         /// </summary>
-        [Input("activated", required: true)]
-        public Input<bool> Activated { get; set; } = null!;
+        [Input("activated")]
+        public Input<bool>? Activated { get; set; }
 
         [Input("alertChannelSubscriptions")]
         private InputList<Inputs.CheckGroupAlertChannelSubscriptionArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your group, we won't be able to alert you even if a check or monitor in the group starts failing.
         /// </summary>
         public InputList<Inputs.CheckGroupAlertChannelSubscriptionArgs> AlertChannelSubscriptions
         {
@@ -204,11 +372,14 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines the alert escalation policy for the check.
+        /// Determines the alert escalation policy for the checks and monitors in the group.
         /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckGroupAlertSettingsArgs>? AlertSettings { get; set; }
 
+        /// <summary>
+        /// Default settings for API checks in this group.
+        /// </summary>
         [Input("apiCheckDefaults")]
         public Input<Inputs.CheckGroupApiCheckDefaultsArgs>? ApiCheckDefaults { get; set; }
 
@@ -219,33 +390,21 @@ namespace Pulumi.Checkly
         public Input<int> Concurrency { get; set; } = null!;
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+        /// Setting this to `True` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `False`.
         /// </summary>
         [Input("doubleCheck")]
+        [Obsolete(@"The property `DoubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `RetryStrategy` property instead.")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariable")]
-        private InputList<Inputs.CheckGroupEnvironmentVariableArgs>? _environmentVariable;
-
-        /// <summary>
-        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-        /// </summary>
-        public InputList<Inputs.CheckGroupEnvironmentVariableArgs> EnvironmentVariable
-        {
-            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckGroupEnvironmentVariableArgs>());
-            set => _environmentVariable = value;
-        }
-
         [Input("environmentVariables")]
-        private InputMap<string>? _environmentVariables;
+        private InputList<Inputs.CheckGroupEnvironmentVariableArgs>? _environmentVariables;
 
         /// <summary>
-        /// Key/value pairs of environment variables to insert into the runtime environment.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
         /// </summary>
-        [Obsolete(@"This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.")]
-        public InputMap<string> EnvironmentVariables
+        public InputList<Inputs.CheckGroupEnvironmentVariableArgs> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
+            get => _environmentVariables ?? (_environmentVariables = new InputList<Inputs.CheckGroupEnvironmentVariableArgs>());
             set => _environmentVariables = value;
         }
 
@@ -265,7 +424,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the checks.
+        /// The data center locations to run the checks and monitors in the group from, such as `us-east-1`.
         /// </summary>
         public InputList<string> Locations
         {
@@ -274,7 +433,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
+        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `Muted`. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -289,7 +448,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the checks and monitors in the group from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -304,19 +463,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckGroupRetryStrategyArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        /// Determines whether the checks and monitors in the group run in all their locations in parallel instead of round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The id of the runtime to use for this group.
+        /// The ID of the runtime to use for the checks in the group. If not set, the account's default runtime is used.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
+        /// The ID of the snippet to run in the setup phase of the group's API checks. Must be at least `1`. If not set, no setup snippet runs.
         /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
@@ -325,7 +484,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// Tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         /// </summary>
         public InputList<string> Tags
         {
@@ -334,13 +493,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
+        /// The ID of the snippet to run in the teardown phase of the group's API checks. Must be at least `1`. If not set, no teardown snippet runs.
         /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check group.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check group. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }
@@ -354,7 +513,7 @@ namespace Pulumi.Checkly
     public sealed class CheckGroupState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Determines if the checks in the group are running or not.
+        /// Determines whether the checks and monitors in the group run on their schedule. Deactivating the group stops all of them, regardless of their own `Activated`. Defaults to `True`.
         /// </summary>
         [Input("activated")]
         public Input<bool>? Activated { get; set; }
@@ -363,7 +522,7 @@ namespace Pulumi.Checkly
         private InputList<Inputs.CheckGroupAlertChannelSubscriptionGetArgs>? _alertChannelSubscriptions;
 
         /// <summary>
-        /// An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        /// A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your group, we won't be able to alert you even if a check or monitor in the group starts failing.
         /// </summary>
         public InputList<Inputs.CheckGroupAlertChannelSubscriptionGetArgs> AlertChannelSubscriptions
         {
@@ -372,11 +531,14 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines the alert escalation policy for the check.
+        /// Determines the alert escalation policy for the checks and monitors in the group.
         /// </summary>
         [Input("alertSettings")]
         public Input<Inputs.CheckGroupAlertSettingsGetArgs>? AlertSettings { get; set; }
 
+        /// <summary>
+        /// Default settings for API checks in this group.
+        /// </summary>
         [Input("apiCheckDefaults")]
         public Input<Inputs.CheckGroupApiCheckDefaultsGetArgs>? ApiCheckDefaults { get; set; }
 
@@ -387,33 +549,21 @@ namespace Pulumi.Checkly
         public Input<int>? Concurrency { get; set; }
 
         /// <summary>
-        /// Setting this to `true` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. (Default `false`).
+        /// Setting this to `True` will trigger a retry when a check fails from the failing region and another, randomly selected region before marking the check as failed. Defaults to `False`.
         /// </summary>
         [Input("doubleCheck")]
+        [Obsolete(@"The property `DoubleCheck` is deprecated and will be removed in a future version. To enable retries for failed check runs, use the `RetryStrategy` property instead.")]
         public Input<bool>? DoubleCheck { get; set; }
 
-        [Input("environmentVariable")]
-        private InputList<Inputs.CheckGroupEnvironmentVariableGetArgs>? _environmentVariable;
-
-        /// <summary>
-        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible.
-        /// </summary>
-        public InputList<Inputs.CheckGroupEnvironmentVariableGetArgs> EnvironmentVariable
-        {
-            get => _environmentVariable ?? (_environmentVariable = new InputList<Inputs.CheckGroupEnvironmentVariableGetArgs>());
-            set => _environmentVariable = value;
-        }
-
         [Input("environmentVariables")]
-        private InputMap<string>? _environmentVariables;
+        private InputList<Inputs.CheckGroupEnvironmentVariableGetArgs>? _environmentVariables;
 
         /// <summary>
-        /// Key/value pairs of environment variables to insert into the runtime environment.
+        /// Insert environment variables into the runtime environment. Only relevant for browser checks. Use global environment variables whenever possible. Must contain at most `200` variables.
         /// </summary>
-        [Obsolete(@"This attribute is deprecated and will be removed in a future version. Use the `environment_variable` attribute instead.")]
-        public InputMap<string> EnvironmentVariables
+        public InputList<Inputs.CheckGroupEnvironmentVariableGetArgs> EnvironmentVariables
         {
-            get => _environmentVariables ?? (_environmentVariables = new InputMap<string>());
+            get => _environmentVariables ?? (_environmentVariables = new InputList<Inputs.CheckGroupEnvironmentVariableGetArgs>());
             set => _environmentVariables = value;
         }
 
@@ -433,7 +583,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _locations;
 
         /// <summary>
-        /// An array of one or more data center locations where to run the checks.
+        /// The data center locations to run the checks and monitors in the group from, such as `us-east-1`.
         /// </summary>
         public InputList<string> Locations
         {
@@ -442,7 +592,7 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// Determines if any notifications will be sent out when a check in this group fails and/or recovers.
+        /// Determines whether notifications are sent when a check or monitor in the group fails or recovers. Muting the group mutes all of them, regardless of their own `Muted`. Defaults to `False`.
         /// </summary>
         [Input("muted")]
         public Input<bool>? Muted { get; set; }
@@ -457,7 +607,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _privateLocations;
 
         /// <summary>
-        /// An array of one or more private locations slugs.
+        /// The slugs of the private locations to run the checks and monitors in the group from.
         /// </summary>
         public InputList<string> PrivateLocations
         {
@@ -472,19 +622,19 @@ namespace Pulumi.Checkly
         public Input<Inputs.CheckGroupRetryStrategyGetArgs>? RetryStrategy { get; set; }
 
         /// <summary>
-        /// Determines if the checks in the group should run in all selected locations in parallel or round-robin.
+        /// Determines whether the checks and monitors in the group run in all their locations in parallel instead of round-robin. Defaults to `False`.
         /// </summary>
         [Input("runParallel")]
         public Input<bool>? RunParallel { get; set; }
 
         /// <summary>
-        /// The id of the runtime to use for this group.
+        /// The ID of the runtime to use for the checks in the group. If not set, the account's default runtime is used.
         /// </summary>
         [Input("runtimeId")]
         public Input<string>? RuntimeId { get; set; }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the setup phase of an API check.
+        /// The ID of the snippet to run in the setup phase of the group's API checks. Must be at least `1`. If not set, no setup snippet runs.
         /// </summary>
         [Input("setupSnippetId")]
         public Input<int>? SetupSnippetId { get; set; }
@@ -493,7 +643,7 @@ namespace Pulumi.Checkly
         private InputList<string>? _tags;
 
         /// <summary>
-        /// Tags for organizing and filtering checks.
+        /// Tags for organizing and filtering checks and monitors. The checks and monitors in the group also carry these tags, for example when maintenance windows and status page automation rules select checks by tag.
         /// </summary>
         public InputList<string> Tags
         {
@@ -502,13 +652,13 @@ namespace Pulumi.Checkly
         }
 
         /// <summary>
-        /// An ID reference to a snippet to use in the teardown phase of an API check.
+        /// The ID of the snippet to run in the teardown phase of the group's API checks. Must be at least `1`. If not set, no teardown snippet runs.
         /// </summary>
         [Input("teardownSnippetId")]
         public Input<int>? TeardownSnippetId { get; set; }
 
         /// <summary>
-        /// When true, the account level alert settings will be used, not the alert setting defined on this check group.
+        /// When true, the account level alert settings are used instead of the `AlertSettings` of this check group. Defaults to `True` when `AlertSettings` is not set, and to `False` when it is.
         /// </summary>
         [Input("useGlobalAlertSettings")]
         public Input<bool>? UseGlobalAlertSettings { get; set; }

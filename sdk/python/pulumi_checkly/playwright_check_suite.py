@@ -21,48 +21,55 @@ __all__ = ['PlaywrightCheckSuiteArgs', 'PlaywrightCheckSuite']
 @pulumi.input_type
 class PlaywrightCheckSuiteArgs:
     def __init__(__self__, *,
-                 activated: pulumi.Input[_builtins.bool],
                  bundle: pulumi.Input['PlaywrightCheckSuiteBundleArgs'],
-                 frequency: pulumi.Input[_builtins.int],
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['PlaywrightCheckSuiteAlertSettingsArgs']] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional['PlaywrightCheckSuiteIntentArgs']] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime: pulumi.Input[Optional['PlaywrightCheckSuiteRuntimeArgs']] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['PlaywrightCheckSuiteTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a PlaywrightCheckSuite resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
+
         :param pulumi.Input['PlaywrightCheckSuiteBundleArgs'] bundle: Attaches a code bundle to the check.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input[_builtins.str] description: A description of the check.
-        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment.
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this check.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
+        :param pulumi.Input['PlaywrightCheckSuiteIntentArgs'] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the check from.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         :param pulumi.Input['PlaywrightCheckSuiteRuntimeArgs'] runtime: Configure the runtime environment of the Playwright check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
-        pulumi.set(__self__, "activated", activated)
         pulumi.set(__self__, "bundle", bundle)
-        pulumi.set(__self__, "frequency", frequency)
+        if activated is not None:
+            pulumi.set(__self__, "activated", activated)
+        if ai_auto_repair_enabled is not None:
+            pulumi.set(__self__, "ai_auto_repair_enabled", ai_auto_repair_enabled)
         if alert_channel_subscriptions is not None:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
@@ -71,10 +78,14 @@ class PlaywrightCheckSuiteArgs:
             pulumi.set(__self__, "description", description)
         if environment_variables is not None:
             pulumi.set(__self__, "environment_variables", environment_variables)
+        if frequency is not None:
+            pulumi.set(__self__, "frequency", frequency)
         if group_id is not None:
             pulumi.set(__self__, "group_id", group_id)
         if group_order is not None:
             pulumi.set(__self__, "group_order", group_order)
+        if intent is not None:
+            pulumi.set(__self__, "intent", intent)
         if locations is not None:
             pulumi.set(__self__, "locations", locations)
         if muted is not None:
@@ -96,18 +107,6 @@ class PlaywrightCheckSuiteArgs:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> pulumi.Input[_builtins.bool]:
-        """
-        Determines whether the check will run periodically or not after being deployed.
-        """
-        return pulumi.get(self, "activated")
-
-    @activated.setter
-    def activated(self, value: pulumi.Input[_builtins.bool]):
-        pulumi.set(self, "activated", value)
-
-    @_builtins.property
-    @pulumi.getter
     def bundle(self) -> pulumi.Input['PlaywrightCheckSuiteBundleArgs']:
         """
         Attaches a code bundle to the check.
@@ -120,241 +119,284 @@ class PlaywrightCheckSuiteArgs:
 
     @_builtins.property
     @pulumi.getter
-    def frequency(self) -> pulumi.Input[_builtins.int]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        Determines whether the check runs on its schedule. Defaults to `true`.
         """
-        return pulumi.get(self, "frequency")
+        return pulumi.get(self, "activated")
 
-    @frequency.setter
-    def frequency(self, value: pulumi.Input[_builtins.int]):
-        pulumi.set(self, "frequency", value)
+    @activated.setter
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "activated", value)
+
+    @_builtins.property
+    @pulumi.getter(name="aiAutoRepairEnabled")
+    def ai_auto_repair_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
+        """
+        return pulumi.get(self, "ai_auto_repair_enabled")
+
+    @ai_auto_repair_enabled.setter
+    def ai_auto_repair_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "ai_auto_repair_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]:
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the check.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the check.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    def environment_variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]:
+    def environment_variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]:
         """
-        Insert environment variables into the execution environment.
+        Insert environment variables into the execution environment. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
     @environment_variables.setter
-    def environment_variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]):
+    def environment_variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]):
         pulumi.set(self, "environment_variables", value)
 
     @_builtins.property
-    @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    @pulumi.getter
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The ID of the check group that this check is part of.
+        Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        """
+        return pulumi.get(self, "frequency")
+
+    @frequency.setter
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "frequency", value)
+
+    @_builtins.property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def intent(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteIntentArgs']]:
         """
-        An array of one or more data center locations where to run the this check.
+        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
+        """
+        return pulumi.get(self, "intent")
+
+    @intent.setter
+    def intent(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteIntentArgs']]):
+        pulumi.set(self, "intent", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+        Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the check.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more private locations slugs.
+        The slugs of the private locations to run the check from.
         """
         return pulumi.get(self, "private_locations")
 
     @private_locations.setter
-    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "private_locations", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+        Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter
-    def runtime(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']]:
+    def runtime(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteRuntimeArgs']]:
         """
         Configure the runtime environment of the Playwright check.
         """
         return pulumi.get(self, "runtime")
 
     @runtime.setter
-    def runtime(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']]):
+    def runtime(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteRuntimeArgs']]):
         pulumi.set(self, "runtime", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+        When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
 @pulumi.input_type
 class _PlaywrightCheckSuiteState:
     def __init__(__self__, *,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]] = None,
-                 alert_settings: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']] = None,
-                 bundle: Optional[pulumi.Input['PlaywrightCheckSuiteBundleArgs']] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs']] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None):
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]] = None,
+                 alert_settings: pulumi.Input[Optional['PlaywrightCheckSuiteAlertSettingsArgs']] = None,
+                 bundle: pulumi.Input[Optional['PlaywrightCheckSuiteBundleArgs']] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional['PlaywrightCheckSuiteIntentArgs']] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime: pulumi.Input[Optional['PlaywrightCheckSuiteRuntimeArgs']] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional['PlaywrightCheckSuiteTriggerIncidentArgs']] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering PlaywrightCheckSuite resources.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         :param pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs'] alert_settings: Determines the alert escalation policy for the check.
         :param pulumi.Input['PlaywrightCheckSuiteBundleArgs'] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[_builtins.str] description: A description of the check.
-        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this check.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]] environment_variables: Insert environment variables into the execution environment. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
+        :param pulumi.Input['PlaywrightCheckSuiteIntentArgs'] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the check from.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         :param pulumi.Input['PlaywrightCheckSuiteRuntimeArgs'] runtime: Configure the runtime environment of the Playwright check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
         :param pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs'] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         if activated is not None:
             pulumi.set(__self__, "activated", activated)
+        if ai_auto_repair_enabled is not None:
+            pulumi.set(__self__, "ai_auto_repair_enabled", ai_auto_repair_enabled)
         if alert_channel_subscriptions is not None:
             pulumi.set(__self__, "alert_channel_subscriptions", alert_channel_subscriptions)
         if alert_settings is not None:
@@ -371,6 +413,8 @@ class _PlaywrightCheckSuiteState:
             pulumi.set(__self__, "group_id", group_id)
         if group_order is not None:
             pulumi.set(__self__, "group_order", group_order)
+        if intent is not None:
+            pulumi.set(__self__, "intent", intent)
         if locations is not None:
             pulumi.set(__self__, "locations", locations)
         if muted is not None:
@@ -392,218 +436,242 @@ class _PlaywrightCheckSuiteState:
 
     @_builtins.property
     @pulumi.getter
-    def activated(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def activated(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines whether the check will run periodically or not after being deployed.
+        Determines whether the check runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @activated.setter
-    def activated(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def activated(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "activated", value)
 
     @_builtins.property
-    @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]:
+    @pulumi.getter(name="aiAutoRepairEnabled")
+    def ai_auto_repair_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
+        """
+        return pulumi.get(self, "ai_auto_repair_enabled")
+
+    @ai_auto_repair_enabled.setter
+    def ai_auto_repair_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "ai_auto_repair_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="alertChannelSubscriptions")
+    def alert_channel_subscriptions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]:
+        """
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
     @alert_channel_subscriptions.setter
-    def alert_channel_subscriptions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]):
+    def alert_channel_subscriptions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteAlertChannelSubscriptionArgs']]]]):
         pulumi.set(self, "alert_channel_subscriptions", value)
 
     @_builtins.property
     @pulumi.getter(name="alertSettings")
-    def alert_settings(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']]:
+    def alert_settings(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteAlertSettingsArgs']]:
         """
         Determines the alert escalation policy for the check.
         """
         return pulumi.get(self, "alert_settings")
 
     @alert_settings.setter
-    def alert_settings(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteAlertSettingsArgs']]):
+    def alert_settings(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteAlertSettingsArgs']]):
         pulumi.set(self, "alert_settings", value)
 
     @_builtins.property
     @pulumi.getter
-    def bundle(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteBundleArgs']]:
+    def bundle(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteBundleArgs']]:
         """
         Attaches a code bundle to the check.
         """
         return pulumi.get(self, "bundle")
 
     @bundle.setter
-    def bundle(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteBundleArgs']]):
+    def bundle(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteBundleArgs']]):
         pulumi.set(self, "bundle", value)
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def description(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A description of the check.
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def description(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "description", value)
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    def environment_variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]:
+    def environment_variables(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]:
         """
-        Insert environment variables into the execution environment.
+        Insert environment variables into the execution environment. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
     @environment_variables.setter
-    def environment_variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]):
+    def environment_variables(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['PlaywrightCheckSuiteEnvironmentVariableArgs']]]]):
         pulumi.set(self, "environment_variables", value)
 
     @_builtins.property
     @pulumi.getter
-    def frequency(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def frequency(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
     @frequency.setter
-    def frequency(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def frequency(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "frequency", value)
 
     @_builtins.property
     @pulumi.getter(name="groupId")
-    def group_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The ID of the check group that this check is part of.
+        The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
     @group_id.setter
-    def group_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="groupOrder")
-    def group_order(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def group_order(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
-        The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @group_order.setter
-    def group_order(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def group_order(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "group_order", value)
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def intent(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteIntentArgs']]:
         """
-        An array of one or more data center locations where to run the this check.
+        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
+        """
+        return pulumi.get(self, "intent")
+
+    @intent.setter
+    def intent(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteIntentArgs']]):
+        pulumi.set(self, "intent", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @locations.setter
-    def locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "locations", value)
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def muted(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+        Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
     @muted.setter
-    def muted(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def muted(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "muted", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the check.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def private_locations(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        An array of one or more private locations slugs.
+        The slugs of the private locations to run the check from.
         """
         return pulumi.get(self, "private_locations")
 
     @private_locations.setter
-    def private_locations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def private_locations(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "private_locations", value)
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+        Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
     @run_parallel.setter
-    def run_parallel(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def run_parallel(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "run_parallel", value)
 
     @_builtins.property
     @pulumi.getter
-    def runtime(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']]:
+    def runtime(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteRuntimeArgs']]:
         """
         Configure the runtime environment of the Playwright check.
         """
         return pulumi.get(self, "runtime")
 
     @runtime.setter
-    def runtime(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteRuntimeArgs']]):
+    def runtime(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteRuntimeArgs']]):
         pulumi.set(self, "runtime", value)
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def tags(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
     @tags.setter
-    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def tags(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "tags", value)
 
     @_builtins.property
     @pulumi.getter(name="triggerIncident")
-    def trigger_incident(self) -> Optional[pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs']]:
+    def trigger_incident(self) -> pulumi.Input[Optional['PlaywrightCheckSuiteTriggerIncidentArgs']]:
         """
         Create and resolve an incident based on the alert configuration. Useful for status page automation.
         """
         return pulumi.get(self, "trigger_incident")
 
     @trigger_incident.setter
-    def trigger_incident(self, value: Optional[pulumi.Input['PlaywrightCheckSuiteTriggerIncidentArgs']]):
+    def trigger_incident(self, value: pulumi.Input[Optional['PlaywrightCheckSuiteTriggerIncidentArgs']]):
         pulumi.set(self, "trigger_incident", value)
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+        When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 
     @use_global_alert_settings.setter
-    def use_global_alert_settings(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_global_alert_settings(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_global_alert_settings", value)
 
 
@@ -613,48 +681,68 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']]] = None,
-                 bundle: Optional[pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime: Optional[pulumi.Input[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict']]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict', 'outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict', 'outputs.PlaywrightCheckSuiteAlertSettings']]] = None,
+                 bundle: pulumi.Input[Optional[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict', 'outputs.PlaywrightCheckSuiteBundle']]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict', 'outputs.PlaywrightCheckSuiteEnvironmentVariable']]]]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional[Union['PlaywrightCheckSuiteIntentArgs', 'PlaywrightCheckSuiteIntentArgsDict', 'outputs.PlaywrightCheckSuiteIntent']]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime: pulumi.Input[Optional[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict', 'outputs.PlaywrightCheckSuiteRuntime']]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict', 'outputs.PlaywrightCheckSuiteTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Creates a Playwright check from a code bundle.
 
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing Playwright check suite using its check ID.
+        You can find the ID in the check's URL in the Checkly dashboard.
+
+        The code bundle is not imported: the API doesn't return the bundle's
+        metadata, so the first preview after the import shows an in-place update of
+        `bundle`, and the update sends the bundle from your program.
+
+        ```sh
+        $ pulumi import checkly:index/playwrightCheckSuite:PlaywrightCheckSuite example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+        ```
+
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
-        :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']] bundle: Attaches a code bundle to the check.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict', 'outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict', 'outputs.PlaywrightCheckSuiteAlertSettings']] alert_settings: Determines the alert escalation policy for the check.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict', 'outputs.PlaywrightCheckSuiteBundle']] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[_builtins.str] description: A description of the check.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the execution environment.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this check.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict', 'outputs.PlaywrightCheckSuiteEnvironmentVariable']]]] environment_variables: Insert environment variables into the execution environment. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteIntentArgs', 'PlaywrightCheckSuiteIntentArgsDict', 'outputs.PlaywrightCheckSuiteIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
-        :param pulumi.Input[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict']] runtime: Configure the runtime environment of the Playwright check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the check from.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict', 'outputs.PlaywrightCheckSuiteRuntime']] runtime: Configure the runtime environment of the Playwright check.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict', 'outputs.PlaywrightCheckSuiteTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         ...
     @overload
@@ -664,6 +752,22 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Creates a Playwright check from a code bundle.
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing Playwright check suite using its check ID.
+        You can find the ID in the check's URL in the Checkly dashboard.
+
+        The code bundle is not imported: the API doesn't return the bundle's
+        metadata, so the first preview after the import shows an in-place update of
+        `bundle`, and the update sends the bundle from your program.
+
+        ```sh
+        $ pulumi import checkly:index/playwrightCheckSuite:PlaywrightCheckSuite example 3ffee447-5c86-4c56-b95a-2e1b4d1a1234
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param PlaywrightCheckSuiteArgs args: The arguments to use to populate this resource's properties.
@@ -680,24 +784,26 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 activated: Optional[pulumi.Input[_builtins.bool]] = None,
-                 alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]]] = None,
-                 alert_settings: Optional[pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']]] = None,
-                 bundle: Optional[pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']]] = None,
-                 description: Optional[pulumi.Input[_builtins.str]] = None,
-                 environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]]] = None,
-                 frequency: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 group_order: Optional[pulumi.Input[_builtins.int]] = None,
-                 locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 muted: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-                 runtime: Optional[pulumi.Input[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict']]] = None,
-                 tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 trigger_incident: Optional[pulumi.Input[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict']]] = None,
-                 use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None,
+                 activated: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict', 'outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]]] = None,
+                 alert_settings: pulumi.Input[Optional[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict', 'outputs.PlaywrightCheckSuiteAlertSettings']]] = None,
+                 bundle: pulumi.Input[Optional[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict', 'outputs.PlaywrightCheckSuiteBundle']]] = None,
+                 description: pulumi.Input[Optional[_builtins.str]] = None,
+                 environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict', 'outputs.PlaywrightCheckSuiteEnvironmentVariable']]]]] = None,
+                 frequency: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 group_order: pulumi.Input[Optional[_builtins.int]] = None,
+                 intent: pulumi.Input[Optional[Union['PlaywrightCheckSuiteIntentArgs', 'PlaywrightCheckSuiteIntentArgsDict', 'outputs.PlaywrightCheckSuiteIntent']]] = None,
+                 locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 muted: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+                 runtime: pulumi.Input[Optional[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict', 'outputs.PlaywrightCheckSuiteRuntime']]] = None,
+                 tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 trigger_incident: pulumi.Input[Optional[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict', 'outputs.PlaywrightCheckSuiteTriggerIncident']]] = None,
+                 use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -707,9 +813,8 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = PlaywrightCheckSuiteArgs.__new__(PlaywrightCheckSuiteArgs)
 
-            if activated is None and not opts.urn:
-                raise TypeError("Missing required property 'activated'")
             __props__.__dict__["activated"] = activated
+            __props__.__dict__["ai_auto_repair_enabled"] = ai_auto_repair_enabled
             __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
             __props__.__dict__["alert_settings"] = alert_settings
             if bundle is None and not opts.urn:
@@ -717,11 +822,10 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
             __props__.__dict__["bundle"] = bundle
             __props__.__dict__["description"] = description
             __props__.__dict__["environment_variables"] = environment_variables
-            if frequency is None and not opts.urn:
-                raise TypeError("Missing required property 'frequency'")
             __props__.__dict__["frequency"] = frequency
             __props__.__dict__["group_id"] = group_id
             __props__.__dict__["group_order"] = group_order
+            __props__.__dict__["intent"] = intent
             __props__.__dict__["locations"] = locations
             __props__.__dict__["muted"] = muted
             __props__.__dict__["name"] = name
@@ -741,24 +845,26 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            activated: Optional[pulumi.Input[_builtins.bool]] = None,
-            alert_channel_subscriptions: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]]] = None,
-            alert_settings: Optional[pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']]] = None,
-            bundle: Optional[pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']]] = None,
-            description: Optional[pulumi.Input[_builtins.str]] = None,
-            environment_variables: Optional[pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]]] = None,
-            frequency: Optional[pulumi.Input[_builtins.int]] = None,
-            group_id: Optional[pulumi.Input[_builtins.int]] = None,
-            group_order: Optional[pulumi.Input[_builtins.int]] = None,
-            locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            muted: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            private_locations: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            run_parallel: Optional[pulumi.Input[_builtins.bool]] = None,
-            runtime: Optional[pulumi.Input[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict']]] = None,
-            tags: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            trigger_incident: Optional[pulumi.Input[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict']]] = None,
-            use_global_alert_settings: Optional[pulumi.Input[_builtins.bool]] = None) -> 'PlaywrightCheckSuite':
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict', 'outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict', 'outputs.PlaywrightCheckSuiteAlertSettings']]] = None,
+            bundle: pulumi.Input[Optional[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict', 'outputs.PlaywrightCheckSuiteBundle']]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict', 'outputs.PlaywrightCheckSuiteEnvironmentVariable']]]]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            intent: pulumi.Input[Optional[Union['PlaywrightCheckSuiteIntentArgs', 'PlaywrightCheckSuiteIntentArgsDict', 'outputs.PlaywrightCheckSuiteIntent']]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            runtime: pulumi.Input[Optional[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict', 'outputs.PlaywrightCheckSuiteRuntime']]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict', 'outputs.PlaywrightCheckSuiteTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> 'PlaywrightCheckSuite':
         """
         Get an existing PlaywrightCheckSuite resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -766,30 +872,33 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] activated: Determines whether the check will run periodically or not after being deployed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict']]]] alert_channel_subscriptions: An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
-        :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict']] alert_settings: Determines the alert escalation policy for the check.
-        :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict']] bundle: Attaches a code bundle to the check.
+        :param pulumi.Input[_builtins.bool] activated: Determines whether the check runs on its schedule. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] ai_auto_repair_enabled: Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict', 'outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]] alert_channel_subscriptions: A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict', 'outputs.PlaywrightCheckSuiteAlertSettings']] alert_settings: Determines the alert escalation policy for the check.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict', 'outputs.PlaywrightCheckSuiteBundle']] bundle: Attaches a code bundle to the check.
         :param pulumi.Input[_builtins.str] description: A description of the check.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict']]]] environment_variables: Insert environment variables into the execution environment.
-        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
-        :param pulumi.Input[_builtins.int] group_id: The ID of the check group that this check is part of.
-        :param pulumi.Input[_builtins.int] group_order: The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: An array of one or more data center locations where to run the this check.
-        :param pulumi.Input[_builtins.bool] muted: Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+        :param pulumi.Input[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict', 'outputs.PlaywrightCheckSuiteEnvironmentVariable']]]] environment_variables: Insert environment variables into the execution environment. Must contain at most `200` variables.
+        :param pulumi.Input[_builtins.int] frequency: Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
+        :param pulumi.Input[_builtins.int] group_id: The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
+        :param pulumi.Input[_builtins.int] group_order: The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteIntentArgs', 'PlaywrightCheckSuiteIntentArgsDict', 'outputs.PlaywrightCheckSuiteIntent']] intent: Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] locations: The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
+        :param pulumi.Input[_builtins.bool] muted: Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
         :param pulumi.Input[_builtins.str] name: The name of the check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: An array of one or more private locations slugs.
-        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
-        :param pulumi.Input[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict']] runtime: Configure the runtime environment of the Playwright check.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: A list of tags for organizing and filtering checks and monitors.
-        :param pulumi.Input[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
-        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] private_locations: The slugs of the private locations to run the check from.
+        :param pulumi.Input[_builtins.bool] run_parallel: Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict', 'outputs.PlaywrightCheckSuiteRuntime']] runtime: Configure the runtime environment of the Playwright check.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tags: Tags for organizing and filtering checks and monitors.
+        :param pulumi.Input[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict', 'outputs.PlaywrightCheckSuiteTriggerIncident']] trigger_incident: Create and resolve an incident based on the alert configuration. Useful for status page automation.
+        :param pulumi.Input[_builtins.bool] use_global_alert_settings: When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _PlaywrightCheckSuiteState.__new__(_PlaywrightCheckSuiteState)
 
         __props__.__dict__["activated"] = activated
+        __props__.__dict__["ai_auto_repair_enabled"] = ai_auto_repair_enabled
         __props__.__dict__["alert_channel_subscriptions"] = alert_channel_subscriptions
         __props__.__dict__["alert_settings"] = alert_settings
         __props__.__dict__["bundle"] = bundle
@@ -798,6 +907,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         __props__.__dict__["frequency"] = frequency
         __props__.__dict__["group_id"] = group_id
         __props__.__dict__["group_order"] = group_order
+        __props__.__dict__["intent"] = intent
         __props__.__dict__["locations"] = locations
         __props__.__dict__["muted"] = muted
         __props__.__dict__["name"] = name
@@ -809,19 +919,73 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
         __props__.__dict__["use_global_alert_settings"] = use_global_alert_settings
         return PlaywrightCheckSuite(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            activated: pulumi.Input[Optional[_builtins.bool]] = None,
+            ai_auto_repair_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            alert_channel_subscriptions: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteAlertChannelSubscriptionArgs', 'PlaywrightCheckSuiteAlertChannelSubscriptionArgsDict', 'outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]]] = None,
+            alert_settings: pulumi.Input[Optional[Union['PlaywrightCheckSuiteAlertSettingsArgs', 'PlaywrightCheckSuiteAlertSettingsArgsDict', 'outputs.PlaywrightCheckSuiteAlertSettings']]] = None,
+            bundle: pulumi.Input[Optional[Union['PlaywrightCheckSuiteBundleArgs', 'PlaywrightCheckSuiteBundleArgsDict', 'outputs.PlaywrightCheckSuiteBundle']]] = None,
+            description: pulumi.Input[Optional[_builtins.str]] = None,
+            environment_variables: pulumi.Input[Optional[Sequence[pulumi.Input[Union['PlaywrightCheckSuiteEnvironmentVariableArgs', 'PlaywrightCheckSuiteEnvironmentVariableArgsDict', 'outputs.PlaywrightCheckSuiteEnvironmentVariable']]]]] = None,
+            frequency: pulumi.Input[Optional[_builtins.int]] = None,
+            group_id: pulumi.Input[Optional[_builtins.int]] = None,
+            group_order: pulumi.Input[Optional[_builtins.int]] = None,
+            intent: pulumi.Input[Optional[Union['PlaywrightCheckSuiteIntentArgs', 'PlaywrightCheckSuiteIntentArgsDict', 'outputs.PlaywrightCheckSuiteIntent']]] = None,
+            locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            muted: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            private_locations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            run_parallel: pulumi.Input[Optional[_builtins.bool]] = None,
+            runtime: pulumi.Input[Optional[Union['PlaywrightCheckSuiteRuntimeArgs', 'PlaywrightCheckSuiteRuntimeArgsDict', 'outputs.PlaywrightCheckSuiteRuntime']]] = None,
+            tags: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            trigger_incident: pulumi.Input[Optional[Union['PlaywrightCheckSuiteTriggerIncidentArgs', 'PlaywrightCheckSuiteTriggerIncidentArgsDict', 'outputs.PlaywrightCheckSuiteTriggerIncident']]] = None,
+            use_global_alert_settings: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["activated"] = activated
+        __props__["aiAutoRepairEnabled"] = ai_auto_repair_enabled
+        __props__["alertChannelSubscriptions"] = alert_channel_subscriptions
+        __props__["alertSettings"] = alert_settings
+        __props__["bundle"] = bundle
+        __props__["description"] = description
+        __props__["environmentVariables"] = environment_variables
+        __props__["frequency"] = frequency
+        __props__["groupId"] = group_id
+        __props__["groupOrder"] = group_order
+        __props__["intent"] = intent
+        __props__["locations"] = locations
+        __props__["muted"] = muted
+        __props__["name"] = name
+        __props__["privateLocations"] = private_locations
+        __props__["runParallel"] = run_parallel
+        __props__["runtime"] = runtime
+        __props__["tags"] = tags
+        __props__["triggerIncident"] = trigger_incident
+        __props__["useGlobalAlertSettings"] = use_global_alert_settings
+        return pulumi.runtime.exists_resource(None, 'checkly:index/playwrightCheckSuite:PlaywrightCheckSuite', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def activated(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines whether the check will run periodically or not after being deployed.
+        Determines whether the check runs on its schedule. Defaults to `true`.
         """
         return pulumi.get(self, "activated")
 
     @_builtins.property
-    @pulumi.getter(name="alertChannelSubscriptions")
-    def alert_channel_subscriptions(self) -> pulumi.Output[Optional[Sequence['outputs.PlaywrightCheckSuiteAlertChannelSubscription']]]:
+    @pulumi.getter(name="aiAutoRepairEnabled")
+    def ai_auto_repair_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        An array of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
+        Overrides the account's automatic repair setting for this check. Leave it out to inherit the account setting. Automatic repair supports browser and multi-step checks only, so this setting has no effect on other check types today, and it needs an `intent` with at least one statement. A repair is saved to the check, so it shows as a change to `script`, and the next update restores the configured script unless you copy the repaired script into your program or add `script` to the `ignore_changes` resource option. An override edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `ai_auto_repair_enabled` to the `ignore_changes` resource option.
+        """
+        return pulumi.get(self, "ai_auto_repair_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="alertChannelSubscriptions")
+    def alert_channel_subscriptions(self) -> pulumi.Output[Sequence['outputs.PlaywrightCheckSuiteAlertChannelSubscription']]:
+        """
+        A set of channel IDs and whether they're activated or not. If you don't set at least one alert channel subscription for your check, we won't be able to alert you even if it starts failing.
         """
         return pulumi.get(self, "alert_channel_subscriptions")
 
@@ -843,7 +1007,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def description(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def description(self) -> pulumi.Output[_builtins.str]:
         """
         A description of the check.
         """
@@ -851,9 +1015,9 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="environmentVariables")
-    def environment_variables(self) -> pulumi.Output[Optional[Sequence['outputs.PlaywrightCheckSuiteEnvironmentVariable']]]:
+    def environment_variables(self) -> pulumi.Output[Sequence['outputs.PlaywrightCheckSuiteEnvironmentVariable']]:
         """
-        Insert environment variables into the execution environment.
+        Insert environment variables into the execution environment. Must contain at most `200` variables.
         """
         return pulumi.get(self, "environment_variables")
 
@@ -861,7 +1025,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
     @pulumi.getter
     def frequency(self) -> pulumi.Output[_builtins.int]:
         """
-        Controls how often the check should run. Defined in minutes. The allowed values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours).
+        Controls how often the check should run. Defined in minutes. Possible values are `1` (1 minute), `2` (2 minutes), `5` (5 minutes), `10` (10 minutes), `15` (15 minutes), `30` (30 minutes), `60` (1 hour), `120` (2 hours), `180` (3 hours), `360` (6 hours), `720` (12 hours) and `1440` (24 hours). Defaults to `10`.
         """
         return pulumi.get(self, "frequency")
 
@@ -869,7 +1033,7 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
     @pulumi.getter(name="groupId")
     def group_id(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The ID of the check group that this check is part of.
+        The ID of the check group the check is part of. Must be at least `1`. If not set, the check is not part of a group.
         """
         return pulumi.get(self, "group_id")
 
@@ -877,23 +1041,31 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
     @pulumi.getter(name="groupOrder")
     def group_order(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The position of the check in the check group. It determines in what order checks and monitors are run when a group is triggered from the API or from CI/CD.
+        The position of the check in its check group, which sets the order in which the checks and monitors of the group run when the group is triggered from the API or CI/CD. Must be at least `0`. If not set, the check has no position in the group.
         """
         return pulumi.get(self, "group_order")
 
     @_builtins.property
     @pulumi.getter
-    def locations(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def intent(self) -> pulumi.Output[Optional['outputs.PlaywrightCheckSuiteIntent']]:
         """
-        An array of one or more data center locations where to run the this check.
+        Guidance for root cause analysis and automatic repair: what this check protects, and which changes keep it meaningful. Automatic repair supports browser and multi-step checks only, and refuses an intent with no statements: a `goal` on its own is accepted here, but repair needs at least one statement in either `required_outcomes` or `must_preserve`. An intent edited in the web app and absent from your program is removed by the next update, every time. To leave it to the web app, add `intent` to the `ignore_changes` resource option.
+        """
+        return pulumi.get(self, "intent")
+
+    @_builtins.property
+    @pulumi.getter
+    def locations(self) -> pulumi.Output[Sequence[_builtins.str]]:
+        """
+        The data center locations to run the check from, such as `us-east-1`. The check needs at least one location in `locations` or `private_locations`, unless it is part of a check group.
         """
         return pulumi.get(self, "locations")
 
     @_builtins.property
     @pulumi.getter
-    def muted(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def muted(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines if any notifications will be sent out when the check fails and/or recovers. (Default `false`).
+        Determines whether notifications are sent when the check fails or recovers. Defaults to `false`.
         """
         return pulumi.get(self, "muted")
 
@@ -907,17 +1079,17 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="privateLocations")
-    def private_locations(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def private_locations(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        An array of one or more private locations slugs.
+        The slugs of the private locations to run the check from.
         """
         return pulumi.get(self, "private_locations")
 
     @_builtins.property
     @pulumi.getter(name="runParallel")
-    def run_parallel(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def run_parallel(self) -> pulumi.Output[_builtins.bool]:
         """
-        Determines whether the check should run on all selected locations in parallel or round-robin. (Default `false`).
+        Determines whether the check runs in all its locations in parallel instead of in one location at a time, round-robin. Defaults to `false`.
         """
         return pulumi.get(self, "run_parallel")
 
@@ -931,9 +1103,9 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    def tags(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        A list of tags for organizing and filtering checks and monitors.
+        Tags for organizing and filtering checks and monitors.
         """
         return pulumi.get(self, "tags")
 
@@ -947,9 +1119,9 @@ class PlaywrightCheckSuite(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="useGlobalAlertSettings")
-    def use_global_alert_settings(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    def use_global_alert_settings(self) -> pulumi.Output[_builtins.bool]:
         """
-        When true, the account level alert settings will be used, not the alert setting defined on this check. (Default `true`).
+        When true, the account level alert settings are used instead of the `alert_settings` of this check. Defaults to `true` when `alert_settings` is not set, and to `false` when it is.
         """
         return pulumi.get(self, "use_global_alert_settings")
 

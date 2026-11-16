@@ -22,16 +22,17 @@ class ClientCertificateArgs:
                  certificate: pulumi.Input[_builtins.str],
                  host: pulumi.Input[_builtins.str],
                  private_key: pulumi.Input[_builtins.str],
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 path: Optional[pulumi.Input[_builtins.str]] = None,
-                 trusted_ca: Optional[pulumi.Input[_builtins.str]] = None):
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 trusted_ca: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a ClientCertificate resource.
+
         :param pulumi.Input[_builtins.str] certificate: The client certificate in PEM format.
-        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
-        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format.
-        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key.
-        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
+        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key. Must be at most `95` bytes.
+        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
         :param pulumi.Input[_builtins.str] trusted_ca: PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
         """
         pulumi.set(__self__, "certificate", certificate)
@@ -60,7 +61,7 @@ class ClientCertificateArgs:
     @pulumi.getter
     def host(self) -> pulumi.Input[_builtins.str]:
         """
-        The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+        The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
         """
         return pulumi.get(self, "host")
 
@@ -72,7 +73,7 @@ class ClientCertificateArgs:
     @pulumi.getter(name="privateKey")
     def private_key(self) -> pulumi.Input[_builtins.str]:
         """
-        The private key for the certificate in PEM format.
+        The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
         """
         return pulumi.get(self, "private_key")
 
@@ -82,57 +83,58 @@ class ClientCertificateArgs:
 
     @_builtins.property
     @pulumi.getter
-    def passphrase(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def passphrase(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Passphrase for the private key.
+        Passphrase for the private key. Must be at most `95` bytes.
         """
         return pulumi.get(self, "passphrase")
 
     @passphrase.setter
-    def passphrase(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def passphrase(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "passphrase", value)
 
     @_builtins.property
     @pulumi.getter
-    def path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+        Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
         """
         return pulumi.get(self, "path")
 
     @path.setter
-    def path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "path", value)
 
     @_builtins.property
     @pulumi.getter(name="trustedCa")
-    def trusted_ca(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def trusted_ca(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
         """
         return pulumi.get(self, "trusted_ca")
 
     @trusted_ca.setter
-    def trusted_ca(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def trusted_ca(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "trusted_ca", value)
 
 
 @pulumi.input_type
 class _ClientCertificateState:
     def __init__(__self__, *,
-                 certificate: Optional[pulumi.Input[_builtins.str]] = None,
-                 host: Optional[pulumi.Input[_builtins.str]] = None,
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 path: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 trusted_ca: Optional[pulumi.Input[_builtins.str]] = None):
+                 certificate: pulumi.Input[Optional[_builtins.str]] = None,
+                 host: pulumi.Input[Optional[_builtins.str]] = None,
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 trusted_ca: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering ClientCertificate resources.
+
         :param pulumi.Input[_builtins.str] certificate: The client certificate in PEM format.
-        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
-        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key.
-        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format.
+        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key. Must be at most `95` bytes.
+        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
         :param pulumi.Input[_builtins.str] trusted_ca: PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
         """
         if certificate is not None:
@@ -150,74 +152,74 @@ class _ClientCertificateState:
 
     @_builtins.property
     @pulumi.getter
-    def certificate(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def certificate(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The client certificate in PEM format.
         """
         return pulumi.get(self, "certificate")
 
     @certificate.setter
-    def certificate(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def certificate(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "certificate", value)
 
     @_builtins.property
     @pulumi.getter
-    def host(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def host(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+        The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
         """
         return pulumi.get(self, "host")
 
     @host.setter
-    def host(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def host(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "host", value)
 
     @_builtins.property
     @pulumi.getter
-    def passphrase(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def passphrase(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Passphrase for the private key.
+        Passphrase for the private key. Must be at most `95` bytes.
         """
         return pulumi.get(self, "passphrase")
 
     @passphrase.setter
-    def passphrase(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def passphrase(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "passphrase", value)
 
     @_builtins.property
     @pulumi.getter
-    def path(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def path(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+        Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
         """
         return pulumi.get(self, "path")
 
     @path.setter
-    def path(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def path(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "path", value)
 
     @_builtins.property
     @pulumi.getter(name="privateKey")
-    def private_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def private_key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The private key for the certificate in PEM format.
+        The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
         """
         return pulumi.get(self, "private_key")
 
     @private_key.setter
-    def private_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def private_key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "private_key", value)
 
     @_builtins.property
     @pulumi.getter(name="trustedCa")
-    def trusted_ca(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def trusted_ca(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
         """
         return pulumi.get(self, "trusted_ca")
 
     @trusted_ca.setter
-    def trusted_ca(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def trusted_ca(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "trusted_ca", value)
 
 
@@ -227,27 +229,39 @@ class ClientCertificate(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 certificate: Optional[pulumi.Input[_builtins.str]] = None,
-                 host: Optional[pulumi.Input[_builtins.str]] = None,
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 path: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 trusted_ca: Optional[pulumi.Input[_builtins.str]] = None,
+                 certificate: pulumi.Input[Optional[_builtins.str]] = None,
+                 host: pulumi.Input[Optional[_builtins.str]] = None,
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 trusted_ca: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Use client certificates to authenticate your API checks to APIs that require mutual TLS (mTLS) authentication, or any other authentication scheme where the requester needs to provide a certificate.
 
         Each client certificate is specific to a host name, e.g. `acme.com` or a wildcard such as `*.acme.com`, and will be used automatically by any API checks targeting that host. Set `path` to limit the certificate to requests under a URL path prefix.
 
-        Changing the value of any attribute forces a new resource to be created.
+        Changing the value of any attribute forces a new resource to be created, except for adding or removing a trailing `/` of `path`, which the API ignores, and for the first update after an import. The API never returns `private_key` or `passphrase`, so the provider cannot check an imported certificate's key against the configured one: that update records the configured values in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing client certificate using its ID.
+        The ID is returned by the Checkly API at GET /v1/client-certificates.
+
+        ```sh
+        $ pulumi import checkly:index/clientCertificate:ClientCertificate example 49a1d5df-b89a-4998-a469-b1358e282ea5
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] certificate: The client certificate in PEM format.
-        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
-        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key.
-        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format.
+        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key. Must be at most `95` bytes.
+        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
         :param pulumi.Input[_builtins.str] trusted_ca: PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
         """
         ...
@@ -261,7 +275,19 @@ class ClientCertificate(pulumi.CustomResource):
 
         Each client certificate is specific to a host name, e.g. `acme.com` or a wildcard such as `*.acme.com`, and will be used automatically by any API checks targeting that host. Set `path` to limit the certificate to requests under a URL path prefix.
 
-        Changing the value of any attribute forces a new resource to be created.
+        Changing the value of any attribute forces a new resource to be created, except for adding or removing a trailing `/` of `path`, which the API ignores, and for the first update after an import. The API never returns `private_key` or `passphrase`, so the provider cannot check an imported certificate's key against the configured one: that update records the configured values in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        Import an existing client certificate using its ID.
+        The ID is returned by the Checkly API at GET /v1/client-certificates.
+
+        ```sh
+        $ pulumi import checkly:index/clientCertificate:ClientCertificate example 49a1d5df-b89a-4998-a469-b1358e282ea5
+        ```
+
 
         :param str resource_name: The name of the resource.
         :param ClientCertificateArgs args: The arguments to use to populate this resource's properties.
@@ -278,12 +304,12 @@ class ClientCertificate(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 certificate: Optional[pulumi.Input[_builtins.str]] = None,
-                 host: Optional[pulumi.Input[_builtins.str]] = None,
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 path: Optional[pulumi.Input[_builtins.str]] = None,
-                 private_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 trusted_ca: Optional[pulumi.Input[_builtins.str]] = None,
+                 certificate: pulumi.Input[Optional[_builtins.str]] = None,
+                 host: pulumi.Input[Optional[_builtins.str]] = None,
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 path: pulumi.Input[Optional[_builtins.str]] = None,
+                 private_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 trusted_ca: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -317,12 +343,12 @@ class ClientCertificate(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            certificate: Optional[pulumi.Input[_builtins.str]] = None,
-            host: Optional[pulumi.Input[_builtins.str]] = None,
-            passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-            path: Optional[pulumi.Input[_builtins.str]] = None,
-            private_key: Optional[pulumi.Input[_builtins.str]] = None,
-            trusted_ca: Optional[pulumi.Input[_builtins.str]] = None) -> 'ClientCertificate':
+            certificate: pulumi.Input[Optional[_builtins.str]] = None,
+            host: pulumi.Input[Optional[_builtins.str]] = None,
+            passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+            path: pulumi.Input[Optional[_builtins.str]] = None,
+            private_key: pulumi.Input[Optional[_builtins.str]] = None,
+            trusted_ca: pulumi.Input[Optional[_builtins.str]] = None) -> 'ClientCertificate':
         """
         Get an existing ClientCertificate resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -331,10 +357,10 @@ class ClientCertificate(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] certificate: The client certificate in PEM format.
-        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
-        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key.
-        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
-        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format.
+        :param pulumi.Input[_builtins.str] host: The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
+        :param pulumi.Input[_builtins.str] passphrase: Passphrase for the private key. Must be at most `95` bytes.
+        :param pulumi.Input[_builtins.str] path: Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+        :param pulumi.Input[_builtins.str] private_key: The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
         :param pulumi.Input[_builtins.str] trusted_ca: PEM formatted bundle of CA certificates that the client should trust. The bundle may contain many CA certificates.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -349,6 +375,24 @@ class ClientCertificate(pulumi.CustomResource):
         __props__.__dict__["trusted_ca"] = trusted_ca
         return ClientCertificate(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            certificate: pulumi.Input[Optional[_builtins.str]] = None,
+            host: pulumi.Input[Optional[_builtins.str]] = None,
+            passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+            path: pulumi.Input[Optional[_builtins.str]] = None,
+            private_key: pulumi.Input[Optional[_builtins.str]] = None,
+            trusted_ca: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["certificate"] = certificate
+        __props__["host"] = host
+        __props__["passphrase"] = passphrase
+        __props__["path"] = path
+        __props__["privateKey"] = private_key
+        __props__["trustedCa"] = trusted_ca
+        return pulumi.runtime.exists_resource(None, 'checkly:index/clientCertificate:ClientCertificate', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def certificate(self) -> pulumi.Output[_builtins.str]:
@@ -361,7 +405,7 @@ class ClientCertificate(pulumi.CustomResource):
     @pulumi.getter
     def host(self) -> pulumi.Output[_builtins.str]:
         """
-        The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`.
+        The host domain that the certificate should be used for. Wildcards are supported, e.g. `*.acme.com`. Must be at most `255` characters.
         """
         return pulumi.get(self, "host")
 
@@ -369,7 +413,7 @@ class ClientCertificate(pulumi.CustomResource):
     @pulumi.getter
     def passphrase(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Passphrase for the private key.
+        Passphrase for the private key. Must be at most `95` bytes.
         """
         return pulumi.get(self, "passphrase")
 
@@ -377,7 +421,7 @@ class ClientCertificate(pulumi.CustomResource):
     @pulumi.getter
     def path(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
+        Optional URL path prefix that limits the certificate to requests under that path, e.g. `/partner/api`. Matching is on whole path segments: `/partner` applies to `/partner` and `/partner/orders` but not to `/partnership`. Must start with `/` and must not be a bare `/`; a trailing `/` is ignored. The path must already be in the form the API stores: segments separated by single slashes, with no `.` or `..` segments, no whitespace, control characters, `?`, `#` or `\\`, and with non-ASCII characters and the characters `"<>^`{}`percent-encoded, e.g.`%7B`for`{` . Must be at most  `2048` characters. API checks and Multistep checks match on path; gRPC, SSL and TCP monitors only use certificates without a path. Omit it to use the certificate for every path on the host.
         """
         return pulumi.get(self, "path")
 
@@ -385,7 +429,7 @@ class ClientCertificate(pulumi.CustomResource):
     @pulumi.getter(name="privateKey")
     def private_key(self) -> pulumi.Output[_builtins.str]:
         """
-        The private key for the certificate in PEM format.
+        The private key for the certificate in PEM format. The API never returns it, so the provider cannot check an imported certificate's key against the configured one: the first update after an import records the configured key and passphrase in the Pulumi state only and sends nothing to Checkly. To upload a different key, replace the resource, for example with `pulumi up --replace <urn>`.
         """
         return pulumi.get(self, "private_key")
 

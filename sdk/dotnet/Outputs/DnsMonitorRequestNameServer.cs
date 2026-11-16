@@ -14,11 +14,11 @@ namespace Pulumi.Checkly.Outputs
     public sealed class DnsMonitorRequestNameServer
     {
         /// <summary>
-        /// The name server host.
+        /// The name server host. Must be between `1` and `100` characters.
         /// </summary>
         public readonly string? Host;
         /// <summary>
-        /// The name server port.
+        /// The name server port. Possible values are between `1` and `65535`.
         /// </summary>
         public readonly int? Port;
 

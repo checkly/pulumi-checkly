@@ -44,7 +44,7 @@ class GetStaticIpsResult:
     @pulumi.getter
     def addresses(self) -> Sequence[_builtins.str]:
         """
-        Static IP addresses for Checkly's runner infrastructure.
+        Static IP addresses for Checkly's runner infrastructure, in CIDR notation (for example `3.64.0.1/32`).
         """
         return pulumi.get(self, "addresses")
 
@@ -58,9 +58,9 @@ class GetStaticIpsResult:
 
     @_builtins.property
     @pulumi.getter(name="ipFamily")
-    def ip_family(self) -> Optional[_builtins.str]:
+    def ip_family(self) -> _builtins.str:
         """
-        Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
+        Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
         """
         return pulumi.get(self, "ip_family")
 
@@ -68,7 +68,7 @@ class GetStaticIpsResult:
     @pulumi.getter
     def locations(self) -> Optional[Sequence[_builtins.str]]:
         """
-        Specify the locations you want to get static IPs for.
+        Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
         """
         return pulumi.get(self, "locations")
 
@@ -89,10 +89,37 @@ def get_static_ips(ip_family: Optional[_builtins.str] = None,
                    locations: Optional[Sequence[_builtins.str]] = None,
                    opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetStaticIpsResult:
     """
-    Use this data source to access information about an existing resource.
+    Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
 
-    :param _builtins.str ip_family: Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
-    :param Sequence[_builtins.str] locations: Specify the locations you want to get static IPs for.
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_aws as aws
+    import pulumi_checkly as checkly
+
+    # All static IP addresses that Checkly's runners use.
+    all = checkly.get_static_ips()
+    # Only the IPv4 addresses of two locations.
+    eu_ipv4 = checkly.get_static_ips(locations=[
+            "eu-central-1",
+            "eu-west-1",
+        ],
+        ip_family="IPv4")
+    # Allow traffic from those runners to a service behind an AWS security group.
+    # The addresses are already in CIDR notation, such as "3.64.0.1/32".
+    checkly_ingress = aws.SecurityGroupRule("checkly_ingress",
+        type=ingress,
+        from_port=443,
+        to_port=443,
+        protocol=tcp,
+        cidr_blocks=eu_ipv4.addresses,
+        security_group_id=sg-0123456789abcdef0)
+    ```
+
+
+    :param _builtins.str ip_family: Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
+    :param Sequence[_builtins.str] locations: Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
     """
     __args__ = dict()
     __args__['ipFamily'] = ip_family
@@ -105,14 +132,41 @@ def get_static_ips(ip_family: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         ip_family=pulumi.get(__ret__, 'ip_family'),
         locations=pulumi.get(__ret__, 'locations'))
-def get_static_ips_output(ip_family: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                          locations: Optional[pulumi.Input[Optional[Sequence[_builtins.str]]]] = None,
+def get_static_ips_output(ip_family: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                          locations: pulumi.Input[Optional[Optional[Sequence[_builtins.str]]]] = None,
                           opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetStaticIpsResult]:
     """
-    Use this data source to access information about an existing resource.
+    Static IP addresses for Checkly's runner infrastructure. Useful when you need to allowlist Checkly traffic.
 
-    :param _builtins.str ip_family: Specify the IP families you want to get static IPs for. Only `IPv6` or `IPv4` are valid options.
-    :param Sequence[_builtins.str] locations: Specify the locations you want to get static IPs for.
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_aws as aws
+    import pulumi_checkly as checkly
+
+    # All static IP addresses that Checkly's runners use.
+    all = checkly.get_static_ips()
+    # Only the IPv4 addresses of two locations.
+    eu_ipv4 = checkly.get_static_ips(locations=[
+            "eu-central-1",
+            "eu-west-1",
+        ],
+        ip_family="IPv4")
+    # Allow traffic from those runners to a service behind an AWS security group.
+    # The addresses are already in CIDR notation, such as "3.64.0.1/32".
+    checkly_ingress = aws.SecurityGroupRule("checkly_ingress",
+        type=ingress,
+        from_port=443,
+        to_port=443,
+        protocol=tcp,
+        cidr_blocks=eu_ipv4.addresses,
+        security_group_id=sg-0123456789abcdef0)
+    ```
+
+
+    :param _builtins.str ip_family: Specify the IP family you want to get static IPs for. Possible values are `all` (both families), `IPv4` and `IPv6`. Defaults to `all`.
+    :param Sequence[_builtins.str] locations: Specify the locations you want to get static IPs for, such as `eu-central-1`. A location that has no static IPs, such as a misspelled or private one, adds no addresses and gives a warning. If not set, the addresses of every location are returned.
     """
     __args__ = dict()
     __args__['ipFamily'] = ip_family

@@ -4,19 +4,24 @@
 package config
 
 import (
-	"github.com/checkly/pulumi-checkly/sdk/v2/go/checkly/internal"
+	"github.com/checkly/pulumi-checkly/sdk/v3/go/checkly/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
 var _ = internal.GetEnvOrDefault
 
+// The Checkly account ID, which every API key needs. Required, but can also be set using the `CHECKLY_ACCOUNT_ID` environment variable.
 func GetAccountId(ctx *pulumi.Context) string {
 	return config.Get(ctx, "checkly:accountId")
 }
+
+// The Checkly API key. Can also be set using the `CHECKLY_API_KEY` environment variable.
 func GetApiKey(ctx *pulumi.Context) string {
 	return config.Get(ctx, "checkly:apiKey")
 }
+
+// The Checkly API URL, an http or https URL with a host and without a query or fragment. Defaults to `https://api.checklyhq.com`. Can also be set using the `CHECKLY_API_URL` environment variable.
 func GetApiUrl(ctx *pulumi.Context) string {
 	return config.Get(ctx, "checkly:apiUrl")
 }

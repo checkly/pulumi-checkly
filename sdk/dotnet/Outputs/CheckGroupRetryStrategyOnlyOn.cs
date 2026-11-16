@@ -14,7 +14,7 @@ namespace Pulumi.Checkly.Outputs
     public sealed class CheckGroupRetryStrategyOnlyOn
     {
         /// <summary>
-        /// When `true`, retry only if the cause of the failure is a network error. (Default `false`).
+        /// When `True`, retry only if the cause of the failure is a network error. Defaults to `False`.
         /// </summary>
         public readonly bool? NetworkError;
 
