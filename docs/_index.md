@@ -75,3 +75,7 @@ new checkly.BrowserCheck('browser-check', {
 {{< /chooser >}}
 
 > You can find more examples in the [pulumi-checkly repository](https://github.com/checkly/pulumi-checkly/tree/main/examples).
+
+## Upgrading to v3
+
+v3 bridges version 2 of the Checkly Terraform provider and changes several resources and properties. Before you upgrade a stack from v2.x, follow [Upgrading to v3](https://github.com/checkly/pulumi-checkly#upgrading-to-v3) in the pulumi-checkly repository.

@@ -250,6 +250,9 @@ func Provider() tfbridge.ProviderInfo {
 	prov.MustComputeTokens(tokens.SingleModule("checkly_", mainMod,
 		tokens.MakeStandard(mainPkg)))
 
+	// Rewrite state that v2.x stored in the shape of the Plugin SDK based provider.
+	applyV2StateUpgradeHooks(&prov)
+
 	prov.MustApplyAutoAliases()
 	prov.SetAutonaming(255, "-")
 
