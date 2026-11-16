@@ -53,3 +53,6 @@ publishRegistry: false
 
 toolVersions:
   pulumictl: "v0.0.48"
+  # GitHub publishes no Python 3.11 builds for Ubuntu 26.04, which ubuntu-latest
+  # runners use; 3.12 is the oldest available. The SDK still supports >=3.9.
+  python: "3.12"
